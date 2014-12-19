@@ -1,0 +1,15 @@
+body{
+	padding-top: 50px;
+}
+
+.thumbnail.with-caption {
+  display: inline-block;
+  background: #f5f5f5;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+.thumbnail.with-caption p {
+  margin: 0;
+  padding-top: 0.5em;
+  text-align: center;
+}

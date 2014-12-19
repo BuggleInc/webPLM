@@ -1,0 +1,33 @@
+.th.has-tip {
+  border-bottom: 0px;
+}
+
+.lesson-th {
+	text-align: center;
+}
+
+@media only screen and (min-width: 40.063em) { 
+  .im-fixed {
+    position:fixed;
+    width:60%;
+    margin-left: 40%; 
+  }
+  
+  .not-fixed {
+    width:40%;
+  }
+}
+
+.row {
+	max-width: 80%;
+}
+
+footer {
+	position: fixed;
+  bottom: 0;
+  left: 10%;
+  margin-top: 10px;
+  height: 100px; /* choose any height */
+  z-index: 99;
+  background: white;
+}
