@@ -25,19 +25,19 @@ object Application extends Controller {
   
   def index = Action {
     Logger.info("Yo");
-    Ok(views.html.indexFoundation("Accueil"))
+    Ok(views.html.index("Accueil"))
   }
 
   def indexLessons = Action {
-    Ok(views.html.indexFoundation("Accueil"))
+    Ok(views.html.index("Accueil"))
   }
   
   def lesson(lessonID: String) = Action {
-    Ok(views.html.indexFoundation("Accueil"))
+    Ok(views.html.index("Accueil"))
   }
   
   def exercise(lessonID: String, exerciseID: String) = Action {
-    Ok(views.html.indexFoundation("Accueil"))
+    Ok(views.html.index("Accueil"))
   }
   
   

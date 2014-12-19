@@ -1,15 +1,33 @@
-body{
-	padding-top: 50px;
+.th.has-tip {
+  border-bottom: 0px;
 }
 
-.thumbnail.with-caption {
-  display: inline-block;
-  background: #f5f5f5;
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-}
-.thumbnail.with-caption p {
-  margin: 0;
-  padding-top: 0.5em;
+.lesson-th {
   text-align: center;
+}
+
+@media only screen and (min-width: 40.063em) { 
+  .im-fixed {
+    position:fixed;
+    width:60%;
+    margin-left: 40%; 
+  }
+  
+  .not-fixed {
+    width:40%;
+  }
+}
+
+.row {
+  max-width: 80%;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 10%;
+  margin-top: 10px;
+  height: 100px; /* choose any height */
+  z-index: 99;
+  background: white;
 }
