@@ -3,10 +3,12 @@ package models
 import plm.core.model.Game
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
+import plm.core.model.lesson.Exercise
+import plm.core.model.lesson.Exercise.StudentOrCorrection
 import plm.core.lang.ProgrammingLanguage
 import scala.collection.mutable.ListBuffer
-
 import play.api.libs.json._
+import plm.core.model.session.SourceFile
 
 object PLM {
   
@@ -36,4 +38,10 @@ object PLM {
   }
   
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
+  
+  def getStudentCode: String = {
+    var sf: SourceFile  = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0);
+    return sf.getCompilableContent(StudentOrCorrection.STUDENT);
+  }
+  
 }

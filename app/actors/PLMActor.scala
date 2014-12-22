@@ -36,7 +36,8 @@ class PLMActor extends Actor {
   implicit val lectureWrites = new Writes[Lecture] {
     def writes(lecture: Lecture) = Json.obj(
           "id" -> lecture.getId,
-          "description" -> lecture.getMission(PLM.programmingLanguage)
+          "description" -> lecture.getMission(PLM.programmingLanguage),
+          "code" -> PLM.getStudentCode
         )
   }
   

@@ -1,7 +1,7 @@
 (function () {	
 	'use strict';
 	
-	angular.module('PLMApp', ['ui.router'])
+	angular.module('PLMApp', ['ui.router', 'ui.codemirror'])
 
 	.config(function($stateProvider, $urlRouterProvider) {
 	    
@@ -87,6 +87,7 @@
 			console.log("Data! ", data);
 			exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
+			exercise.code = data.code;
 	    });
 	};
 	
