@@ -14,8 +14,9 @@ GET     /plm/programming                                    controllers.Applicat
 GET     /plm/lessons                                        controllers.Application.listLessons
 GET     /plm/lessons/:lessonID                              controllers.Application.switchLesson(lessonID)
 GET     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.switchExercise(lessonID, exerciseID)
+PUT     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.runExercise(lessonID, exerciseID)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                                   controllers.Assets.at(path="/public", file)
-GET     /img/*file                                      controllers.Assets.at(path="/img", file)
-GET     /lessons/*file                                  controllers.Assets.at(path="/lessons", file)
+GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
+GET     /img/*file                                          controllers.Assets.at(path="/img", file)
+GET     /lessons/*file                                      controllers.Assets.at(path="/lessons", file)

@@ -75,7 +75,10 @@
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		exercise.description = null;
+		exercise.resultType = null;
+		exercise.resultMsg = null;
 		
+		exercise.runCode = runCode;
 		
 		var url = '/plm/lessons/'+exercise.lessonID;
 		if(exercise.id !== "")
@@ -89,6 +92,23 @@
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
 	    });
+		
+		function runCode () {
+			var url = '/plm/lessons/'+ exercise.lessonID + '/' + exercise.id;
+			var data = { code: exercise.code };
+			
+			$http.put(url, data).success(function (result) {
+				console.log(result);
+				/*
+				exercise.resultType = result.type;
+				exercise.resultMsg = result.msg;
+			
+				alert('resultType: '+ exercise.resultType);
+				alert('resultMsg: '+ exercise.resultMsg);
+				*/
+			});
+		};
+		
 	};
 	
 	

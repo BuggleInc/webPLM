@@ -5,10 +5,13 @@ import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.Exercise.StudentOrCorrection
+import plm.core.model.lesson.ExecutionProgress
+import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
 import scala.collection.mutable.ListBuffer
 import play.api.libs.json._
 import plm.core.model.session.SourceFile
+import play.Logger
 
 object PLM {
   
@@ -35,6 +38,24 @@ object PLM {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     return game.getCurrentLesson.getCurrentExercise
+  }
+  
+  def runExercise(lessonID: String, exerciseID: String, code: String): ExecutionResult = {
+    var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    
+    Logger.debug("Code: "+code)
+    
+    exo.getSourceFile(programmingLanguage, 0).setBody(code)
+    _game.startExerciseExecution()
+    
+    
+    var msgType: Int = 0
+    if(exo.lastResult.outcome == ExecutionProgress.outcomeKind.PASS) {
+      msgType = 1;
+    }
+    var msg = exo.lastResult.getMsg
+    
+    return new ExecutionResult(msgType, msg)
   }
   
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage

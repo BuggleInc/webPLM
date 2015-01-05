@@ -4,6 +4,7 @@ import akka.actor._
 import play.api.libs.json._
 
 import models.PLM
+import models.ExecutionResult
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 
@@ -11,6 +12,7 @@ case class ListLessons()
 case class ListProgrammingLanguages()
 case class SwitchLesson(lessonName: String)
 case class SwitchExercise(lessonID: String, exerciseID: String)
+case class RunExercise(lessonID: String, exerciseID: String, code: String)
 
 class PLMActor extends Actor {
 
@@ -23,6 +25,15 @@ class PLMActor extends Actor {
       sender() ! Json.toJson(PLM.switchLesson(lessonName))
     case SwitchExercise(lessonID: String, exerciseID: String) =>
       sender() ! Json.toJson(PLM.switchExercise(lessonID, exerciseID))
+    case RunExercise(lessonID: String, exerciseID: String, code: String) =>
+      sender() ! Json.toJson(PLM.runExercise(lessonID, exerciseID, code))
+  }
+  
+  implicit val executionResultWrites = new Writes[ExecutionResult] {
+    def writes(executionResult: ExecutionResult) = Json.obj(
+          "msgType" -> executionResult.getMsgType,
+          "msg" -> executionResult.getMsg
+        )
   }
   
   implicit val lessonWrites = new Writes[Lesson] {

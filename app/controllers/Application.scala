@@ -3,28 +3,33 @@ package controllers
 import play.api._
 import play.api.libs.json.JsValue
 import play.api.mvc._
-
 import actors._
 import plm.core.model.Game
-
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Props
 import akka.pattern.ask
-
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.concurrent.duration._
 import play.api.libs.json._
 import akka.util.Timeout
+
+import play.api.data._
+import play.api.data.Forms._
+import play.api.data.format.Formats._
 
 object Application extends Controller {
   
   val system = ActorSystem("application")
   val plmActor: ActorRef = system.actorOf(Props[PLMActor])
 
+  val exerciseForm = Form(
+    single(
+        "code" -> text
+    )
+  ) 
   
   def index = Action {
-    Logger.info("Yo");
     Ok(views.html.index("Accueil"))
   }
 
@@ -67,6 +72,14 @@ object Application extends Controller {
     Logger.info("LessonID: "+lessonID);
     Logger.info("ExerciseID: "+exerciseID);
     (plmActor ? SwitchExercise(lessonID, exerciseID) ).mapTo[JsValue].map {
+      message => Ok(message)
+    }
+  }
+  
+  def runExercise(lessonID: String, exerciseID: String) = Action.async { implicit request => 
+    val code = exerciseForm.bindFromRequest.get
+    implicit val timeout = Timeout(3 seconds)
+    (plmActor ? RunExercise(lessonID, exerciseID, code) ).mapTo[JsValue].map {
       message => Ok(message)
     }
   }
