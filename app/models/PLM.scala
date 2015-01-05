@@ -40,8 +40,7 @@ object PLM {
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
   
   def getStudentCode: String = {
-    var sf: SourceFile  = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0);
-    return sf.getCompilableContent(StudentOrCorrection.STUDENT);
+    return _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
   }
   
 }
