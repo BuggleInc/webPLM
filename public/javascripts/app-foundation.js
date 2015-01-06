@@ -74,6 +74,7 @@
 		
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
+		exercise.isRunning = false;
 		exercise.description = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
@@ -97,8 +98,11 @@
 			var url = '/plm/lessons/'+ exercise.lessonID + '/' + exercise.id;
 			var data = { code: exercise.code };
 			
+			exercise.isRunning = true;
+			
 			$http.put(url, data).success(function (result) {
 				console.log(result);
+				exercise.isRunning = false;
 				/*
 				exercise.resultType = result.type;
 				exercise.resultMsg = result.msg;
