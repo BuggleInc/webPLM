@@ -18,6 +18,8 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 
+import play.api.Play.current
+
 object Application extends Controller {
   
   val system = ActorSystem("application")
@@ -28,6 +30,11 @@ object Application extends Controller {
         "code" -> text
     )
   ) 
+  
+  def socket = WebSocket.acceptWithActor[String, String] { request => out =>
+    Logger.debug("Une websocket sauvage apparaît!")
+    MyWebSocketActor.props(out)
+  }
   
   def index = Action {
     Ok(views.html.index("Accueil"))

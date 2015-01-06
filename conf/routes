@@ -16,6 +16,9 @@ GET     /plm/lessons/:lessonID                              controllers.Applicat
 GET     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.switchExercise(lessonID, exerciseID)
 PUT     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.runExercise(lessonID, exerciseID)
 
+# Websocket
+GET     /websocket                                          controllers.Application.socket
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
