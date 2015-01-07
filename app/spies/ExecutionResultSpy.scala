@@ -11,7 +11,7 @@ import plm.core.model.lesson.ExecutionProgress._
 
 import actors.PLMActor
 
-class ScalaExecutionResultSpy(plmActor: PLMActor) extends ProgressSpyListener {
+class ExecutionResultSpy(plmActor: PLMActor) extends ProgressSpyListener {
   
   def executed(exo: Exercise) {
     Logger.debug("Executed - Now sending the exercise's result")

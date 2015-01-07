@@ -6,8 +6,7 @@ import play.api.mvc.RequestHeader
 import play.Logger
 
 import models.PLM
-import models.ExecutionResult
-import spies.ScalaExecutionResultSpy
+import spies.ExecutionResultSpy
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 
@@ -18,7 +17,7 @@ object PLMActor {
 class PLMActor(out: ActorRef) extends Actor {
   
   var isProgressSpyAdded: Boolean = false
-  var resultSpy: ScalaExecutionResultSpy = new ScalaExecutionResultSpy(this)
+  var resultSpy: ExecutionResultSpy = new ExecutionResultSpy(this)
   PLM.addProgressSpyListener(resultSpy)
   
   def receive = {
