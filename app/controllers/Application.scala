@@ -25,7 +25,7 @@ object Application extends Controller {
   val system = ActorSystem("application")
   
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-    Logger.debug("Une websocket sauvage apparaît!")
+    Logger.debug("New websocket opened")
     PLMActor.props(out)
   }
   

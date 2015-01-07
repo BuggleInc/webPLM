@@ -7,6 +7,7 @@ import play.Logger
 
 import models.PLM
 import models.ExecutionResult
+import spies.ScalaExecutionResultSpy
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 
@@ -15,17 +16,20 @@ object PLMActor {
 }
 
 class PLMActor(out: ActorRef) extends Actor {
+  
+  var isProgressSpyAdded: Boolean = false
+  var resultSpy: ScalaExecutionResultSpy = new ScalaExecutionResultSpy(this)
+  PLM.addProgressSpyListener(resultSpy)
+  
   def receive = {
     case msg: JsValue =>
-      Logger.debug("On arrive ici");
+      Logger.debug("Received a message");
       Logger.debug(msg.toString());
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "getLessons" =>
           var mapArgs: JsValue = Json.toJson(Map("lessons" -> Json.toJson(PLM.lessons)))
-          var res: JsValue = createMessage("lessons", mapArgs)
-          Logger.debug(Json.stringify(res))
-          out ! res
+          sendMessage("lessons", mapArgs)
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
@@ -37,9 +41,7 @@ class PLMActor(out: ActorRef) extends Actor {
               out ! res
             case (lessonID:String, _) =>
               var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID))))
-              var res: JsValue = createMessage("exercise", mapArgs)
-              Logger.debug(Json.stringify(res))
-              out ! res
+              sendMessage("exercise", mapArgs)
             case (_, _) =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -49,14 +51,11 @@ class PLMActor(out: ActorRef) extends Actor {
           var optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None)) match {
             case (lessonID:String, exerciseID: String, code: String) =>
-              var mapArgs: JsValue = Json.toJson(Map("result" -> Json.toJson(PLM.runExercise(lessonID, exerciseID, code))))
-              var res: JsValue = createMessage("executionResult", mapArgs)
-              Logger.debug(Json.stringify(res))
-              out ! res
+              PLM.runExercise(lessonID, exerciseID, code)
             case (_, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }
-        case None =>
+        case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
   }
@@ -68,11 +67,13 @@ class PLMActor(out: ActorRef) extends Actor {
     )
   }
   
-  implicit val executionResultWrites = new Writes[ExecutionResult] {
-    def writes(executionResult: ExecutionResult) = Json.obj(
-          "msgType" -> executionResult.getMsgType,
-          "msg" -> executionResult.getMsg
-        )
+  def sendMessage(cmdName: String, mapArgs: JsValue) {
+    out ! createMessage(cmdName, mapArgs)
+  }
+  
+  override def postStop() = {
+    Logger.debug("postStop: websocket closed - removing the resultSpy")
+    PLM.removeProgressSpyListener(resultSpy)
   }
   
   implicit val lessonWrites = new Writes[Lesson] {

@@ -246,6 +246,7 @@
 		function displayResult(result) {
 			console.log(result);
 			exercise.isRunning = false;
+			console.log('exercise.isRunning: ', exercise.isRunning);
 		}
 		
 		$scope.$on("$destroy",function() {

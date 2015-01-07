@@ -8,9 +8,11 @@ import plm.core.model.lesson.Exercise.StudentOrCorrection
 import plm.core.model.lesson.ExecutionProgress
 import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
+import plm.core.model.session.SourceFile
+import plm.core.model.tracking.ProgressSpyListener
+
 import scala.collection.mutable.ListBuffer
 import play.api.libs.json._
-import plm.core.model.session.SourceFile
 import play.Logger
 
 object PLM {
@@ -40,22 +42,14 @@ object PLM {
     return game.getCurrentLesson.getCurrentExercise
   }
   
-  def runExercise(lessonID: String, exerciseID: String, code: String): ExecutionResult = {
+  def runExercise(lessonID: String, exerciseID: String, code: String) {
     var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
     
-    Logger.debug("Code: "+code)
+    Logger.debug("Code:\n"+code)
     
     exo.getSourceFile(programmingLanguage, 0).setBody(code)
     _game.startExerciseExecution()
-    
-    
-    var msgType: Int = 0
-    if(exo.lastResult.outcome == ExecutionProgress.outcomeKind.PASS) {
-      msgType = 1;
-    }
-    var msg = exo.lastResult.getMsg
-    
-    return new ExecutionResult(msgType, msg)
+
   }
   
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
@@ -64,4 +58,11 @@ object PLM {
     return _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
   }
   
+  def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
+    _game.addProgressSpyListener(progressSpyListener)  
+  }
+  
+  def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
+    _game.removeProgressSpyListener(progressSpyListener)  
+  }
 }
