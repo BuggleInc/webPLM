@@ -3,7 +3,6 @@ package spies
 import play.api.libs.json._
 import play.Logger
 
-import plm.core.model.Game
 import plm.core.model.lesson.Exercise
 import plm.core.model.tracking.ProgressSpyListener
 import plm.core.model.lesson.ExecutionProgress

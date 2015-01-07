@@ -222,7 +222,10 @@
 	    			setExercise(args.exercise);
 	    			break;
 	    		case 'executionResult': 
-	    			displayResult(args.result);
+	    			displayResult(args.msgType, args.msg);
+	    			break;
+	    		case 'operations':
+	    			displayOperations(args.msg);
 	    			break;
 	    	}
 	    };
@@ -243,10 +246,13 @@
 			exercise.isRunning = true;
 		};
 		
-		function displayResult(result) {
-			console.log(result);
+		function displayResult(msgType, msg) {
+			console.log(msgType, ' - ', msg);
 			exercise.isRunning = false;
-			console.log('exercise.isRunning: ', exercise.isRunning);
+		}
+		
+		function displayOperations(operations) {
+			console.log('operations: ', operations);
 		}
 		
 		$scope.$on("$destroy",function() {

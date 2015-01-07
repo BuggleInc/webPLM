@@ -1,15 +1,19 @@
 package models
 
+import spies.ExecutionSpy
+
 import plm.core.model.Game
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 import plm.core.model.lesson.Exercise
+import plm.core.model.lesson.Exercise.WorldKind
 import plm.core.model.lesson.Exercise.StudentOrCorrection
 import plm.core.model.lesson.ExecutionProgress
 import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
+import plm.universe.World
 
 import scala.collection.mutable.ListBuffer
 import play.api.libs.json._
@@ -30,16 +34,38 @@ object PLM {
     return programmingLanguages.toList
   }
   
-  def switchLesson(lessonName: String): Lecture = {
-    var key = "lessons." + lessonName;
-    game.switchLesson(key, true)
-    return game.getCurrentLesson.getCurrentExercise
-  }
-  
-  def switchExercise(lessonID: String, exerciseID: String): Lecture = {
+  def switchLesson(lessonID: String, spy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
-    return game.getCurrentLesson.getCurrentExercise
+    var lect: Lecture = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var exo: Exercise = lect.asInstanceOf[Exercise]
+    
+    // Adding the executionSpy to the current worlds
+    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 
+      var executionSpy: ExecutionSpy = spy.clone()
+      executionSpy.setWorld(world)
+      world.addWorldUpdatesListener(executionSpy)
+      Logger.debug("Spy added")
+    }
+    
+    return lect
+  }
+  
+  def switchExercise(lessonID: String, exerciseID: String, spy: ExecutionSpy): Lecture = {
+    var key = "lessons." + lessonID;
+    game.switchLesson(key, true)
+    var lect: Lecture = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var exo: Exercise = lect.asInstanceOf[Exercise]
+    
+    // Adding the executionSpy to the current worlds
+    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 
+      var executionSpy: ExecutionSpy = spy.clone()
+      executionSpy.setWorld(world)
+      world.addWorldUpdatesListener(executionSpy)
+      Logger.debug("Spy added")
+    }
+    
+    return lect
   }
   
   def runExercise(lessonID: String, exerciseID: String, code: String) {

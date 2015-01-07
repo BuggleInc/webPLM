@@ -7,6 +7,7 @@ import play.Logger
 
 import models.PLM
 import spies.ExecutionResultSpy
+import spies.ExecutionSpy
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 
@@ -34,12 +35,14 @@ class PLMActor(out: ActorRef) extends Actor {
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
             case (lessonID:String, exerciseID: String) =>
-              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchExercise(lessonID, exerciseID))))
+              var executionSpy: ExecutionSpy = new ExecutionSpy(this)
+              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchExercise(lessonID, exerciseID, executionSpy))))
               var res: JsValue = createMessage("exercise", mapArgs)
               Logger.debug(Json.stringify(res))
               out ! res
             case (lessonID:String, _) =>
-              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID))))
+              var executionSpy: ExecutionSpy = new ExecutionSpy(this)
+              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy))))
               sendMessage("exercise", mapArgs)
             case (_, _) =>
               Logger.debug("getExercise: non-correct JSON")
