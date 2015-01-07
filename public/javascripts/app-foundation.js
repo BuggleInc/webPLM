@@ -27,8 +27,8 @@
 	})
 	.factory('connection', ['$rootScope', connection])
 	.factory('listenersHandler', ['$rootScope', 'connection', listenersHandler])
-	.controller('HomeController', ['$http', '$sce', 'listenersHandler', HomeController])
-	.controller('ExerciseController', ['$http', '$sce', '$stateParams', 'listenersHandler', ExerciseController])
+	.controller('HomeController', ['$http', '$scope', '$sce', 'connection', 'listenersHandler', HomeController])
+	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', ExerciseController])
 	.directive('lessonGallery', lessonGallery)
 	.directive('lessonOverview', lessonOverview);
 	
@@ -37,14 +37,13 @@
 		
 		var service = {
 				register: register,
-				sendMessage: sendMessage,
-				closeConnection: closeConnection
-			};
+				closeConnection: closeConnection,
+		};
 		return service;
 		
 		function register(action, fn) {
 		    registeredListeners.push(action);
-		    $rootScope.$on(action, function (event, data) {
+		    return $rootScope.$on(action, function (event, data) {
 		        $rootScope.$apply(function () {
 		            fn(data);
 		        });
@@ -70,38 +69,60 @@
 	
 	function connection ($rootScope) {		
 		var socket = new WebSocket('ws://localhost:9000/websocket');
+		var connectStatus = false;
+		var pendingMessages = [];
 		
 		var service = {
 			sendMessage: sendMessage,
 			setupMessaging: setupMessaging,
 			endConnection: endConnection
-		};		
-		
-		socket.onopen = function (event) {
-			$rootScope.$emit('onopen', event);
 		};
 		
-		socket.onmessage = function (event) {
-			$rootScope.$emit('onmessage', event);
+		socket.onopen = function (event) {
+			connectStatus = true;
+			sendPendingMessages();
+			$rootScope.$emit('onopen', event);
 		};
 		
 		return service;
 		
-		function sendMessage(msg) {
-			socket.send(msg);
+		function sendMessage(cmd, args) {
+			var msg = {
+	    			cmd: cmd,
+	    			args: args | null
+	    	};
+	    	send(JSON.stringify(msg));
+		};
+		
+		function send(msg) {
+			if(!connectStatus) {
+				pendingMessages.push(msg);
+			}
+			else {
+				console.log('message sent: ', msg);
+				socket.send(msg);
+			}
 		};
 		
 		function setupMessaging(fn) {
 		    socket.onmessage = function (event) {
-			    //var msg = JSON.parse(event.data);
-			    //fn(msg);
-		    	fn(event.data);
+		    	var msg = JSON.parse(event.data);
+			    
+			    // Has to use $apply to warn AngularJS 
+			    // that the model could have been updated
+			    $rootScope.$apply(function () {
+			    	fn(msg);
+			    });
 		    };
+		};
+		
+		function sendPendingMessages() {
+			pendingMessages.map(send);
 		};
 		
 		function endConnection() {
 			socket.close();
-		}
+		};
 	}
 	
 	function lessonGallery () {
@@ -115,46 +136,57 @@
 		return {
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/lesson-overview-foundation.html'
-		}
+		};
 	};
 	
 	
-	function HomeController($http, $sce, listenersHandler){
+	function HomeController($http, $scope, $sce, connection, listenersHandler) {
 	    var home = this;
 			    
 		home.lessons = [];
 		home.currentLesson = null;
 	    home.currentExercise = null;
 		
+	    home.getLessons = getLessons;
+	    home.setLessons = setLessons;
 	    home.setCurrentLesson = setCurrentLesson;
 	    
+	    var offHandleMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
 	    
-	    $http.get('/plm/lessons').success(function (data) {
-	    	home.lessons = data.map(function (lesson) {
+	    getLessons();
+	    
+	    function handleMessage(data) {
+	    	console.log('message received: ', data);
+	    	var cmd = data.cmd;
+	    	var args = data.args;
+	    	switch(cmd) {
+	    		case 'lessons': setLessons(args.lessons);
+	    						break;
+	    	}
+	    };
+	    
+	    function getLessons() {
+	    	connection.sendMessage('getLessons', null);
+	    };
+	    
+	    function setLessons(lessons) {
+	    	home.lessons = lessons.map(function (lesson) {
 	    	  lesson.description = $sce.trustAsHtml(lesson.description);
 	    	  return lesson;
 	    	});
-	    });
-	    
-	    listenersHandler.register('onopen', send);
-	    listenersHandler.register('onmessage', displayMessage);
-	    	    
-	    function displayMessage(data) {
-	    	console.log('data: ', data);
-	    };
-	    
-	    function send() {
-	    	console.log('Sending "Youhou"');
-	    	listenersHandler.sendMessage('Youhou');
+	    	console.log('updated home.lessons: ', home.lessons);
 	    };
 	    
 	    function setCurrentLesson (lesson) {
 	    	home.currentLesson = lesson;
 	    };
 	    
+	    $scope.$on("$destroy",function() {
+	    	offHandleMessage();
+    	});
 	};
 	
-	function ExerciseController($http, $sce, $stateParams, listenersHandler){
+	function ExerciseController($http, $scope, $sce, $stateParams, connection, listenersHandler) {
 		var exercise = this;
 		
 		exercise.lessonID = $stateParams.lessonID;
@@ -179,8 +211,8 @@
 			exercise.code = data.code;
 	    });
 		
-		listenersHandler.register('onopen', send);
-	    listenersHandler.register('onmessage', displayMessage);
+		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(displayMessage));
+	    send();
 	    
 	    function displayMessage(data) {
 	    	console.log('data2: ', data);
@@ -210,6 +242,9 @@
 			});
 		};
 		
+		$scope.$on("$destroy",function() {
+	    	offDisplayMessage();
+    	});
 	};
 	
 	

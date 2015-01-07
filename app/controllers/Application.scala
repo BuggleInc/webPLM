@@ -31,7 +31,7 @@ object Application extends Controller {
     )
   ) 
   
-  def socket = WebSocket.acceptWithActor[String, String] { request => out =>
+  def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
     Logger.debug("Une websocket sauvage apparaît!")
     MyWebSocketActor.props(out)
   }
