@@ -23,17 +23,10 @@ import play.api.Play.current
 object Application extends Controller {
   
   val system = ActorSystem("application")
-  val plmActor: ActorRef = system.actorOf(Props[PLMActor])
-
-  val exerciseForm = Form(
-    single(
-        "code" -> text
-    )
-  ) 
   
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
     Logger.debug("Une websocket sauvage apparaît!")
-    MyWebSocketActor.props(out)
+    PLMActor.props(out)
   }
   
   def index = Action {
@@ -51,7 +44,7 @@ object Application extends Controller {
   def exercise(lessonID: String, exerciseID: String) = Action {
     Ok(views.html.index("Accueil"))
   }
-  
+  /*
   
   def listProgrammingLanguages = Action.async {
     implicit val timeout = Timeout(3 seconds)
@@ -91,7 +84,6 @@ object Application extends Controller {
     }
   }
   
-  /*
   def listExercises(id: String) = Action.async {
     implicit val timeout = Timeout(3 seconds)
     (plmActor ? ListExercises(id) ).mapTo[JsValue].map {

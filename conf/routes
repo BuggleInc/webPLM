@@ -9,13 +9,6 @@ GET     /ui/lessons                                         controllers.Applicat
 GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
 GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
 
-# RESTful API
-GET     /plm/programming                                    controllers.Application.listProgrammingLanguages
-GET     /plm/lessons                                        controllers.Application.listLessons
-GET     /plm/lessons/:lessonID                              controllers.Application.switchLesson(lessonID)
-GET     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.switchExercise(lessonID, exerciseID)
-PUT     /plm/lessons/:lessonID/*exerciseID                  controllers.Application.runExercise(lessonID, exerciseID)
-
 # Websocket
 GET     /websocket                                          controllers.Application.socket
 

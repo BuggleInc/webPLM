@@ -89,7 +89,7 @@
 		function sendMessage(cmd, args) {
 			var msg = {
 	    			cmd: cmd,
-	    			args: args | null
+	    			args: args || null
 	    	};
 	    	send(JSON.stringify(msg));
 		};
@@ -160,8 +160,9 @@
 	    	var cmd = data.cmd;
 	    	var args = data.args;
 	    	switch(cmd) {
-	    		case 'lessons': setLessons(args.lessons);
-	    						break;
+	    		case 'lessons': 
+	    			setLessons(args.lessons);
+	    			break;
 	    	}
 	    };
 	    
@@ -198,49 +199,54 @@
 		
 		exercise.runCode = runCode;
 		
-		var url = '/plm/lessons/'+exercise.lessonID;
-		if(exercise.id !== "")
-		{
-			url += '/' + exercise.id;
-		}
+		function getExercise() {
+			var args = {
+					lessonID: exercise.lessonID,
+			};
+			if(exercise.id !== "")
+			{
+				args.exerciseID = exercise.id;
+			}
+	    	connection.sendMessage('getExercise', args);
+	    };
 		
-		$http.get(url).success(function (data) {
-			console.log("Data! ", data);
-			exercise.id = data.id;
+		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
+		getExercise();
+		
+	    function handleMessage(data) {
+	    	console.log('message received: ', data);
+	    	var cmd = data.cmd;
+	    	var args = data.args;
+	    	switch(cmd) {
+	    		case 'exercise': 
+	    			setExercise(args.exercise);
+	    			break;
+	    		case 'executionResult': 
+	    			displayResult(args.result);
+	    			break;
+	    	}
+	    };
+	    
+	    function setExercise(data) {
+	    	exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
-	    });
-		
-		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(displayMessage));
-	    send();
-	    
-	    function displayMessage(data) {
-	    	console.log('data2: ', data);
 	    };
 	    
-	    function send() {
-	    	console.log('Sending "Youhou2"');
-	    	listenersHandler.sendMessage('Youhou2');
-	    };
-	    
-		function runCode () {
-			var url = '/plm/lessons/'+ exercise.lessonID + '/' + exercise.id;
-			var data = { code: exercise.code };
-			
+		function runCode() {
+			var args = {
+					lessonID: exercise.lessonID,
+					exerciseID: exercise.id,
+					code: exercise.code
+			};
+			connection.sendMessage("runExercise", args);
 			exercise.isRunning = true;
-			
-			$http.put(url, data).success(function (result) {
-				console.log(result);
-				exercise.isRunning = false;
-				/*
-				exercise.resultType = result.type;
-				exercise.resultMsg = result.msg;
-			
-				alert('resultType: '+ exercise.resultType);
-				alert('resultMsg: '+ exercise.resultMsg);
-				*/
-			});
 		};
+		
+		function displayResult(result) {
+			console.log(result);
+			exercise.isRunning = false;
+		}
 		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
