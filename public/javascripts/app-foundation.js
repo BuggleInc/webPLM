@@ -27,10 +27,13 @@
 	})
 	.factory('connection', ['$rootScope', connection])
 	.factory('listenersHandler', ['$rootScope', 'connection', listenersHandler])
+	.factory('canvas', canvas)
 	.controller('HomeController', ['$http', '$scope', '$sce', 'connection', 'listenersHandler', HomeController])
-	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', ExerciseController])
+	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', ExerciseController])
 	.directive('lessonGallery', lessonGallery)
-	.directive('lessonOverview', lessonOverview);
+	.directive('lessonOverview', lessonOverview)
+	.directive('worldsView', worldsView);
+	
 	
 	function listenersHandler($rootScope, connection) {
 		var registeredListeners = [];
@@ -65,7 +68,7 @@
 		   destroyListeners();
 		   connection.endConnection();
 		};
-	}
+	};
 	
 	function connection ($rootScope) {		
 		var socket = new WebSocket('ws://localhost:9000/websocket');
@@ -123,7 +126,97 @@
 		function endConnection() {
 			socket.close();
 		};
-	}
+	};
+	
+	function canvas () {
+		var canvas;
+		var ctx;
+		var currentWorld;
+		
+		var bw;
+		var bh;
+		var p;
+		
+		var service = {
+				init: init,
+				setWorld: setWorld,
+				update: update
+		};
+		
+		return service;
+		
+		function init() {
+			canvas = document.getElementById('worldView');
+			ctx = canvas.getContext('2d');
+			bw = 400;
+			bh = 400;
+			p = 0;
+			console.log('On va dessiner!');
+			drawGrid();
+			//drawBoard();
+		}
+		
+		function setWorld (world) {
+			currentWorld = world;
+			update();
+		};
+		
+		function update() {
+			currentWorld.draw(ctx);
+		};
+		
+		function drawGrid() {
+			for(var i=0; i<6; i++) {
+				for(var j=0; j<6; j++) {
+					var x1 = bh/6*i;
+					var y1 = bw/6*j;
+					
+					var x2 = bh/6*(i+1);
+					var y2 = bw/6*(j+1);
+					
+					if((i+j)%2 === 0) {
+						ctx.fillStyle = "rgb(230, 230, 230)";
+					}
+					else {
+						ctx.fillStyle = "rgb(255, 255, 255)";
+					}
+					
+					ctx.fillRect(x1, y1, x2, y2);
+					if(i === 3 && j === 3) {
+						ctx.lineWidth = 5;
+						ctx.strokeStyle = "blue";
+						ctx.moveTo(x1, y1);
+						ctx.lineTo(x2, y1);
+					}
+				}
+			}
+			ctx.stroke();
+		}
+		
+		function drawBoard(){
+			for (var i = 0; i <= 6; i++) {
+				var x = bh/6*i;
+			    ctx.moveTo(0.5 + x + p, p);
+			    ctx.lineTo(0.5 + x + p, bh + p);
+			}
+
+			ctx.moveTo(bh, 0);
+			ctx.lineTo(bh, bw);
+
+			for (var i = 0; i <= 6; i++) {
+				var y = bw/6*i
+				ctx.moveTo(p, 0.5 + y + p);
+			    ctx.lineTo(bw + p, 0.5 + y + p);
+			}
+			
+			ctx.moveTo(0, bw);
+			ctx.lineTo(bw, bh);
+			
+			ctx.strokeStyle = 'black';
+			ctx.stroke();
+		}
+		
+	};
 	
 	function lessonGallery () {
 		return {
@@ -137,6 +230,13 @@
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/lesson-overview-foundation.html'
 		};
+	};
+	
+	function worldsView() {
+		return {
+			restrict: 'E',
+			templateUrl: '/assets/templates-foundation/worlds-view.html'
+		}
 	};
 	
 	
@@ -187,7 +287,7 @@
     	});
 	};
 	
-	function ExerciseController($http, $scope, $sce, $stateParams, connection, listenersHandler) {
+	function ExerciseController($http, $scope, $sce, $stateParams, connection, listenersHandler, canvas) {
 		var exercise = this;
 		
 		exercise.lessonID = $stateParams.lessonID;
@@ -212,8 +312,8 @@
 		
 		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
 		getExercise();
-		
-	    function handleMessage(data) {
+
+		function handleMessage(data) {
 	    	console.log('message received: ', data);
 	    	var cmd = data.cmd;
 	    	var args = data.args;
@@ -234,6 +334,8 @@
 	    	exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
+			
+			canvas.init();
 	    };
 	    
 		function runCode() {

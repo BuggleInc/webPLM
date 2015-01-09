@@ -24,6 +24,7 @@ object PLM {
   var _game : Game = Game.getInstance()
   var _lessons : List[Lesson] = game.getLessons.toArray(Array[Lesson]()).toList
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
+  var _currentExercise : Exercise = _
   
   def game : Game = _game
   def lessons: List[Lesson] = _lessons
@@ -37,7 +38,7 @@ object PLM {
   def switchLesson(lessonID: String, spy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
-    var lect: Lecture = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     // Adding the executionSpy to the current worlds
@@ -47,6 +48,8 @@ object PLM {
       world.addWorldUpdatesListener(executionSpy)
       Logger.debug("Spy added")
     }
+    
+     _currentExercise = exo;
     
     return lect
   }
@@ -54,7 +57,7 @@ object PLM {
   def switchExercise(lessonID: String, exerciseID: String, spy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
-    var lect: Lecture = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     // Adding the executionSpy to the current worlds
@@ -65,8 +68,16 @@ object PLM {
       Logger.debug("Spy added")
     }
     
+    _currentExercise = exo;
+    
     return lect
   }
+  
+  def getInitialWorlds(): List[World] = {
+    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).toList
+  }
+  
   
   def runExercise(lessonID: String, exerciseID: String, code: String) {
     var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
