@@ -152,7 +152,7 @@
 			bh = 400;
 			p = 0;
 			console.log('On va dessiner!');
-			drawGrid();
+			//drawGrid();
 			//drawBoard();
 		}
 		
@@ -162,60 +162,8 @@
 		};
 		
 		function update() {
-			currentWorld.draw(ctx);
+			currentWorld.draw(ctx, bw, bh);
 		};
-		
-		function drawGrid() {
-			for(var i=0; i<6; i++) {
-				for(var j=0; j<6; j++) {
-					var x1 = bh/6*i;
-					var y1 = bw/6*j;
-					
-					var x2 = bh/6*(i+1);
-					var y2 = bw/6*(j+1);
-					
-					if((i+j)%2 === 0) {
-						ctx.fillStyle = "rgb(230, 230, 230)";
-					}
-					else {
-						ctx.fillStyle = "rgb(255, 255, 255)";
-					}
-					
-					ctx.fillRect(x1, y1, x2, y2);
-					if(i === 3 && j === 3) {
-						ctx.lineWidth = 5;
-						ctx.strokeStyle = "blue";
-						ctx.moveTo(x1, y1);
-						ctx.lineTo(x2, y1);
-					}
-				}
-			}
-			ctx.stroke();
-		}
-		
-		function drawBoard(){
-			for (var i = 0; i <= 6; i++) {
-				var x = bh/6*i;
-			    ctx.moveTo(0.5 + x + p, p);
-			    ctx.lineTo(0.5 + x + p, bh + p);
-			}
-
-			ctx.moveTo(bh, 0);
-			ctx.lineTo(bh, bw);
-
-			for (var i = 0; i <= 6; i++) {
-				var y = bw/6*i
-				ctx.moveTo(p, 0.5 + y + p);
-			    ctx.lineTo(bw + p, 0.5 + y + p);
-			}
-			
-			ctx.moveTo(0, bw);
-			ctx.lineTo(bw, bh);
-			
-			ctx.strokeStyle = 'black';
-			ctx.stroke();
-		}
-		
 	};
 	
 	function lessonGallery () {
@@ -296,6 +244,7 @@
 		exercise.description = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
+		exercise.initialWorlds = [];
 		
 		exercise.runCode = runCode;
 		
@@ -334,8 +283,23 @@
 	    	exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
+			exercise.initialWorlds = {};
+			var currentWorldID = '';
+			for(var worldID in data.initialWorlds) {
+				currentWorldID = worldID;
+				exercise.initialWorlds[worldID] = {};
+				var initialWorld = data.initialWorlds[worldID];
+				switch(initialWorld.type) {
+					case 'BuggleWorld':
+						exercise.initialWorlds[worldID] = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells)
+						break;
+				}
+			}
+			
+			console.log('exercise: ', exercise);
 			
 			canvas.init();
+			canvas.setWorld(exercise.initialWorlds[currentWorldID]);
 	    };
 	    
 		function runCode() {
@@ -362,5 +326,66 @@
     	});
 	};
 	
+	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
+		this.x = x;
+		this.y = y;
+		this.hasBaggle = hasBaggle;
+		this.hasContent = hasContent;
+		this.hasLeftWall = hasLeftWall;
+		this.hasTopWall = hasTopWall;
+	};
+	
+	BuggleWorldCell.prototype.draw = function (ctx, canvasWidth, canvasHeight, width, height) {
+		var xLeft = canvasWidth/width*this.x;
+		var yTop = canvasHeight/height*this.y;
+		
+		var xRight = canvasWidth/width*(this.x+1);
+		var yBottom = canvasHeight/height*(this.y+1);
+		
+		if((this.x+this.y)%2 === 0) {
+			ctx.fillStyle = "rgb(230, 230, 230)";
+		}
+		else {
+			ctx.fillStyle = "rgb(255, 255, 255)";
+		}
+		
+		ctx.fillRect(xLeft, yTop, xRight, yBottom);
+		
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = "blue";
+		if(this.hasLeftWall) {
+			ctx.moveTo(xLeft, yTop);
+			ctx.lineTo(xLeft, yBottom);
+		}
+		if(this.hasTopWall) {
+			ctx.moveTo(xLeft, yTop);
+			ctx.lineTo(xRight, yTop);
+		}
+		ctx.stroke();
+	};
+	
+	var BuggleWorld = function(type, width, height, cells) {
+		this.type = type;
+		this.width = width;
+		this.height = height;
+		
+		this.cells = [];
+		
+		for(var i=0; i<width; i++) {
+			this.cells[i] = [];
+			for(var j=0; j<height; j++) {
+				var cell = cells[i][j];
+				this.cells[i][j] = new BuggleWorldCell(cell.x, cell.y, cell.hasBaggle, cell.hasContent, cell.hasLeftWall, cell.hasTopWall);
+			}
+		}
+	};
+	
+	BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
+		for(var i=0; i<this.width; i++) {
+			for(var j=0; j<this.height; j++) {
+				this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+			}
+		}
+	};
 	
 })();
