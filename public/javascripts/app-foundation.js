@@ -247,6 +247,8 @@
 		exercise.operations = [];
 		
 		exercise.runCode = runCode;
+		exercise.reset = reset;
+		exercise.rerun = rerun;
 		
 		function getExercise() {
 			var args = {
@@ -318,6 +320,29 @@
 			exercise.isRunning = false;
 		}
 		
+		function reset() {
+			console.log('On revient à l\'état initial');
+			exercise.currentWorld.setState(-1);
+			canvas.update();
+		}
+		
+		function rerun() {
+			console.log('On relance l\'exécution!');
+			var nbSteps = exercise.currentWorld.operations.length;
+			var currentStep = 0;
+			var interval = setInterval(function () {
+				console.log('step: ', currentStep);
+				console.log('on ', nbSteps);
+				exercise.currentWorld.setState(currentStep);
+				canvas.update();
+				currentStep++;
+				if(currentStep === nbSteps) {
+					clearInterval(interval);
+				}
+			}, 1000);
+		}
+		
+		
 		function displayOperations(operations) {
 			console.log('operations: ', operations);
 			var step = [];
@@ -332,6 +357,8 @@
 				result.apply(exercise.currentWorld);
 				step.push(result);
 			}
+			exercise.currentWorld.operations.push(step);
+			exercise.currentWorld.setState(exercise.currentWorld.currentState+1)
 			canvas.update();
 		}
 		
@@ -355,6 +382,12 @@
 		buggle.x = this.newX;
 		buggle.y = this.newY;
 		console.log(this.buggleID + ' has changed: ', buggle);
+	};
+	
+	MoveBuggleOperation.prototype.reverse = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.x = this.oldX;
+		buggle.y = this.oldY;
 	};
 	
 	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
@@ -452,6 +485,8 @@
 		this.type = type;
 		this.width = width;
 		this.height = height;
+		this.operations = [];
+		this.currentState = -1;
 		
 		this.cells = [];
 		for(var i=0; i<width; i++) {
@@ -481,6 +516,29 @@
 			this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 		}
 		
+	};
+	
+	BuggleWorld.prototype.setState = function (state) {
+		console.log('this: ', this);
+		if(this.currentState < state) {
+			for(var i=this.currentState+1; i<=state; i++) {
+				var step = this.operations[i];
+				for(var j=0; j<step.length; j++) {
+					console.log('operation: ', step[j]);
+					step[j].apply(this);
+				}
+			}
+		}
+		else {
+			for(var i=this.currentState; i>state; i--) {
+				var step = this.operations[i];
+				for(var j=0; j<step.length; j++) {
+					console.log('operation: ', step[j]);
+					step[j].reverse(this);
+				}
+			}
+		}
+		this.currentState = state;
 	};
 	
 	var Direction = {
