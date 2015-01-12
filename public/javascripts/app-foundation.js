@@ -249,6 +249,7 @@
 		exercise.runCode = runCode;
 		exercise.reset = reset;
 		exercise.rerun = rerun;
+		exercise.stopExecution = stopExecution;
 		
 		function getExercise() {
 			var args = {
@@ -313,6 +314,10 @@
 			};
 			connection.sendMessage('runExercise', args);
 			exercise.isRunning = true;
+		};
+		
+		function stopExecution() {
+			connection.sendMessage('stopExecution', null);
 		};
 		
 		function displayResult(msgType, msg) {

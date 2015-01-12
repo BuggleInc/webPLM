@@ -65,6 +65,8 @@ class PLMActor(out: ActorRef) extends Actor {
             case (_, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }
+        case "stopExecution" =>
+          PLM.stopExecution
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
