@@ -16,6 +16,7 @@ import plm.core.model.tracking.ProgressSpyListener
 import plm.universe.World
 
 import scala.collection.mutable.ListBuffer
+import scala.collection.immutable.HashMap
 import play.api.libs.json._
 import play.Logger
 
@@ -25,6 +26,8 @@ object PLM {
   var _lessons : List[Lesson] = game.getLessons.toArray(Array[Lesson]()).toList
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
   var _currentExercise : Exercise = _
+  
+  var currentExecutionSpies: Map[World, ExecutionSpy] = Map()
   
   def game : Game = _game
   def lessons: List[Lesson] = _lessons
@@ -41,15 +44,8 @@ object PLM {
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    // Adding the executionSpy to the current worlds
-    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 
-      var executionSpy: ExecutionSpy = spy.clone()
-      executionSpy.setWorld(world)
-      world.addWorldUpdatesListener(executionSpy)
-      Logger.debug("Spy added")
-    }
-    
-     _currentExercise = exo;
+    addExecutionSpy(exo, spy)
+    _currentExercise = exo;
     
     return lect
   }
@@ -60,17 +56,25 @@ object PLM {
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
+    addExecutionSpy(exo, spy)
+    _currentExercise = exo;
+    
+    return lect
+  }
+  
+  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy) {
     // Adding the executionSpy to the current worlds
     exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 
       var executionSpy: ExecutionSpy = spy.clone()
       executionSpy.setWorld(world)
-      world.addWorldUpdatesListener(executionSpy)
-      Logger.debug("Spy added")
     }
-    
-    _currentExercise = exo;
-    
-    return lect
+  }
+  
+  def removeExecutionSpies() {
+    currentExecutionSpies.foreach((e: (World, ExecutionSpy)) => 
+      e._1.removeWorldUpdatesListener(e._2)
+    )
+    currentExecutionSpies.empty
   }
   
   def getInitialWorlds(): List[World] = {

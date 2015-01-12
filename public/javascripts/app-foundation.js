@@ -152,8 +152,6 @@
 			bh = 400;
 			p = 0;
 			console.log('On va dessiner!');
-			//drawGrid();
-			//drawBoard();
 		}
 		
 		function setWorld (world) {
@@ -245,6 +243,8 @@
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.initialWorlds = [];
+		exercise.currentWorld = null;
+		exercise.operations = [];
 		
 		exercise.runCode = runCode;
 		
@@ -274,7 +274,7 @@
 	    			displayResult(args.msgType, args.msg);
 	    			break;
 	    		case 'operations':
-	    			displayOperations(args.msg);
+	    			displayOperations(args.operations);
 	    			break;
 	    	}
 	    };
@@ -291,7 +291,7 @@
 				var initialWorld = data.initialWorlds[worldID];
 				switch(initialWorld.type) {
 					case 'BuggleWorld':
-						exercise.initialWorlds[worldID] = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells)
+						exercise.initialWorlds[worldID] = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities)
 						break;
 				}
 			}
@@ -300,6 +300,7 @@
 			
 			canvas.init();
 			canvas.setWorld(exercise.initialWorlds[currentWorldID]);
+			exercise.currentWorld = exercise.initialWorlds[currentWorldID];
 	    };
 	    
 		function runCode() {
@@ -308,7 +309,7 @@
 					exerciseID: exercise.id,
 					code: exercise.code
 			};
-			connection.sendMessage("runExercise", args);
+			connection.sendMessage('runExercise', args);
 			exercise.isRunning = true;
 		};
 		
@@ -319,11 +320,41 @@
 		
 		function displayOperations(operations) {
 			console.log('operations: ', operations);
+			var step = [];
+			for(var i=0; i<operations.length; i++) {
+				var operation = operations[i];
+				var result;
+				switch(operation.type) {
+					case 'moveBuggleOperation':
+						result = new MoveBuggleOperation(operation.buggleID, operation.newX, operation.newY, operation.oldX, operation.oldY);
+						break;
+				}
+				result.apply(exercise.currentWorld);
+				step.push(result);
+			}
+			canvas.update();
 		}
 		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
     	});
+	};
+	
+	var MoveBuggleOperation = function (buggleID, newX, newY, oldX, oldY) {
+		this.buggleID = buggleID;
+		this.newX = newX;
+		this.newY = newY;
+		this.oldX = oldX;
+		this.oldY = oldY;
+	};
+	
+	MoveBuggleOperation.prototype.apply = function (currentWorld) {
+		console.log('buggleID: ', this.buggleID);
+		console.log('currentWorld: ', currentWorld);
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.x = this.newX;
+		buggle.y = this.newY;
+		console.log(this.buggleID + ' has changed: ', buggle);
 	};
 	
 	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
@@ -351,7 +382,7 @@
 		
 		ctx.fillRect(xLeft, yTop, xRight, yBottom);
 		
-		ctx.lineWidth = 5;
+		ctx.lineWidth = 30;
 		ctx.strokeStyle = "blue";
 		if(this.hasLeftWall) {
 			ctx.moveTo(xLeft, yTop);
@@ -364,13 +395,65 @@
 		ctx.stroke();
 	};
 	
-	var BuggleWorld = function(type, width, height, cells) {
+	var Buggle = function (x, y, color, direction) {
+		this.x = x;
+		this.y = y;
+		this.color = color;
+		switch(direction) {
+			case Direction.NORTH_VALUE:
+				this.src = '/assets/images/buggle-top.svg';
+				break;
+			case Direction.EAST_VALUE:
+				this.src = '/assets/images/buggle-right.svg';
+				break;
+			case Direction.SOUTH_VALUE:
+				this.src = '/assets/images/buggle-bot.svg';
+				break;
+			case Direction.WEST_VALUE:
+				this.src = '/assets/images/buggle-left.svg';
+				break;
+			default:
+				this.src = '/assets/images/buggle-top.svg';
+		}
+	};
+	
+	Buggle.prototype.draw = function (ctx, canvasWidth, canvasHeight, width, height) {
+		var buggle = this;
+		var img = new Image();
+		img.onload = function() {
+			buggle.drawBuggleImage(ctx, img, canvasWidth, canvasHeight, width, height);
+		};
+		img.src = this.src;
+	};
+	
+	Buggle.prototype.drawBuggleImage = function (ctx, img, canvasWidth, canvasHeight, width, height) {
+		var imgWidth = canvasWidth/width*0.8;
+		var imgHeight = canvasHeight/height*0.8;
+		
+		var xLeft = canvasWidth/width*this.x +imgWidth/width;
+		var yTop = canvasHeight/height*this.y +imgHeight/height;
+		
+		ctx.drawImage(img, xLeft, yTop, imgWidth, imgHeight);
+		var imgData = ctx.getImageData(xLeft, yTop, imgWidth, imgHeight);
+		var data = imgData.data;
+		for(var i=0; i<data.length; i += 4) {
+			// Ignore image's "white" pixels
+			if( !( (data[i] === 255 && data[i+1] === 255 && data[i+2] === 255) || (data[i] === 230 && data[i+1] === 230 && data[i+2] === 230) ) ) {
+				data[i] = this.color[0];
+				data[i+1] = this.color[1];
+				data[i+2] = this.color[2];
+				data[i+3] = this.color[3];
+			}
+		};
+		ctx.putImageData(imgData, xLeft, yTop);
+	};
+	
+	var BuggleWorld = function (type, width, height, cells, buggles) {
 		this.type = type;
 		this.width = width;
 		this.height = height;
 		
 		this.cells = [];
-		
 		for(var i=0; i<width; i++) {
 			this.cells[i] = [];
 			for(var j=0; j<height; j++) {
@@ -378,6 +461,13 @@
 				this.cells[i][j] = new BuggleWorldCell(cell.x, cell.y, cell.hasBaggle, cell.hasContent, cell.hasLeftWall, cell.hasTopWall);
 			}
 		}
+		
+		this.buggles = {};
+		for(var buggleID in buggles) {
+			var buggle = buggles[buggleID]
+			this.buggles[buggleID] = new Buggle(buggle.x, buggle.y, buggle.color, buggle.direction);
+		}
+		
 	};
 	
 	BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
@@ -386,6 +476,17 @@
 				this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 			}
 		}
+		
+		for(var buggleID in this.buggles) {
+			this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+		}
+		
 	};
 	
+	var Direction = {
+		NORTH_VALUE: 0,
+		EAST_VALUE: 1,
+		SOUTH_VALUE: 2,
+		WEST_VALUE: 3
+	};
 })();

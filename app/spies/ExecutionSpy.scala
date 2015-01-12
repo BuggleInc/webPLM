@@ -21,6 +21,11 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
   def setWorld(world: World) {
     this.world = world
     world.addWorldUpdatesListener(this)
+    plmActor.registerSpy(this)
+  }
+  
+  def unregister() {
+    world.removeWorldUpdatesListener(this)
   }
   
   // Can't define a writer for each subclass 
@@ -46,7 +51,7 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
   
   def moveBuggleOperationWrite(moveBuggleOperation: MoveBuggleOperation): JsValue = {
     Json.obj(
-      "operation" -> moveBuggleOperation.getName(),
+      "type" -> moveBuggleOperation.getName(),
       "buggleID" -> moveBuggleOperation.getBuggle().getName(),
       "oldX" -> moveBuggleOperation.getOldX(),
       "oldY" -> moveBuggleOperation.getOldY(),
@@ -61,12 +66,15 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
   def worldHasMoved() {
     if(!world.operations.isEmpty()) {
       Logger.debug("The world moved!")
+      
       var mapArgs: JsValue = Json.obj(
         "worldID" -> world.getName,
         "operations" -> world.operations.toArray(Array[Operation]()).toList
       )
+      Logger.debug(Json.stringify(mapArgs))
       world.operations.clear()
       plmActor.sendMessage("operations", mapArgs)
+    
     }
   }
   

@@ -26,6 +26,7 @@ class PLMActor(out: ActorRef) extends Actor {
   
   var isProgressSpyAdded: Boolean = false
   var resultSpy: ExecutionResultSpy = new ExecutionResultSpy(this)
+  var registeredSpies: List[ExecutionSpy] = List()
   PLM.addProgressSpyListener(resultSpy)
   
   def receive = {
@@ -80,9 +81,14 @@ class PLMActor(out: ActorRef) extends Actor {
     out ! createMessage(cmdName, mapArgs)
   }
   
+  def registerSpy(spy: ExecutionSpy) {
+    registeredSpies = registeredSpies ::: List(spy)
+  }
+  
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the resultSpy")
     PLM.removeProgressSpyListener(resultSpy)
+    registeredSpies.foreach { spy => spy.unregister }
   }
   
   implicit val listEntitiesWrites = new Writes[List[Entity]] {
