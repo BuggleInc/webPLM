@@ -93,6 +93,10 @@ object PLM {
 
   }
   
+  def stopExecution() {
+    _game.stopExerciseExecution()
+  }
+  
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
   
   def getStudentCode: String = {
