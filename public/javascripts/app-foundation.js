@@ -488,6 +488,11 @@
 		
 	};
 	
+	var OutcomeKind = {
+		FAIL: 0,
+		PASS: 1
+	};
+	
 	var Direction = {
 		NORTH_VALUE: 0,
 		EAST_VALUE: 1,
