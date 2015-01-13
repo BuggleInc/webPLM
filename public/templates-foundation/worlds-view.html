@@ -4,19 +4,27 @@
   </canvas>
 </div>
 <div class="row">
-  <button class="button round" ng-disabled="exercise.currentWorld.currentState === -1" ng-click="exercise.reset(true)">
+  <button class="button round" ng-disabled="exercise.isPlaying || exercise.currentWorld.currentState === -1" ng-click="exercise.reset(true)">
     <i class="fi-rewind size-18"></i>
   </button>
-  <button class="button round" ng-disabled="exercise.currentWorld.currentState === -1" ng-click="exercise.setWorldState(exercise.currentWorld.currentState-1)">
+  <button class="button round" ng-disabled="exercise.isPlaying || exercise.currentWorld.currentState === -1" ng-click="exercise.setWorldState(exercise.currentWorld.currentState-1)">
     <i class="fi-previous size-18"></i>
   </button>
-  <button class="button round" ng-disabled="exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.currentState+1)">
+  <button class="button round" ng-disabled="exercise.isPlaying || exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.currentState+1)">
     <i class="fi-next size-18"></i>
   </button>
-  <button class="button round" ng-disabled="exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.operations.length-1)">
+  <button class="button round" ng-disabled="exercise.isPlaying || exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.operations.length-1)">
     <i class="fi-fast-forward size-18"></i>
   </button>
-  <button class="button round" ng-click="exercise.replay()">
+  <button class="button round" ng-disabled="exercise.isPlaying || exercise.currentWorld.operations.length === 0" ng-click="exercise.replay()">
     <i class="fi-loop size-18"></i>
   </button>
+</div>
+<div class="row">
+  <div class="small-3 columns">
+	  <label for="executionSpeed" class="right inline">Execution speed:</label>
+	</div>
+	<div class="small-9 columns">
+	  <input type="text" id="executionSpeed" ng-model="exercise.timer">
+	</div>
 </div>

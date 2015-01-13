@@ -151,7 +151,6 @@
 			bw = canvas.width;
 			bh = canvas.height;
 			p = 0;
-			console.log('On va dessiner!');
 		}
 		
 		function setWorld (world) {
@@ -239,12 +238,14 @@
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		exercise.isRunning = false;
+		exercise.isPlaying = false;
 		exercise.description = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
 		exercise.currentWorld = null;
 		exercise.updateViewLoop = null;
+		exercise.timer = 1000;
 		
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -280,12 +281,12 @@
 	    		case 'operations':
 	    			storeOperations(args.worldID, args.operations);
 	    			if(exercise.updateViewLoop === null) {
-	    				exercise.updateViewLoop = setInterval(updateView, 1000);
+	    				startUpdateViewLoop();
 	    			}
 	    			break;
 	    	}
 	    }
-	    
+		
 	    function setExercise(data) {
 	    	exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
@@ -313,6 +314,7 @@
 	    }
 	    
 		function runCode() {
+			exercise.isPlaying = true;
 			reset(false);
 			var args = {
 					lessonID: exercise.lessonID,
@@ -330,12 +332,6 @@
 		function displayResult(msgType, msg) {
 			console.log(msgType, ' - ', msg);
 			exercise.isRunning = false;
-			
-			$(document).foundation('slider', 'reflow');
-			$('[data-slider]').on('change.fndtn.slider', function(){
-				exercise.currentStep = $('[data-slider]').attr('data-slider');
-				console.log('exercise.currentStep: ', exercise.currentStep);
-			});
 		}
 		
 		function reset(keepOperations) {
@@ -349,13 +345,13 @@
 		}
 		
 		function replay() {
+			exercise.isPlaying = true;
 			reset(true);
-			exercise.updateViewLoop = setInterval(updateView, 1000);
+			startUpdateViewLoop();
 		}
 		
 		
 		function storeOperations(worldID, operations) {
-			console.log('operations: ', operations);
 			var step = [];
 			for(var i=0; i<operations.length; i++) {
 				var operation = operations[i];
@@ -370,20 +366,24 @@
 			exercise.currentWorlds[worldID].operations.push(step);
 		}
 		
+		function startUpdateViewLoop() {
+			exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+		}
+		
 		function updateView() {
 			var currentState = exercise.currentWorld.currentState;
 			var nbStates = exercise.currentWorld.operations.length-1;
 	    	if(currentState !== nbStates) {
-	    		console.log('Step '+currentState+ ' -> ' + nbStates);
     			exercise.currentWorld.setState(++currentState);
     			canvas.update();
-    			console.log('Updated!');
     		}
 	    	if(!exercise.isRunning && currentState === nbStates){
-	    		console.log('On clear? :o');
-	    		console.log(currentState === exercise.currentWorld.currentState);
-	    		clearInterval(exercise.updateViewLoop);
 	    		exercise.updateViewLoop = null;
+	    		exercise.isPlaying = false;
+				$scope.$apply(); // Have to add this line to force AngularJS to update the view
+	    	}
+	    	else {
+	    		exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
 	    	}
 	    }
 		
@@ -406,12 +406,9 @@
 	};
 	
 	MoveBuggleOperation.prototype.apply = function (currentWorld) {
-		console.log('buggleID: ', this.buggleID);
-		console.log('currentWorld: ', currentWorld);
 		var buggle = currentWorld.buggles[this.buggleID];
 		buggle.x = this.newX;
 		buggle.y = this.newY;
-		console.log(this.buggleID + ' has changed: ', buggle);
 	};
 	
 	MoveBuggleOperation.prototype.reverse = function (currentWorld) {
@@ -552,14 +549,11 @@
 	};
 	
 	BuggleWorld.prototype.setState = function (state) {
-		console.log('this: ', this);
-		console.log('state: ', state);
 		if(state < this.operations.length && state >= -1) {
 			if(this.currentState < state) {
 				for(var i=this.currentState+1; i<=state; i++) {
 					var step = this.operations[i];
 					for(var j=0; j<step.length; j++) {
-						console.log('operation: ', step[j]);
 						step[j].apply(this);
 					}
 				}
@@ -568,13 +562,11 @@
 				for(var i=this.currentState; i>state; i--) {
 					var step = this.operations[i];
 					for(var j=0; j<step.length; j++) {
-						console.log('operation: ', step[j]);
 						step[j].reverse(this);
 					}
 				}
 			}
 			this.currentState = state;
-			console.log('currentState === operations.length-1:', this.currentState === (this.operations.length-1));
 		}
 	};
 	
