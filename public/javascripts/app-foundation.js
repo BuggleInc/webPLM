@@ -51,24 +51,24 @@
 		            fn(data);
 		        });
 		    });
-		};
+		}
 		
 		function sendMessage(msg) {
 			connection.sendMessage(msg);
-		};
+		}
 		
 		function destroyListeners() {
 		    registeredListeners.forEach(function (value) {
 		        $rootScope.$$listeners[value] = [];
 		    });
 		    registeredListeners = [];
-		};
+		}
 		
 		function closeConnection() {
 		   destroyListeners();
 		   connection.endConnection();
-		};
-	};
+		}
+	}
 	
 	function connection ($rootScope) {		
 		var socket = new WebSocket('ws://localhost:9000/websocket');
@@ -95,7 +95,7 @@
 	    			args: args || null
 	    	};
 	    	send(JSON.stringify(msg));
-		};
+		}
 		
 		function send(msg) {
 			if(!connectStatus) {
@@ -105,7 +105,7 @@
 				console.log('message sent: ', msg);
 				socket.send(msg);
 			}
-		};
+		}
 		
 		function setupMessaging(fn) {
 		    socket.onmessage = function (event) {
@@ -117,16 +117,16 @@
 			    	fn(msg);
 			    });
 		    };
-		};
+		}
 		
 		function sendPendingMessages() {
 			pendingMessages.map(send);
-		};
+		}
 		
 		function endConnection() {
 			socket.close();
-		};
-	};
+		}
+	}
 	
 	function canvas () {
 		var canvas;
@@ -148,41 +148,40 @@
 		function init() {
 			canvas = document.getElementById('worldView');
 			ctx = canvas.getContext('2d');
-			bw = 400;
-			bh = 400;
+			bw = canvas.width;
+			bh = canvas.height;
 			p = 0;
-			console.log('On va dessiner!');
 		}
 		
 		function setWorld (world) {
 			currentWorld = world;
 			update();
-		};
+		}
 		
 		function update() {
 			currentWorld.draw(ctx, bw, bh);
-		};
-	};
+		}
+	}
 	
 	function lessonGallery () {
 		return {
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/lesson-gallery-foundation.html'
 		};
-	};
+	}
 	
 	function lessonOverview () {
 		return {
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/lesson-overview-foundation.html'
 		};
-	};
+	}
 	
 	function worldsView() {
 		return {
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/worlds-view.html'
-		}
+		};
 	};
 	
 	
@@ -210,11 +209,11 @@
 	    			setLessons(args.lessons);
 	    			break;
 	    	}
-	    };
+	    }
 	    
 	    function getLessons() {
 	    	connection.sendMessage('getLessons', null);
-	    };
+	    }
 	    
 	    function setLessons(lessons) {
 	    	home.lessons = lessons.map(function (lesson) {
@@ -222,11 +221,11 @@
 	    	  return lesson;
 	    	});
 	    	console.log('updated home.lessons: ', home.lessons);
-	    };
+	    }
 	    
 	    function setCurrentLesson (lesson) {
 	    	home.currentLesson = lesson;
-	    };
+	    }
 	    
 	    $scope.$on("$destroy",function() {
 	    	offHandleMessage();
@@ -239,15 +238,21 @@
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		exercise.isRunning = false;
+		exercise.isPlaying = false;
 		exercise.description = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
-		exercise.initialWorlds = [];
+		exercise.initialWorlds = {};
 		exercise.currentWorld = null;
-		exercise.operations = [];
+		exercise.updateViewLoop = null;
+		exercise.timer = 1000;
+		exercise.currentState = -1;
 		
 		exercise.runCode = runCode;
+		exercise.reset = reset;
+		exercise.replay = replay;
 		exercise.stopExecution = stopExecution;
+		exercise.setWorldState = setWorldState;
 		
 		function getExercise() {
 			var args = {
@@ -258,7 +263,7 @@
 				args.exerciseID = exercise.id;
 			}
 	    	connection.sendMessage('getExercise', args);
-	    };
+	    }
 		
 		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
 		getExercise();
@@ -275,24 +280,29 @@
 	    			displayResult(args.msgType, args.msg);
 	    			break;
 	    		case 'operations':
-	    			displayOperations(args.operations);
+	    			storeOperations(args.worldID, args.operations);
+	    			if(exercise.updateViewLoop === null) {
+	    				startUpdateViewLoop();
+	    			}
 	    			break;
 	    	}
-	    };
-	    
+	    }
+		
 	    function setExercise(data) {
 	    	exercise.id = data.id;
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
+			exercise.currentWorldID = data.selectedWorldID;
 			exercise.initialWorlds = {};
-			var currentWorldID = '';
+			exercise.currentWorlds = {};
 			for(var worldID in data.initialWorlds) {
-				currentWorldID = worldID;
 				exercise.initialWorlds[worldID] = {};
 				var initialWorld = data.initialWorlds[worldID];
 				switch(initialWorld.type) {
 					case 'BuggleWorld':
-						exercise.initialWorlds[worldID] = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities)
+						var world = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities);
+						exercise.initialWorlds[worldID] = world;
+						exercise.currentWorlds[worldID] = world.clone();
 						break;
 				}
 			}
@@ -300,11 +310,13 @@
 			console.log('exercise: ', exercise);
 			
 			canvas.init();
-			canvas.setWorld(exercise.initialWorlds[currentWorldID]);
-			exercise.currentWorld = exercise.initialWorlds[currentWorldID];
-	    };
+			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
+			canvas.setWorld(exercise.currentWorld);
+	    }
 	    
 		function runCode() {
+			exercise.isPlaying = true;
+			reset(false);
 			var args = {
 					lessonID: exercise.lessonID,
 					exerciseID: exercise.id,
@@ -312,19 +324,36 @@
 			};
 			connection.sendMessage('runExercise', args);
 			exercise.isRunning = true;
-		};
+		}
 		
 		function stopExecution() {
 			connection.sendMessage('stopExecution', null);
-		};
+		}
 		
 		function displayResult(msgType, msg) {
 			console.log(msgType, ' - ', msg);
 			exercise.isRunning = false;
 		}
 		
-		function displayOperations(operations) {
-			console.log('operations: ', operations);
+		function reset(keepOperations) {
+			// We may want to keep the operations in order to replay the execution
+			var operations = keepOperations === true ? exercise.currentWorld.operations : [];
+			var currentInitialWorld = exercise.initialWorlds[exercise.currentWorldID];
+			exercise.currentWorlds[exercise.currentWorldID] = currentInitialWorld.clone();
+			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
+			exercise.currentWorld.operations = operations;
+			exercise.currentState = -1;
+			canvas.setWorld(exercise.currentWorld);
+		}
+		
+		function replay() {
+			exercise.isPlaying = true;
+			reset(true);
+			startUpdateViewLoop();
+		}
+		
+		
+		function storeOperations(worldID, operations) {
 			var step = [];
 			for(var i=0; i<operations.length; i++) {
 				var operation = operations[i];
@@ -334,11 +363,41 @@
 						result = new MoveBuggleOperation(operation.buggleID, operation.newX, operation.newY, operation.oldX, operation.oldY);
 						break;
 				}
-				result.apply(exercise.currentWorld);
 				step.push(result);
 			}
+			exercise.currentWorlds[worldID].operations.push(step);
+		}
+		
+		function startUpdateViewLoop() {
+			exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+		}
+		
+		function updateView() {
+			var currentState = exercise.currentWorld.currentState;
+			var nbStates = exercise.currentWorld.operations.length-1;
+	    	if(currentState !== nbStates) {
+    			exercise.currentWorld.setState(++currentState);
+    			exercise.currentState = currentState;
+    			canvas.update();
+    		}
+	    	if(!exercise.isRunning && currentState === nbStates){
+	    		exercise.updateViewLoop = null;
+	    		exercise.isPlaying = false;
+	    	}
+	    	else {
+	    		exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+	    	}
+	    	$scope.$apply(); // Have to add this line to force AngularJS to update the view
+	    }
+		
+		function setWorldState(state) {
+			state = parseInt(state);
+			this.currentWorld.setState(state);
+			this.currentState = state;
 			canvas.update();
 		}
+		
+		$scope.$broadcast('refreshSlider'); 
 		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
@@ -354,12 +413,15 @@
 	};
 	
 	MoveBuggleOperation.prototype.apply = function (currentWorld) {
-		console.log('buggleID: ', this.buggleID);
-		console.log('currentWorld: ', currentWorld);
 		var buggle = currentWorld.buggles[this.buggleID];
 		buggle.x = this.newX;
 		buggle.y = this.newY;
-		console.log(this.buggleID + ' has changed: ', buggle);
+	};
+	
+	MoveBuggleOperation.prototype.reverse = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.x = this.oldX;
+		buggle.y = this.oldY;
 	};
 	
 	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
@@ -457,6 +519,8 @@
 		this.type = type;
 		this.width = width;
 		this.height = height;
+		this.operations = [];
+		this.currentState = -1;
 		
 		this.cells = [];
 		for(var i=0; i<width; i++) {
@@ -472,7 +536,10 @@
 			var buggle = buggles[buggleID]
 			this.buggles[buggleID] = new Buggle(buggle.x, buggle.y, buggle.color, buggle.direction);
 		}
-		
+	};
+	
+	BuggleWorld.prototype.clone = function () {
+		return new BuggleWorld(this.type, this.width, this.height, this.cells, this.buggles)
 	};
 	
 	BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
@@ -486,6 +553,28 @@
 			this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 		}
 		
+	};
+	
+	BuggleWorld.prototype.setState = function (state) {
+		if(state < this.operations.length && state >= -1) {
+			if(this.currentState < state) {
+				for(var i=this.currentState+1; i<=state; i++) {
+					var step = this.operations[i];
+					for(var j=0; j<step.length; j++) {
+						step[j].apply(this);
+					}
+				}
+			}
+			else {
+				for(var i=this.currentState; i>state; i--) {
+					var step = this.operations[i];
+					for(var j=0; j<step.length; j++) {
+						step[j].reverse(this);
+					}
+				}
+			}
+			this.currentState = state;
+		}
 	};
 	
 	var OutcomeKind = {
