@@ -248,8 +248,9 @@
 		
 		exercise.runCode = runCode;
 		exercise.reset = reset;
-		exercise.rerun = rerun;
+		exercise.replay = replay;
 		exercise.stopExecution = stopExecution;
+		exercise.setWorldState = setWorldState;
 		
 		function getExercise() {
 			var args = {
@@ -329,6 +330,12 @@
 		function displayResult(msgType, msg) {
 			console.log(msgType, ' - ', msg);
 			exercise.isRunning = false;
+			
+			$(document).foundation('slider', 'reflow');
+			$('[data-slider]').on('change.fndtn.slider', function(){
+				exercise.currentStep = $('[data-slider]').attr('data-slider');
+				console.log('exercise.currentStep: ', exercise.currentStep);
+			});
 		}
 		
 		function reset(keepOperations) {
@@ -341,8 +348,7 @@
 			canvas.setWorld(exercise.currentWorld);
 		}
 		
-		function rerun() {
-			console.log('On relance l\'exécution!');
+		function replay() {
 			reset(true);
 			exercise.updateViewLoop = setInterval(updateView, 1000);
 		}
@@ -374,9 +380,17 @@
     			console.log('Updated!');
     		}
 	    	if(!exercise.isRunning && currentState === nbStates){
+	    		console.log('On clear? :o');
+	    		console.log(currentState === exercise.currentWorld.currentState);
 	    		clearInterval(exercise.updateViewLoop);
+	    		exercise.updateViewLoop = null;
 	    	}
 	    }
+		
+		function setWorldState(state) {
+			this.currentWorld.setState(state);
+			canvas.update();
+		}
 		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
@@ -539,25 +553,29 @@
 	
 	BuggleWorld.prototype.setState = function (state) {
 		console.log('this: ', this);
-		if(this.currentState < state) {
-			for(var i=this.currentState+1; i<=state; i++) {
-				var step = this.operations[i];
-				for(var j=0; j<step.length; j++) {
-					console.log('operation: ', step[j]);
-					step[j].apply(this);
+		console.log('state: ', state);
+		if(state < this.operations.length && state >= -1) {
+			if(this.currentState < state) {
+				for(var i=this.currentState+1; i<=state; i++) {
+					var step = this.operations[i];
+					for(var j=0; j<step.length; j++) {
+						console.log('operation: ', step[j]);
+						step[j].apply(this);
+					}
 				}
 			}
-		}
-		else {
-			for(var i=this.currentState; i>state; i--) {
-				var step = this.operations[i];
-				for(var j=0; j<step.length; j++) {
-					console.log('operation: ', step[j]);
-					step[j].reverse(this);
+			else {
+				for(var i=this.currentState; i>state; i--) {
+					var step = this.operations[i];
+					for(var j=0; j<step.length; j++) {
+						console.log('operation: ', step[j]);
+						step[j].reverse(this);
+					}
 				}
 			}
+			this.currentState = state;
+			console.log('currentState === operations.length-1:', this.currentState === (this.operations.length-1));
 		}
-		this.currentState = state;
 	};
 	
 	var Direction = {
