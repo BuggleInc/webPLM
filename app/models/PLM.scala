@@ -62,6 +62,10 @@ object PLM {
     return lect
   }
   
+  def getSelectedWorldID(): String = {
+    return game.getSelectedWorld.getName
+  }
+  
   def addExecutionSpy(exo: Exercise, spy: ExecutionSpy) {
     // Adding the executionSpy to the current worlds
     exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 

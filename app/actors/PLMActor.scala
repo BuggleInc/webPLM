@@ -203,7 +203,8 @@ class PLMActor(out: ActorRef) extends Actor {
           "id" -> lecture.getId,
           "description" -> lecture.getMission(PLM.programmingLanguage),
           "code" -> PLM.getStudentCode,
-          "initialWorlds" -> PLM.getInitialWorlds()
+          "initialWorlds" -> PLM.getInitialWorlds,
+          "selectedWorldID" -> PLM.getSelectedWorldID
         )
   }
 }
