@@ -246,6 +246,7 @@
 		exercise.currentWorld = null;
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
+		exercise.currentState = -1;
 		
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -341,6 +342,7 @@
 			exercise.currentWorlds[exercise.currentWorldID] = currentInitialWorld.clone();
 			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
 			exercise.currentWorld.operations = operations;
+			exercise.currentState = -1;
 			canvas.setWorld(exercise.currentWorld);
 		}
 		
@@ -375,22 +377,27 @@
 			var nbStates = exercise.currentWorld.operations.length-1;
 	    	if(currentState !== nbStates) {
     			exercise.currentWorld.setState(++currentState);
+    			exercise.currentState = currentState;
     			canvas.update();
     		}
 	    	if(!exercise.isRunning && currentState === nbStates){
 	    		exercise.updateViewLoop = null;
 	    		exercise.isPlaying = false;
-				$scope.$apply(); // Have to add this line to force AngularJS to update the view
 	    	}
 	    	else {
 	    		exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
 	    	}
+	    	$scope.$apply(); // Have to add this line to force AngularJS to update the view
 	    }
 		
 		function setWorldState(state) {
+			state = parseInt(state);
 			this.currentWorld.setState(state);
+			this.currentState = state;
 			canvas.update();
 		}
+		
+		$scope.$broadcast('refreshSlider'); 
 		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
