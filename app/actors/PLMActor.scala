@@ -140,7 +140,9 @@ class PLMActor(out: ActorRef) extends Actor {
   }
   
   def buggleWorldCellWrites(buggleWorldCell: BuggleWorldCell): JsValue = {
+    var color = buggleWorldCell.getColor
     Json.obj(
+      "color" -> List[Int](color.getRed, color.getGreen, color.getBlue, color.getAlpha),
       "hasBaggle" -> buggleWorldCell.hasBaggle(),
       "hasContent" -> buggleWorldCell.hasContent(),
       "hasLeftWall" -> buggleWorldCell.hasLeftWall(),

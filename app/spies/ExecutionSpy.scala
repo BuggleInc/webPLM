@@ -5,10 +5,18 @@ import play.Logger
 
 import plm.universe.World
 import plm.universe.IWorldView
+
 import plm.universe.Operation
+
+import plm.universe.GridWorldCell
+import plm.universe.GridWorldCellOperation
+
 import plm.universe.bugglequest.BuggleOperation
 import plm.universe.bugglequest.MoveBuggleOperation
 import plm.universe.bugglequest.ChangeBuggleDirection
+
+import plm.universe.bugglequest.BuggleWorldCellOperation
+import plm.universe.bugglequest.ChangeCellColor
 
 import actors.PLMActor
 
@@ -29,6 +37,47 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
     world.removeWorldUpdatesListener(this)
   }
   
+  implicit val gridWorldCellWrites = new Writes[GridWorldCell] {
+    def writes(gridWorldCell: GridWorldCell): JsValue = {
+      Json.obj(
+        "x" -> gridWorldCell.getX,
+        "y" -> gridWorldCell.getY
+      )
+    }
+  }
+  
+  def changeCellColorWrite(changeCellColor: ChangeCellColor): JsValue = {
+    var oldColor = changeCellColor.getOldColor
+    var newColor = changeCellColor.getNewColor
+    Json.obj(
+      "oldColor" -> List[Int](oldColor.getRed, oldColor.getGreen, oldColor.getBlue, oldColor.getAlpha),
+      "newColor" -> List[Int](newColor.getRed, newColor.getGreen, newColor.getBlue, newColor.getAlpha)
+    )
+  }
+  
+  def buggleWorldCellOperationWrite(buggleWorldCellOperation: BuggleWorldCellOperation): JsValue = {
+    buggleWorldCellOperation match {
+      case changeCellColor: ChangeCellColor =>
+        changeCellColorWrite(changeCellColor)
+      case _ =>
+        Json.obj(
+          "operation" -> "arf"    
+        )
+    }
+  }
+  
+  def gridWorldCellOperationWrite(gridWorldCellOperation: GridWorldCellOperation): JsValue = {
+    var json: JsValue = null
+    gridWorldCellOperation match {
+      case buggleWorldCellOperation: BuggleWorldCellOperation =>
+        json = buggleWorldCellOperationWrite(buggleWorldCellOperation)
+    }
+    json = json.as[JsObject] ++ Json.obj(
+        "cell" -> gridWorldCellOperation.getCell
+    )
+    return json
+  }
+  
   // Can't define a writer for each subclass 
   // Since it would be ambiguous which one to use
   // Have to define functions instead
@@ -38,6 +87,8 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
       operation match {
         case buggleOperation: BuggleOperation =>
           json = buggleOperationWrite(buggleOperation)
+        case gridWorldCellOperation: GridWorldCellOperation =>
+          json = gridWorldCellOperationWrite(gridWorldCellOperation)
         case _ =>
           Json.obj(
             "operation" -> "arf"    
