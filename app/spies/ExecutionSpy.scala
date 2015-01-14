@@ -8,6 +8,7 @@ import plm.universe.IWorldView
 import plm.universe.Operation
 import plm.universe.bugglequest.BuggleOperation
 import plm.universe.bugglequest.MoveBuggleOperation
+import plm.universe.bugglequest.ChangeBuggleDirection
 
 import actors.PLMActor
 
@@ -32,27 +33,39 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
   // Since it would be ambiguous which one to use
   // Have to define functions instead
   implicit object operationWrite extends Writes[Operation] {
-    def writes(operation: Operation) = operation match {
-      case buggleOperation: BuggleOperation =>
-        buggleOperationWrite(buggleOperation)
-      case _ =>
-        Json.obj(
-          "operation" -> "arf"    
-        )
+    def writes(operation: Operation): JsValue = {
+      var json: JsValue = null
+      operation match {
+        case buggleOperation: BuggleOperation =>
+          json = buggleOperationWrite(buggleOperation)
+        case _ =>
+          Json.obj(
+            "operation" -> "arf"    
+          )
+      }
+      json = json.as[JsObject] ++ Json.obj(
+        "type" -> operation.getName
+      )
+      return json
     }
   }
   
   def buggleOperationWrite(buggleOperation: BuggleOperation): JsValue = {
+    var json: JsValue = null
     buggleOperation match {
       case moveBuggleOperation: MoveBuggleOperation =>
-        moveBuggleOperationWrite(moveBuggleOperation)
+        json = moveBuggleOperationWrite(moveBuggleOperation)
+      case changeBuggleDirection: ChangeBuggleDirection =>
+        json = changeBuggleDirectionWrite(changeBuggleDirection)
     }
+    json = json.as[JsObject] ++ Json.obj(
+      "buggleID" -> buggleOperation.getBuggle.getName
+    )
+    return json
   }
   
   def moveBuggleOperationWrite(moveBuggleOperation: MoveBuggleOperation): JsValue = {
     Json.obj(
-      "type" -> moveBuggleOperation.getName(),
-      "buggleID" -> moveBuggleOperation.getBuggle().getName(),
       "oldX" -> moveBuggleOperation.getOldX(),
       "oldY" -> moveBuggleOperation.getOldY(),
       "newX" -> moveBuggleOperation.getNewX(),
@@ -60,6 +73,13 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
     )
   }
 
+  def changeBuggleDirectionWrite(changeBuggleDirection: ChangeBuggleDirection): JsValue = {
+    Json.obj(
+      "oldDirection" -> changeBuggleDirection.getOldDirection.intValue(),
+      "newDirection" -> changeBuggleDirection.getNewDirection.intValue()
+    )
+  }
+  
   /**
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */

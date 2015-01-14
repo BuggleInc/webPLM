@@ -362,6 +362,9 @@
 					case 'moveBuggleOperation':
 						result = new MoveBuggleOperation(operation.buggleID, operation.newX, operation.newY, operation.oldX, operation.oldY);
 						break;
+					case 'changeBuggleDirection':
+						result = new ChangeBuggleDirection(operation.buggleID, operation.newDirection, operation.oldDirection);
+						break;
 				}
 				step.push(result);
 			}
@@ -424,6 +427,22 @@
 		buggle.y = this.oldY;
 	};
 	
+	var ChangeBuggleDirection = function (buggleID, newDirection, oldDirection) {
+		this.buggleID = buggleID;
+		this.newDirection = newDirection;
+		this.oldDirection = oldDirection;
+	};
+	
+	ChangeBuggleDirection.prototype.apply = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.setDirection(this.newDirection);
+	};
+	
+	ChangeBuggleDirection.prototype.reverse = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.setDirection(this.oldDirection);
+	};
+	
 	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
 		this.x = x;
 		this.y = y;
@@ -466,6 +485,10 @@
 		this.x = x;
 		this.y = y;
 		this.color = color;
+		this.setDirection(direction)
+	};
+	
+	Buggle.prototype.setDirection = function (direction) {
 		switch(direction) {
 			case Direction.NORTH_VALUE:
 				this.src = '/assets/images/buggle-top.svg';
