@@ -374,6 +374,12 @@
 					case 'moveBuggleOperation':
 						result = new MoveBuggleOperation(operation.buggleID, operation.newX, operation.newY, operation.oldX, operation.oldY);
 						break;
+					case 'changeBuggleDirection':
+						result = new ChangeBuggleDirection(operation.buggleID, operation.newDirection, operation.oldDirection);
+						break;
+					case 'changeCellColor': 
+						result = new ChangeCellColor(operation.cell.x, operation.cell.y, operation.newColor, operation.oldColor);
+						break;
 				}
 				step.push(result);
 			}
@@ -453,9 +459,26 @@
 		buggle.y = this.oldY;
 	};
 	
-	var BuggleWorldCell = function(x, y, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
+	var ChangeBuggleDirection = function (buggleID, newDirection, oldDirection) {
+		this.buggleID = buggleID;
+		this.newDirection = newDirection;
+		this.oldDirection = oldDirection;
+	};
+	
+	ChangeBuggleDirection.prototype.apply = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.setDirection(this.newDirection);
+	};
+	
+	ChangeBuggleDirection.prototype.reverse = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.setDirection(this.oldDirection);
+	};
+	
+	var BuggleWorldCell = function(x, y, color, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
 		this.x = x;
 		this.y = y;
+		this.color = color;
 		this.hasBaggle = hasBaggle;
 		this.hasContent = hasContent;
 		this.hasLeftWall = hasLeftWall;
@@ -469,13 +492,15 @@
 		var xRight = canvasWidth/width*(this.x+1);
 		var yBottom = canvasHeight/height*(this.y+1);
 		
-		if((this.x+this.y)%2 === 0) {
-			ctx.fillStyle = "rgb(230, 230, 230)";
+		ctx.fillStyle = 'rgba('+this.color.join(',')+')';
+		if(this.color[0] === 255 && this.color[1] === 255 && this.color[2] === 255 && this.color[3] === 255) {
+			if((this.x+this.y)%2 === 0) {
+				ctx.fillStyle = "rgb(230, 230, 230)";
+			}
+			else {
+				ctx.fillStyle = "rgb(255, 255, 255)";
+			}
 		}
-		else {
-			ctx.fillStyle = "rgb(255, 255, 255)";
-		}
-		
 		ctx.fillRect(xLeft, yTop, xRight, yBottom);
 		ctx.lineWidth = 10;
 		ctx.strokeStyle = "blue";
@@ -493,6 +518,10 @@
 		this.x = x;
 		this.y = y;
 		this.color = color;
+		this.setDirection(direction)
+	};
+	
+	Buggle.prototype.setDirection = function (direction) {
 		switch(direction) {
 			case Direction.NORTH_VALUE:
 				this.src = '/assets/images/buggle-top.svg';
@@ -521,8 +550,8 @@
 	};
 	
 	Buggle.prototype.drawBuggleImage = function (ctx, img, canvasWidth, canvasHeight, width, height) {
-		var imgWidth = canvasWidth/width*0.8;
-		var imgHeight = canvasHeight/height*0.8;
+		var imgWidth = canvasWidth/width*0.7;
+		var imgHeight = canvasHeight/height*0.7;
 		
 		var xLeft = canvasWidth/width*this.x +imgWidth/width;
 		var yTop = canvasHeight/height*this.y +imgHeight/height;
@@ -531,8 +560,8 @@
 		var imgData = ctx.getImageData(xLeft, yTop, imgWidth, imgHeight);
 		var data = imgData.data;
 		for(var i=0; i<data.length; i += 4) {
-			// Ignore image's "white" pixels
-			if( !( (data[i] === 255 && data[i+1] === 255 && data[i+2] === 255) || (data[i] === 230 && data[i+1] === 230 && data[i+2] === 230) ) ) {
+			// Only update buggle's pixels
+			if(data[i] === 0 && data[i+1] === 0 && data[i+2] === 0) {
 				data[i] = this.color[0];
 				data[i+1] = this.color[1];
 				data[i+2] = this.color[2];
@@ -554,7 +583,7 @@
 			this.cells[i] = [];
 			for(var j=0; j<height; j++) {
 				var cell = cells[i][j];
-				this.cells[i][j] = new BuggleWorldCell(cell.x, cell.y, cell.hasBaggle, cell.hasContent, cell.hasLeftWall, cell.hasTopWall);
+				this.cells[i][j] = new BuggleWorldCell(cell.x, cell.y, cell.color, cell.hasBaggle, cell.hasContent, cell.hasLeftWall, cell.hasTopWall);
 			}
 		}
 		
@@ -575,6 +604,32 @@
 				this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 			}
 		}
+		
+		ctx.lineWidth = 10;
+		ctx.strokeStyle = 'blue';
+		
+		// frontier walls (since the world is a torus)
+		for (var y = 0; y < this.height; y++) {
+			if (this.cells[0][y].hasLeftWall) {
+				var xLeft = canvasWidth;
+				var yTop = canvasHeight/this.height*y;
+				var yBottom = canvasHeight/this.height*(y+1);
+				ctx.moveTo(xLeft, yTop);
+				ctx.lineTo(xLeft, yBottom);		
+			}
+		}
+		
+		for (var x = 0; x < this.width; x++) {
+			if (this.cells[x][0].hasTopWall) {
+				var xLeft = canvasWidth/this.width*x;
+				var xRight = canvasWidth/this.width*(x+1);
+				var yTop = canvasHeight;
+				ctx.moveTo(xLeft, yTop);
+				ctx.lineTo(xRight, yTop);		
+			}
+		}
+		
+		ctx.stroke();
 		
 		for(var buggleID in this.buggles) {
 			this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
