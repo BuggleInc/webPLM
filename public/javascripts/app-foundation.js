@@ -158,9 +158,7 @@
 		
 		function update() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.beginPath();
 			currentWorld.draw(ctx, canvas.width, canvas.height);
-			ctx.stroke();
 		}
 	}
 	
@@ -323,7 +321,8 @@
 	    
 	    function setCurrentWorld() {
 	    	exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
-			canvas.setWorld(exercise.currentWorld);
+	    	exercise.currentState = exercise.currentWorld.currentState;
+	    	canvas.setWorld(exercise.currentWorld);
 	    }
 	    
 		function runCode() {
@@ -415,8 +414,6 @@
 			canvas.update();
 		}
 		
-		$scope.$broadcast('refreshSlider'); 
-		
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
     	});
@@ -502,8 +499,9 @@
 			}
 		}
 		ctx.fillRect(xLeft, yTop, xRight, yBottom);
-		ctx.lineWidth = 10;
-		ctx.strokeStyle = "blue";
+		ctx.beginPath();
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = 'SteelBlue';
 		if(this.hasLeftWall) {
 			ctx.moveTo(xLeft, yTop);
 			ctx.lineTo(xLeft, yBottom);
@@ -512,6 +510,7 @@
 			ctx.moveTo(xLeft, yTop);
 			ctx.lineTo(xRight, yTop);
 		}
+		ctx.stroke();
 	};
 	
 	var Buggle = function (x, y, color, direction) {
@@ -605,8 +604,10 @@
 			}
 		}
 		
-		ctx.lineWidth = 10;
-		ctx.strokeStyle = 'blue';
+		ctx.beginPath();
+		
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = 'SteelBlue';
 		
 		// frontier walls (since the world is a torus)
 		for (var y = 0; y < this.height; y++) {
