@@ -148,8 +148,6 @@
 		function init() {
 			canvas = document.getElementById('worldView');
 			ctx = canvas.getContext('2d');
-			bw = canvas.width;
-			bh = canvas.height;
 			p = 0;
 		}
 		
@@ -159,7 +157,10 @@
 		}
 		
 		function update() {
-			currentWorld.draw(ctx, bw, bh);
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.beginPath();
+			currentWorld.draw(ctx, canvas.width, canvas.height);
+			ctx.stroke();
 		}
 	}
 	
@@ -250,7 +251,8 @@
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
 		exercise.currentWorld = null;
-		exercise.worldNames = []; // Mandatory to generate dynamically the select
+		exercise.currentWorldID = null;
+		exercise.worldIDs = []; // Mandatory to generate dynamically the select
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
 		exercise.currentState = -1;
@@ -260,7 +262,8 @@
 		exercise.replay = replay;
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
-				
+		exercise.setCurrentWorld = setCurrentWorld;
+		
 		function getExercise() {
 			var args = {
 					lessonID: exercise.lessonID,
@@ -313,15 +316,14 @@
 						break;
 				}
 			}
-			
-			console.log('exercise: ', exercise);
-			
 			canvas.init();
-			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
+			setCurrentWorld();
+			exercise.worldIDs = Object.keys(exercise.currentWorlds);
+	    }
+	    
+	    function setCurrentWorld() {
+	    	exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
 			canvas.setWorld(exercise.currentWorld);
-			
-			exercise.worldNames = Object.keys(exercise.currentWorlds);
-			console.log('Object.keys(exercise.currentWorlds): ', exercise.worldNames);
 	    }
 	    
 		function runCode() {
@@ -475,8 +477,7 @@
 		}
 		
 		ctx.fillRect(xLeft, yTop, xRight, yBottom);
-		
-		ctx.lineWidth = 30;
+		ctx.lineWidth = 10;
 		ctx.strokeStyle = "blue";
 		if(this.hasLeftWall) {
 			ctx.moveTo(xLeft, yTop);
@@ -486,7 +487,6 @@
 			ctx.moveTo(xLeft, yTop);
 			ctx.lineTo(xRight, yTop);
 		}
-		ctx.stroke();
 	};
 	
 	var Buggle = function (x, y, color, direction) {
