@@ -32,8 +32,8 @@
 	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', ExerciseController])
 	.directive('lessonGallery', lessonGallery)
 	.directive('lessonOverview', lessonOverview)
-	.directive('worldsView', worldsView);
-	
+	.directive('worldsView', worldsView)
+	.directive('animationPlayer', animationPlayer);
 	
 	function listenersHandler($rootScope, connection) {
 		var registeredListeners = [];
@@ -182,8 +182,14 @@
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/worlds-view.html'
 		};
-	};
+	}
 	
+	function animationPlayer() {
+		return {
+			restrict: 'E',
+			templateUrl: '/assets/templates-foundation/animation-player.html'
+		};
+	}
 	
 	function HomeController($http, $scope, $sce, connection, listenersHandler) {
 	    var home = this;
@@ -306,9 +312,6 @@
 						break;
 				}
 			}
-			
-			console.log('exercise: ', exercise);
-			
 			canvas.init();
 			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
 			canvas.setWorld(exercise.currentWorld);
@@ -423,8 +426,8 @@
 	};
 	
 	ChangeCellColor.prototype.reverse = function (currentWorld) {
-		var cell = currentWorld.cells[x][y];
-		cell.color = oldColor;
+		var cell = currentWorld.cells[this.x][this.y];
+		cell.color = this.oldColor;
 	};
 	
 	var MoveBuggleOperation = function (buggleID, newX, newY, oldX, oldY) {
