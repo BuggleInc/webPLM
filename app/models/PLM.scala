@@ -47,6 +47,10 @@ object PLM {
     addExecutionSpy(exo, spy)
     _currentExercise = exo;
     
+    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
+      initialWorld.setDelay(0)
+    }
+    
     return lect
   }
   
@@ -59,6 +63,10 @@ object PLM {
     addExecutionSpy(exo, spy)
     _currentExercise = exo;
     
+    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
+      initialWorld.setDelay(0)
+    }
+    
     return lect
   }
   
@@ -68,7 +76,7 @@ object PLM {
   
   def addExecutionSpy(exo: Exercise, spy: ExecutionSpy) {
     // Adding the executionSpy to the current worlds
-    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).toList.foreach { world => 
+    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).foreach { world =>
       var executionSpy: ExecutionSpy = spy.clone()
       executionSpy.setWorld(world)
     }

@@ -120,7 +120,8 @@ class PLMActor(out: ActorRef) extends Actor {
       "x" -> abstractBuggle.getX,
       "y" -> abstractBuggle.getY,
       "color" -> List[Int](abstractBuggle.getCouleurCorps.getRed, abstractBuggle.getCouleurCorps.getGreen, abstractBuggle.getCouleurCorps.getBlue, abstractBuggle.getCouleurCorps.getAlpha),
-      "direction" -> abstractBuggle.getDirection.intValue
+      "direction" -> abstractBuggle.getDirection.intValue,
+      "carryBaggle" -> abstractBuggle.isCarryingBaggle()
     )
   }
   

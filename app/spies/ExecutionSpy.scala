@@ -14,9 +14,11 @@ import plm.universe.GridWorldCellOperation
 import plm.universe.bugglequest.BuggleOperation
 import plm.universe.bugglequest.MoveBuggleOperation
 import plm.universe.bugglequest.ChangeBuggleDirection
+import plm.universe.bugglequest.ChangeBuggleCarryBaggle
 
 import plm.universe.bugglequest.BuggleWorldCellOperation
 import plm.universe.bugglequest.ChangeCellColor
+import plm.universe.bugglequest.ChangeCellHasBaggle
 
 import actors.PLMActor
 
@@ -46,6 +48,13 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
     }
   }
   
+  def changeCellHasBaggleWrite(changeCellHasBaggle: ChangeCellHasBaggle): JsValue = {
+    Json.obj(
+      "oldHasBaggle" -> changeCellHasBaggle.getOldHasBaggle,
+      "newHasBaggle" -> changeCellHasBaggle.getNewHasBaggle
+    )
+  }
+  
   def changeCellColorWrite(changeCellColor: ChangeCellColor): JsValue = {
     var oldColor = changeCellColor.getOldColor
     var newColor = changeCellColor.getNewColor
@@ -59,6 +68,8 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
     buggleWorldCellOperation match {
       case changeCellColor: ChangeCellColor =>
         changeCellColorWrite(changeCellColor)
+      case changeCellHasBaggle: ChangeCellHasBaggle =>
+        changeCellHasBaggleWrite(changeCellHasBaggle)
       case _ =>
         Json.obj(
           "operation" -> "arf"    
@@ -108,6 +119,8 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
         json = moveBuggleOperationWrite(moveBuggleOperation)
       case changeBuggleDirection: ChangeBuggleDirection =>
         json = changeBuggleDirectionWrite(changeBuggleDirection)
+      case changeBuggleCarryBaggle: ChangeBuggleCarryBaggle =>
+        json = changeBuggleCarryBaggleWrite(changeBuggleCarryBaggle)
     }
     json = json.as[JsObject] ++ Json.obj(
       "buggleID" -> buggleOperation.getBuggle.getName
@@ -124,6 +137,13 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
     )
   }
 
+  def changeBuggleCarryBaggleWrite(changeBuggleCarryBaggle: ChangeBuggleCarryBaggle): JsValue = {
+    Json.obj(
+      "oldCarryBaggle" -> changeBuggleCarryBaggle.getOldCarryBaggle,
+      "newCarryBaggle" -> changeBuggleCarryBaggle.getNewCarryBaggle
+    )
+  }
+  
   def changeBuggleDirectionWrite(changeBuggleDirection: ChangeBuggleDirection): JsValue = {
     Json.obj(
       "oldDirection" -> changeBuggleDirection.getOldDirection.intValue(),

@@ -376,8 +376,14 @@
 					case 'changeBuggleDirection':
 						result = new ChangeBuggleDirection(operation.buggleID, operation.newDirection, operation.oldDirection);
 						break;
+					case 'changeBuggleCarryBaggle':
+						result = new ChangeBuggleDirection(operation.buggleID, operation.newCarryBaggle, operation.oldCarryBaggle);
+						break;
 					case 'changeCellColor': 
 						result = new ChangeCellColor(operation.cell.x, operation.cell.y, operation.newColor, operation.oldColor);
+						break;
+					case 'changeCellHasBaggle': 
+						result = new ChangeCellHasBaggle(operation.cell.x, operation.cell.y, operation.newHasBaggle, operation.oldHasBaggle);
 						break;
 				}
 				step.push(result);
@@ -419,6 +425,23 @@
     	});
 	};
 	
+	var ChangeCellHasBaggle = function (x, y, newHasBaggle, oldHasBaggle) {
+		this.x = x;
+		this.y = y;
+		this.newHasBaggle = newHasBaggle;
+		this.oldHasBaggle = oldHasBaggle;
+	};
+	
+	ChangeCellHasBaggle.prototype.apply = function (currentWorld) {
+		var cell = currentWorld.cells[this.x][this.y];
+		cell.hasBaggle = this.newHasBaggle;
+	};
+	
+	ChangeCellHasBaggle.prototype.reverse = function (currentWorld) {
+		var cell = currentWorld.cells[this.x][this.y];
+		cell.hasBaggle = this.oldHasBaggle;
+	};
+	
 	var ChangeCellColor = function (x, y, newColor, oldColor) {
 		this.x = x;
 		this.y = y;
@@ -434,6 +457,22 @@
 	ChangeCellColor.prototype.reverse = function (currentWorld) {
 		var cell = currentWorld.cells[this.x][this.y];
 		cell.color = this.oldColor;
+	};
+	
+	var ChangeBuggleCarryBaggle = function (buggleID, newCarryBaggle, oldCarryBaggle) {
+		this.buggleID = buggleID;
+		this.newCarryBaggle = newCarryBaggle;
+		this.oldCarryBaggle = oldCarryBaggle;
+	};
+	
+	ChangeBuggleCarryBaggle.prototype.apply = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.carryBaggle = this.newCarryBaggle;
+	};
+	
+	ChangeBuggleCarryBaggle.prototype.reverse = function (currentWorld) {
+		var buggle = currentWorld.buggles[this.buggleID];
+		buggle.carryBaggle = this.oldCarryBaggle;
 	};
 	
 	var MoveBuggleOperation = function (buggleID, newX, newY, oldX, oldY) {
@@ -486,6 +525,9 @@
 		var xLeft = canvasWidth/width*this.x;
 		var yTop = canvasHeight/height*this.y;
 		
+		var padX = canvasWidth/width/2;
+		var padY = canvasHeight/height/2;
+		
 		var xRight = canvasWidth/width*(this.x+1);
 		var yBottom = canvasHeight/height*(this.y+1);
 		
@@ -510,14 +552,26 @@
 			ctx.moveTo(xLeft, yTop);
 			ctx.lineTo(xRight, yTop);
 		}
+		
 		ctx.stroke();
+		ctx.closePath();
+	
+		if(this.hasBaggle) {
+			ctx.beginPath(); 
+			ctx.fillStyle=DefaultColors.BAGGLE;
+			ctx.arc(xLeft+padX, yTop+padY, 30, 0, Math.PI*2, true);
+			ctx.arc(xLeft+padX, yTop+padY, 15, 0, Math.PI*2, true);
+			ctx.fill('evenodd');
+			ctx.closePath();
+		}
 	};
 	
-	var Buggle = function (x, y, color, direction) {
+	var Buggle = function (x, y, color, direction, carryBaggle) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
 		this.setDirection(direction)
+		this.carryBaggle = carryBaggle;
 	};
 	
 	Buggle.prototype.setDirection = function (direction) {
@@ -589,7 +643,7 @@
 		this.buggles = {};
 		for(var buggleID in buggles) {
 			var buggle = buggles[buggleID]
-			this.buggles[buggleID] = new Buggle(buggle.x, buggle.y, buggle.color, buggle.direction);
+			this.buggles[buggleID] = new Buggle(buggle.x, buggle.y, buggle.color, buggle.direction, buggle.carryBaggle);
 		}
 	};
 	
@@ -631,7 +685,7 @@
 		}
 		
 		ctx.stroke();
-		
+		ctx.closePath();
 		for(var buggleID in this.buggles) {
 			this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 		}
@@ -658,6 +712,10 @@
 			}
 			this.currentState = state;
 		}
+	};
+	
+	var DefaultColors = {
+		BAGGLE: 'rgb(209, 105, 31);'
 	};
 	
 	var OutcomeKind = {
