@@ -32,8 +32,8 @@
 	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', ExerciseController])
 	.directive('lessonGallery', lessonGallery)
 	.directive('lessonOverview', lessonOverview)
-	.directive('worldsView', worldsView);
-	
+	.directive('worldsView', worldsView)
+	.directive('animationPlayer', animationPlayer);
 	
 	function listenersHandler($rootScope, connection) {
 		var registeredListeners = [];
@@ -182,8 +182,14 @@
 			restrict: 'E',
 			templateUrl: '/assets/templates-foundation/worlds-view.html'
 		};
-	};
+	}
 	
+	function animationPlayer() {
+		return {
+			restrict: 'E',
+			templateUrl: '/assets/templates-foundation/animation-player.html'
+		};
+	}
 	
 	function HomeController($http, $scope, $sce, connection, listenersHandler) {
 	    var home = this;
@@ -244,6 +250,7 @@
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
 		exercise.currentWorld = null;
+		exercise.worldNames = []; // Mandatory to generate dynamically the select
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
 		exercise.currentState = -1;
@@ -253,7 +260,7 @@
 		exercise.replay = replay;
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
-		
+				
 		function getExercise() {
 			var args = {
 					lessonID: exercise.lessonID,
@@ -312,6 +319,9 @@
 			canvas.init();
 			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
 			canvas.setWorld(exercise.currentWorld);
+			
+			exercise.worldNames = Object.keys(exercise.currentWorlds);
+			console.log('Object.keys(exercise.currentWorlds): ', exercise.worldNames);
 	    }
 	    
 		function runCode() {
@@ -402,6 +412,23 @@
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
     	});
+	};
+	
+	var ChangeCellColor = function (x, y, newColor, oldColor) {
+		this.x = x;
+		this.y = y;
+		this.newColor = newColor;
+		this.oldColor = oldColor;
+	};
+	
+	ChangeCellColor.prototype.apply = function (currentWorld) {
+		var cell = currentWorld.cells[this.x][this.y];
+		cell.color = this.newColor;
+	};
+	
+	ChangeCellColor.prototype.reverse = function (currentWorld) {
+		var cell = currentWorld.cells[this.x][this.y];
+		cell.color = this.oldColor;
 	};
 	
 	var MoveBuggleOperation = function (buggleID, newX, newY, oldX, oldY) {
