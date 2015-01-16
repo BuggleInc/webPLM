@@ -1,6 +1,6 @@
 package models
 
-import spies.ExecutionSpy
+import spies._
 
 import plm.core.model.Game
 import plm.core.model.lesson.Lesson
@@ -26,9 +26,7 @@ object PLM {
   var _lessons : List[Lesson] = game.getLessons.toArray(Array[Lesson]()).toList
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
   var _currentExercise : Exercise = _
-  
-  var currentExecutionSpies: Map[World, ExecutionSpy] = Map()
-  
+    
   def game : Game = _game
   def lessons: List[Lesson] = _lessons
   
@@ -38,33 +36,35 @@ object PLM {
     return programmingLanguages.toList
   }
   
-  def switchLesson(lessonID: String, spy: ExecutionSpy): Lecture = {
+  def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, spy)
+    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
     
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
+      initialWorld.setDelay(100)
     }
     
     return lect
   }
   
-  def switchExercise(lessonID: String, exerciseID: String, spy: ExecutionSpy): Lecture = {
+  def switchExercise(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, spy)
+    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
     
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
+      initialWorld.setDelay(100)
     }
     
     return lect
@@ -74,19 +74,12 @@ object PLM {
     return game.getSelectedWorld.getName
   }
   
-  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy) {
+  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy, kind: WorldKind) {
     // Adding the executionSpy to the current worlds
-    exo.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).foreach { world =>
-      var executionSpy: ExecutionSpy = spy.clone()
-      executionSpy.setWorld(world)
+    exo.getWorlds(kind).toArray(Array[World]()).foreach { world =>
+      var worldSpy: ExecutionSpy = spy.clone()
+      worldSpy.setWorld(world)
     }
-  }
-  
-  def removeExecutionSpies() {
-    currentExecutionSpies.foreach((e: (World, ExecutionSpy)) => 
-      e._1.removeWorldUpdatesListener(e._2)
-    )
-    currentExecutionSpies.empty
   }
   
   def getInitialWorlds(): List[World] = {
@@ -103,6 +96,12 @@ object PLM {
     exo.getSourceFile(programmingLanguage, 0).setBody(code)
     _game.startExerciseExecution()
 
+  }
+  
+  def runDemo(lessonID: String, exerciseID: String) {
+    var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+        
+    _game.startExerciseDemoExecution()
   }
   
   def stopExecution() {

@@ -248,6 +248,8 @@
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
+		exercise.answerWorlds = {};
+		exercise.currentWorlds = {};
 		exercise.currentWorld = null;
 		exercise.currentWorldID = null;
 		exercise.worldIDs = []; // Mandatory to generate dynamically the select
@@ -255,6 +257,7 @@
 		exercise.timer = 1000;
 		exercise.currentState = -1;
 		
+		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
 		exercise.replay = replay;
@@ -287,8 +290,18 @@
 	    		case 'executionResult': 
 	    			displayResult(args.msgType, args.msg);
 	    			break;
+	    		case 'demoEnded':
+	    			console.log('The demo ended!');
+	    			exercise.isRunning = false;
+	    			break;
 	    		case 'operations':
-	    			storeOperations(args.worldID, args.operations);
+	    			storeOperations(args.worldID, args.operations, 'current');
+	    			if(exercise.updateViewLoop === null) {
+	    				startUpdateViewLoop();
+	    			}
+	    			break;
+	    		case 'demoOperations':
+	    			storeOperations(args.worldID, args.operations, 'answer');
 	    			if(exercise.updateViewLoop === null) {
 	    				startUpdateViewLoop();
 	    			}
@@ -301,18 +314,18 @@
 			exercise.description = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
 			exercise.currentWorldID = data.selectedWorldID;
-			exercise.initialWorlds = {};
-			exercise.currentWorlds = {};
 			for(var worldID in data.initialWorlds) {
 				exercise.initialWorlds[worldID] = {};
 				var initialWorld = data.initialWorlds[worldID];
+				var world;
 				switch(initialWorld.type) {
 					case 'BuggleWorld':
-						var world = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities);
-						exercise.initialWorlds[worldID] = world;
-						exercise.currentWorlds[worldID] = world.clone();
+						world = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities);
 						break;
 				}
+				exercise.initialWorlds[worldID] = world;
+				exercise.answerWorlds[worldID] = world.clone();
+				exercise.currentWorlds[worldID] = world.clone();
 			}
 			canvas.init();
 			setCurrentWorld();
@@ -323,6 +336,17 @@
 	    	exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
 	    	exercise.currentState = exercise.currentWorld.currentState;
 	    	canvas.setWorld(exercise.currentWorld);
+	    }
+	    
+	    function runDemo() {
+	    	exercise.isPlaying = true;
+			reset(false);
+			var args = {
+					lessonID: exercise.lessonID,
+					exerciseID: exercise.id,
+			};
+			connection.sendMessage('runDemo', args);
+			exercise.isRunning = true;
 	    }
 	    
 		function runCode() {
@@ -364,7 +388,7 @@
 		}
 		
 		
-		function storeOperations(worldID, operations) {
+		function storeOperations(worldID, operations, worldType) {
 			var step = [];
 			for(var i=0; i<operations.length; i++) {
 				var operation = operations[i];
@@ -388,7 +412,7 @@
 				}
 				step.push(result);
 			}
-			exercise.currentWorlds[worldID].operations.push(step);
+			exercise[worldType+'Worlds'][worldID].operations.push(step);
 		}
 		
 		function startUpdateViewLoop() {

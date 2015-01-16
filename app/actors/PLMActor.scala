@@ -6,12 +6,12 @@ import play.api.mvc.RequestHeader
 import play.Logger
 
 import models.PLM
-import spies.ExecutionResultSpy
-import spies.ExecutionSpy
+import spies._
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
 import plm.universe.Entity
 import plm.universe.World
+import plm.universe.IWorldView
 import plm.universe.GridWorld
 import plm.universe.GridWorldCell
 import plm.universe.bugglequest.BuggleWorld
@@ -25,9 +25,9 @@ object PLMActor {
 class PLMActor(out: ActorRef) extends Actor {
   
   var isProgressSpyAdded: Boolean = false
-  var resultSpy: ExecutionResultSpy = new ExecutionResultSpy(this)
+  var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
+  PLM.game.addGameStateListener(resultSpy)
   var registeredSpies: List[ExecutionSpy] = List()
-  PLM.addProgressSpyListener(resultSpy)
   
   def receive = {
     case msg: JsValue =>
@@ -43,14 +43,16 @@ class PLMActor(out: ActorRef) extends Actor {
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
             case (lessonID:String, exerciseID: String) =>
-              var executionSpy: ExecutionSpy = new ExecutionSpy(this)
-              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchExercise(lessonID, exerciseID, executionSpy))))
+              var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
+              var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
+              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy, demoExecutionSpy))))
               var res: JsValue = createMessage("exercise", mapArgs)
               Logger.debug(Json.stringify(res))
               out ! res
             case (lessonID:String, _) =>
-              var executionSpy: ExecutionSpy = new ExecutionSpy(this)
-              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy))))
+              var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
+              var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
+              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy, demoExecutionSpy))))
               sendMessage("exercise", mapArgs)
             case (_, _) =>
               Logger.debug("getExercise: non-correct JSON")
@@ -64,6 +66,15 @@ class PLMActor(out: ActorRef) extends Actor {
               PLM.runExercise(lessonID, exerciseID, code)
             case (_, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
+          }
+        case "runDemo" =>
+          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
+          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
+          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
+            case (lessonID:String, exerciseID: String) =>
+              PLM.runDemo(lessonID, exerciseID)
+            case (_, _) =>
+              Logger.debug("runDemo: non-correctJSON")
           }
         case "stopExecution" =>
           PLM.stopExecution
@@ -88,8 +99,8 @@ class PLMActor(out: ActorRef) extends Actor {
   }
   
   override def postStop() = {
-    Logger.debug("postStop: websocket closed - removing the resultSpy")
-    PLM.removeProgressSpyListener(resultSpy)
+    Logger.debug("postStop: websocket closed - removing the spies")
+    PLM.game.removeGameStateListener(resultSpy)
     registeredSpies.foreach { spy => spy.unregister }
   }
   

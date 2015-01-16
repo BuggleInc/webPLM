@@ -22,15 +22,15 @@ import plm.universe.bugglequest.ChangeCellHasBaggle
 
 import actors.PLMActor
 
-class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
+class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
   var world: World = _
-  
+    
   override def clone(): ExecutionSpy = {
-    return new ExecutionSpy(plmActor)
+    return new ExecutionSpy(plmActor, messageID)
   }
   
-  def setWorld(world: World) {
-    this.world = world
+  def setWorld(w: World) {
+    world = w
     world.addWorldUpdatesListener(this)
     plmActor.registerSpy(this)
   }
@@ -162,9 +162,9 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
         "worldID" -> world.getName,
         "operations" -> world.operations.toArray(Array[Operation]()).toList
       )
-      Logger.debug(Json.stringify(mapArgs))
+      //Logger.debug(Json.stringify(mapArgs))
       world.operations.clear()
-      plmActor.sendMessage("operations", mapArgs)
+      plmActor.sendMessage(messageID, mapArgs)
     
     }
   }
@@ -175,6 +175,4 @@ class ExecutionSpy(plmActor: PLMActor) extends IWorldView {
   def worldHasChanged() {
     // Do not care?
   }
-  
-  
 }
