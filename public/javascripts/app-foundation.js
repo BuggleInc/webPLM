@@ -244,6 +244,7 @@
 		exercise.id = $stateParams.exerciseID;
 		exercise.isRunning = false;
 		exercise.isPlaying = false;
+		exercise.playedDemo = false;
 		exercise.description = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
@@ -252,6 +253,7 @@
 		exercise.currentWorlds = {};
 		exercise.currentWorld = null;
 		exercise.currentWorldID = null;
+		exercise.worldType = 'current';
 		exercise.worldIDs = []; // Mandatory to generate dynamically the select
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
@@ -293,6 +295,7 @@
 	    		case 'demoEnded':
 	    			console.log('The demo ended!');
 	    			exercise.isRunning = false;
+	    			exercise.playedDemo = true;
 	    			break;
 	    		case 'operations':
 	    			storeOperations(args.worldID, args.operations, 'current');
@@ -328,30 +331,41 @@
 				exercise.currentWorlds[worldID] = world.clone();
 			}
 			canvas.init();
-			setCurrentWorld();
+			setCurrentWorld('current');
 			exercise.worldIDs = Object.keys(exercise.currentWorlds);
 	    }
 	    
-	    function setCurrentWorld() {
-	    	exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
+	    function setCurrentWorld(worldType) {
+	    	exercise.worldType = worldType;
+	    	exercise.currentWorld = exercise[exercise.worldType+'Worlds'][exercise.currentWorldID];
 	    	exercise.currentState = exercise.currentWorld.currentState;
 	    	canvas.setWorld(exercise.currentWorld);
 	    }
 	    
 	    function runDemo() {
 	    	exercise.isPlaying = true;
-			reset(false);
-			var args = {
-					lessonID: exercise.lessonID,
-					exerciseID: exercise.id,
-			};
-			connection.sendMessage('runDemo', args);
-			exercise.isRunning = true;
+	    	setCurrentWorld('answer');
+	    	if(!exercise.playedDemo) {
+				var args = {
+						lessonID: exercise.lessonID,
+						exerciseID: exercise.id,
+				};
+				connection.sendMessage('runDemo', args);
+				exercise.isRunning = true;
+	    	}
+	    	else {
+	    		// We don't need to query the server again
+	    		// Just to replay the animation
+	    		replay();
+	    	}
 	    }
 	    
 		function runCode() {
 			exercise.isPlaying = true;
-			reset(false);
+			//reset(false);
+			exercise.worldIDs.map(function(key) {
+				reset(key, 'current', false);
+			});
 			var args = {
 					lessonID: exercise.lessonID,
 					exerciseID: exercise.id,
@@ -370,12 +384,12 @@
 			exercise.isRunning = false;
 		}
 		
-		function reset(keepOperations) {
+		function reset(worldID, worldType, keepOperations) {
 			// We may want to keep the operations in order to replay the execution
-			var operations = keepOperations === true ? exercise.currentWorld.operations : [];
-			var currentInitialWorld = exercise.initialWorlds[exercise.currentWorldID];
-			exercise.currentWorlds[exercise.currentWorldID] = currentInitialWorld.clone();
-			exercise.currentWorld = exercise.currentWorlds[exercise.currentWorldID];
+			var operations = keepOperations === true ? exercise[worldType+'Worlds'][worldID].operations : [];
+			var initialWorld = exercise.initialWorlds[worldID];
+			exercise[worldType+'Worlds'][worldID] = initialWorld.clone();
+			exercise.currentWorld = exercise[worldType+'Worlds'][worldID];
 			exercise.currentWorld.operations = operations;
 			exercise.currentState = -1;
 			canvas.setWorld(exercise.currentWorld);
@@ -383,7 +397,7 @@
 		
 		function replay() {
 			exercise.isPlaying = true;
-			reset(true);
+			reset(exercise.currentWorldID, exercise.worldType, true);
 			startUpdateViewLoop();
 		}
 		

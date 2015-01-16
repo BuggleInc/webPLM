@@ -1,6 +1,12 @@
 <div class="row">
-  <select ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld()">
+  <select ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
   </select>
+</div>
+<div class="row">
+  <dl class="tabs" data-tab>
+	  <dd ng-class="{ active: exercise.worldType === 'current' }" ng-click="exercise.setCurrentWorld('current')"><a>Monde</a></dd>
+	  <dd ng-class="{ active: exercise.worldType === 'answer' }" ng-click="exercise.setCurrentWorld('answer')"><a>Objectif</a></dd>
+	</dl>
 </div>
 <div class="row">
   <canvas id="worldView" width="400" height="400">
