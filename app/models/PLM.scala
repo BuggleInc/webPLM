@@ -18,10 +18,9 @@ import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 import play.api.libs.json._
-import play.api.Logger
+import log.LoggerUtils
 
 object PLM {
-  val logger: Logger = Logger(this.getClass)
   
   var _game : Game = Game.getInstance()
   var _lessons : List[Lesson] = game.getLessons.toArray(Array[Lesson]()).toList
@@ -92,7 +91,7 @@ object PLM {
   def runExercise(lessonID: String, exerciseID: String, code: String) {
     var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
     
-    logger.debug("Code:\n"+code)
+    LoggerUtils.debug("Code:\n"+code)
     
     exo.getSourceFile(programmingLanguage, 0).setBody(code)
     _game.startExerciseExecution()

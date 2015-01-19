@@ -2,7 +2,6 @@ package log
 
 import actors.PLMActor
 import play.api.libs.json._
-import play.api.Logger
 import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -11,18 +10,13 @@ import javax.tools.DiagnosticCollector
 import javax.tools.JavaFileObject
 import plm.core.model.Game
 import plm.core.model.LogWriter;
-import play.api.Logger
 
 class RemoteLogWriter(plmActor: PLMActor, game: Game) extends LogWriter {
-  
-  val logger: Logger = Logger(this.getClass)
-  
   
   game.setOutputWriter(this)
   game.setCaptureOutput(true)
   
   override def log(msg: String) {
-    logger.debug("Ici")
     var mapArgs = Json.obj(
       "msg" -> msg
     )
@@ -30,7 +24,6 @@ class RemoteLogWriter(plmActor: PLMActor, game: Game) extends LogWriter {
   }
 
   override def log(diagnostics: DiagnosticCollector[JavaFileObject]) {
-    logger.debug("Ou là")
     var res: String = ""
     var warnedJava6: Boolean = false;
     var isJava6Pattern = Pattern.compile("major version 51 is newer than 50, the highest major version supported by this compiler");
@@ -62,7 +55,6 @@ class RemoteLogWriter(plmActor: PLMActor, game: Game) extends LogWriter {
    *            what to log
    */
   def log(e: Exception) {
-    logger.debug("Finalement...")
     var res: String = e.toString() + "\n"
     e.getStackTrace.foreach { s =>
       if (s.getClassName.contains("bugglequest.BugglePanel"))

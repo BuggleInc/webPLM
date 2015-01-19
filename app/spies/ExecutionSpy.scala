@@ -1,7 +1,6 @@
 package spies
 
 import play.api.libs.json._
-import play.api.Logger
 
 import plm.universe.World
 import plm.universe.IWorldView
@@ -21,10 +20,9 @@ import plm.universe.bugglequest.ChangeCellColor
 import plm.universe.bugglequest.ChangeCellHasBaggle
 
 import actors.PLMActor
+import log.LoggerUtils
 
-class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
-  val logger: Logger = Logger(this.getClass)
-  
+class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {  
   var world: World = _
     
   override def clone(): ExecutionSpy = {
@@ -158,13 +156,12 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
    */
   def worldHasMoved() {
     if(!world.operations.isEmpty()) {
-      logger.debug("The world moved!")
+      LoggerUtils.debug("The world moved!")
       
       var mapArgs: JsValue = Json.obj(
         "worldID" -> world.getName,
         "operations" -> world.operations.toArray(Array[Operation]()).toList
       )
-      //logger.debug(Json.stringify(mapArgs))
       world.operations.clear()
       plmActor.sendMessage(messageID, mapArgs)
     

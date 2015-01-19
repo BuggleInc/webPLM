@@ -3,10 +3,10 @@ package actors
 import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
-import play.api.Logger
 
 import models.PLM
 import log.RemoteLogWriter
+import log.LoggerUtils
 import spies._
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
@@ -24,9 +24,7 @@ object PLMActor {
 }
 
 class PLMActor(out: ActorRef) extends Actor {
-  
-  val logger: Logger = Logger(this.getClass)
-  
+      
   var isProgressSpyAdded: Boolean = false
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
   PLM.game.addGameStateListener(resultSpy)
@@ -36,8 +34,8 @@ class PLMActor(out: ActorRef) extends Actor {
   
   def receive = {
     case msg: JsValue =>
-      logger.debug("Received a message");
-      logger.debug(msg.toString());
+      LoggerUtils.debug("Received a message")
+      LoggerUtils.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "getLessons" =>
@@ -52,7 +50,7 @@ class PLMActor(out: ActorRef) extends Actor {
               var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
               var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy, demoExecutionSpy))))
               var res: JsValue = createMessage("exercise", mapArgs)
-              logger.debug(Json.stringify(res))
+              LoggerUtils.debug(Json.stringify(res))
               out ! res
             case (lessonID:String, _) =>
               var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
@@ -60,7 +58,7 @@ class PLMActor(out: ActorRef) extends Actor {
               var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy, demoExecutionSpy))))
               sendMessage("exercise", mapArgs)
             case (_, _) =>
-              logger.debug("getExercise: non-correct JSON")
+              LoggerUtils.debug("getExercise: non-correct JSON")
           }
         case "runExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -70,7 +68,7 @@ class PLMActor(out: ActorRef) extends Actor {
             case (lessonID:String, exerciseID: String, code: String) =>
               PLM.runExercise(lessonID, exerciseID, code)
             case (_, _, _) =>
-              logger.debug("runExercise: non-correctJSON")
+              LoggerUtils.debug("runExercise: non-correctJSON")
           }
         case "runDemo" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -79,12 +77,12 @@ class PLMActor(out: ActorRef) extends Actor {
             case (lessonID:String, exerciseID: String) =>
               PLM.runDemo(lessonID, exerciseID)
             case (_, _) =>
-              logger.debug("runDemo: non-correctJSON")
+              LoggerUtils.debug("runDemo: non-correctJSON")
           }
         case "stopExecution" =>
           PLM.stopExecution
         case _ =>
-          logger.debug("cmd: non-correct JSON")
+          LoggerUtils.debug("cmd: non-correct JSON")
       }
   }
   
@@ -104,7 +102,7 @@ class PLMActor(out: ActorRef) extends Actor {
   }
   
   override def postStop() = {
-    logger.debug("postStop: websocket closed - removing the spies")
+    LoggerUtils.debug("postStop: websocket closed - removing the spies")
     PLM.game.removeGameStateListener(resultSpy)
     registeredSpies.foreach { spy => spy.unregister }
   }
