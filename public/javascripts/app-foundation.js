@@ -309,6 +309,8 @@
 	    				startUpdateViewLoop();
 	    			}
 	    			break;
+	    		case 'log': 
+	    			console.log('log: ', args.msg);
 	    	}
 	    }
 		

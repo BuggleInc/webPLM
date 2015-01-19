@@ -21,11 +21,11 @@ import play.api.data.format.Formats._
 import play.api.Play.current
 
 object Application extends Controller {
-  
+  val logger: Logger = Logger(this.getClass)
   val system = ActorSystem("application")
   
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-    Logger.debug("New websocket opened")
+    logger.debug("New websocket opened")
     PLMActor.props(out)
   }
   
