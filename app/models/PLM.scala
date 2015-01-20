@@ -95,7 +95,6 @@ object PLM {
     
     exo.getSourceFile(programmingLanguage, 0).setBody(code)
     _game.startExerciseExecution()
-
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
