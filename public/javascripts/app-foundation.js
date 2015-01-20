@@ -1,39 +1,35 @@
 (function () {	
 	'use strict';
 	
-	angular.module('PLMApp', ['ui.router', 'ui.codemirror'])
-
-	.config(function($stateProvider, $urlRouterProvider) {
+	angular
+		.module('PLMApp', ['ui.router', 'ui.codemirror'])
+		.config(function($stateProvider, $urlRouterProvider) {
 	    
-	    $stateProvider
-	        .state('home', {
-	            url: '/',
-	            templateUrl: 'assets/partials/home.html',
-	            controller: 'HomeController',
-	            controllerAs: 'home'
-	        })
-	        .state('exercise', {
-	        	url: '/ui/lessons/:lessonID',
-	        	templateUrl: 'assets/partials/exercise.html',
-	        	controller: 'ExerciseController',
-	        	controllerAs: 'exercise'
-	        })
-	        .state('exercise.current', {
-	        	url: '/:exerciseID'
-	        });
-	    // catch all route
-	    // send users to the home page 
-	    $urlRouterProvider.otherwise('/');
-	})
-	.factory('connection', ['$rootScope', connection])
-	.factory('listenersHandler', ['$rootScope', 'connection', listenersHandler])
-	.factory('canvas', canvas)
-	.controller('HomeController', ['$http', '$scope', '$sce', 'connection', 'listenersHandler', HomeController])
-	.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', ExerciseController])
-	.directive('lessonGallery', lessonGallery)
-	.directive('lessonOverview', lessonOverview)
-	.directive('worldsView', worldsView)
-	.directive('animationPlayer', animationPlayer);
+		    $stateProvider
+		        .state('home', {
+		            url: '/',
+		            templateUrl: 'assets/partials/home.html',
+		            controller: 'HomeController',
+		            controllerAs: 'home'
+		        })
+		        .state('exercise', {
+		        	url: '/ui/lessons/:lessonID',
+		        	templateUrl: 'assets/partials/exercise.html',
+		        	controller: 'ExerciseController',
+		        	controllerAs: 'exercise'
+		        })
+		        .state('exercise.current', {
+		        	url: '/:exerciseID'
+		        });
+		    // catch all route
+		    // send users to the home page 
+		    $urlRouterProvider.otherwise('/');
+		})
+		.factory('connection', ['$rootScope', connection])
+		.factory('listenersHandler', ['$rootScope', 'connection', listenersHandler])
+		.factory('canvas', canvas)
+		.controller('HomeController', ['$http', '$scope', '$sce', 'connection', 'listenersHandler', HomeController])
+		.controller('ExerciseController', ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', ExerciseController]);
 	
 	function listenersHandler($rootScope, connection) {
 		var registeredListeners = [];
@@ -160,34 +156,6 @@
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			currentWorld.draw(ctx, canvas.width, canvas.height);
 		}
-	}
-	
-	function lessonGallery () {
-		return {
-			restrict: 'E',
-			templateUrl: '/assets/templates-foundation/lesson-gallery-foundation.html'
-		};
-	}
-	
-	function lessonOverview () {
-		return {
-			restrict: 'E',
-			templateUrl: '/assets/templates-foundation/lesson-overview-foundation.html'
-		};
-	}
-	
-	function worldsView() {
-		return {
-			restrict: 'E',
-			templateUrl: '/assets/templates-foundation/worlds-view.html'
-		};
-	}
-	
-	function animationPlayer() {
-		return {
-			restrict: 'E',
-			templateUrl: '/assets/templates-foundation/animation-player.html'
-		};
 	}
 	
 	function HomeController($http, $scope, $sce, connection, listenersHandler) {
