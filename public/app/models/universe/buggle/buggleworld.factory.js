@@ -8,12 +8,14 @@
 	BuggleWorld.$inject = [
 		'BuggleWorldCell', 'Buggle', 
 		'ChangeCellHasBaggle', 'ChangeCellColor', 
-		'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection'
+		'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
+		'ChangeCellHasContent', 'ChangeCellContent'
 	];
 	
 	function BuggleWorld (BuggleWorldCell, Buggle,
 			ChangeCellHasBaggle, ChangeCellColor,
-			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection) {
+			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
+			ChangeCellHasContent, ChangeCellContent) {
 		
 		var BuggleWorld = function (world) {
 			this.type = world.type;
@@ -117,6 +119,10 @@
 				return new ChangeCellColor(operation);
 			case 'changeCellHasBaggle': 
 				return new ChangeCellHasBaggle(operation);
+			case 'changeCellHasContent': 
+				return new ChangeCellHasContent(operation);
+			case 'changeCellContent': 
+				return new ChangeCellContent(operation);
 			}
 		}
 		

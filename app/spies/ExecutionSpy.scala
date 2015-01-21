@@ -17,7 +17,9 @@ import plm.universe.bugglequest.ChangeBuggleCarryBaggle
 
 import plm.universe.bugglequest.BuggleWorldCellOperation
 import plm.universe.bugglequest.ChangeCellColor
+import plm.universe.bugglequest.ChangeCellContent
 import plm.universe.bugglequest.ChangeCellHasBaggle
+import plm.universe.bugglequest.ChangeCellHasContent
 
 import actors.PLMActor
 import log.LoggerUtils
@@ -48,10 +50,26 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
     }
   }
   
+  def changeCellHasContentWrite(changeCellHasContent: ChangeCellHasContent): JsValue = {
+    Json.obj(
+      "oldHasContent" -> changeCellHasContent.getOldHasContent,
+      "newHasContent" -> changeCellHasContent.getNewHasContent
+    )
+  }
+  
   def changeCellHasBaggleWrite(changeCellHasBaggle: ChangeCellHasBaggle): JsValue = {
     Json.obj(
       "oldHasBaggle" -> changeCellHasBaggle.getOldHasBaggle,
       "newHasBaggle" -> changeCellHasBaggle.getNewHasBaggle
+    )
+  }
+  
+  def changeCellContentWrite(changeCellContent: ChangeCellContent): JsValue = {
+    var oldContent = changeCellContent.getOldContent
+    var newContent = changeCellContent.getNewContent
+    Json.obj(
+      "oldContent" -> oldContent,
+      "newContent" -> newContent
     )
   }
   
@@ -70,6 +88,10 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         changeCellColorWrite(changeCellColor)
       case changeCellHasBaggle: ChangeCellHasBaggle =>
         changeCellHasBaggleWrite(changeCellHasBaggle)
+      case changeCellHasContent: ChangeCellHasContent =>
+        changeCellHasContentWrite(changeCellHasContent)
+      case changeCellContent: ChangeCellContent =>
+        changeCellContentWrite(changeCellContent)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

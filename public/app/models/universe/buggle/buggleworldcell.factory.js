@@ -15,6 +15,7 @@
 			this.color = cell.color;
 			this.hasBaggle = cell.hasBaggle;
 			this.hasContent = cell.hasContent;
+			this.content = cell.content;
 			this.hasLeftWall = cell.hasLeftWall;
 			this.hasTopWall = cell.hasTopWall;
 		};
@@ -61,6 +62,10 @@
 				ctx.arc(xLeft+padX, yTop+padY, 15, 0, Math.PI*2, true);
 				ctx.fill('evenodd');
 				ctx.closePath();
+			}
+			if(this.hasContent) {
+				ctx.fillStyle = DefaultColors.MESSAGE_COLOR;
+				ctx.fillText(this.content, xLeft+1, yBottom-4);
 			}
 		};
 		

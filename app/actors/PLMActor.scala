@@ -158,10 +158,11 @@ class PLMActor(out: ActorRef) extends Actor {
     var color = buggleWorldCell.getColor
     Json.obj(
       "color" -> List[Int](color.getRed, color.getGreen, color.getBlue, color.getAlpha),
-      "hasBaggle" -> buggleWorldCell.hasBaggle(),
-      "hasContent" -> buggleWorldCell.hasContent(),
-      "hasLeftWall" -> buggleWorldCell.hasLeftWall(),
-      "hasTopWall" -> buggleWorldCell.hasTopWall()
+      "hasBaggle" -> buggleWorldCell.hasBaggle,
+      "hasContent" -> buggleWorldCell.hasContent,
+      "content" -> buggleWorldCell.getContent,
+      "hasLeftWall" -> buggleWorldCell.hasLeftWall,
+      "hasTopWall" -> buggleWorldCell.hasTopWall
     )
   }
   

@@ -8,8 +8,8 @@
 	function ChangeCellColor () {
 		
 		var ChangeCellColor = function (data) {
-			this.x = data.x;
-			this.y = data.y;
+			this.x = data.cell.x;
+			this.y = data.cell.y;
 			this.newColor = data.newColor;
 			this.oldColor = data.oldColor;
 		};
