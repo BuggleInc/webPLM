@@ -15,31 +15,31 @@
 			ChangeCellHasBaggle, ChangeCellColor,
 			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection) {
 		
-		var BuggleWorld = function (type, width, height, cells, buggles) {
-			this.type = type;
-			this.width = width;
-			this.height = height;
+		var BuggleWorld = function (world) {
+			this.type = world.type;
+			this.width = world.width;
+			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
 			
 			this.cells = [];
-			for(var i=0; i<width; i++) {
+			for(var i=0; i<world.width; i++) {
 				this.cells[i] = [];
-				for(var j=0; j<height; j++) {
-					var cell = cells[i][j];
-					this.cells[i][j] = new BuggleWorldCell(cell.x, cell.y, cell.color, cell.hasBaggle, cell.hasContent, cell.hasLeftWall, cell.hasTopWall);
+				for(var j=0; j<world.height; j++) {
+					var cell = world.cells[i][j];
+					this.cells[i][j] = new BuggleWorldCell(cell);
 				}
 			}
 			
-			this.buggles = {};
-			for(var buggleID in buggles) {
-				var buggle = buggles[buggleID]
-				this.buggles[buggleID] = new Buggle(buggle.x, buggle.y, buggle.color, buggle.direction, buggle.carryBaggle);
+			this.entities = {};
+			for(var buggleID in world.entities) {
+				var buggle = world.entities[buggleID]
+				this.entities[buggleID] = new Buggle(buggle);
 			}
 		};
 		
 		BuggleWorld.prototype.clone = function () {
-			return new BuggleWorld(this.type, this.width, this.height, this.cells, this.buggles)
+			return new BuggleWorld(this)
 		};
 		
 		BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
@@ -77,8 +77,8 @@
 			
 			ctx.stroke();
 			ctx.closePath();
-			for(var buggleID in this.buggles) {
-				this.buggles[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+			for(var buggleID in this.entities) {
+				this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 			}
 			
 		};
@@ -108,15 +108,15 @@
 		BuggleWorld.prototype.generateOperation = function (operation) {
 			switch(operation.type) {
 			case 'moveBuggleOperation':
-				return new MoveBuggleOperation(operation.buggleID, operation.newX, operation.newY, operation.oldX, operation.oldY);
+				return new MoveBuggleOperation(operation);
 			case 'changeBuggleDirection':
-				return new ChangeBuggleDirection(operation.buggleID, operation.newDirection, operation.oldDirection);
+				return new ChangeBuggleDirection(operation);
 			case 'changeBuggleCarryBaggle':
-				return new ChangeBuggleDirection(operation.buggleID, operation.newCarryBaggle, operation.oldCarryBaggle);
+				return new ChangeBuggleDirection(operation);
 			case 'changeCellColor': 
-				return new ChangeCellColor(operation.cell.x, operation.cell.y, operation.newColor, operation.oldColor);
+				return new ChangeCellColor(operation);
 			case 'changeCellHasBaggle': 
-				return new ChangeCellHasBaggle(operation.cell.x, operation.cell.y, operation.newHasBaggle, operation.oldHasBaggle);
+				return new ChangeCellHasBaggle(operation);
 			}
 		}
 		

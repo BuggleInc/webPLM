@@ -9,12 +9,12 @@
 	
 	function Buggle (Direction) {
 		
-		var Buggle = function (x, y, color, direction, carryBaggle) {
-			this.x = x;
-			this.y = y;
-			this.color = color;
-			this.setDirection(direction)
-			this.carryBaggle = carryBaggle;
+		var Buggle = function (buggle) {
+			this.x = buggle.x;
+			this.y = buggle.y;
+			this.color = buggle.color;
+			this.setDirection(buggle.direction)
+			this.carryBaggle = buggle.carryBaggle;
 		};
 		
 		Buggle.prototype.setDirection = function (direction) {

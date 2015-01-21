@@ -95,7 +95,7 @@
 				var world;
 				switch(initialWorld.type) {
 					case 'BuggleWorld':
-						world = new BuggleWorld(initialWorld.type, initialWorld.width, initialWorld.height, initialWorld.cells, initialWorld.entities);
+						world = new BuggleWorld(initialWorld);
 						break;
 				}
 				exercise.initialWorlds[worldID] = world;

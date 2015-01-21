@@ -7,11 +7,11 @@
 	
 	function ChangeCellHasBaggle () {
 		
-		var ChangeCellHasBaggle = function (x, y, newHasBaggle, oldHasBaggle) {
-			this.x = x;
-			this.y = y;
-			this.newHasBaggle = newHasBaggle;
-			this.oldHasBaggle = oldHasBaggle;
+		var ChangeCellHasBaggle = function (data) {
+			this.x = data.x;
+			this.y = data.y;
+			this.newHasBaggle = data.newHasBaggle;
+			this.oldHasBaggle = data.oldHasBaggle;
 		};
 		
 		ChangeCellHasBaggle.prototype.apply = function (currentWorld) {

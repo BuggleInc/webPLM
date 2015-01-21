@@ -7,19 +7,19 @@
 	
 	function ChangeBuggleDirection () {
 		
-		var ChangeBuggleDirection = function (buggleID, newDirection, oldDirection) {
-			this.buggleID = buggleID;
-			this.newDirection = newDirection;
-			this.oldDirection = oldDirection;
+		var ChangeBuggleDirection = function (data) {
+			this.buggleID = data.buggleID;
+			this.newDirection = data.newDirection;
+			this.oldDirection = data.oldDirection;
 		};
 		
 		ChangeBuggleDirection.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.buggles[this.buggleID];
+			var buggle = currentWorld.entities[this.buggleID];
 			buggle.setDirection(this.newDirection);
 		};
 		
 		ChangeBuggleDirection.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.buggles[this.buggleID];
+			var buggle = currentWorld.entities[this.buggleID];
 			buggle.setDirection(this.oldDirection);
 		};
 	

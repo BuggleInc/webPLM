@@ -7,19 +7,19 @@
 	
 	function ChangeBuggleCarryBaggle () {
 		
-		var ChangeBuggleCarryBaggle = function (buggleID, newCarryBaggle, oldCarryBaggle) {
-			this.buggleID = buggleID;
-			this.newCarryBaggle = newCarryBaggle;
-			this.oldCarryBaggle = oldCarryBaggle;
+		var ChangeBuggleCarryBaggle = function (data) {
+			this.buggleID = data.buggleID;
+			this.newCarryBaggle = data.newCarryBaggle;
+			this.oldCarryBaggle = data.oldCarryBaggle;
 		};
 		
 		ChangeBuggleCarryBaggle.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.buggles[this.buggleID];
+			var buggle = currentWorld.entities[this.buggleID];
 			buggle.carryBaggle = this.newCarryBaggle;
 		};
 		
 		ChangeBuggleCarryBaggle.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.buggles[this.buggleID];
+			var buggle = currentWorld.entities[this.buggleID];
 			buggle.carryBaggle = this.oldCarryBaggle;
 		};
 	

@@ -9,14 +9,14 @@
 	
 	function BuggleWorldCell (DefaultColors) {
 		
-		var BuggleWorldCell = function(x, y, color, hasBaggle, hasContent, hasLeftWall, hasTopWall) {
-			this.x = x;
-			this.y = y;
-			this.color = color;
-			this.hasBaggle = hasBaggle;
-			this.hasContent = hasContent;
-			this.hasLeftWall = hasLeftWall;
-			this.hasTopWall = hasTopWall;
+		var BuggleWorldCell = function(cell) {
+			this.x = cell.x;
+			this.y = cell.y;
+			this.color = cell.color;
+			this.hasBaggle = cell.hasBaggle;
+			this.hasContent = cell.hasContent;
+			this.hasLeftWall = cell.hasLeftWall;
+			this.hasTopWall = cell.hasTopWall;
 		};
 		
 		BuggleWorldCell.prototype.draw = function (ctx, canvasWidth, canvasHeight, width, height) {

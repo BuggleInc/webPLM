@@ -7,11 +7,11 @@
 	
 	function ChangeCellColor () {
 		
-		var ChangeCellColor = function (x, y, newColor, oldColor) {
-			this.x = x;
-			this.y = y;
-			this.newColor = newColor;
-			this.oldColor = oldColor;
+		var ChangeCellColor = function (data) {
+			this.x = data.x;
+			this.y = data.y;
+			this.newColor = data.newColor;
+			this.oldColor = data.oldColor;
 		};
 		
 		ChangeCellColor.prototype.apply = function (currentWorld) {
