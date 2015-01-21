@@ -8,7 +8,7 @@
 	function worldsView() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/components/worlds-view.directive.html'
+			templateUrl: '/assets/app/components/worlds-view.directive.html'
 		};
 	}
 })();

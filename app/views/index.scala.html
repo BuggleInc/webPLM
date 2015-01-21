@@ -65,20 +65,35 @@
 	</script>
 	
 	<!-- AngularJS application's files -->
-	<script src="/assets/javascripts/app-foundation.js"></script>
+	<script src="/assets/app/app.js"></script>
 	
 	<!-- Application's components -->
-	<script type="text/javascript" src="/assets/components/animation-player.directive.js"></script>
-	<script type="text/javascript" src="/assets/components/lesson-gallery.directive.js"></script>
-	<script type="text/javascript" src="/assets/components/lesson-overview.directive.js"></script>
-	<script type="text/javascript" src="/assets/components/worlds-view.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/animation-player.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/lesson-gallery.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/lesson-overview.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/worlds-view.directive.js"></script>
 	
 	<!-- Application's services -->
-  <script type="text/javascript" src="/assets/services/listenershandler.service.js"></script>
-	<script type="text/javascript" src="/assets/services/connection.service.js"></script>
-	<script type="text/javascript" src="/assets/services/canvas.service.js"></script>
+  <script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
+	
+	<!-- Application's data models -->
+	<script type="text/javascript" src="/assets/app/models/defaultcolors.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/direction.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/outcomekind.factory.js"></script>
+	
+	<!-- BuggleWorld's data models -->
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebugglecarrybaggle.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebuggledirection.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcolor.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhasbaggle.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/movebuggleoperation.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggle.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldcell.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworld.factory.js"></script>
 	
 	<!-- Application's controllers -->
-  <script type="text/javascript" src="/assets/home/home.controller.js"></script>
-  <script type="text/javascript" src="/assets/exercise/exercise.controller.js"></script>
+  <script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
+  <script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
 </html> 

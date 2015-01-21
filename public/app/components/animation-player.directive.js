@@ -8,7 +8,7 @@
 	function animationPlayer() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/components/animation-player.directive.html'
+			templateUrl: '/assets/app/components/animation-player.directive.html'
 		};
 	}
 })();

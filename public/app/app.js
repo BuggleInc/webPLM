@@ -8,13 +8,13 @@
 		    $stateProvider
 		        .state('home', {
 		            url: '/',
-		            templateUrl: 'assets/home/home.html',
+		            templateUrl: 'assets/app/home/home.html',
 		            controller: 'Home',
 		            controllerAs: 'home'
 		        })
 		        .state('exercise', {
 		        	url: '/ui/lessons/:lessonID',
-		        	templateUrl: 'assets/exercise/exercise.html',
+		        	templateUrl: 'assets/app/exercise/exercise.html',
 		        	controller: 'Exercise',
 		        	controllerAs: 'exercise'
 		        })

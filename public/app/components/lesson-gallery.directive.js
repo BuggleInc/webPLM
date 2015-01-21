@@ -8,7 +8,7 @@
 	function lessonGallery () {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/components/lesson-gallery.directive.html'
+			templateUrl: '/assets/app/components/lesson-gallery.directive.html'
 		};
 	}
 })();
