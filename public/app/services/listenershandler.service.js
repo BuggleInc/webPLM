@@ -3,8 +3,10 @@
 	
 	angular
 		.module('PLMApp')
-		.factory('listenersHandler', ['$rootScope', 'connection', listenersHandler]);
-		
+		.factory('listenersHandler', listenersHandler);
+	
+	listenersHandler.$inject = ['$rootScope', 'connection'];
+	
 	function listenersHandler($rootScope, connection) {
 		var registeredListeners = [];
 		

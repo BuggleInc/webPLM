@@ -4,7 +4,7 @@
 	angular
 		.module('PLMApp')
 		.factory('canvas', canvas);
-		
+	
 	function canvas () {
 		var canvas;
 		var ctx;

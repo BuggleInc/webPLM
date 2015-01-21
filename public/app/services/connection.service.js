@@ -3,8 +3,10 @@
 	
 	angular
 		.module('PLMApp')
-		.factory('connection', ['$rootScope', connection]);
-		
+		.factory('connection', connection);
+	
+	connection.$inject = ['$rootScope'];
+	
 	function connection ($rootScope) {		
 		var socket = new WebSocket('ws://localhost:9000/websocket');
 		var connectStatus = false;
