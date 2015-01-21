@@ -5,7 +5,7 @@
 		.module('PLMApp')
 		.config(config);
 	
-	function($stateProvider, $urlRouterProvider) {
+	function config ($stateProvider, $urlRouterProvider) {
 	    $stateProvider
 	        .state('home', {
 	            url: '/',
