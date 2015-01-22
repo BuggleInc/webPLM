@@ -1,16 +1,22 @@
+<div class="row" equalizer>
+	<div class="small-12 medium-5 columns overflow" data-equalizer-watch>
+		<instructions></instructions>
+	</div>
+	
+	<div class="small-12 medium-7 columns" data-equalizer-watch>
+		<ide></ide>
+	</div>
+</div>
 <div class="row">
-    <div class="small-12 medium-4 columns panel" ng-bind-html="exercise.description">
-    </div>
-    
-    <div class="small-12 medium-8 columns">
-      <div class="row">
-        <ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ lineWrapping : true, lineNumbers: true, mode: 'text/x-java' }"></ui-codemirror>
-      </div>
-      <div class="row">
-        <button class="button" ng-click="exercise.runCode()" ng-disabled="exercise.isRunning">Run</button>
-        <button class="button" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning">Stop</button>
-        <button class="button" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning">Demo</button>
-      </div>
-      <worlds-view></worlds-view>
-    </div>
+	<hr>
+</div>
+<div class="row" data-equalizer>
+	<div class="small-12 medium-5 columns" data-equalizer-watch>
+		<div class="row">
+			<h1>Here last result and console</h1>
+		</div>
+	</div>
+	<div class="small-12 medium-7 columns" data-equalizer-watch>
+		<worlds-view></worlds-view>
+	</div>
 </div>

@@ -9,6 +9,18 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.CodeMirror {
+	height: 330px !important;
+}
+
+.tab-title {
+	background-color: #fff !important;
+}
+
+.tab-title .active {
+	background-color: #e2e2e2 !important;
+}
+
 .th.has-tip {
   border-bottom: 0px;
 }
@@ -17,6 +29,18 @@
   text-align: center;
 }
 
+.instructions-borders-top {
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+
+.instructions-borders-bot {
+	padding-left: 5px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom-left-radius: 20px;
+}
 
 div[ui-view] {
 	padding-top: 25px;
@@ -26,33 +50,9 @@ div[ui-view] {
   max-width: 90%;
 }
 
-.panel {
+.overflow {
 	overflow-y: scroll;
-	max-height: 300px;
-}
-
-@media only screen and (max-width: 40em) {
-	.panel {
-     max-height: 300px;
-  }
-}
-
-@media only screen and (min-width: 40.063em){
-  .panel {
-     max-height: 450px;
-  }
-}
-
-@media only screen and (min-width: 64.063em) {
-	.panel {
-	   max-height: 700px;
-	}
-}
-
-@media only screen and (min-width: 90.063em) {
-	.panel {
-     max-height: 900px;
-  }
+	height: 400px;
 }
 
 @media only screen and (min-width: 40.063em) { 

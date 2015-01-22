@@ -1,0 +1,10 @@
+<div class="row">
+	<dl class="tabs" data-tab>
+		<dd class="tab-title" ng-class="{ active: exercise.display === 'instructions' }" ng-click="exercise.display = 'instructions'"><a>Instructions</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.display === 'api' }" ng-click="exercise.display = 'api'"><a>API</a></dd>
+	</dl>
+</div>
+<div class="row">
+	<div ng-show="exercise.display === 'instructions'" ng-bind-html="exercise.instructions"></div>
+	<div  ng-show="exercise.display === 'api'"> Yo</div>
+</div>

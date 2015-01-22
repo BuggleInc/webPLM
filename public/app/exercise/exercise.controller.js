@@ -12,10 +12,11 @@
 				
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
+		exercise.display = 'instructions';
 		exercise.isRunning = false;
 		exercise.isPlaying = false;
 		exercise.playedDemo = false;
-		exercise.description = null;
+		exercise.instructions = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
@@ -91,7 +92,7 @@
 		
 	    function setExercise(data) {
 	    	exercise.id = data.id;
-			exercise.description = $sce.trustAsHtml(data.description);
+			exercise.instructions = $sce.trustAsHtml(data.description);
 			exercise.code = data.code;
 			exercise.currentWorldID = data.selectedWorldID;
 			for(var worldID in data.initialWorlds) {
