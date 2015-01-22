@@ -159,6 +159,8 @@
 		
 		function displayResult(msgType, msg) {
 			console.log(msgType, ' - ', msg);
+			exercise.result = msg;
+			exercise.resultType = msgType;
 			exercise.isRunning = false;
 		}
 		

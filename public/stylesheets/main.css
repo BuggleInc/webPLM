@@ -55,6 +55,10 @@ div[ui-view] {
 	height: 400px;
 }
 
+.with-newlines {
+    white-space: pre-wrap;
+}
+
 @media only screen and (min-width: 40.063em) { 
   .contain-to-grid .top-bar {
     max-width: 90%;
