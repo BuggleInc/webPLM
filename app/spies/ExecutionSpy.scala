@@ -143,6 +143,8 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         json = changeBuggleDirectionWrite(changeBuggleDirection)
       case changeBuggleCarryBaggle: ChangeBuggleCarryBaggle =>
         json = changeBuggleCarryBaggleWrite(changeBuggleCarryBaggle)
+      case _ =>
+        json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(
       "buggleID" -> buggleOperation.getBuggle.getName

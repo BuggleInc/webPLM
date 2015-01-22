@@ -81,6 +81,11 @@
 	    			break;
 	    		case 'log': 
 	    			console.log('log: ', args.msg);
+	    			break;
+	    		default:
+	    			console.log('Hum... Unknown message!');
+	    			console.log(data);
+	    			break;
 	    	}
 	    }
 		
