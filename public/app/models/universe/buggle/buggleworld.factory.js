@@ -23,7 +23,8 @@
 			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
-			
+			this.steps = [];
+
 			this.cells = [];
 			for(var i=0; i<world.width; i++) {
 				this.cells[i] = [];

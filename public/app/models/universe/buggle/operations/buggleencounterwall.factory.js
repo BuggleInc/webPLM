@@ -9,11 +9,18 @@
 		
 		var BuggleEncounterWall = function (data) {
 			this.buggleID = data.buggleID;
+			this.firstApply = true;
 		};
 		
 		BuggleEncounterWall.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
-			console.log('Buggle '+this.buggleID+' encountered a wall...');
+			if(this.firstApply) {
+				var obj = {
+					step: currentWorld.steps.length,
+					msg: 'Buggle '+this.buggleID+' encountered a wall...'
+				};
+				currentWorld.steps.push(obj);
+				this.firstApply = false;
+			}		
 		};
 		
 		BuggleEncounterWall.prototype.reverse = function (currentWorld) {

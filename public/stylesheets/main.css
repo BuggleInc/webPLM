@@ -13,6 +13,17 @@
 	height: 330px !important;
 }
 
+.program-steps {
+	height: 550px;
+	overflow-y: scroll;
+}
+
+.active-operation {
+	color: white;
+	background-color: #008CBA;
+	opacity: 0.7;
+}
+
 .th.has-tip {
   border-bottom: 0px;
 }

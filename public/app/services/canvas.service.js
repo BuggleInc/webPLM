@@ -24,13 +24,15 @@
 		function init() {
 			canvas = document.getElementById('worldView');
 			ctx = canvas.getContext('2d');
+			canvas.width = $('#worldView').parent().width();
+			canvas.height = $('#worldView').parent().width();
 			p = 0;
 		}
 		
 		function resize() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			canvas.width = $('#worldView').parent().width() * 0.74;
-			canvas.height = $('#worldView').parent().width() * 0.74;
+			canvas.width = $('#worldView').parent().width();
+			canvas.height = $('#worldView').parent().width();
 			update();
 		}
 
