@@ -1,24 +1,23 @@
 <div class="small-12 medium-7 columns" data-equalizer-watch>
-	<div class="row">
-		<select ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
-		</select>
-	</div>
-	<tabs-current-world></tabs-current-world>
-	<div class="row">
-		<canvas id="worldView" width="400" height="400"></canvas>
-	</div>
-	<animation-player></animation-player>
-	<div class="row">
+	<div class="row collapse">
 		<div class="small-3 columns">
-			<label for="executionSpeed" class="right">Execution speed:</label>
+			<span class="prefix"><strong>Selected world:</strong></span>
 		</div>
 		<div class="small-9 columns">
-			<input type="range" id="executionSpeed" ng-model="exercise.timer" max="3000" min="0">
+			<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
+			</select>
+		</div>
+		</div>
+	<div class="center">
+		<div class="row">
+			<tabs-current-world></tabs-current-world>
+			<div class="row">
+				<canvas id="worldView" width="400" height="400"></canvas>
+			</div>
+			<animation-player></animation-player>
 		</div>
 	</div>
 </div>
 <div class="small-12 medium-5 columns" data-equalizer-watch>
-	<div class="row">
-		<h1>Here options and controls</h1>
-	</div>
+	<player-options></player-options>
 </div>

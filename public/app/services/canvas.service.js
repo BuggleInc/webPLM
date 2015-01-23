@@ -10,14 +10,13 @@
 		var ctx;
 		var currentWorld;
 		
-		var bw;
-		var bh;
 		var p;
 		
 		var service = {
 				init: init,
 				setWorld: setWorld,
-				update: update
+				update: update,
+				resize: resize
 		};
 		
 		return service;
@@ -28,6 +27,13 @@
 			p = 0;
 		}
 		
+		function resize() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			canvas.width = $('#worldView').parent().width() * 0.74;
+			canvas.height = $('#worldView').parent().width() * 0.74;
+			update();
+		}
+
 		function setWorld (world) {
 			currentWorld = world;
 			update();

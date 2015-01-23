@@ -13,20 +13,17 @@
 	height: 330px !important;
 }
 
-.tab-title {
-	background-color: #fff !important;
-}
-
-.tab-title .active {
-	background-color: #e2e2e2 !important;
-}
-
 .th.has-tip {
   border-bottom: 0px;
 }
 
 .lesson-th {
   text-align: center;
+}
+
+.center {
+	margin-left: 18% !important;
+	margin-right: 18% !important;
 }
 
 .instructions-borders-top {

@@ -224,5 +224,7 @@
 		$scope.$on("$destroy",function() {
 	    	offDisplayMessage();
     	});
+
+    	window.addEventListener('resize', canvas.resize, false);
 	}
 })();
