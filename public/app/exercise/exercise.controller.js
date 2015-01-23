@@ -17,6 +17,7 @@
 		exercise.isPlaying = false;
 		exercise.playedDemo = false;
 		exercise.instructions = null;
+		exercise.api = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.initialWorlds = {};
@@ -92,7 +93,8 @@
 		
 	    function setExercise(data) {
 	    	exercise.id = data.id;
-			exercise.instructions = $sce.trustAsHtml(data.description);
+			exercise.instructions = $sce.trustAsHtml(data.instructions);
+			exercise.api = $sce.trustAsHtml(data.api);
 			exercise.code = data.code;
 			exercise.currentWorldID = data.selectedWorldID;
 			for(var worldID in data.initialWorlds) {
