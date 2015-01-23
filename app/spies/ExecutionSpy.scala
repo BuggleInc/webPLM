@@ -14,6 +14,7 @@ import plm.universe.bugglequest.BuggleOperation
 import plm.universe.bugglequest.MoveBuggleOperation
 import plm.universe.bugglequest.ChangeBuggleDirection
 import plm.universe.bugglequest.ChangeBuggleCarryBaggle
+import plm.universe.bugglequest.ChangeBuggleBrushDown
 
 import plm.universe.bugglequest.BuggleWorldCellOperation
 import plm.universe.bugglequest.ChangeCellColor
@@ -143,6 +144,8 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         json = changeBuggleDirectionWrite(changeBuggleDirection)
       case changeBuggleCarryBaggle: ChangeBuggleCarryBaggle =>
         json = changeBuggleCarryBaggleWrite(changeBuggleCarryBaggle)
+      case changeBuggleBrushDown: ChangeBuggleBrushDown =>
+        json = changeBuggleBrushDownWrite(changeBuggleBrushDown)  
       case _ =>
         json = Json.obj()
     }
@@ -168,6 +171,13 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
     )
   }
   
+  def changeBuggleBrushDownWrite(changeBuggleBrushDown: ChangeBuggleBrushDown): JsValue = {
+    Json.obj(
+      "oldBrushDown" -> changeBuggleBrushDown.getOldBrushDown,
+      "newBrushDown" -> changeBuggleBrushDown.getNewBrushDown
+    )
+  }
+
   def changeBuggleDirectionWrite(changeBuggleDirection: ChangeBuggleDirection): JsValue = {
     Json.obj(
       "oldDirection" -> changeBuggleDirection.getOldDirection.intValue(),
