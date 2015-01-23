@@ -115,7 +115,7 @@
 			case 'changeBuggleDirection':
 				return new ChangeBuggleDirection(operation);
 			case 'changeBuggleCarryBaggle':
-				return new ChangeBuggleDirection(operation);
+				return new ChangeBuggleCarryBaggle(operation);
 			case 'changeCellColor': 
 				return new ChangeCellColor(operation);
 			case 'changeCellHasBaggle': 
