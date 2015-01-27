@@ -30,6 +30,9 @@
 			var xRight = canvasWidth/width*(this.x+1);
 			var yBottom = canvasHeight/height*(this.y+1);
 			
+			ctx.beginPath();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = 'SteelBlue';
 			ctx.fillStyle = 'rgba('+this.color.join(',')+')';
 			if(this.color[0] === 255 && this.color[1] === 255 && this.color[2] === 255 && this.color[3] === 255) {
 				if((this.x+this.y)%2 === 0) {
@@ -40,9 +43,7 @@
 				}
 			}
 			ctx.fillRect(xLeft, yTop, xRight, yBottom);
-			ctx.beginPath();
-			ctx.lineWidth = 5;
-			ctx.strokeStyle = 'SteelBlue';
+			
 			if(this.hasLeftWall) {
 				ctx.moveTo(xLeft, yTop);
 				ctx.lineTo(xLeft, yBottom);

@@ -18,6 +18,7 @@
 		};
 		
 		Buggle.prototype.setDirection = function (direction) {
+			this.direction = direction;
 			switch(direction) {
 				case Direction.NORTH_VALUE:
 					this.src = '/assets/images/buggle-top.svg';
@@ -40,33 +41,91 @@
 			var buggle = this;
 			var img = new Image();
 			img.onload = function() {
-				buggle.drawBuggleImage(ctx, img, canvasWidth, canvasHeight, width, height);
+				buggle.drawBuggle(ctx, img, canvasWidth, canvasHeight, width, height);
 			};
 			img.src = this.src;
 		};
 		
-		Buggle.prototype.drawBuggleImage = function (ctx, img, canvasWidth, canvasHeight, width, height) {
-			var imgWidth = canvasWidth/width*0.7;
-			var imgHeight = canvasHeight/height*0.7;
-			
-			var xLeft = canvasWidth/width*this.x +imgWidth/width;
-			var yTop = canvasHeight/height*this.y +imgHeight/height;
-			
-			ctx.drawImage(img, xLeft, yTop, imgWidth, imgHeight);
-			var imgData = ctx.getImageData(xLeft, yTop, imgWidth, imgHeight);
-			var data = imgData.data;
-			for(var i=0; i<data.length; i += 4) {
-				// Only update buggle's pixels
-				if(data[i] === 0 && data[i+1] === 0 && data[i+2] === 0) {
-					data[i] = this.color[0];
-					data[i+1] = this.color[1];
-					data[i+2] = this.color[2];
-					data[i+3] = this.color[3];
+		Buggle.prototype.drawBuggle = function (ctx, img, canvasWidth, canvasHeight, width, height) {
+			var dx, dy;
+
+			var scaleFactor = 0.6;
+			var cellWidth = canvasWidth / width;
+			var pixW = scaleFactor * cellWidth / INVADER_SPRITE_SIZE;
+			var pad = 0.5*(1-scaleFactor)*cellWidth;
+
+			var ox = this.x * cellWidth;
+			var oy = this.y * cellWidth;
+
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba('+this.color.join(',')+')';
+
+			for(dy=0; dy<INVADER_SPRITE_SIZE; dy++) {
+				for(dx=0; dx<INVADER_SPRITE_SIZE; dx++) {
+					if(INVADER_SPRITE[this.direction][dy][dx] === 1) {
+						ctx.fillRect(pad+ox+dx*pixW, pad+oy+dy*pixW, pixW, pixW);
+					}
 				}
 			}
-			ctx.putImageData(imgData, xLeft, yTop);
+			ctx.closePath();
 		};
 		
 		return Buggle;
 	}
+
+	var INVADER_SPRITE_SIZE = 11;
+	var INVADER_SPRITE = [
+		[
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+			[ 0,0,1,0,0,0,0,0,1,0,0 ],
+			[ 0,0,0,1,0,0,0,1,0,0,0 ],
+			[ 0,0,1,1,1,1,1,1,1,0,0 ],
+			[ 0,1,1,0,1,1,1,0,1,1,0 ],
+			[ 1,1,1,1,1,1,1,1,1,1,1 ],
+			[ 1,0,1,1,1,1,1,1,1,0,1 ],
+			[ 1,0,1,0,0,0,0,0,1,0,1 ],
+			[ 0,0,0,1,1,0,1,1,0,0,0 ],
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+		],
+		[
+		    [ 0,0,0,1,1,1,0,0,0,0,0 ],
+			[ 0,0,0,0,0,1,1,0,0,0,0 ],
+			[ 0,0,0,1,1,1,1,1,0,1,0 ],
+			[ 0,0,1,0,1,1,0,1,1,0,0 ],
+			[ 0,0,1,0,1,1,1,1,0,0,0 ],
+			[ 0,0,0,0,1,1,1,1,0,0,0 ],
+			[ 0,0,1,0,1,1,1,1,0,0,0 ],
+			[ 0,0,1,0,1,1,0,1,1,0,0 ],
+			[ 0,0,0,1,1,1,1,1,0,1,0 ],
+			[ 0,0,0,0,0,1,1,0,0,0,0 ],
+			[ 0,0,0,1,1,1,0,0,0,0,0 ]
+		],
+		[
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+			[ 0,0,0,1,1,0,1,1,0,0,0 ],
+			[ 1,0,1,0,0,0,0,0,1,0,1 ],
+			[ 1,0,1,1,1,1,1,1,1,0,1 ],
+			[ 1,1,1,1,1,1,1,1,1,1,1 ],
+			[ 0,1,1,0,1,1,1,0,1,1,0 ],
+			[ 0,0,1,1,1,1,1,1,1,0,0 ],
+			[ 0,0,0,1,0,0,0,1,0,0,0 ],
+			[ 0,0,1,0,0,0,0,0,1,0,0 ],
+			[ 0,0,0,0,0,0,0,0,0,0,0 ],
+		],
+		[
+			[ 0,0,0,0,0,1,1,1,0,0,0 ],
+			[ 0,0,0,0,1,1,0,0,0,0,0 ],
+			[ 0,1,0,1,1,1,1,1,0,0,0 ],
+			[ 0,0,1,1,0,1,1,0,1,0,0 ],
+			[ 0,0,0,1,1,1,1,0,1,0,0 ],
+			[ 0,0,0,1,1,1,1,0,0,0,0 ],
+			[ 0,0,0,1,1,1,1,0,1,0,0 ],
+			[ 0,0,1,1,0,1,1,0,1,0,0 ],
+			[ 0,1,0,1,1,1,1,1,0,0,0 ],
+			[ 0,0,0,0,1,1,0,0,0,0,0 ],
+			[ 0,0,0,0,0,1,1,1,0,0,0 ]
+		]
+	];
 })();

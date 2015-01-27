@@ -46,8 +46,16 @@
 		};
 		
 		BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
-			for(var i=0; i<this.width; i++) {
-				for(var j=0; j<this.height; j++) {
+			var i, j, x, y;
+			var buggleID;
+
+			var xLeft;
+			var xRight;
+			var yTop;
+			var yBottom;
+
+			for(i=0; i<this.width; i++) {
+				for(j=0; j<this.height; j++) {
 					this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 				}
 			}
@@ -56,41 +64,35 @@
 			
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = 'SteelBlue';
-			
-			var xLeft;
-			var xRight;
-			var yTop;
-			var yBottom;
 
 			// frontier walls (since the world is a torus)
-			for (var y = 0; y < this.height; y++) {
+			for (y = 0; y < this.height; y++) {
 				if (this.cells[0][y].hasLeftWall) {
 					xLeft = canvasWidth;
 					yTop = canvasHeight/this.height*y;
 					yBottom = canvasHeight/this.height*(y+1);
 					ctx.moveTo(xLeft, yTop);
-					ctx.lineTo(xLeft, yBottom);		
+					ctx.lineTo(xLeft, yBottom);
 				}
 			}
 			
-			for (var x = 0; x < this.width; x++) {
+			for (x = 0; x < this.width; x++) {
 				if (this.cells[x][0].hasTopWall) {
 					xLeft = canvasWidth/this.width*x;
 					xRight = canvasWidth/this.width*(x+1);
 					yTop = canvasHeight;
 					ctx.moveTo(xLeft, yTop);
-					ctx.lineTo(xRight, yTop);		
+					ctx.lineTo(xRight, yTop);
 				}
 			}
 			
 			ctx.stroke();
 			ctx.closePath();
-			for(var buggleID in this.entities) {
+			for(buggleID in this.entities) {
 				this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 			}
-			
 		};
-		
+
 		BuggleWorld.prototype.setState = function (state) {
 			var i;
 			var j;

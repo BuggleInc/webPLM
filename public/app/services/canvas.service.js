@@ -9,9 +9,7 @@
 		var canvas;
 		var ctx;
 		var currentWorld;
-		
-		var p;
-		
+				
 		var service = {
 				init: init,
 				setWorld: setWorld,
@@ -26,7 +24,6 @@
 			ctx = canvas.getContext('2d');
 			canvas.width = $('#worldView').parent().width();
 			canvas.height = $('#worldView').parent().width();
-			p = 0;
 		}
 		
 		function resize() {
