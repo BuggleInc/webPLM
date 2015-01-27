@@ -47,52 +47,52 @@
 			{
 				args.exerciseID = exercise.id;
 			}
-	    	connection.sendMessage('getExercise', args);
-	    }
+			connection.sendMessage('getExercise', args);
+		}
 		
 		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
 		getExercise();
 
 		function handleMessage(data) {
-	    	console.log('message received: ', data);
-	    	var cmd = data.cmd;
-	    	var args = data.args;
-	    	switch(cmd) {
-	    		case 'exercise': 
-	    			setExercise(args.exercise);
-	    			break;
-	    		case 'executionResult': 
-	    			displayResult(args.msgType, args.msg);
-	    			break;
-	    		case 'demoEnded':
-	    			console.log('The demo ended!');
-	    			exercise.isRunning = false;
-	    			exercise.playedDemo = true;
-	    			break;
-	    		case 'operations':
-	    			storeOperations(args.worldID, args.operations, 'current');
-	    			if(exercise.updateViewLoop === null) {
-	    				startUpdateViewLoop();
-	    			}
-	    			break;
-	    		case 'demoOperations':
-	    			storeOperations(args.worldID, args.operations, 'answer');
-	    			if(exercise.updateViewLoop === null) {
-	    				startUpdateViewLoop();
-	    			}
-	    			break;
-	    		case 'log': 
-	    			console.log('log: ', args.msg);
-	    			break;
-	    		default:
-	    			console.log('Hum... Unknown message!');
-	    			console.log(data);
-	    			break;
-	    	}
-	    }
+			console.log('message received: ', data);
+			var cmd = data.cmd;
+			var args = data.args;
+			switch(cmd) {
+				case 'exercise': 
+					setExercise(args.exercise);
+					break;
+				case 'executionResult': 
+					displayResult(args.msgType, args.msg);
+					break;
+				case 'demoEnded':
+					console.log('The demo ended!');
+					exercise.isRunning = false;
+					exercise.playedDemo = true;
+					break;
+				case 'operations':
+					storeOperations(args.worldID, args.operations, 'current');
+					if(exercise.updateViewLoop === null) {
+						startUpdateViewLoop();
+					}
+					break;
+				case 'demoOperations':
+					storeOperations(args.worldID, args.operations, 'answer');
+					if(exercise.updateViewLoop === null) {
+						startUpdateViewLoop();
+					}
+					break;
+				case 'log': 
+					console.log('log: ', args.msg);
+					break;
+				default:
+					console.log('Hum... Unknown message!');
+					console.log(data);
+					break;
+			}
+		}
 		
-	    function setExercise(data) {
-	    	exercise.id = data.id;
+		function setExercise(data) {
+			exercise.id = data.id;
 			exercise.instructions = $sce.trustAsHtml(data.instructions);
 			exercise.api = $sce.trustAsHtml(data.api);
 			exercise.code = data.code;
@@ -113,33 +113,33 @@
 			canvas.init();
 			setCurrentWorld('current');
 			exercise.worldIDs = Object.keys(exercise.currentWorlds);
-	    }
-	    
-	    function setCurrentWorld(worldKind) {
-	    	exercise.worldKind = worldKind;
-	    	exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
-	    	exercise.currentState = exercise.currentWorld.currentState;
-	    	canvas.setWorld(exercise.currentWorld);
-	    }
-	    
-	    function runDemo() {
-	    	exercise.isPlaying = true;
-	    	setCurrentWorld('answer');
-	    	if(!exercise.playedDemo) {
+		}
+		
+		function setCurrentWorld(worldKind) {
+			exercise.worldKind = worldKind;
+			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
+			exercise.currentState = exercise.currentWorld.currentState;
+			canvas.setWorld(exercise.currentWorld);
+		}
+		
+		function runDemo() {
+			exercise.isPlaying = true;
+			setCurrentWorld('answer');
+			if(!exercise.playedDemo) {
 				var args = {
 						lessonID: exercise.lessonID,
 						exerciseID: exercise.id,
 				};
 				connection.sendMessage('runDemo', args);
 				exercise.isRunning = true;
-	    	}
-	    	else {
-	    		// We don't need to query the server again
-	    		// Just to replay the animation
-	    		replay();
-	    	}
-	    }
-	    
+			}
+			else {
+				// We don't need to query the server again
+				// Just to replay the animation
+				replay();
+			}
+		}
+		
 		function runCode() {
 			exercise.isPlaying = true;
 			//reset(false);
@@ -168,11 +168,18 @@
 		
 		function reset(worldID, worldKind, keepOperations) {
 			// We may want to keep the operations in order to replay the execution
-			var operations = keepOperations === true ? exercise[worldKind+'Worlds'][worldID].operations : [];
+			var operations = [];
+			var steps = [];
+			if(keepOperations === true) {
+				operations = exercise[worldKind+'Worlds'][worldID].operations;
+				steps = exercise[worldKind+'Worlds'][worldID].steps;
+			}
+
 			var initialWorld = exercise.initialWorlds[worldID];
 			exercise[worldKind+'Worlds'][worldID] = initialWorld.clone();
 			exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
 			exercise.currentWorld.operations = operations;
+			exercise.currentWorld.steps = steps;
 			exercise.currentState = -1;
 			canvas.setWorld(exercise.currentWorld);
 		}
@@ -201,20 +208,20 @@
 		function updateView() {
 			var currentState = exercise.currentWorld.currentState;
 			var nbStates = exercise.currentWorld.operations.length-1;
-	    	if(currentState !== nbStates) {
-    			exercise.currentWorld.setState(++currentState);
-    			exercise.currentState = currentState;
-    			canvas.update();
-    		}
-	    	if(!exercise.isRunning && currentState === nbStates){
-	    		exercise.updateViewLoop = null;
-	    		exercise.isPlaying = false;
-	    	}
-	    	else {
-	    		exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
-	    	}
-	    	$scope.$apply(); // Have to add this line to force AngularJS to update the view
-	    }
+			if(currentState !== nbStates) {
+				exercise.currentWorld.setState(++currentState);
+				exercise.currentState = currentState;
+				canvas.update();
+			}
+			if(!exercise.isRunning && currentState === nbStates){
+				exercise.updateViewLoop = null;
+				exercise.isPlaying = false;
+			}
+			else {
+				exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+			}
+			$scope.$apply(); // Have to add this line to force AngularJS to update the view
+		}
 		
 		function setWorldState(state) {
 			state = parseInt(state);
@@ -224,9 +231,9 @@
 		}
 		
 		$scope.$on("$destroy",function() {
-	    	offDisplayMessage();
-    	});
+			offDisplayMessage();
+		});
 
-    	window.addEventListener('resize', canvas.resize, false);
+		window.addEventListener('resize', canvas.resize, false);
 	}
 })();
