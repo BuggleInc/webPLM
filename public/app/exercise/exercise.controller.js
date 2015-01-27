@@ -31,7 +31,11 @@
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
 		exercise.currentState = -1;
-		
+		exercise.currentProgrammingLanguage = null;
+		exercise.programmingLanguages = [];
+
+		exercise.editor = null;
+
 		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -39,7 +43,12 @@
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
-		
+		exercise.setProgrammingLanguage = setProgrammingLanguage;
+
+		$scope.codemirrorLoaded = function(_editor){
+			exercise.editor = _editor;
+		};
+
 		function getExercise() {
 			var args = {
 					lessonID: exercise.lessonID,
@@ -114,6 +123,14 @@
 			canvas.init();
 			setCurrentWorld('current');
 			exercise.worldIDs = Object.keys(exercise.currentWorlds);
+			exercise.programmingLanguages = data.programmingLanguages;
+			for(var i=0; i<exercise.programmingLanguages.length; i++) {
+				var pl = exercise.programmingLanguages[i];
+				if(pl.lang === data.currentProgrammingLanguage) {
+					exercise.currentProgrammingLanguage = pl;
+				}
+			}
+			$(document).foundation('dropdown', 'reflow');
 		}
 		
 		function setCurrentWorld(worldKind) {
@@ -231,6 +248,24 @@
 			canvas.update();
 		}
 		
+		function setProgrammingLanguage(pl) {
+			exercise.currentProgrammingLanguage = pl;
+			switch(pl.lang.toLowerCase()) {
+				case 'java':
+					exercise.editor.setOption('mode', 'text/x-java');
+					break;
+				case 'scala':
+					exercise.editor.setOption('mode', 'text/x-scala');
+					break;
+				case 'c':
+					exercise.editor.setOption('mode', 'text/x-csrc');
+					break;
+				case 'python':
+					exercise.editor.setOption('mode', 'text/x-python');
+					break;
+			}
+		}
+
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
 		});

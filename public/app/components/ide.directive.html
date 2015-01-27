@@ -4,5 +4,10 @@
 <button class="button" ng-click="exercise.runCode()" ng-disabled="exercise.isRunning">Run</button>
 <button class="button" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning">Stop</button>
 <button class="button" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning">Demo</button>
-<button class="button right">Language</button>
-<ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ lineWrapping : true, lineNumbers: true, mode: 'text/x-java' }"></ui-codemirror>
+<a class="button secondary right" data-dropdown="drop"><img class="left" ng-src="{{exercise.currentProgrammingLanguage.icon}}">&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>
+<ul id="drop" class="f-dropdown" data-dropdown-content>
+  <li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
+  	<a><img ng-src="{{pl.icon}}">&nbsp;{{pl.lang}}</a>
+  </li>
+</ul>
+<ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, mode: 'text/x-java' }"></ui-codemirror>

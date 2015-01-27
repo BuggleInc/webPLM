@@ -30,10 +30,8 @@ object PLM {
   def game : Game = _game
   def lessons: List[Lesson] = _lessons
   
-  def programmingLanguages: List[String] = {
-    var programmingLanguages : ListBuffer[String] = new ListBuffer[String]()
-    _programmingLanguages.foreach { x => println("lang: ", x.getLang); programmingLanguages += x.getLang };
-    return programmingLanguages.toList
+  def programmingLanguages: List[ProgrammingLanguage] = {
+    return _programmingLanguages
   }
   
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {

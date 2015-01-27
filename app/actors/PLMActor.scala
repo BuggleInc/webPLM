@@ -8,8 +8,10 @@ import models.PLM
 import log.RemoteLogWriter
 import log.LoggerUtils
 import spies._
+import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
+import plm.core.lang.ProgrammingLanguage
 import plm.universe.Entity
 import plm.universe.World
 import plm.universe.IWorldView
@@ -216,6 +218,17 @@ class PLMActor(out: ActorRef) extends Actor {
         )
   }
   
+  implicit val programmingLanguagesWrites = new Writes[ProgrammingLanguage] {
+    def writes(programmingLanguage: ProgrammingLanguage): JsValue = {
+      var lang: String = programmingLanguage.getLang
+      var link: String = "/img/lang_"+ lang.toLowerCase +".png"
+      Json.obj(
+          "lang" -> lang,
+          "icon" -> link
+      )
+    }
+  }
+
   implicit val lectureWrites = new Writes[Lecture] {
     def writes(lecture: Lecture) = Json.obj(
           "id" -> lecture.getId,
@@ -223,7 +236,9 @@ class PLMActor(out: ActorRef) extends Actor {
           "code" -> PLM.getStudentCode,
           "initialWorlds" -> PLM.getInitialWorlds,
           "selectedWorldID" -> PLM.getSelectedWorldID,
-          "api" -> PLM.getInitialWorlds.head.getAbout
+          "api" -> PLM.getInitialWorlds.head.getAbout,
+          "programmingLanguages" -> lecture.asInstanceOf[Exercise].getProgLanguages.toArray(Array[ProgrammingLanguage]()).toList,
+          "currentProgrammingLanguage" -> PLM.programmingLanguage.getLang
         )
   }
 }
