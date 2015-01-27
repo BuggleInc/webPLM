@@ -1,12 +1,13 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
 		.module('PLMApp')
 		.controller('Exercise', Exercise);
 	
-	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'connection', 'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
-	
+	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'connection', 
+	'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
+
 	function Exercise($http, $scope, $sce, $stateParams, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
 		var exercise = this;
 				
@@ -43,7 +44,7 @@
 			var args = {
 					lessonID: exercise.lessonID,
 			};
-			if(exercise.id !== "")
+			if(exercise.id !== '')
 			{
 				args.exerciseID = exercise.id;
 			}
@@ -225,12 +226,12 @@
 		
 		function setWorldState(state) {
 			state = parseInt(state);
-			this.currentWorld.setState(state);
-			this.currentState = state;
+			exercise.currentWorld.setState(state);
+			exercise.currentState = state;
 			canvas.update();
 		}
 		
-		$scope.$on("$destroy",function() {
+		$scope.$on('$destroy',function() {
 			offDisplayMessage();
 		});
 

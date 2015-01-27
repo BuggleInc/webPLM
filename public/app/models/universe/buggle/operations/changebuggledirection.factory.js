@@ -1,11 +1,11 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
 		.module('PLMApp')
 		.factory('ChangeBuggleDirection', ChangeBuggleDirection);
 	
-	ChangeBuggleDirection.$inject = ['Direction']	
+	ChangeBuggleDirection.$inject = ['Direction'];
 
 	function ChangeBuggleDirection (Direction) {
 		

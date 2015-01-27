@@ -1,11 +1,11 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
 		.module('PLMApp')
 		.factory('BuggleWorldCell', BuggleWorldCell);
 	
-	BuggleWorldCell.$inject = ['DefaultColors']
+	BuggleWorldCell.$inject = ['DefaultColors'];
 	
 	function BuggleWorldCell (DefaultColors) {
 		
@@ -33,10 +33,10 @@
 			ctx.fillStyle = 'rgba('+this.color.join(',')+')';
 			if(this.color[0] === 255 && this.color[1] === 255 && this.color[2] === 255 && this.color[3] === 255) {
 				if((this.x+this.y)%2 === 0) {
-					ctx.fillStyle = "rgb(230, 230, 230)";
+					ctx.fillStyle = 'rgb(230, 230, 230)';
 				}
 				else {
-					ctx.fillStyle = "rgb(255, 255, 255)";
+					ctx.fillStyle = 'rgb(255, 255, 255)';
 				}
 			}
 			ctx.fillRect(xLeft, yTop, xRight, yBottom);

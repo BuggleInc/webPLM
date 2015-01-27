@@ -1,4 +1,4 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
@@ -36,13 +36,13 @@
 			
 			this.entities = {};
 			for(var buggleID in world.entities) {
-				var buggle = world.entities[buggleID]
+				var buggle = world.entities[buggleID];
 				this.entities[buggleID] = new Buggle(buggle);
 			}
 		};
 		
 		BuggleWorld.prototype.clone = function () {
-			return new BuggleWorld(this)
+			return new BuggleWorld(this);
 		};
 		
 		BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
@@ -57,12 +57,17 @@
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = 'SteelBlue';
 			
+			var xLeft;
+			var xRight;
+			var yTop;
+			var yBottom;
+
 			// frontier walls (since the world is a torus)
 			for (var y = 0; y < this.height; y++) {
 				if (this.cells[0][y].hasLeftWall) {
-					var xLeft = canvasWidth;
-					var yTop = canvasHeight/this.height*y;
-					var yBottom = canvasHeight/this.height*(y+1);
+					xLeft = canvasWidth;
+					yTop = canvasHeight/this.height*y;
+					yBottom = canvasHeight/this.height*(y+1);
 					ctx.moveTo(xLeft, yTop);
 					ctx.lineTo(xLeft, yBottom);		
 				}
@@ -70,9 +75,9 @@
 			
 			for (var x = 0; x < this.width; x++) {
 				if (this.cells[x][0].hasTopWall) {
-					var xLeft = canvasWidth/this.width*x;
-					var xRight = canvasWidth/this.width*(x+1);
-					var yTop = canvasHeight;
+					xLeft = canvasWidth/this.width*x;
+					xRight = canvasWidth/this.width*(x+1);
+					yTop = canvasHeight;
 					ctx.moveTo(xLeft, yTop);
 					ctx.lineTo(xRight, yTop);		
 				}
@@ -87,19 +92,22 @@
 		};
 		
 		BuggleWorld.prototype.setState = function (state) {
+			var i;
+			var j;
+			var step;
 			if(state < this.operations.length && state >= -1) {
 				if(this.currentState < state) {
-					for(var i=this.currentState+1; i<=state; i++) {
-						var step = this.operations[i];
-						for(var j=0; j<step.length; j++) {
+					for(i=this.currentState+1; i<=state; i++) {
+						step = this.operations[i];
+						for(j=0; j<step.length; j++) {
 							step[j].apply(this);
 						}
 					}
 				}
 				else {
-					for(var i=this.currentState; i>state; i--) {
-						var step = this.operations[i];
-						for(var j=0; j<step.length; j++) {
+					for(i=this.currentState; i>state; i--) {
+						step = this.operations[i];
+						for(j=0; j<step.length; j++) {
 							step[j].reverse(this);
 						}
 					}
@@ -129,7 +137,7 @@
     		case 'buggleEncounterWall':
     			return new BuggleEncounterWall(operation);
 			}
-		}
+		};
 		
 		return BuggleWorld;
 	}

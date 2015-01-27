@@ -1,4 +1,4 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
@@ -49,7 +49,7 @@
 	    	home.currentLesson = lesson;
 	    }
 	    
-	    $scope.$on("$destroy",function() {
+	    $scope.$on('$destroy',function() {
 	    	offHandleMessage();
     	});
 	}

@@ -1,4 +1,4 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
@@ -25,6 +25,5 @@
 	    // catch all route
 	    // send users to the home page 
 	    $urlRouterProvider.otherwise('/');
-	};
-	
+	}
 })();

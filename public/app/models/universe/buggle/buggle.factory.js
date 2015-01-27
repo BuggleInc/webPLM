@@ -1,4 +1,4 @@
-(function () {	
+(function(){
 	'use strict';
 	
 	angular
@@ -13,7 +13,7 @@
 			this.x = buggle.x;
 			this.y = buggle.y;
 			this.color = buggle.color;
-			this.setDirection(buggle.direction)
+			this.setDirection(buggle.direction);
 			this.carryBaggle = buggle.carryBaggle;
 		};
 		
@@ -63,7 +63,7 @@
 					data[i+2] = this.color[2];
 					data[i+3] = this.color[3];
 				}
-			};
+			}
 			ctx.putImageData(imgData, xLeft, yTop);
 		};
 		
