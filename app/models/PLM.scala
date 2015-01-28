@@ -108,6 +108,10 @@ object PLM {
   
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
   
+  def setProgrammingLanguage(lang: String) {
+    _game.setProgrammingLanguage(lang)
+  }
+  
   def getStudentCode: String = {
     return _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
   }

@@ -43,6 +43,15 @@ class PLMActor(out: ActorRef) extends Actor {
         case "getLessons" =>
           var mapArgs: JsValue = Json.toJson(Map("lessons" -> Json.toJson(PLM.lessons)))
           sendMessage("lessons", mapArgs)
+        case "setProgrammingLanguage" =>
+          var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
+          (optProgrammingLanguage.getOrElse(None)) match {
+            case programmingLanguage: String =>
+              PLM.setProgrammingLanguage(programmingLanguage)
+              sendMessage("programmingLanguageSet", Json.obj())
+            case _ =>
+              LoggerUtils.debug("getExercise: non-correct JSON")
+          }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

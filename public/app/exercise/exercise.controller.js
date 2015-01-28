@@ -128,6 +128,7 @@
 				var pl = exercise.programmingLanguages[i];
 				if(pl.lang === data.currentProgrammingLanguage) {
 					exercise.currentProgrammingLanguage = pl;
+					setIDEMode(pl);
 				}
 			}
 			$(document).foundation('dropdown', 'reflow');
@@ -248,8 +249,7 @@
 			canvas.update();
 		}
 		
-		function setProgrammingLanguage(pl) {
-			exercise.currentProgrammingLanguage = pl;
+		function setIDEMode(pl) {
 			switch(pl.lang.toLowerCase()) {
 				case 'java':
 					exercise.editor.setOption('mode', 'text/x-java');
@@ -264,6 +264,18 @@
 					exercise.editor.setOption('mode', 'text/x-python');
 					break;
 			}
+		}
+
+		function setProgrammingLanguage(pl) {
+			var args;
+
+			exercise.currentProgrammingLanguage = pl;
+			setIDEMode(pl);
+			args = {
+					programmingLanguage: pl.lang,
+			};
+			connection.sendMessage('setProgrammingLanguage', args);
+
 		}
 
 		$scope.$on('$destroy',function() {
