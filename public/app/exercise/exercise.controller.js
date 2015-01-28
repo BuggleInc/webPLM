@@ -21,6 +21,7 @@
 		exercise.api = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
+		exercise.logs = '';
 		exercise.initialWorlds = {};
 		exercise.answerWorlds = {};
 		exercise.currentWorlds = {};
@@ -92,6 +93,7 @@
 					}
 					break;
 				case 'log': 
+					exercise.logs += args.msg;
 					console.log('log: ', args.msg);
 					break;
 				default:

@@ -3,10 +3,12 @@
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'instructions' }" ng-click="exercise.display = 'instructions'"><a>Instructions</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'api' }" ng-click="exercise.display = 'api'"><a>API</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'result' }" ng-click="exercise.display = 'result'"><a>Result</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.display === 'logs' }" ng-click="exercise.display = 'logs'"><a>Logs</a></dd>
 	</dl>
 </div>
 <div class="row">
 	<div ng-show="exercise.display === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.display === 'api'" ng-bind-html="exercise.api"></div>
 	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result}}</div>
+	<div class="with-newlines" ng-show="exercise.display === 'logs'">{{exercise.logs}}</div>
 </div>
