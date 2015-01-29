@@ -12,7 +12,7 @@
 			    
 		home.lessons = [];
 		home.currentLesson = null;
-	    home.currentExercise = null;
+	    home.currentExerciseID = '';
 		
 	    home.getLessons = getLessons;
 	    home.setLessons = setLessons;

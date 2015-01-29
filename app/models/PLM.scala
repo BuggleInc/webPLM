@@ -37,6 +37,7 @@ object PLM {
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
+
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
@@ -51,10 +52,14 @@ object PLM {
     return lect
   }
   
-  def switchExercise(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchExercise(lessonID: String, exerciseID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
-    var lect: Lecture = game.getCurrentLesson.getCurrentExercise
+    
+    var lesson: Lesson = game.getCurrentLesson
+    lesson.setCurrentExercise(exerciseID)
+
+    var lect: Lecture = lesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)

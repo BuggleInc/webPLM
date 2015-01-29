@@ -59,7 +59,7 @@ class PLMActor(out: ActorRef) extends Actor {
             case (lessonID:String, exerciseID: String) =>
               var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
               var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
-              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchLesson(lessonID, executionSpy, demoExecutionSpy))))
+              var mapArgs: JsValue = Json.toJson(Map("exercise" -> Json.toJson(PLM.switchExercise(lessonID, exerciseID, executionSpy, demoExecutionSpy))))
               var res: JsValue = createMessage("exercise", mapArgs)
               LoggerUtils.debug(Json.stringify(res))
               out ! res
