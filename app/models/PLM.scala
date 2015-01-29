@@ -55,11 +55,9 @@ object PLM {
   def switchExercise(lessonID: String, exerciseID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
-    
-    var lesson: Lesson = game.getCurrentLesson
-    lesson.setCurrentExercise(exerciseID)
+    game.switchExercise(exerciseID)
 
-    var lect: Lecture = lesson.getCurrentExercise
+    var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
