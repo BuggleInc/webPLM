@@ -92,9 +92,31 @@ class PLMActor(out: ActorRef) extends Actor {
           }
         case "stopExecution" =>
           PLM.stopExecution
+        case "getExercises" =>
+          var mapArgs: JsValue = Json.toJson(Map("exercises" -> Json.toJson(startListExercises)))
+          sendMessage("exercises", mapArgs)
         case _ =>
           LoggerUtils.debug("cmd: non-correct JSON")
       }
+  }
+
+  def startListExercises(): JsValue = {
+    var array = Json.arr()
+    PLM.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]()).foreach { root => 
+      array = array ++ generateListExercises(root, "null")
+    }
+    return array
+  }
+  
+  def generateListExercises(lect: Lecture , parentID: String): JsArray = {
+    var array = Json.arr(Json.obj(
+      "name" -> lect.getName,
+      "parent" -> parentID
+    ))
+    lect.getDependingLectures.toArray(Array[Lecture]()).foreach { lectBis =>
+       array = array ++ generateListExercises(lectBis, lect.getName)
+    }
+    return array
   }
   
   def createMessage(cmdName: String, mapArgs: JsValue): JsValue = {

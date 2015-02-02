@@ -59,8 +59,8 @@
 			if(this.hasBaggle) {
 				ctx.beginPath(); 
 				ctx.fillStyle=DefaultColors.BAGGLE;
-				ctx.arc(xLeft+padX, yTop+padY, 30, 0, Math.PI*2, true);
-				ctx.arc(xLeft+padX, yTop+padY, 15, 0, Math.PI*2, true);
+				ctx.arc(xLeft+padX, yTop+padY, canvasWidth/width*0.3, 0, Math.PI*2, true);
+				ctx.arc(xLeft+padX, yTop+padY, canvasWidth/width*0.15, 0, Math.PI*2, true);
 				ctx.fill('evenodd');
 				ctx.closePath();
 			}

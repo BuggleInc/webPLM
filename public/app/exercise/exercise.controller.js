@@ -96,6 +96,31 @@
 					exercise.logs += args.msg;
 					console.log('log: ', args.msg);
 					break;
+				case 'exercises':
+					console.log('arrayData: ', args.exercises);
+					exercise.exercisesList = args.exercises;
+					var dataMap = args.exercises.reduce(function(map, node) {
+						map[node.name] = node;
+					 	return map;
+					}, {});
+					var treeData = [];
+					args.exercises.forEach(function(node) {
+						// add to parent
+						var parent = dataMap[node.parent];
+						if (parent) {
+							// create child array if it doesn't exist
+							(parent.children || (parent.children = []))
+							// add node to child array
+							.push(node);
+						} else {
+							// parent is null or missing
+							treeData.push(node);
+						}
+					});
+					exercise.exercisesTree = treeData;
+					console.log('treeData: ', treeData);
+					$(document).foundation('reveal', 'reflow');
+					break;
 				default:
 					console.log('Hum... Unknown message!');
 					console.log(data);
@@ -134,6 +159,8 @@
 				}
 			}
 			$(document).foundation('dropdown', 'reflow');
+
+			connection.sendMessage('getExercises', {});
 		}
 		
 		function setCurrentWorld(worldKind) {
