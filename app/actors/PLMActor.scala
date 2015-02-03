@@ -110,6 +110,7 @@ class PLMActor(out: ActorRef) extends Actor {
   
   def generateListExercises(lect: Lecture , parentID: String): JsArray = {
     var array = Json.arr(Json.obj(
+      "id" -> lect.getId,
       "name" -> lect.getName,
       "parent" -> parentID
     ))

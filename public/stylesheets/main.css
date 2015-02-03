@@ -18,6 +18,11 @@
 	overflow-y: auto;
 }
 
+.no-width {
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
 .active-operation {
 	color: white;
 	background-color: #008CBA;
