@@ -1,45 +1,13 @@
 &nbsp;
 <span ng-class="{ secondary: exercise.resultType === null,  alert: exercise.resultType === 0, success: exercise.resultType ===1 }" class="round label">&nbsp;</span>
 &nbsp;
-<button class="button" ng-click="exercise.runCode()" ng-disabled="exercise.isRunning">Run</button>
+<button class="button" ng-click="exercise.runCode()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang">Run</button>
 <button class="button" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning">Stop</button>
-<button class="button" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning">Demo</button>
+<button class="button" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang">Demo</button>
 
-<a class="button secondary right" data-dropdown="drop"><img class="left" ng-src="{{exercise.currentProgrammingLanguage.icon}}">&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>
-<ul id="drop" class="f-dropdown" data-dropdown-content>
-  <li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
-  	<a><img ng-src="{{pl.icon}}">&nbsp;{{pl.lang}}</a>
-  </li>
-</ul>
-&nbsp;
-<a class="button right" data-reveal-id="myModal">Exercise</a>
-
-<div id="myModal" class="reveal-modal small" data-reveal>
-  <h2>Choose an exercise:</h2>
-
-  <div class="row">
-
-    <div class="small-4 columns">
-      <ul class="tabs vertical no-width overflow" data-tab>
-        <li ng-class="{ active: exercise.rootLecture === rootLecture }" class="tab-title" ng-repeat="rootLecture in exercise.exercisesTree" ng-click="exercise.rootLecture = rootLecture">
-          <a>{{rootLecture.name}}</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="small-8 columns">
-      <ul class="tabs vertical no-width overflow" data-tab>
-        <li ng-class="{ active: exercise.nextExercise === exercise.rootLecture.id }" class="tab-title" ng-click="exercise.nextExercise = exercise.rootLecture.id"><a>{{exercise.rootLecture.name}}</a></li>
-        <li ng-class="{ active: exercise.nextExercise === exo.id }" class="tab-title" ng-repeat="exo in exercise.rootLecture.children" ng-click="exercise.nextExercise = exo.id"><a>{{exo.name}}</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="row">
-    <button class="button radius right" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.nextExercise})">Switch to</button>
-  </div>
-
-  <a class="close-reveal-modal">&#215;</a>
-</div>
+<select-programming-language></select-programming-language>
+<switch-exercise></switch-exercise>
 
 <ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, mode: 'text/x-java' }"></ui-codemirror>
+
+<success-modal></success-modal>

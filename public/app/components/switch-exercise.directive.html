@@ -1,0 +1,28 @@
+<a class="button right" data-reveal-id="exercisesModal">Exercise</a>
+<div id="exercisesModal" class="reveal-modal small" data-reveal>
+	<h2>Choose an exercise:</h2>
+
+	<div class="row">
+
+		<div class="small-4 columns">
+			<ul class="tabs vertical no-width overflow" data-tab>
+				<li ng-class="{ active: exercise.rootLecture === rootLecture }" class="tab-title" ng-repeat="rootLecture in exercise.exercisesTree" ng-click="exercise.rootLecture = rootLecture">
+					<a>{{rootLecture.name}}</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="small-8 columns">
+			<ul class="tabs vertical no-width overflow" data-tab>
+				<li ng-class="{ active: exercise.nextExercise === exercise.rootLecture.id }" class="tab-title" ng-click="exercise.nextExercise = exercise.rootLecture.id"><a>{{exercise.rootLecture.name}}</a></li>
+				<li ng-class="{ active: exercise.nextExercise === exo.id }" class="tab-title" ng-repeat="exo in exercise.rootLecture.children" ng-click="exercise.nextExercise = exo.id"><a>{{exo.name}}</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="row">
+		<button class="button radius right" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.nextExercise})">Switch to</button>
+	</div>
+
+	<a class="close-reveal-modal">&#215;</a>
+</div>

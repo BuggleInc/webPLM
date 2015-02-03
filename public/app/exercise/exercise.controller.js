@@ -16,6 +16,7 @@
 		exercise.display = 'instructions';
 		exercise.isRunning = false;
 		exercise.isPlaying = false;
+		exercise.isChangingProgLang = false;
 		exercise.playedDemo = false;
 		exercise.instructions = null;
 		exercise.api = null;
@@ -94,11 +95,15 @@
 					break;
 				case 'log': 
 					exercise.logs += args.msg;
-					console.log('log: ', args.msg);
 					break;
 				case 'exercises':
-					console.log('arrayData: ', args.exercises);
 					exercise.exercisesList = args.exercises;
+					for(var i=0; i<exercise.exercisesList.length; i++) {
+						var exo = exercise.exercisesList[i];
+						if(exo.id === exercise.id) {
+							exercise.nextExerciseID = exercise.exercisesList[i+1].id;
+						}
+					}
 					var dataMap = args.exercises.reduce(function(map, node) {
 						map[node.name] = node;
 					 	return map;
@@ -118,8 +123,10 @@
 						}
 					});
 					exercise.exercisesTree = treeData;
-					console.log('treeData: ', treeData);
 					$(document).foundation('reveal', 'reflow');
+					break;
+				case 'programmingLanguageSet':
+					isChangingProgLang = false;
 					break;
 				default:
 					console.log('Hum... Unknown message!');
@@ -210,6 +217,9 @@
 		function displayResult(msgType, msg) {
 			console.log(msgType, ' - ', msg);
 			exercise.result = msg;
+			if(msgType === 1) {
+				$('#successModal').foundation('reveal', 'open');
+			}
 			exercise.resultType = msgType;
 			exercise.isRunning = false;
 		}
@@ -297,7 +307,7 @@
 
 		function setProgrammingLanguage(pl) {
 			var args;
-
+			exercise.isChangingProgLang = true;
 			exercise.currentProgrammingLanguage = pl;
 			setIDEMode(pl);
 			args = {

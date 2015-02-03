@@ -1,0 +1,9 @@
+<!-- Modal de victoire -->
+<div id="successModal" class="reveal-modal" data-reveal>
+  <h2>Exercice réussi \o/</h2>
+  <p class="lead"><img src="/img/trophy.png"> Félicitations, vous avez réussi cet exercice.</p>
+  <p>
+    Voulez-vous tenter l'exercice <button onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.nextExerciseID})">suivant</button>?
+  </p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

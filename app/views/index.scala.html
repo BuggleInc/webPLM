@@ -2,67 +2,67 @@
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@title</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css">
-    <link rel="stylesheet" href="/assets/stylesheets/main.css">
-    <link rel="stylesheet" type="text/css" href="/assets/javascripts/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"></link>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.svg"></link>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
-    <script src="/assets/javascripts/codemirror/lib/codemirror.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/codemirror/mode/clike/clike.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/codemirror/mode/python/python.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
-  </head> 
-  <body ng-app="PLMApp">
-  
-    <div class="contain-to-grid">
-		  <nav class="top-bar" data-topbar role="navigation">
-			  <ul class="title-area">
-			    <li class="name">
-			      <h1><a ui-sref="home">PLM</a></h1>
-			    </li>
-			     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-			    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-			  </ul>
-			
-			  <section class="top-bar-section">
-			    <!-- Right Nav Section -->
-			    <ul class="right">
-			      <li><a href="#">About</a></li>
-			      <li><a href="#">Contact</a>
-			    </ul>
-			
-			    <!-- Left Nav Section -->
-			    <ul class="left">
-			      <li><a ui-sref="home">Home</a></li>
-			    </ul>
-			  </section>
-			</nav> <!-- /.nav -->
-    </div>
-  
-    <div ui-view></div>
-    
-    <footer class="row">
-      <hr>
-      <p>&copy;PLM</p>
-    </footer>
-  
-  </body>
-  
-  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/jquery.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/fastclick.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation/foundation.slider.min.js"></script>
-  
-  <script>
-    $(document).foundation();
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>@title</title>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css">
+		<link rel="stylesheet" href="/assets/stylesheets/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/javascripts/codemirror/lib/codemirror.css">
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"></link>
+		<link href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.svg"></link>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+		<script src="/assets/javascripts/codemirror/lib/codemirror.js"></script>
+		<script type="text/javascript" src="/assets/javascripts/codemirror/mode/clike/clike.js"></script>
+		<script type="text/javascript" src="/assets/javascripts/codemirror/mode/python/python.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
+		<script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
+		</head> 
+	<body ng-app="PLMApp">
+	
+		<div class="contain-to-grid">
+				<nav class="top-bar" data-topbar role="navigation">
+					<ul class="title-area">
+					<li class="name">
+						<h1><a ui-sref="home">PLM</a></h1>
+					</li>
+					 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+					</ul>
+				
+					<section class="top-bar-section">
+					<!-- Right Nav Section -->
+					<ul class="right">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Contact</a>
+					</ul>
+				
+					<!-- Left Nav Section -->
+					<ul class="left">
+						<li><a ui-sref="home">Home</a></li>
+					</ul>
+					</section>
+				</nav> <!-- /.nav -->
+		</div>
+		
+		<div ui-view></div>
+		
+		<footer class="row">
+			<hr>
+			<p>&copy;PLM</p>
+		</footer>
+	
+	</body>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/jquery.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/fastclick.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation/foundation.slider.min.js"></script>
+	
+	<script>
+		$(document).foundation();
 	</script>
 	
 	<!-- AngularJS application's files -->
@@ -78,9 +78,11 @@
 	<script type="text/javascript" src="/assets/app/components/tabs-current-world.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/ide.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/player-options.directive.js"></script>
-
+	<script type="text/javascript" src="/assets/app/components/select-programming-language.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/switch-exercise.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/success-modal.directive.js"></script>
 	<!-- Application's services -->
-  <script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
 	
@@ -97,13 +99,13 @@
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcolor.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhasbaggle.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcontent.factory.js"></script>
-  <script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhascontent.factory.js"></script>
+	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhascontent.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/movebuggleoperation.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggle.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldcell.factory.js"></script>
 	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworld.factory.js"></script>
 	
 	<!-- Application's controllers -->
-  <script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
-  <script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
+	<script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
+	<script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
 </html> 
