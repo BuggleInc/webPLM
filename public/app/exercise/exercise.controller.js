@@ -126,7 +126,7 @@
 					$(document).foundation('reveal', 'reflow');
 					break;
 				case 'programmingLanguageSet':
-					isChangingProgLang = false;
+					exercise.isChangingProgLang = false;
 					break;
 				default:
 					console.log('Hum... Unknown message!');
