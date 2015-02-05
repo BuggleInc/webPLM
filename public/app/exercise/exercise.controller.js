@@ -184,7 +184,6 @@
 		
 		function runCode() {
 			exercise.isPlaying = true;
-			//reset(false);
 			exercise.worldIDs.map(function(key) {
 				reset(key, 'current', false);
 			});
@@ -223,11 +222,17 @@
 
 			var initialWorld = exercise.initialWorlds[worldID];
 			exercise[worldKind+'Worlds'][worldID] = initialWorld.clone();
-			exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
-			exercise.currentWorld.operations = operations;
-			exercise.currentWorld.steps = steps;
-			exercise.currentState = -1;
-			canvas.setWorld(exercise.currentWorld);
+			exercise[worldKind+'Worlds'][worldID].operations = operations;
+			exercise[worldKind+'Worlds'][worldID].steps = steps;
+
+			if(worldID === exercise.currentWorldID) {
+				exercise.currentState = -1;
+				exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
+				canvas.setWorld(exercise.currentWorld);
+			}
+			
+			clearTimeout(exercise.updateViewLoop);
+			exercise.isPlaying = false;
 		}
 		
 		function replay() {
