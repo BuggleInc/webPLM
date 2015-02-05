@@ -61,8 +61,25 @@
 			}
 			
 			ctx.beginPath();
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = 'grey';
+			var cellWidth = canvasWidth/this.width;
+			var cellHeight = canvasHeight/this.height;
+			for(i=0; i<=this.width; i++) {
+				ctx.moveTo(i*cellWidth, 0);
+				ctx.lineTo(i*cellWidth, canvasHeight);
+			}
+			for(j=0; j<=this.height; j++) {
+				ctx.moveTo(0, j*cellHeight);
+				ctx.lineTo(canvasWidth, j*cellHeight);	
+			}
+			ctx.stroke();
+			ctx.closePath();
+
+
+			ctx.beginPath();
 			
-			ctx.lineWidth = 5;
+			ctx.lineWidth = 4;
 			ctx.strokeStyle = 'SteelBlue';
 
 			// frontier walls (since the world is a torus)

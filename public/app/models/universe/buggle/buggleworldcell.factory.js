@@ -31,7 +31,7 @@
 			var yBottom = canvasHeight/height*(this.y+1);
 			
 			ctx.beginPath();
-			ctx.lineWidth = 5;
+			ctx.lineWidth = 4;
 			ctx.strokeStyle = 'SteelBlue';
 			ctx.fillStyle = 'rgba('+this.color.join(',')+')';
 			if(this.color[0] === 255 && this.color[1] === 255 && this.color[2] === 255 && this.color[3] === 255) {
