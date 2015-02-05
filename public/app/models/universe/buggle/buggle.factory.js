@@ -51,11 +51,14 @@
 
 			var scaleFactor = 0.6;
 			var cellWidth = canvasWidth / width;
+			var cellHeight = canvasHeight / height;
 			var pixW = scaleFactor * cellWidth / INVADER_SPRITE_SIZE;
-			var pad = 0.5*(1-scaleFactor)*cellWidth;
+			var pixY = scaleFactor * cellHeight / INVADER_SPRITE_SIZE;
+			var padX = 0.5*(1-scaleFactor)*cellWidth;
+			var padY = 0.5*(1-scaleFactor)*cellHeight;
 
 			var ox = this.x * cellWidth;
-			var oy = this.y * cellWidth;
+			var oy = this.y * cellHeight;
 
 			ctx.beginPath();
 			ctx.fillStyle = 'rgba('+this.color.join(',')+')';
@@ -63,7 +66,7 @@
 			for(dy=0; dy<INVADER_SPRITE_SIZE; dy++) {
 				for(dx=0; dx<INVADER_SPRITE_SIZE; dx++) {
 					if(INVADER_SPRITE[this.direction][dy][dx] === 1) {
-						ctx.fillRect(pad+ox+dx*pixW, pad+oy+dy*pixW, pixW, pixW);
+						ctx.fillRect(padX+ox+dx*pixW, padY+oy+dy*pixY, pixW, pixY);
 					}
 				}
 			}
