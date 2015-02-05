@@ -1,4 +1,4 @@
-<a class="button right" data-reveal-id="exercisesModal">Exercise</a>
+<a class="button right" data-reveal-id="exercisesModal">Switch exercise</a>
 <div id="exercisesModal" class="reveal-modal small" data-reveal>
 	<h2>Choose an exercise:</h2>
 
@@ -6,7 +6,7 @@
 
 		<div class="small-4 columns">
 			<ul class="tabs vertical no-width overflow" data-tab>
-				<li ng-class="{ active: exercise.rootLecture === rootLecture }" class="tab-title" ng-repeat="rootLecture in exercise.exercisesTree" ng-click="exercise.rootLecture = rootLecture">
+				<li ng-repeat="rootLecture in exercise.exercisesAsTree" ng-class="{ active: exercise.selectedRootLecture === rootLecture }" class="tab-title" ng-click="exercise.setSelectedRootLecture(rootLecture)">
 					<a>{{rootLecture.name}}</a>
 				</li>
 			</ul>
@@ -14,14 +14,14 @@
 
 		<div class="small-8 columns">
 			<ul class="tabs vertical no-width overflow" data-tab>
-				<li ng-class="{ active: exercise.nextExercise === exercise.rootLecture.id }" class="tab-title" ng-click="exercise.nextExercise = exercise.rootLecture.id"><a>{{exercise.rootLecture.name}}</a></li>
-				<li ng-class="{ active: exercise.nextExercise === exo.id }" class="tab-title" ng-repeat="exo in exercise.rootLecture.children" ng-click="exercise.nextExercise = exo.id"><a>{{exo.name}}</a></li>
+				<li ng-class="{ active: exercise.selectedNextExercise === exercise.selectedRootLecture }" class="tab-title" ng-click="exercise.setSelectedNextExercise(exercise.selectedRootLecture)"><a>{{exercise.selectedRootLecture.name}}</a></li>
+				<li ng-repeat="exo in exercise.selectedRootLecture.children" ng-class="{ active: exercise.selectedNextExercise === exo }" class="tab-title"  ng-click="exercise.setSelectedNextExercise(exo)"><a>{{exo.name}}</a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="row">
-		<button class="button radius right" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.nextExercise})">Switch to</button>
+		<button class="button radius right" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.selectedNextExercise.id})">Switch to</button>
 	</div>
 
 	<a class="close-reveal-modal">&#215;</a>

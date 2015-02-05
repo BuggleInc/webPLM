@@ -13,16 +13,20 @@
 				
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
+		
 		exercise.display = 'instructions';
+		
 		exercise.isRunning = false;
 		exercise.isPlaying = false;
 		exercise.isChangingProgLang = false;
 		exercise.playedDemo = false;
+
 		exercise.instructions = null;
 		exercise.api = null;
 		exercise.resultType = null;
 		exercise.resultMsg = null;
 		exercise.logs = '';
+		
 		exercise.initialWorlds = {};
 		exercise.answerWorlds = {};
 		exercise.currentWorlds = {};
@@ -33,11 +37,18 @@
 		exercise.updateViewLoop = null;
 		exercise.timer = 1000;
 		exercise.currentState = -1;
+		
 		exercise.currentProgrammingLanguage = null;
 		exercise.programmingLanguages = [];
 
 		exercise.editor = null;
 
+		exercise.exercisesAsList = null;
+		exercise.exercisesAsTree = null;
+		exercise.defaultNextExercise = null;
+		exercise.selectedRootLecture = null;
+		exercise.selectedNextExercise = null;
+		
 		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -46,6 +57,8 @@
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
+		exercise.setSelectedRootLecture = setSelectedRootLecture;
+		exercise.setSelectedNextExercise = setSelectedNextExercise;
 
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
@@ -97,33 +110,7 @@
 					exercise.logs += args.msg;
 					break;
 				case 'exercises':
-					exercise.exercisesList = args.exercises;
-					for(var i=0; i<exercise.exercisesList.length; i++) {
-						var exo = exercise.exercisesList[i];
-						if(exo.id === exercise.id) {
-							exercise.nextExerciseID = exercise.exercisesList[i+1].id;
-						}
-					}
-					var dataMap = args.exercises.reduce(function(map, node) {
-						map[node.name] = node;
-					 	return map;
-					}, {});
-					var treeData = [];
-					args.exercises.forEach(function(node) {
-						// add to parent
-						var parent = dataMap[node.parent];
-						if (parent) {
-							// create child array if it doesn't exist
-							(parent.children || (parent.children = []))
-							// add node to child array
-							.push(node);
-						} else {
-							// parent is null or missing
-							treeData.push(node);
-						}
-					});
-					exercise.exercisesTree = treeData;
-					$(document).foundation('reveal', 'reflow');
+					storeExercisesList(args.exercises);
 					break;
 				case 'programmingLanguageSet':
 					exercise.isChangingProgLang = false;
@@ -134,7 +121,7 @@
 					break;
 			}
 		}
-		
+ 
 		function setExercise(data) {
 			exercise.id = data.id;
 			exercise.instructions = $sce.trustAsHtml(data.instructions);
@@ -221,6 +208,7 @@
 				$('#successModal').foundation('reveal', 'open');
 			}
 			exercise.resultType = msgType;
+			exercise.display = 'result';
 			exercise.isRunning = false;
 		}
 		
@@ -288,6 +276,50 @@
 			canvas.update();
 		}
 		
+		function storeExercisesList(exercises) {
+			exercise.exercisesAsList = exercises;
+
+			// Get the default next exercise
+			for(var i=0; i<exercises.length; i++) {
+				var exo = exercises[i];
+				if(exo.id === exercise.id) {
+					exercise.defaultNextExercise = exercises[i+1].id;
+				}
+			}
+
+			// Refactor the exercises list as a tree
+			var dataMap = exercises.reduce(function(map, node) {
+				map[node.name] = node;
+			 	return map;
+			}, {});
+			var treeData = [];
+			exercises.forEach(function(node) {
+				// add to parent
+				var parent = dataMap[node.parent];
+				if (parent) {
+					// create child array if it doesn't exist
+					(parent.children || (parent.children = []))
+					// add node to child array
+					.push(node);
+				} else {
+					// parent is null or missing
+					treeData.push(node);
+				}
+			});
+			exercise.exercisesAsTree = treeData;
+
+			// Update modal
+			$(document).foundation('reveal', 'reflow');
+		}
+
+		function setSelectedRootLecture(rootLecture) {
+			exercise.selectedRootLecture = rootLecture;
+		}
+
+		function setSelectedNextExercise(exo) {
+			exercise.selectedNextExercise = exo;
+		}
+
 		function setIDEMode(pl) {
 			switch(pl.lang.toLowerCase()) {
 				case 'java':
