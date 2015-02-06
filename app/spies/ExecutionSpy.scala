@@ -6,6 +6,7 @@ import plm.universe.World
 import plm.universe.IWorldView
 
 import plm.universe.Operation
+import plm.universe.Entity
 
 import plm.universe.GridWorldCell
 import plm.universe.GridWorldCellOperation
@@ -189,16 +190,19 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */
   def worldHasMoved() {
-    if(!world.operations.isEmpty()) {
-      LoggerUtils.debug("The world moved!")
-      
-      var mapArgs: JsValue = Json.obj(
-        "worldID" -> world.getName,
-        "operations" -> world.operations.toArray(Array[Operation]()).toList
-      )
-      world.operations.clear()
-      plmActor.sendMessage(messageID, mapArgs)
+    world.getEntities.toArray(Array[Entity]()).foreach { entity => 
+      if(entity.isReadyToSend) {
+        LoggerUtils.debug("The world moved!")
+        
+        var mapArgs: JsValue = Json.obj(
+          "worldID" -> world.getName,
+          "operations" -> entity.getOperations.toArray(Array[Operation]()).toList
+        )
+        entity.getOperations.clear
+        entity.setReadyToSend(false)
+        plmActor.sendMessage(messageID, mapArgs)
     
+      }
     }
   }
   
