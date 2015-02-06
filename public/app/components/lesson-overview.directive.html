@@ -8,12 +8,7 @@
 <div class="row">
   <h2>Votre progression</h2>
   <p ng-show="home.currentLesson">
-    <button class="button radius" ui-sref="exercise({lessonID: home.currentLesson.id, exerciseID: home.currentExerciseID})">Resume</button> <!-- ui-sref="exercise({lessonID: currentLesson.id, exerciseID: currentExerciseID}) -->
+    <button class="button radius" ui-sref="exercise({lessonID: home.currentLesson.id, exerciseID: home.currentExerciseID})">Resume</button>
   </p>
-  <!--
-  <p ng-show="plm.currentLesson && !plm.currentLesson.exercises">
-    <img ng-src="/assets/images/ajax-loader.gif">
-  </p>
-  -->
   <p ng-show="!home.currentLesson">Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon choisie.</p>
 </div> <!-- /.row user's progression -->
