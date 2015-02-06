@@ -5,12 +5,12 @@
 		.module('PLMApp')
 		.controller('Exercise', Exercise);
 	
-	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'connection', 
+	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', '$localStorage', 'connection', 
 	'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
-	function Exercise($http, $scope, $sce, $stateParams, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
+	function Exercise($http, $scope, $sce, $stateParams, $localStorage, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
 		var exercise = this;
-				
+		
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		
@@ -35,7 +35,11 @@
 		exercise.worldKind = 'current';
 		exercise.worldIDs = []; // Mandatory to generate dynamically the select
 		exercise.updateViewLoop = null;
-		exercise.timer = 1000;
+		
+		exercise.$storage = $localStorage.$default({
+          timer: 1000
+        });
+
 		exercise.currentState = -1;
 		
 		exercise.currentProgrammingLanguage = null;
