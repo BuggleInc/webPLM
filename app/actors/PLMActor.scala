@@ -48,7 +48,9 @@ class PLMActor(out: ActorRef) extends Actor {
           (optProgrammingLanguage.getOrElse(None)) match {
             case programmingLanguage: String =>
               PLM.setProgrammingLanguage(programmingLanguage)
-              sendMessage("programmingLanguageSet", Json.obj())
+              sendMessage("programmingLanguageSet", Json.obj(
+                "code" -> PLM.getStudentCode    
+              ))
             case _ =>
               LoggerUtils.debug("getExercise: non-correct JSON")
           }

@@ -118,6 +118,7 @@
 					storeExercisesList(args.exercises);
 					break;
 				case 'programmingLanguageSet':
+					exercise.code = args.code;
 					exercise.isChangingProgLang = false;
 					break;
 				default:

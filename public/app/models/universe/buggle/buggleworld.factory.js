@@ -9,13 +9,15 @@
 		'BuggleWorldCell', 'Buggle', 
 		'ChangeCellHasBaggle', 'ChangeCellColor', 
 		'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
-		'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown'
+		'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown',
+		'NoBaggleUnderBuggle', 'BuggleAlreadyHaveBaggle'
 	];
 	
 	function BuggleWorld (BuggleWorldCell, Buggle,
 			ChangeCellHasBaggle, ChangeCellColor,
 			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
-			ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown) {
+			ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown,
+			NoBaggleUnderBuggle, BuggleAlreadyHaveBaggle) {
 		
 		var BuggleWorld = function (world) {
 			this.type = world.type;
@@ -155,6 +157,10 @@
 				return new ChangeCellContent(operation);
     		case 'buggleEncounterWall':
     			return new BuggleEncounterWall(operation);
+    		case 'noBaggleUnderBuggle':
+    			return new NoBaggleUnderBuggle(operation);
+			case 'buggleAlreadyHaveBaggle':
+				return new BuggleAlreadyHaveBaggle(operation);
 			}
 		};
 		
