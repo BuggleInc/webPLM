@@ -5,10 +5,10 @@
 		.module('PLMApp')
 		.controller('Exercise', Exercise);
 	
-	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', '$localStorage', 'connection', 
+	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
 	'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
-	function Exercise($http, $scope, $sce, $stateParams, $localStorage, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
+	function Exercise($http, $scope, $sce, $stateParams, locker, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
 		var exercise = this;
 		
 		exercise.lessonID = $stateParams.lessonID;
@@ -36,9 +36,8 @@
 		exercise.worldIDs = []; // Mandatory to generate dynamically the select
 		exercise.updateViewLoop = null;
 		
-		exercise.$storage = $localStorage.$default({
-          timer: 1000
-        });
+		locker.bind($scope, 'timer', 1000);
+		exercise.timer = locker.get('timer');
 
 		exercise.currentState = -1;
 		
@@ -63,6 +62,8 @@
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
+		exercise.updateSpeed = updateSpeed;
+
 
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
@@ -361,6 +362,10 @@
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
 		});
+
+		function updateSpeed () {
+			$scope.timer = $('#executionSpeed').val();
+		};
 
 		window.addEventListener('resize', canvas.resize, false);
 	}
