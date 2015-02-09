@@ -25,6 +25,17 @@ function once(fn) {
     };
 }
 
+function getRandomString(range) {
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for(var i=0; i<5; i++) {
+    text += possible.charAt(parseInt(Math.random() * possible.length));
+  }
+
+  return text;
+}
+
 function getRandomInt(range) {
   return parseInt(Math.random()*range);
 }

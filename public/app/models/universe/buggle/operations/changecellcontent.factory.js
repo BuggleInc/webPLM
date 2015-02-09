@@ -16,7 +16,7 @@
 		};
 		
 		ChangeCellContent.prototype.apply = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.content = this.newContent;
 			if(this.firstApply) {
 				var obj = {
@@ -29,7 +29,7 @@
 		};
 		
 		ChangeCellContent.prototype.reverse = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.content = this.oldContent;
 		};
 	

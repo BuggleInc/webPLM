@@ -15,12 +15,12 @@
 		};
 		
 		ChangeCellHasContent.prototype.apply = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.hasContent = this.newHasContent;
 		};
 		
 		ChangeCellHasContent.prototype.reverse = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.hasContent = this.oldHasContent;
 		};
 	

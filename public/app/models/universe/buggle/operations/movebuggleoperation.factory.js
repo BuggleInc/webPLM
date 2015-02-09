@@ -17,7 +17,7 @@
 		};
 		
 		MoveBuggleOperation.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
+			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.x = this.newX;
 			buggle.y = this.newY;
 			if(this.firstApply) {
@@ -32,7 +32,7 @@
 		};
 		
 		MoveBuggleOperation.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
+			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.x = this.oldX;
 			buggle.y = this.oldY;
 		};

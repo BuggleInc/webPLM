@@ -15,12 +15,12 @@
 		};
 		
 		ChangeCellHasBaggle.prototype.apply = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.hasBaggle = this.newHasBaggle;
 		};
 		
 		ChangeCellHasBaggle.prototype.reverse = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.hasBaggle = this.oldHasBaggle;
 		};
 	
