@@ -291,7 +291,7 @@
 			exercise.exercisesAsList = exercises;
 
 			// Get the default next exercise
-			for(var i=0; i<exercises.length; i++) {
+			for(var i=0; i<exercises.length - 1; i++) {
 				var exo = exercises[i];
 				if(exo.id === exercise.id) {
 					exercise.defaultNextExercise = exercises[i+1].id;
