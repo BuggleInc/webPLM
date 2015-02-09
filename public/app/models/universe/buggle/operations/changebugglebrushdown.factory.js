@@ -15,8 +15,8 @@
 		};
 		
 		ChangeBuggleBrushDown.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
-			buggle.BrushDown = this.newBrushDown;
+			var buggle = currentWorld.getEntity(this.buggleID);
+			buggle.brushDown = this.newBrushDown;
 			if(this.firstApply) {
 				var msg = '';
 				if(this.newBrushDown) {
@@ -35,7 +35,7 @@
 		};
 		
 		ChangeBuggleBrushDown.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
+			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.BrushDown = this.oldBrushDown;
 		};
 	

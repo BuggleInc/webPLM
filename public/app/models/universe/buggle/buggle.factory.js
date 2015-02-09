@@ -15,6 +15,7 @@
 			this.color = buggle.color;
 			this.setDirection(buggle.direction);
 			this.carryBaggle = buggle.carryBaggle;
+			this.brushDown = false;
 		};
 		
 		Buggle.prototype.setDirection = function (direction) {

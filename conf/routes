@@ -8,7 +8,7 @@ GET     /ui                                                 controllers.Applicat
 GET     /ui/lessons                                         controllers.Application.indexLessons
 GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
 GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
-
+GET		/specRunner											controllers.Application.specRunner()
 # Websocket
 GET     /websocket                                          controllers.Application.socket
 

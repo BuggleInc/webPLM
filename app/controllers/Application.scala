@@ -44,4 +44,8 @@ object Application extends Controller {
   def exercise(lessonID: String, exerciseID: String) = Action {
     Ok(views.html.index("Accueil"))
   }
+
+  def specRunner() = Action {
+    Ok(views.html.specRunner())
+  }
 }
