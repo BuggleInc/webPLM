@@ -15,7 +15,7 @@
 		};
 		
 		ChangeBuggleCarryBaggle.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
+			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.carryBaggle = this.newCarryBaggle;
 			if(this.firstApply) {
 				var msg = '';
@@ -35,7 +35,7 @@
 		};
 		
 		ChangeBuggleCarryBaggle.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
+			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.carryBaggle = this.oldCarryBaggle;
 		};
 	

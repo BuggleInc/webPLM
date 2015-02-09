@@ -5,8 +5,8 @@ describe('ChangeBuggleBrushDown', function() {
 	var buggle;
 	var currentWorld;
 	var changeBuggleBrushDown;
-	var newBrushDown = true;
-	var oldBrushDown = false;
+	var newBrushDown;
+	var oldBrushDown;
 
 	beforeEach(module('PLMApp'));
 
@@ -16,11 +16,7 @@ describe('ChangeBuggleBrushDown', function() {
 	}));
 
 	beforeEach(function() {
-		var dataBuggle = {
-			x: 3,
-			y: 3,
-			brushDown: false
-		};
+		var dataBuggle = {};
 		buggle = new _Buggle(dataBuggle);
 		
 		var getEntity = sinon.stub();
@@ -30,6 +26,9 @@ describe('ChangeBuggleBrushDown', function() {
 			getEntity: getEntity,
 			steps: []
 		};
+
+		newBrushDown = getRandomBoolean();
+		oldBrushDown = getRandomBoolean();
 
 		var dataOperation = {
 			newBrushDown: newBrushDown,

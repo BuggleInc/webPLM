@@ -51,6 +51,10 @@
 			return this.entities[entityID];
 		};
 
+		BuggleWorld.prototype.getCell = function (x, y) {
+			return this.cells[x][y];
+		};
+
 		BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
 			var i, j, x, y;
 			var buggleID;

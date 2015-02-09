@@ -17,8 +17,8 @@
 		};
 		
 		ChangeBuggleDirection.prototype.apply = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
-			buggle.setDirection(this.newDirection);
+			var buggle = currentWorld.getEntity(this.buggleID);
+			buggle.direction = this.newDirection;
 			if(this.firstApply) {
 				var direction = '';
 				switch(this.newDirection) {
@@ -45,8 +45,8 @@
 		};
 		
 		ChangeBuggleDirection.prototype.reverse = function (currentWorld) {
-			var buggle = currentWorld.entities[this.buggleID];
-			buggle.setDirection(this.oldDirection);
+			var buggle = currentWorld.getEntity(this.buggleID);
+			buggle.direction = this.oldDirection;
 		};
 	
 		return ChangeBuggleDirection;

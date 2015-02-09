@@ -15,12 +15,12 @@
 		};
 		
 		ChangeCellColor.prototype.apply = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.color = this.newColor;
 		};
 		
 		ChangeCellColor.prototype.reverse = function (currentWorld) {
-			var cell = currentWorld.cells[this.x][this.y];
+			var cell = currentWorld.getCell(this.x, this.y);
 			cell.color = this.oldColor;
 		};
 	

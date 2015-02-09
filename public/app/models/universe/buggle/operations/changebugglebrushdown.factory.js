@@ -36,7 +36,7 @@
 		
 		ChangeBuggleBrushDown.prototype.reverse = function (currentWorld) {
 			var buggle = currentWorld.getEntity(this.buggleID);
-			buggle.BrushDown = this.oldBrushDown;
+			buggle.brushDown = this.oldBrushDown;
 		};
 	
 		return ChangeBuggleBrushDown;

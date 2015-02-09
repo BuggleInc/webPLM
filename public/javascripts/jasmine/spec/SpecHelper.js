@@ -24,3 +24,22 @@ function once(fn) {
         return returnValue;
     };
 }
+
+function getRandomInt(range) {
+  return parseInt(Math.random()*range);
+}
+
+function getRandomColor() {
+  return [getRandomInt(255), getRandomInt(255), getRandomInt(255), getRandomInt(255)];
+}
+
+function getRandomBoolean() {
+  if(Math.random()<0.5) {
+    return true;
+  }
+  return false;
+}
+
+function getRandomDirection() {
+  return getRandomInt(4);
+}
