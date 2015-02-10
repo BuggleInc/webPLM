@@ -83,7 +83,7 @@
 			}
 		});
 
-		it('clone should return a copy of the world', function () {
+		it('clone should return a correct copy of the world', function () {
 			var other;
 			var clone = buggleWorld.clone();
 
@@ -122,6 +122,25 @@
 			var y = getRandomInt(height);
 			var cell = buggleWorld.getCell(x, y);
 			expect(cell).toEqualToBuggleWorldCell(cells[x][y]);
+		});
+
+		it('addOperations should try to generate an operation for each element of the list', function () {
+			var i;
+			var elt;
+			var nbElt = getRandomInt(50) + 1;
+			var operations = [];
+			spyOn(buggleWorld, 'generateOperation');
+			for(i=0; i<nbElt; i++) {
+				elt = getRandomString(3);
+				operations.push(elt);
+			}
+			buggleWorld.addOperations(operations);
+			var generateOperationCallCount = buggleWorld.generateOperation.calls.count();
+			expect(generateOperationCallCount).toEqual(nbElt);
+			for(i=0; i<nbElt; i++) {
+				elt = buggleWorld.generateOperation.calls.argsFor(i)[0];
+				expect(elt).toEqual(operations[i]);
+			}
 		});
 	});
 })();

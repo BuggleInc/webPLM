@@ -57,6 +57,7 @@
     "globals": {
         "angular": false,
         "$": false,
+        "spyOn": true,
         "sinon": true,
         "describe": true,
         "it": true,

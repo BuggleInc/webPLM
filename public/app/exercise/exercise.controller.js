@@ -8,7 +8,9 @@
 	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
 	'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
-	function Exercise($http, $scope, $sce, $stateParams, locker, connection, listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
+	function Exercise($http, $scope, $sce, $stateParams, locker, connection, 
+		listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
+
 		var exercise = this;
 		
 		exercise.lessonID = $stateParams.lessonID;
@@ -100,16 +102,10 @@
 					exercise.playedDemo = true;
 					break;
 				case 'operations':
-					storeOperations(args.worldID, args.operations, 'current');
-					if(exercise.updateViewLoop === null) {
-						startUpdateViewLoop();
-					}
+					handleOperations(args.worldID, 'current', args.operations);
 					break;
 				case 'demoOperations':
-					storeOperations(args.worldID, args.operations, 'answer');
-					if(exercise.updateViewLoop === null) {
-						startUpdateViewLoop();
-					}
+					handleOperations(args.worldID, 'answer', args.operations);
 					break;
 				case 'log': 
 					exercise.logs += args.msg;
@@ -135,17 +131,19 @@
 			exercise.code = data.code;
 			exercise.currentWorldID = data.selectedWorldID;
 			for(var worldID in data.initialWorlds) {
-				exercise.initialWorlds[worldID] = {};
-				var initialWorld = data.initialWorlds[worldID];
-				var world;
-				switch(initialWorld.type) {
-					case 'BuggleWorld':
-						world = new BuggleWorld(initialWorld);
-						break;
+				if(data.initialWorlds.hasOwnProperty(worldID)) {
+					exercise.initialWorlds[worldID] = {};
+					var initialWorld = data.initialWorlds[worldID];
+					var world;
+					switch(initialWorld.type) {
+						case 'BuggleWorld':
+							world = new BuggleWorld(initialWorld);
+							break;
+					}
+					exercise.initialWorlds[worldID] = world;
+					exercise.answerWorlds[worldID] = world.clone();
+					exercise.currentWorlds[worldID] = world.clone();
 				}
-				exercise.initialWorlds[worldID] = world;
-				exercise.answerWorlds[worldID] = world.clone();
-				exercise.currentWorlds[worldID] = world.clone();
 			}
 			canvas.init();
 			setCurrentWorld('current');
@@ -247,17 +245,14 @@
 			startUpdateViewLoop();
 		}
 		
-		
-		function storeOperations(worldID, operations, worldKind) {
-			var step = [];
-			for(var i=0; i<operations.length; i++) {
-				var operation = operations[i];
-				var generatedOperation = exercise.currentWorld.generateOperation(operation);
-				step.push(generatedOperation);
+		function handleOperations(worldID, worldKind, operations) {
+			var world = exercise[worldKind+'Worlds'][worldID];
+			world.addOperations(operations);
+			if(exercise.updateViewLoop === null) {
+				startUpdateViewLoop();
 			}
-			exercise[worldKind+'Worlds'][worldID].operations.push(step);
 		}
-		
+
 		function startUpdateViewLoop() {
 			exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
 		}
@@ -360,13 +355,13 @@
 
 		}
 
+		function updateSpeed () {
+			$scope.timer = $('#executionSpeed').val();
+		}
+
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
 		});
-
-		function updateSpeed () {
-			$scope.timer = $('#executionSpeed').val();
-		};
 
 		window.addEventListener('resize', canvas.resize, false);
 	}

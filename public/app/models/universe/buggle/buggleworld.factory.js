@@ -58,13 +58,8 @@
 		};
 
 		BuggleWorld.prototype.draw = function (ctx, canvasWidth, canvasHeight) {
-			var i, j, x, y;
+			var i, j;
 			var buggleID;
-
-			var xLeft;
-			var xRight;
-			var yTop;
-			var yBottom;
 
 			for(i=0; i<this.width; i++) {
 				for(j=0; j<this.height; j++) {
@@ -72,6 +67,19 @@
 				}
 			}
 			
+			this.drawGrid(ctx, canvasWidth, canvasHeight);
+			this.drawFrontierWalls(ctx, canvasWidth, canvasHeight);
+
+			for(buggleID in this.entities) {
+				if(this.entities.hasOwnProperty(buggleID)) {
+					this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+				}
+			}
+		};
+
+		BuggleWorld.prototype.drawGrid = function (ctx, canvasWidth, canvasHeight) {
+			var i, j;
+
 			ctx.beginPath();
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'grey';
@@ -87,7 +95,15 @@
 			}
 			ctx.stroke();
 			ctx.closePath();
+		};
 
+		BuggleWorld.prototype.drawFrontierWalls = function (ctx, canvasWidth, canvasHeight) {
+			var x, y;
+
+			var xLeft;
+			var xRight;
+			var yTop;
+			var yBottom;
 
 			ctx.beginPath();
 			
@@ -117,11 +133,16 @@
 			
 			ctx.stroke();
 			ctx.closePath();
-			for(buggleID in this.entities) {
-				if(this.entities.hasOwnProperty(buggleID)) {
-					this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
-				}
+		};
+		
+		BuggleWorld.prototype.addOperations = function (operations) {
+			var step = [];
+			for(var i=0; i<operations.length; i++) {
+				var operation = operations[i];
+				var generatedOperation = this.generateOperation(operation);
+				step.push(generatedOperation);
 			}
+			this.operations.push(step);
 		};
 
 		BuggleWorld.prototype.setState = function (state) {
@@ -151,32 +172,32 @@
 		
 		BuggleWorld.prototype.generateOperation = function (operation) {
 			switch(operation.type) {
-			case 'moveBuggleOperation':
-				return new MoveBuggleOperation(operation);
-			case 'changeBuggleDirection':
-				return new ChangeBuggleDirection(operation);
-			case 'changeBuggleCarryBaggle':
-				return new ChangeBuggleCarryBaggle(operation);
-			case 'changeBuggleBrushDown':
-				return new ChangeBuggleBrushDown(operation);
-			case 'changeCellColor': 
-				return new ChangeCellColor(operation);
-			case 'changeCellHasBaggle': 
-				return new ChangeCellHasBaggle(operation);
-			case 'changeCellHasContent': 
-				return new ChangeCellHasContent(operation);
-			case 'changeCellContent': 
-				return new ChangeCellContent(operation);
-			case 'buggleEncounterWall':
-				return new BuggleEncounterWall(operation);
-			case 'noBaggleUnderBuggle':
-				return new NoBaggleUnderBuggle(operation);
-			case 'buggleAlreadyHaveBaggle':
-				return new BuggleAlreadyHaveBaggle(operation);
-			case 'buggleDontHaveBaggle':
-				return new BuggleDontHaveBaggle(operation);
-			case 'cellAlreadyHaveBaggle':
-				return new CellAlreadyHaveBaggle(operation);
+				case 'moveBuggleOperation':
+					return new MoveBuggleOperation(operation);
+				case 'changeBuggleDirection':
+					return new ChangeBuggleDirection(operation);
+				case 'changeBuggleCarryBaggle':
+					return new ChangeBuggleCarryBaggle(operation);
+				case 'changeBuggleBrushDown':
+					return new ChangeBuggleBrushDown(operation);
+				case 'changeCellColor': 
+					return new ChangeCellColor(operation);
+				case 'changeCellHasBaggle': 
+					return new ChangeCellHasBaggle(operation);
+				case 'changeCellHasContent': 
+					return new ChangeCellHasContent(operation);
+				case 'changeCellContent': 
+					return new ChangeCellContent(operation);
+				case 'buggleEncounterWall':
+					return new BuggleEncounterWall(operation);
+				case 'noBaggleUnderBuggle':
+					return new NoBaggleUnderBuggle(operation);
+				case 'buggleAlreadyHaveBaggle':
+					return new BuggleAlreadyHaveBaggle(operation);
+				case 'buggleDontHaveBaggle':
+					return new BuggleDontHaveBaggle(operation);
+				case 'cellAlreadyHaveBaggle':
+					return new CellAlreadyHaveBaggle(operation);
 			}
 		};
 		
