@@ -1,15 +1,14 @@
 beforeEach(function () {
   jasmine.addMatchers({
-    toBePlaying: function () {
+    toEqualToBuggle: function () {
       return {
-        compare: function (actual, expected) {
-          var player = actual;
-
-          return {
-            pass: player.currentlyPlayingSong === expected && player.isPlaying
-          }
-        }
-      };
+        compare: toEqualToBuggle
+      }
+    },
+    toEqualToBuggleWorldCell: function () {
+      return {
+        compare: toEqualToBuggleWorldCell
+      }
     }
   });
 });
@@ -29,7 +28,7 @@ function getRandomString(range) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for(var i=0; i<5; i++) {
+  for(var i=0; i<range; i++) {
     text += possible.charAt(parseInt(Math.random() * possible.length));
   }
 
@@ -38,6 +37,10 @@ function getRandomString(range) {
 
 function getRandomInt(range) {
   return parseInt(Math.random()*range);
+}
+
+function getRandomValueFromArray(array) {
+  return array[getRandomInt(array.length)];
 }
 
 function getRandomColor() {
@@ -53,4 +56,51 @@ function getRandomBoolean() {
 
 function getRandomDirection() {
   return getRandomInt(4);
+}
+
+function getRandomBuggle() {
+  return {
+    x: getRandomInt(999),
+    y: getRandomInt(999),
+    color: getRandomColor(),
+    direction: getRandomDirection(),
+    carryBaggle: getRandomBoolean(),
+    brushDown: getRandomBoolean()
+  };
+}
+
+function toEqualToBuggle (actual, expected) {
+  return {
+    pass: actual.x === expected.x
+      && actual.y === expected.y
+      && actual.direction === expected.direction
+      && actual.carryBaggle === expected.carryBaggle
+      && actual.brushDown === expected.brushDown
+  };
+};
+
+function getRandomBuggleWorldCell() {
+  return {
+    x: getRandomInt(999),
+    y: getRandomInt(999),
+    color: getRandomColor(),
+    hasBaggle: getRandomBoolean(),
+    hasContent: getRandomBoolean(),
+    content: getRandomString(15),
+    hasLeftWall: getRandomBoolean(),
+    hasTopWall: getRandomBoolean()
+  };
+}
+
+function toEqualToBuggleWorldCell (actual, expected) {
+  return {
+    pass: actual.x === expected.x
+      && actual.y === expected.y
+      && actual.color === expected.color
+      && actual.hasBaggle === expected.hasBaggle
+      && actual.hasContent === expected.hasContent
+      && actual.content === expected.content
+      && actual.hasLeftWall === expected.hasLeftWall
+      && actual.hasTopWall === expected.hasTopWall
+  };
 }
