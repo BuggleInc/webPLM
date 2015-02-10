@@ -5,6 +5,7 @@ describe('MoveBuggleOperation', function() {
 	var buggle;
 	var currentWorld;
 	var moveBuggleOperation;
+	var buggleID;
 	var newX;
 	var newY;
 	var oldX;
@@ -29,12 +30,14 @@ describe('MoveBuggleOperation', function() {
 			steps: []
 		};
 
+		buggleID = getRandomString(15);
 		newX = getRandomInt(999);
 		newY = getRandomInt(999);
 		oldX = getRandomInt(999);
 		oldY = getRandomInt(999);
 
 		var dataOperation = {
+			buggleID: buggleID,
 			newX: newX,
 			newY: newY,
 			oldX: oldX,
@@ -43,23 +46,22 @@ describe('MoveBuggleOperation', function() {
 		moveBuggleOperation = new _MoveBuggleOperation(dataOperation);
 	});
 
-	it('should replace buggle.x by newX when applied', function () {
-		moveBuggleOperation.apply(currentWorld);
-		expect(buggle.x).toEqual(newX);
+	it('should be initialized correctly by its constructor', function () {
+		expect(moveBuggleOperation.buggleID).toEqual(buggleID);
+		expect(moveBuggleOperation.newX).toEqual(newX);
+		expect(moveBuggleOperation.newY).toEqual(newY);
+		expect(moveBuggleOperation.oldX).toEqual(oldX);
+		expect(moveBuggleOperation.oldY).toEqual(oldY);
 	});
 
-	it('should replace buggle.y by newY when applied', function () {
+	it('should replace buggle.x by newX and buggle.y by newY when applied', function () {
 		moveBuggleOperation.apply(currentWorld);
+		expect(buggle.x).toEqual(newX);
 		expect(buggle.y).toEqual(newY);
 	});
 
-	it('should replace buggle.x by oldX when reversed', function () {
+	it('should replace buggle.x by oldX and buggle.y by oldY when reversed', function () {
 		moveBuggleOperation.reverse(currentWorld);
 		expect(buggle.x).toEqual(oldX);
-	});
-
-	it('should replace buggle.y by oldY when reversed', function () {
-		moveBuggleOperation.reverse(currentWorld);
-		expect(buggle.y).toEqual(oldY);
 	});
 });

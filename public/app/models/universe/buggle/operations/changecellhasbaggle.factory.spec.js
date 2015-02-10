@@ -5,6 +5,8 @@ describe('ChangeCellHasBaggle', function() {
 	var cell;
 	var currentWorld;
 	var changeCellHasBaggle;
+	var x;
+	var y;
 	var newHasBaggle;
 	var oldHasBaggle;
 
@@ -27,18 +29,27 @@ describe('ChangeCellHasBaggle', function() {
 			steps: []
 		};
 
+		x = getRandomInt(999);
+		y = getRandomInt(999);
 		newHasBaggle = getRandomBoolean();
 		oldHasBaggle = getRandomBoolean();
 
 		var dataOperation = {
 			cell: {
-				x: getRandomInt(999),
-				y: getRandomInt(999)
+				x: x,
+				y: y
 			},
 			newHasBaggle: newHasBaggle,
 			oldHasBaggle: oldHasBaggle
 		};
 		changeCellHasBaggle = new _ChangeCellHasBaggle(dataOperation);
+	});
+
+	it('should be initialized correctly by its constructor', function () {
+		expect(changeCellHasBaggle.x).toEqual(x);
+		expect(changeCellHasBaggle.y).toEqual(y);
+		expect(changeCellHasBaggle.newHasBaggle).toEqual(newHasBaggle);
+		expect(changeCellHasBaggle.oldHasBaggle).toEqual(oldHasBaggle);
 	});
 
 	it('should replace cell.hasBaggle by newHasBaggle when applied', function () {

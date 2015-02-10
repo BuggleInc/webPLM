@@ -5,9 +5,7 @@
 		.module('PLMApp')
 		.factory('Buggle', Buggle);
 	
-	Buggle.$inject = ['Direction'];
-	
-	function Buggle (Direction) {
+	function Buggle () {
 		
 		var Buggle = function (buggle) {
 			this.x = buggle.x;
@@ -15,7 +13,7 @@
 			this.color = buggle.color;
 			this.direction = buggle.direction;
 			this.carryBaggle = buggle.carryBaggle;
-			this.brushDown = false;
+			this.brushDown = buggle.brushDown;
 		};
 
 		Buggle.prototype.draw = function (ctx, canvasWidth, canvasHeight, width, height) {

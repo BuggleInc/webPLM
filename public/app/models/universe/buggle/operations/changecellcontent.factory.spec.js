@@ -5,6 +5,8 @@ describe('ChangeCellContent', function() {
 	var cell;
 	var currentWorld;
 	var changeCellContent;
+	var x;
+	var y;
 	var newContent;
 	var oldContent;
 
@@ -27,18 +29,27 @@ describe('ChangeCellContent', function() {
 			steps: []
 		};
 
+		x = getRandomInt(999);
+		y = getRandomInt(999);
 		newContent = getRandomString(15);
 		oldContent = getRandomString(15);
 
 		var dataOperation = {
 			cell: {
-				x: getRandomInt(999),
-				y: getRandomInt(999)
+				x: x,
+				y: y
 			},
 			newContent: newContent,
 			oldContent: oldContent
 		};
 		changeCellContent = new _ChangeCellContent(dataOperation);
+	});
+
+	it('should be initialized correctly by its constructor', function () {
+		expect(changeCellContent.x).toEqual(x);
+		expect(changeCellContent.y).toEqual(y);
+		expect(changeCellContent.newContent).toEqual(newContent);
+		expect(changeCellContent.oldContent).toEqual(oldContent);
 	});
 
 	it('should replace cell.content by newContent when applied', function () {

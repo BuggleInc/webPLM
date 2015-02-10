@@ -5,6 +5,7 @@ describe('ChangeBuggleCarryBaggle', function() {
 	var buggle;
 	var currentWorld;
 	var changeBuggleCarryBaggle;
+	var buggleID;
 	var newCarryBaggle;
 	var oldCarryBaggle;
 
@@ -27,14 +28,22 @@ describe('ChangeBuggleCarryBaggle', function() {
 			steps: []
 		};
 
+		buggleID = getRandomString(15);
 		newCarryBaggle = getRandomBoolean();
 		oldCarryBaggle = getRandomBoolean();
 
 		var dataOperation = {
+			buggleID: buggleID,
 			newCarryBaggle: newCarryBaggle,
 			oldCarryBaggle: oldCarryBaggle
 		};
 		changeBuggleCarryBaggle = new _ChangeBuggleCarryBaggle(dataOperation);
+	});
+
+	it('should be initialized correctly by its constructor', function () {
+		expect(changeBuggleCarryBaggle.buggleID).toEqual(buggleID);
+		expect(changeBuggleCarryBaggle.newCarryBaggle).toEqual(newCarryBaggle);
+		expect(changeBuggleCarryBaggle.oldCarryBaggle).toEqual(oldCarryBaggle);
 	});
 
 	it('should replace buggle.carryBaggle by newCarryBaggle when applied', function () {

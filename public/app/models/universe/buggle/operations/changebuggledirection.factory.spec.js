@@ -5,6 +5,7 @@ describe('ChangeBuggleDirection', function() {
 	var buggle;
 	var currentWorld;
 	var changeBuggleDirection;
+	var buggleID;
 	var newDirection;
 	var oldDirection;
 
@@ -27,14 +28,22 @@ describe('ChangeBuggleDirection', function() {
 			steps: []
 		};
 
+		buggleID = getRandomString(15);
 		newDirection = getRandomDirection();
 		oldDirection = getRandomDirection();
 
 		var dataOperation = {
+			buggleID: buggleID,
 			newDirection: newDirection,
 			oldDirection: oldDirection
 		};
 		changeBuggleDirection = new _ChangeBuggleDirection(dataOperation);
+	});
+
+	it('should be initialized correctly by its constructor', function () {
+		expect(changeBuggleDirection.buggleID).toEqual(buggleID);
+		expect(changeBuggleDirection.newDirection).toEqual(newDirection);
+		expect(changeBuggleDirection.oldDirection).toEqual(oldDirection);
 	});
 
 	it('should replace buggle.direction by newDirection when applied', function () {

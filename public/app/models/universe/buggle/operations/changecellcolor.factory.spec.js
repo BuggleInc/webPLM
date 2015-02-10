@@ -5,6 +5,8 @@ describe('ChangeCellColor', function() {
 	var cell;
 	var currentWorld;
 	var changeCellColor;
+	var x;
+	var y;
 	var newColor;
 	var oldColor;
 
@@ -27,18 +29,27 @@ describe('ChangeCellColor', function() {
 			steps: []
 		};
 
+		x = getRandomInt(999);
+		y = getRandomInt(999);
 		newColor = getRandomColor();
 		oldColor = getRandomColor();
 
 		var dataOperation = {
 			cell: {
-				x: getRandomInt(999),
-				y: getRandomInt(999)
+				x: x,
+				y: y
 			},
 			newColor: newColor,
 			oldColor: oldColor
 		};
 		changeCellColor = new _ChangeCellColor(dataOperation);
+	});
+
+	it('should be initialized correctly by its constructor', function () {
+		expect(changeCellColor.x).toEqual(x);
+		expect(changeCellColor.y).toEqual(y);
+		expect(changeCellColor.newColor).toEqual(newColor);
+		expect(changeCellColor.oldColor).toEqual(oldColor);
 	});
 
 	it('should replace cell.color by newColor when applied', function () {
