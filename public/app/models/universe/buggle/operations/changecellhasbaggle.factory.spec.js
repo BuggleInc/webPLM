@@ -1,64 +1,68 @@
-describe('ChangeCellHasBaggle', function() {
-	var _BuggleWorldCell;
-	var _ChangeCellHasBaggle;
+(function(){
+	'use strict';
 
-	var cell;
-	var currentWorld;
-	var changeCellHasBaggle;
-	var x;
-	var y;
-	var newHasBaggle;
-	var oldHasBaggle;
+	describe('ChangeCellHasBaggle', function() {
+		var _BuggleWorldCell;
+		var _ChangeCellHasBaggle;
 
-	beforeEach(module('PLMApp'));
+		var cell;
+		var currentWorld;
+		var changeCellHasBaggle;
+		var x;
+		var y;
+		var newHasBaggle;
+		var oldHasBaggle;
 
-	beforeEach(inject(function(BuggleWorldCell, ChangeCellHasBaggle) {
-		_BuggleWorldCell = BuggleWorldCell;
-		_ChangeCellHasBaggle = ChangeCellHasBaggle;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataCell = {};
-		cell = new _BuggleWorldCell(dataCell);
-		
-		var getCell = sinon.stub();
-		getCell.returns(cell);
+		beforeEach(inject(function(BuggleWorldCell, ChangeCellHasBaggle) {
+			_BuggleWorldCell = BuggleWorldCell;
+			_ChangeCellHasBaggle = ChangeCellHasBaggle;
+		}));
 
-		currentWorld = {
-			getCell: getCell,
-			steps: []
-		};
+		beforeEach(function() {
+			var dataCell = {};
+			cell = new _BuggleWorldCell(dataCell);
+			
+			var getCell = sinon.stub();
+			getCell.returns(cell);
 
-		x = getRandomInt(999);
-		y = getRandomInt(999);
-		newHasBaggle = getRandomBoolean();
-		oldHasBaggle = getRandomBoolean();
+			currentWorld = {
+				getCell: getCell,
+				steps: []
+			};
 
-		var dataOperation = {
-			cell: {
-				x: x,
-				y: y
-			},
-			newHasBaggle: newHasBaggle,
-			oldHasBaggle: oldHasBaggle
-		};
-		changeCellHasBaggle = new _ChangeCellHasBaggle(dataOperation);
+			x = getRandomInt(999);
+			y = getRandomInt(999);
+			newHasBaggle = getRandomBoolean();
+			oldHasBaggle = getRandomBoolean();
+
+			var dataOperation = {
+				cell: {
+					x: x,
+					y: y
+				},
+				newHasBaggle: newHasBaggle,
+				oldHasBaggle: oldHasBaggle
+			};
+			changeCellHasBaggle = new _ChangeCellHasBaggle(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeCellHasBaggle.x).toEqual(x);
+			expect(changeCellHasBaggle.y).toEqual(y);
+			expect(changeCellHasBaggle.newHasBaggle).toEqual(newHasBaggle);
+			expect(changeCellHasBaggle.oldHasBaggle).toEqual(oldHasBaggle);
+		});
+
+		it('should replace cell.hasBaggle by newHasBaggle when applied', function () {
+			changeCellHasBaggle.apply(currentWorld);
+			expect(cell.hasBaggle).toEqual(newHasBaggle);
+		});
+
+		it('should replace cell.hasBaggle by oldHasBaggle when reversed', function () {
+			changeCellHasBaggle.reverse(currentWorld);
+			expect(cell.hasBaggle).toEqual(oldHasBaggle);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeCellHasBaggle.x).toEqual(x);
-		expect(changeCellHasBaggle.y).toEqual(y);
-		expect(changeCellHasBaggle.newHasBaggle).toEqual(newHasBaggle);
-		expect(changeCellHasBaggle.oldHasBaggle).toEqual(oldHasBaggle);
-	});
-
-	it('should replace cell.hasBaggle by newHasBaggle when applied', function () {
-		changeCellHasBaggle.apply(currentWorld);
-		expect(cell.hasBaggle).toEqual(newHasBaggle);
-	});
-
-	it('should replace cell.hasBaggle by oldHasBaggle when reversed', function () {
-		changeCellHasBaggle.reverse(currentWorld);
-		expect(cell.hasBaggle).toEqual(oldHasBaggle);
-	});
-});
+})();

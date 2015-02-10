@@ -38,8 +38,10 @@
 			
 			this.entities = {};
 			for(var buggleID in world.entities) {
-				var buggle = world.entities[buggleID];
-				this.entities[buggleID] = new Buggle(buggle);
+				if(world.entities.hasOwnProperty(buggleID)) {
+					var buggle = world.entities[buggleID];
+					this.entities[buggleID] = new Buggle(buggle);
+				}	
 			}
 		};
 		
@@ -116,7 +118,9 @@
 			ctx.stroke();
 			ctx.closePath();
 			for(buggleID in this.entities) {
-				this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+				if(this.entities.hasOwnProperty(buggleID)) {
+					this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
+				}
 			}
 		};
 
@@ -163,10 +167,10 @@
 				return new ChangeCellHasContent(operation);
 			case 'changeCellContent': 
 				return new ChangeCellContent(operation);
-    		case 'buggleEncounterWall':
-    			return new BuggleEncounterWall(operation);
-    		case 'noBaggleUnderBuggle':
-    			return new NoBaggleUnderBuggle(operation);
+			case 'buggleEncounterWall':
+				return new BuggleEncounterWall(operation);
+			case 'noBaggleUnderBuggle':
+				return new NoBaggleUnderBuggle(operation);
 			case 'buggleAlreadyHaveBaggle':
 				return new BuggleAlreadyHaveBaggle(operation);
 			case 'buggleDontHaveBaggle':

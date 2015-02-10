@@ -1,58 +1,62 @@
-describe('ChangeBuggleBrushDown', function() {
-	var _Buggle;
-	var _ChangeBuggleBrushDown;
+(function(){
+	'use strict';
 
-	var buggle;
-	var currentWorld;
-	var changeBuggleBrushDown;
-	var buggleID;
-	var newBrushDown;
-	var oldBrushDown;
+	describe('ChangeBuggleBrushDown', function() {
+		var _Buggle;
+		var _ChangeBuggleBrushDown;
 
-	beforeEach(module('PLMApp'));
+		var buggle;
+		var currentWorld;
+		var changeBuggleBrushDown;
+		var buggleID;
+		var newBrushDown;
+		var oldBrushDown;
 
-	beforeEach(inject(function(Buggle, ChangeBuggleBrushDown) {
-		_Buggle = Buggle;
-		_ChangeBuggleBrushDown = ChangeBuggleBrushDown;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataBuggle = {};
-		buggle = new _Buggle(dataBuggle);
-		
-		var getEntity = sinon.stub();
-		getEntity.returns(buggle);
+		beforeEach(inject(function(Buggle, ChangeBuggleBrushDown) {
+			_Buggle = Buggle;
+			_ChangeBuggleBrushDown = ChangeBuggleBrushDown;
+		}));
 
-		currentWorld = {
-			getEntity: getEntity,
-			steps: []
-		};
+		beforeEach(function() {
+			var dataBuggle = {};
+			buggle = new _Buggle(dataBuggle);
+			
+			var getEntity = sinon.stub();
+			getEntity.returns(buggle);
 
-		buggleID = getRandomString(15);
-		newBrushDown = getRandomBoolean();
-		oldBrushDown = getRandomBoolean();
+			currentWorld = {
+				getEntity: getEntity,
+				steps: []
+			};
 
-		var dataOperation = {
-			buggleID: buggleID,
-			newBrushDown: newBrushDown,
-			oldBrushDown: oldBrushDown
-		};
-		changeBuggleBrushDown = new _ChangeBuggleBrushDown(dataOperation);
+			buggleID = getRandomString(15);
+			newBrushDown = getRandomBoolean();
+			oldBrushDown = getRandomBoolean();
+
+			var dataOperation = {
+				buggleID: buggleID,
+				newBrushDown: newBrushDown,
+				oldBrushDown: oldBrushDown
+			};
+			changeBuggleBrushDown = new _ChangeBuggleBrushDown(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeBuggleBrushDown.buggleID).toEqual(buggleID);
+			expect(changeBuggleBrushDown.newBrushDown).toEqual(newBrushDown);
+			expect(changeBuggleBrushDown.oldBrushDown).toEqual(oldBrushDown);
+		});
+
+		it('should replace buggle.brushDown by newBrushDown when applied', function () {
+			changeBuggleBrushDown.apply(currentWorld);
+			expect(buggle.brushDown).toEqual(newBrushDown);
+		});
+
+		it('should replace buggle.brushDown by oldBrushDown when reversed', function () {
+			changeBuggleBrushDown.reverse(currentWorld);
+			expect(buggle.brushDown).toEqual(oldBrushDown);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeBuggleBrushDown.buggleID).toEqual(buggleID);
-		expect(changeBuggleBrushDown.newBrushDown).toEqual(newBrushDown);
-		expect(changeBuggleBrushDown.oldBrushDown).toEqual(oldBrushDown);
-	});
-
-	it('should replace buggle.brushDown by newBrushDown when applied', function () {
-		changeBuggleBrushDown.apply(currentWorld);
-		expect(buggle.brushDown).toEqual(newBrushDown);
-	});
-
-	it('should replace buggle.brushDown by oldBrushDown when reversed', function () {
-		changeBuggleBrushDown.reverse(currentWorld);
-		expect(buggle.brushDown).toEqual(oldBrushDown);
-	});
-});
+})();

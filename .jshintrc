@@ -56,6 +56,21 @@
 
     "globals": {
         "angular": false,
-        "$": false
+        "$": false,
+        "sinon": true,
+        "describe": true,
+        "it": true,
+        "afterEach" : true,
+        "beforeEach": true,
+        "expect": true,
+        "inject": true,
+        "getRandomInt": true,
+        "getRandomBoolean": true,
+        "getRandomValueFromArray": true,
+        "getRandomString": true,
+        "getRandomBuggleWorldCell": true,
+        "getRandomBuggle": true,
+        "getRandomColor": true,
+        "getRandomDirection": true
     }
 }

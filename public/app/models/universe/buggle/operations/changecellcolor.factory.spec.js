@@ -1,64 +1,68 @@
-describe('ChangeCellColor', function() {
-	var _BuggleWorldCell;
-	var _ChangeCellColor;
+(function(){
+	'use strict';
 
-	var cell;
-	var currentWorld;
-	var changeCellColor;
-	var x;
-	var y;
-	var newColor;
-	var oldColor;
+	describe('ChangeCellColor', function() {
+		var _BuggleWorldCell;
+		var _ChangeCellColor;
 
-	beforeEach(module('PLMApp'));
+		var cell;
+		var currentWorld;
+		var changeCellColor;
+		var x;
+		var y;
+		var newColor;
+		var oldColor;
 
-	beforeEach(inject(function(BuggleWorldCell, ChangeCellColor) {
-		_BuggleWorldCell = BuggleWorldCell;
-		_ChangeCellColor = ChangeCellColor;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataCell = {};
-		cell = new _BuggleWorldCell(dataCell);
-		
-		var getCell = sinon.stub();
-		getCell.returns(cell);
+		beforeEach(inject(function(BuggleWorldCell, ChangeCellColor) {
+			_BuggleWorldCell = BuggleWorldCell;
+			_ChangeCellColor = ChangeCellColor;
+		}));
 
-		currentWorld = {
-			getCell: getCell,
-			steps: []
-		};
+		beforeEach(function() {
+			var dataCell = {};
+			cell = new _BuggleWorldCell(dataCell);
+			
+			var getCell = sinon.stub();
+			getCell.returns(cell);
 
-		x = getRandomInt(999);
-		y = getRandomInt(999);
-		newColor = getRandomColor();
-		oldColor = getRandomColor();
+			currentWorld = {
+				getCell: getCell,
+				steps: []
+			};
 
-		var dataOperation = {
-			cell: {
-				x: x,
-				y: y
-			},
-			newColor: newColor,
-			oldColor: oldColor
-		};
-		changeCellColor = new _ChangeCellColor(dataOperation);
+			x = getRandomInt(999);
+			y = getRandomInt(999);
+			newColor = getRandomColor();
+			oldColor = getRandomColor();
+
+			var dataOperation = {
+				cell: {
+					x: x,
+					y: y
+				},
+				newColor: newColor,
+				oldColor: oldColor
+			};
+			changeCellColor = new _ChangeCellColor(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeCellColor.x).toEqual(x);
+			expect(changeCellColor.y).toEqual(y);
+			expect(changeCellColor.newColor).toEqual(newColor);
+			expect(changeCellColor.oldColor).toEqual(oldColor);
+		});
+
+		it('should replace cell.color by newColor when applied', function () {
+			changeCellColor.apply(currentWorld);
+			expect(cell.color).toEqual(newColor);
+		});
+
+		it('should replace cell.color by oldColor when reversed', function () {
+			changeCellColor.reverse(currentWorld);
+			expect(cell.color).toEqual(oldColor);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeCellColor.x).toEqual(x);
-		expect(changeCellColor.y).toEqual(y);
-		expect(changeCellColor.newColor).toEqual(newColor);
-		expect(changeCellColor.oldColor).toEqual(oldColor);
-	});
-
-	it('should replace cell.color by newColor when applied', function () {
-		changeCellColor.apply(currentWorld);
-		expect(cell.color).toEqual(newColor);
-	});
-
-	it('should replace cell.color by oldColor when reversed', function () {
-		changeCellColor.reverse(currentWorld);
-		expect(cell.color).toEqual(oldColor);
-	});
-});
+})();

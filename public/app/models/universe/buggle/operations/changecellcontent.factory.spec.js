@@ -1,64 +1,68 @@
-describe('ChangeCellContent', function() {
-	var _BuggleWorldCell;
-	var _ChangeCellContent;
+(function(){
+	'use strict';
 
-	var cell;
-	var currentWorld;
-	var changeCellContent;
-	var x;
-	var y;
-	var newContent;
-	var oldContent;
+	describe('ChangeCellContent', function() {
+		var _BuggleWorldCell;
+		var _ChangeCellContent;
 
-	beforeEach(module('PLMApp'));
+		var cell;
+		var currentWorld;
+		var changeCellContent;
+		var x;
+		var y;
+		var newContent;
+		var oldContent;
 
-	beforeEach(inject(function(BuggleWorldCell, ChangeCellContent) {
-		_BuggleWorldCell = BuggleWorldCell;
-		_ChangeCellContent = ChangeCellContent;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataCell = {};
-		cell = new _BuggleWorldCell(dataCell);
-		
-		var getCell = sinon.stub();
-		getCell.returns(cell);
+		beforeEach(inject(function(BuggleWorldCell, ChangeCellContent) {
+			_BuggleWorldCell = BuggleWorldCell;
+			_ChangeCellContent = ChangeCellContent;
+		}));
 
-		currentWorld = {
-			getCell: getCell,
-			steps: []
-		};
+		beforeEach(function() {
+			var dataCell = {};
+			cell = new _BuggleWorldCell(dataCell);
+			
+			var getCell = sinon.stub();
+			getCell.returns(cell);
 
-		x = getRandomInt(999);
-		y = getRandomInt(999);
-		newContent = getRandomString(15);
-		oldContent = getRandomString(15);
+			currentWorld = {
+				getCell: getCell,
+				steps: []
+			};
 
-		var dataOperation = {
-			cell: {
-				x: x,
-				y: y
-			},
-			newContent: newContent,
-			oldContent: oldContent
-		};
-		changeCellContent = new _ChangeCellContent(dataOperation);
+			x = getRandomInt(999);
+			y = getRandomInt(999);
+			newContent = getRandomString(15);
+			oldContent = getRandomString(15);
+
+			var dataOperation = {
+				cell: {
+					x: x,
+					y: y
+				},
+				newContent: newContent,
+				oldContent: oldContent
+			};
+			changeCellContent = new _ChangeCellContent(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeCellContent.x).toEqual(x);
+			expect(changeCellContent.y).toEqual(y);
+			expect(changeCellContent.newContent).toEqual(newContent);
+			expect(changeCellContent.oldContent).toEqual(oldContent);
+		});
+
+		it('should replace cell.content by newContent when applied', function () {
+			changeCellContent.apply(currentWorld);
+			expect(cell.content).toEqual(newContent);
+		});
+
+		it('should replace cell.content by oldContent when reversed', function () {
+			changeCellContent.reverse(currentWorld);
+			expect(cell.content).toEqual(oldContent);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeCellContent.x).toEqual(x);
-		expect(changeCellContent.y).toEqual(y);
-		expect(changeCellContent.newContent).toEqual(newContent);
-		expect(changeCellContent.oldContent).toEqual(oldContent);
-	});
-
-	it('should replace cell.content by newContent when applied', function () {
-		changeCellContent.apply(currentWorld);
-		expect(cell.content).toEqual(newContent);
-	});
-
-	it('should replace cell.content by oldContent when reversed', function () {
-		changeCellContent.reverse(currentWorld);
-		expect(cell.content).toEqual(oldContent);
-	});
-});
+})();

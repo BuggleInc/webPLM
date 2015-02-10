@@ -1,58 +1,62 @@
-describe('ChangeBuggleDirection', function() {
-	var _Buggle;
-	var _ChangeBuggleDirection;
+(function(){
+	'use strict';
 
-	var buggle;
-	var currentWorld;
-	var changeBuggleDirection;
-	var buggleID;
-	var newDirection;
-	var oldDirection;
+	describe('ChangeBuggleDirection', function() {
+		var _Buggle;
+		var _ChangeBuggleDirection;
 
-	beforeEach(module('PLMApp'));
+		var buggle;
+		var currentWorld;
+		var changeBuggleDirection;
+		var buggleID;
+		var newDirection;
+		var oldDirection;
 
-	beforeEach(inject(function(Buggle, ChangeBuggleDirection) {
-		_Buggle = Buggle;
-		_ChangeBuggleDirection = ChangeBuggleDirection;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataBuggle = {};
-		buggle = new _Buggle(dataBuggle);
+		beforeEach(inject(function(Buggle, ChangeBuggleDirection) {
+			_Buggle = Buggle;
+			_ChangeBuggleDirection = ChangeBuggleDirection;
+		}));
 
-		var getEntity = sinon.stub();
-		getEntity.returns(buggle);
+		beforeEach(function() {
+			var dataBuggle = {};
+			buggle = new _Buggle(dataBuggle);
 
-		currentWorld = {
-			getEntity: getEntity,
-			steps: []
-		};
+			var getEntity = sinon.stub();
+			getEntity.returns(buggle);
 
-		buggleID = getRandomString(15);
-		newDirection = getRandomDirection();
-		oldDirection = getRandomDirection();
+			currentWorld = {
+				getEntity: getEntity,
+				steps: []
+			};
 
-		var dataOperation = {
-			buggleID: buggleID,
-			newDirection: newDirection,
-			oldDirection: oldDirection
-		};
-		changeBuggleDirection = new _ChangeBuggleDirection(dataOperation);
+			buggleID = getRandomString(15);
+			newDirection = getRandomDirection();
+			oldDirection = getRandomDirection();
+
+			var dataOperation = {
+				buggleID: buggleID,
+				newDirection: newDirection,
+				oldDirection: oldDirection
+			};
+			changeBuggleDirection = new _ChangeBuggleDirection(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeBuggleDirection.buggleID).toEqual(buggleID);
+			expect(changeBuggleDirection.newDirection).toEqual(newDirection);
+			expect(changeBuggleDirection.oldDirection).toEqual(oldDirection);
+		});
+
+		it('should replace buggle.direction by newDirection when applied', function () {
+			changeBuggleDirection.apply(currentWorld);
+			expect(buggle.direction).toEqual(newDirection);
+		});
+
+		it('should replace buggle.direction by oldDirection when reversed', function () {
+			changeBuggleDirection.reverse(currentWorld);
+			expect(buggle.direction).toEqual(oldDirection);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeBuggleDirection.buggleID).toEqual(buggleID);
-		expect(changeBuggleDirection.newDirection).toEqual(newDirection);
-		expect(changeBuggleDirection.oldDirection).toEqual(oldDirection);
-	});
-
-	it('should replace buggle.direction by newDirection when applied', function () {
-		changeBuggleDirection.apply(currentWorld);
-		expect(buggle.direction).toEqual(newDirection);
-	});
-
-	it('should replace buggle.direction by oldDirection when reversed', function () {
-		changeBuggleDirection.reverse(currentWorld);
-		expect(buggle.direction).toEqual(oldDirection);
-	});
-});
+})();

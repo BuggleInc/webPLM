@@ -1,58 +1,62 @@
-describe('ChangeBuggleCarryBaggle', function() {
-	var _Buggle;
-	var _ChangeBuggleCarryBaggle;
+(function(){
+	'use strict';
 
-	var buggle;
-	var currentWorld;
-	var changeBuggleCarryBaggle;
-	var buggleID;
-	var newCarryBaggle;
-	var oldCarryBaggle;
+	describe('ChangeBuggleCarryBaggle', function() {
+		var _Buggle;
+		var _ChangeBuggleCarryBaggle;
 
-	beforeEach(module('PLMApp'));
+		var buggle;
+		var currentWorld;
+		var changeBuggleCarryBaggle;
+		var buggleID;
+		var newCarryBaggle;
+		var oldCarryBaggle;
 
-	beforeEach(inject(function(Buggle, ChangeBuggleCarryBaggle) {
-		_Buggle = Buggle;
-		_ChangeBuggleCarryBaggle = ChangeBuggleCarryBaggle;
-	}));
+		beforeEach(module('PLMApp'));
 
-	beforeEach(function() {
-		var dataBuggle = {};
-		buggle = new _Buggle(dataBuggle);
-		
-		var getEntity = sinon.stub();
-		getEntity.returns(buggle);
+		beforeEach(inject(function(Buggle, ChangeBuggleCarryBaggle) {
+			_Buggle = Buggle;
+			_ChangeBuggleCarryBaggle = ChangeBuggleCarryBaggle;
+		}));
 
-		currentWorld = {
-			getEntity: getEntity,
-			steps: []
-		};
+		beforeEach(function() {
+			var dataBuggle = {};
+			buggle = new _Buggle(dataBuggle);
+			
+			var getEntity = sinon.stub();
+			getEntity.returns(buggle);
 
-		buggleID = getRandomString(15);
-		newCarryBaggle = getRandomBoolean();
-		oldCarryBaggle = getRandomBoolean();
+			currentWorld = {
+				getEntity: getEntity,
+				steps: []
+			};
 
-		var dataOperation = {
-			buggleID: buggleID,
-			newCarryBaggle: newCarryBaggle,
-			oldCarryBaggle: oldCarryBaggle
-		};
-		changeBuggleCarryBaggle = new _ChangeBuggleCarryBaggle(dataOperation);
+			buggleID = getRandomString(15);
+			newCarryBaggle = getRandomBoolean();
+			oldCarryBaggle = getRandomBoolean();
+
+			var dataOperation = {
+				buggleID: buggleID,
+				newCarryBaggle: newCarryBaggle,
+				oldCarryBaggle: oldCarryBaggle
+			};
+			changeBuggleCarryBaggle = new _ChangeBuggleCarryBaggle(dataOperation);
+		});
+
+		it('should be initialized correctly by its constructor', function () {
+			expect(changeBuggleCarryBaggle.buggleID).toEqual(buggleID);
+			expect(changeBuggleCarryBaggle.newCarryBaggle).toEqual(newCarryBaggle);
+			expect(changeBuggleCarryBaggle.oldCarryBaggle).toEqual(oldCarryBaggle);
+		});
+
+		it('should replace buggle.carryBaggle by newCarryBaggle when applied', function () {
+			changeBuggleCarryBaggle.apply(currentWorld);
+			expect(buggle.carryBaggle).toEqual(newCarryBaggle);
+		});
+
+		it('should replace buggle.carryBaggle by oldCarryBaggle when reversed', function () {
+			changeBuggleCarryBaggle.reverse(currentWorld);
+			expect(buggle.carryBaggle).toEqual(oldCarryBaggle);
+		});
 	});
-
-	it('should be initialized correctly by its constructor', function () {
-		expect(changeBuggleCarryBaggle.buggleID).toEqual(buggleID);
-		expect(changeBuggleCarryBaggle.newCarryBaggle).toEqual(newCarryBaggle);
-		expect(changeBuggleCarryBaggle.oldCarryBaggle).toEqual(oldCarryBaggle);
-	});
-
-	it('should replace buggle.carryBaggle by newCarryBaggle when applied', function () {
-		changeBuggleCarryBaggle.apply(currentWorld);
-		expect(buggle.carryBaggle).toEqual(newCarryBaggle);
-	});
-
-	it('should replace buggle.carryBaggle by oldCarryBaggle when reversed', function () {
-		changeBuggleCarryBaggle.reverse(currentWorld);
-		expect(buggle.carryBaggle).toEqual(oldCarryBaggle);
-	});
-});
+})();
