@@ -142,5 +142,217 @@
 				expect(elt).toEqual(operations[i]);
 			}
 		});
+
+		it('setState should call "apply" for each operations between ' +
+			'currentState and objectiveState if objectiveState > currentState', function () {
+			var nbSteps = getRandomInt(15)+1;
+			var nbOperations;
+			var i, j;
+
+			var expectedApplyCallCount = 0;
+
+			var operation = { 
+				apply: function () {},
+				reverse: function () {} 
+			};
+			spyOn(operation, 'apply');
+
+			var operations = [];
+			var step;
+
+			// Set operations
+			for(i=0; i<nbSteps; i++) {
+				nbOperations = getRandomInt(15) + 1;
+				step = [];
+				for(j=0; j<nbOperations; j++) {
+					step.push(operation);
+				}
+				operations.push(step);
+			}
+			buggleWorld.operations = operations;
+
+			var currentState = getRandomInt(nbSteps) - 1;
+			buggleWorld.currentState = currentState;
+			var objectiveState = currentState + getRandomInt(nbSteps-currentState-1) + 1;
+
+			for(i=currentState+1; i<=objectiveState; i++) {
+				for(j=0; j<operations[i].length; j++) {
+					expectedApplyCallCount++;
+				}
+			}
+
+			buggleWorld.setState(objectiveState);
+
+			var actualApplyCallCount = operation.apply.calls.count();
+			expect(actualApplyCallCount).toEqual(expectedApplyCallCount);
+		});
+
+		it('setState should never call "reverse" if objectiveState > currentState', function () {
+			var nbSteps = getRandomInt(15)+1;
+			var nbOperations;
+			var i, j;
+
+			var expectedReverseCall = false;
+
+			var operation = { 
+				apply: function () {},
+				reverse: function () {} 
+			};
+			spyOn(operation, 'reverse');
+
+			var operations = [];
+			var step;
+
+			// Set operations
+			for(i=0; i<nbSteps; i++) {
+				nbOperations = getRandomInt(15) + 1;
+				step = [];
+				for(j=0; j<nbOperations; j++) {
+					step.push(operation);
+				}
+				operations.push(step);
+			}
+			buggleWorld.operations = operations;
+
+			// Generate currentState & objectiveState
+			var currentState = getRandomInt(nbSteps) - 1;
+			buggleWorld.currentState = currentState;
+			var objectiveState = currentState + getRandomInt(nbSteps-currentState-1) + 1;
+
+			// Launch setState
+			buggleWorld.setState(objectiveState);
+
+			// Check the call count
+			var actualReverseCall = operation.reverse.calls.any();
+			expect(actualReverseCall).toEqual(expectedReverseCall);
+		});
+
+		it('setState should call "reverse" for each operations between ' +
+			'currentState and objectiveState if objectiveState > currentState', function () {
+			var nbSteps = getRandomInt(15)+1;
+			var nbOperations;
+			var i, j;
+
+			var expectedReverseCallCount = 0;
+
+			var operation = { 
+				apply: function () {},
+				reverse: function () {} 
+			};
+			spyOn(operation, 'reverse');
+
+			var operations = [];
+			var step;
+
+			// Set operations
+			for(i=0; i<nbSteps; i++) {
+				nbOperations = getRandomInt(15) + 1;
+				step = [];
+				for(j=0; j<nbOperations; j++) {
+					step.push(operation);
+				}
+				operations.push(step);
+			}
+			buggleWorld.operations = operations;
+
+			var objectiveState = getRandomInt(nbSteps) - 1;
+			var currentState = objectiveState + getRandomInt(nbSteps-objectiveState-1) + 1;
+			buggleWorld.currentState = currentState;
+
+			for(i=currentState; i>objectiveState; i--) {
+				for(j=0; j<operations[i].length; j++) {
+					expectedReverseCallCount++;
+				}
+			}
+
+			buggleWorld.setState(objectiveState);
+
+			var actualReverseCallCount = operation.reverse.calls.count();
+			expect(actualReverseCallCount).toEqual(expectedReverseCallCount);
+		});
+
+		it('setState should never call "apply" if objectiveState > currentState', function () {
+			var nbSteps = getRandomInt(15)+1;
+			var nbOperations;
+			var i, j;
+
+			var expectedApplyCall = false;
+
+			var operation = { 
+				apply: function () {},
+				reverse: function () {} 
+			};
+			spyOn(operation, 'apply');
+
+			var operations = [];
+			var step;
+
+			// Set operations
+			for(i=0; i<nbSteps; i++) {
+				nbOperations = getRandomInt(15) + 1;
+				step = [];
+				for(j=0; j<nbOperations; j++) {
+					step.push(operation);
+				}
+				operations.push(step);
+			}
+			buggleWorld.operations = operations;
+
+			// Generate currentState & objectiveState
+			var objectiveState = getRandomInt(nbSteps) - 1;
+			var currentState = objectiveState + getRandomInt(nbSteps-objectiveState-1) + 1;
+			buggleWorld.currentState = currentState;
+
+			// Launch setState
+			buggleWorld.setState(objectiveState);
+
+			// Check the call count
+			var actualApplyCall = operation.apply.calls.any();
+			expect(actualApplyCall).toEqual(expectedApplyCall);
+		});
+
+		it('setState should not call "apply" nor "reverse" if objectiveState === currentState', function () {
+			var nbSteps = getRandomInt(15)+1;
+			var nbOperations;
+			var i, j;
+
+			var expectedApplyCall = false;
+			var expectedReverseCall = false;
+
+			var operation = { 
+				apply: function () {},
+				reverse: function () {} 
+			};
+			spyOn(operation, 'apply');
+			spyOn(operation, 'reverse');
+
+			var operations = [];
+			var step;
+
+			// Set operations
+			for(i=0; i<nbSteps; i++) {
+				nbOperations = getRandomInt(15) + 1;
+				step = [];
+				for(j=0; j<nbOperations; j++) {
+					step.push(operation);
+				}
+				operations.push(step);
+			}
+			buggleWorld.operations = operations;
+
+			// Generate currentState & objectiveState
+			var currentState = getRandomInt(nbSteps) - 1;
+			var objectiveState = currentState;
+			buggleWorld.currentState = currentState;
+
+			// Launch setState
+			buggleWorld.setState(objectiveState);
+
+			// Check the call count
+			var actualApplyCall = operation.apply.calls.any();
+			expect(actualApplyCall).toEqual(expectedApplyCall);
+			var actualReverseCall = operation.reverse.calls.any();
+			expect(actualReverseCall).toEqual(expectedReverseCall);
+		});
 	});
 })();
