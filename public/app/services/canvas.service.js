@@ -14,22 +14,25 @@
 				init: init,
 				setWorld: setWorld,
 				update: update,
-				resize: resize
+				resize: resize,
+				getCanvasElt: getCanvasElt,
+				getContext: getContext,
+				getWorld: getWorld
 		};
 		
 		return service;
 		
-		function init() {
-			canvas = document.getElementById('worldView');
+		function init(canvasElt, canvasWidth, canvasHeight) {
+			canvas = canvasElt;
 			ctx = canvas.getContext('2d');
-			canvas.width = $('#worldView').parent().width();
-			canvas.height = $('#worldView').parent().width();
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
 		}
 		
-		function resize() {
+		function resize(canvasWidth, canvasHeight) {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			canvas.width = $('#worldView').parent().width();
-			canvas.height = $('#worldView').parent().width();
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
 			update();
 		}
 
@@ -41,6 +44,18 @@
 		function update() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			currentWorld.draw(ctx, canvas.width, canvas.height);
+		}
+
+		function getCanvasElt () {
+			return canvas;
+		}
+
+		function getContext () {
+			return ctx;
+		}
+
+		function getWorld () {
+			return currentWorld;
 		}
 	}
 })();

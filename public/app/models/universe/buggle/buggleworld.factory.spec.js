@@ -23,6 +23,8 @@
 
 		beforeEach(function() {
 			var i, j;
+			var nbEntities;
+			var dataBuggleWorld;
 
 			type = getRandomString(15);
 			width = getRandomInt(10) + 1;
@@ -43,14 +45,14 @@
 
 			entities = {};
 			bugglesID = [];
-			var nbEntities = getRandomInt(10) + 1;
+			nbEntities = getRandomInt(10) + 1;
 			for(i=0; i<nbEntities; i++) {
 				var buggleID = getRandomString(15);
 				bugglesID.push(buggleID);
 				entities[buggleID] = getRandomBuggle();
 			}
 
-			var dataBuggleWorld = {
+			dataBuggleWorld = {
 				type: type,
 				width: width,
 				height: height,
@@ -129,13 +131,15 @@
 			var elt;
 			var nbElt = getRandomInt(50) + 1;
 			var operations = [];
+			var generateOperationCallCount;
+
 			spyOn(buggleWorld, 'generateOperation');
 			for(i=0; i<nbElt; i++) {
 				elt = getRandomString(3);
 				operations.push(elt);
 			}
 			buggleWorld.addOperations(operations);
-			var generateOperationCallCount = buggleWorld.generateOperation.calls.count();
+			generateOperationCallCount = buggleWorld.generateOperation.calls.count();
 			expect(generateOperationCallCount).toEqual(nbElt);
 			for(i=0; i<nbElt; i++) {
 				elt = buggleWorld.generateOperation.calls.argsFor(i)[0];
@@ -350,8 +354,8 @@
 
 			// Check the call count
 			var actualApplyCall = operation.apply.calls.any();
-			expect(actualApplyCall).toEqual(expectedApplyCall);
 			var actualReverseCall = operation.reverse.calls.any();
+			expect(actualApplyCall).toEqual(expectedApplyCall);
 			expect(actualReverseCall).toEqual(expectedReverseCall);
 		});
 	});

@@ -19,13 +19,15 @@
 		}));
 
 		beforeEach(function() {
+			var dataBuggle;
+
 			x = getRandomInt(999);
 			y = getRandomInt(999);
 			color = getRandomColor();
 			direction = getRandomDirection();
 			carryBaggle = getRandomBoolean();
 			brushDown = getRandomBoolean();
-			var dataBuggle = {
+			dataBuggle = {
 				x: x,
 				y: y,
 				color: color,

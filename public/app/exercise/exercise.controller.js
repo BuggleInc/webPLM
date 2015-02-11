@@ -54,6 +54,8 @@
 		exercise.selectedRootLecture = null;
 		exercise.selectedNextExercise = null;
 		
+		exercise.canvasID = 'worldView';
+
 		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -145,7 +147,12 @@
 					exercise.currentWorlds[worldID] = world.clone();
 				}
 			}
-			canvas.init();
+
+			var canvasElt = document.getElementById(exercise.canvasID);
+			var canvasWidth = $('#'+exercise.canvasID).parent().width();
+			var canvasHeight = canvasWidth;
+			canvas.init(canvasElt, canvasWidth, canvasHeight);
+			
 			setCurrentWorld('current');
 			exercise.worldIDs = Object.keys(exercise.currentWorlds);
 			exercise.programmingLanguages = data.programmingLanguages;
@@ -363,6 +370,12 @@
 			offDisplayMessage();
 		});
 
-		window.addEventListener('resize', canvas.resize, false);
+		function resizeCanvas() {
+			var canvasWidth = $('#'+exercise.canvasID).parent().width();
+			var canvasHeight = canvasWidth;
+			canvas.resize(canvasWidth, canvasHeight);
+		}
+
+		window.addEventListener('resize', resizeCanvas, false);
 	}
 })();

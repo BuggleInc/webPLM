@@ -18,14 +18,16 @@
 			var buggle = currentWorld.getEntity(this.buggleID);
 			buggle.carryBaggle = this.newCarryBaggle;
 			if(this.firstApply) {
+				var obj;
 				var msg = '';
+				
 				if(this.newCarryBaggle) {
 					msg= 'Buggle '+this.buggleID+' is now carrying a baggle!';	
 				}
 				else {
 					msg = 'Buggle '+this.buggleID+' drops the baggle.';
 				}
-				var obj = {
+				obj = {
 					step: currentWorld.steps.length,
 					msg: msg
 				};

@@ -20,10 +20,14 @@
 		}));
 
 		beforeEach(function() {
-			var dataBuggle = {};
+			var getEntity;
+			var dataOperation;
+			var dataBuggle;
+
+			dataBuggle = {};
 			buggle = new _Buggle(dataBuggle);
 			
-			var getEntity = sinon.stub();
+			getEntity = sinon.stub();
 			getEntity.returns(buggle);
 
 			currentWorld = {
@@ -35,7 +39,7 @@
 			newBrushDown = getRandomBoolean();
 			oldBrushDown = getRandomBoolean();
 
-			var dataOperation = {
+			dataOperation = {
 				buggleID: buggleID,
 				newBrushDown: newBrushDown,
 				oldBrushDown: oldBrushDown
