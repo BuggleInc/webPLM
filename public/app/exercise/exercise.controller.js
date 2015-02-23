@@ -127,6 +127,10 @@
 		}
  
 		function setExercise(data) {
+			var canvasElt;
+			var canvasWidth;
+			var canvasHeight;
+
 			exercise.id = data.id;
 			exercise.instructions = $sce.trustAsHtml(data.instructions);
 			exercise.api = $sce.trustAsHtml(data.api);
@@ -148,9 +152,9 @@
 				}
 			}
 
-			var canvasElt = document.getElementById(exercise.canvasID);
-			var canvasWidth = $('#'+exercise.canvasID).parent().width();
-			var canvasHeight = canvasWidth;
+			canvasElt = document.getElementById(exercise.canvasID);
+			canvasWidth = $('#'+exercise.canvasID).parent().width();
+			canvasHeight = canvasWidth;
 			canvas.init(canvasElt, canvasWidth, canvasHeight);
 			
 			setCurrentWorld('current');
@@ -194,11 +198,13 @@
 		}
 		
 		function runCode() {
+			var args;
+
 			exercise.isPlaying = true;
 			exercise.worldIDs.map(function(key) {
 				reset(key, 'current', false);
 			});
-			var args = {
+			args = {
 					lessonID: exercise.lessonID,
 					exerciseID: exercise.id,
 					code: exercise.code
@@ -290,6 +296,9 @@
 		}
 		
 		function storeExercisesList(exercises) {
+			var dataMap;
+			var treeData;
+
 			exercise.exercisesAsList = exercises;
 
 			// Get the default next exercise
@@ -301,11 +310,11 @@
 			}
 
 			// Refactor the exercises list as a tree
-			var dataMap = exercises.reduce(function(map, node) {
+			dataMap = exercises.reduce(function(map, node) {
 				map[node.name] = node;
 			 	return map;
 			}, {});
-			var treeData = [];
+			treeData = [];
 			exercises.forEach(function(node) {
 				// add to parent
 				var parent = dataMap[node.parent];
@@ -352,6 +361,7 @@
 
 		function setProgrammingLanguage(pl) {
 			var args;
+
 			exercise.isChangingProgLang = true;
 			exercise.currentProgrammingLanguage = pl;
 			setIDEMode(pl);
@@ -359,7 +369,6 @@
 					programmingLanguage: pl.lang,
 			};
 			connection.sendMessage('setProgrammingLanguage', args);
-
 		}
 
 		function updateSpeed () {

@@ -24,9 +24,10 @@
 	    getLessons();
 	    
 	    function handleMessage(data) {
-	    	console.log('message received: ', data);
 	    	var cmd = data.cmd;
 	    	var args = data.args;
+
+	    	console.log('message received: ', data);
 	    	switch(cmd) {
 	    		case 'lessons': 
 	    			setLessons(args.lessons);

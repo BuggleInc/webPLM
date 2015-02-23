@@ -23,12 +23,12 @@ import log.LoggerUtils
 object PLM {
   
   var _game : Game = Game.getInstance()
-  var _lessons : List[Lesson] = game.getLessons.toArray(Array[Lesson]()).toList
+  var _lessons : Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
   var _currentExercise : Exercise = _
     
   def game : Game = _game
-  def lessons: List[Lesson] = _lessons
+  def lessons: Array[Lesson] = _lessons
   
   def programmingLanguages: List[ProgrammingLanguage] = {
     return _programmingLanguages
@@ -83,9 +83,9 @@ object PLM {
     }
   }
   
-  def getInitialWorlds(): List[World] = {
+  def getInitialWorlds(): Array[World] = {
     var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).toList
+    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]())
   }
   
   
