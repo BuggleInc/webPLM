@@ -15,6 +15,9 @@ import json.operation.OperationToJson
 class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {  
   var world: World = _
     
+  def getPLMActor = plmActor
+  def getMessageID = messageID
+ 
   override def clone(): ExecutionSpy = {
     return new ExecutionSpy(plmActor, messageID)
   }
@@ -54,5 +57,13 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
    */
   def worldHasChanged() {
     // Do not care?
+  }
+  
+  override def equals(o: Any) = {
+    o match {
+      case spy: ExecutionSpy => 
+        spy.getPLMActor == this.plmActor && spy.getMessageID == this.messageID
+      case _ => false
+    }
   }
 }
