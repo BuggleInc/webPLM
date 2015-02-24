@@ -1,7 +1,7 @@
 WebPLM
 ==============
 
-This project's goal is to move [PLM](https://github.com/oster/PLM) from a fat client to a web application using [Play Framework](https://www.playframework.com/) as the back-end and AngularJS(https://angularjs.org/) to provide the front-end.
+This project's goal is to move [PLM](https://github.com/oster/PLM) from a fat client to a web application using [Play Framework](https://www.playframework.com/) as the back-end and [AngularJS](https://angularjs.org/) to provide the front-end.
 
 Getting Started
 ---------------
@@ -13,10 +13,10 @@ Now you have to clone the repository:
 git clone https://github.com/MatthieuNICOLAS/webPLM.git
 ```
 
-Import it to **Eclipse**. You may now run the application using the following commands:
+You may now run the application using the following commands:
 ```
 cd path/to/webPLM
-activator run
+activator start
 ```
 
 To access to your application, browse to <http://localhost:9000>
