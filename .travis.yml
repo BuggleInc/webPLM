@@ -1,0 +1,18 @@
+language: scala
+scala:
+  - 2.11.4
+jdk:
+  - openjdk7
+install:
+  - npm install
+script:
+  - activator "test-only *Spec"
+  - grunt test
+notifications:
+  recipients:
+    - matthieu.nicolas@loria.fr
+  email:
+    on_success: change
+    on_failure: always
+  template:
+    - "%{repository}/%{branch} (%{commit} - %{author}): %{message}"

@@ -15,17 +15,18 @@ module.exports = function(grunt) {
             'public/javascripts/angular-locker.min.js',
             'public/javascripts/angular-mocks.js'
           ],
-          specs: 'public/app/**/*spec.js',
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'
         }
       }
     }
   });
 
+  grunt.registerTask('build', 'Do build', function(arg) {
+    grunt.log.write("I'm building...");
+    grunt.log.ok();
+  });
+
+  grunt.registerTask('test', ['jasmine']);
+
   grunt.loadNpmTasks('grunt-contrib-jasmine');
-
-  grunt.registerTask('travis', [
-    'jasmine'
-  ]);
-
 };
