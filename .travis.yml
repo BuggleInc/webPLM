@@ -10,7 +10,7 @@ install:
   - unzip -q typesafe-activator-${ACTIVATOR_VERSION}-minimal.zip
   - npm install
 script:
-  - typesafe-activator-${ACTIVATOR_VERSION}-minimal/activator "test-only *Spec"
+  - activator-${ACTIVATOR_VERSION}-minimal/activator "test-only *Spec"
   - grunt test
 notifications:
   recipients:
