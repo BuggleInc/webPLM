@@ -10,6 +10,8 @@ script:
   - grunt test
 notifications:
   recipients:
+    - martin.quinson@loria.fr
+    - gerald.oster@loria.fr
     - matthieu.nicolas@loria.fr
   email:
     on_success: change
