@@ -5,23 +5,23 @@
 		.module('PLMApp')
 		.factory('exercisesList', exercisesList);
 	
-	exercisesList.$inject = ['listenersHandler', 'connection'];
+	exercisesList.$inject = ['$rootScope', 'listenersHandler', 'connection'];
 
-	function exercisesList (listenersHandler, connection) {
+	function exercisesList ($rootScope, listenersHandler, connection) {
 		var exercisesList;
 		var exercisesTree;
 
 		var currentLessonID;
 		var currentExerciseID;
 
-		listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
+		listenersHandler.register('onmessage', handleMessage);
 
 		var service = {
-				getExercisesList: getExercisesList,
-				getExercisesTree: getExercisesTree,
-				getNextExerciseID: getNextExerciseID,
-				setCurrentLessonID: setCurrentLessonID,
-				setCurrentExerciseID: setCurrentExerciseID
+			getExercisesList: getExercisesList,
+			getExercisesTree: getExercisesTree,
+			getNextExerciseID: getNextExerciseID,
+			setCurrentLessonID: setCurrentLessonID,
+			setCurrentExerciseID: setCurrentExerciseID
 		};
 		
 		return service;
@@ -67,6 +67,7 @@
 		function updateExercisesList(exercises) {
 			exercisesList = exercises;
 			refactorExercisesListAsTree();
+			$rootScope.$broadcast('exercisesListReady');
 		}
 
 		function refactorExercisesListAsTree() {
@@ -74,12 +75,12 @@
 			var treeData;
 
 			// Refactor the exercises list as a tree
-			dataMap = exercises.reduce(function(map, node) {
+			dataMap = exercisesList.reduce(function(map, node) {
 				map[node.name] = node;
 			 	return map;
 			}, {});
 			treeData = [];
-			exercises.forEach(function(node) {
+			exercisesList.forEach(function(node) {
 				// add to parent
 				var parent = dataMap[node.parent];
 				if (parent) {

@@ -6,10 +6,10 @@
 		.controller('Exercise', Exercise);
 	
 	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
-	'listenersHandler', 'canvas', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
+	'listenersHandler', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
 	function Exercise($http, $scope, $sce, $stateParams, locker, connection, 
-		listenersHandler, canvas, DefaultColors, OutcomeKind, BuggleWorld) {
+		listenersHandler, canvas, exercisesList, DefaultColors, OutcomeKind, BuggleWorld) {
 
 		var exercise = this;
 		
@@ -84,7 +84,9 @@
 			connection.sendMessage('getExercise', args);
 		}
 		
-		var offDisplayMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
+		$scope.$on('exercisesListReady', initExerciseSelector);
+
+		var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
 		getExercise();
 
 		function handleMessage(data) {
@@ -112,16 +114,9 @@
 				case 'log': 
 					exercise.logs += args.msg;
 					break;
-				case 'exercises':
-					storeExercisesList(args.exercises);
-					break;
 				case 'programmingLanguageSet':
 					exercise.code = args.code;
 					exercise.isChangingProgLang = false;
-					break;
-				default:
-					console.log('Hum... Unknown message!');
-					console.log(data);
 					break;
 			}
 		}
@@ -169,7 +164,7 @@
 			}
 			$(document).foundation('dropdown', 'reflow');
 
-			connection.sendMessage('getExercises', {});
+			exercisesList.setCurrentLessonID(exercise.lessonID);
 		}
 		
 		function setCurrentWorld(worldKind) {
@@ -295,40 +290,13 @@
 			canvas.update();
 		}
 		
-		function storeExercisesList(exercises) {
-			var dataMap;
-			var treeData;
-
-			exercise.exercisesAsList = exercises;
-
-			// Get the default next exercise
-			for(var i=0; i<exercises.length - 1; i++) {
-				var exo = exercises[i];
-				if(exo.id === exercise.id) {
-					exercise.defaultNextExercise = exercises[i+1].id;
-				}
-			}
-
-			// Refactor the exercises list as a tree
-			dataMap = exercises.reduce(function(map, node) {
-				map[node.name] = node;
-			 	return map;
-			}, {});
-			treeData = [];
-			exercises.forEach(function(node) {
-				// add to parent
-				var parent = dataMap[node.parent];
-				if (parent) {
-					// create child array if it doesn't exist
-					(parent.children || (parent.children = []))
-					// add node to child array
-					.push(node);
-				} else {
-					// parent is null or missing
-					treeData.push(node);
-				}
-			});
-			exercise.exercisesAsTree = treeData;
+		function initExerciseSelector() {
+			exercisesList.setCurrentExerciseID(exercise.id);
+			exercise.exercisesAsList = exercisesList.getExercisesList();
+			exercise.exercisesAsTree = exercisesList.getExercisesTree();
+			exercise.defaultNextExercise = exercisesList.getNextExerciseID();
+			exercise.selectedRootLecture = null;
+			exercise.selectedNextExercise = null;
 
 			// Update modal
 			$(document).foundation('reveal', 'reflow');

@@ -14,7 +14,6 @@
 		
 		var service = {
 			sendMessage: sendMessage,
-			setupMessaging: setupMessaging,
 			endConnection: endConnection
 		};
 		
@@ -24,6 +23,11 @@
 			$rootScope.$emit('onopen', event);
 		};
 		
+		socket.onmessage = function (event) {
+			var msg = JSON.parse(event.data);
+			$rootScope.$broadcast('onmessage', msg);
+		};
+
 		return service;
 		
 		function sendMessage(cmd, args) {
@@ -43,19 +47,7 @@
 				socket.send(msg);
 			}
 		}
-		
-		function setupMessaging(fn) {
-		    socket.onmessage = function (event) {
-		    	var msg = JSON.parse(event.data);
-			    
-			    // Has to use $apply to warn AngularJS 
-			    // that the model could have been updated
-			    $rootScope.$apply(function () {
-			    	fn(msg);
-			    });
-		    };
-		}
-		
+
 		function sendPendingMessages() {
 			pendingMessages.map(send);
 		}

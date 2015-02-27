@@ -19,7 +19,7 @@
 	    home.setCurrentLesson = setCurrentLesson;
 	    home.goToLesson = goToLesson;
 
-	    var offHandleMessage = listenersHandler.register('onmessage', connection.setupMessaging(handleMessage));
+	    var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 	    
 	    getLessons();
 	    
