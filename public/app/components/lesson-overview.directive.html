@@ -8,7 +8,7 @@
 <div class="row">
   <h2>Votre progression</h2>
   <p ng-show="home.currentLesson">
-    <button class="button radius" ui-sref="exercise({lessonID: home.currentLesson.id, exerciseID: home.currentExerciseID})">Resume</button>
+    <button class="button radius" ng-click="home.goToLesson()">Resume</button>
   </p>
   <p ng-show="!home.currentLesson">Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon choisie.</p>
 </div> <!-- /.row user's progression -->
