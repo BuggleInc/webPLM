@@ -71,6 +71,11 @@ object PLM {
     return lect
   }
   
+  def revertExercise(): Lecture = {
+    game.revertExo
+    return game.getCurrentLesson.getCurrentExercise
+  }
+
   def getSelectedWorldID(): String = {
     return game.getSelectedWorld.getName
   }

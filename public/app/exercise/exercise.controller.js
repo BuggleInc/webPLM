@@ -26,7 +26,7 @@
 		exercise.instructions = null;
 		exercise.api = null;
 		exercise.resultType = null;
-		exercise.resultMsg = null;
+		exercise.result = '';
 		exercise.logs = '';
 		
 		exercise.initialWorlds = {};
@@ -67,7 +67,7 @@
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
 		exercise.updateSpeed = updateSpeed;
-
+		exercise.revertExercise = revertExercise;
 
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
@@ -129,7 +129,7 @@
 			exercise.id = data.id;
 			exercise.instructions = $sce.trustAsHtml(data.instructions);
 			exercise.api = $sce.trustAsHtml(data.api);
-			exercise.code = data.code;
+			exercise.code = data.code.trim();
 			exercise.currentWorldID = data.selectedWorldID;
 			for(var worldID in data.initialWorlds) {
 				if(data.initialWorlds.hasOwnProperty(worldID)) {
@@ -162,6 +162,11 @@
 					setIDEMode(pl);
 				}
 			}
+			
+			exercise.resultType = null;
+			exercise.result = '';
+			exercise.logs = '';
+
 			$(document).foundation('dropdown', 'reflow');
 
 			exercisesList.setCurrentLessonID(exercise.lessonID);
@@ -337,6 +342,10 @@
 					programmingLanguage: pl.lang,
 			};
 			connection.sendMessage('setProgrammingLanguage', args);
+		}
+
+		function revertExercise() {
+			connection.sendMessage('revertExercise', {});
 		}
 
 		function updateSpeed () {
