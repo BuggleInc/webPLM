@@ -58,6 +58,9 @@
 				currentLessonID = lessonID;
 				connection.sendMessage('getExercises', {});
 			}
+			else {
+				$rootScope.$broadcast('exercisesListReady');
+			}			
 		}
 
 		function setCurrentExerciseID(exerciseID) {
