@@ -1,6 +1,7 @@
-<a class="button right" data-reveal-id="exercisesModal">Switch exercise</a>
+<a class="button right" data-reveal-id="exercisesModal">Changer
+d'exercice</a>
 <div id="exercisesModal" class="reveal-modal small" data-reveal=true>
-	<h2>Choose an exercise:</h2>
+	<h2>Choisir un exercice:</h2>
 
 	<div class="row">
 
@@ -21,7 +22,10 @@
 	</div>
 
 	<div class="row">
-		<button class="button radius right" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.selectedNextExercise.id})">Switch to</button>
+		<button class="button radius right"
+onclick="$('#exercisesModal').foundation('reveal', 'close');"
+ui-sref="exercise({lessonID: exercise.lessonID, exerciseID:
+exercise.selectedNextExercise.id})">Sélectionner</button>
 	</div>
 
 	<a class="close-reveal-modal">&#215;</a>
