@@ -9,6 +9,6 @@
 <div class="row">
 	<div ng-show="exercise.display === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.display === 'api'" ng-bind-html="exercise.api"></div>
-	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result}}</div>
-	<div class="with-newlines" ng-show="exercise.display === 'logs'">{{exercise.logs}}</div>
+	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result || "No results yet, please run your program before"}}</div>
+	<div class="with-newlines" ng-show="exercise.display === 'logs'">{{exercise.logs || "No error logs yet... Congratulations!"}}</div>
 </div>
