@@ -29,23 +29,23 @@ object Application extends Controller {
     PLMActor.props(out)
   }
   
-  def index = Action {
+  def index = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }
 
-  def indexLessons = Action {
+  def indexLessons = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }
   
-  def lesson(lessonID: String) = Action {
+  def lesson(lessonID: String) = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }
   
-  def exercise(lessonID: String, exerciseID: String) = Action {
+  def exercise(lessonID: String, exerciseID: String) = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }
 
-  def specRunner() = Action {
+  def specRunner() = Action { implicit request =>
     Ok(views.html.specRunner())
   }
 }

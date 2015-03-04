@@ -24,30 +24,7 @@
 		</head> 
 	<body ng-app="PLMApp">
 	
-		<div class="contain-to-grid">
-				<nav class="top-bar" data-topbar role="navigation">
-					<ul class="title-area">
-					<li class="name">
-						<h1><a ui-sref="home">PLM</a></h1>
-					</li>
-					 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-					</ul>
-				
-					<section class="top-bar-section">
-					<!-- Right Nav Section -->
-					<ul class="right">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Contact</a>
-					</ul>
-				
-					<!-- Left Nav Section -->
-					<ul class="left">
-						<li><a ui-sref="home">Home</a></li>
-					</ul>
-					</section>
-				</nav> <!-- /.nav -->
-		</div>
+		<application-header></application-header>
 		
 		<div ui-view></div>
 		
@@ -73,6 +50,7 @@
 	
 	<!-- Application's components -->
 	<script type="text/javascript" src="/assets/app/components/animation-player.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/application-header.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/lesson-gallery.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/lesson-overview.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/worlds-view.directive.js"></script>
