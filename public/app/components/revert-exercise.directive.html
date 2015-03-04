@@ -1,0 +1,12 @@
+<a class="button" data-reveal-id="revertExerciseModal">Revert exercise</a>
+<div id="revertExerciseModal" class="reveal-modal small" data-reveal>
+	<h2>Warning!</h2>
+
+	<p class="lead">Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?</p>
+	<div class="row">
+		<button class="button secondary" onclick="$('#revertExerciseModal').foundation('reveal', 'close');">Cancel</button>
+		<button class="button" ng-click="exercise.revertExercise()">Continue</button>
+	</div>
+
+	<a class="close-reveal-modal">&#215;</a>
+</div>

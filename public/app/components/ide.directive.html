@@ -5,8 +5,11 @@
 <button class="button" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning">Stop</button>
 <button class="button" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang">Demo</button>
 
-<select-programming-language></select-programming-language>
-<switch-exercise></switch-exercise>
+<span class="right">
+	<revert-exercise></revert-exercise>
+	<switch-exercise></switch-exercise>
+	<select-programming-language></select-programming-language>
+</span>
 
 <ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, tabSize: 2, firstLineNumber: 0, autoCloseBrackets: true, mode: 'text/x-java' }"></ui-codemirror>
 

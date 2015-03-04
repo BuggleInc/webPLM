@@ -1,4 +1,4 @@
-<a ng-disabled="exercise.isRunning || exercise.isChangingProgLang" class="button secondary right" data-dropdown="drop"><img class="left" ng-src="{{exercise.currentProgrammingLanguage.icon}}">&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>
+<a ng-disabled="exercise.isRunning || exercise.isChangingProgLang" class="button secondary" data-dropdown="drop"><img class="left" ng-src="{{exercise.currentProgrammingLanguage.icon}}">&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>
 <ul id="drop" class="f-dropdown" data-dropdown-content>
 	<li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
   		<a><img ng-src="{{pl.icon}}">&nbsp;{{pl.lang}}</a>

@@ -97,6 +97,11 @@ class PLMActor(out: ActorRef) extends Actor {
           }
         case "stopExecution" =>
           PLM.stopExecution
+        case "revertExercise" =>
+          var lecture = PLM.revertExercise
+          sendMessage("exercise", Json.obj(
+              "exercise" -> LectureToJson.lectureWrites(lecture, PLM.programmingLanguage, PLM.getStudentCode, PLM.getInitialWorlds, PLM.getSelectedWorldID)
+          ))
         case "getExercises" =>
           var lectures = PLM.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
           sendMessage("exercises", Json.obj(
