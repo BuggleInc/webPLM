@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-05 10:45+0100\n"
-"PO-Revision-Date: 2015-03-05 10:48+0100\n"
+"POT-Creation-Date: 2015-03-05 11:02+0100\n"
+"PO-Revision-Date: 2015-03-05 11:16+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -233,6 +233,46 @@ msgstr ""
 "\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
 "\"30\"/>"
 
+#. type: Content of: outside any tag (error?)
+#: public/app/components/revert-exercise.directive.html:1
+msgid ""
+"<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Revert exercise</"
+"a>"
+msgstr ""
+"<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Réinitialiser "
+"l'exercice</a>"
+
+#. type: Content of: <div><h2>
+#: public/app/components/revert-exercise.directive.html:3
+msgid "Warning!"
+msgstr "Attention!"
+
+#. type: Content of: <div><p>
+#: public/app/components/revert-exercise.directive.html:5
+msgid ""
+"Reverting this exercise will erase all your work and cannot be undone. Are "
+"you sure that you want to proceed?"
+msgstr ""
+"Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
+"irrécupérable. Êtes-vous sûr de vouloir continuer?"
+
+#. type: Content of: <div><div>
+#: public/app/components/revert-exercise.directive.html:7
+msgid ""
+"<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
+"foundation('reveal', 'close');\">Cancel</button> <button class=\"button\" ng-"
+"click=\"exercise.revertExercise()\">Continue</button>"
+msgstr ""
+"<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
+"foundation('reveal', 'close');\">Annuler</button> <button class=\"button\" "
+"ng-click=\"exercise.revertExercise()\">Continuer</button>"
+
+#. type: Content of: <div>
+#: public/app/components/revert-exercise.directive.html:11
+#: public/app/components/switch-exercise.directive.html:27
+msgid "<a class=\"close-reveal-modal\">&#215;</a>"
+msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
+
 #. type: Content of: <a>
 #: public/app/components/select-programming-language.directive.html:1
 msgid ""
@@ -323,11 +363,6 @@ msgstr ""
 "foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
 "lessonID, exerciseID: exercise.selectedNextExercise.id})\">Sélectionner</"
 "button>"
-
-#. type: Content of: <div>
-#: public/app/components/switch-exercise.directive.html:27
-msgid "<a class=\"close-reveal-modal\">&#215;</a>"
-msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
 
 #. type: Content of: <div><dl><dd>
 #: public/app/components/tabs-current-world.directive.html:4

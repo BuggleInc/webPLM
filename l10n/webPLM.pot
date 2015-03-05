@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-05 10:45+0100\n"
+"POT-Creation-Date: 2015-03-05 11:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,6 +189,39 @@ msgid ""
 "max=\"3000\" min=\"30\"/>"
 msgstr ""
 
+#. type: Content of: outside any tag (error?)
+#: public/app/components/revert-exercise.directive.html:1
+msgid ""
+"<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Revert "
+"exercise</a>"
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/revert-exercise.directive.html:3
+msgid "Warning!"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/revert-exercise.directive.html:5
+msgid ""
+"Reverting this exercise will erase all your work and cannot be undone. Are "
+"you sure that you want to proceed?"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/revert-exercise.directive.html:7
+msgid ""
+"<button class=\"button secondary\" "
+"onclick=\"$('#revertExerciseModal').foundation('reveal', "
+"'close');\">Cancel</button> <button class=\"button\" "
+"ng-click=\"exercise.revertExercise()\">Continue</button>"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/revert-exercise.directive.html:11 public/app/components/switch-exercise.directive.html:27
+msgid "<a class=\"close-reveal-modal\">&#215;</a>"
+msgstr ""
+
 #. type: Content of: <a>
 #: public/app/components/select-programming-language.directive.html:1
 msgid ""
@@ -268,11 +301,6 @@ msgid ""
 "onclick=\"$('#exercisesModal').foundation('reveal', 'close');\" "
 "ui-sref=\"exercise({lessonID: exercise.lessonID, exerciseID: "
 "exercise.selectedNextExercise.id})\">Switch to</button>"
-msgstr ""
-
-#. type: Content of: <div>
-#: public/app/components/switch-exercise.directive.html:27
-msgid "<a class=\"close-reveal-modal\">&#215;</a>"
 msgstr ""
 
 #. type: Content of: <div><dl><dd>

@@ -162,12 +162,12 @@
 					setIDEMode(pl);
 				}
 			}
+
+			$(document).foundation('dropdown', 'reflow');
 			
 			exercise.resultType = null;
 			exercise.result = '';
 			exercise.logs = '';
-
-			$(document).foundation('dropdown', 'reflow');
 
 			exercisesList.setCurrentLessonID(exercise.lessonID);
 		}
@@ -345,6 +345,7 @@
 		}
 
 		function revertExercise() {
+			$('#revertExerciseModal').foundation('reveal', 'close');
 			connection.sendMessage('revertExercise', {});
 		}
 
