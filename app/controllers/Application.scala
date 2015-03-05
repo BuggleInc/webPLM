@@ -25,20 +25,29 @@ import play.api.Play.current
 
 object Application extends Controller {
   val system = ActorSystem("application")
-  
-  var preferredLang: Lang = null
+
+  def getLang(request: RequestHeader): Lang = {
+    var preferredLang: Lang = null
+    request.cookies.get("lang").getOrElse(None) match {
+      case cookie: Cookie =>
+        preferredLang = Lang(cookie.value)
+      case _ =>
+        preferredLang = Lang.preferred(request.acceptLanguages)
+    }
+    return preferredLang
+  }
 
   def pathToTranslatedAsset(file: String) = Action { implicit request =>
-    preferredLang = Lang.preferred(request.acceptLanguages)
+    var preferredLang = getLang(request)
     var actualPath = "/assets/"+preferredLang.code+"/"+file+".html"
     Redirect(actualPath);
   }
 
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-    LoggerUtils.debug("New websocket opened")
-    PLMActor.props(out)
+    var preferredLang = getLang(request)
+    PLMActor.props(out, preferredLang)
   }
-  
+
   def index = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }

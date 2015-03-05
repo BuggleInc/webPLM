@@ -23,18 +23,21 @@ import plm.universe.bugglequest.BuggleWorld
 import plm.universe.bugglequest.AbstractBuggle
 import plm.universe.bugglequest.BuggleWorldCell
 
+import play.api.i18n.Lang
+
 object PLMActor {
-  def props(out: ActorRef) = Props(new PLMActor(out))
+  def props(out: ActorRef, preferredLang: Lang) = Props(new PLMActor(out, preferredLang))
 }
 
-class PLMActor(out: ActorRef) extends Actor {
-      
+class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var isProgressSpyAdded: Boolean = false
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
   PLM.game.addGameStateListener(resultSpy)
   var registeredSpies: List[ExecutionSpy] = List()
   
   var remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(this, PLM.game)
+  
+  PLM.setLang(preferredLang)
   
   def receive = {
     case msg: JsValue =>

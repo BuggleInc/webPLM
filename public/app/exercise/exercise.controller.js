@@ -5,10 +5,10 @@
 		.module('PLMApp')
 		.controller('Exercise', Exercise);
 	
-	Exercise.$inject = ['$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
+	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
 	'listenersHandler', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
-	function Exercise($http, $scope, $sce, $stateParams, locker, connection, 
+	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
 		listenersHandler, canvas, exercisesList, DefaultColors, OutcomeKind, BuggleWorld) {
 
 		var exercise = this;
@@ -361,6 +361,10 @@
 			var canvasWidth = $('#'+exercise.canvasID).parent().width();
 			var canvasHeight = canvasWidth;
 			canvas.resize(canvasWidth, canvasHeight);
+		}
+
+		function reloadApplication() {
+			$window.location.reload();
 		}
 
 		window.addEventListener('resize', resizeCanvas, false);

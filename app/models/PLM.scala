@@ -20,13 +20,16 @@ import scala.collection.immutable.HashMap
 import play.api.libs.json._
 import log.LoggerUtils
 
+import play.api.i18n.Lang
+
 object PLM {
   
   var _game : Game = Game.getInstance()
   var _lessons : Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
-  var _currentExercise : Exercise = _
-    
+  var _currentExercise: Exercise = _
+  var _currentLang: Lang = null
+
   def game : Game = _game
   def lessons: Array[Lesson] = _lessons
   
@@ -40,6 +43,8 @@ object PLM {
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
+    
+    game.setLocale(_currentLang.toLocale)
     
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
@@ -60,10 +65,12 @@ object PLM {
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
+    game.setLocale(_currentLang.toLocale)
+
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
-    
+
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
       initialWorld.setDelay(5)
     }
@@ -129,5 +136,9 @@ object PLM {
   
   def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
     _game.removeProgressSpyListener(progressSpyListener)  
+  }
+
+  def setLang(lang: Lang) {
+    _currentLang = lang
   }
 }
