@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-04 16:59+0100\n"
-"PO-Revision-Date: 2015-03-04 17:00+0100\n"
+"POT-Creation-Date: 2015-03-05 10:03+0100\n"
+"PO-Revision-Date: 2015-03-05 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -67,21 +67,21 @@ msgstr ""
 msgid ""
 "&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
 "exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
-"\"round label\">&nbsp;</span> &nbsp; <button class=\"button\" ng-click="
+"\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
 "\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
-"isChangingProgLang\">Run</button> <button class=\"button\" ng-click="
-"\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\">Stop</"
+"isChangingProgLang\"> Run </button> <button class=\"button\" ng-click="
+"\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> Stop </"
 "button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-disabled="
-"\"exercise.isRunning || exercise.isChangingProgLang\">Demo</button>"
+"\"exercise.isRunning || exercise.isChangingProgLang\"> Demo </button>"
 msgstr ""
 "&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
 "exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
 "\"round label\">&nbsp;</span> &nbsp; <button class=\"button\" ng-click="
 "\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
-"isChangingProgLang\">Run</button> <button class=\"button\" ng-click="
+"isChangingProgLang\">Exécuter</button> <button class=\"button\" ng-click="
 "\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\">Stop</"
 "button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-disabled="
-"\"exercise.isRunning || exercise.isChangingProgLang\">Demo</button>"
+"\"exercise.isRunning || exercise.isChangingProgLang\">Démo</button>"
 
 #. type: Content of: <div><dl><dd>
 #: public/app/components/instructions.directive.html:3
@@ -106,7 +106,7 @@ msgstr "<a>Logs</a>"
 #. type: Content of: <div><div>
 #: public/app/components/instructions.directive.html:12
 msgid "{{exercise.result}}"
-msgstr ""
+msgstr "{{exercise.result}}"
 
 #. type: Content of: <div><div>
 #: public/app/components/instructions.directive.html:13
@@ -119,11 +119,13 @@ msgid ""
 "<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
 "setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
 msgstr ""
+"<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
+"setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
 
 #. type: Content of: <ul><li><div>
 #: public/app/components/lesson-gallery.directive.html:6
 msgid "</a>"
-msgstr ""
+msgstr "</a>"
 
 #. type: Content of: <ul><li><div><h6>
 #: public/app/components/lesson-gallery.directive.html:7
@@ -141,14 +143,14 @@ msgstr ""
 
 #. type: Content of: <div><span><h2>
 #: public/app/components/lesson-overview.directive.html:4
-msgid "Description de la leçon"
-msgstr ""
+msgid "Description of the lesson"
+msgstr "Description de la leçon"
 
 #. type: Content of: <div><span><p>
 #: public/app/components/lesson-overview.directive.html:5
-msgid ""
-"C'est ici que s'affichera la description de la leçon que vous aurez choisie."
+msgid "The description of the selected lesson will be displayed here."
 msgstr ""
+"C'est ici que s'affichera la description de la leçon que vous aurez choisie."
 
 #. type: Content of: <div>
 #: public/app/components/lesson-overview.directive.html:6
@@ -157,8 +159,8 @@ msgstr "</span>"
 
 #. type: Content of: <div><h2>
 #: public/app/components/lesson-overview.directive.html:9
-msgid "Votre progression"
-msgstr ""
+msgid "Your progress"
+msgstr "Votre progression"
 
 #. type: Content of: <div><p>
 #: public/app/components/lesson-overview.directive.html:11
@@ -171,10 +173,10 @@ msgstr ""
 
 #. type: Content of: <div><p>
 #: public/app/components/lesson-overview.directive.html:13
-msgid ""
+msgid "A graph representing your progress will be displayed here."
+msgstr ""
 "Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon "
 "choisie."
-msgstr ""
 
 #. type: Content of: <div><h3>
 #: public/app/components/player-options.directive.html:2
@@ -224,27 +226,31 @@ msgstr "&nbsp;{{pl.lang}}</a>"
 
 #. type: Content of: <div><h2>
 #: public/app/components/success-modal.directive.html:3
-msgid "Exercice réussi \\o/"
-msgstr ""
-
-#. type: Content of: <div><p>
-#: public/app/components/success-modal.directive.html:4
-msgid "Félicitations, vous avez réussi cet exercice."
-msgstr ""
+msgid "Success \\o/"
+msgstr "Exercice réussi \\o/"
 
 #. type: Content of: <div><p>
 #: public/app/components/success-modal.directive.html:6
-msgid ""
-"Voulez-vous tenter l'exercice <button onclick=\"$('#successModal')."
-"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
-"lessonID, exerciseID: exercise.defaultNextExercise})\">suivant</button>?"
-msgstr ""
+msgid "Congratulations, you pass this exercise!"
+msgstr "Félicitations, vous avez réussi cet exercice."
+
+#. type: Content of: <div><p>
+#: public/app/components/success-modal.directive.html:9
+msgid "Do you want to try the next one?"
+msgstr "Voulez-vous tenter l'exercice suivant?"
 
 #. type: Content of: <div>
-#: public/app/components/success-modal.directive.html:8
-#: public/app/components/switch-exercise.directive.html:27
-msgid "<a class=\"close-reveal-modal\">&#215;</a>"
-msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
+#: public/app/components/success-modal.directive.html:11
+msgid ""
+"<button onclick=\"$('#successModal').foundation('reveal', 'close');\" ui-"
+"sref=\"exercise({lessonID: exercise.lessonID, exerciseID: exercise."
+"defaultNextExercise})\"> Yes, sure </button> <a class=\"close-reveal-modal"
+"\">&#215;</a>"
+msgstr ""
+"<button onclick=\"$('#successModal').foundation('reveal', 'close');\" ui-"
+"sref=\"exercise({lessonID: exercise.lessonID, exerciseID: exercise."
+"defaultNextExercise})\"> Bien sûr </button> <a class=\"close-reveal-modal"
+"\">&#215;</a>"
 
 #. type: Content of: outside any tag (error?)
 #: public/app/components/switch-exercise.directive.html:1
@@ -287,23 +293,28 @@ msgstr ""
 "lessonID, exerciseID: exercise.selectedNextExercise.id})\">Sélectionner</"
 "button>"
 
-#. type: Content of: <div><dl><dd>
-#: public/app/components/tabs-current-world.directive.html:4
-msgid "<a>Monde</a>"
-msgstr ""
+#. type: Content of: <div>
+#: public/app/components/switch-exercise.directive.html:27
+msgid "<a class=\"close-reveal-modal\">&#215;</a>"
+msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
 
 #. type: Content of: <div><dl><dd>
-#: public/app/components/tabs-current-world.directive.html:7
-msgid "<a>Objectif</a>"
-msgstr ""
+#: public/app/components/tabs-current-world.directive.html:4
+msgid "<a> World </a>"
+msgstr "<a> Monde </a>"
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/tabs-current-world.directive.html:9
+msgid "<a> Objective </a>"
+msgstr "<a> Objectif </a>"
 
 #. type: Content of: <div><div><div>
 #: public/app/components/worlds-view.directive.html:4
-msgid "<span class=\"prefix\"><strong>Selected world:</strong></span>"
+msgid "<span class=\"prefix\"> <strong> Selected world: </strong> </span>"
 msgstr "<span class=\"prefix\"><strong>Monde sélectionné:</strong></span>"
 
 #. type: Content of: <div><div><div>
-#: public/app/components/worlds-view.directive.html:7
+#: public/app/components/worlds-view.directive.html:11
 msgid ""
 "<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-options="
 "\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-change="
@@ -314,16 +325,16 @@ msgstr ""
 "\"exercise.setCurrentWorld('current')\"> </select>"
 
 #. type: Content of: <div><div><div><h3>
-#: public/app/exercise/exercise.html:16
+#: public/app/exercise/exercise.html:17
 msgid "Program steps"
 msgstr "Étapes du programme"
 
 #. type: Content of: <div><div><div><div>
-#: public/app/exercise/exercise.html:18
+#: public/app/exercise/exercise.html:20
 msgid "{{obj.msg}}"
 msgstr "{{obj.msg}}"
 
 #. type: Content of: <div><h1>
-#: public/app/home/home.html:2
+#: public/app/home/home.html:3
 msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
 msgstr "Bienvenue dans la PLM, <small>l'exerciseur du programmeur</small>"
