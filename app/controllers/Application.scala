@@ -29,6 +29,7 @@ object Application extends Controller {
   var preferredLang: Lang = null
 
   def pathToTranslatedAsset(file: String) = Action { implicit request =>
+    preferredLang = Lang.preferred(request.acceptLanguages)
     var actualPath = "/assets/"+preferredLang.code+"/"+file+".html"
     Redirect(actualPath);
   }
@@ -39,7 +40,6 @@ object Application extends Controller {
   }
  
   def index = Action { implicit request =>
-    preferredLang = Lang.preferred(request.acceptLanguages)
     Ok(views.html.index("Accueil"))
   }
 
