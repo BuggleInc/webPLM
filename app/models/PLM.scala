@@ -28,7 +28,7 @@ object PLM {
   var _lessons : Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
   var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
   var _currentExercise: Exercise = _
-  var _currentLang: Lang = null
+  var _currentLang: Lang = Lang("en")
 
   def game : Game = _game
   def lessons: Array[Lesson] = _lessons
@@ -45,7 +45,7 @@ object PLM {
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     game.setLocale(_currentLang.toLocale)
-    
+
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
