@@ -19,11 +19,21 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 
+import play.api.i18n.Lang
+
 import play.api.Play.current
 
 object Application extends Controller {
   val system = ActorSystem("application")
   
+  var preferredLang: Lang = null
+
+  def pathToTranslatedAsset(file: String) = Action { implicit request =>
+    preferredLang = Lang.preferred(request.acceptLanguages)
+    var actualPath = "/assets/"+preferredLang.code+"/"+file+".html"
+    Redirect(actualPath);
+  }
+
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
     LoggerUtils.debug("New websocket opened")
     PLMActor.props(out)

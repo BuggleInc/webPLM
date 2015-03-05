@@ -1,15 +1,12 @@
 <div class="small-12 medium-7 columns" data-equalizer-watch=true>
 	<div class="row collapse">
 		<div class="small-3 columns">
-			<span class="prefix">
-				<strong>
-					Selected world:
-				</strong>
-			</span>
+			<span class="prefix"><strong>Monde sélectionné:</strong></span>
 		</div>
 		<div class="small-9 columns">
-			<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
-			</select>
+			<select id="selectWorld" ng-model="exercise.currentWorldID"
+ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'"
+ng-change="exercise.setCurrentWorld('current')"> </select>
 		</div>
 		</div>
 	<div class="center">

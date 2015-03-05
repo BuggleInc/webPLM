@@ -1,0 +1,310 @@
+# Italian translations for PACKAGE package
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-03-05 10:45+0100\n"
+"PO-Revision-Date: 2015-03-04 16:30+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. type: Content of: <div>
+#: public/app/components/animation-player.directive.html:2
+msgid ""
+"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
+"currentState === -1\" ng-click=\"exercise.reset(exercise.currentWorldID, "
+"exercise.worldKind, true)\"> <i class=\"fi-previous size-12\"></i> </button> "
+"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
+"currentState === -1\" ng-click=\"exercise.setWorldState(exercise."
+"currentWorld.currentState-1)\"> <i class=\"fi-rewind size-12\"></i> </"
+"button> <input ng-disabled=\"exercise.isPlaying\" type=\"range\" ng-model="
+"\"exercise.currentState\" ng-change=\"exercise.setWorldState(exercise."
+"currentState);\" max=\"{{exercise.currentWorld.operations.length-1}}\" min="
+"\"-1\"/> <button class=\"button tiny round\" ng-disabled=\"exercise."
+"currentWorld.currentState === (exercise.currentWorld.operations.length-1)\" "
+"ng-click=\"exercise.setWorldState(exercise.currentWorld.currentState+1)\"> "
+"<i class=\"fi-fast-forward size-12\"></i> </button> <button class=\"button "
+"tiny round\" ng-disabled=\"exercise.currentWorld.currentState === (exercise."
+"currentWorld.operations.length-1)\" ng-click=\"exercise."
+"setWorldState(exercise.currentWorld.operations.length-1)\"> <i class=\"fi-"
+"next size-12\"></i> </button> <button class=\"button tiny round\" ng-"
+"disabled=\"exercise.isPlaying || exercise.currentWorld.operations.length === "
+"0\" ng-click=\"exercise.replay()\"> <i class=\"fi-loop size-12\"></i> </"
+"button>"
+msgstr ""
+
+#. type: Content of: <div><nav><ul><li><h1>
+#: public/app/components/application-header.directive.html:6
+msgid "<a ui-sref=\"home\"> PLM </a>"
+msgstr ""
+
+#. type: Content of: <div><nav><ul><li>
+#: public/app/components/application-header.directive.html:13
+msgid "<a href=\"#\"> <span> Menu </span> </a>"
+msgstr ""
+
+#. type: Content of: <div><nav><section><ul><li>
+#: public/app/components/application-header.directive.html:25
+msgid "<a href=\"#\"> About </a>"
+msgstr ""
+
+#. type: Content of: <div><nav><section><ul><li>
+#: public/app/components/application-header.directive.html:30
+msgid "<a href=\"#\"> Contact </a>"
+msgstr ""
+
+#. type: Content of: <div><nav><section><ul><li>
+#: public/app/components/application-header.directive.html:39
+msgid "<a ui-sref=\"home\"> Home </a>"
+msgstr ""
+
+#. type: Content of: <span>
+#: public/app/components/ide.directive.html:1
+msgid ""
+"&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
+"exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
+"\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
+"\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
+"isChangingProgLang\"> Run </button> <button class=\"button\" ng-click="
+"\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> Stop </"
+"button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-disabled="
+"\"exercise.isRunning || exercise.isChangingProgLang\"> Demo </button> <span "
+"class=\"right\">"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/ide.directive.html:20
+#: public/app/components/lesson-overview.directive.html:6
+msgid "</span>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/instructions.directive.html:3
+msgid "<a>Instructions</a>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/instructions.directive.html:4
+msgid "<a>API</a>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/instructions.directive.html:5
+msgid "<a>Result</a>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/instructions.directive.html:6
+msgid "<a>Logs</a>"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/instructions.directive.html:12
+msgid ""
+"{{exercise.result || \"No results yet, please run your program before\"}}"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/instructions.directive.html:13
+msgid "{{exercise.logs || \"No error logs yet... Congratulations!\"}}"
+msgstr ""
+
+#. type: Content of: <ul><li><div><a>
+#: public/app/components/lesson-gallery.directive.html:4
+msgid ""
+"<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
+"setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
+msgstr ""
+
+#. type: Content of: <ul><li><div>
+#: public/app/components/lesson-gallery.directive.html:6
+msgid "</a>"
+msgstr ""
+
+#. type: Content of: <ul><li><div><h6>
+#: public/app/components/lesson-gallery.directive.html:7
+msgid "{{lesson.id}}"
+msgstr ""
+
+#. type: Content of: <div><span>
+#: public/app/components/lesson-overview.directive.html:2
+msgid ""
+"<span ng-show=\"home.currentLesson\" ng-bind-html=\"home.currentLesson."
+"description\"></span> <span ng-show=\"!home.currentLesson\">"
+msgstr ""
+
+#. type: Content of: <div><span><h2>
+#: public/app/components/lesson-overview.directive.html:4
+msgid "Description of the lesson"
+msgstr ""
+
+#. type: Content of: <div><span><p>
+#: public/app/components/lesson-overview.directive.html:5
+msgid "The description of the selected lesson will be displayed here."
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/lesson-overview.directive.html:9
+msgid "Your progress"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/lesson-overview.directive.html:11
+msgid ""
+"<button class=\"button radius\" ng-click=\"home.goToLesson()\">Resume</"
+"button>"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/lesson-overview.directive.html:13
+msgid "A graph representing your progress will be displayed here."
+msgstr ""
+
+#. type: Content of: <div><h3>
+#: public/app/components/player-options.directive.html:2
+msgid "Player's options"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/player-options.directive.html:4
+msgid "<label for=\"executionSpeed\" class=\"left\">Execution speed:</label>"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/player-options.directive.html:7
+msgid ""
+"<input class=\"left\" type=\"range\" id=\"executionSpeed\" ng-model="
+"\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
+"\"30\"/>"
+msgstr ""
+
+#. type: Content of: <a>
+#: public/app/components/select-programming-language.directive.html:1
+msgid ""
+"<a ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\" class="
+"\"button secondary\" data-dropdown=\"drop\">"
+msgstr ""
+
+#. type: Content of: outside any tag (error?)
+#: public/app/components/select-programming-language.directive.html:1
+msgid "&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>"
+msgstr ""
+
+#. type: Content of: <ul><li><a>
+#: public/app/components/select-programming-language.directive.html:4
+msgid "<a>"
+msgstr ""
+
+#. type: Content of: <ul><li>
+#: public/app/components/select-programming-language.directive.html:4
+msgid "&nbsp;{{pl.lang}}</a>"
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/success-modal.directive.html:3
+msgid "Success \\o/"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/success-modal.directive.html:6
+msgid "Congratulations, you pass this exercise!"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/success-modal.directive.html:9
+msgid "Do you want to try the next one?"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/success-modal.directive.html:11
+msgid ""
+"<button class=\"center right\" onclick=\"$('#successModal')."
+"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+"lessonID, exerciseID: exercise.defaultNextExercise})\"> Yes, sure </button> "
+"<a class=\"close-reveal-modal\">&#215;</a>"
+msgstr ""
+
+#. type: Content of: outside any tag (error?)
+#: public/app/components/switch-exercise.directive.html:1
+msgid ""
+"<a class=\"button\" data-reveal-id=\"exercisesModal\">Switch exercise</a>"
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/switch-exercise.directive.html:3
+msgid "Choose an exercise:"
+msgstr ""
+
+#. type: Content of: <div><div><div><ul><li>
+#: public/app/components/switch-exercise.directive.html:10
+msgid "<a>{{rootLecture.name}}</a>"
+msgstr ""
+
+#. type: Content of: <div><div><div><ul><li>
+#: public/app/components/switch-exercise.directive.html:17
+msgid "<a>{{exercise.selectedRootLecture.name}}</a>"
+msgstr ""
+
+#. type: Content of: <div><div><div><ul><li>
+#: public/app/components/switch-exercise.directive.html:18
+msgid "<a>{{exo.name}}</a>"
+msgstr ""
+
+#. type: Content of: <div><div>
+#: public/app/components/switch-exercise.directive.html:24
+msgid ""
+"<button class=\"button radius right\" onclick=\"$('#exercisesModal')."
+"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+"lessonID, exerciseID: exercise.selectedNextExercise.id})\">Switch to</button>"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/switch-exercise.directive.html:27
+msgid "<a class=\"close-reveal-modal\">&#215;</a>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/tabs-current-world.directive.html:4
+msgid "<a> World </a>"
+msgstr ""
+
+#. type: Content of: <div><dl><dd>
+#: public/app/components/tabs-current-world.directive.html:9
+msgid "<a> Objective </a>"
+msgstr ""
+
+#. type: Content of: <div><div><div>
+#: public/app/components/worlds-view.directive.html:4
+msgid "<span class=\"prefix\"> <strong> Selected world: </strong> </span>"
+msgstr ""
+
+#. type: Content of: <div><div><div>
+#: public/app/components/worlds-view.directive.html:11
+msgid ""
+"<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-options="
+"\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-change="
+"\"exercise.setCurrentWorld('current')\"> </select>"
+msgstr ""
+
+#. type: Content of: <div><div><div><h3>
+#: public/app/exercise/exercise.html:17
+msgid "Program steps"
+msgstr ""
+
+#. type: Content of: <div><div><div><div>
+#: public/app/exercise/exercise.html:20
+msgid "{{obj.msg}}"
+msgstr ""
+
+#. type: Content of: <div><h1>
+#: public/app/home/home.html:3
+msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
+msgstr ""
