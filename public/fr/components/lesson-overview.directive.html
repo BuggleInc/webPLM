@@ -1,18 +1,16 @@
 <div class="row">
-  <span ng-show="home.currentLesson"
-ng-bind-html="home.currentLesson.description"></span> <span
-ng-show="!home.currentLesson">
+  <span ng-show="home.currentLesson" ng-bind-html="home.currentLesson.description"></span>
+  <span ng-show="!home.currentLesson">
     <h2>Description de la leçon</h2>
     <p>C'est ici que s'affichera la description de la leçon que vous aurez choisie.</p>
   </span>
-</div> 
-<!-- /.row lesson's description -->
+</div><!-- /.row lesson's description -->
+ 
 <div class="row">
   <h2>Votre progression</h2>
   <p ng-show="home.currentLesson">
-    <button class="button radius"
-ng-click="home.goToLesson()">Reprendre</button>
+    <button class="button radius" ng-click="home.goToLesson()">Reprendre</button>
   </p>
-  <p ng-show="!home.currentLesson">Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon
-choisie.</p>
-</div> <!-- /.row user's progression -->
+  <p ng-show="!home.currentLesson">Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon choisie.</p>
+</div><!-- /.row user's progression -->
+ 

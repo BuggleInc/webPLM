@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-05 11:02+0100\n"
-"PO-Revision-Date: 2015-03-05 11:16+0100\n"
+"POT-Creation-Date: 2015-03-06 09:47+0100\n"
+"PO-Revision-Date: 2015-03-06 09:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -17,393 +17,548 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#. type: Content of: <div>
-#: public/app/components/animation-player.directive.html:2
-msgid ""
-"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
-"currentState === -1\" ng-click=\"exercise.reset(exercise.currentWorldID, "
-"exercise.worldKind, true)\"> <i class=\"fi-previous size-12\"></i> </button> "
-"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
-"currentState === -1\" ng-click=\"exercise.setWorldState(exercise."
-"currentWorld.currentState-1)\"> <i class=\"fi-rewind size-12\"></i> </"
-"button> <input ng-disabled=\"exercise.isPlaying\" type=\"range\" ng-model="
-"\"exercise.currentState\" ng-change=\"exercise.setWorldState(exercise."
-"currentState);\" max=\"{{exercise.currentWorld.operations.length-1}}\" min="
-"\"-1\"/> <button class=\"button tiny round\" ng-disabled=\"exercise."
-"currentWorld.currentState === (exercise.currentWorld.operations.length-1)\" "
-"ng-click=\"exercise.setWorldState(exercise.currentWorld.currentState+1)\"> "
-"<i class=\"fi-fast-forward size-12\"></i> </button> <button class=\"button "
-"tiny round\" ng-disabled=\"exercise.currentWorld.currentState === (exercise."
-"currentWorld.operations.length-1)\" ng-click=\"exercise."
-"setWorldState(exercise.currentWorld.operations.length-1)\"> <i class=\"fi-"
-"next size-12\"></i> </button> <button class=\"button tiny round\" ng-"
-"disabled=\"exercise.isPlaying || exercise.currentWorld.operations.length === "
-"0\" ng-click=\"exercise.replay()\"> <i class=\"fi-loop size-12\"></i> </"
-"button>"
-msgstr ""
-"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
-"currentState === -1\" ng-click=\"exercise.reset(exercise.currentWorldID, "
-"exercise.worldKind, true)\"> <i class=\"fi-previous size-12\"></i> </button> "
-"<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
-"currentState === -1\" ng-click=\"exercise.setWorldState(exercise."
-"currentWorld.currentState-1)\"> <i class=\"fi-rewind size-12\"></i> </"
-"button> <input ng-disabled=\"exercise.isPlaying\" type=\"range\" ng-model="
-"\"exercise.currentState\" ng-change=\"exercise.setWorldState(exercise."
-"currentState);\" max=\"{{exercise.currentWorld.operations.length-1}}\" min="
-"\"-1\"/> <button class=\"button tiny round\" ng-disabled=\"exercise."
-"currentWorld.currentState === (exercise.currentWorld.operations.length-1)\" "
-"ng-click=\"exercise.setWorldState(exercise.currentWorld.currentState+1)\"> "
-"<i class=\"fi-fast-forward size-12\"></i> </button> <button class=\"button "
-"tiny round\" ng-disabled=\"exercise.currentWorld.currentState === (exercise."
-"currentWorld.operations.length-1)\" ng-click=\"exercise."
-"setWorldState(exercise.currentWorld.operations.length-1)\"> <i class=\"fi-"
-"next size-12\"></i> </button> <button class=\"button tiny round\" ng-"
-"disabled=\"exercise.isPlaying || exercise.currentWorld.operations.length === "
-"0\" ng-click=\"exercise.replay()\"> <i class=\"fi-loop size-12\"></i> </"
-"button>"
+#. type: Content of: <div><nav><ul><li><h1><a>
+#: public/app/components/application-header.directive.html:5
+#, no-wrap
+msgid "PLM"
+msgstr "PLM"
 
-#. type: Content of: <div><nav><ul><li><h1>
-#: public/app/components/application-header.directive.html:6
-msgid "<a ui-sref=\"home\"> PLM </a>"
-msgstr "<a ui-sref=\"home\"> PLM </a>"
+#. type: Content of: <div><nav><ul><li><a><span>
+#: public/app/components/application-header.directive.html:9
+#, no-wrap
+msgid "Menu"
+msgstr "Menu"
 
-#. type: Content of: <div><nav><ul><li>
-#: public/app/components/application-header.directive.html:13
-msgid "<a href=\"#\"> <span> Menu </span> </a>"
-msgstr "<a href=\"#\"> <span> Menu </span> </a>"
+#. type: Content of: <div><nav><section><ul><li><a>
+#: public/app/components/application-header.directive.html:16
+#, no-wrap
+msgid "About"
+msgstr "À propos"
 
-#. type: Content of: <div><nav><section><ul><li>
-#: public/app/components/application-header.directive.html:25
-msgid "<a href=\"#\"> About </a>"
-msgstr "<a href=\"#\"> À propos </a>"
+#. type: Content of: <div><nav><section><ul><li><a>
+#: public/app/components/application-header.directive.html:17
+#, no-wrap
+msgid "Contact"
+msgstr "Nous contacter"
 
-#. type: Content of: <div><nav><section><ul><li>
-#: public/app/components/application-header.directive.html:30
-msgid "<a href=\"#\"> Contact </a>"
-msgstr "<a href=\"#\"> Nous contacter </a>"
+#. type: Content of: <div><nav><section><ul><li><a>
+#: public/app/components/application-header.directive.html:22
+#, no-wrap
+msgid "Home"
+msgstr "Accueil"
 
-#. type: Content of: <div><nav><section><ul><li>
-#: public/app/components/application-header.directive.html:39
-msgid "<a ui-sref=\"home\"> Home </a>"
-msgstr "<a ui-sref=\"home\"> Accueil </a>"
+#. type: Content of: outside any tag (error?)
+#: public/app/components/ide.directive.html:1
+#: public/app/components/ide.directive.html:3
+#, no-wrap
+msgid "&nbsp;\n"
+msgstr "&nbsp;\n"
 
 #. type: Content of: <span>
-#: public/app/components/ide.directive.html:1
-msgid ""
-"&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
-"exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
-"\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
-"\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
-"isChangingProgLang\"> Run </button> <button class=\"button\" ng-click="
-"\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> Stop </"
-"button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-disabled="
-"\"exercise.isRunning || exercise.isChangingProgLang\"> Demo </button> <span "
-"class=\"right\">"
-msgstr ""
-"&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
-"exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
-"\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
-"\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
-"isChangingProgLang\"> Exécuter </button> <button class=\"button\" ng-click="
-"\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> Stop </"
-"button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-disabled="
-"\"exercise.isRunning || exercise.isChangingProgLang\"> Démo </button> <span "
-"class=\"right\">"
+#: public/app/components/ide.directive.html:2
+#, no-wrap
+msgid "&nbsp;"
+msgstr "&nbsp;"
 
-#. type: Content of: <div>
-#: public/app/components/ide.directive.html:20
-#: public/app/components/lesson-overview.directive.html:6
-msgid "</span>"
-msgstr "</span>"
+#. type: Content of: <button>
+#: public/app/components/ide.directive.html:4
+#, no-wrap
+msgid "Run"
+msgstr "Exécuter"
 
-#. type: Content of: <div><dl><dd>
+#. type: Content of: <button>
+#: public/app/components/ide.directive.html:5
+#, no-wrap
+msgid "Stop"
+msgstr "Stop"
+
+#. type: Content of: <button>
+#: public/app/components/ide.directive.html:6
+#, no-wrap
+msgid "Demo"
+msgstr "Démo"
+
+#. type: Content of: <div><dl><dd><a>
 #: public/app/components/instructions.directive.html:3
-msgid "<a>Instructions</a>"
-msgstr "<a>Consignes</a>"
+#, no-wrap
+msgid "Instructions"
+msgstr "Consignes"
 
-#. type: Content of: <div><dl><dd>
+#. type: Content of: <div><dl><dd><a>
 #: public/app/components/instructions.directive.html:4
-msgid "<a>API</a>"
-msgstr "<a>API</a>"
+#, no-wrap
+msgid "API"
+msgstr "API"
 
-#. type: Content of: <div><dl><dd>
+#. type: Content of: <div><dl><dd><a>
 #: public/app/components/instructions.directive.html:5
-msgid "<a>Result</a>"
-msgstr "<a>Résultat</a>"
+#, no-wrap
+msgid "Result"
+msgstr "Résultat"
 
-#. type: Content of: <div><dl><dd>
+#. type: Content of: <div><dl><dd><a>
 #: public/app/components/instructions.directive.html:6
-msgid "<a>Logs</a>"
-msgstr "<a>Logs</a>"
+#, no-wrap
+msgid "Logs"
+msgstr "Logs"
 
 #. type: Content of: <div><div>
 #: public/app/components/instructions.directive.html:12
-msgid ""
-"{{exercise.result || \"No results yet, please run your program before\"}}"
-msgstr ""
-"{{exercise.result || \"Pas de résultats pour le moment, veuillez exécuter "
-"votre programme au préalable\"}}"
+#, no-wrap
+msgid "{{exercise.result || \"No results yet, please run your program before\"}}"
+msgstr "{{exercise.result || \"Pas de résultats pour le moment, veuillez exécuter votre programme au préalable\"}}"
 
 #. type: Content of: <div><div>
 #: public/app/components/instructions.directive.html:13
+#, no-wrap
 msgid "{{exercise.logs || \"No error logs yet... Congratulations!\"}}"
-msgstr ""
-"{{exercise.logs || \"Pas de messages d'erreurs pour le moment..."
-"Félicitations!\"}}"
-
-#. type: Content of: <ul><li><div><a>
-#: public/app/components/lesson-gallery.directive.html:4
-msgid ""
-"<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
-"setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
-msgstr ""
-"<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
-"setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
-
-#. type: Content of: <ul><li><div>
-#: public/app/components/lesson-gallery.directive.html:6
-msgid "</a>"
-msgstr "</a>"
+msgstr "{{exercise.logs || \"Pas de messages d'erreurs pour le moment...Félicitations!\"}}"
 
 #. type: Content of: <ul><li><div><h6>
 #: public/app/components/lesson-gallery.directive.html:7
+#, no-wrap
 msgid "{{lesson.id}}"
 msgstr "{{lesson.id}}"
 
-#. type: Content of: <div><span>
-#: public/app/components/lesson-overview.directive.html:2
-msgid ""
-"<span ng-show=\"home.currentLesson\" ng-bind-html=\"home.currentLesson."
-"description\"></span> <span ng-show=\"!home.currentLesson\">"
-msgstr ""
-"<span ng-show=\"home.currentLesson\" ng-bind-html=\"home.currentLesson."
-"description\"></span> <span ng-show=\"!home.currentLesson\">"
-
 #. type: Content of: <div><span><h2>
 #: public/app/components/lesson-overview.directive.html:4
+#, no-wrap
 msgid "Description of the lesson"
 msgstr "Description de la leçon"
 
 #. type: Content of: <div><span><p>
 #: public/app/components/lesson-overview.directive.html:5
+#, no-wrap
 msgid "The description of the selected lesson will be displayed here."
-msgstr ""
-"C'est ici que s'affichera la description de la leçon que vous aurez choisie."
+msgstr "C'est ici que s'affichera la description de la leçon que vous aurez choisie."
 
 #. type: Content of: <div><h2>
 #: public/app/components/lesson-overview.directive.html:9
+#, no-wrap
 msgid "Your progress"
 msgstr "Votre progression"
 
-#. type: Content of: <div><p>
+#. type: Content of: <div><p><button>
 #: public/app/components/lesson-overview.directive.html:11
-msgid ""
-"<button class=\"button radius\" ng-click=\"home.goToLesson()\">Resume</"
-"button>"
-msgstr ""
-"<button class=\"button radius\" ng-click=\"home.goToLesson()\">Reprendre</"
-"button>"
+#, no-wrap
+msgid "Resume"
+msgstr "Reprendre"
 
 #. type: Content of: <div><p>
 #: public/app/components/lesson-overview.directive.html:13
+#, no-wrap
 msgid "A graph representing your progress will be displayed here."
-msgstr ""
-"Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon "
-"choisie."
+msgstr "Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon choisie."
 
 #. type: Content of: <div><h3>
 #: public/app/components/player-options.directive.html:2
+#, no-wrap
 msgid "Player's options"
 msgstr "Options du lecteur"
 
-#. type: Content of: <div><div>
+#. type: Content of: <div><div><label>
 #: public/app/components/player-options.directive.html:4
-msgid "<label for=\"executionSpeed\" class=\"left\">Execution speed:</label>"
-msgstr ""
-"<label for=\"executionSpeed\" class=\"left\">Vitesse d'exécution:</label>"
+#, no-wrap
+msgid "Execution speed:"
+msgstr "Vitesse d'exécution"
 
-#. type: Content of: <div><div>
-#: public/app/components/player-options.directive.html:7
-msgid ""
-"<input class=\"left\" type=\"range\" id=\"executionSpeed\" ng-model="
-"\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
-"\"30\"/>"
-msgstr ""
-"<input class=\"left\" type=\"range\" id=\"executionSpeed\" ng-model="
-"\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
-"\"30\"/>"
-
-#. type: Content of: outside any tag (error?)
+#. type: Content of: <a>
 #: public/app/components/revert-exercise.directive.html:1
-msgid ""
-"<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Revert exercise</"
-"a>"
-msgstr ""
-"<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Réinitialiser "
-"l'exercice</a>"
+#, no-wrap
+msgid "Revert exercise"
+msgstr "Réinitialisation l'exercice"
 
 #. type: Content of: <div><h2>
 #: public/app/components/revert-exercise.directive.html:3
+#, no-wrap
 msgid "Warning!"
 msgstr "Attention!"
 
 #. type: Content of: <div><p>
 #: public/app/components/revert-exercise.directive.html:5
-msgid ""
-"Reverting this exercise will erase all your work and cannot be undone. Are "
-"you sure that you want to proceed?"
-msgstr ""
-"Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
-"irrécupérable. Êtes-vous sûr de vouloir continuer?"
+#, no-wrap
+msgid "Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?"
+msgstr "Réinitialiser cet exercice effacera tout votre travail et ne le rendra irrécupérable. Êtes-vous sûr de vouloir continuer?"
 
-#. type: Content of: <div><div>
+#. type: Content of: <div><div><button>
 #: public/app/components/revert-exercise.directive.html:7
-msgid ""
-"<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
-"foundation('reveal', 'close');\">Cancel</button> <button class=\"button\" ng-"
-"click=\"exercise.revertExercise()\">Continue</button>"
-msgstr ""
-"<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
-"foundation('reveal', 'close');\">Annuler</button> <button class=\"button\" "
-"ng-click=\"exercise.revertExercise()\">Continuer</button>"
+#, no-wrap
+msgid "Cancel"
+msgstr "Annuler"
 
-#. type: Content of: <div>
+#. type: Content of: <div><div><button>
+#: public/app/components/revert-exercise.directive.html:8
+#, no-wrap
+msgid "Continue"
+msgstr "Continuer"
+
+#. type: Content of: <div><a>
 #: public/app/components/revert-exercise.directive.html:11
+#: public/app/components/success-modal.directive.html:7
 #: public/app/components/switch-exercise.directive.html:27
-msgid "<a class=\"close-reveal-modal\">&#215;</a>"
-msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
+#, no-wrap
+msgid "&#215;"
+msgstr "&#215;"
 
 #. type: Content of: <a>
 #: public/app/components/select-programming-language.directive.html:1
-msgid ""
-"<a ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\" class="
-"\"button secondary\" data-dropdown=\"drop\">"
-msgstr ""
-"<a ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\" class="
-"\"button secondary\" data-dropdown=\"drop\">"
-
-#. type: Content of: outside any tag (error?)
-#: public/app/components/select-programming-language.directive.html:1
-msgid "&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>"
-msgstr "&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>"
+#, no-wrap
+msgid "&nbsp;{{exercise.currentProgrammingLanguage.lang}}"
+msgstr "&nbsp;{{exercise.currentProgrammingLanguage.lang}}"
 
 #. type: Content of: <ul><li><a>
 #: public/app/components/select-programming-language.directive.html:4
-msgid "<a>"
-msgstr "<a>"
-
-#. type: Content of: <ul><li>
-#: public/app/components/select-programming-language.directive.html:4
-msgid "&nbsp;{{pl.lang}}</a>"
-msgstr "&nbsp;{{pl.lang}}</a>"
+#, no-wrap
+msgid "&nbsp;{{pl.lang}}"
+msgstr "&nbsp;{{pl.lang}}"
 
 #. type: Content of: <div><h2>
 #: public/app/components/success-modal.directive.html:3
+#, no-wrap
 msgid "Success \\o/"
 msgstr "Exercice réussi \\o/"
 
 #. type: Content of: <div><p>
-#: public/app/components/success-modal.directive.html:6
+#: public/app/components/success-modal.directive.html:4
+#, no-wrap
 msgid "Congratulations, you pass this exercise!"
 msgstr "Félicitations, vous avez réussi cet exercice."
 
 #. type: Content of: <div><p>
-#: public/app/components/success-modal.directive.html:9
+#: public/app/components/success-modal.directive.html:5
+#, no-wrap
 msgid "Do you want to try the next one?"
 msgstr "Voulez-vous tenter l'exercice suivant?"
 
-#. type: Content of: <div>
-#: public/app/components/success-modal.directive.html:11
-msgid ""
-"<button class=\"center right\" onclick=\"$('#successModal')."
-"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
-"lessonID, exerciseID: exercise.defaultNextExercise})\"> Yes, sure </button> "
-"<a class=\"close-reveal-modal\">&#215;</a>"
-msgstr ""
-"<button class=\"center right\" onclick=\"$('#successModal')."
-"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
-"lessonID, exerciseID: exercise.defaultNextExercise})\"> Bien sûr </button> "
-"<a class=\"close-reveal-modal\">&#215;</a>"
+#. type: Content of: <div><button>
+#: public/app/components/success-modal.directive.html:6
+#, no-wrap
+msgid "Yes, sure"
+msgstr " Bien sûr"
 
-#. type: Content of: outside any tag (error?)
+#. type: Content of: <a>
 #: public/app/components/switch-exercise.directive.html:1
-msgid ""
-"<a class=\"button\" data-reveal-id=\"exercisesModal\">Switch exercise</a>"
-msgstr ""
-"<a class=\"button\" data-reveal-id=\"exercisesModal\">Changer d'exercice</a>"
+#, no-wrap
+msgid "Switch exercise"
+msgstr "Changer d'exercice"
 
 #. type: Content of: <div><h2>
 #: public/app/components/switch-exercise.directive.html:3
+#, no-wrap
 msgid "Choose an exercise:"
 msgstr "Choisir un exercice:"
 
-#. type: Content of: <div><div><div><ul><li>
+#. type: Content of: <div><div><div><ul><li><a>
 #: public/app/components/switch-exercise.directive.html:10
-msgid "<a>{{rootLecture.name}}</a>"
-msgstr "<a>{{rootLecture.name}}</a>"
+#, no-wrap
+msgid "{{rootLecture.name}}"
+msgstr "{{rootLecture.name}}"
 
-#. type: Content of: <div><div><div><ul><li>
+#. type: Content of: <div><div><div><ul><li><a>
 #: public/app/components/switch-exercise.directive.html:17
-msgid "<a>{{exercise.selectedRootLecture.name}}</a>"
-msgstr "<a>{{exercise.selectedRootLecture.name}}</a>"
+#, no-wrap
+msgid "{{exercise.selectedRootLecture.name}}"
+msgstr "{{exercise.selectedRootLecture.name}}"
 
-#. type: Content of: <div><div><div><ul><li>
+#. type: Content of: <div><div><div><ul><li><a>
 #: public/app/components/switch-exercise.directive.html:18
-msgid "<a>{{exo.name}}</a>"
-msgstr "<a>{{exo.name}}</a>"
+#, no-wrap
+msgid "{{exo.name}}"
+msgstr "{{exo.name}}"
 
-#. type: Content of: <div><div>
+#. type: Content of: <div><div><button>
 #: public/app/components/switch-exercise.directive.html:24
-msgid ""
-"<button class=\"button radius right\" onclick=\"$('#exercisesModal')."
-"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
-"lessonID, exerciseID: exercise.selectedNextExercise.id})\">Switch to</button>"
-msgstr ""
-"<button class=\"button radius right\" onclick=\"$('#exercisesModal')."
-"foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
-"lessonID, exerciseID: exercise.selectedNextExercise.id})\">Sélectionner</"
-"button>"
+#, no-wrap
+msgid "Switch to"
+msgstr "Sélectionner"
 
-#. type: Content of: <div><dl><dd>
+#. type: Content of: <div><dl><dd><a>
 #: public/app/components/tabs-current-world.directive.html:4
-msgid "<a> World </a>"
-msgstr "<a> Monde </a>"
+#, no-wrap
+msgid "World"
+msgstr "Monde"
 
-#. type: Content of: <div><dl><dd>
-#: public/app/components/tabs-current-world.directive.html:9
-msgid "<a> Objective </a>"
-msgstr "<a> Objectif </a>"
+#. type: Content of: <div><dl><dd><a>
+#: public/app/components/tabs-current-world.directive.html:7
+#, no-wrap
+msgid "Objective"
+msgstr "Objectif"
 
-#. type: Content of: <div><div><div>
-#: public/app/components/worlds-view.directive.html:4
-msgid "<span class=\"prefix\"> <strong> Selected world: </strong> </span>"
-msgstr "<span class=\"prefix\"><strong>Monde sélectionné:</strong></span>"
-
-#. type: Content of: <div><div><div>
-#: public/app/components/worlds-view.directive.html:11
-msgid ""
-"<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-options="
-"\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-change="
-"\"exercise.setCurrentWorld('current')\"> </select>"
-msgstr ""
-"<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-options="
-"\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-change="
-"\"exercise.setCurrentWorld('current')\"> </select>"
+#. type: Content of: <div><div><div><span><strong>
+#: public/app/components/worlds-view.directive.html:5
+#, no-wrap
+msgid "Selected world:"
+msgstr "Monde selectionné:"
 
 #. type: Content of: <div><div><div><h3>
-#: public/app/exercise/exercise.html:17
+#: public/app/exercise/exercise.html:16
+#, no-wrap
 msgid "Program steps"
 msgstr "Étapes du programme"
 
 #. type: Content of: <div><div><div><div>
-#: public/app/exercise/exercise.html:20
+#: public/app/exercise/exercise.html:17
+#, no-wrap
 msgid "{{obj.msg}}"
 msgstr "{{obj.msg}}"
 
 #. type: Content of: <div><h1>
-#: public/app/home/home.html:3
-msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
-msgstr "Bienvenue dans la PLM, <small>l'exerciseur du programmeur</small>"
+#: public/app/home/home.html:2
+#, no-wrap
+msgid "Welcome to PLM, "
+msgstr "Bienvenue dans PLM, "
+
+#. type: Content of: <div><h1><small>
+#: public/app/home/home.html:2
+#, no-wrap
+msgid "the programmer's learning machine"
+msgstr "l'exerciseur du programmeur"
+
+#~ msgid ""
+#~ "\t\t\t\t\t\tPLM\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\t\t\tPLM\n"
+#~ "\t\t\t\t\t"
+
+#~ msgid ""
+#~ "\t\t\t\t\t\tMenu\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\t\t\tMenu\n"
+#~ "\t\t\t\t\t"
+
+#~ msgid ""
+#~ "\t\t\t\t\t\tAbout\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\t\t\tÀ propos\n"
+#~ "\t\t\t\t\t"
+
+#~ msgid ""
+#~ "\t\t\t\t\t\tContact\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\t\t\tNous contacter\n"
+#~ "\t\t\t\t\t"
+
+#~ msgid ""
+#~ "\t\t\t\t\t\tHome\n"
+#~ "\t\t\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\t\t\tAccueil\n"
+#~ "\t\t\t\t\t"
+
+#~ msgid "\t&nbsp;\n"
+#~ msgstr "\t&nbsp;\n"
+
+#~ msgid ""
+#~ "\t\t\t\tWorld\n"
+#~ "\t\t\t"
+#~ msgstr ""
+#~ "\t\t\t\tMonde\n"
+#~ "\t\t\t"
+
+#~ msgid ""
+#~ "<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
+#~ "currentState === -1\" ng-click=\"exercise.reset(exercise.currentWorldID, "
+#~ "exercise.worldKind, true)\"> <i class=\"fi-previous size-12\"></i> </"
+#~ "button> <button class=\"button tiny round\" ng-disabled=\"exercise."
+#~ "currentWorld.currentState === -1\" ng-click=\"exercise."
+#~ "setWorldState(exercise.currentWorld.currentState-1)\"> <i class=\"fi-"
+#~ "rewind size-12\"></i> </button> <input ng-disabled=\"exercise.isPlaying\" "
+#~ "type=\"range\" ng-model=\"exercise.currentState\" ng-change=\"exercise."
+#~ "setWorldState(exercise.currentState);\" max=\"{{exercise.currentWorld."
+#~ "operations.length-1}}\" min=\"-1\"/> <button class=\"button tiny round\" "
+#~ "ng-disabled=\"exercise.currentWorld.currentState === (exercise."
+#~ "currentWorld.operations.length-1)\" ng-click=\"exercise."
+#~ "setWorldState(exercise.currentWorld.currentState+1)\"> <i class=\"fi-fast-"
+#~ "forward size-12\"></i> </button> <button class=\"button tiny round\" ng-"
+#~ "disabled=\"exercise.currentWorld.currentState === (exercise.currentWorld."
+#~ "operations.length-1)\" ng-click=\"exercise.setWorldState(exercise."
+#~ "currentWorld.operations.length-1)\"> <i class=\"fi-next size-12\"></i> </"
+#~ "button> <button class=\"button tiny round\" ng-disabled=\"exercise."
+#~ "isPlaying || exercise.currentWorld.operations.length === 0\" ng-click="
+#~ "\"exercise.replay()\"> <i class=\"fi-loop size-12\"></i> </button>"
+#~ msgstr ""
+#~ "<button class=\"button tiny round\" ng-disabled=\"exercise.currentWorld."
+#~ "currentState === -1\" ng-click=\"exercise.reset(exercise.currentWorldID, "
+#~ "exercise.worldKind, true)\"> <i class=\"fi-previous size-12\"></i> </"
+#~ "button> <button class=\"button tiny round\" ng-disabled=\"exercise."
+#~ "currentWorld.currentState === -1\" ng-click=\"exercise."
+#~ "setWorldState(exercise.currentWorld.currentState-1)\"> <i class=\"fi-"
+#~ "rewind size-12\"></i> </button> <input ng-disabled=\"exercise.isPlaying\" "
+#~ "type=\"range\" ng-model=\"exercise.currentState\" ng-change=\"exercise."
+#~ "setWorldState(exercise.currentState);\" max=\"{{exercise.currentWorld."
+#~ "operations.length-1}}\" min=\"-1\"/> <button class=\"button tiny round\" "
+#~ "ng-disabled=\"exercise.currentWorld.currentState === (exercise."
+#~ "currentWorld.operations.length-1)\" ng-click=\"exercise."
+#~ "setWorldState(exercise.currentWorld.currentState+1)\"> <i class=\"fi-fast-"
+#~ "forward size-12\"></i> </button> <button class=\"button tiny round\" ng-"
+#~ "disabled=\"exercise.currentWorld.currentState === (exercise.currentWorld."
+#~ "operations.length-1)\" ng-click=\"exercise.setWorldState(exercise."
+#~ "currentWorld.operations.length-1)\"> <i class=\"fi-next size-12\"></i> </"
+#~ "button> <button class=\"button tiny round\" ng-disabled=\"exercise."
+#~ "isPlaying || exercise.currentWorld.operations.length === 0\" ng-click="
+#~ "\"exercise.replay()\"> <i class=\"fi-loop size-12\"></i> </button>"
+
+#~ msgid "<a ui-sref=\"home\"> PLM </a>"
+#~ msgstr "<a ui-sref=\"home\"> PLM </a>"
+
+#~ msgid "<a href=\"#\"> <span> Menu </span> </a>"
+#~ msgstr "<a href=\"#\"> <span> Menu </span> </a>"
+
+#~ msgid "<a href=\"#\"> About </a>"
+#~ msgstr "<a href=\"#\"> À propos </a>"
+
+#~ msgid "<a href=\"#\"> Contact </a>"
+#~ msgstr "<a href=\"#\"> Nous contacter </a>"
+
+#~ msgid "<a ui-sref=\"home\"> Home </a>"
+#~ msgstr "<a ui-sref=\"home\"> Accueil </a>"
+
+#~ msgid ""
+#~ "&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
+#~ "exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
+#~ "\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
+#~ "\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
+#~ "isChangingProgLang\"> Run </button> <button class=\"button\" ng-click="
+#~ "\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> Stop </"
+#~ "button> <button class=\"button\" ng-click=\"exercise.runDemo()\" ng-"
+#~ "disabled=\"exercise.isRunning || exercise.isChangingProgLang\"> Demo </"
+#~ "button> <span class=\"right\">"
+#~ msgstr ""
+#~ "&nbsp; <span ng-class=\"{ secondary: exercise.resultType === null, alert: "
+#~ "exercise.resultType === 0, success: exercise.resultType ===1 }\" class="
+#~ "\"round label\"> &nbsp; </span> &nbsp; <button class=\"button\" ng-click="
+#~ "\"exercise.runCode()\" ng-disabled=\"exercise.isRunning || exercise."
+#~ "isChangingProgLang\"> Exécuter </button> <button class=\"button\" ng-"
+#~ "click=\"exercise.stopExecution()\" ng-disabled=\"!exercise.isRunning\"> "
+#~ "Stop </button> <button class=\"button\" ng-click=\"exercise.runDemo()\" "
+#~ "ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\"> Démo </"
+#~ "button> <span class=\"right\">"
+
+#~ msgid "</span>"
+#~ msgstr "</span>"
+
+#~ msgid "<a>API</a>"
+#~ msgstr "<a>API</a>"
+
+#~ msgid "<a>Logs</a>"
+#~ msgstr "<a>Logs</a>"
+
+#~ msgid ""
+#~ "<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
+#~ "setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
+#~ msgstr ""
+#~ "<a ng-dblclick=\"home.goToLesson()\" ng-click=\"home."
+#~ "setCurrentLesson(lesson)\" class=\"th radius\" role=\"button\" href=\"#\">"
+
+#~ msgid "</a>"
+#~ msgstr "</a>"
+
+#~ msgid ""
+#~ "<span ng-show=\"home.currentLesson\" ng-bind-html=\"home.currentLesson."
+#~ "description\"></span> <span ng-show=\"!home.currentLesson\">"
+#~ msgstr ""
+#~ "<span ng-show=\"home.currentLesson\" ng-bind-html=\"home.currentLesson."
+#~ "description\"></span> <span ng-show=\"!home.currentLesson\">"
+
+#~ msgid ""
+#~ "<button class=\"button radius\" ng-click=\"home.goToLesson()\">Resume</"
+#~ "button>"
+#~ msgstr ""
+#~ "<button class=\"button radius\" ng-click=\"home.goToLesson()\">Reprendre</"
+#~ "button>"
+
+#~ msgid ""
+#~ "<label for=\"executionSpeed\" class=\"left\">Execution speed:</label>"
+#~ msgstr ""
+#~ "<label for=\"executionSpeed\" class=\"left\">Vitesse d'exécution:</label>"
+
+#~ msgid ""
+#~ "<input class=\"left\" type=\"range\" id=\"executionSpeed\" ng-model="
+#~ "\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
+#~ "\"30\"/>"
+#~ msgstr ""
+#~ "<input class=\"left\" type=\"range\" id=\"executionSpeed\" ng-model="
+#~ "\"exercise.timer\" ng-change=\"exercise.updateSpeed()\" max=\"3000\" min="
+#~ "\"30\"/>"
+
+#~ msgid ""
+#~ "<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Revert "
+#~ "exercise</a>"
+#~ msgstr ""
+#~ "<a class=\"button\" data-reveal-id=\"revertExerciseModal\">Réinitialiser "
+#~ "l'exercice</a>"
+
+#~ msgid ""
+#~ "<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
+#~ "foundation('reveal', 'close');\">Cancel</button> <button class=\"button\" "
+#~ "ng-click=\"exercise.revertExercise()\">Continue</button>"
+#~ msgstr ""
+#~ "<button class=\"button secondary\" onclick=\"$('#revertExerciseModal')."
+#~ "foundation('reveal', 'close');\">Annuler</button> <button class=\"button"
+#~ "\" ng-click=\"exercise.revertExercise()\">Continuer</button>"
+
+#~ msgid "<a class=\"close-reveal-modal\">&#215;</a>"
+#~ msgstr "<a class=\"close-reveal-modal\">&#215;</a>"
+
+#~ msgid ""
+#~ "<a ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\" "
+#~ "class=\"button secondary\" data-dropdown=\"drop\">"
+#~ msgstr ""
+#~ "<a ng-disabled=\"exercise.isRunning || exercise.isChangingProgLang\" "
+#~ "class=\"button secondary\" data-dropdown=\"drop\">"
+
+#~ msgid "<a>"
+#~ msgstr "<a>"
+
+#~ msgid ""
+#~ "<button class=\"center right\" onclick=\"$('#successModal')."
+#~ "foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+#~ "lessonID, exerciseID: exercise.defaultNextExercise})\"> Yes, sure </"
+#~ "button> <a class=\"close-reveal-modal\">&#215;</a>"
+#~ msgstr ""
+#~ "<button class=\"center right\" onclick=\"$('#successModal')."
+#~ "foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+#~ "lessonID, exerciseID: exercise.defaultNextExercise})\"> Bien sûr </"
+#~ "button> <a class=\"close-reveal-modal\">&#215;</a>"
+
+#~ msgid ""
+#~ "<a class=\"button\" data-reveal-id=\"exercisesModal\">Switch exercise</a>"
+#~ msgstr ""
+#~ "<a class=\"button\" data-reveal-id=\"exercisesModal\">Changer d'exercice</"
+#~ "a>"
+
+#~ msgid ""
+#~ "<button class=\"button radius right\" onclick=\"$('#exercisesModal')."
+#~ "foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+#~ "lessonID, exerciseID: exercise.selectedNextExercise.id})\">Switch to</"
+#~ "button>"
+#~ msgstr ""
+#~ "<button class=\"button radius right\" onclick=\"$('#exercisesModal')."
+#~ "foundation('reveal', 'close');\" ui-sref=\"exercise({lessonID: exercise."
+#~ "lessonID, exerciseID: exercise.selectedNextExercise.id})\">Sélectionner</"
+#~ "button>"
+
+#~ msgid "<a> World </a>"
+#~ msgstr "<a> Monde </a>"
+
+#~ msgid "<a> Objective </a>"
+#~ msgstr "<a> Objectif </a>"
+
+#~ msgid "<span class=\"prefix\"> <strong> Selected world: </strong> </span>"
+#~ msgstr "<span class=\"prefix\"><strong>Monde sélectionné:</strong></span>"
+
+#~ msgid ""
+#~ "<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-"
+#~ "options=\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-"
+#~ "change=\"exercise.setCurrentWorld('current')\"> </select>"
+#~ msgstr ""
+#~ "<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-"
+#~ "options=\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-"
+#~ "change=\"exercise.setCurrentWorld('current')\"> </select>"
 
 #~ msgid "{{exercise.result}}"
 #~ msgstr "{{exercise.result}}"
