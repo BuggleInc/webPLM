@@ -11,6 +11,7 @@
 			this.buggleID = data.buggleID;
 			this.newBrushDown = data.newBrushDown;
 			this.oldBrushDown = data.oldBrushDown;
+			this.msg = data.msg;
 			this.firstApply = true;
 		};
 		
@@ -19,17 +20,9 @@
 			buggle.brushDown = this.newBrushDown;
 			if(this.firstApply) {
 				var obj;
-				var msg = '';
-				
-				if(this.newBrushDown) {
-					msg= 'Buggle '+this.buggleID+' is now painting the floor!';	
-				}
-				else {
-					msg = 'Buggle '+this.buggleID+' put away its brush.';
-				}
 				obj = {
 					step: currentWorld.steps.length,
-					msg: msg
+					msg: this.msg
 				};
 				currentWorld.steps.push(obj);
 				this.firstApply = false;

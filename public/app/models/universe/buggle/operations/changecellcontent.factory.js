@@ -12,6 +12,7 @@
 			this.y = data.cell.y;
 			this.newContent = data.newContent;
 			this.oldContent = data.oldContent;
+			this.msg = data.msg;
 			this.firstApply = true;
 		};
 		
@@ -21,7 +22,7 @@
 			if(this.firstApply) {
 				var obj = {
 					step: currentWorld.steps.length,
-					msg: 'Cell ('+this.x+', '+this.y+') has new content: "'+this.newContent+'"'
+					msg: this.msg
 				};
 				currentWorld.steps.push(obj);
 				this.firstApply = false;

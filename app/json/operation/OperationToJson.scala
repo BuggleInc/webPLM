@@ -29,7 +29,8 @@ object OperationToJson {
         )
     }
     json = json.as[JsObject] ++ Json.obj(
-      "type" -> operation.getName
+      "type" -> operation.getName,
+      "msg" -> operation.getMsg
     )
     return json
   }

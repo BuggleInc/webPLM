@@ -8,6 +8,7 @@
 		
 		var NoBaggleUnderBuggle = function (data) {
 			this.buggleID = data.buggleID;
+			this.msg = data.msg;
 			this.firstApply = true;
 		};
 		
@@ -15,7 +16,7 @@
 			if(this.firstApply) {
 				var obj = {
 					step: currentWorld.steps.length,
-					msg: 'Buggle '+this.buggleID+' tried to pick up a baggle while there were none...'
+					msg: this.msg
 				};
 				currentWorld.steps.push(obj);
 				this.firstApply = false;

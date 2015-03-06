@@ -10,6 +10,7 @@
 		var CellAlreadyHaveBaggle = function (data) {
 			this.x = data.cell.x;
 			this.y = data.cell.y;
+			this.msg = data.msg;
 			this.firstApply = true;
 		};
 		
@@ -17,7 +18,7 @@
 			if(this.firstApply) {
 				var obj = {
 					step: currentWorld.steps.length,
-					msg: 'Tried to drop a baggle but there is already one in ('+ this.x +', '+ this.y +')...'
+					msg: this.msg
 				};
 				currentWorld.steps.push(obj);
 				this.firstApply = false;

@@ -11,6 +11,7 @@
 			this.buggleID = data.buggleID;
 			this.newCarryBaggle = data.newCarryBaggle;
 			this.oldCarryBaggle = data.oldCarryBaggle;
+			this.msg = data.msg;
 			this.firstApply = true;
 		};
 		
@@ -19,17 +20,9 @@
 			buggle.carryBaggle = this.newCarryBaggle;
 			if(this.firstApply) {
 				var obj;
-				var msg = '';
-				
-				if(this.newCarryBaggle) {
-					msg= 'Buggle '+this.buggleID+' is now carrying a baggle!';	
-				}
-				else {
-					msg = 'Buggle '+this.buggleID+' drops the baggle.';
-				}
 				obj = {
 					step: currentWorld.steps.length,
-					msg: msg
+					msg: this.msg
 				};
 				currentWorld.steps.push(obj);
 				this.firstApply = false;
