@@ -2,6 +2,7 @@
 	<dl class="tabs" data-tab=true>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'instructions' }" ng-click="exercise.display = 'instructions'"><a>Instructions</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'api' }" ng-click="exercise.display = 'api'"><a>API</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.display === 'programSteps' }" ng-click="exercise.display = 'programSteps'"><a>Program steps</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'result' }" ng-click="exercise.display = 'result'"><a>Result</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'logs' }" ng-click="exercise.display = 'logs'"><a>Logs</a></dd>
 	</dl>
@@ -11,4 +12,7 @@
 	<div ng-show="exercise.display === 'api'" ng-bind-html="exercise.api"></div>
 	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result || "No results yet, please run your program before"}}</div>
 	<div class="with-newlines" ng-show="exercise.display === 'logs'">{{exercise.logs || "No error logs yet... Congratulations!"}}</div>
+	<div ng-show="exercise.display === 'programSteps'">
+		<div ng-repeat="obj in exercise.currentWorld.steps" ng-class="{ 'active-operation': obj.step === exercise.currentWorld.currentState}" ng-click="exercise.setWorldState(obj.step)">{{obj.msg}}</div>
+	</div>
 </div>

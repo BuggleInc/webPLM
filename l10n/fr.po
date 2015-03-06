@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-06 09:47+0100\n"
-"PO-Revision-Date: 2015-03-06 09:48+0100\n"
+"POT-Creation-Date: 2015-03-06 16:48+0100\n"
+"PO-Revision-Date: 2015-03-06 16:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -47,33 +47,37 @@ msgstr "Nous contacter"
 msgid "Home"
 msgstr "Accueil"
 
-#. type: Content of: outside any tag (error?)
-#: public/app/components/ide.directive.html:1
+#. type: Content of: <div><span>
 #: public/app/components/ide.directive.html:3
+#: public/app/components/ide.directive.html:5
 #, no-wrap
-msgid "&nbsp;\n"
-msgstr "&nbsp;\n"
+msgid ""
+"\t\t&nbsp;\n"
+"\t\t"
+msgstr ""
+"\t\t&nbsp;\n"
+"\t\t"
 
-#. type: Content of: <span>
-#: public/app/components/ide.directive.html:2
+#. type: Content of: <div><span><span>
+#: public/app/components/ide.directive.html:4
 #, no-wrap
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
-#. type: Content of: <button>
-#: public/app/components/ide.directive.html:4
+#. type: Content of: <div><span><button>
+#: public/app/components/ide.directive.html:6
 #, no-wrap
 msgid "Run"
 msgstr "Exécuter"
 
-#. type: Content of: <button>
-#: public/app/components/ide.directive.html:5
+#. type: Content of: <div><span><button>
+#: public/app/components/ide.directive.html:7
 #, no-wrap
 msgid "Stop"
 msgstr "Stop"
 
-#. type: Content of: <button>
-#: public/app/components/ide.directive.html:6
+#. type: Content of: <div><span><button>
+#: public/app/components/ide.directive.html:8
 #, no-wrap
 msgid "Demo"
 msgstr "Démo"
@@ -93,26 +97,38 @@ msgstr "API"
 #. type: Content of: <div><dl><dd><a>
 #: public/app/components/instructions.directive.html:5
 #, no-wrap
+msgid "Program steps"
+msgstr "Étapes du programme"
+
+#. type: Content of: <div><dl><dd><a>
+#: public/app/components/instructions.directive.html:6
+#, no-wrap
 msgid "Result"
 msgstr "Résultat"
 
 #. type: Content of: <div><dl><dd><a>
-#: public/app/components/instructions.directive.html:6
+#: public/app/components/instructions.directive.html:7
 #, no-wrap
 msgid "Logs"
 msgstr "Logs"
 
 #. type: Content of: <div><div>
-#: public/app/components/instructions.directive.html:12
+#: public/app/components/instructions.directive.html:13
 #, no-wrap
 msgid "{{exercise.result || \"No results yet, please run your program before\"}}"
 msgstr "{{exercise.result || \"Pas de résultats pour le moment, veuillez exécuter votre programme au préalable\"}}"
 
 #. type: Content of: <div><div>
-#: public/app/components/instructions.directive.html:13
+#: public/app/components/instructions.directive.html:14
 #, no-wrap
 msgid "{{exercise.logs || \"No error logs yet... Congratulations!\"}}"
 msgstr "{{exercise.logs || \"Pas de messages d'erreurs pour le moment...Félicitations!\"}}"
+
+#. type: Content of: <div><div><div>
+#: public/app/components/instructions.directive.html:16
+#, no-wrap
+msgid "{{obj.msg}}"
+msgstr "{{obj.msg}}"
 
 #. type: Content of: <ul><li><div><h6>
 #: public/app/components/lesson-gallery.directive.html:7
@@ -165,8 +181,8 @@ msgstr "Vitesse d'exécution"
 #. type: Content of: <a>
 #: public/app/components/revert-exercise.directive.html:1
 #, no-wrap
-msgid "Revert exercise"
-msgstr "Réinitialisation l'exercice"
+msgid "Revert"
+msgstr "Réinitialiser"
 
 #. type: Content of: <div><h2>
 #: public/app/components/revert-exercise.directive.html:3
@@ -239,8 +255,8 @@ msgstr " Bien sûr"
 #. type: Content of: <a>
 #: public/app/components/switch-exercise.directive.html:1
 #, no-wrap
-msgid "Switch exercise"
-msgstr "Changer d'exercice"
+msgid "Switch"
+msgstr "Changer"
 
 #. type: Content of: <div><h2>
 #: public/app/components/switch-exercise.directive.html:3
@@ -284,23 +300,11 @@ msgstr "Monde"
 msgid "Objective"
 msgstr "Objectif"
 
-#. type: Content of: <div><div><div><span><strong>
-#: public/app/components/worlds-view.directive.html:5
+#. type: Content of: <div><div><span><strong>
+#: public/app/components/worlds-view.directive.html:4
 #, no-wrap
 msgid "Selected world:"
 msgstr "Monde selectionné:"
-
-#. type: Content of: <div><div><div><h3>
-#: public/app/exercise/exercise.html:16
-#, no-wrap
-msgid "Program steps"
-msgstr "Étapes du programme"
-
-#. type: Content of: <div><div><div><div>
-#: public/app/exercise/exercise.html:17
-#, no-wrap
-msgid "{{obj.msg}}"
-msgstr "{{obj.msg}}"
 
 #. type: Content of: <div><h1>
 #: public/app/home/home.html:2
@@ -313,6 +317,15 @@ msgstr "Bienvenue dans PLM, "
 #, no-wrap
 msgid "the programmer's learning machine"
 msgstr "l'exerciseur du programmeur"
+
+#~ msgid "Revert exercise"
+#~ msgstr "Réinitialisation l'exercice"
+
+#~ msgid "Switch exercise"
+#~ msgstr "Changer d'exercice"
+
+#~ msgid "&nbsp;\n"
+#~ msgstr "&nbsp;\n"
 
 #~ msgid ""
 #~ "\t\t\t\t\t\tPLM\n"
@@ -348,9 +361,6 @@ msgstr "l'exerciseur du programmeur"
 #~ msgstr ""
 #~ "\t\t\t\t\t\tAccueil\n"
 #~ "\t\t\t\t\t"
-
-#~ msgid "\t&nbsp;\n"
-#~ msgstr "\t&nbsp;\n"
 
 #~ msgid ""
 #~ "\t\t\t\tWorld\n"

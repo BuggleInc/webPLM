@@ -1,25 +1,20 @@
-<div class="small-12 medium-7 columns" data-equalizer-watch=true>
-	<div class="row collapse">
-		<div class="small-3 columns">
-			<span class="prefix">
-				<strong>Selected world:</strong>
-			</span>
-		</div>
-		<div class="small-9 columns">
-			<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
-			</select>
-		</div>
-		</div>
-	<div class="center">
-		<div class="row">
-			<tabs-current-world></tabs-current-world>
-			<div class="row">
-				<canvas id="worldView" width="400" height="400"></canvas>
-			</div>
-			<animation-player></animation-player>
-		</div>
+<div class="row collapse">
+	<div class="small-3 columns">
+		<span class="prefix">
+			<strong>Selected world:</strong>
+		</span>
+	</div>
+	<div class="small-9 columns">
+		<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
+		</select>
 	</div>
 </div>
-<div class="small-12 medium-5 columns" data-equalizer-watch=true>
-	<player-options></player-options>
+<div class="row">
+	<div class="small-11 small-centered columns">
+		<tabs-current-world></tabs-current-world>
+		<div class="row">
+			<canvas id="worldView" width="400" height="400"></canvas>
+		</div>
+		<animation-player></animation-player>
+	</div>
 </div>

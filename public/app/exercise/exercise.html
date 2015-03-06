@@ -1,9 +1,8 @@
 <div class="row" data-equalizer=true>
-	<div class="small-12 medium-5 columns overflow" data-equalizer-watch=true>
-		<instructions></instructions>
+	<div class="small-12 medium-5 columns" data-equalizer-watch=true>
+		<worlds-view></worlds-view>
 	</div>
-	
-	<div class="small-12 medium-7 columns" data-equalizer-watch=true>
+	<div class="small-12 medium-6 columns end" data-equalizer-watch=true>
 		<ide></ide>
 	</div>
 </div>
@@ -12,12 +11,9 @@
 </div>
 <div class="row" data-equalizer=true>
 	<div class="small-12 medium-5 columns" data-equalizer-watch=true>
-		<div class="row program-steps">
-			<h3>Program steps</h3>
-			<div ng-repeat="obj in exercise.currentWorld.steps" ng-class="{ 'active-operation': obj.step === exercise.currentWorld.currentState}" ng-click="exercise.setWorldState(obj.step)">{{obj.msg}}</div>
-		</div>
+		<player-options></player-options>
 	</div>
-	<div class="small-12 medium-7 columns" data-equalizer-watch=true>
-		<worlds-view></worlds-view>
+	<div class="small-12 medium-7 columns overflow" data-equalizer-watch=true>
+		<instructions></instructions>
 	</div>
 </div>

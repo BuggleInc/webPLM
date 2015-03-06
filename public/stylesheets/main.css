@@ -1,3 +1,4 @@
+.size-12 { font-size: 8px; }
 .size-12 { font-size: 12px; }
 .size-14 { font-size: 14px; }
 .size-16 { font-size: 16px; }
@@ -10,7 +11,7 @@
 .size-72 { font-size: 72px; }
 
 .CodeMirror {
-	height: 330px !important;
+	height: 400px !important;
 }
 
 .program-steps {
@@ -65,7 +66,7 @@ div[ui-view] {
 
 .overflow {
 	overflow-y: auto;
-	height: 400px;
+	height: 500px;
 }
 
 .with-newlines {
