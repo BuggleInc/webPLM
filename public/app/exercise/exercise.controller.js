@@ -166,6 +166,7 @@
 			}
 
 			$(document).foundation('dropdown', 'reflow');
+			$(document).foundation('equalizer', 'reflow');
 			
 			exercise.resultType = null;
 			exercise.result = '';
@@ -363,6 +364,7 @@
 			var canvasWidth = $('#'+exercise.canvasID).parent().width();
 			var canvasHeight = canvasWidth;
 			canvas.resize(canvasWidth, canvasHeight);
+			$(document).foundation('equalizer', 'reflow');
 		}
 
 		function resizeCodeMirror() {
@@ -370,6 +372,7 @@
 			var canvasHeight = $('#'+exercise.canvasID).parent().width();
 			exercise.editor.setSize(null, canvasHeight);
 			exercise.editor.refresh();
+			$(document).foundation('equalizer', 'reflow');
 		}
 
 		function reloadApplication() {

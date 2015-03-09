@@ -10,6 +10,13 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.block {
+	padding-top: 1.25rem;
+	padding-left: 1.25rem;
+	padding-bottom: 1.25rem;
+	padding-right: 1.25rem;
+}
+
 .CodeMirror {
 	height: 1000px;
 }

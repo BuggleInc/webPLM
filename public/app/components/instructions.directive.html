@@ -9,8 +9,9 @@
 	<div ng-show="exercise.displayInstructions === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.displayInstructions === 'api'" ng-bind-html="exercise.api"></div>
 	<div ng-show="exercise.displayInstructions === 'controls'">
+		<h2>Player's options</h2>
 		<div class="small-5 columns">
-			<label for="executionSpeed" class="left">Execution speed:</label>
+			<label for="executionSpeed" class="left"><strong>Execution speed:</strong></label>
 		</div>
 		<div class="small-7 columns">
 			<input class="left" type="range" id="executionSpeed" ng-model="exercise.timer" ng-change="exercise.updateSpeed()" max="3000" min="30"/>
