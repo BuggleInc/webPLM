@@ -19,6 +19,14 @@
 	overflow-y: auto;
 }
 
+.mini {
+	padding-top: 1.05rem;
+	padding-left: 1.05rem;
+	padding-bottom: 1.05rem;
+	padding-right: 1.05rem;
+	font-size: 1rem;
+}
+
 .no-width {
 	width: 100% !important;
 	max-width: 100% !important;

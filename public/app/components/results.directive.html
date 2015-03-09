@@ -1,0 +1,15 @@
+<div class="row">
+	<dl class="tabs" data-tab=true>
+		<dd class="tab-title" ng-class="{ active: exercise.displayResults === 'result' }" ng-click="exercise.displayResults = 'result'"><a>Result</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayResults === 'programSteps' }" ng-click="exercise.displayResults = 'programSteps'"><a>Program steps</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayResults === 'logs' }" ng-click="exercise.displayResults = 'logs'"><a>Logs</a></dd>
+	</dl>
+</div>
+<div class="row overflow">
+	<div ng-show="exercise.displayResults === 'programSteps'">
+		<div ng-show="exercise.currentWorld.steps.length === 0">The different steps of your program's execution will be displayed here.</div>
+		<div ng-repeat="obj in exercise.currentWorld.steps" ng-class="{ 'active-operation': obj.step === exercise.currentWorld.currentState}" ng-click="exercise.setWorldState(obj.step)">{{obj.msg}}</div>
+	</div>
+	<div class="with-newlines" ng-show="exercise.displayResults === 'result'">{{exercise.result || "No results yet, please run your program before."}}</div>
+	<div class="with-newlines" ng-show="exercise.displayResults === 'logs'">{{exercise.logs || "No error logs yet... Congratulations!"}}</div>
+</div>

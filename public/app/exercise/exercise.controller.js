@@ -16,7 +16,8 @@
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		
-		exercise.display = 'instructions';
+		exercise.displayInstructions = 'instructions';
+		exercise.displayResults = 'result';
 		
 		exercise.isRunning = false;
 		exercise.isPlaying = false;

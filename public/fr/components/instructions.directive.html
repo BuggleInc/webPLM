@@ -1,18 +1,19 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd class="tab-title" ng-class="{ active: exercise.display === 'instructions' }" ng-click="exercise.display = 'instructions'"><a>Consignes</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.display === 'api' }" ng-click="exercise.display = 'api'"><a>API</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.display === 'programSteps' }" ng-click="exercise.display = 'programSteps'"><a>Étapes du programme</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.display === 'result' }" ng-click="exercise.display = 'result'"><a>Résultat</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.display === 'logs' }" ng-click="exercise.display = 'logs'"><a>Logs</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.displayInstructions = 'instructions'"><a>Consignes</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.displayInstructions = 'api'"><a>API</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.displayInstructions = 'controls'"><a>Contrôles</a></dd>
 	</dl>
 </div>
-<div class="row">
-	<div ng-show="exercise.display === 'instructions'" ng-bind-html="exercise.instructions"></div>
-	<div ng-show="exercise.display === 'api'" ng-bind-html="exercise.api"></div>
-	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result || "Pas de résultats pour le moment, veuillez exécuter votre programme au préalable"}}</div>
-	<div class="with-newlines" ng-show="exercise.display === 'logs'">{{exercise.logs || "Pas de messages d'erreurs pour le moment...Félicitations!"}}</div>
-	<div ng-show="exercise.display === 'programSteps'">
-		<div ng-repeat="obj in exercise.currentWorld.steps" ng-class="{ 'active-operation': obj.step === exercise.currentWorld.currentState}" ng-click="exercise.setWorldState(obj.step)">{{obj.msg}}</div>
+<div class="row overflow">
+	<div ng-show="exercise.displayInstructions === 'instructions'" ng-bind-html="exercise.instructions"></div>
+	<div ng-show="exercise.displayInstructions === 'api'" ng-bind-html="exercise.api"></div>
+	<div ng-show="exercise.displayInstructions === 'controls'">
+		<div class="small-5 columns">
+			<label for="executionSpeed" class="left">Vitesse d'exécution</label>
+		</div>
+		<div class="small-7 columns">
+			<input class="left" type="range" id="executionSpeed" ng-model="exercise.timer" ng-change="exercise.updateSpeed()" max="3000" min="30"/>
+		</div>
 	</div>
 </div>
