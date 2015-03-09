@@ -7,7 +7,7 @@
 		<dd class="tab-title" ng-class="{ active: exercise.display === 'logs' }" ng-click="exercise.display = 'logs'"><a>Logs</a></dd>
 	</dl>
 </div>
-<div class="row">
+<div class="row overflow">
 	<div ng-show="exercise.display === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.display === 'api'" ng-bind-html="exercise.api"></div>
 	<div class="with-newlines" ng-show="exercise.display === 'result'">{{exercise.result || "No results yet, please run your program before"}}</div>

@@ -71,6 +71,7 @@
 
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
+			resizeCodeMirror();
 		};
 
 		function getExercise() {
@@ -363,10 +364,18 @@
 			canvas.resize(canvasWidth, canvasHeight);
 		}
 
+		function resizeCodeMirror() {
+			// Want to keep the IDE's height equals to the canvas' one
+			var canvasHeight = $('#'+exercise.canvasID).parent().width();
+			exercise.editor.setSize(null, canvasHeight);
+			exercise.editor.refresh();
+		}
+
 		function reloadApplication() {
 			$window.location.reload();
 		}
 
 		window.addEventListener('resize', resizeCanvas, false);
+		window.addEventListener('resize', resizeCodeMirror, false);
 	}
 })();
