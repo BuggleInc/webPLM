@@ -7,9 +7,21 @@
 </div>
 <div class="row overflow">
 	<div ng-show="exercise.displayResults === 'programSteps'">
-		<div ng-show="exercise.currentWorld.steps.length === 0">The different steps of your program's execution will be displayed here.</div>
+		<div ng-show="exercise.currentWorld.steps.length === 0">
+			<p class="lead">The different steps of your program's execution will be displayed here.</p>
+		</div>
 		<div ng-repeat="obj in exercise.currentWorld.steps" ng-class="{ 'active-operation': obj.step === exercise.currentWorld.currentState}" ng-click="exercise.setWorldState(obj.step)">{{obj.msg}}</div>
 	</div>
-	<div class="with-newlines" ng-show="exercise.displayResults === 'result'">{{exercise.result || "No results yet, please run your program before."}}</div>
-	<div class="with-newlines" ng-show="exercise.displayResults === 'logs'">{{exercise.logs || "No error logs yet... Congratulations!"}}</div>
+	<div ng-show="exercise.displayResults === 'result'">
+		<div ng-show="exercise.result === ''">
+			<p class="lead">No results yet, please run your program before.</p>
+		</div>
+		<div class="with-newlines" ng-show="exercise.result !== ''">{{exercise.result}}</div>
+	</div>
+	<div ng-show="exercise.displayResults === 'logs'">
+		<div ng-show="exercise.logs === ''">
+			<p class="lead">No error logs yet... Congratulations!</p>
+		</div>
+		<div class="with-newlines" ng-show="exercise.logs !== ''">{{exercise.logs}}</div>
+	</div>
 </div>

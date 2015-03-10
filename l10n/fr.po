@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-09 14:11+0100\n"
-"PO-Revision-Date: 2015-03-09 14:12+0100\n"
+"POT-Creation-Date: 2015-03-10 10:47+0100\n"
+"PO-Revision-Date: 2015-03-10 10:47+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -100,8 +100,14 @@ msgstr "API"
 msgid "Controls"
 msgstr "Contrôles"
 
-#. type: Content of: <div><div><div><label>
-#: public/app/components/instructions.directive.html:13
+#. type: Content of: <div><div><h2>
+#: public/app/components/instructions.directive.html:12
+#, no-wrap
+msgid "Player's options"
+msgstr "Options du lecteur"
+
+#. type: Content of: <div><div><div><label><strong>
+#: public/app/components/instructions.directive.html:14
 #, no-wrap
 msgid "Execution speed:"
 msgstr "Vitesse d'exécution"
@@ -160,29 +166,41 @@ msgstr "Étapes du programme"
 msgid "Logs"
 msgstr "Logs"
 
-#. type: Content of: <div><div><div>
-#: public/app/components/results.directive.html:10
+#. type: Content of: <div><div><div><p>
+#: public/app/components/results.directive.html:11
 #, no-wrap
 msgid "The different steps of your program's execution will be displayed here."
 msgstr "Les différents étapes de l'exécution de votre programme seront affichées ici."
 
 #. type: Content of: <div><div><div>
-#: public/app/components/results.directive.html:11
+#: public/app/components/results.directive.html:13
 #, no-wrap
 msgid "{{obj.msg}}"
 msgstr "{{obj.msg}}"
 
-#. type: Content of: <div><div>
-#: public/app/components/results.directive.html:13
+#. type: Content of: <div><div><div><p>
+#: public/app/components/results.directive.html:17
 #, no-wrap
-msgid "{{exercise.result || \"No results yet, please run your program before.\"}}"
-msgstr "{{exercise.result || \"Pas de résultats pour le moment, veuillez exécuter votre programme au préalable.\"}}"
+msgid "No results yet, please run your program before."
+msgstr "Pas de résultats pour le moment, veuillez exécuter votre programme au préalable."
 
-#. type: Content of: <div><div>
-#: public/app/components/results.directive.html:14
+#. type: Content of: <div><div><div>
+#: public/app/components/results.directive.html:19
 #, no-wrap
-msgid "{{exercise.logs || \"No error logs yet... Congratulations!\"}}"
-msgstr "{{exercise.logs || \"Pas de messages d'erreurs pour le moment...Félicitations!\"}}"
+msgid "{{exercise.result}}"
+msgstr "{{exercise.result}}"
+
+#. type: Content of: <div><div><div><p>
+#: public/app/components/results.directive.html:23
+#, no-wrap
+msgid "No error logs yet... Congratulations!"
+msgstr "Pas de messages d'erreurs pour le moment...Félicitations!"
+
+#. type: Content of: <div><div><div>
+#: public/app/components/results.directive.html:25
+#, no-wrap
+msgid "{{exercise.logs}}"
+msgstr "{{exercise.logs}}"
 
 #. type: Content of: <a>
 #: public/app/components/revert-exercise.directive.html:1
@@ -323,9 +341,6 @@ msgstr "Bienvenue dans PLM, "
 #, no-wrap
 msgid "the programmer's learning machine"
 msgstr "l'exerciseur du programmeur"
-
-#~ msgid "Player's options"
-#~ msgstr "Options du lecteur"
 
 #~ msgid "Revert exercise"
 #~ msgstr "Réinitialisation l'exercice"
@@ -578,9 +593,3 @@ msgstr "l'exerciseur du programmeur"
 #~ "<select id=\"selectWorld\" ng-model=\"exercise.currentWorldID\" ng-"
 #~ "options=\"worldID for worldID in exercise.worldIDs | orderBy: 'this'\" ng-"
 #~ "change=\"exercise.setCurrentWorld('current')\"> </select>"
-
-#~ msgid "{{exercise.result}}"
-#~ msgstr "{{exercise.result}}"
-
-#~ msgid "{{exercise.logs}}"
-#~ msgstr "{{exercise.logs}}"
