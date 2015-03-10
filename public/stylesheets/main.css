@@ -10,6 +10,12 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.tabs dd.active a, .tabs .tab-title.active a {
+	color: #FFF;
+	background-color: #008CBA;
+	font-weight: bold;
+}
+
 .block {
 	padding-top: 1.25rem;
 	padding-left: 1.25rem;
