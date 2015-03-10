@@ -1,19 +1,20 @@
-<div class="row" data-equalizer=true>
-	<div class="small-12 medium-5 columns block" data-equalizer-watch=true>
-		<worlds-view></worlds-view>
-	</div>
-	<div class="small-12 medium-6 columns right block" data-equalizer-watch=true>
-		<ide></ide>
-	</div>
-</div>
-<div class="row">
-	<hr/>
-</div>
 <div class="row">
 	<div class="small-12 medium-5 columns block">
-		<instructions></instructions>
+		<div class="row" ng-class="exercise.worldsViewClass">
+			<worlds-view></worlds-view>
+			<hr/>
+		</div>
+		<div class="row">
+			<instructions></instructions>
+		</div>
 	</div>
 	<div class="small-12 medium-6 columns right block">
-		<results></results>
+		<div class="row">
+			<ide></ide>
+		</div>
+		<hr/>
+		<div class="row">
+			<results></results>
+		</div>
 	</div>
 </div>

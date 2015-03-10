@@ -57,6 +57,10 @@
 		
 		exercise.canvasID = 'worldView';
 
+		exercise.instructionsIsFullScreen = false;
+		exercise.instructionsClass='';
+		exercise.worldsViewClass='';
+
 		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -69,6 +73,7 @@
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
 		exercise.updateSpeed = updateSpeed;
 		exercise.revertExercise = revertExercise;
+		exercise.resizeInstructions = resizeInstructions;
 
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
@@ -377,6 +382,19 @@
 
 		function reloadApplication() {
 			$window.location.reload();
+		}
+
+		function resizeInstructions() {
+			if(!exercise.instructionsIsFullScreen) {
+				exercise.instructionsIsFullScreen = true;
+				exercise.instructionsClass='instructions-fullscreen';
+				exercise.worldsViewClass='worlds-view-reduce';
+			}
+			else {
+				exercise.instructionsIsFullScreen = false;
+				exercise.instructionsClass='';
+				exercise.worldsViewClass='';
+			}
 		}
 
 		window.addEventListener('resize', resizeCanvas, false);

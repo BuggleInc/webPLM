@@ -10,6 +10,55 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.row {
+	position: relative;
+}
+
+.overflow {
+	overflow-y: auto;
+	height: 500px;
+	background-color: white;
+	z-index: 20;
+}
+
+.instructions-fullscreen-add, .instructions-fullscreen-remove {
+  -webkit-transition:height 0.7s linear;
+  -moz-transition:height 0.7s linear;
+  -o-transition:height 0.7s linear;
+  transition:height 0.7s linear;
+  height: 500px;
+}
+
+.instructions-fullscreen,
+.instructions-fullscreen-add.instructions-fullscreen-add-active {
+  height: 1300px;
+}
+
+.instructions-fullscreen-remove.instructions-fullscreen-remove-active {
+  height:500px;
+}
+
+.worlds-view-reduce-add, .worlds-view-reduce-remove {
+  -webkit-transition:all 0.7s linear;
+  -moz-transition:all 0.7s linear;
+  -o-transition:all 0.7s linear;
+  transition:all 0.7s linear;
+  height: 700px;
+  opacity: 1;
+}
+
+
+.worlds-view-reduce,
+.worlds-view-reduce-add.worlds-view-reduce-add-active {
+  height: 0px;
+  opacity: 0;
+}
+
+.worlds-view-reduce-remove.worlds-view-reduce-remove-active {
+  height:700px;
+  opacity: 1;
+}
+
 .tabs dd.active a, .tabs .tab-title.active a {
 	color: #FFF;
 	background-color: #008CBA;
@@ -83,11 +132,6 @@ div[ui-view] {
 
 .row {
   max-width: 90%;
-}
-
-.overflow {
-	overflow-y: auto;
-	height: 500px;
 }
 
 .with-newlines {
