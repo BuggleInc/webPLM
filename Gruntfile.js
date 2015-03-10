@@ -10,6 +10,7 @@ module.exports = function(grunt) {
           vendor: [
             'public/javascripts/sinon-1.12.2.js',
             'public/javascripts/angular.min.js',
+            'public/javascripts/angular-animate.js',
             'public/javascripts/angular-ui-router.min.js',
             'public/javascripts/angular-ui-codemirror/ui-codemirror.js',
             'public/javascripts/angular-locker.min.js',
