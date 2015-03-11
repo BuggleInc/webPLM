@@ -3,9 +3,13 @@
 		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.displayInstructions = 'instructions'"><a>Consignes</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.displayInstructions = 'api'"><a>API</a></dd>
 		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.displayInstructions = 'controls'"><a>Contrôles</a></dd>
+		<span class="button secondary mini right" ng-click="exercise.resizeInstructions();">
+			<i ng-show="!exercise.instructionsIsFullScreen" class="fi-arrows-expand"></i>
+			<i ng-show="exercise.instructionsIsFullScreen" class="fi-arrows-compress"></i>
+		</span>
 	</dl>
 </div>
-<div class="row overflow">
+<div class="row overflow" ng-class="exercise.instructionsClass">
 	<div ng-show="exercise.displayInstructions === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.displayInstructions === 'api'" ng-bind-html="exercise.api"></div>
 	<div ng-show="exercise.displayInstructions === 'controls'">
