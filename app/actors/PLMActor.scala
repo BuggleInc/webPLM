@@ -31,13 +31,12 @@ object PLMActor {
 
 class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var isProgressSpyAdded: Boolean = false
+  PLM.setLang(preferredLang) // Set the language before Game instanciation
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
   PLM.game.addGameStateListener(resultSpy)
   var registeredSpies: List[ExecutionSpy] = List()
   
   var remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(this, PLM.game)
-  
-  PLM.setLang(preferredLang)
   
   def receive = {
     case msg: JsValue =>

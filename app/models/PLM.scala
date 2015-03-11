@@ -24,19 +24,12 @@ import play.api.i18n.Lang
 
 object PLM {
   
-  var _game : Game = Game.getInstance()
-  var _lessons : Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
-  var _programmingLanguages: List[ProgrammingLanguage] = Game.getProgrammingLanguages.toList
   var _currentExercise: Exercise = _
-  var _currentLang: Lang = Lang("en")
+  var _currentLang: Lang = _
 
-  def game : Game = _game
-  def lessons: Array[Lesson] = _lessons
-  
-  def programmingLanguages: List[ProgrammingLanguage] = {
-    return _programmingLanguages
-  }
-  
+  def game : Game = Game.getInstance()
+  def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
+
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
@@ -44,8 +37,6 @@ object PLM {
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    game.setLocale(_currentLang.toLocale)
-
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
@@ -65,8 +56,6 @@ object PLM {
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    game.setLocale(_currentLang.toLocale)
-
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
@@ -102,43 +91,46 @@ object PLM {
   
   
   def runExercise(lessonID: String, exerciseID: String, code: String) {
-    var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
     
     LoggerUtils.debug("Code:\n"+code)
     
     exo.getSourceFile(programmingLanguage, 0).setBody(code)
-    _game.startExerciseExecution()
+    game.startExerciseExecution()
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
-    var exo: Exercise = _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
         
-    _game.startExerciseDemoExecution()
+    game.startExerciseDemoExecution()
   }
   
   def stopExecution() {
-    _game.stopExerciseExecution()
+    game.stopExerciseExecution()
   }
   
   def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
   
   def setProgrammingLanguage(lang: String) {
-    _game.setProgrammingLanguage(lang)
+    game.setProgrammingLanguage(lang)
   }
   
   def getStudentCode: String = {
-    return _game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
+    return game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
   }
   
   def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-    _game.addProgressSpyListener(progressSpyListener)  
+    game.addProgressSpyListener(progressSpyListener)  
   }
   
   def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-    _game.removeProgressSpyListener(progressSpyListener)  
+    game.removeProgressSpyListener(progressSpyListener)  
   }
 
   def setLang(lang: Lang) {
-    _currentLang = lang
+	if(_currentLang != lang) {
+		_currentLang = lang
+		plm.core.utils.FileUtils.setLocale(_currentLang.toLocale)
+	}
   }
 }
