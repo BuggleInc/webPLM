@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-12 16:18+0100\n"
+"POT-Creation-Date: 2015-03-12 16:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,20 +218,20 @@ msgid ""
 "you sure that you want to proceed?"
 msgstr ""
 
-#. type: Content of: <div><div><button>
-#: public/app/components/revert-exercise.directive.html:7
+#. type: Content of: <div><span><button>
+#: public/app/components/revert-exercise.directive.html:7 public/app/components/select-lang.directive.html:14
 #, no-wrap
 msgid "Cancel"
 msgstr ""
 
-#. type: Content of: <div><div><button>
-#: public/app/components/revert-exercise.directive.html:8
+#. type: Content of: <div><span><button>
+#: public/app/components/revert-exercise.directive.html:8 public/app/components/select-lang.directive.html:15
 #, no-wrap
 msgid "Continue"
 msgstr ""
 
 #. type: Content of: <div><a>
-#: public/app/components/revert-exercise.directive.html:11 public/app/components/success-modal.directive.html:7 public/app/components/switch-exercise.directive.html:27
+#: public/app/components/revert-exercise.directive.html:11 public/app/components/select-lang.directive.html:18 public/app/components/success-modal.directive.html:7 public/app/components/switch-exercise.directive.html:27
 #, no-wrap
 msgid "&#215;"
 msgstr ""
@@ -240,6 +240,30 @@ msgstr ""
 #: public/app/components/select-lang.directive.html:6
 #, no-wrap
 msgid "&nbsp;&nbsp;{{lang.name}}"
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/select-lang.directive.html:11
+#, no-wrap
+msgid "Application restart needed"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/select-lang.directive.html:12
+#, no-wrap
+msgid "In order to take into account this change, "
+msgstr ""
+
+#. type: Content of: <div><p><strong>
+#: public/app/components/select-lang.directive.html:12
+#, no-wrap
+msgid "the application need to restart."
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/select-lang.directive.html:12
+#, no-wrap
+msgid " Do you still want to proceed?"
 msgstr ""
 
 #. type: Content of: <a>
