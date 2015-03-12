@@ -26,25 +26,55 @@ import play.api.Play.current
 object Application extends Controller {
   val system = ActorSystem("application")
 
-  def getLang(request: RequestHeader): Lang = {
-    var preferredLang: Lang = null
-    request.cookies.get("lang").getOrElse(None) match {
-      case cookie: Cookie =>
-        preferredLang = Lang(cookie.value)
-      case _ =>
-        preferredLang = Lang.preferred(request.acceptLanguages)
-    }
-    return preferredLang
+  def langIsAvailable(code: String): Boolean = {
+    Lang.availables.exists { lang => lang.code == code }
   }
 
+  def getCookie(request: RequestHeader, cookieName: String): Cookie = {
+     request.cookies.get(cookieName).getOrElse(None) match {
+      case cookie: Cookie =>
+        return cookie
+      case _ =>
+        return null
+     }
+  }
+  
+  def getCookieLangCode(request: RequestHeader): String = {
+    var cookieLang: Cookie = getCookie(request, "lang")
+    var cookieLangCode: String = ""
+    if(cookieLang != null) {
+      cookieLangCode = cookieLang.value
+    }
+    return cookieLangCode
+  }
+  
   def pathToTranslatedAsset(file: String) = Action { implicit request =>
-    var preferredLang = getLang(request)
+    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
+    var cookieLangCode: String = getCookieLangCode(request)
+    var cookieToDiscard: DiscardingCookie = null;
+    
+    if(langIsAvailable(cookieLangCode)) {
+      preferredLang = Lang(cookieLangCode)
+    }
+    else {
+      cookieToDiscard = DiscardingCookie("lang")
+    }
+    
     var actualPath = "/assets/"+preferredLang.code+"/"+file+".html"
-    Redirect(actualPath);
+    if(cookieToDiscard != null) {
+      Redirect(actualPath).discardingCookies(cookieToDiscard) 
+    }
+    else {
+      Redirect(actualPath)
+    }
   }
 
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-    var preferredLang = getLang(request)
+    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
+    var cookieLangCode: String = getCookieLangCode(request)    
+    if(langIsAvailable(cookieLangCode)) {
+      preferredLang = Lang(cookieLangCode)
+    }
     PLMActor.props(out, preferredLang)
   }
 
