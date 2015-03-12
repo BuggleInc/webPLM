@@ -3,7 +3,6 @@ package json
 import play.api.libs.json._
 import play.api.i18n.Lang
 
-
 object LangToJson {
   
   def langWrite(lang: Lang): JsValue = {
@@ -11,7 +10,7 @@ object LangToJson {
     Json.obj(
       "icon" -> link,
       "code" -> lang.code,
-      "name" -> lang.toLocale.getDisplayLanguage.capitalize
+      "name" -> lang.toLocale.getDisplayName(lang.toLocale).capitalize
     )
   }
 

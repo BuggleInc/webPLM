@@ -14,6 +14,7 @@
 			link: function (scope, element, attrs) {
 				scope.langs = langs;
 				$(document).foundation('dropdown', 'reflow');
+				$(document).foundation('reveal', 'reflow');
 			}
 		};
 	}
