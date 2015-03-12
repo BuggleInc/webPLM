@@ -7,9 +7,11 @@ import play.api.i18n.Lang
 object LangToJson {
   
   def langWrite(lang: Lang): JsValue = {
+    var link = "/assets/images/"+lang.code+".png"
     Json.obj(
+      "icon" -> link,
       "code" -> lang.code,
-      "name" -> lang.toLocale.getDisplayLanguage
+      "name" -> lang.toLocale.getDisplayLanguage.capitalize
     )
   }
 

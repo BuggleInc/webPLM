@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-10 10:47+0100\n"
+"POT-Creation-Date: 2015-03-12 16:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgid "Contact"
 msgstr ""
 
 #. type: Content of: <div><nav><section><ul><li><a>
-#: public/app/components/application-header.directive.html:22
+#: public/app/components/application-header.directive.html:23
 #, no-wrap
 msgid "Home"
 msgstr ""
@@ -97,13 +97,13 @@ msgid "Controls"
 msgstr ""
 
 #. type: Content of: <div><div><h2>
-#: public/app/components/instructions.directive.html:12
+#: public/app/components/instructions.directive.html:16
 #, no-wrap
 msgid "Player's options"
 msgstr ""
 
 #. type: Content of: <div><div><div><label><strong>
-#: public/app/components/instructions.directive.html:14
+#: public/app/components/instructions.directive.html:18
 #, no-wrap
 msgid "Execution speed:"
 msgstr ""
@@ -234,6 +234,12 @@ msgstr ""
 #: public/app/components/revert-exercise.directive.html:11 public/app/components/success-modal.directive.html:7 public/app/components/switch-exercise.directive.html:27
 #, no-wrap
 msgid "&#215;"
+msgstr ""
+
+#. type: Content of: <ul><li><a>
+#: public/app/components/select-lang.directive.html:6
+#, no-wrap
+msgid "&nbsp;&nbsp;{{lang.name}}"
 msgstr ""
 
 #. type: Content of: <a>

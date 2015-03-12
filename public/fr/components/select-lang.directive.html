@@ -1,0 +1,8 @@
+<a >
+	<img data-dropdown="dropLangs" ng-src="{{langs.getSelectedLang().icon}}" width="50px"/>
+</a>
+<ul id="dropLangs" class="f-dropdown" data-dropdown-content=true>
+	<li ng-repeat="lang in langs.getAvailableLangs()" ng-class="{ 'active-operation': lang.code === langs.getSelectedLang().code }" ng-click="langs.setSelectedLang(lang)">
+  		<a><img ng-src="{{lang.icon}}" width="50%"/>&nbsp;&nbsp;{{lang.name}}</a>
+ 	</li>
+</ul>

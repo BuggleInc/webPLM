@@ -8,13 +8,15 @@
 	langs.$inject = ['$rootScope', '$cookies', 'listenersHandler', 'connection'];
 
 	function langs ($rootScope, $cookies, listenersHandler, connection) {
-		var availableLangs;
-		var selectedLang;
+		var availableLangs = [];
+		var selectedLang = $cookies.lang;
 
 		listenersHandler.register('onmessage', handleMessage);
+		connection.sendMessage('getLangs', {});
 
 		var service = {
 			getAvailableLangs: getAvailableLangs,
+			updateAvailableLangs: updateAvailableLangs,
 			getSelectedLang: getSelectedLang,
 			setSelectedLang: setSelectedLang
 		};
@@ -37,12 +39,16 @@
 			$rootScope.$broadcast('availableLangsReady');
 		}
 
+		function getAvailableLangs() {
+			return availableLangs;
+		}
+
 		function getSelectedLang() {
 			return selectedLang;
 		}
 
 		function setSelectedLang (lang) {
-			$cookie.put('lang', lang.code);
+			$cookies.lang = lang.code;
 			selectedLang = lang;			
 		}
 	}
