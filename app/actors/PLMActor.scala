@@ -23,6 +23,7 @@ import plm.universe.bugglequest.BuggleWorld
 import plm.universe.bugglequest.AbstractBuggle
 import plm.universe.bugglequest.BuggleWorldCell
 
+import play.api.Play.current
 import play.api.i18n.Lang
 
 object PLMActor {
@@ -30,6 +31,7 @@ object PLMActor {
 }
 
 class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
+  var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   PLM.setLang(preferredLang) // Set the language before Game instanciation
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
@@ -108,6 +110,11 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
           var lectures = PLM.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
           sendMessage("exercises", Json.obj(
             "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
+          ))
+        case "getLangs" =>
+          sendMessage("langs", Json.obj(
+            "selected" -> LangToJson.langWrite(preferredLang),
+            "availables" -> LangToJson.langsWrite(availableLangs)
           ))
         case _ =>
           LoggerUtils.debug("cmd: non-correct JSON")
