@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="small-8 columns">
-			<ul class="tabs vertical no-width overflow" data-tab=true>
+			<ul ng-show="exercise.selectedRootLecture != null" class="tabs vertical no-width overflow" data-tab=true>
 				<li ng-class="{ active: exercise.selectedNextExercise === exercise.selectedRootLecture }" class="tab-title" ng-click="exercise.setSelectedNextExercise(exercise.selectedRootLecture)"><a>{{exercise.selectedRootLecture.name}}</a></li>
 				<li ng-repeat="exo in exercise.selectedRootLecture.children" ng-class="{ active: exercise.selectedNextExercise === exo }" class="tab-title"  ng-click="exercise.setSelectedNextExercise(exo)"><a>{{exo.name}}</a></li>
 			</ul>
