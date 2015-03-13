@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-13 16:15+0100\n"
+"POT-Creation-Date: 2015-03-13 16:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,7 +305,7 @@ msgstr ""
 #. type: Content of: <a>
 #: public/app/components/switch-exercise.directive.html:1
 #, no-wrap
-msgid "Switch"
+msgid "Exercises"
 msgstr ""
 
 #. type: Content of: <div><h2>

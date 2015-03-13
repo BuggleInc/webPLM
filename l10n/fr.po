@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-13 16:15+0100\n"
-"PO-Revision-Date: 2015-03-13 16:17+0100\n"
+"POT-Creation-Date: 2015-03-13 16:21+0100\n"
+"PO-Revision-Date: 2015-03-13 16:22+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -312,8 +312,8 @@ msgstr " Bien sûr"
 #. type: Content of: <a>
 #: public/app/components/switch-exercise.directive.html:1
 #, no-wrap
-msgid "Switch"
-msgstr "Changer"
+msgid "Exercises"
+msgstr "Exercices"
 
 #. type: Content of: <div><h2>
 #: public/app/components/switch-exercise.directive.html:3
@@ -374,6 +374,9 @@ msgstr "Bienvenue dans PLM, "
 #, no-wrap
 msgid "the programmer's learning machine"
 msgstr "l'exerciseur du programmeur"
+
+#~ msgid "Switch"
+#~ msgstr "Changer"
 
 #~ msgid "Revert"
 #~ msgstr "Réinitialiser"

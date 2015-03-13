@@ -1,4 +1,4 @@
-<a class="button mini radius" data-reveal-id="exercisesModal">Changer</a>
+<a class="button mini radius" data-reveal-id="exercisesModal">Exercices</a>
 <div id="exercisesModal" class="reveal-modal" data-reveal=true>
 	<h2>Choisir un exercice:</h2>
 
@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="row">
-		<button class="button radius right" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.selectedNextExercise.id})">Sélectionner</button>
+		<button class="button radius right" ng-disabled="exercise.selectedNextExercise === null" onclick="$('#exercisesModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.selectedNextExercise.id})">Sélectionner</button>
 	</div>
 
 	<a class="close-reveal-modal">&#215;</a>

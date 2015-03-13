@@ -317,6 +317,7 @@
 
 		function setSelectedRootLecture(rootLecture) {
 			exercise.selectedRootLecture = rootLecture;
+			setSelectedNextExercise(rootLecture);
 		}
 
 		function setSelectedNextExercise(exo) {
