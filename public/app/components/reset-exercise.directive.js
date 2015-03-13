@@ -3,12 +3,12 @@
 	
 	angular
 		.module('PLMApp')
-		.directive('revertExercise', revertExercise);
+		.directive('resetExercise', resetExercise);
 	
-	function revertExercise() {
+	function resetExercise() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/revert-exercise.directive.html',
+			templateUrl: '/assets/app/components/reset-exercise.directive.html',
 			link: function (scope, element, attrs) {
 				$(document).foundation('reveal', 'reflow');
 			}

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-12 16:58+0100\n"
+"POT-Creation-Date: 2015-03-13 16:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,6 +144,44 @@ msgstr ""
 msgid "A graph representing your progress will be displayed here."
 msgstr ""
 
+#. type: Content of: <a>
+#: public/app/components/reset-exercise.directive.html:1
+#, no-wrap
+msgid "Reset"
+msgstr ""
+
+#. type: Content of: <div><h2>
+#: public/app/components/reset-exercise.directive.html:3
+#, no-wrap
+msgid "Warning!"
+msgstr ""
+
+#. type: Content of: <div><p>
+#: public/app/components/reset-exercise.directive.html:5
+#, no-wrap
+msgid ""
+"Reverting this exercise will erase all your work and cannot be undone. Are "
+"you sure that you want to proceed?"
+msgstr ""
+
+#. type: Content of: <div><span><button>
+#: public/app/components/reset-exercise.directive.html:7 public/app/components/select-lang.directive.html:14
+#, no-wrap
+msgid "Cancel"
+msgstr ""
+
+#. type: Content of: <div><span><button>
+#: public/app/components/reset-exercise.directive.html:8 public/app/components/select-lang.directive.html:15
+#, no-wrap
+msgid "Continue"
+msgstr ""
+
+#. type: Content of: <div><a>
+#: public/app/components/reset-exercise.directive.html:11 public/app/components/select-lang.directive.html:18 public/app/components/success-modal.directive.html:7 public/app/components/switch-exercise.directive.html:27
+#, no-wrap
+msgid "&#215;"
+msgstr ""
+
 #. type: Content of: <div><dl><dd><a>
 #: public/app/components/results.directive.html:3
 #, no-wrap
@@ -196,44 +234,6 @@ msgstr ""
 #: public/app/components/results.directive.html:25
 #, no-wrap
 msgid "{{exercise.logs}}"
-msgstr ""
-
-#. type: Content of: <a>
-#: public/app/components/revert-exercise.directive.html:1
-#, no-wrap
-msgid "Revert"
-msgstr ""
-
-#. type: Content of: <div><h2>
-#: public/app/components/revert-exercise.directive.html:3
-#, no-wrap
-msgid "Warning!"
-msgstr ""
-
-#. type: Content of: <div><p>
-#: public/app/components/revert-exercise.directive.html:5
-#, no-wrap
-msgid ""
-"Reverting this exercise will erase all your work and cannot be undone. Are "
-"you sure that you want to proceed?"
-msgstr ""
-
-#. type: Content of: <div><span><button>
-#: public/app/components/revert-exercise.directive.html:7 public/app/components/select-lang.directive.html:14
-#, no-wrap
-msgid "Cancel"
-msgstr ""
-
-#. type: Content of: <div><span><button>
-#: public/app/components/revert-exercise.directive.html:8 public/app/components/select-lang.directive.html:15
-#, no-wrap
-msgid "Continue"
-msgstr ""
-
-#. type: Content of: <div><a>
-#: public/app/components/revert-exercise.directive.html:11 public/app/components/select-lang.directive.html:18 public/app/components/success-modal.directive.html:7 public/app/components/switch-exercise.directive.html:27
-#, no-wrap
-msgid "&#215;"
 msgstr ""
 
 #. type: Content of: <ul><li><a>

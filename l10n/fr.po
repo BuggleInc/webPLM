@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-12 16:58+0100\n"
-"PO-Revision-Date: 2015-03-12 16:59+0100\n"
+"POT-Creation-Date: 2015-03-13 16:15+0100\n"
+"PO-Revision-Date: 2015-03-13 16:17+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -148,6 +148,47 @@ msgstr "Reprendre"
 msgid "A graph representing your progress will be displayed here."
 msgstr "Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon choisie."
 
+#. type: Content of: <a>
+#: public/app/components/reset-exercise.directive.html:1
+#, no-wrap
+msgid "Reset"
+msgstr "Reset"
+
+#. type: Content of: <div><h2>
+#: public/app/components/reset-exercise.directive.html:3
+#, no-wrap
+msgid "Warning!"
+msgstr "Attention!"
+
+#. type: Content of: <div><p>
+#: public/app/components/reset-exercise.directive.html:5
+#, no-wrap
+msgid "Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?"
+msgstr "Réinitialiser cet exercice effacera tout votre travail et ne le rendra irrécupérable. Êtes-vous sûr de vouloir continuer?"
+
+#. type: Content of: <div><span><button>
+#: public/app/components/reset-exercise.directive.html:7
+#: public/app/components/select-lang.directive.html:14
+#, no-wrap
+msgid "Cancel"
+msgstr "Annuler"
+
+#. type: Content of: <div><span><button>
+#: public/app/components/reset-exercise.directive.html:8
+#: public/app/components/select-lang.directive.html:15
+#, no-wrap
+msgid "Continue"
+msgstr "Continuer"
+
+#. type: Content of: <div><a>
+#: public/app/components/reset-exercise.directive.html:11
+#: public/app/components/select-lang.directive.html:18
+#: public/app/components/success-modal.directive.html:7
+#: public/app/components/switch-exercise.directive.html:27
+#, no-wrap
+msgid "&#215;"
+msgstr "&#215;"
+
 #. type: Content of: <div><dl><dd><a>
 #: public/app/components/results.directive.html:3
 #, no-wrap
@@ -201,47 +242,6 @@ msgstr "Pas de messages d'erreurs pour le moment...Félicitations!"
 #, no-wrap
 msgid "{{exercise.logs}}"
 msgstr "{{exercise.logs}}"
-
-#. type: Content of: <a>
-#: public/app/components/revert-exercise.directive.html:1
-#, no-wrap
-msgid "Revert"
-msgstr "Réinitialiser"
-
-#. type: Content of: <div><h2>
-#: public/app/components/revert-exercise.directive.html:3
-#, no-wrap
-msgid "Warning!"
-msgstr "Attention!"
-
-#. type: Content of: <div><p>
-#: public/app/components/revert-exercise.directive.html:5
-#, no-wrap
-msgid "Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?"
-msgstr "Réinitialiser cet exercice effacera tout votre travail et ne le rendra irrécupérable. Êtes-vous sûr de vouloir continuer?"
-
-#. type: Content of: <div><span><button>
-#: public/app/components/revert-exercise.directive.html:7
-#: public/app/components/select-lang.directive.html:14
-#, no-wrap
-msgid "Cancel"
-msgstr "Annuler"
-
-#. type: Content of: <div><span><button>
-#: public/app/components/revert-exercise.directive.html:8
-#: public/app/components/select-lang.directive.html:15
-#, no-wrap
-msgid "Continue"
-msgstr "Continuer"
-
-#. type: Content of: <div><a>
-#: public/app/components/revert-exercise.directive.html:11
-#: public/app/components/select-lang.directive.html:18
-#: public/app/components/success-modal.directive.html:7
-#: public/app/components/switch-exercise.directive.html:27
-#, no-wrap
-msgid "&#215;"
-msgstr "&#215;"
 
 #. type: Content of: <ul><li><a>
 #: public/app/components/select-lang.directive.html:6
@@ -374,6 +374,9 @@ msgstr "Bienvenue dans PLM, "
 #, no-wrap
 msgid "the programmer's learning machine"
 msgstr "l'exerciseur du programmeur"
+
+#~ msgid "Revert"
+#~ msgstr "Réinitialiser"
 
 #~ msgid "Revert exercise"
 #~ msgstr "Réinitialisation l'exercice"

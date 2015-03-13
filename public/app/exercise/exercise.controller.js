@@ -72,7 +72,7 @@
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
 		exercise.updateSpeed = updateSpeed;
-		exercise.revertExercise = revertExercise;
+		exercise.resetExercise = resetExercise;
 		exercise.resizeInstructions = resizeInstructions;
 
 		$scope.codemirrorLoaded = function(_editor){
@@ -352,8 +352,8 @@
 			connection.sendMessage('setProgrammingLanguage', args);
 		}
 
-		function revertExercise() {
-			$('#revertExerciseModal').foundation('reveal', 'close');
+		function resetExercise() {
+			$('#resetExerciseModal').foundation('reveal', 'close');
 			connection.sendMessage('revertExercise', {});
 		}
 
