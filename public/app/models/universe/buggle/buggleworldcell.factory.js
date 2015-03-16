@@ -58,15 +58,17 @@
 		
 			if(this.hasBaggle) {
 				ctx.beginPath(); 
-				ctx.fillStyle=DefaultColors.BAGGLE;
-				ctx.arc(xLeft+padX, yTop+padY, canvasWidth/width*0.3, 0, Math.PI*2, true);
+				ctx.fillStyle = DefaultColors.BAGGLE;
+				ctx.arc(xLeft+padX, yTop+padY, canvasWidth/width*0.25, 0, Math.PI*2, true);
 				ctx.arc(xLeft+padX, yTop+padY, canvasWidth/width*0.15, 0, Math.PI*2, true);
 				ctx.fill('evenodd');
 				ctx.closePath();
 			}
 			if(this.hasContent) {
+				ctx.beginPath();
 				ctx.fillStyle = DefaultColors.MESSAGE_COLOR;
 				ctx.fillText(this.content, xLeft+1, yBottom-4);
+				ctx.closePath();
 			}
 		};
 		
