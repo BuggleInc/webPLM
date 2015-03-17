@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-13 16:21+0100\n"
-"PO-Revision-Date: 2015-03-13 16:22+0100\n"
+"POT-Creation-Date: 2015-03-17 10:58+0100\n"
+"PO-Revision-Date: 2015-03-17 10:59+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -183,7 +183,7 @@ msgstr "Continuer"
 #. type: Content of: <div><a>
 #: public/app/components/reset-exercise.directive.html:11
 #: public/app/components/select-lang.directive.html:18
-#: public/app/components/success-modal.directive.html:7
+#: public/app/components/success-modal.directive.html:10
 #: public/app/components/switch-exercise.directive.html:27
 #, no-wrap
 msgid "&#215;"
@@ -303,8 +303,14 @@ msgstr "Félicitations, vous avez réussi cet exercice."
 msgid "Do you want to try the next one?"
 msgstr "Voulez-vous tenter l'exercice suivant?"
 
-#. type: Content of: <div><button>
-#: public/app/components/success-modal.directive.html:6
+#. type: Content of: <div><span><button>
+#: public/app/components/success-modal.directive.html:7
+#, no-wrap
+msgid "Not yet"
+msgstr "Pas encore"
+
+#. type: Content of: <div><span><button>
+#: public/app/components/success-modal.directive.html:8
 #, no-wrap
 msgid "Yes, sure"
 msgstr " Bien sûr"

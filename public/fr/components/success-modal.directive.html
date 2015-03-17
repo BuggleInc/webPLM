@@ -4,6 +4,9 @@
   <h2>Exercice réussi \o/</h2>
   <p class="lead"><img src="/img/trophy.png"/>Félicitations, vous avez réussi cet exercice.</p>
   <p>Voulez-vous tenter l'exercice suivant?</p>
-  <button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})"> Bien sûr</button>
+  <span class="center">
+  	<button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');">Pas encore</button>
+  	<button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})"> Bien sûr</button>
+  </span>
   <a class="close-reveal-modal">&#215;</a>
 </div>

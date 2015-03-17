@@ -3,6 +3,9 @@
   <h2>Success \o/</h2>
   <p class="lead"><img src="/img/trophy.png"/>Congratulations, you pass this exercise!</p>
   <p>Do you want to try the next one?</p>
-  <button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})">Yes, sure</button>
+  <span class="center">
+  	<button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');">Not yet</button>
+  	<button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})">Yes, sure</button>
+  </span>
   <a class="close-reveal-modal">&#215;</a>
 </div>
