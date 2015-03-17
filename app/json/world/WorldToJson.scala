@@ -1,5 +1,7 @@
 package json.world
 
+import exceptions.NonImplementedWorldException
+
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
@@ -22,6 +24,8 @@ object WorldToJson {
     world match {
       case gridWorld: GridWorld =>
         json = GridWorldToJson.gridWorldWrite(gridWorld)
+      case _ =>
+        throw NonImplementedWorldException.create;
     }
     
     var entities = world.getEntities.toArray(Array[Entity]())

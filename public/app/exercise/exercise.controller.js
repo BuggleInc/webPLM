@@ -138,29 +138,37 @@
 			exercise.api = $sce.trustAsHtml(data.api);
 			exercise.code = data.code.trim();
 			exercise.currentWorldID = data.selectedWorldID;
-			for(var worldID in data.initialWorlds) {
-				if(data.initialWorlds.hasOwnProperty(worldID)) {
-					exercise.initialWorlds[worldID] = {};
-					var initialWorld = data.initialWorlds[worldID];
-					var world;
-					switch(initialWorld.type) {
-						case 'BuggleWorld':
-							world = new BuggleWorld(initialWorld);
-							break;
+
+			if(data.exception === 'nonImplementedWorldException') {
+				console.log('Je ne plante pas ;)');
+			}
+			else {
+				for(var worldID in data.initialWorlds) {
+					if(data.initialWorlds.hasOwnProperty(worldID)) {
+						exercise.initialWorlds[worldID] = {};
+						var initialWorld = data.initialWorlds[worldID];
+						var world;
+						switch(initialWorld.type) {
+							case 'BuggleWorld':
+								world = new BuggleWorld(initialWorld);
+								break;
+						}
+						exercise.initialWorlds[worldID] = world;
+						exercise.answerWorlds[worldID] = world.clone();
+						exercise.currentWorlds[worldID] = world.clone();
 					}
-					exercise.initialWorlds[worldID] = world;
-					exercise.answerWorlds[worldID] = world.clone();
-					exercise.currentWorlds[worldID] = world.clone();
 				}
+
+				exercise.worldIDs = Object.keys(exercise.currentWorlds);
+
+				canvasElt = document.getElementById(exercise.canvasID);
+				canvasWidth = $('#'+exercise.canvasID).parent().width();
+				canvasHeight = canvasWidth;
+				canvas.init(canvasElt, canvasWidth, canvasHeight);
+
+				setCurrentWorld('current');
 			}
 
-			canvasElt = document.getElementById(exercise.canvasID);
-			canvasWidth = $('#'+exercise.canvasID).parent().width();
-			canvasHeight = canvasWidth;
-			canvas.init(canvasElt, canvasWidth, canvasHeight);
-			
-			setCurrentWorld('current');
-			exercise.worldIDs = Object.keys(exercise.currentWorlds);
 			exercise.programmingLanguages = data.programmingLanguages;
 			for(var i=0; i<exercise.programmingLanguages.length; i++) {
 				var pl = exercise.programmingLanguages[i];
