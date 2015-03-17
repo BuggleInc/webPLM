@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-17 10:58+0100\n"
-"PO-Revision-Date: 2015-03-17 10:59+0100\n"
+"POT-Creation-Date: 2015-03-17 11:27+0100\n"
+"PO-Revision-Date: 2015-03-17 11:31+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -362,6 +362,12 @@ msgstr "Monde"
 #, no-wrap
 msgid "Objective"
 msgstr "Objectif"
+
+#. type: Attribute 'title' of: <div><div><span><strong>
+#: public/app/components/worlds-view.directive.html:4
+#, no-wrap
+msgid "The scene takes place in one or many worlds, depending of the exercise. Each world represents a different configuration but don't forget that your program have to work for each one ;-)"
+msgstr "L'action se déroule dans un ou plusieurs mondes, selon l'exercice en cours. Chaque monde représente une configuration différente, n'oublie pas que ton programme doit fonctionner pour chacune d'entre elles ;-)"
 
 #. type: Content of: <div><div><span><strong>
 #: public/app/components/worlds-view.directive.html:4

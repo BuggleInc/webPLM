@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-17 10:58+0100\n"
+"POT-Creation-Date: 2015-03-17 11:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,6 +354,15 @@ msgstr ""
 #: public/app/components/tabs-current-world.directive.html:7
 #, no-wrap
 msgid "Objective"
+msgstr ""
+
+#. type: Attribute 'title' of: <div><div><span><strong>
+#: public/app/components/worlds-view.directive.html:4
+#, no-wrap
+msgid ""
+"The scene takes place in one or many worlds, depending of the exercise. Each "
+"world represents a different configuration but don't forget that your "
+"program have to work for each one ;-)"
 msgstr ""
 
 #. type: Content of: <div><div><span><strong>
