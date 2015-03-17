@@ -21,6 +21,10 @@
 	z-index: 20;
 }
 
+.top-bar-section li:not(.has-form) a:not(.button):hover {
+	background-color: #414141;
+}
+
 .instructions-fullscreen-add, .instructions-fullscreen-remove {
   -webkit-transition:height 0.7s linear;
   -moz-transition:height 0.7s linear;
