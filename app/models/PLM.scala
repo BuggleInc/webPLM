@@ -130,7 +130,7 @@ object PLM {
   def setLang(lang: Lang) {
 	if(_currentLang != lang) {
 		_currentLang = lang
-		plm.core.utils.FileUtils.setLocale(_currentLang.toLocale)
+		game.setLocale(_currentLang.toLocale)
 	}
   }
 }
