@@ -39,6 +39,7 @@
 		exercise.currentWorldID = null;
 		exercise.worldKind = 'current';
 		exercise.worldIDs = []; // Mandatory to generate dynamically the select
+		exercise.updateModelLoop = null;
 		exercise.updateViewLoop = null;
 		
 		locker.bind($scope, 'timer', 1000);
@@ -275,6 +276,7 @@
 		function replay() {
 			exercise.isPlaying = true;
 			reset(exercise.currentWorldID, exercise.worldKind, true);
+			startUpdateModelLoop();
 			startUpdateViewLoop();
 		}
 		
@@ -282,28 +284,45 @@
 			var world = exercise[worldKind+'Worlds'][worldID];
 			world.addOperations(operations);
 			if(exercise.updateViewLoop === null) {
+				startUpdateModelLoop();
 				startUpdateViewLoop();
 			}
 		}
 
-		function startUpdateViewLoop() {
-			exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+		function startUpdateModelLoop() {
+			exercise.updateModelLoop = setTimeout(updateModel, exercise.timer);
 		}
-		
-		function updateView() {
+
+		function updateModel() {
 			var currentState = exercise.currentWorld.currentState;
 			var nbStates = exercise.currentWorld.operations.length-1;
 			if(currentState !== nbStates) {
 				exercise.currentWorld.setState(++currentState);
 				exercise.currentState = currentState;
-				canvas.update();
 			}
 			if(!exercise.isRunning && currentState === nbStates){
 				exercise.updateViewLoop = null;
 				exercise.isPlaying = false;
 			}
 			else {
-				exercise.updateViewLoop = setTimeout(updateView, exercise.timer);
+				exercise.updateModelLoop = setTimeout(updateModel, exercise.timer);
+			}
+			$scope.$apply(); // Have to add this line to force AngularJS to update the view
+		}
+
+		function startUpdateViewLoop() {
+			exercise.updateViewLoop = setInterval(updateView, 1/24);
+		}
+		
+		function updateView() {
+			var currentState = exercise.currentWorld.currentState;
+			var nbStates = exercise.currentWorld.operations.length-1;
+
+			canvas.update();
+
+			if(!exercise.isRunning && currentState === nbStates){
+				clearInterval(exercise.updateViewLoop);
+				exercise.isPlaying = false;
 			}
 			$scope.$apply(); // Have to add this line to force AngularJS to update the view
 		}
