@@ -1,6 +1,13 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    nggettext_extract: {
+      pot: {
+        files: {
+          'po/template.pot': ['public/app/**/*.html']
+        }
+      },
+    },
     jasmine: {
       components: {
         src: [
@@ -30,5 +37,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jasmine']);
 
+  grunt.loadNpmTasks('grunt-angular-gettext');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 };

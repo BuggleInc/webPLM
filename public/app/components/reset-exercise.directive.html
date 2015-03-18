@@ -1,11 +1,11 @@
-<a class="button mini radius" data-reveal-id="resetExerciseModal">Reset</a>
+<a class="button mini radius" data-reveal-id="resetExerciseModal" translate>Reset</a>
 <div id="resetExerciseModal" class="reveal-modal" data-reveal=true>
-	<h2>Warning!</h2>
+	<h2 translate>Warning!</h2>
 
-	<p class="lead">Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?</p>
+	<p class="lead" translate>Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?</p>
 	<div class="row">
-		<button class="button secondary" onclick="$('#resetExerciseModal').foundation('reveal', 'close');">Cancel</button>
-		<button class="button" ng-click="exercise.resetExercise()">Continue</button>
+		<button class="button secondary" onclick="$('#resetExerciseModal').foundation('reveal', 'close');" translate>Cancel</button>
+		<button class="button" ng-click="exercise.resetExercise()" translate>Continue</button>
 	</div>
 
 	<a class="close-reveal-modal">&#215;</a>

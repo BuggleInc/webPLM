@@ -1,0 +1,213 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: webPLM\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: public/app/components/lesson-overview.directive.html:13
+msgid "A graph representing your progress will be displayed here."
+msgstr ""
+"Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon "
+"choisie."
+
+#: public/app/components/instructions.directive.html:4
+msgid "API"
+msgstr "API"
+
+#: public/app/components/application-header.directive.html:16
+msgid "About"
+msgstr "À propos"
+
+#: public/app/components/select-lang.directive.html:11
+msgid "Application restart needed"
+msgstr "Redémarrage de l'application requis"
+
+#: public/app/components/reset-exercise.directive.html:7
+msgid "Cancel"
+msgstr "Annuler"
+
+#: public/app/components/switch-exercise.directive.html:3
+msgid "Choose an exercise:"
+msgstr "Choisir un exercice:"
+
+#: public/app/components/application-header.directive.html:17
+msgid "Contact"
+msgstr "Nous contacter"
+
+#: public/app/components/reset-exercise.directive.html:8
+#: public/app/components/select-lang.directive.html:15
+msgid "Continue"
+msgstr "Continuer"
+
+#: public/app/components/instructions.directive.html:5
+msgid "Controls"
+msgstr "Contrôles"
+
+#: public/app/components/ide.directive.html:8
+msgid "Demo"
+msgstr "Démo"
+
+#: public/app/components/lesson-overview.directive.html:4
+msgid "Description of the lesson"
+msgstr "Description de la leçon"
+
+#: public/app/components/success-modal.directive.html:5
+msgid "Do you want to try the next one?"
+msgstr "Voulez-vous tenter l'exercice suivant?"
+
+#: public/app/components/instructions.directive.html:18
+msgid "Execution speed:"
+msgstr "Vitesse d'exécution:"
+
+#: public/app/components/switch-exercise.directive.html:1
+msgid "Exercises"
+msgstr "Exercices"
+
+#: public/app/components/application-header.directive.html:23
+msgid "Home"
+msgstr "Accueil"
+
+#: public/app/components/select-lang.directive.html:12
+msgid ""
+"In order to take into account this change, <strong>the application need to "
+"restart.</strong> Do you still want to proceed?"
+msgstr ""
+"Afin de prendre en compte ce changement, <strong>, l'application a besoin de "
+"redémarrer.</strong> Voulez-vous continuer?"
+
+#: public/app/components/instructions.directive.html:3
+msgid "Instructions"
+msgstr "Consignes"
+
+#: public/app/components/results.directive.html:5
+msgid "Logs"
+msgstr "Logs"
+
+#: public/app/components/application-header.directive.html:9
+msgid "Menu"
+msgstr "Menu"
+
+#: public/app/components/results.directive.html:23
+msgid "No error logs yet... Congratulations!"
+msgstr "Pas de messages d'erreurs pour le moment...Félicitations!"
+
+#: public/app/components/results.directive.html:17
+msgid "No results yet, please run your program before."
+msgstr ""
+"Pas de résultats pour le moment, veuillez exécuter votre programme au "
+"préalable."
+
+#: public/app/components/success-modal.directive.html:7
+msgid "Not yet"
+msgstr "Pas encore"
+
+#: public/app/components/tabs-current-world.directive.html:7
+msgid "Objective"
+msgstr "Objectif"
+
+#: public/app/components/instructions.directive.html:16
+msgid "Player's options"
+msgstr "Options du lecteur"
+
+#: public/app/components/results.directive.html:4
+msgid "Program steps"
+msgstr "Étapes du programme"
+
+#: public/app/components/reset-exercise.directive.html:1
+msgid "Reset"
+msgstr "Reset"
+
+#: public/app/components/results.directive.html:3
+msgid "Result"
+msgstr "Résultat"
+
+#: public/app/components/lesson-overview.directive.html:11
+msgid "Resume"
+msgstr "Reprendre"
+
+#: public/app/components/reset-exercise.directive.html:5
+msgid ""
+"Reverting this exercise will erase all your work and cannot be undone. Are "
+"you sure that you want to proceed?"
+msgstr ""
+"Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
+"irrécupérable. Êtes-vous sûr de vouloir continuer?"
+
+#: public/app/components/ide.directive.html:6
+msgid "Run"
+msgstr "Exécuter"
+
+#: public/app/components/ide.directive.html:7
+msgid "Stop"
+msgstr "Stop"
+
+#: public/app/components/success-modal.directive.html:3
+msgid "Success \\o/"
+msgstr "Exercice réussi \\o/"
+
+#: public/app/components/switch-exercise.directive.html:24
+msgid "Switch to"
+msgstr "Sélectionner"
+
+#: public/app/components/lesson-overview.directive.html:5
+msgid "The description of the selected lesson will be displayed here."
+msgstr ""
+"C'est ici que s'affichera la description de la leçon que vous aurez choisie."
+
+#: public/app/components/results.directive.html:11
+msgid "The different steps of your program's execution will be displayed here."
+msgstr ""
+"Les différents étapes de l'exécution de votre programme seront affichées ici."
+
+#: public/app/components/worlds-view.directive.html:4
+msgid ""
+"The scene takes place in one or many worlds, depending of the exercise. Each "
+"world represents a different configuration but don't forget that your "
+"program have to work for each one ;-)"
+msgstr ""
+"L'action se déroule dans un ou plusieurs mondes, selon l'exercice en cours. "
+"Chaque monde représente une configuration différente, n'oublie pas que ton "
+"programme doit fonctionner pour chacune d'entre elles ;-)"
+
+#: public/app/components/world-non-implemented.directive.html:1
+msgid ""
+"This exercise's world view is not yet implemented. If you still want to pass "
+"this exercise, you only have at your disposition the instructions, the API "
+"and the results of your program's execution to understand the problem and "
+"solve it. You can also download and use the previous version of PLM <a href="
+"\"http://webloria.loria.fr/~quinson/Teaching/PLM/\">here</a> to do this "
+"exercise.<a class=\"close\">&times;</a>"
+msgstr ""
+"La représentation du monde de cet exercice n'est pas encore implémentée. Si "
+"tu veux tout de me faire cet exercice, tu n'as à ta disposition que les "
+"consignes, l'API du monde et le résultat retourné après l'exécution de ton "
+"programme pour comprendre le problème et le résoudre. Tu peux aussi "
+"télécharger et utiliser la version précédente de PLM "
+
+#: public/app/components/reset-exercise.directive.html:3
+msgid "Warning!"
+msgstr "Attention!"
+
+#: public/app/home/home.html:2
+msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
+msgstr "Bienvenue dans PLM, <small>l'exerciseur du programmeur</small>"
+
+#: public/app/components/tabs-current-world.directive.html:4
+msgid "World"
+msgstr "Monde"
+
+#: public/app/components/success-modal.directive.html:8
+msgid "Yes, sure"
+msgstr " Bien sûr"
+
+#: public/app/components/lesson-overview.directive.html:9
+msgid "Your progress"
+msgstr "Votre progression"

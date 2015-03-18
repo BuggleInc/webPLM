@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: public/app/components/lesson-overview.directive.html:13
+msgid "A graph representing your progress will be displayed here."
+msgstr ""
+
+#: public/app/components/instructions.directive.html:4
+msgid "API"
+msgstr ""
+
+#: public/app/components/application-header.directive.html:16
+msgid "About"
+msgstr ""
+
+#: public/app/components/select-lang.directive.html:11
+msgid "Application restart needed"
+msgstr ""
+
+#: public/app/components/reset-exercise.directive.html:7
+msgid "Cancel"
+msgstr ""
+
+#: public/app/components/switch-exercise.directive.html:3
+msgid "Choose an exercise:"
+msgstr ""
+
+#: public/app/components/application-header.directive.html:17
+msgid "Contact"
+msgstr ""
+
+#: public/app/components/reset-exercise.directive.html:8
+#: public/app/components/select-lang.directive.html:15
+msgid "Continue"
+msgstr ""
+
+#: public/app/components/instructions.directive.html:5
+msgid "Controls"
+msgstr ""
+
+#: public/app/components/ide.directive.html:8
+msgid "Demo"
+msgstr ""
+
+#: public/app/components/lesson-overview.directive.html:4
+msgid "Description of the lesson"
+msgstr ""
+
+#: public/app/components/success-modal.directive.html:5
+msgid "Do you want to try the next one?"
+msgstr ""
+
+#: public/app/components/instructions.directive.html:18
+msgid "Execution speed:"
+msgstr ""
+
+#: public/app/components/switch-exercise.directive.html:1
+msgid "Exercises"
+msgstr ""
+
+#: public/app/components/application-header.directive.html:23
+msgid "Home"
+msgstr ""
+
+#: public/app/components/select-lang.directive.html:12
+msgid "In order to take into account this change, <strong>the application need to restart.</strong> Do you still want to proceed?"
+msgstr ""
+
+#: public/app/components/instructions.directive.html:3
+msgid "Instructions"
+msgstr ""
+
+#: public/app/components/results.directive.html:5
+msgid "Logs"
+msgstr ""
+
+#: public/app/components/application-header.directive.html:9
+msgid "Menu"
+msgstr ""
+
+#: public/app/components/results.directive.html:23
+msgid "No error logs yet... Congratulations!"
+msgstr ""
+
+#: public/app/components/results.directive.html:17
+msgid "No results yet, please run your program before."
+msgstr ""
+
+#: public/app/components/success-modal.directive.html:7
+msgid "Not yet"
+msgstr ""
+
+#: public/app/components/tabs-current-world.directive.html:7
+msgid "Objective"
+msgstr ""
+
+#: public/app/components/instructions.directive.html:16
+msgid "Player's options"
+msgstr ""
+
+#: public/app/components/results.directive.html:4
+msgid "Program steps"
+msgstr ""
+
+#: public/app/components/reset-exercise.directive.html:1
+msgid "Reset"
+msgstr ""
+
+#: public/app/components/results.directive.html:3
+msgid "Result"
+msgstr ""
+
+#: public/app/components/lesson-overview.directive.html:11
+msgid "Resume"
+msgstr ""
+
+#: public/app/components/reset-exercise.directive.html:5
+msgid "Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?"
+msgstr ""
+
+#: public/app/components/ide.directive.html:6
+msgid "Run"
+msgstr ""
+
+#: public/app/components/ide.directive.html:7
+msgid "Stop"
+msgstr ""
+
+#: public/app/components/success-modal.directive.html:3
+msgid "Success \\o/"
+msgstr ""
+
+#: public/app/components/switch-exercise.directive.html:24
+msgid "Switch to"
+msgstr ""
+
+#: public/app/components/lesson-overview.directive.html:5
+msgid "The description of the selected lesson will be displayed here."
+msgstr ""
+
+#: public/app/components/results.directive.html:11
+msgid "The different steps of your program's execution will be displayed here."
+msgstr ""
+
+#: public/app/components/worlds-view.directive.html:4
+msgid "The scene takes place in one or many worlds, depending of the exercise. Each world represents a different configuration but don't forget that your program have to work for each one ;-)"
+msgstr ""
+
+#: public/app/components/world-non-implemented.directive.html:1
+msgid "This exercise's world view is not yet implemented. If you still want to pass this exercise, you only have at your disposition the instructions, the API and the results of your program's execution to understand the problem and solve it. You can also download and use the previous version of PLM <a href=\"http://webloria.loria.fr/~quinson/Teaching/PLM/\">here</a> to do this exercise.<a class=\"close\">&times;</a>"
+msgstr ""
+
+#: public/app/components/reset-exercise.directive.html:3
+msgid "Warning!"
+msgstr ""
+
+#: public/app/home/home.html:2
+msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
+msgstr ""
+
+#: public/app/components/tabs-current-world.directive.html:4
+msgid "World"
+msgstr ""
+
+#: public/app/components/success-modal.directive.html:8
+msgid "Yes, sure"
+msgstr ""
+
+#: public/app/components/lesson-overview.directive.html:9
+msgid "Your progress"
+msgstr ""

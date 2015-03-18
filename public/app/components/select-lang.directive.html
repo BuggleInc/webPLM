@@ -8,11 +8,11 @@
 </ul>
 
 <div id="restartServerModal" class="reveal-modal" data-reveal=true>
-  <h2>Application restart needed</h2>
-  <p class="lead">In order to take into account this change, <strong>the application need to restart.</strong> Do you still want to proceed?</p>
+  <h2 translate>Application restart needed</h2>
+  <p class="lead" translate>In order to take into account this change, <strong>the application need to restart.</strong> Do you still want to proceed?</p>
   <span class="center">
   	<button class="secondary" onclick="$('#restartServerModal').foundation('reveal', 'close');" ng-click="langs.temp = null;">Cancel</button>
-  	<button onclick="$('#restartServerModal').foundation('reveal', 'close');" ng-click="langs.setSelectedLang(langs.temp); langs.temp = null;">Continue</button>
+  	<button onclick="$('#restartServerModal').foundation('reveal', 'close');" ng-click="langs.setSelectedLang(langs.temp); langs.temp = null;" translate>Continue</button>
   </span>
   
   <a class="close-reveal-modal">&#215;</a>

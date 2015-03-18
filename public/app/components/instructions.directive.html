@@ -1,8 +1,8 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.displayInstructions = 'instructions'"><a>Instructions</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.displayInstructions = 'api'"><a>API</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.displayInstructions = 'controls'"><a>Controls</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.displayInstructions = 'instructions'"><a translate>Instructions</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.displayInstructions = 'api'"><a translate>API</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.displayInstructions = 'controls'"><a translate>Controls</a></dd>
 		<span class="button secondary mini right" ng-click="exercise.resizeInstructions();">
 			<i ng-show="!exercise.instructionsIsFullScreen" class="fi-arrows-expand"></i>
 			<i ng-show="exercise.instructionsIsFullScreen" class="fi-arrows-compress"></i>
@@ -13,9 +13,9 @@
 	<div ng-show="exercise.displayInstructions === 'instructions'" ng-bind-html="exercise.instructions"></div>
 	<div ng-show="exercise.displayInstructions === 'api'" ng-bind-html="exercise.api"></div>
 	<div ng-show="exercise.displayInstructions === 'controls'">
-		<h2>Player's options</h2>
+		<h2 translate>Player's options</h2>
 		<div class="small-5 columns">
-			<label for="executionSpeed" class="left"><strong>Execution speed:</strong></label>
+			<label for="executionSpeed" class="left"><strong translate>Execution speed:</strong></label>
 		</div>
 		<div class="small-7 columns">
 			<input class="left" type="range" id="executionSpeed" ng-model="exercise.timer" ng-change="exercise.updateSpeed()" max="3000" min="40"/>
