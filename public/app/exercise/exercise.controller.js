@@ -30,6 +30,8 @@
 		exercise.result = '';
 		exercise.logs = '';
 		
+		exercise.nonImplementedWorldException = false;
+
 		exercise.initialWorlds = {};
 		exercise.answerWorlds = {};
 		exercise.currentWorlds = {};
@@ -140,9 +142,11 @@
 			exercise.currentWorldID = data.selectedWorldID;
 
 			if(data.exception === 'nonImplementedWorldException') {
+				exercise.nonImplementedWorldException = true;
 				console.log('Je ne plante pas ;)');
 			}
-			else {
+
+			if(!exercise.nonImplementedWorldException) {
 				for(var worldID in data.initialWorlds) {
 					if(data.initialWorlds.hasOwnProperty(worldID)) {
 						exercise.initialWorlds[worldID] = {};

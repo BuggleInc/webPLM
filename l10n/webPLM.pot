@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-17 11:27+0100\n"
+"POT-Creation-Date: 2015-03-18 09:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,6 +354,34 @@ msgstr ""
 #: public/app/components/tabs-current-world.directive.html:7
 #, no-wrap
 msgid "Objective"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/world-non-implemented.directive.html:1
+#, no-wrap
+msgid ""
+"This exercise's world view is not yet implemented. If you still want to pass "
+"this exercise, you only have at your disposition the instructions, the API "
+"and the results of your program's execution to understand the problem and "
+"solve it. You can also download and use the previous version of PLM "
+msgstr ""
+
+#. type: Content of: <div><a>
+#: public/app/components/world-non-implemented.directive.html:1
+#, no-wrap
+msgid "here"
+msgstr ""
+
+#. type: Content of: <div>
+#: public/app/components/world-non-implemented.directive.html:1
+#, no-wrap
+msgid " to do this exercise."
+msgstr ""
+
+#. type: Content of: <div><a>
+#: public/app/components/world-non-implemented.directive.html:1
+#, no-wrap
+msgid "&times;"
 msgstr ""
 
 #. type: Attribute 'title' of: <div><div><span><strong>
