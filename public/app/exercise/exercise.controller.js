@@ -6,10 +6,10 @@
 		.controller('Exercise', Exercise);
 	
 	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
-	'listenersHandler', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
+	'listenersHandler', 'langs', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
-		listenersHandler, canvas, exercisesList, DefaultColors, OutcomeKind, BuggleWorld) {
+		listenersHandler, langs, canvas, exercisesList, DefaultColors, OutcomeKind, BuggleWorld) {
 
 		var exercise = this;
 		
@@ -93,8 +93,13 @@
 			}
 			connection.sendMessage('getExercise', args);
 		}
+
+		function getTranslatedInstructions() {
+			connection.sendMessage('getTranslatedInstructions', {});
+		}
 		
 		$scope.$on('exercisesListReady', initExerciseSelector);
+		$scope.$on('newLangSelected', getTranslatedInstructions);
 
 		var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
 		getExercise();
@@ -106,6 +111,9 @@
 			switch(cmd) {
 				case 'exercise': 
 					setExercise(args.exercise);
+					break;
+				case 'translatedInstructions':
+					updateInstructions(args.instructions);
 					break;
 				case 'executionResult': 
 					displayResult(args.msgType, args.msg);
@@ -144,7 +152,6 @@
 
 			if(data.exception === 'nonImplementedWorldException') {
 				exercise.nonImplementedWorldException = true;
-				console.log('Je ne plante pas ;)');
 			}
 
 			if(!exercise.nonImplementedWorldException) {
@@ -191,6 +198,10 @@
 			exercise.logs = '';
 
 			exercisesList.setCurrentLessonID(exercise.lessonID);
+		}
+
+		function updateInstructions(instructions) {
+			exercise.instructions = $sce.trustAsHtml(instructions);
 		}
 		
 		function setCurrentWorld(worldKind) {

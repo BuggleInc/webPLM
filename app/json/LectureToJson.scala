@@ -40,4 +40,10 @@ object LectureToJson {
 
     return json
   }
+
+  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage): JsValue = {    
+    return Json.obj(
+      "instructions" -> lecture.getMission(progLang)
+    )
+  }
 }

@@ -33,7 +33,6 @@ object PLMActor {
 class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
-  PLM.setLang(preferredLang) // Set the language before Game instanciation
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, PLM.game)
   PLM.game.addGameStateListener(resultSpy)
   var registeredSpies: List[ExecutionSpy] = List()
@@ -61,6 +60,15 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case _ =>
               LoggerUtils.debug("getExercise: non-correct JSON")
           }
+        case "setLang" =>
+          var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
+          (optLang.getOrElse(None)) match {
+            case lang: String =>
+              PLM.setLang(Lang(lang))
+              sendMessage("langSet", Json.obj())
+            case _ =>
+              LoggerUtils.debug("getExercise: non-correct JSON")
+          }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
@@ -80,6 +88,8 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
               "exercise" -> LectureToJson.lectureWrites(lecture, PLM.programmingLanguage, PLM.getStudentCode, PLM.getInitialWorlds, PLM.getSelectedWorldID)
             ))
           }
+        case "getTranslatedInstructions" =>
+          sendMessage("translatedInstructions", LectureToJson.instructionsWrite(PLM.currentExercise, PLM.programmingLanguage))
         case "runExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

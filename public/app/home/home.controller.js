@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.controller('Home', Home);
 	
-	Home.$inject = ['$http', '$scope', '$location', '$sce', 'connection', 'listenersHandler'];
+	Home.$inject = ['$http', '$scope', '$location', '$sce', 'langs', 'connection', 'listenersHandler'];
 	
-	function Home($http, $scope, $location, $sce, connection, listenersHandler) {
+	function Home($http, $scope, $location, $sce, langs, connection, listenersHandler) {
 	    var home = this;
 			    
 		home.lessons = [];
@@ -20,7 +20,9 @@
 	    home.goToLesson = goToLesson;
 
 	    var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
-	    
+
+	    $scope.$on('newLangSelected', updateLessons);
+
 	    getLessons();
 	    
 	    function handleMessage(data) {
@@ -30,23 +32,25 @@
 	    	console.log('message received: ', data);
 	    	switch(cmd) {
 	    		case 'lessons': 
+	    		case 'updateLessons':
 	    			setLessons(args.lessons);
 	    			break;
 	    	}
 	    }
-	    
+
 	    function getLessons() {
 	    	connection.sendMessage('getLessons', null);
 	    }
-	    
+
 	    function setLessons(lessons) {
 	    	home.lessons = lessons.map(function (lesson) {
 	    	  lesson.description = $sce.trustAsHtml(lesson.description);
 	    	  return lesson;
 	    	});
+	    	home.currentLesson = null;
 	    	console.log('updated home.lessons: ', home.lessons);
 	    }
-	    
+
 	    function setCurrentLesson (lesson) {
 	    	home.currentLesson = lesson;
 	    }

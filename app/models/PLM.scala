@@ -69,7 +69,7 @@ object PLM {
   
   def revertExercise(): Lecture = {
     game.revertExo
-    return game.getCurrentLesson.getCurrentExercise
+    return _currentExercise
   }
 
   def getSelectedWorldID(): String = {
@@ -85,23 +85,18 @@ object PLM {
   }
   
   def getInitialWorlds(): Array[World] = {
-    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]())
+    _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]())
   }
   
   
   def runExercise(lessonID: String, exerciseID: String, code: String) {
-    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
-    
     LoggerUtils.debug("Code:\n"+code)
     
-    exo.getSourceFile(programmingLanguage, 0).setBody(code)
+    _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     game.startExerciseExecution()
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
-    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
-        
     game.startExerciseDemoExecution()
   }
   
@@ -116,7 +111,7 @@ object PLM {
   }
   
   def getStudentCode: String = {
-    return game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise].getSourceFile(programmingLanguage, 0).getBody;
+    return _currentExercise.getSourceFile(programmingLanguage, 0).getBody;
   }
   
   def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
@@ -128,9 +123,11 @@ object PLM {
   }
 
   def setLang(lang: Lang) {
-	if(_currentLang != lang) {
-		_currentLang = lang
-		game.setLocale(_currentLang.toLocale)
-	}
+  	if(_currentLang != lang) {
+  		_currentLang = lang
+  		game.setLocale(_currentLang.toLocale)
+  	}
   }
+
+  def currentExercise: Exercise = _currentExercise
 }

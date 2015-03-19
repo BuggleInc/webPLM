@@ -31,7 +31,15 @@
 					setSelectedLang(args.selected);
 					updateAvailableLangs(args.availables);
 					break;
+				case 'langSet':
+					broadcastLangSet();
+					break;
 			}
+		}
+
+		function broadcastLangSet() {
+			console.log('On va broadcast newLangSelected');
+			$rootScope.$broadcast('newLangSelected');
 		}
 
 		function updateAvailableLangs(availables) {
@@ -51,7 +59,7 @@
 			$cookies.lang = lang.code;
 			selectedLang = lang;
 			gettextCatalog.setCurrentLanguage(lang.code);
-			$rootScope.$broadcast('newLangSelected');
+			connection.sendMessage('setLang', { "lang": lang.code });
 		}
 	}
 })();
