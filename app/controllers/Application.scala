@@ -47,27 +47,6 @@ object Application extends Controller {
     }
     return cookieLangCode
   }
-  
-  def pathToTranslatedAsset(file: String) = Action { implicit request =>
-    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
-    var cookieLangCode: String = getCookieLangCode(request)
-    var cookieToDiscard: DiscardingCookie = null;
-    
-    if(langIsAvailable(cookieLangCode)) {
-      preferredLang = Lang(cookieLangCode)
-    }
-    else {
-      cookieToDiscard = DiscardingCookie("lang")
-    }
-    
-    var actualPath = "/assets/"+preferredLang.code+"/"+file+".html"
-    if(cookieToDiscard != null) {
-      Redirect(actualPath).discardingCookies(cookieToDiscard) 
-    }
-    else {
-      Redirect(actualPath)
-    }
-  }
 
   def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
     var preferredLang: Lang = Lang.preferred(request.acceptLanguages)

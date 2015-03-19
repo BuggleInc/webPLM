@@ -10,7 +10,9 @@
 			restrict: 'E',
 			templateUrl: '/assets/app/components/world-non-implemented.directive.html',
 			link: function (scope, element, attrs) {
-				$(document).foundation('alert', 'reflow');
+				scope.$on('newLangSelected', function () {
+					$(document).foundation('alert', 'reflow');
+				});
 			}
 		};
 	}

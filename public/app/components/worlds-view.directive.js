@@ -10,7 +10,9 @@
 			restrict: 'E',
 			templateUrl: '/assets/app/components/worlds-view.directive.html',
 			link: function (scope, element, attrs) {
-				$(document).foundation('tooltip', 'reflow');
+				scope.$on('newLangSelected', function () {
+					$(document).foundation('tooltip', 'reflow');
+				});
 			}
 		};
 	}

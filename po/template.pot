@@ -125,6 +125,10 @@ msgstr ""
 msgid "Run"
 msgstr ""
 
+#: public/app/components/worlds-view.directive.html:4
+msgid "Selected world:"
+msgstr ""
+
 #: public/app/components/ide.directive.html:7
 msgid "Stop"
 msgstr ""

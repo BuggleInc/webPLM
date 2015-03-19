@@ -80,7 +80,7 @@ msgid ""
 "In order to take into account this change, <strong>the application need to "
 "restart.</strong> Do you still want to proceed?"
 msgstr ""
-"Afin de prendre en compte ce changement, <strong>, l'application a besoin de "
+"Afin de prendre en compte ce changement, <strong>l'application a besoin de "
 "redémarrer.</strong> Voulez-vous continuer?"
 
 #: public/app/components/instructions.directive.html:3
@@ -145,6 +145,10 @@ msgstr ""
 msgid "Run"
 msgstr "Exécuter"
 
+#: public/app/components/worlds-view.directive.html:4
+msgid "Selected world:"
+msgstr "Monde sélectionné:"
+
 #: public/app/components/ide.directive.html:7
 msgid "Stop"
 msgstr "Stop"
@@ -187,10 +191,12 @@ msgid ""
 "exercise.<a class=\"close\">&times;</a>"
 msgstr ""
 "La représentation du monde de cet exercice n'est pas encore implémentée. Si "
-"tu veux tout de me faire cet exercice, tu n'as à ta disposition que les "
+"tu veux tout de même faire cet exercice, tu n'as à ta disposition que les "
 "consignes, l'API du monde et le résultat retourné après l'exécution de ton "
 "programme pour comprendre le problème et le résoudre. Tu peux aussi "
-"télécharger et utiliser la version précédente de PLM "
+"télécharger et utiliser la version précédente de PLM <a href=\"http://"
+"webloria.loria.fr/~quinson/Teaching/PLM/\">ici</a> pour faire cet exercice."
+"<a class=\"close\">&times;</a>"
 
 #: public/app/components/reset-exercise.directive.html:3
 msgid "Warning!"

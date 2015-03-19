@@ -12,8 +12,6 @@ GET		/specRunner											controllers.Application.specRunner()
 # Websocket
 GET     /websocket                                          controllers.Application.socket
 
-GET		/assets/en/*file									controllers.Assets.at(path="/public/app", file)
-GET		/assets/app/*file.html								controllers.Application.pathToTranslatedAsset(file: String)
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
 GET     /lessons/*file                                      controllers.Assets.at(path="/lessons", file)

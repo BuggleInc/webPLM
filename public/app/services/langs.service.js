@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.factory('langs', langs);
 	
-	langs.$inject = ['$rootScope', '$cookies', 'listenersHandler', 'connection'];
+	langs.$inject = ['$rootScope', '$cookies', 'gettextCatalog', 'listenersHandler', 'connection'];
 
-	function langs ($rootScope, $cookies, listenersHandler, connection) {
+	function langs ($rootScope, $cookies, gettextCatalog, listenersHandler, connection) {
 		var availableLangs = [];
 		var selectedLang = $cookies.lang;
 
@@ -49,7 +49,9 @@
 
 		function setSelectedLang (lang) {
 			$cookies.lang = lang.code;
-			selectedLang = lang;			
+			selectedLang = lang;
+			gettextCatalog.setCurrentLanguage(lang.code);
+			$rootScope.$broadcast('newLangSelected');
 		}
 	}
 })();
