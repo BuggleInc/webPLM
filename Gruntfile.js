@@ -29,7 +29,8 @@ module.exports = function(grunt) {
             'public/javascripts/angular-ui-router.min.js',
             'public/javascripts/angular-ui-codemirror/ui-codemirror.js',
             'public/javascripts/angular-locker.min.js',
-            'public/javascripts/angular-mocks.js'
+            'public/javascripts/angular-mocks.js',
+            'public/javascripts/angular-gettext/dist/angular-gettext.js'
           ],
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'
         }
