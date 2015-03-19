@@ -46,7 +46,8 @@
 		exercise.timer = locker.get('timer');
 
 		exercise.currentState = -1;
-		
+		exercise.lastStateDrawn = -1;
+
 		exercise.currentProgrammingLanguage = null;
 		exercise.programmingLanguages = [];
 
@@ -212,6 +213,7 @@
 		}
 		
 		function runDemo() {
+			exercise.updateViewLoop = null;
 			exercise.isPlaying = true;
 			setCurrentWorld('answer');
 			if(!exercise.playedDemo) {
@@ -232,6 +234,7 @@
 		function runCode() {
 			var args;
 
+			exercise.updateViewLoop = null;
 			exercise.isPlaying = true;
 			exercise.worldIDs.map(function(key) {
 				reset(key, 'current', false);
@@ -279,14 +282,16 @@
 				exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
 				canvas.setWorld(exercise.currentWorld);
 			}
+
+			exercise.lastStateDrawn = -1;
 			
 			clearTimeout(exercise.updateViewLoop);
 			exercise.isPlaying = false;
 		}
 		
 		function replay() {
-			exercise.isPlaying = true;
 			reset(exercise.currentWorldID, exercise.worldKind, true);
+			exercise.isPlaying = true;
 			startUpdateModelLoop();
 			startUpdateViewLoop();
 		}
@@ -295,6 +300,7 @@
 			var world = exercise[worldKind+'Worlds'][worldID];
 			world.addOperations(operations);
 			if(exercise.updateViewLoop === null) {
+				exercise.isPlaying = true;
 				startUpdateModelLoop();
 				startUpdateViewLoop();
 			}
@@ -312,33 +318,38 @@
 				exercise.currentState = currentState;
 			}
 			if(!exercise.isRunning && currentState === nbStates){
-				exercise.updateViewLoop = null;
+				exercise.updateModelLoop = null;
 				exercise.isPlaying = false;
 			}
 			else {
 				exercise.updateModelLoop = setTimeout(updateModel, exercise.timer);
 			}
-			$scope.$apply(); // Have to add this line to force AngularJS to update the view
 		}
 
 		function startUpdateViewLoop() {
-			exercise.updateViewLoop = setInterval(updateView, 1/24);
+			exercise.updateViewLoop = setInterval(updateView, 1/10);
 		}
 		
 		function updateView() {
-			var currentState = exercise.currentWorld.currentState;
-			var nbStates = exercise.currentWorld.operations.length-1;
-
-			canvas.update();
-
-			if(!exercise.isRunning && currentState === nbStates){
-				clearInterval(exercise.updateViewLoop);
-				exercise.isPlaying = false;
+			if(exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
+				canvas.update();
+				exercise.lastStateDrawn	= exercise.currentWorld.currentState;
 			}
 			$scope.$apply(); // Have to add this line to force AngularJS to update the view
+
+			if(!exercise.isPlaying){
+				clearInterval(exercise.updateViewLoop);
+			}
 		}
 		
 		function setWorldState(state) {
+			if(exercise.updateModelLoop !== null) {
+				clearTimeout(exercise.updateModelLoop);
+			}
+			if(exercise.updateViewLoop !== null) {
+				clearInterval(exercise.updateViewLoop);
+			}
+			exercise.isPlaying = false;
 			state = parseInt(state);
 			exercise.currentWorld.setState(state);
 			exercise.currentState = state;

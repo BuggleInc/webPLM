@@ -21,7 +21,7 @@
 
 	    var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 
-	    $scope.$on('newLangSelected', updateLessons);
+	    $scope.$on('newLangSelected', getLessons);
 
 	    getLessons();
 	    
