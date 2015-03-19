@@ -26,10 +26,6 @@ msgstr "API"
 msgid "About"
 msgstr "À propos"
 
-#: public/app/components/select-lang.directive.html:11
-msgid "Application restart needed"
-msgstr "Redémarrage de l'application requis"
-
 #: public/app/components/reset-exercise.directive.html:7
 msgid "Cancel"
 msgstr "Annuler"
@@ -43,7 +39,6 @@ msgid "Contact"
 msgstr "Nous contacter"
 
 #: public/app/components/reset-exercise.directive.html:8
-#: public/app/components/select-lang.directive.html:15
 msgid "Continue"
 msgstr "Continuer"
 
@@ -74,14 +69,6 @@ msgstr "Exercices"
 #: public/app/components/application-header.directive.html:23
 msgid "Home"
 msgstr "Accueil"
-
-#: public/app/components/select-lang.directive.html:12
-msgid ""
-"In order to take into account this change, <strong>the application need to "
-"restart.</strong> Do you still want to proceed?"
-msgstr ""
-"Afin de prendre en compte ce changement, <strong>l'application a besoin de "
-"redémarrer.</strong> Voulez-vous continuer?"
 
 #: public/app/components/instructions.directive.html:3
 msgid "Instructions"
@@ -217,3 +204,13 @@ msgstr " Bien sûr"
 #: public/app/components/lesson-overview.directive.html:9
 msgid "Your progress"
 msgstr "Votre progression"
+
+#~ msgid "Application restart needed"
+#~ msgstr "Redémarrage de l'application requis"
+
+#~ msgid ""
+#~ "In order to take into account this change, <strong>the application need "
+#~ "to restart.</strong> Do you still want to proceed?"
+#~ msgstr ""
+#~ "Afin de prendre en compte ce changement, <strong>l'application a besoin "
+#~ "de redémarrer.</strong> Voulez-vous continuer?"
