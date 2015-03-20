@@ -41,9 +41,10 @@ object LectureToJson {
     return json
   }
 
-  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage): JsValue = {    
+  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {    
     return Json.obj(
-      "instructions" -> lecture.getMission(progLang)
+      "instructions" -> lecture.getMission(progLang),
+      "api" -> initialWorlds.head.getAbout
     )
   }
 }

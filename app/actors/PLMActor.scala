@@ -55,7 +55,8 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case programmingLanguage: String =>
               PLM.setProgrammingLanguage(programmingLanguage)
               sendMessage("programmingLanguageSet", Json.obj(
-                "code" -> PLM.getStudentCode    
+                "instructions" -> PLM.currentExercise.getMission(PLM.programmingLanguage),
+                "code" -> PLM.getStudentCode
               ))
             case _ =>
               LoggerUtils.debug("getExercise: non-correct JSON")
@@ -89,7 +90,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             ))
           }
         case "getTranslatedInstructions" =>
-          sendMessage("translatedInstructions", LectureToJson.instructionsWrite(PLM.currentExercise, PLM.programmingLanguage))
+          sendMessage("translatedInstructions", LectureToJson.instructionsWrite(PLM.currentExercise, PLM.programmingLanguage, PLM.getInitialWorlds))
         case "runExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

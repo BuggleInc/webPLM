@@ -114,7 +114,7 @@
 					setExercise(args.exercise);
 					break;
 				case 'translatedInstructions':
-					updateInstructions(args.instructions);
+					updateInstructions(args.instructions, args.api);
 					break;
 				case 'executionResult': 
 					displayResult(args.msgType, args.msg);
@@ -134,6 +134,7 @@
 					exercise.logs += args.msg;
 					break;
 				case 'programmingLanguageSet':
+					exercise.instructions = $sce.trustAsHtml(args.instructions);
 					exercise.code = args.code;
 					exercise.isChangingProgLang = false;
 					break;
@@ -201,8 +202,9 @@
 			exercisesList.setCurrentLessonID(exercise.lessonID);
 		}
 
-		function updateInstructions(instructions) {
+		function updateInstructions(instructions, api) {
 			exercise.instructions = $sce.trustAsHtml(instructions);
+			exercise.api = $sce.trustAsHtml(api);
 		}
 		
 		function setCurrentWorld(worldKind) {
