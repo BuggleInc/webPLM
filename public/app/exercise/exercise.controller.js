@@ -181,6 +181,9 @@
 				canvas.init(canvasElt, canvasWidth, canvasHeight);
 
 				setCurrentWorld('current');
+
+				window.addEventListener('resize', resizeCanvas, false);
+				window.addEventListener('resize', resizeCodeMirror, false);
 			}
 
 			exercise.programmingLanguages = data.programmingLanguages;
@@ -452,8 +455,5 @@
 				exercise.worldsViewClass='';
 			}
 		}
-
-		window.addEventListener('resize', resizeCanvas, false);
-		window.addEventListener('resize', resizeCodeMirror, false);
 	}
 })();
