@@ -6,7 +6,7 @@ project/target
 target
 tmp
 .history
-dist
+/dist
 /.idea
 /*.iml
 /out
