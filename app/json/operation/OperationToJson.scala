@@ -3,6 +3,7 @@ package json.operation
 import play.api.libs.json._
 import plm.universe.Operation
 import plm.universe.GridWorldCellOperation
+import plm.universe.bat.BatOperation
 import plm.universe.bugglequest.BuggleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 
@@ -23,6 +24,8 @@ object OperationToJson {
         json = BuggleOperationToJson.buggleOperationWrite(buggleOperation)
       case gridWorldCellOperation: GridWorldCellOperation =>
         json = GridWorldCellOperationToJson.gridWorldCellOperationWrite(gridWorldCellOperation)
+      case batOperation: BatOperation =>
+        json = BatOperationToJson.batOperationWrite(batOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

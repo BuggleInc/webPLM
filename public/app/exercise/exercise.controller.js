@@ -439,10 +439,6 @@
 			$(document).foundation('equalizer', 'reflow');
 		}
 
-		function reloadApplication() {
-			$window.location.reload();
-		}
-
 		function resizeInstructions() {
 			if(!exercise.instructionsIsFullScreen) {
 				exercise.instructionsIsFullScreen = true;

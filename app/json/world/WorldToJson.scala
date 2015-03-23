@@ -5,6 +5,7 @@ import exceptions.NonImplementedWorldException
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
+import plm.universe.bat.BatWorld
 import plm.universe.Entity
 import json.entity.EntityToJson
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
@@ -24,14 +25,15 @@ object WorldToJson {
     world match {
       case gridWorld: GridWorld =>
         json = GridWorldToJson.gridWorldWrite(gridWorld)
+        var entities = world.getEntities.toArray(Array[Entity]())
+        json = json.as[JsObject] ++ Json.obj(
+            "entities" -> EntityToJson.entitiesWrite(entities)
+        )
+      case batWorld: BatWorld =>
+      	json = BatWorldToJson.batWorlddWrite(batWorld)
       case _ =>
         throw NonImplementedWorldException.create;
     }
-    
-    var entities = world.getEntities.toArray(Array[Entity]())
-    json = json.as[JsObject] ++ Json.obj(
-        "entities" -> EntityToJson.entitiesWrite(entities)
-    )
     
     return Json.obj( 
         world.getName -> json
