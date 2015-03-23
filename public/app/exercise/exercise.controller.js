@@ -6,13 +6,17 @@
 		.controller('Exercise', Exercise);
 	
 	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
-	'listenersHandler', 'langs', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 'BuggleWorld'];
+	'listenersHandler', 'langs', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 
+	'BuggleWorld', 'BatWorld'];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
-		listenersHandler, langs, canvas, exercisesList, DefaultColors, OutcomeKind, BuggleWorld) {
+		listenersHandler, langs, canvas, exercisesList, DefaultColors, OutcomeKind, 
+		BuggleWorld, BatWorld) {
 
 		var exercise = this;
 		
+		var canvasID = 'canvas';
+
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		
@@ -58,8 +62,12 @@
 		exercise.defaultNextExercise = null;
 		exercise.selectedRootLecture = null;
 		exercise.selectedNextExercise = null;
-		
-		exercise.canvasID = 'worldView';
+
+		exercise.drawServiceType = '';
+		exercise.drawService = null;
+		exercise.drawingArea = 'drawingArea';
+
+		exercise.animationPlayerNeeded = false;
 
 		exercise.instructionsIsFullScreen = false;
 		exercise.instructionsClass='';
@@ -142,10 +150,6 @@
 		}
  
 		function setExercise(data) {
-			var canvasElt;
-			var canvasWidth;
-			var canvasHeight;
-
 			exercise.id = data.id;
 			exercise.instructions = $sce.trustAsHtml(data.instructions);
 			exercise.api = $sce.trustAsHtml(data.api);
@@ -165,6 +169,11 @@
 						switch(initialWorld.type) {
 							case 'BuggleWorld':
 								world = new BuggleWorld(initialWorld);
+								initCanvas();
+								exercise.animationPlayerNeeded = true;
+								break;
+							case 'BatWorld':
+								world = new BatWorld(initialWorld);
 								break;
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -175,14 +184,8 @@
 
 				exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-				canvasElt = document.getElementById(exercise.canvasID);
-				canvasWidth = $('#'+exercise.canvasID).parent().width();
-				canvasHeight = canvasWidth;
-				canvas.init(canvasElt, canvasWidth, canvasHeight);
-
 				setCurrentWorld('current');
 
-				window.addEventListener('resize', resizeCanvas, false);
 				window.addEventListener('resize', resizeCodeMirror, false);
 			}
 
@@ -214,7 +217,7 @@
 			exercise.worldKind = worldKind;
 			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
 			exercise.currentState = exercise.currentWorld.currentState;
-			canvas.setWorld(exercise.currentWorld);
+			exercise.drawService.setWorld(exercise.currentWorld);
 		}
 		
 		function runDemo() {
@@ -285,7 +288,7 @@
 			if(worldID === exercise.currentWorldID) {
 				exercise.currentState = -1;
 				exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
-				canvas.setWorld(exercise.currentWorld);
+				exercise.drawService.setWorld(exercise.currentWorld);
 			}
 
 			exercise.lastStateDrawn = -1;
@@ -322,6 +325,8 @@
 				exercise.currentWorld.setState(++currentState);
 				exercise.currentState = currentState;
 			}
+			$scope.$apply(); // Have to add this line to force AngularJS to update the view
+
 			if(!exercise.isRunning && currentState === nbStates){
 				exercise.updateModelLoop = null;
 				exercise.isPlaying = false;
@@ -337,7 +342,7 @@
 		
 		function updateView() {
 			if(exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
-				canvas.update();
+				exercise.drawService.update();
 				exercise.lastStateDrawn	= exercise.currentWorld.currentState;
 			}
 			$scope.$apply(); // Have to add this line to force AngularJS to update the view
@@ -358,7 +363,7 @@
 			state = parseInt(state);
 			exercise.currentWorld.setState(state);
 			exercise.currentState = state;
-			canvas.update();
+			exercise.drawService.update();
 		}
 		
 		function initExerciseSelector() {
@@ -424,17 +429,34 @@
 			offDisplayMessage();
 		});
 
+		function initCanvas() {
+			var canvasElt;
+			var canvasWidth;
+			var canvasHeight;
+
+			exercise.drawServiceType = 'canvas';
+			exercise.drawService = canvas;
+
+			canvasElt = document.getElementById(canvasID);
+			canvasWidth = $('#'+exercise.drawingArea).parent().width();
+			canvasHeight = canvasWidth;
+
+			exercise.drawService.init(canvasElt, canvasWidth, canvasHeight);
+
+			window.addEventListener('resize', resizeCanvas, false);
+		}
+
 		function resizeCanvas() {
-			var canvasWidth = $('#'+exercise.canvasID).parent().width();
+			var canvasWidth = $('#'+exercise.drawingArea).parent().width();
 			var canvasHeight = canvasWidth;
-			canvas.resize(canvasWidth, canvasHeight);
+			exercise.drawService.resize(canvasWidth, canvasHeight);
 			$(document).foundation('equalizer', 'reflow');
 		}
 
 		function resizeCodeMirror() {
-			// Want to keep the IDE's height equals to the canvas' one
-			var canvasHeight = $('#'+exercise.canvasID).parent().width();
-			exercise.editor.setSize(null, canvasHeight);
+			// Want to keep the IDE's height equals to the draw surface's one
+			var drawingAreaHeight = $('#'+exercise.drawingArea).parent().width();
+			exercise.editor.setSize(null, drawingAreaHeight);
 			exercise.editor.refresh();
 			$(document).foundation('equalizer', 'reflow');
 		}

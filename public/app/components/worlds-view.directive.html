@@ -12,9 +12,9 @@
 <div class="row">
 	<div class="small-11 small-centered columns">
 		<tabs-current-world></tabs-current-world>
-		<div class="row">
-			<canvas id="worldView" width="400" height="400"></canvas>
+		<div class="row" id="drawingArea">
+			<canvas ng-show="exercise.drawServiceType === 'canvas'" id="canvas" width="400" height="400"></canvas>
 		</div>
-		<animation-player></animation-player>
+		<animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>
 	</div>
 </div>
