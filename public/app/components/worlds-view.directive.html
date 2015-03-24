@@ -13,6 +13,12 @@
 	<div class="small-11 small-centered columns">
 		<tabs-current-world ng-show="exercise.objectiveViewNeeded"></tabs-current-world>
 		<div class="row" id="drawingArea">
+			<span ng-show="exercise.drawServiceType === 'drawWithDOM'">
+				<br><br><br>
+				<div id="panel" class="panel">
+				</div>
+				<br>
+			</span>
 			<canvas ng-show="exercise.drawServiceType === 'canvas'" id="canvas" width="400" height="400"></canvas>
 		</div>
 		<animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>

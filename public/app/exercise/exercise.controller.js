@@ -15,6 +15,7 @@
 
 		var exercise = this;
 		
+		var panelID = 'panel';
 		var canvasID = 'canvas';
 
 		exercise.lessonID = $stateParams.lessonID;
@@ -454,11 +455,15 @@
 
 		function initDrawWithDOM() {
 			var domElt;
+			var panelWidth;
 
 			exercise.drawServiceType = 'drawWithDOM';
 			exercise.drawService = drawWithDOM;
 
-			domElt = $('#'+exercise.drawingArea);
+			domElt = $('#'+panelID);
+			panelWidth = $('#'+exercise.drawingArea).parent().width();
+			domElt.css('height', panelWidth);
+			domElt.css('overflow-y', 'auto');
 			exercise.drawService.init(domElt, $scope);
 		}
 
