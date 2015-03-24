@@ -29,6 +29,7 @@
 		function init(domElt, otherScope) {
 			drawingArea = domElt;
 			scope = otherScope;
+			content = null;
 		}
 
 		function setWorld (world) {
