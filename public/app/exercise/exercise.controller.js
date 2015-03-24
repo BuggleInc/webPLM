@@ -7,11 +7,11 @@
 	
 	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
 	'listenersHandler', 'langs', 'canvas', 'drawWithDOM', 'exercisesList', 'DefaultColors', 'OutcomeKind', 
-	'BuggleWorld', 'BatWorld'];
+	'BuggleWorld', 'BatWorld', 'BatWorldView'];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
 		listenersHandler, langs, canvas, drawWithDOM, exercisesList, DefaultColors, OutcomeKind, 
-		BuggleWorld, BatWorld) {
+		BuggleWorld, BatWorld, BatWorldView) {
 
 		var exercise = this;
 		
@@ -171,16 +171,17 @@
 						var world;
 						switch(initialWorld.type) {
 							case 'BuggleWorld':
+								exercise.animationPlayerNeeded = true;
 								world = new BuggleWorld(initialWorld);
 								initCanvas();
-								exercise.animationPlayerNeeded = true;
 								break;
 							case 'BatWorld':
-								world = new BatWorld(initialWorld);
 								exercise.demoNeeded = false;
 								exercise.objectiveViewNeeded = false;
 								exercise.animationPlayerNeeded = false;
-								initDrawWithDOM();
+								world = new BatWorld(initialWorld);
+								BatWorldView.setScope($scope);
+								initDrawWithDOM(BatWorldView.draw);
 								break;
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -453,7 +454,7 @@
 			window.addEventListener('resize', resizeCanvas, false);
 		}
 
-		function initDrawWithDOM() {
+		function initDrawWithDOM(draw) {
 			var domElt;
 			var panelWidth;
 
@@ -464,7 +465,8 @@
 			panelWidth = $('#'+exercise.drawingArea).parent().width();
 			domElt.css('height', panelWidth);
 			domElt.css('overflow-y', 'auto');
-			exercise.drawService.init(domElt, $scope);
+
+			drawWithDOM.init(domElt, draw);
 		}
 
 		function resizeCanvas() {
