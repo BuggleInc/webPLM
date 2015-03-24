@@ -9,8 +9,6 @@
 		
 		var BatWorld = function (world) {
 			this.type = world.type;
-			this.batTests = [];
-			this.visibleTests = [];
 
 			this.updateBatTests(world.batTests);
 			this.updateVisibleTests();
@@ -21,6 +19,7 @@
 		};
 
 		BatWorld.prototype.updateBatTests = function (batTests) {
+			this.batTests = [];
 			for(var i=0; i<batTests.length; i++) {
 				var test = batTests[i];
 				this.batTests.push({
@@ -33,17 +32,17 @@
 		}
 
 		BatWorld.prototype.updateVisibleTests = function () {
+			this.visibleTests = [];
 			var foundError = false;
 			for(var i=0; i<this.batTests.length; i++) {
 				var test = this.batTests[i];
-				if(test.visible || !foundError) {
+				if(test.visible || (test.answered && !foundError)) {
 					this.visibleTests.push(test);
 					if(test.answered && !test.correct) {
 						foundError = true;
 					}
 				}
 			}
-			console.log('visibleTests: ', this.visibleTests);
 		};
 		
 		BatWorld.prototype.addOperations = function (operations) {

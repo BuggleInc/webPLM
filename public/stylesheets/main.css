@@ -10,6 +10,14 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.passed {
+	color: green;
+}
+
+.failed {
+	color: red;
+}
+
 .row {
 	position: relative;
 }

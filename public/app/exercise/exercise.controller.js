@@ -6,11 +6,11 @@
 		.controller('Exercise', Exercise);
 	
 	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
-	'listenersHandler', 'langs', 'canvas', 'exercisesList', 'DefaultColors', 'OutcomeKind', 
+	'listenersHandler', 'langs', 'canvas', 'drawWithDOM', 'exercisesList', 'DefaultColors', 'OutcomeKind', 
 	'BuggleWorld', 'BatWorld'];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
-		listenersHandler, langs, canvas, exercisesList, DefaultColors, OutcomeKind, 
+		listenersHandler, langs, canvas, drawWithDOM, exercisesList, DefaultColors, OutcomeKind, 
 		BuggleWorld, BatWorld) {
 
 		var exercise = this;
@@ -67,7 +67,8 @@
 		exercise.drawService = null;
 		exercise.drawingArea = 'drawingArea';
 
-		exercise.animationPlayerNeeded = false;
+		exercise.objectiveViewNeeded = true;
+		exercise.animationPlayerNeeded = true;
 
 		exercise.instructionsIsFullScreen = false;
 		exercise.instructionsClass='';
@@ -174,6 +175,9 @@
 								break;
 							case 'BatWorld':
 								world = new BatWorld(initialWorld);
+								exercise.objectiveViewNeeded = false;
+								exercise.animationPlayerNeeded = false;
+								initDrawWithDOM();
 								break;
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -444,6 +448,16 @@
 			exercise.drawService.init(canvasElt, canvasWidth, canvasHeight);
 
 			window.addEventListener('resize', resizeCanvas, false);
+		}
+
+		function initDrawWithDOM() {
+			var domElt;
+
+			exercise.drawServiceType = 'drawWithDOM';
+			exercise.drawService = drawWithDOM;
+
+			domElt = $('#'+exercise.drawingArea);
+			exercise.drawService.init(domElt, $scope);
 		}
 
 		function resizeCanvas() {
