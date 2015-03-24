@@ -5,7 +5,7 @@
 		&nbsp;
 		<button class="button mini radius" ng-click="exercise.runCode()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang" translate>Run</button>
 		<button class="button mini radius" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning" translate>Stop</button>
-		<button class="button mini radius" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang" translate>Demo</button>
+		<button class="button mini radius" ng-show="exercise.demoNeeded" ng-click="exercise.runDemo()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang" translate>Demo</button>
 	</span>	
 	<span class="right">
 		<reset-exercise></reset-exercise>

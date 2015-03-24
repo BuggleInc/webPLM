@@ -67,6 +67,7 @@
 		exercise.drawService = null;
 		exercise.drawingArea = 'drawingArea';
 
+		exercise.demoNeeded = true;
 		exercise.objectiveViewNeeded = true;
 		exercise.animationPlayerNeeded = true;
 
@@ -175,6 +176,7 @@
 								break;
 							case 'BatWorld':
 								world = new BatWorld(initialWorld);
+								exercise.demoNeeded = false;
 								exercise.objectiveViewNeeded = false;
 								exercise.animationPlayerNeeded = false;
 								initDrawWithDOM();

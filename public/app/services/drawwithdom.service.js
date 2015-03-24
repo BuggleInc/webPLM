@@ -5,14 +5,16 @@
 		.module('PLMApp')
 		.factory('drawWithDOM', drawWithDOM);
 	
-	drawWithDOM.$inject = ['$rootScope', '$compile']
+	drawWithDOM.$inject = ['$rootScope', '$compile'];
 
 	function drawWithDOM ($rootScope, $compile) {
 		var drawingArea;
 		var currentWorld;
-				
+
 		var draw;
 		var scope; // Need to get the controller's scope to alter the DOM
+
+		var content = null;
 
 		var service = {
 				init: init,
@@ -44,14 +46,17 @@
 		}
 
 		function update() {
-			drawingArea.html('');
 			draw(currentWorld);
 		}
 
 		function drawBatWorld(batWorld) {
-			var html = '<span ng-repeat="test in exercise.currentWorld.visibleTests" ng-class="{ passed: test.correct, failed: test.answered && !test.correct }">{{test.test}}<br></span>';
-			var el = $compile(html)(scope);
-			drawingArea.append(el);
+			if(content === null) {
+				// We don't need to update the HTML once it has been appended
+				// AngularJS take care of everything :-)
+				var html = '<span ng-repeat="test in exercise.currentWorld.visibleTests" ng-class="{ passed: test.correct, failed: test.answered && !test.correct }">{{test.test}}<br></span>';
+				content = $compile(html)(scope);
+				drawingArea.append(content);
+			}
 		}
 	}
 })();
