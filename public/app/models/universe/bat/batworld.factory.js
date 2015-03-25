@@ -9,6 +9,8 @@
 		
 		var BatWorld = function (world) {
 			this.type = world.type;
+			this.operations = [];
+			this.currentState = -1;
 
 			this.updateBatTests(world.batTests);
 			this.updateVisibleTests();
@@ -51,10 +53,6 @@
 		};
 		
 		BatWorld.prototype.setState = function () {
-			// Do nothing...
-		};
-
-		BatWorld.prototype.draw = function () {
 			// Do nothing...
 		};
 

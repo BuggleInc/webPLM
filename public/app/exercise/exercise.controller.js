@@ -361,7 +361,6 @@
 				exercise.drawService.update();
 				exercise.lastStateDrawn	= exercise.currentWorld.currentState;
 			}
-			$scope.$apply(); // Have to add this line to force AngularJS to update the view
 
 			if(!exercise.isPlaying){
 				clearInterval(exercise.updateViewLoop);
