@@ -9,24 +9,25 @@
 		var canvas;
 		var ctx;
 		var currentWorld;
-				
+		
+		var draw;
+
 		var service = {
 				init: init,
 				setWorld: setWorld,
 				update: update,
 				resize: resize,
-				getCanvasElt: getCanvasElt,
-				getContext: getContext,
 				getWorld: getWorld
 		};
 		
 		return service;
 		
-		function init(canvasElt, canvasWidth, canvasHeight) {
+		function init(canvasElt, canvasWidth, canvasHeight, fnctDraw) {
 			canvas = canvasElt;
 			ctx = canvas.getContext('2d');
 			canvas.width = canvasWidth;
 			canvas.height = canvasHeight;
+			draw = fnctDraw;
 		}
 		
 		function resize(canvasWidth, canvasHeight) {
@@ -40,22 +41,14 @@
 			currentWorld = world;
 			update();
 		}
-		
-		function update() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			currentWorld.draw(ctx, canvas.width, canvas.height);
-		}
-
-		function getCanvasElt () {
-			return canvas;
-		}
-
-		function getContext () {
-			return ctx;
-		}
 
 		function getWorld () {
 			return currentWorld;
+		}
+
+		function update() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			draw(canvas, currentWorld);
 		}
 	}
 })();

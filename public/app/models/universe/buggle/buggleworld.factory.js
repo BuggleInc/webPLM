@@ -78,64 +78,6 @@
 				}
 			}
 		};
-
-		BuggleWorld.prototype.drawGrid = function (ctx, canvasWidth, canvasHeight) {
-			var i, j;
-
-			ctx.beginPath();
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'grey';
-			var cellWidth = canvasWidth/this.width;
-			var cellHeight = canvasHeight/this.height;
-			for(i=0; i<=this.width; i++) {
-				ctx.moveTo(i*cellWidth, 0);
-				ctx.lineTo(i*cellWidth, canvasHeight);
-			}
-			for(j=0; j<=this.height; j++) {
-				ctx.moveTo(0, j*cellHeight);
-				ctx.lineTo(canvasWidth, j*cellHeight);	
-			}
-			ctx.stroke();
-			ctx.closePath();
-		};
-
-		BuggleWorld.prototype.drawFrontierWalls = function (ctx, canvasWidth, canvasHeight) {
-			var x, y;
-
-			var xLeft;
-			var xRight;
-			var yTop;
-			var yBottom;
-
-			ctx.beginPath();
-			
-			ctx.lineWidth = 4;
-			ctx.strokeStyle = 'SteelBlue';
-
-			// frontier walls (since the world is a torus)
-			for (y = 0; y < this.height; y++) {
-				if (this.cells[0][y].hasLeftWall) {
-					xLeft = canvasWidth;
-					yTop = canvasHeight/this.height*y;
-					yBottom = canvasHeight/this.height*(y+1);
-					ctx.moveTo(xLeft, yTop);
-					ctx.lineTo(xLeft, yBottom);
-				}
-			}
-			
-			for (x = 0; x < this.width; x++) {
-				if (this.cells[x][0].hasTopWall) {
-					xLeft = canvasWidth/this.width*x;
-					xRight = canvasWidth/this.width*(x+1);
-					yTop = canvasHeight;
-					ctx.moveTo(xLeft, yTop);
-					ctx.lineTo(xRight, yTop);
-				}
-			}
-			
-			ctx.stroke();
-			ctx.closePath();
-		};
 		
 		BuggleWorld.prototype.addOperations = function (operations) {
 			var step = [];

@@ -5,13 +5,21 @@
 		.module('PLMApp')
 		.controller('Exercise', Exercise);
 	
-	Exercise.$inject = ['$window', '$http', '$scope', '$sce', '$stateParams', 'locker', 'connection', 
-	'listenersHandler', 'langs', 'canvas', 'drawWithDOM', 'exercisesList', 'DefaultColors', 'OutcomeKind', 
-	'BuggleWorld', 'BatWorld', 'BatWorldView'];
+	Exercise.$inject = [
+		'$window', '$http', '$scope', '$sce', '$stateParams',
+		'connection', 'listenersHandler', 'langs', 'exercisesList',
+		'canvas', 'drawWithDOM',
+		'locker', 
+		'BuggleWorld', 'BuggleWorldView',
+		'BatWorld', 'BatWorldView'
+	];
 
-	function Exercise($window, $http, $scope, $sce, $stateParams, locker, connection, 
-		listenersHandler, langs, canvas, drawWithDOM, exercisesList, DefaultColors, OutcomeKind, 
-		BuggleWorld, BatWorld, BatWorldView) {
+	function Exercise($window, $http, $scope, $sce, $stateParams,
+		connection, listenersHandler, langs, exercisesList,
+		canvas, drawWithDOM,
+		locker, 
+		BuggleWorld, BuggleWorldView,
+		BatWorld, BatWorldView) {
 
 		var exercise = this;
 		
@@ -173,7 +181,7 @@
 							case 'BuggleWorld':
 								exercise.animationPlayerNeeded = true;
 								world = new BuggleWorld(initialWorld);
-								initCanvas();
+								initCanvas(BuggleWorldView.draw);
 								break;
 							case 'BatWorld':
 								exercise.demoNeeded = false;
@@ -216,7 +224,7 @@
 			exercisesList.setCurrentLessonID(exercise.lessonID);
 		}
 
-		function updateInstructions(instructions, api) {
+		function updateInstructions(instructions, api) {
 			exercise.instructions = $sce.trustAsHtml(instructions);
 			exercise.api = $sce.trustAsHtml(api);
 		}
@@ -437,7 +445,7 @@
 			offDisplayMessage();
 		});
 
-		function initCanvas() {
+		function initCanvas(draw) {
 			var canvasElt;
 			var canvasWidth;
 			var canvasHeight;
@@ -449,7 +457,7 @@
 			canvasWidth = $('#'+exercise.drawingArea).parent().width();
 			canvasHeight = canvasWidth;
 
-			exercise.drawService.init(canvasElt, canvasWidth, canvasHeight);
+			canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
 
 			window.addEventListener('resize', resizeCanvas, false);
 		}

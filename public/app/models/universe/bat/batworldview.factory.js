@@ -24,7 +24,7 @@
 				// AngularJS take care of everything :-)
 				domElt.attr('data-batworldview', true);
 				var html = '<span ng-repeat="test in exercise.currentWorld.visibleTests" ng-class="{ passed: test.correct, failed: test.answered && !test.correct }">{{test.test}}<br></span>';
-				content = $compile(html)(scope);
+				var content = $compile(html)(scope);
 				domElt.append(content);
 			}
 		}
