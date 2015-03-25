@@ -9,6 +9,7 @@
 		var canvasElt;
 		var canvasWidth;
 		var canvasHeight;
+		var draw;
 
 		beforeEach(module('PLMApp'));
 
@@ -17,9 +18,7 @@
 		}));
 
 		beforeEach(function () {
-			world = {
-				draw: function () {}
-			};
+			world = {};
 
 			ctx = {
 				clearRect: function (xLeft, yTop, xRight, yLeft) {
@@ -33,34 +32,49 @@
 				}
 			};
 
+			draw = {
+				fnctDraw: function () {} // Need to nest this function into an object to spy it
+			};
+
 			canvasWidth = getRandomInt(999);
 			canvasHeight = getRandomInt(999);
-			_canvas.init(canvasElt, canvasWidth, canvasHeight);
 		});
 
 		it('init should initialize correctly the service', function () {
-			var actualCanvasElt = _canvas.getCanvasElt();
-			var actualContext = _canvas.getContext();
-			
+			var actualCanvasElt;
+			var actualContext;
+			var actualDraw;
+
+			_canvas.init(canvasElt, canvasWidth, canvasHeight, draw.fnctDraw);
+			actualCanvasElt = _canvas.getCanvasElt();
+			actualContext = _canvas.getContext();
+			actualDraw = _canvas.getDraw();
+
 			expect(actualCanvasElt).toEqual(canvasElt);
 			expect(actualContext).toEqual(ctx);
 			expect(actualCanvasElt.width).toEqual(canvasWidth);
 			expect(actualCanvasElt.height).toEqual(canvasHeight);
+			expect(actualDraw).toEqual(draw.fnctDraw);
 		});
 
 		it('setWorld should replace canvas\'s current world by the provided one', function () {
 			var actualCurrentWorld;
+
+			_canvas.init(canvasElt, canvasWidth, canvasHeight, draw.fnctDraw);
 
 			_canvas.setWorld(world);
 			actualCurrentWorld = _canvas.getWorld();
 			expect(actualCurrentWorld).toEqual(world);
 		});
 
-		it('update should call the current world\'s draw method', function () {
+		it('update should call the provided draw method', function () {
 			var actualDrawCall;
 			var spyOnDraw;
 
-			spyOnDraw = spyOn(world, 'draw');
+			spyOnDraw = spyOn(draw, 'fnctDraw');
+
+			_canvas.init(canvasElt, canvasWidth, canvasHeight, draw.fnctDraw);
+
 			_canvas.setWorld(world);
 			_canvas.update();
 			actualDrawCall = spyOnDraw.calls.any();

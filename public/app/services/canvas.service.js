@@ -17,7 +17,10 @@
 				setWorld: setWorld,
 				update: update,
 				resize: resize,
-				getWorld: getWorld
+				getWorld: getWorld,
+				getCanvasElt: getCanvasElt,
+				getContext: getContext,
+				getDraw: getDraw
 		};
 		
 		return service;
@@ -49,6 +52,18 @@
 		function update() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			draw(canvas, currentWorld);
+		}
+
+		function getCanvasElt() {
+			return canvas;
+		}
+
+		function getContext() {
+			return ctx;
+		}
+
+		function getDraw() {
+			return draw;
 		}
 	}
 })();
