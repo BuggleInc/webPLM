@@ -4,15 +4,15 @@
 	angular
 		.module('PLMApp')
 		.factory('BatWorld', BatWorld);
-		
+
 	function BatWorld () {
-		
+
 		var BatWorld = function (world) {
 			this.type = world.type;
 			this.operations = [];
 			this.currentState = -1;
 
-			this.updateBatTests(world.batTests);
+			this.initBatTests(world.batTests);
 			this.updateVisibleTests();
 		};
 		
@@ -20,18 +20,22 @@
 			return new BatWorld(this);
 		};
 
-		BatWorld.prototype.updateBatTests = function (batTests) {
+		BatWorld.prototype.initBatTests = function (batTests) {
 			this.batTests = [];
 			for(var i=0; i<batTests.length; i++) {
-				var test = batTests[i];
-				this.batTests.push({
-					"answered": test.answered,
-					"correct": test.correct,
-					"test": test.test,
-					"visible": test.visible
-				});
+				this.batTests.push(batTests[i]);
 			}
-		}
+		};
+
+		BatWorld.prototype.updateBatTests = function (batTests) {
+			for(var i=0; i<batTests.length; i++) {
+				var test = batTests[i];
+				this.batTests[i].answered = test.answered;
+				this.batTests[i].correct = test.correct;
+				this.batTests[i].test = test.test;
+				this.batTests[i].visible = test.visible;
+			}
+		};
 
 		BatWorld.prototype.updateVisibleTests = function () {
 			this.visibleTests = [];
@@ -48,12 +52,14 @@
 		};
 		
 		BatWorld.prototype.addOperations = function (operations) {
-			this.updateBatTests(operations[0].batTests);
-			this.updateVisibleTests();
+			this.operations.push(operations[0]); // Only expect one operation
 		};
-		
-		BatWorld.prototype.setState = function () {
-			// Do nothing...
+
+
+		BatWorld.prototype.setState = function (state) {
+			this.updateBatTests(this.operations[0].batTests);
+			this.updateVisibleTests();
+			this.currentState = 0;
 		};
 
 		return BatWorld;
