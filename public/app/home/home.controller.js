@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.controller('Home', Home);
 
-	Home.$inject = ['$http', '$scope', '$location', '$sce', 'langs', 'connection', 'listenersHandler'];
+	Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler'];
 
-	function Home($http, $scope, $location, $sce, langs, connection, listenersHandler) {
+	function Home($http, $scope, $state, $sce, langs, connection, listenersHandler) {
 		var home = this;
 
 		home.lessons = [];
@@ -56,7 +56,7 @@
 		}
 		
 		function goToLesson () {
-			$location.path('ui/lessons/'+home.currentLesson.id);
+			$state.go('exercise', { 'lessonID': home.currentLesson.id });
 		}
 
 		$scope.$on('$destroy',function() {

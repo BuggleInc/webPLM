@@ -6,6 +6,10 @@
 		.config(config);
 	
 	function config ($stateProvider, $urlRouterProvider) {
+	    // catch all non-supported routes
+	    // redirect user to the home page 
+	    $urlRouterProvider.otherwise('/');
+
 	    $stateProvider
 	        .state('home', {
 	            url: '/',
@@ -23,8 +27,5 @@
 	        	controller: 'Exercise',
 	        	controllerAs: 'exercise'
 	        });
-	    // catch all route
-	    // send users to the home page 
-	    $urlRouterProvider.otherwise('/');
 	}
 })();
