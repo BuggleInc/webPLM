@@ -78,9 +78,9 @@
 		exercise.drawService = null;
 		exercise.drawingArea = 'drawingArea';
 
-		exercise.demoNeeded = true;
-		exercise.objectiveViewNeeded = true;
-		exercise.animationPlayerNeeded = true;
+		exercise.demoNeeded = false;
+		exercise.objectiveViewNeeded = false;
+		exercise.animationPlayerNeeded = false;
 
 		exercise.instructionsIsFullScreen = false;
 		exercise.instructionsClass='';
@@ -181,14 +181,13 @@
 						var world;
 						switch(initialWorld.type) {
 							case 'BuggleWorld':
+								exercise.demoNeeded = true;
+								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
 								world = new BuggleWorld(initialWorld);
 								initCanvas(BuggleWorldView.draw);
 								break;
 							case 'BatWorld':
-								exercise.demoNeeded = false;
-								exercise.objectiveViewNeeded = false;
-								exercise.animationPlayerNeeded = false;
 								world = new BatWorld(initialWorld);
 								BatWorldView.setScope($scope);
 								initDrawWithDOM(BatWorldView.draw);
