@@ -8,7 +8,7 @@
 	connection.$inject = ['$rootScope'];
 	
 	function connection ($rootScope) {		
-		var socket = new WebSocket('ws://localhost:9000/websocket');
+		var socket = new WebSocket('ws://'+document.location.host+'/websocket');
 		var connectStatus = false;
 		var pendingMessages = [];
 		
