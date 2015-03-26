@@ -232,6 +232,8 @@
 		}
 		
 		function setCurrentWorld(worldKind) {
+			$timeout.cancel(exercise.updateModelLoop);
+			$interval.cancel(exercise.updateViewLoop);
 			exercise.worldKind = worldKind;
 			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
 			exercise.currentState = exercise.currentWorld.currentState;
@@ -265,6 +267,7 @@
 			exercise.worldIDs.map(function(key) {
 				reset(key, 'current', false);
 			});
+			setCurrentWorld('current');
 			args = {
 					lessonID: exercise.lessonID,
 					exerciseID: exercise.id,
@@ -441,6 +444,16 @@
 			offDisplayMessage();
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
+			exercise.initialWorlds = {};
+			exercise.answerWorlds = {};
+			exercise.currentWorlds = {};
+			exercise.currentWorld = null;
+			exercise.drawService.setWorld(null);
+			exercise.instructions = null;
+			exercise.api = null;
+			exercise.resultType = null;
+			exercise.result = null;
+			exercise.logs = null;
 		});
 
 		function initCanvas(draw) {

@@ -42,7 +42,9 @@
 
 		function setWorld (world) {
 			currentWorld = world;
-			update();
+			if(currentWorld !== null) {
+				update();
+			}
 		}
 
 		function getWorld () {

@@ -42,7 +42,7 @@ object PLM {
     _currentExercise = exo;
     
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(5)
+      initialWorld.setDelay(0)
     }
     
     return lect
@@ -61,7 +61,7 @@ object PLM {
     _currentExercise = exo;
 
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(5)
+      initialWorld.setDelay(0)
     }
     
     return lect
