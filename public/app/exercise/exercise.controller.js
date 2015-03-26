@@ -9,6 +9,7 @@
 		'$window', '$http', '$scope', '$sce', '$stateParams',
 		'connection', 'listenersHandler', 'langs', 'exercisesList',
 		'canvas', 'drawWithDOM',
+		'$timeout', '$interval',
 		'locker', 
 		'BuggleWorld', 'BuggleWorldView',
 		'BatWorld', 'BatWorldView'
@@ -17,6 +18,7 @@
 	function Exercise($window, $http, $scope, $sce, $stateParams,
 		connection, listenersHandler, langs, exercisesList,
 		canvas, drawWithDOM,
+		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
 		BatWorld, BatWorldView) {
@@ -309,7 +311,7 @@
 
 			exercise.lastStateDrawn = -1;
 			
-			clearTimeout(exercise.updateViewLoop);
+			$timeout.cancel(exercise.updateViewLoop);
 			exercise.isPlaying = false;
 		}
 		
@@ -331,7 +333,7 @@
 		}
 
 		function startUpdateModelLoop() {
-			exercise.updateModelLoop = setTimeout(updateModel, exercise.timer);
+			exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
 		}
 
 		function updateModel() {
@@ -341,19 +343,18 @@
 				exercise.currentWorld.setState(++currentState);
 				exercise.currentState = currentState;
 			}
-			$scope.$apply(); // Have to add this line to force AngularJS to update the view
-
+			
 			if(!exercise.isRunning && currentState === nbStates){
 				exercise.updateModelLoop = null;
 				exercise.isPlaying = false;
 			}
 			else {
-				exercise.updateModelLoop = setTimeout(updateModel, exercise.timer);
+				exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
 			}
 		}
 
 		function startUpdateViewLoop() {
-			exercise.updateViewLoop = setInterval(updateView, 1/10);
+			exercise.updateViewLoop = $interval(updateView, 1/10);
 		}
 		
 		function updateView() {
@@ -363,17 +364,13 @@
 			}
 
 			if(!exercise.isPlaying){
-				clearInterval(exercise.updateViewLoop);
+				$interval.cancel(exercise.updateViewLoop);
 			}
 		}
 		
 		function setWorldState(state) {
-			if(exercise.updateModelLoop !== null) {
-				clearTimeout(exercise.updateModelLoop);
-			}
-			if(exercise.updateViewLoop !== null) {
-				clearInterval(exercise.updateViewLoop);
-			}
+			$timeout.cancel(exercise.updateModelLoop);
+			$interval.cancel(exercise.updateViewLoop);
 			exercise.isPlaying = false;
 			state = parseInt(state);
 			exercise.currentWorld.setState(state);
@@ -442,6 +439,8 @@
 
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
+			$timeout.cancel(exercise.updateModelLoop);
+			$interval.cancel(exercise.updateViewLoop);
 		});
 
 		function initCanvas(draw) {
