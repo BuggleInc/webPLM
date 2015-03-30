@@ -22,12 +22,12 @@ import log.LoggerUtils
 
 import play.api.i18n.Lang
 
-object PLM {
+class PLM() {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-
-  def game : Game = Game.getInstance()
+  var game = new Game
+  
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
