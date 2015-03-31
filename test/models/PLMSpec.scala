@@ -13,14 +13,16 @@ import plm.core.model.lesson.Exercise.WorldKind
 
 class PLMSpec extends PlaySpec with MockitoSugar {
 
+  var plm = new PLM
+  
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {
       val mockSpy = mock[ExecutionSpy]
       when(mockSpy.clone) thenReturn mock[ExecutionSpy]
       
       val expectedLessonID = "welcome"
-      PLM.switchLesson(expectedLessonID, mockSpy, mockSpy)
-      val actualLectID = PLM.game.getCurrentLesson.getId
+      plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
+      val actualLectID = plm.game.getCurrentLesson.getId
       actualLectID mustBe expectedLessonID
     }
     
@@ -30,8 +32,8 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       
       val lessonID = "welcome"
       val expectedExerciseID = "welcome.lessons.welcome.environment.Environment"
-      PLM.switchLesson(lessonID, mockSpy, mockSpy)
-      val actualExerciseID = PLM.game.getCurrentLesson.getCurrentExercise.getId
+      plm.switchLesson(lessonID, mockSpy, mockSpy)
+      val actualExerciseID = plm.game.getCurrentLesson.getCurrentExercise.getId
       actualExerciseID mustBe expectedExerciseID
     }
     
@@ -39,8 +41,8 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       val mockSpy = mock[ExecutionSpy]
       when(mockSpy.clone) thenReturn mock[ExecutionSpy]
       
-      val actualLecture = PLM.switchLesson("welcome", mockSpy, mockSpy)
-      val expectedLecture = PLM.game.getCurrentLesson.getCurrentExercise
+      val actualLecture = plm.switchLesson("welcome", mockSpy, mockSpy)
+      val expectedLecture = plm.game.getCurrentLesson.getCurrentExercise
       actualLecture mustBe expectedLecture
     }
   }
@@ -61,7 +63,7 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       
       val exo = mock[Exercise]
       when(exo.getWorlds(WorldKind.CURRENT)) thenReturn worlds
-      PLM.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+      plm.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
       verify(mockFirstWorld, times(1)).addWorldUpdatesListener(executionSpy)
       verify(mockSecondWorld, times(1)).addWorldUpdatesListener(executionSpy)
       verify(mockThirdWorld, times(1)).addWorldUpdatesListener(executionSpy)
@@ -82,7 +84,7 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       
       val exo = mock[Exercise]
       when(exo.getWorlds(WorldKind.CURRENT)) thenReturn worlds
-      PLM.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+      plm.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
       verify(mockPLMActor, times(3)).registerSpy(executionSpy)
     }
     
