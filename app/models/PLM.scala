@@ -104,7 +104,7 @@ class PLM() {
     game.stopExerciseExecution()
   }
   
-  def programmingLanguage: ProgrammingLanguage = Game.getProgrammingLanguage
+  def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
   
   def setProgrammingLanguage(lang: String) {
     game.setProgrammingLanguage(lang)

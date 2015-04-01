@@ -19,10 +19,10 @@ import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
 
 class RemoteLogWriterSpec extends PlaySpec with MockitoSugar {
-  
+    
   "RemoteLogWriter" should {
     "set itself as the output stream" in {
-      var game: Game = Game.getInstance()
+      var game: Game = new Game
       val mockPLMActor = mock[PLMActor]
       val remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(mockPLMActor, game)
       
@@ -31,7 +31,7 @@ class RemoteLogWriterSpec extends PlaySpec with MockitoSugar {
     }
     
     "redirect every message to the PLMActor" in {
-      var game: Game = Game.getInstance()
+      var game: Game = new Game
       val mockPLMActor = mock[PLMActor]
       val remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(mockPLMActor, game)
       
