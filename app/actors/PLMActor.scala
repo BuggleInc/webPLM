@@ -36,10 +36,12 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var plm = new PLM()
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
-  
   plm.game.addGameStateListener(resultSpy)
-  var registeredSpies: List[ExecutionSpy] = List()
   
+  var progLangSpy: ProgLangListener = new ProgLangListener(this, plm)
+  plm.game.addProgLangListener(progLangSpy, true)
+  
+  var registeredSpies: List[ExecutionSpy] = List()
   var remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(this, plm.game)
   
   def receive = {
@@ -57,10 +59,6 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
           (optProgrammingLanguage.getOrElse(None)) match {
             case programmingLanguage: String =>
               plm.setProgrammingLanguage(programmingLanguage)
-              sendMessage("programmingLanguageSet", Json.obj(
-                "instructions" -> plm.currentExercise.getMission(plm.programmingLanguage),
-                "code" -> plm.getStudentCode
-              ))
             case _ =>
               LoggerUtils.debug("getExercise: non-correct JSON")
           }
@@ -153,6 +151,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   override def postStop() = {
     LoggerUtils.debug("postStop: websocket closed - removing the spies")
     plm.game.removeGameStateListener(resultSpy)
+    plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }
   }
 }

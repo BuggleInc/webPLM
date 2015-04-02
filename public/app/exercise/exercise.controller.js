@@ -134,9 +134,6 @@
 				case 'exercise': 
 					setExercise(args.exercise);
 					break;
-				case 'translatedInstructions':
-					updateInstructions(args.instructions, args.api);
-					break;
 				case 'executionResult': 
 					displayResult(args.msgType, args.msg);
 					break;
@@ -154,10 +151,11 @@
 				case 'log': 
 					exercise.logs += args.msg;
 					break;
-				case 'programmingLanguageSet':
-					exercise.instructions = $sce.trustAsHtml(args.instructions);
-					exercise.code = args.code;
-					exercise.isChangingProgLang = false;
+				case 'newProgLang':
+					updateUI(args.newProgLang, args.instructions, args.code);
+					break;
+				case 'translatedInstructions':
+					updateInstructions(args.instructions, args.api);
 					break;
 			}
 		}
@@ -419,15 +417,16 @@
 		}
 
 		function setProgrammingLanguage(pl) {
-			var args;
-
 			exercise.isChangingProgLang = true;
+			connection.sendMessage('setProgrammingLanguage', { programmingLanguage: pl.lang });
+		}
+
+		function updateUI(pl, instructions, code) {
 			exercise.currentProgrammingLanguage = pl;
 			setIDEMode(pl);
-			args = {
-					programmingLanguage: pl.lang,
-			};
-			connection.sendMessage('setProgrammingLanguage', args);
+			exercise.instructions = $sce.trustAsHtml(instructions);
+			exercise.code = code;
+			exercise.isChangingProgLang = false;
 		}
 
 		function resetExercise() {
