@@ -21,8 +21,6 @@
 
 		var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 
-		$scope.$on('newLangSelected', getLessons);
-
 		getLessons();
 
 		function handleMessage(data) {
@@ -32,7 +30,7 @@
 			console.log('message received: ', data);
 			switch(cmd) {
 				case 'lessons': 
-				case 'updateLessons':
+				case 'newHumanLang':
 					setLessons(args.lessons);
 					break;
 			}

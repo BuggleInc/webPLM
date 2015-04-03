@@ -41,6 +41,9 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var progLangSpy: ProgLangListener = new ProgLangListener(this, plm)
   plm.game.addProgLangListener(progLangSpy, true)
   
+  var humanLangSpy: HumanLangListener = new HumanLangListener(this, plm)
+  plm.game.addHumanLangListener(humanLangSpy, true)
+  
   var registeredSpies: List[ExecutionSpy] = List()
   var remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(this, plm.game)
   
@@ -67,7 +70,6 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
           (optLang.getOrElse(None)) match {
             case lang: String =>
               plm.setLang(Lang(lang))
-              sendMessage("langSet", Json.obj())
             case _ =>
               LoggerUtils.debug("getExercise: non-correct JSON")
           }
@@ -90,8 +92,6 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
               "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
             ))
           }
-        case "getTranslatedInstructions" =>
-          sendMessage("translatedInstructions", LectureToJson.instructionsWrite(plm.currentExercise, plm.programmingLanguage, plm.getInitialWorlds))
         case "runExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

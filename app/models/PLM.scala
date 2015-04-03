@@ -85,7 +85,7 @@ class PLM() {
   }
   
   def getInitialWorlds(): Array[World] = {
-    _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]())
+    if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
   

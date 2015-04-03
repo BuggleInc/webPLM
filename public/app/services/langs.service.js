@@ -31,20 +31,14 @@
 					setSelectedLang(args.selected);
 					updateAvailableLangs(args.availables);
 					break;
-				case 'langSet':
-					broadcastLangSet();
+				case 'newHumanLang':
+					setSelectedLang(args.newHumanLang);
 					break;
 			}
 		}
 
-		function broadcastLangSet() {
-			console.log('On va broadcast newLangSelected');
-			$rootScope.$broadcast('newLangSelected');
-		}
-
 		function updateAvailableLangs(availables) {
 			availableLangs = availables;
-			$rootScope.$broadcast('availableLangsReady');
 		}
 
 		function getAvailableLangs() {

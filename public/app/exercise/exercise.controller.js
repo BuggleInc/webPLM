@@ -115,13 +115,8 @@
 			}
 			connection.sendMessage('getExercise', args);
 		}
-
-		function getTranslatedInstructions() {
-			connection.sendMessage('getTranslatedInstructions', {});
-		}
 		
 		$scope.$on('exercisesListReady', initExerciseSelector);
-		$scope.$on('newLangSelected', getTranslatedInstructions);
 
 		var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
 		getExercise();
@@ -152,10 +147,11 @@
 					exercise.logs += args.msg;
 					break;
 				case 'newProgLang':
-					updateUI(args.newProgLang, args.instructions, args.code);
+					updateUI(args.newProgLang, args.instructions, null, args.code);
+					exercise.isChangingProgLang = false;
 					break;
-				case 'translatedInstructions':
-					updateInstructions(args.instructions, args.api);
+				case 'newHumanLang':
+					updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
 					break;
 			}
 		}
@@ -421,12 +417,14 @@
 			connection.sendMessage('setProgrammingLanguage', { programmingLanguage: pl.lang });
 		}
 
-		function updateUI(pl, instructions, code) {
+		function updateUI(pl, instructions, api, code) {
 			exercise.currentProgrammingLanguage = pl;
 			setIDEMode(pl);
 			exercise.instructions = $sce.trustAsHtml(instructions);
+			if(api !== null)
+				exercise.api = $sce.trustAsHtml(api);
+			if(code !== null)
 			exercise.code = code;
-			exercise.isChangingProgLang = false;
 		}
 
 		function resetExercise() {
