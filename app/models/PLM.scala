@@ -111,7 +111,7 @@ class PLM() {
   }
   
   def getStudentCode: String = {
-    return _currentExercise.getSourceFile(programmingLanguage, 0).getBody;
+    if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getBody else ""
   }
   
   def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
@@ -130,4 +130,8 @@ class PLM() {
   }
 
   def currentExercise: Exercise = _currentExercise
+  
+  def getMission(progLang: ProgrammingLanguage): String = {
+    if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
+  }
 }
