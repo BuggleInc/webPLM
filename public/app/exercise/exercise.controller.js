@@ -13,6 +13,7 @@
 		'locker', 
 		'BuggleWorld', 'BuggleWorldView',
 		'BatWorld', 'BatWorldView'
+		/*'SortingWorld', 'SortingWorldView'*/
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -21,7 +22,7 @@
 		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView) {
+		BatWorld, BatWorldView, SortingWorld, SortingWorldView) {
 
 		var exercise = this;
 		
@@ -186,6 +187,14 @@
 								BatWorldView.setScope($scope);
 								initDrawWithDOM(BatWorldView.draw);
 								break;
+							case 'SortingWorld':
+								exercise.demoNeeded = true;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								world = new SortingWorld(initialWorld);
+								initCanvas(SortingWorldView.draw);
+								break;
+
 						}
 						exercise.initialWorlds[worldID] = world;
 						exercise.answerWorlds[worldID] = world.clone();
