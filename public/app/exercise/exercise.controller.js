@@ -62,6 +62,7 @@
 
 		exercise.currentState = -1;
 		exercise.lastStateDrawn = -1;
+		exercise.preventLoop = false;
 
 		exercise.currentProgrammingLanguage = null;
 		exercise.programmingLanguages = [];
@@ -231,6 +232,10 @@
 			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
 			exercise.currentState = exercise.currentWorld.currentState;
 			exercise.drawService.setWorld(exercise.currentWorld);
+			if(!exercise.preventLoop && !exercise.playedDemo && worldKind === 'answer') {
+				exercise.preventLoop = true;
+				runDemo();
+			}
 		}
 		
 		function runDemo() {
