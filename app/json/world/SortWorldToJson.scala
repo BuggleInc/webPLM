@@ -9,6 +9,7 @@ object SortWorldToJson {
   
   def sortWorldWrite(sortingWorld: SortingWorld): JsValue = {
     Json.obj(
+        "type" -> "SortingWorld",
         "values" -> sortingWorld.getValues,
         "readCount" -> sortingWorld.getReadCount,
         "writeCount" -> sortingWorld.getWriteCount
