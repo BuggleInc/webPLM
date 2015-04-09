@@ -409,6 +409,9 @@
 				case 'python':
 					exercise.editor.setOption('mode', 'text/x-python');
 					break;
+				case 'blockly':
+					exercise.editor.setOption('mode', 'text/x-blockly');
+					break;
 			}
 		}
 
