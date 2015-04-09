@@ -1,7 +1,6 @@
 package json.world
 
 import exceptions.NonImplementedWorldException
-
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
@@ -9,6 +8,7 @@ import plm.universe.bat.BatWorld
 import plm.universe.Entity
 import json.entity.EntityToJson
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import plm.universe.sort.SortingWorld
 
 object WorldToJson {
   
@@ -31,6 +31,8 @@ object WorldToJson {
         )
       case batWorld: BatWorld =>
       	json = BatWorldToJson.batWorlddWrite(batWorld)
+      case sortingWorld: SortingWorld =>
+        json = SortWorldToJson.sortWorldWrite(sortingWorld)
       case _ =>
         throw NonImplementedWorldException.create;
     }

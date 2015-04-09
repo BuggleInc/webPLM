@@ -14,6 +14,7 @@ import plm.core.model.lesson.Exercise.WorldKind
 class PLMSpec extends PlaySpec with MockitoSugar {
 
   var plm = new PLM
+
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {
