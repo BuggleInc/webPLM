@@ -5,7 +5,6 @@ import plm.universe.bat.BatWorld
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.bat.BatTest
 import json.entity.BatTestToJson
-import log.LoggerUtils
 
 object BatWorldToJson {
   
@@ -15,9 +14,6 @@ object BatWorldToJson {
     batWorld.getTests.toArray(Array[BatTest]()).foreach { batTest: BatTest => 
       batArray = batArray.append(BatTestToJson.batTestWrite(batTest))
     }
-   
-    
-    LoggerUtils.debug(batArray.toString);
     
     Json.obj(
       "type" -> "BatWorld",

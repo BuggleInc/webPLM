@@ -4,7 +4,6 @@ import java.util.Locale;
 import models.PLM
 import play.api.libs.json._
 import actors.PLMActor
-import log.LoggerUtils
 import plm.core.HumanLangChangesListener
 import plm.core.lang.ProgrammingLanguage
 import json.LectureToJson
