@@ -20,7 +20,7 @@ object SortOperationToJson {
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(
-        "sortID" -> sortOperation.getEntity.getName)
+        "sortID" -> sortOperation.getEntity.getName )
        return json 
   }
   
@@ -43,7 +43,10 @@ object SortOperationToJson {
   def setValOperationWrite(setValOperation: SetValOperation): JsValue =
   {
     Json.obj(
-        "value" -> setValOperation.getValue()
+        "value" -> setValOperation.getValue(),
+        "oldValue" -> setValOperation.getOldValue(),
+        "position" -> setValOperation.getPosition()
     )
+    
   }
 }

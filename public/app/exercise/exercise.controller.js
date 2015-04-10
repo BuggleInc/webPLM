@@ -12,8 +12,8 @@
 		'$timeout', '$interval',
 		'locker', 
 		'BuggleWorld', 'BuggleWorldView',
-		'BatWorld', 'BatWorldView'
-		/*'SortingWorld', 'SortingWorldView'*/
+		'BatWorld', 'BatWorldView',
+		'SortingWorld', 'SortingWorldView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,

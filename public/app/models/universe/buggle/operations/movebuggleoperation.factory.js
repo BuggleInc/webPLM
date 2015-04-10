@@ -33,7 +33,7 @@
 		
 		MoveBuggleOperation.prototype.reverse = function (currentWorld) {
 			var buggle = currentWorld.getEntity(this.buggleID);
-			buggle.x = this.oldX;
+			buggle.x = this.oldX;	
 			buggle.y = this.oldY;
 		};
 	

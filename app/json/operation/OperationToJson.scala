@@ -6,6 +6,7 @@ import plm.universe.GridWorldCellOperation
 import plm.universe.bat.BatOperation
 import plm.universe.bugglequest.BuggleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import plm.universe.sort.operations.SortOperation
 
 object OperationToJson {
   
@@ -26,6 +27,8 @@ object OperationToJson {
         json = GridWorldCellOperationToJson.gridWorldCellOperationWrite(gridWorldCellOperation)
       case batOperation: BatOperation =>
         json = BatOperationToJson.batOperationWrite(batOperation)
+      case sortOperation: SortOperation =>
+        json = SortOperationToJson.sortOperationWrite(sortOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    
