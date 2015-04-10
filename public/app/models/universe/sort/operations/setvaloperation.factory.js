@@ -17,8 +17,9 @@
 
 		SetValOperation.prototype.apply = function(currentWorld)
 		{
+			this.oldValue = currentWorld.values[this.position];
 			currentWorld.values[this.position] = this.value;
-			console.log(this.position);
+
 		};
 
 		SetValOperation.prototype.reverse = function (currentWorld)

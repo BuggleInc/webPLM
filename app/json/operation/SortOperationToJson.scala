@@ -36,7 +36,9 @@ object SortOperationToJson {
   {
     Json.obj(
       "destination" -> copyOperation.getDestination(),
-      "source" -> copyOperation.getSource()
+      "source" -> copyOperation.getSource(),
+      "oldValue" -> copyOperation.getOldValue()
+      
     )
   }
   

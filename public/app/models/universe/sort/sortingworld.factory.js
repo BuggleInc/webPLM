@@ -6,10 +6,10 @@
 		.module('PLMApp')
 		.factory('SortingWorld', SortingWorld);
 
-	SortingWorld.$inject = [ 'SetValOperation'
+	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation'
 	];
 
-	function SortingWorld(SetValOperation)
+	function SortingWorld(SetValOperation, SwapOperation, CopyOperation)
 	{
 		var SortingWorld = function(world)
 		{
