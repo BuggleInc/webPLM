@@ -133,11 +133,19 @@
 					break;
 				case 'executionResult': 
 					displayResult(args.msgType, args.msg);
+					console.log("////////////////////////////////////////////////////////////////////////");
+					console.log("////////////////////////////////////////////////////////////////////////");
+					console.log("////////////////////////////////////////////////////////////////////////");
+					console.log("////////////////////////////////////////////////////////////////////////");
 					break;
 				case 'demoEnded':
 					console.log('The demo ended!');
 					exercise.isRunning = false;
 					exercise.playedDemo = true;
+					console.log("####################################################");
+					console.log("####################################################");
+					console.log("####################################################");
+					console.log("####################################################");
 					break;
 				case 'operations':
 					handleOperations(args.worldID, 'current', args.operations);

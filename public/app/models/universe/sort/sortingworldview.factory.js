@@ -29,10 +29,11 @@
 		function draw(canvas, sortingWorld)
 		{
 			initUtils(canvas, sortingWorld);
-			ctx.fillStyle = "SteelBlue";
+			ctx.beginPath();
 			drawColumn(sortingWorld);
 			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
 			drawText(sortingWorld);
+			ctx.closePath();
 			
 			
 		}
@@ -76,9 +77,12 @@
 				ctx.fillStyle = "rgb(0,255,0)";
 				ctx.strokeRect(x,canvasHeight,width,-(unit*sortingWorld.values[i]));
 
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font="bold 15px sans-serif";
-				ctx.fillText(letters.charAt(sortingWorld.values[i]),x+15,canvasHeight-20);
+				if(sortingWorld.values.length<150)
+				{
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.font="bold 15px sans-serif";
+					ctx.fillText(letters.charAt(sortingWorld.values[i]),x+15,canvasHeight-20);
+				}
 			}
 		} 
 	}

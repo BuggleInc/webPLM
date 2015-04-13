@@ -17,6 +17,8 @@ object SortOperationToJson {
         json = swapOperationWrite(swapOperation)
       case copyOperation: CopyOperation =>
         json = copyOperationWrite(copyOperation)
+      case countOperation: CountOperation =>
+        json = countOperationWrite(countOperation)
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(
@@ -49,6 +51,15 @@ object SortOperationToJson {
         "oldValue" -> setValOperation.getOldValue(),
         "position" -> setValOperation.getPosition()
     )
-    
+  }
+  
+  def countOperationWrite(countOperation: CountOperation): JsValue =
+  {
+    Json.obj(
+        "read" -> countOperation.getRead(),
+        "write" -> countOperation.getWrite(),
+        "oldRead" -> countOperation.getOldRead(),
+        "oldWrite" -> countOperation.getOldWrite()
+        )
   }
 }

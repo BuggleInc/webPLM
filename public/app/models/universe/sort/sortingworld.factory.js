@@ -6,10 +6,10 @@
 		.module('PLMApp')
 		.factory('SortingWorld', SortingWorld);
 
-	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation'
+	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation'
 	];
 
-	function SortingWorld(SetValOperation, SwapOperation, CopyOperation)
+	function SortingWorld(SetValOperation, SwapOperation, CopyOperation, CountOperation)
 	{
 		var SortingWorld = function(world)
 		{
@@ -20,7 +20,12 @@
 			this.currentState = -1;
 			this.readCount = world.readCount;
 			this.writeCount = world.writeCount;
-			this.values = world.values;
+			
+			this.values = [];
+			for(var i=0;i<world.values.length;i++)
+			{
+				this.values.push(world.values[i]);
+			}
 
 		};
 
@@ -49,6 +54,8 @@
 					return new SetValOperation(operation);
 				case 'swapOperation':
 					return new SwapOperation(operation);
+				case 'countOperation':
+					return new CountOperation(operation);
 			}
 		};
 
