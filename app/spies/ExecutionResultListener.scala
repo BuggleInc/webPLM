@@ -26,7 +26,7 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
         if(exo.lastResult.outcome == ExecutionProgress.outcomeKind.PASS) {
           msgType = 1;
         }
-        var msg: String = exo.lastResult.getMsg();
+        var msg: String = exo.lastResult.getMsg(game.i18n);
         
         var mapArgs: JsValue = Json.obj(
           "msgType" -> msgType,

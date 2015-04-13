@@ -34,7 +34,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
-  var plm = new PLM(plmLogger)
+  var plm = new PLM(plmLogger, preferredLang.toLocale)
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
   plm.game.addGameStateListener(resultSpy)
