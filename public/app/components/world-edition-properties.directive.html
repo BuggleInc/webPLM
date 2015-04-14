@@ -1,0 +1,50 @@
+<table>
+    <tbody>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>World width</td>
+            <td>{{editor.world.width}}</td>
+        </tr>
+        <tr>
+            <td>World height</td>
+            <td>{{editor.world.height}}</td>
+        </tr>
+        <tr>
+            <td>Selected cell X</td>
+            <td>{{editor.selectedCell.x}}</td>
+        </tr>
+        <tr>
+            <td>Selected cell Y</td>
+            <td>{{editor.selectedCell.y}}</td>
+        </tr>
+        <tr>
+            <td>Top wall?</td>
+            <td>{{editor.selectedCell.hasTopWall}}</td>
+        </tr>
+        <tr>
+            <td>Left wall?</td>
+            <td>{{editor.selectedCell.hasLeftWall}}</td>
+        </tr>
+        <tr>
+            <td>Baggle?</td>
+            <td>{{editor.selectedCell.hasBaggle}}</td>
+        </tr>
+    </tbody>
+    <tbody ng-hide="editor.selectedBuggle == null">
+        <tr >
+            <td>Buggle name</td>
+            <td>{{editor.selectedBuggleID}}</td>
+        </tr>
+        <tr>
+            <td>Buggle direction</td>
+            <td>{{editor.selectedBuggle.direction}}</td>
+        </tr>
+        <tr>
+            <td>Buggle color</td>
+            <td>{{editor.selectedBuggle.color}}</td>
+        </tr>
+    </tbody>
+</table>

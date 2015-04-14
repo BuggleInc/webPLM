@@ -1,6 +1,5 @@
 package json
 
-import log.LoggerUtils
 import exceptions.NonImplementedWorldException
 
 import play.api.libs.json._
@@ -32,7 +31,6 @@ object LectureToJson {
     }
     catch {
       case e: NonImplementedWorldException =>
-        LoggerUtils.debug("Yo!")
         json = json.as[JsObject] ++ Json.obj(
           "exception" -> "nonImplementedWorldException"
         )

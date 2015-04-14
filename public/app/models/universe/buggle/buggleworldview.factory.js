@@ -74,10 +74,20 @@
 
 		var service = {
 			draw: draw,
+            getCellWidth: getCellWidth,
+            getCellHeight: getCellHeight
 		};
 
 		return service;
-
+        
+        function getCellWidth() {
+            return cellWidth;
+        }
+        
+        function getCellHeight() {
+            return cellHeight;
+        }
+        
 		function initUtils(canvas, buggleWorld) {
 			ctx = canvas.getContext('2d');
 			canvasWidth = canvas.width;
@@ -131,6 +141,9 @@
 					ctx.fillStyle = 'rgb(255, 255, 255)';
 				}
 			}
+            if(cell.isSelected) {
+                ctx.rect(xLeft + 2, yTop + 2, cellWidth - 4, cellHeight - 4);
+            }
 			ctx.fillRect(xLeft, yTop, xRight, yBottom);
 			
 			if(cell.hasLeftWall) {

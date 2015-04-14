@@ -26,6 +26,12 @@
 		        },
 	        	controller: 'Exercise',
 	        	controllerAs: 'exercise'
-	        });
+	        })
+            .state('editor', {
+                url: 'ui/editor/',
+                templateUrl: 'assets/app/editor/editor.html',
+                controller: 'Editor',
+                controllerAs: 'editor'
+            });
 	}
 })();

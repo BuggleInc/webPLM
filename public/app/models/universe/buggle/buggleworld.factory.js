@@ -6,7 +6,7 @@
 		.factory('BuggleWorld', BuggleWorld);
 	
 	BuggleWorld.$inject = [
-		'BuggleWorldCell', 'Buggle', 
+		'BuggleWorldCell', 'Buggle', 'BuggleWorldView',
 		'ChangeCellHasBaggle', 'ChangeCellColor', 
 		'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
 		'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown',
@@ -14,7 +14,7 @@
 		'CellAlreadyHaveBaggle', 'BuggleInOuterSpace'
 	];
 	
-	function BuggleWorld (BuggleWorldCell, Buggle,
+	function BuggleWorld (BuggleWorldCell, Buggle, BuggleWorldView,
 			ChangeCellHasBaggle, ChangeCellColor,
 			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
 			ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown,
@@ -22,12 +22,16 @@
 			CellAlreadyHaveBaggle, BuggleInOuterSpace) {
 		
 		var BuggleWorld = function (world) {
+            
+            world = typeof world !== 'undefined' ? world : this.newEmptyWorld();
+            
 			this.type = world.type;
 			this.width = world.width;
 			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
 			this.steps = [];
+            this.selectedCell = null;
 
 			this.cells = [];
 			for(var i=0; i<world.width; i++) {
@@ -146,7 +150,43 @@
 					return new BuggleInOuterSpace(operation);
 			}
 		};
-		
+        
+        BuggleWorld.prototype.newEmptyWorld = function () {
+            var i, j;
+            var world = {
+                entities: {},
+                cells: [],
+                height: 7,
+                type: 'BuggleWorld',
+                width: 7
+            };
+            
+            for(i = 0; i < world.height; i++) {
+                world.cells.push([]);
+                for(j = 0; j < world.width; j++) {
+                    world.cells[i].push({
+                        color: [255, 255, 255, 255],
+                        content: '',
+                        hasBaggle: false,
+                        hasContent: false,
+                        hasLeftWall: false,
+                        hasTopWall: false,
+                        x: i,
+                        y: j
+                    });
+                }
+            }
+            return world;
+        }
+        
+        BuggleWorld.prototype.selectCell = function (x, y) {
+            if(this.selectedCell !== null) {
+                this.selectedCell.isSelected = false;
+            }
+            this.selectedCell = this.cells[x][y];
+            this.cells[x][y].isSelected = true;
+        }
+        
 		return BuggleWorld;
 	}
 })();

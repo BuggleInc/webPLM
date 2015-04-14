@@ -3,7 +3,7 @@
 		<dd ng-class="{ active: exercise.worldKind === 'current' }" ng-click="exercise.setCurrentWorld('current')">
 			<a translate>World</a>
 		</dd>
-		<dd ng-class="{ active: exercise.worldKind === 'answer' }" ng-click="exercise.setCurrentWorld('answer')">
+		<dd ng-class="{ active: exercise.worldKind === 'answer' }" ng-click="exercise.switchToObjective()">
 			<a translate>Objective</a>
 		</dd>
 	</dl>

@@ -16,8 +16,9 @@
 			this.content = cell.content;
 			this.hasLeftWall = cell.hasLeftWall;
 			this.hasTopWall = cell.hasTopWall;
+            this.isSelected = false;
 		};
-		
+        
 		return BuggleWorldCell;
 	}
 })();

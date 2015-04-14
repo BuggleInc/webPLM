@@ -4,7 +4,6 @@ import play.api._
 import play.api.libs.json.JsValue
 import play.api.mvc._
 import actors._
-import log.LoggerUtils
 import plm.core.model.Game
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
