@@ -9,7 +9,7 @@ import plm.universe.Operation
 import plm.universe.Entity
 
 import actors.PLMActor
-import log.LoggerUtils
+import play.api.Logger
 import json.operation.OperationToJson
 
 class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {  
@@ -38,7 +38,7 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
   def worldHasMoved() {
     world.getEntities.toArray(Array[Entity]()).foreach { entity => 
       if(entity.isReadyToSend) {
-        LoggerUtils.debug("The world moved!")
+        Logger.debug("The world moved!")
         
         var mapArgs: JsValue = Json.obj(
           "worldID" -> world.getName,
