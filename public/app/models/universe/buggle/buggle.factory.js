@@ -8,8 +8,6 @@
 	function Buggle () {
 		
 		var Buggle = function (buggle) {
-            buggle = typeof buggle !== 'undefined' ? buggle : this.newBuggle();
-            
 			this.x = buggle.x;
 			this.y = buggle.y;
 			this.color = buggle.color;
