@@ -1,518 +1,519 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.controller('Exercise', Exercise);
-	
-	Exercise.$inject = [
-		'$window', '$http', '$scope', '$sce', '$stateParams',
-		'connection', 'listenersHandler', 'langs', 'exercisesList',
-		'canvas', 'drawWithDOM',
-		'$timeout', '$interval',
-		'locker', 
-		'BuggleWorld', 'BuggleWorldView',
-		'BatWorld', 'BatWorldView'
-	];
+(function () {
+    'use strict';
 
-	function Exercise($window, $http, $scope, $sce, $stateParams,
-		connection, listenersHandler, langs, exercisesList,
-		canvas, drawWithDOM,
-		$timeout, $interval,
-		locker, 
-		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView) {
+    angular
+        .module('PLMApp')
+        .controller('Exercise', Exercise);
 
-		var exercise = this;
-		
-		var panelID = 'panel';
-		var canvasID = 'canvas';
+    Exercise.$inject = [
+  '$window', '$http', '$scope', '$sce', '$stateParams',
+  'connection', 'listenersHandler', 'langs', 'exercisesList',
+  'canvas', 'drawWithDOM',
+  '$timeout', '$interval',
+  'locker',
+  'BuggleWorld', 'BuggleWorldView',
+  'BatWorld', 'BatWorldView'
+ ];
 
-		exercise.lessonID = $stateParams.lessonID;
-		exercise.id = $stateParams.exerciseID;
-		
-		exercise.displayInstructions = 'instructions';
-		exercise.displayResults = 'result';
-		
-		exercise.isRunning = false;
-		exercise.isPlaying = false;
-		exercise.isChangingProgLang = false;
-		exercise.playedDemo = false;
+    function Exercise($window, $http, $scope, $sce, $stateParams,
+        connection, listenersHandler, langs, exercisesList,
+        canvas, drawWithDOM,
+        $timeout, $interval,
+        locker,
+        BuggleWorld, BuggleWorldView,
+        BatWorld, BatWorldView) {
 
-		exercise.instructions = null;
-		exercise.api = null;
-		exercise.resultType = null;
-		exercise.result = '';
-		exercise.logs = '';
-		
-		exercise.nonImplementedWorldException = false;
+        var exercise = this;
 
-		exercise.initialWorlds = {};
-		exercise.answerWorlds = {};
-		exercise.currentWorlds = {};
-		exercise.currentWorld = null;
-		exercise.currentWorldID = null;
-		exercise.worldKind = 'current';
-		exercise.worldIDs = []; // Mandatory to generate dynamically the select
-		exercise.updateModelLoop = null;
-		exercise.updateViewLoop = null;
-		
-		locker.bind($scope, 'timer', 1000);
-		exercise.timer = locker.get('timer');
+        var panelID = 'panel';
+        var canvasID = 'canvas';
 
-		exercise.currentState = -1;
-		exercise.lastStateDrawn = -1;
+        exercise.lessonID = $stateParams.lessonID;
+        exercise.id = $stateParams.exerciseID;
 
-		exercise.currentProgrammingLanguage = null;
-		exercise.programmingLanguages = [];
+        exercise.displayInstructions = 'instructions';
+        exercise.displayResults = 'result';
 
-		exercise.editor = null;
+        exercise.isRunning = false;
+        exercise.isPlaying = false;
+        exercise.isChangingProgLang = false;
+        exercise.playedDemo = false;
 
-		exercise.exercisesAsList = null;
-		exercise.exercisesAsTree = null;
-		exercise.defaultNextExercise = null;
-		exercise.selectedRootLecture = null;
-		exercise.selectedNextExercise = null;
+        exercise.instructions = null;
+        exercise.api = null;
+        exercise.resultType = null;
+        exercise.result = '';
+        exercise.logs = '';
 
-		exercise.drawServiceType = '';
-		exercise.drawService = null;
-		exercise.drawingArea = 'drawingArea';
+        exercise.nonImplementedWorldException = false;
 
-		exercise.demoNeeded = false;
-		exercise.objectiveViewNeeded = false;
-		exercise.animationPlayerNeeded = false;
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.currentWorldID = null;
+        exercise.worldKind = 'current';
+        exercise.worldIDs = []; // Mandatory to generate dynamically the select
+        exercise.updateModelLoop = null;
+        exercise.updateViewLoop = null;
 
-		exercise.instructionsIsFullScreen = false;
-		exercise.instructionsClass='';
-		exercise.worldsViewClass='';
+        locker.bind($scope, 'timer', 1000);
+        exercise.timer = locker.get('timer');
 
-		exercise.runDemo = runDemo;
-		exercise.runCode = runCode;
-		exercise.reset = reset;
-		exercise.replay = replay;
-		exercise.stopExecution = stopExecution;
-		exercise.setWorldState = setWorldState;
-		exercise.setCurrentWorld = setCurrentWorld;
-		exercise.setProgrammingLanguage = setProgrammingLanguage;
-		exercise.setSelectedRootLecture = setSelectedRootLecture;
-		exercise.setSelectedNextExercise = setSelectedNextExercise;
-		exercise.updateSpeed = updateSpeed;
-		exercise.resetExercise = resetExercise;
-		exercise.resizeInstructions = resizeInstructions;
+        exercise.currentState = -1;
+        exercise.lastStateDrawn = -1;
 
-		$scope.codemirrorLoaded = function(_editor){
-			exercise.editor = _editor;
-			resizeCodeMirror();
-		};
+        exercise.currentProgrammingLanguage = null;
+        exercise.programmingLanguages = [];
 
-		function getExercise() {
-			var args = {
-					lessonID: exercise.lessonID,
-			};
-			if(exercise.id !== '')
-			{
-				args.exerciseID = exercise.id;
-			}
-			connection.sendMessage('getExercise', args);
-		}
-		
-		$scope.$on('exercisesListReady', initExerciseSelector);
+        exercise.editor = null;
+        exercise.ide = "codemirror";
 
-		var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
-		getExercise();
+        exercise.exercisesAsList = null;
+        exercise.exercisesAsTree = null;
+        exercise.defaultNextExercise = null;
+        exercise.selectedRootLecture = null;
+        exercise.selectedNextExercise = null;
 
-		function handleMessage(data) {
-			console.log('message received: ', data);
-			var cmd = data.cmd;
-			var args = data.args;
-			switch(cmd) {
-				case 'exercise': 
-					setExercise(args.exercise);
-					break;
-				case 'executionResult': 
-					displayResult(args.msgType, args.msg);
-					break;
-				case 'demoEnded':
-					console.log('The demo ended!');
-					exercise.isRunning = false;
-					exercise.playedDemo = true;
-					break;
-				case 'operations':
-					handleOperations(args.worldID, 'current', args.operations);
-					break;
-				case 'demoOperations':
-					handleOperations(args.worldID, 'answer', args.operations);
-					break;
-				case 'log': 
-					exercise.logs += args.msg;
-					break;
-				case 'newProgLang':
-					updateUI(args.newProgLang, args.instructions, null, args.code);
-					exercise.isChangingProgLang = false;
-					break;
-				case 'newHumanLang':
-					updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
-					break;
-			}
-		}
- 
-		function setExercise(data) {
-			exercise.id = data.id;
-			exercise.instructions = $sce.trustAsHtml(data.instructions);
-			exercise.api = $sce.trustAsHtml(data.api);
-			exercise.code = data.code.trim();
-			exercise.currentWorldID = data.selectedWorldID;
+        exercise.drawServiceType = '';
+        exercise.drawService = null;
+        exercise.drawingArea = 'drawingArea';
 
-			if(data.exception === 'nonImplementedWorldException') {
-				exercise.nonImplementedWorldException = true;
-			}
+        exercise.demoNeeded = false;
+        exercise.objectiveViewNeeded = false;
+        exercise.animationPlayerNeeded = false;
 
-			if(!exercise.nonImplementedWorldException) {
-				for(var worldID in data.initialWorlds) {
-					if(data.initialWorlds.hasOwnProperty(worldID)) {
-						exercise.initialWorlds[worldID] = {};
-						var initialWorld = data.initialWorlds[worldID];
-						var world;
-						switch(initialWorld.type) {
-							case 'BuggleWorld':
-								exercise.demoNeeded = true;
-								exercise.objectiveViewNeeded = true;
-								exercise.animationPlayerNeeded = true;
-								world = new BuggleWorld(initialWorld);
-								initCanvas(BuggleWorldView.draw);
-								break;
-							case 'BatWorld':
-								world = new BatWorld(initialWorld);
-								BatWorldView.setScope($scope);
-								initDrawWithDOM(BatWorldView.draw);
-								break;
-						}
-						exercise.initialWorlds[worldID] = world;
-						exercise.answerWorlds[worldID] = world.clone();
-						exercise.currentWorlds[worldID] = world.clone();
-					}
-				}
+        exercise.instructionsIsFullScreen = false;
+        exercise.instructionsClass = '';
+        exercise.worldsViewClass = '';
 
-				exercise.worldIDs = Object.keys(exercise.currentWorlds);
+        exercise.runDemo = runDemo;
+        exercise.runCode = runCode;
+        exercise.reset = reset;
+        exercise.replay = replay;
+        exercise.stopExecution = stopExecution;
+        exercise.setWorldState = setWorldState;
+        exercise.setCurrentWorld = setCurrentWorld;
+        exercise.setProgrammingLanguage = setProgrammingLanguage;
+        exercise.setSelectedRootLecture = setSelectedRootLecture;
+        exercise.setSelectedNextExercise = setSelectedNextExercise;
+        exercise.updateSpeed = updateSpeed;
+        exercise.resetExercise = resetExercise;
+        exercise.resizeInstructions = resizeInstructions;
+        
+        $scope.codemirrorLoaded = function (_editor) {
+            exercise.editor = _editor;
+            resizeCodeMirror();
+        };
 
-				setCurrentWorld('current');
+        function getExercise() {
+            var args = {
+                lessonID: exercise.lessonID,
+            };
+            if (exercise.id !== '') {
+                args.exerciseID = exercise.id;
+            }
+            connection.sendMessage('getExercise', args);
+        }
 
-				window.addEventListener('resize', resizeCodeMirror, false);
-			}
+        $scope.$on('exercisesListReady', initExerciseSelector);
 
-			exercise.programmingLanguages = data.programmingLanguages;
-			for(var i=0; i<exercise.programmingLanguages.length; i++) {
-				var pl = exercise.programmingLanguages[i];
-				if(pl.lang === data.currentProgrammingLanguage) {
-					exercise.currentProgrammingLanguage = pl;
-					setIDEMode(pl);
-				}
-			}
+        var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
+        getExercise();
 
-			$(document).foundation('dropdown', 'reflow');
-			$(document).foundation('equalizer', 'reflow');
-			
-			exercise.resultType = null;
-			exercise.result = '';
-			exercise.logs = '';
+        function handleMessage(data) {
+            console.log('message received: ', data);
+            var cmd = data.cmd;
+            var args = data.args;
+            switch (cmd) {
+            case 'exercise':
+                setExercise(args.exercise);
+                break;
+            case 'executionResult':
+                displayResult(args.msgType, args.msg);
+                break;
+            case 'demoEnded':
+                console.log('The demo ended!');
+                exercise.isRunning = false;
+                exercise.playedDemo = true;
+                break;
+            case 'operations':
+                handleOperations(args.worldID, 'current', args.operations);
+                break;
+            case 'demoOperations':
+                handleOperations(args.worldID, 'answer', args.operations);
+                break;
+            case 'log':
+                exercise.logs += args.msg;
+                break;
+            case 'newProgLang':
+                updateUI(args.newProgLang, args.instructions, null, args.code);
+                exercise.isChangingProgLang = false;
+                break;
+            case 'newHumanLang':
+                updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
+                break;
+            }
+        }
 
-			exercisesList.setCurrentLessonID(exercise.lessonID);
-		}
+        function setExercise(data) {
+            exercise.id = data.id;
+            exercise.instructions = $sce.trustAsHtml(data.instructions);
+            exercise.api = $sce.trustAsHtml(data.api);
+            exercise.code = data.code.trim();
+            exercise.currentWorldID = data.selectedWorldID;
 
-		function updateInstructions(instructions, api) {
-			exercise.instructions = $sce.trustAsHtml(instructions);
-			exercise.api = $sce.trustAsHtml(api);
-		}
-		
-		function setCurrentWorld(worldKind) {
-			$timeout.cancel(exercise.updateModelLoop);
-			$interval.cancel(exercise.updateViewLoop);
-			exercise.worldKind = worldKind;
-			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
-			exercise.currentState = exercise.currentWorld.currentState;
-			exercise.drawService.setWorld(exercise.currentWorld);
-		}
-		
-		function runDemo() {
-			exercise.updateViewLoop = null;
-			exercise.isPlaying = true;
-			setCurrentWorld('answer');
-			if(!exercise.playedDemo) {
-				var args = {
-						lessonID: exercise.lessonID,
-						exerciseID: exercise.id,
-				};
-				connection.sendMessage('runDemo', args);
-				exercise.isRunning = true;
-			}
-			else {
-				// We don't need to query the server again
-				// Just to replay the animation
-				replay();
-			}
-		}
-		
-		function runCode() {
-			var args;
+            if (data.exception === 'nonImplementedWorldException') {
+                exercise.nonImplementedWorldException = true;
+            }
 
-			exercise.updateViewLoop = null;
-			exercise.isPlaying = true;
-			exercise.worldIDs.map(function(key) {
-				reset(key, 'current', false);
-			});
-			setCurrentWorld('current');
-			args = {
-					lessonID: exercise.lessonID,
-					exerciseID: exercise.id,
-					code: exercise.code
-			};
-			connection.sendMessage('runExercise', args);
-			exercise.isRunning = true;
-		}
-		
-		function stopExecution() {
-			connection.sendMessage('stopExecution', null);
-		}
-		
-		function displayResult(msgType, msg) {
-			console.log(msgType, ' - ', msg);
-			exercise.result = msg;
-			if(msgType === 1) {
-				$('#successModal').foundation('reveal', 'open');
-			}
-			exercise.resultType = msgType;
-			exercise.display = 'result';
-			exercise.isRunning = false;
-		}
-		
-		function reset(worldID, worldKind, keepOperations) {
-			// We may want to keep the operations in order to replay the execution
-			var operations = [];
-			var steps = [];
-			if(keepOperations === true) {
-				operations = exercise[worldKind+'Worlds'][worldID].operations;
-				steps = exercise[worldKind+'Worlds'][worldID].steps;
-			}
+            if (!exercise.nonImplementedWorldException) {
+                for (var worldID in data.initialWorlds) {
+                    if (data.initialWorlds.hasOwnProperty(worldID)) {
+                        exercise.initialWorlds[worldID] = {};
+                        var initialWorld = data.initialWorlds[worldID];
+                        var world;
+                        switch (initialWorld.type) {
+                        case 'BuggleWorld':
+                            exercise.demoNeeded = true;
+                            exercise.objectiveViewNeeded = true;
+                            exercise.animationPlayerNeeded = true;
+                            world = new BuggleWorld(initialWorld);
+                            initCanvas(BuggleWorldView.draw);
+                            break;
+                        case 'BatWorld':
+                            world = new BatWorld(initialWorld);
+                            BatWorldView.setScope($scope);
+                            initDrawWithDOM(BatWorldView.draw);
+                            break;
+                        }
+                        exercise.initialWorlds[worldID] = world;
+                        exercise.answerWorlds[worldID] = world.clone();
+                        exercise.currentWorlds[worldID] = world.clone();
+                    }
+                }
 
-			var initialWorld = exercise.initialWorlds[worldID];
-			exercise[worldKind+'Worlds'][worldID] = initialWorld.clone();
-			exercise[worldKind+'Worlds'][worldID].operations = operations;
-			exercise[worldKind+'Worlds'][worldID].steps = steps;
+                exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-			if(worldID === exercise.currentWorldID) {
-				exercise.currentState = -1;
-				exercise.currentWorld = exercise[worldKind+'Worlds'][worldID];
-				exercise.drawService.setWorld(exercise.currentWorld);
-			}
+                setCurrentWorld('current');
 
-			exercise.lastStateDrawn = -1;
-			
-			$timeout.cancel(exercise.updateViewLoop);
-			exercise.isPlaying = false;
-		}
-		
-		function replay() {
-			reset(exercise.currentWorldID, exercise.worldKind, true);
-			exercise.isPlaying = true;
-			startUpdateModelLoop();
-			startUpdateViewLoop();
-		}
-		
-		function handleOperations(worldID, worldKind, operations) {
-			var world = exercise[worldKind+'Worlds'][worldID];
-			world.addOperations(operations);
-			if(exercise.updateViewLoop === null) {
-				exercise.isPlaying = true;
-				startUpdateModelLoop();
-				startUpdateViewLoop();
-			}
-		}
+                window.addEventListener('resize', resizeCodeMirror, false);
+            }
 
-		function startUpdateModelLoop() {
-			exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
-		}
+            exercise.programmingLanguages = data.programmingLanguages;
+            for (var i = 0; i < exercise.programmingLanguages.length; i++) {
+                var pl = exercise.programmingLanguages[i];
+                if (pl.lang === data.currentProgrammingLanguage) {
+                    exercise.currentProgrammingLanguage = pl;
+                    setIDEMode(pl);
+                }
+            }
 
-		function updateModel() {
-			var currentState = exercise.currentWorld.currentState;
-			var nbStates = exercise.currentWorld.operations.length-1;
-			if(currentState !== nbStates) {
-				exercise.currentWorld.setState(++currentState);
-				exercise.currentState = currentState;
-			}
-			
-			if(!exercise.isRunning && currentState === nbStates){
-				exercise.updateModelLoop = null;
-				exercise.isPlaying = false;
-			}
-			else {
-				exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
-			}
-		}
+            $(document).foundation('dropdown', 'reflow');
+            $(document).foundation('equalizer', 'reflow');
 
-		function startUpdateViewLoop() {
-			exercise.updateViewLoop = $interval(updateView, 1/10);
-		}
-		
-		function updateView() {
-			if(exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
-				exercise.drawService.update();
-				exercise.lastStateDrawn	= exercise.currentWorld.currentState;
-			}
+            exercise.resultType = null;
+            exercise.result = '';
+            exercise.logs = '';
 
-			if(!exercise.isPlaying){
-				$interval.cancel(exercise.updateViewLoop);
-			}
-		}
-		
-		function setWorldState(state) {
-			$timeout.cancel(exercise.updateModelLoop);
-			$interval.cancel(exercise.updateViewLoop);
-			exercise.isPlaying = false;
-			state = parseInt(state);
-			exercise.currentWorld.setState(state);
-			exercise.currentState = state;
-			exercise.drawService.update();
-		}
-		
-		function initExerciseSelector() {
-			exercisesList.setCurrentExerciseID(exercise.id);
-			exercise.exercisesAsList = exercisesList.getExercisesList();
-			exercise.exercisesAsTree = exercisesList.getExercisesTree();
-			exercise.defaultNextExercise = exercisesList.getNextExerciseID();
-			exercise.selectedRootLecture = null;
-			exercise.selectedNextExercise = null;
+            exercisesList.setCurrentLessonID(exercise.lessonID);
+        }
 
-			// Update modal
-			$(document).foundation('reveal', 'reflow');
-		}
+        function updateInstructions(instructions, api) {
+            exercise.instructions = $sce.trustAsHtml(instructions);
+            exercise.api = $sce.trustAsHtml(api);
+        }
 
-		function setSelectedRootLecture(rootLecture) {
-			exercise.selectedRootLecture = rootLecture;
-			setSelectedNextExercise(rootLecture);
-		}
+        function setCurrentWorld(worldKind) {
+            $timeout.cancel(exercise.updateModelLoop);
+            $interval.cancel(exercise.updateViewLoop);
+            exercise.worldKind = worldKind;
+            exercise.currentWorld = exercise[exercise.worldKind + 'Worlds'][exercise.currentWorldID];
+            exercise.currentState = exercise.currentWorld.currentState;
+            exercise.drawService.setWorld(exercise.currentWorld);
+        }
 
-		function setSelectedNextExercise(exo) {
-			exercise.selectedNextExercise = exo;
-		}
+        function runDemo() {
+            exercise.updateViewLoop = null;
+            exercise.isPlaying = true;
+            setCurrentWorld('answer');
+            if (!exercise.playedDemo) {
+                var args = {
+                    lessonID: exercise.lessonID,
+                    exerciseID: exercise.id,
+                };
+                connection.sendMessage('runDemo', args);
+                exercise.isRunning = true;
+            } else {
+                // We don't need to query the server again
+                // Just to replay the animation
+                replay();
+            }
+        }
 
-		function setIDEMode(pl) {
-			switch(pl.lang.toLowerCase()) {
-				case 'java':
-					exercise.editor.setOption('mode', 'text/x-java');
-					break;
-				case 'scala':
-					exercise.editor.setOption('mode', 'text/x-scala');
-					break;
-				case 'c':
-					exercise.editor.setOption('mode', 'text/x-csrc');
-					break;
-				case 'python':
-					exercise.editor.setOption('mode', 'text/x-python');
-					break;
-				case 'blockly':
-					exercise.editor.setOption('mode', 'text/x-blockly');
-					break;
-			}
-		}
+        function runCode() {
+            var args;
 
-		function setProgrammingLanguage(pl) {
-			exercise.isChangingProgLang = true;
-			connection.sendMessage('setProgrammingLanguage', { programmingLanguage: pl.lang });
-		}
+            exercise.updateViewLoop = null;
+            exercise.isPlaying = true;
+            exercise.worldIDs.map(function (key) {
+                reset(key, 'current', false);
+            });
+            setCurrentWorld('current');
+            args = {
+                lessonID: exercise.lessonID,
+                exerciseID: exercise.id,
+                code: exercise.code
+            };
+            connection.sendMessage('runExercise', args);
+            exercise.isRunning = true;
+        }
 
-		function updateUI(pl, instructions, api, code) {
-			exercise.currentProgrammingLanguage = pl;
-			setIDEMode(pl);
-			exercise.instructions = $sce.trustAsHtml(instructions);
-			if(api !== null)
-				exercise.api = $sce.trustAsHtml(api);
-			if(code !== null)
-			exercise.code = code;
-		}
+        function stopExecution() {
+            connection.sendMessage('stopExecution', null);
+        }
 
-		function resetExercise() {
-			$('#resetExerciseModal').foundation('reveal', 'close');
-			connection.sendMessage('revertExercise', {});
-		}
+        function displayResult(msgType, msg) {
+            console.log(msgType, ' - ', msg);
+            exercise.result = msg;
+            if (msgType === 1) {
+                $('#successModal').foundation('reveal', 'open');
+            }
+            exercise.resultType = msgType;
+            exercise.display = 'result';
+            exercise.isRunning = false;
+        }
 
-		function updateSpeed () {
-			$scope.timer = $('#executionSpeed').val();
-		}
+        function reset(worldID, worldKind, keepOperations) {
+            // We may want to keep the operations in order to replay the execution
+            var operations = [];
+            var steps = [];
+            if (keepOperations === true) {
+                operations = exercise[worldKind + 'Worlds'][worldID].operations;
+                steps = exercise[worldKind + 'Worlds'][worldID].steps;
+            }
 
-		$scope.$on('$destroy',function() {
-			offDisplayMessage();
-			$timeout.cancel(exercise.updateModelLoop);
-			$interval.cancel(exercise.updateViewLoop);
-			exercise.initialWorlds = {};
-			exercise.answerWorlds = {};
-			exercise.currentWorlds = {};
-			exercise.currentWorld = null;
-			exercise.drawService.setWorld(null);
-			exercise.instructions = null;
-			exercise.api = null;
-			exercise.resultType = null;
-			exercise.result = null;
-			exercise.logs = null;
-		});
+            var initialWorld = exercise.initialWorlds[worldID];
+            exercise[worldKind + 'Worlds'][worldID] = initialWorld.clone();
+            exercise[worldKind + 'Worlds'][worldID].operations = operations;
+            exercise[worldKind + 'Worlds'][worldID].steps = steps;
 
-		function initCanvas(draw) {
-			var canvasElt;
-			var canvasWidth;
-			var canvasHeight;
+            if (worldID === exercise.currentWorldID) {
+                exercise.currentState = -1;
+                exercise.currentWorld = exercise[worldKind + 'Worlds'][worldID];
+                exercise.drawService.setWorld(exercise.currentWorld);
+            }
 
-			exercise.drawServiceType = 'canvas';
-			exercise.drawService = canvas;
+            exercise.lastStateDrawn = -1;
 
-			canvasElt = document.getElementById(canvasID);
-			canvasWidth = $('#'+exercise.drawingArea).parent().width();
-			canvasHeight = canvasWidth;
+            $timeout.cancel(exercise.updateViewLoop);
+            exercise.isPlaying = false;
+        }
 
-			canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
+        function replay() {
+            reset(exercise.currentWorldID, exercise.worldKind, true);
+            exercise.isPlaying = true;
+            startUpdateModelLoop();
+            startUpdateViewLoop();
+        }
 
-			window.addEventListener('resize', resizeCanvas, false);
-		}
+        function handleOperations(worldID, worldKind, operations) {
+            var world = exercise[worldKind + 'Worlds'][worldID];
+            world.addOperations(operations);
+            if (exercise.updateViewLoop === null) {
+                exercise.isPlaying = true;
+                startUpdateModelLoop();
+                startUpdateViewLoop();
+            }
+        }
 
-		function initDrawWithDOM(draw) {
-			var domElt;
-			var panelWidth;
+        function startUpdateModelLoop() {
+            exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+        }
 
-			exercise.drawServiceType = 'drawWithDOM';
-			exercise.drawService = drawWithDOM;
+        function updateModel() {
+            var currentState = exercise.currentWorld.currentState;
+            var nbStates = exercise.currentWorld.operations.length - 1;
+            if (currentState !== nbStates) {
+                exercise.currentWorld.setState(++currentState);
+                exercise.currentState = currentState;
+            }
 
-			domElt = $('#'+panelID);
-			panelWidth = $('#'+exercise.drawingArea).parent().width();
-			domElt.css('height', panelWidth);
-			domElt.css('overflow-y', 'auto');
+            if (!exercise.isRunning && currentState === nbStates) {
+                exercise.updateModelLoop = null;
+                exercise.isPlaying = false;
+            } else {
+                exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+            }
+        }
 
-			drawWithDOM.init(domElt, draw);
-		}
+        function startUpdateViewLoop() {
+            exercise.updateViewLoop = $interval(updateView, 1 / 10);
+        }
 
-		function resizeCanvas() {
-			var canvasWidth = $('#'+exercise.drawingArea).parent().width();
-			var canvasHeight = canvasWidth;
-			exercise.drawService.resize(canvasWidth, canvasHeight);
-			$(document).foundation('equalizer', 'reflow');
-		}
+        function updateView() {
+            if (exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
+                exercise.drawService.update();
+                exercise.lastStateDrawn = exercise.currentWorld.currentState;
+            }
 
-		function resizeCodeMirror() {
-			// Want to keep the IDE's height equals to the draw surface's one
-			var drawingAreaHeight = $('#'+exercise.drawingArea).parent().width();
-			exercise.editor.setSize(null, drawingAreaHeight);
-			exercise.editor.refresh();
-			$(document).foundation('equalizer', 'reflow');
-		}
+            if (!exercise.isPlaying) {
+                $interval.cancel(exercise.updateViewLoop);
+            }
+        }
 
-		function resizeInstructions() {
-			if(!exercise.instructionsIsFullScreen) {
-				exercise.instructionsIsFullScreen = true;
-				exercise.instructionsClass='instructions-fullscreen';
-				exercise.worldsViewClass='worlds-view-reduce';
-			}
-			else {
-				exercise.instructionsIsFullScreen = false;
-				exercise.instructionsClass='';
-				exercise.worldsViewClass='';
-			}
-		}
-	}
+        function setWorldState(state) {
+            $timeout.cancel(exercise.updateModelLoop);
+            $interval.cancel(exercise.updateViewLoop);
+            exercise.isPlaying = false;
+            state = parseInt(state);
+            exercise.currentWorld.setState(state);
+            exercise.currentState = state;
+            exercise.drawService.update();
+        }
+
+        function initExerciseSelector() {
+            exercisesList.setCurrentExerciseID(exercise.id);
+            exercise.exercisesAsList = exercisesList.getExercisesList();
+            exercise.exercisesAsTree = exercisesList.getExercisesTree();
+            exercise.defaultNextExercise = exercisesList.getNextExerciseID();
+            exercise.selectedRootLecture = null;
+            exercise.selectedNextExercise = null;
+
+            // Update modal
+            $(document).foundation('reveal', 'reflow');
+        }
+
+        function setSelectedRootLecture(rootLecture) {
+            exercise.selectedRootLecture = rootLecture;
+            setSelectedNextExercise(rootLecture);
+        }
+
+        function setSelectedNextExercise(exo) {
+            exercise.selectedNextExercise = exo;
+        }
+
+        // highlight key word
+        function setIDEMode(pl) {
+            switch (pl.lang.toLowerCase()) {
+            case 'java':
+                exercise.editor.setOption('mode', 'text/x-java');
+                break;
+            case 'scala':
+                exercise.editor.setOption('mode', 'text/x-scala');
+                break;
+            case 'c':
+                exercise.editor.setOption('mode', 'text/x-csrc');
+                break;
+            case 'python':
+                exercise.editor.setOption('mode', 'text/x-python');
+                break;
+            }
+        }
+
+        function setProgrammingLanguage(pl) {
+            if (pl.lang == 'Blockly')
+                exercise.ide = 'blockly'
+            else
+                exercise.ide = 'codemirror'
+            exercise.isChangingProgLang = true;
+            connection.sendMessage('setProgrammingLanguage', {
+                programmingLanguage: pl.lang
+            });
+        }
+
+        function updateUI(pl, instructions, api, code) {
+            exercise.currentProgrammingLanguage = pl;
+            setIDEMode(pl);
+            exercise.instructions = $sce.trustAsHtml(instructions);
+            if (api !== null)
+                exercise.api = $sce.trustAsHtml(api);
+            if (code !== null)
+                exercise.code = code;
+        }
+
+        function resetExercise() {
+            $('#resetExerciseModal').foundation('reveal', 'close');
+            connection.sendMessage('revertExercise', {});
+        }
+
+        function updateSpeed() {
+            $scope.timer = $('#executionSpeed').val();
+        }
+
+        $scope.$on('$destroy', function () {
+            offDisplayMessage();
+            $timeout.cancel(exercise.updateModelLoop);
+            $interval.cancel(exercise.updateViewLoop);
+            exercise.initialWorlds = {};
+            exercise.answerWorlds = {};
+            exercise.currentWorlds = {};
+            exercise.currentWorld = null;
+            exercise.drawService.setWorld(null);
+            exercise.instructions = null;
+            exercise.api = null;
+            exercise.resultType = null;
+            exercise.result = null;
+            exercise.logs = null;
+        });
+
+        function initCanvas(draw) {
+            var canvasElt;
+            var canvasWidth;
+            var canvasHeight;
+
+            exercise.drawServiceType = 'canvas';
+            exercise.drawService = canvas;
+
+            canvasElt = document.getElementById(canvasID);
+            canvasWidth = $('#' + exercise.drawingArea).parent().width();
+            canvasHeight = canvasWidth;
+
+            canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
+
+            window.addEventListener('resize', resizeCanvas, false);
+        }
+
+        function initDrawWithDOM(draw) {
+            var domElt;
+            var panelWidth;
+
+            exercise.drawServiceType = 'drawWithDOM';
+            exercise.drawService = drawWithDOM;
+
+            domElt = $('#' + panelID);
+            panelWidth = $('#' + exercise.drawingArea).parent().width();
+            domElt.css('height', panelWidth);
+            domElt.css('overflow-y', 'auto');
+
+            drawWithDOM.init(domElt, draw);
+        }
+
+        function resizeCanvas() {
+            var canvasWidth = $('#' + exercise.drawingArea).parent().width();
+            var canvasHeight = canvasWidth;
+            exercise.drawService.resize(canvasWidth, canvasHeight);
+            $(document).foundation('equalizer', 'reflow');
+        }
+
+        function resizeCodeMirror() {
+            // Want to keep the IDE's height equals to the draw surface's one
+            var drawingAreaHeight = $('#' + exercise.drawingArea).parent().width();
+            exercise.editor.setSize(null, drawingAreaHeight);
+            exercise.editor.refresh();
+            $(document).foundation('equalizer', 'reflow');
+        }
+
+        function resizeInstructions() {
+            if (!exercise.instructionsIsFullScreen) {
+                exercise.instructionsIsFullScreen = true;
+                exercise.instructionsClass = 'instructions-fullscreen';
+                exercise.worldsViewClass = 'worlds-view-reduce';
+            } else {
+                exercise.instructionsIsFullScreen = false;
+                exercise.instructionsClass = '';
+                exercise.worldsViewClass = '';
+            }
+        }
+    }
 })();
