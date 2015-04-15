@@ -45,7 +45,7 @@
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
 
-			console.log(amountOperations);
+			
 
 			//String of letters
 			var letters = "ABCDEFGHIJKLMNOPQRSTWXYZ";
@@ -109,12 +109,10 @@
 			}
 
 
-
-			
-			
 			//case initial if there are operations
 			for(var i = 0; i < sortingWorld.memory.length;i++)
 			{
+
 				for(var j=0;j<sortingWorld.memory[i].length;j++)
 				{
 
@@ -129,10 +127,11 @@
 					ctx.closePath();
 				}
 
+
 			}
 
 
-
+			
 			var lineInd = 0;
 			//draws lines for the unmodified values
 			for(var i = 1; i<sortingWorld.memory.length;i++)
@@ -144,7 +143,7 @@
 						ctx.beginPath();
 						y1 = j * unit + 25;
 						ctx.moveTo((timeUnit*lineInd)+10,y1);
-						ctx.lineTo(canvasWidth-10,y1);
+						ctx.lineTo(timeUnit*i,y1);
 						ctx.strokeStyle = colorsLine[sortingWorld.values[j]];
 						ctx.stroke();
 						ctx.closePath();
@@ -153,8 +152,9 @@
 				lineInd++;
 			}
 
-			
 
+			
+			var opInd = 0;
 			//draws the lines for the operations
 			for(var i=0; i<sortingWorld.operations.length;i++)
 			{
@@ -170,8 +170,8 @@
 						ctx.beginPath();
 						y1 = sortingWorld.operations[i][j].src * unit + 25;
 						y2 = sortingWorld.operations[i][j].dest * unit + 25;
-						ctx.moveTo(10,y1);
-						ctx.lineTo(canvasWidth-10,y2);
+						ctx.moveTo((timeUnit*opInd)+10,y1);
+						ctx.lineTo(timeUnit*(opInd+1),y2);
 						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
 						ctx.stroke();
 						ctx.closePath();
@@ -180,8 +180,8 @@
 						ctx.beginPath();
 						y1 = sortingWorld.operations[i][j].dest * unit + 25;
 						y2 = sortingWorld.operations[i][j].src * unit + 25;
-						ctx.moveTo(10,y1);
-						ctx.lineTo(canvasWidth-10,y2);
+						ctx.moveTo((timeUnit*opInd)+10,y1);
+						ctx.lineTo((timeUnit*(opInd+1)), y2);
 						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].dest];
 						ctx.stroke();
 						ctx.closePath();
@@ -192,15 +192,14 @@
 						y1 = sortingWorld.operations[i][j].src * unit + 25;
 						y2 = sortingWorld.operations[i][j].dest * unit +25;
 						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
-						ctx.moveTo(10,y1);
-						ctx.lineTo(canvasWidth-10,y2);
+						ctx.moveTo((timeUnit*opInd)+10,y1);
+						ctx.lineTo((timeUnit*(opInd+1)),y2);
 						ctx.stroke();
 						ctx.closePath();
 					}
-
-
-				}		
-			}
+				}
+				opInd++;		
+			} 
 		}
 	}
 })();

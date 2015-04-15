@@ -19,7 +19,12 @@
 		{
 			this.oldValue = currentWorld.values[this.position];
 			currentWorld.values[this.position] = this.value;
-			currentWorld.memory.push(currentWorld.values);
+			var stock = [];
+			for(var i=0;i<currentWorld.values.length;i++)
+			{
+				stock.push(currentWorld.values[i]);
+			}
+			currentWorld.memory.push(stock);
 		};
 
 		SetValOperation.prototype.reverse = function (currentWorld)

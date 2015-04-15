@@ -19,7 +19,13 @@
 		{
 			this.oldValue = currentWorld.values[this.dest];
 			currentWorld.values[this.dest] = currentWorld.values[this.src];
-			currentWorld.memory.push(currentWorld.values);
+			var stock = [];
+			for(var i=0;i<currentWorld.values.length;i++)
+			{
+				stock.push(currentWorld.values[i]);
+			}
+			currentWorld.memory.push(stock);
+
 		};
 		
 		CopyOperation.prototype.reverse = function(currentWorld)
