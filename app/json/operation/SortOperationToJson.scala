@@ -1,8 +1,8 @@
 package json.operation
 
 import play.api.libs.json._
-
 import plm.universe.sort.operations._
+import plm.universe.sort.operations.GetValueOperation
 
 
 object SortOperationToJson {
@@ -60,6 +60,13 @@ object SortOperationToJson {
         "write" -> countOperation.getWrite(),
         "oldRead" -> countOperation.getOldRead(),
         "oldWrite" -> countOperation.getOldWrite()
+        )
+  }
+  
+  def getValueOperationWrite(getValueOperation: GetValueOperation): JsValue =
+  {
+    Json.obj(
+        "position" -> getValueOperation.getPosition()
         )
   }
 }

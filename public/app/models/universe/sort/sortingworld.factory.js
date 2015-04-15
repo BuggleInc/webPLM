@@ -6,10 +6,10 @@
 		.module('PLMApp')
 		.factory('SortingWorld', SortingWorld);
 
-	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation'
+	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation', 'GetValueOperation'
 	];
 
-	function SortingWorld(SetValOperation, SwapOperation, CopyOperation, CountOperation)
+	function SortingWorld(SetValOperation, SwapOperation, CopyOperation, CountOperation, GetValueOperation)
 	{
 		var SortingWorld = function(world)
 		{
@@ -64,6 +64,8 @@
 					return new SwapOperation(operation);
 				case 'countOperation':
 					return new CountOperation(operation);
+				case 'getValueOperation' :
+					return new GetValueOperation(operation);
 			}
 		};
 

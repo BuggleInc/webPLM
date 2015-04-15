@@ -20,7 +20,6 @@
 				var tmp = currentWorld.values[this.src];
 				currentWorld.values[this.src] = currentWorld.values[this.dest];
 				currentWorld.values[this.dest] = tmp ;
-				console.log(currentWorld.values);
 
 				var stock = [];
 				for(var i=0;i<currentWorld.values.length;i++)

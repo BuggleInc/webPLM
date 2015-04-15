@@ -6,10 +6,10 @@
 		.module('PLMApp')
 		.factory('SortingWorldSecondView', SortingWorldSecondView);
 
-			SortingWorldSecondView.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation'
+			SortingWorldSecondView.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation', 'GetValueOperation'
 	];
 
-	function SortingWorldSecondView(SetValOperation, SwapOperation, CopyOperation, CountOperation)
+	function SortingWorldSecondView(SetValOperation, SwapOperation, CopyOperation, CountOperation, GetValueOperation)
 	{
 		var ctx;
 		var canvasWidth;
@@ -33,8 +33,8 @@
 		{
 			
 			initUtils(canvas, sortingWorld);
-			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
 			drawInitial(sortingWorld);
+			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
 		}
 
 
@@ -44,6 +44,7 @@
 		{
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
+
 
 			
 
@@ -108,7 +109,6 @@
 				return
 			}
 
-
 			//case initial if there are operations
 			for(var i = 0; i < sortingWorld.memory.length;i++)
 			{
@@ -121,39 +121,13 @@
 					ctx.fillStyle = colors[sortingWorld.values[j]];
 					if(drawLetters)
 					{
-						ctx.font = "20 px sans-serif";
+						ctx.font = "10px sans-serif";
 						ctx.fillText(letters.charAt(sortingWorld.memory[i][j]),timeUnit*i,unit*j+20);
 					}
 					ctx.closePath();
 				}
-
-
 			}
 
-
-			
-			var lineInd = 0;
-			//draws lines for the unmodified values
-			for(var i = 1; i<sortingWorld.memory.length;i++)
-			{
-				for(var j=0;j<sortingWorld.memory[i].length;j++)
-				{
-					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
-					{
-						ctx.beginPath();
-						y1 = j * unit + 25;
-						ctx.moveTo((timeUnit*lineInd)+10,y1);
-						ctx.lineTo(timeUnit*i,y1);
-						ctx.strokeStyle = colorsLine[sortingWorld.values[j]];
-						ctx.stroke();
-						ctx.closePath();
-					}
-				}
-				lineInd++;
-			}
-
-
-			
 			var opInd = 0;
 			//draws the lines for the operations
 			for(var i=0; i<sortingWorld.operations.length;i++)
@@ -197,9 +171,62 @@
 						ctx.stroke();
 						ctx.closePath();
 					}
+					else if(sortingWorld.operations[i][j] instanceof SetValOperation)
+					{
+						y1 = sortingWorld.operations[i][j].position * unit + 20;
+						ctx.beginPath();
+						ctx.fillStyle = "#FF0000";
+						if(drawLetters)
+						{
+							ctx.font = "bold 10px sans-serif";
+							ctx.clearRect((timeUnit*(opInd+1)),y1,10,-15);
+							ctx.fillText(letters.charAt(sortingWorld.operations[i][j].value)+"!",(timeUnit*(opInd+1))-2,y1);
+						}
+						ctx.closePath();
+					}else if(sortingWorld.operations[i][j] instanceof GetValueOperation)
+					{
+						console.log(sortingWorld.operations[i][j].position);
+						y1 = sortingWorld.operations[i][j].position * unit + 20;
+						ctx.beginPath();
+						ctx.fillStyle = "#FF00FF";
+						if(drawLetters)
+						{
+							ctx.font = "bold 10px sans-serif";
+							ctx.clearRect((timeUnit*(opInd+1)),y1,10,-15);
+							ctx.fillText(letters.charAt(sortingWorld.operations[i][j].value)+"?",(timeUnit*(opInd))-2,y1);
+						}
+						ctx.closePath();
+					}
 				}
 				opInd++;		
-			} 
+			}
+
+
+
+			
+			
+			
+
+
+			var lineInd = 0;
+			//draws lines for the unmodified values
+			for(var i = 1; i<sortingWorld.memory.length;i++)
+			{
+				for(var j=0;j<sortingWorld.memory[i].length;j++)
+				{
+					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
+					{
+						ctx.beginPath();
+						y1 = j * unit + 25;
+						ctx.moveTo((timeUnit*lineInd)+10,y1);
+						ctx.lineTo(timeUnit*i,y1);
+						ctx.strokeStyle = colorsLine[sortingWorld.values[j]];
+						ctx.stroke();
+						ctx.closePath();
+					}
+				}
+				lineInd++;
+			}
 		}
 	}
 })();
