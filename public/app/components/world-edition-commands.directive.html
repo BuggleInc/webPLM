@@ -4,7 +4,7 @@
 <button class="button mini radius" ng-click="editor.setCommand('buggle')" translate>Buggle</button>
 <button class="button mini radius" ng-click="editor.setCommand('deletebuggle')" translate>Delete Buggle</button>
 <button class="button mini radius" ng-click="editor.setCommand('color')" data-reveal-id="selectColorModal" translate>Color</button>
-
+<button class="button mini radius" ng-click="editor.setCommand('text')" translate>Text</button>
 
 <div id="selectColorModal" class="reveal-modal" data-reveal=true>
 	<h2 translate>Choose a color:</h2>
@@ -27,4 +27,13 @@
         </form>
         <a class="close-reveal-modal">&#215;</a>
     </div>
+</div>
+
+<div id="setTextModal" class="reveal-modal" data-reveal=true>
+    <h2>Change message</h2>
+    <p>Choose a new message</p>
+    <form ng-submit="editor.setText()">
+        <input ng-model="editor.setTextInput" type="text">
+        <button type="submit" class="button radius right" onclick="$('#setTextModal').foundation('reveal', 'close');"  translate>Change message</button>
+    </form>
 </div>

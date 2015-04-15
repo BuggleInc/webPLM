@@ -29,10 +29,13 @@
         editor.world = null;
         editor.selectedCell = null;
         editor.command = 'topwall';
+        
         editor.customColorInput = '42/42/42';
         editor.color = [42, 42, 42, 255];
-        editor.colors = 
-        editor.colorNameSelect = color.getColorsNames();
+        editor.colors = color.getColorsNames();
+        editor.colorNameSelect = null;
+        
+        editor.setTextInput = null;
         
         editor.selectedBuggleID = null;
         editor.selectedBuggle = null;
@@ -46,7 +49,7 @@
         editor.setCommand = setCommand;
         editor.setRGBColor = setRGBColor;
         editor.setColorByName = setColorByName;
-        
+        editor.setText = setText;
         
         function initEditor() {
             editor.world = new BuggleWorld();
@@ -103,15 +106,11 @@
                     deleteBuggleCommand(x, y);
                     break;
                 case 'color':
-                    var sameColor = true;
-                    var i = 0;
-                    while(i <  editor.selectedCell.color.length && sameColor) {
-                        if(editor.selectedCell.color[i] !== editor.color[i]) {
-                            sameColor = false;
-                        }
-                        i++;
-                    }
-                    editor.selectedCell.color = (sameColor) ? [255,255,255,255] : editor.color;
+                    colorCommand();
+                    break;
+                case 'text':
+                    editor.setTextInput = editor.selectedCell.content;
+                    $('#setTextModal').foundation('reveal', 'open');
                     break;
             }
 
@@ -173,6 +172,18 @@
             }
         }
         
+        function colorCommand() {
+            var sameColor = true;
+            var i = 0;
+            while(i <  editor.selectedCell.color.length && sameColor) {
+                if(editor.selectedCell.color[i] !== editor.color[i]) {
+                    sameColor = false;
+                }
+                i++;
+            }
+            editor.selectedCell.color = (sameColor) ? [255,255,255,255] : editor.color;
+        }
+        
         function setColorByName() {
             var newColor = color.nameToRGB(editor.colorNameSelect);
             if(newColor !== null) {
@@ -192,6 +203,12 @@
                 else if(num < 0) tab[pos] = 0;
             });
             editor.color.push(255);
+        }
+        
+        function setText() {
+            editor.selectedCell.hasContent = (editor.setTextInput.length !== '') ? true : false;
+            editor.selectedCell.content = editor.setTextInput;
+            editor.drawService.update();
         }
         
         function setCommand(command) {
