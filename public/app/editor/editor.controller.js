@@ -8,7 +8,7 @@
     Editor.$inject = [
 		'$window', '$http', '$scope', '$sce', '$stateParams',
 		'connection', 'listenersHandler', 'langs', 'exercisesList',
-		'canvas',
+		'canvas', 'color',
 		'$timeout',
 		'locker',
 		'BuggleWorld', 'BuggleWorldView'
@@ -16,7 +16,7 @@
     
     function Editor($window, $http, $scope, $sce, $stateParams,
 		connection, listenersHandler, langs, exercisesList,
-		canvas,
+		canvas, color,
 		$timeout,
 		locker,
 		BuggleWorld, BuggleWorldView) {
@@ -29,15 +29,23 @@
         editor.world = null;
         editor.selectedCell = null;
         editor.command = 'topwall';
+        editor.customColorInput = '42/42/42';
+        editor.color = [42, 42, 42, 255];
+        editor.colors = 
+        editor.colorNameSelect = color.getColorsNames();
+        
         editor.selectedBuggleID = null;
         editor.selectedBuggle = null;
         editor.nbBugglesCreated = 0;
+        
 		editor.drawService = null;
 		editor.drawingArea = 'drawingArea';
         
         editor.selectCell = selectCell;
         editor.initEditor = initEditor;
         editor.setCommand = setCommand;
+        editor.setRGBColor = setRGBColor;
+        editor.setColorByName = setColorByName;
         
         
         function initEditor() {
@@ -93,6 +101,17 @@
                     break;
                 case 'deletebuggle':
                     deleteBuggleCommand(x, y);
+                    break;
+                case 'color':
+                    var sameColor = true;
+                    var i = 0;
+                    while(i <  editor.selectedCell.color.length && sameColor) {
+                        if(editor.selectedCell.color[i] !== editor.color[i]) {
+                            sameColor = false;
+                        }
+                        i++;
+                    }
+                    editor.selectedCell.color = (sameColor) ? [255,255,255,255] : editor.color;
                     break;
             }
 
@@ -152,6 +171,27 @@
                 }
                 i++;
             }
+        }
+        
+        function setColorByName() {
+            var newColor = color.nameToRGB(editor.colorNameSelect);
+            if(newColor !== null) {
+                editor.color = newColor;
+                editor.color.push(255);
+            }
+        }
+        
+        function setRGBColor() {
+            var expr = /(\d+)\/(\d+)\/(\d+)/;
+            editor.color = [];
+            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$1')));
+            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$2')));
+            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$3')));
+            editor.color.forEach(function(num, pos, tab) {
+                if(num > 255)  tab[pos] = 255;
+                else if(num < 0) tab[pos] = 0;
+            });
+            editor.color.push(255);
         }
         
         function setCommand(command) {

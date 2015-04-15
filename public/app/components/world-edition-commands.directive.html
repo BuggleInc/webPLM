@@ -3,3 +3,28 @@
 <button class="button mini radius" ng-click="editor.setCommand('addbaggle')" translate>Baggle</button>
 <button class="button mini radius" ng-click="editor.setCommand('buggle')" translate>Buggle</button>
 <button class="button mini radius" ng-click="editor.setCommand('deletebuggle')" translate>Delete Buggle</button>
+<button class="button mini radius" ng-click="editor.setCommand('color')" data-reveal-id="selectColorModal" translate>Color</button>
+
+
+<div id="selectColorModal" class="reveal-modal" data-reveal=true>
+	<h2 translate>Choose a color:</h2>
+    <form name="colorNameForm" ng-submit="editor.setColorByName()">
+        <select ng-model="editor.colorNameSelect" ng-options="color for color in editor.colors">
+            <option value="">Choose a color...</option>
+        </select>
+        <button class="button radius secondary" data-reveal-id="customColorModal" translate>Custom color</button>
+        <button class="button radius right" onclick="$('#selectColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
+        <a class="close-reveal-modal">&#215;</a>
+    </form>
+    
+    
+    <div id="customColorModal" class="reveal-modal" data-reveal="true">
+        <h2>Custom color</h2>
+        <p>What color you want (r/g/b)</p>
+        <form ng-submit="editor.setRGBColor()">
+            <input ng-model="editor.customColorInput" type="text">
+            <button type="submit" class="button radius right" onclick="$('#customColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
+        </form>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>
