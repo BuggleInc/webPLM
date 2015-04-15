@@ -3,7 +3,6 @@ package json.entity
 import play.api.libs.json.JsValue
 import plm.universe.bat.BatTest
 import play.api.libs.json.Json
-import log.LoggerUtils
 
 object BatTestToJson {
   

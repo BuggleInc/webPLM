@@ -3,7 +3,6 @@ package spies
 import models.PLM
 import play.api.libs.json._
 import actors.PLMActor
-import log.LoggerUtils
 import plm.core.ProgLangChangesListener
 import plm.core.lang.ProgrammingLanguage
 import json.ProgrammingLanguageToJson
