@@ -120,7 +120,7 @@
 
 					//draws letter
 					ctx.beginPath();
-					ctx.fillStyle = colors[j];
+					ctx.fillStyle = colors[sortingWorld.values[j]];
 					if(drawLetters)
 					{
 						ctx.font = "20 px sans-serif";
@@ -143,9 +143,9 @@
 					{
 						ctx.beginPath();
 						y1 = j * unit + 25;
-						ctx.moveTo((timeUnit*lineInd),y1);
+						ctx.moveTo((timeUnit*lineInd)+10,y1);
 						ctx.lineTo(canvasWidth-10,y1);
-						ctx.strokeStyle = colorsLine[j];
+						ctx.strokeStyle = colorsLine[sortingWorld.values[j]];
 						ctx.stroke();
 						ctx.closePath();
 					}
@@ -167,19 +167,38 @@
 						
 						
 						//draw source->dest
-						y1 = sortingWorld.operations[i][j].src * unit + 20;
-						y2 = sortingWorld.operations[i][j].dest * unit + 20;
+						ctx.beginPath();
+						y1 = sortingWorld.operations[i][j].src * unit + 25;
+						y2 = sortingWorld.operations[i][j].dest * unit + 25;
 						ctx.moveTo(10,y1);
 						ctx.lineTo(canvasWidth-10,y2);
+						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
 						ctx.stroke();
+						ctx.closePath();
 
 						//draw dest->source
-						y1 = sortingWorld.operations[i][j].dest * unit + 20;
-						y2 = sortingWorld.operations[i][j].src * unit + 20;
+						ctx.beginPath();
+						y1 = sortingWorld.operations[i][j].dest * unit + 25;
+						y2 = sortingWorld.operations[i][j].src * unit + 25;
+						ctx.moveTo(10,y1);
+						ctx.lineTo(canvasWidth-10,y2);
+						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].dest];
+						ctx.stroke();
+						ctx.closePath();
+					}else if(sortingWorld.operations[i][j] instanceof CopyOperation)
+					{
+						//draws the values copied
+						ctx.beginPath();
+						y1 = sortingWorld.operations[i][j].src * unit + 25;
+						y2 = sortingWorld.operations[i][j].dest * unit +25;
+						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
 						ctx.moveTo(10,y1);
 						ctx.lineTo(canvasWidth-10,y2);
 						ctx.stroke();
+						ctx.closePath();
 					}
+
+
 				}		
 			}
 		}
