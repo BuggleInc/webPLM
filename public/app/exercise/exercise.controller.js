@@ -13,7 +13,8 @@
 		'locker', 
 		'BuggleWorld', 'BuggleWorldView',
 		'BatWorld', 'BatWorldView',
-		'SortingWorld', 'SortingWorldView'
+		'SortingWorld', 'SortingWorldView',
+		'SortingWorldSecondView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -22,7 +23,7 @@
 		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView, SortingWorld, SortingWorldView) {
+		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView) {
 
 		var exercise = this;
 		
@@ -83,6 +84,7 @@
 		exercise.demoNeeded = false;
 		exercise.objectiveViewNeeded = false;
 		exercise.animationPlayerNeeded = false;
+		exercise.secondViewNeeded = false;
 
 		exercise.instructionsIsFullScreen = false;
 		exercise.instructionsClass='';
@@ -95,6 +97,8 @@
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
+		exercise.setSecondView = setSecondView;
+		exercise.displaySecondView = false;
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
@@ -133,19 +137,11 @@
 					break;
 				case 'executionResult': 
 					displayResult(args.msgType, args.msg);
-					console.log("////////////////////////////////////////////////////////////////////////");
-					console.log("////////////////////////////////////////////////////////////////////////");
-					console.log("////////////////////////////////////////////////////////////////////////");
-					console.log("////////////////////////////////////////////////////////////////////////");
 					break;
 				case 'demoEnded':
 					console.log('The demo ended!');
 					exercise.isRunning = false;
 					exercise.playedDemo = true;
-					console.log("####################################################");
-					console.log("####################################################");
-					console.log("####################################################");
-					console.log("####################################################");
 					break;
 				case 'operations':
 					handleOperations(args.worldID, 'current', args.operations);
@@ -200,6 +196,7 @@
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
+								exercise.secondViewNeeded = true;
 								world = new SortingWorld(initialWorld);
 								initCanvas(SortingWorldView.draw);
 								break;
@@ -253,6 +250,17 @@
 				exercise.preventLoop = true;
 				runDemo();
 			}
+		}
+
+		function setSecondView(b)
+		{
+			exercise.displaySecondView = b;
+			if(!b)
+				initCanvas(SortingWorldView.draw);
+			else
+				initCanvas(SortingWorldSecondView.draw);
+
+			reset(exercise.currentWorldID, exercise.worldKind, true);		
 		}
 		
 		function runDemo() {

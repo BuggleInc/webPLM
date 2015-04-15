@@ -1,10 +1,13 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd ng-class="{ active: exercise.worldKind === 'current' }" ng-click="exercise.setCurrentWorld('current')">
+		<dd ng-class="{ active: exercise.worldKind === 'current' && exercise.displaySecondView === false}" ng-click="exercise.setCurrentWorld('current');exercise.setSecondView(false)">
 			<a>Monde</a>
 		</dd>
-		<dd ng-class="{ active: exercise.worldKind === 'answer' }" ng-click="exercise.setCurrentWorld('answer')">
+		<dd ng-class="{ active: exercise.worldKind === 'answer' && exercise.displaySecondView === false }" ng-click="exercise.setCurrentWorld('answer');exercise.setSecondView(false)">
 			<a>Objectif</a>
+		</dd>
+		<dd ng-class="{ active: exercise.displaySecondView === true }" ng-click="exercise.setSecondView(true)" ng-show="exercise.secondViewNeeded" >
+			<a>Seconde Vue</a>
 		</dd>
 	</dl>
 </div>

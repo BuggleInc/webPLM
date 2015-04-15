@@ -35,7 +35,7 @@
 			drawText(sortingWorld);
 			ctx.closePath();
 			
-			
+			console.log(sortingWorld.memory);
 		}
 
 		function drawText(sortingWorld)

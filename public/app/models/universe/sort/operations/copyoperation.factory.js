@@ -15,15 +15,18 @@
 			this.oldValue = data.oldValue;
 		};
 
-		CopyOperation.prototype.apply = function(CurrentWorld)
+		CopyOperation.prototype.apply = function(currentWorld)
 		{
-			this.oldValue = CurrentWorld.values[this.dest];
-			CurrentWorld.values[this.dest] = CurrentWorld.values[this.src];
+			this.oldValue = currentWorld.values[this.dest];
+			currentWorld.values[this.dest] = currentWorld.values[this.src];
+			currentWorld.memory.push(currentWorld.values);
 		};
 		
-		CopyOperation.prototype.reverse = function(CurrentWorld)
+		CopyOperation.prototype.reverse = function(currentWorld)
 		{
-			CurrentWorld.values[this.dest] = this.oldValue;
+			var index = currentWorld.memory.indexOf(currentWorld.values);
+			if(index > -1) currentWorld.memory.splice(index,1);
+			currentWorld.values[this.dest] = this.oldValue;
 		};
 
 		return CopyOperation;

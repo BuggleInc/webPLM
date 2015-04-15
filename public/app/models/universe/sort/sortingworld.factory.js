@@ -27,6 +27,14 @@
 				this.values.push(world.values[i]);
 			}
 
+			this.initValues = [];
+			this.memory = [[]];
+			for(var i=0;i<world.values.length;i++)
+			{
+				this.initValues.push(world.values[i]);
+			}
+
+			this.memory[0] = this.initValues;
 		};
 
 		SortingWorld.prototype.clone = function()
