@@ -62,6 +62,7 @@
 
 		exercise.currentState = -1;
 		exercise.lastStateDrawn = -1;
+		exercise.preventLoop = false;
 
 		exercise.currentProgrammingLanguage = null;
 		exercise.programmingLanguages = [];
@@ -93,6 +94,7 @@
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
+		exercise.switchToObjective = switchToObjective;
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
@@ -249,6 +251,15 @@
 				// We don't need to query the server again
 				// Just to replay the animation
 				replay();
+			}
+		}
+
+		function switchToObjective() {
+			if(!exercise.playedDemo) {
+				runDemo();
+			}
+			else {
+				setCurrentWorld('answer');
 			}
 		}
 		

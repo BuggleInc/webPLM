@@ -1,7 +1,6 @@
 package models
 
 import spies._
-
 import plm.core.model.Game
 import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.Lecture
@@ -14,19 +13,19 @@ import plm.core.lang.ProgrammingLanguage
 import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
 import plm.universe.World
-
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 import play.api.libs.json._
-import log.LoggerUtils
-
+import play.api.Logger
 import play.api.i18n.Lang
+import log.PLMLogger
+import java.util.Locale
 
-class PLM() {
+class PLM(plmLogger: PLMLogger, locale: Locale) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game
+  var game = new Game(plmLogger, locale)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -90,7 +89,7 @@ class PLM() {
   
   
   def runExercise(lessonID: String, exerciseID: String, code: String) {
-    LoggerUtils.debug("Code:\n"+code)
+    Logger.debug("Code:\n"+code)
     
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     game.startExerciseExecution()
