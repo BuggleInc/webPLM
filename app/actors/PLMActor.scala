@@ -7,8 +7,7 @@ import play.api.mvc.RequestHeader
 import json._
 
 import models.PLM
-import log.RemoteLogWriter
-import log.LoggerUtils
+import log.PLMLogger
 import spies._
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.Lesson
@@ -25,6 +24,7 @@ import plm.universe.bugglequest.BuggleWorldCell
 
 import play.api.Play.current
 import play.api.i18n.Lang
+import play.api.Logger
 
 object PLMActor {
   def props(out: ActorRef, preferredLang: Lang) = Props(new PLMActor(out, preferredLang))
@@ -33,7 +33,8 @@ object PLMActor {
 class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
-  var plm = new PLM()
+  var plmLogger = new PLMLogger(this)
+  var plm = new PLM(plmLogger, preferredLang.toLocale)
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
   plm.game.addGameStateListener(resultSpy)
@@ -45,12 +46,11 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   plm.game.addHumanLangListener(humanLangSpy, true)
   
   var registeredSpies: List[ExecutionSpy] = List()
-  var remoteLogWriter: RemoteLogWriter = new RemoteLogWriter(this, plm.game)
   
   def receive = {
     case msg: JsValue =>
-      LoggerUtils.debug("Received a message")
-      LoggerUtils.debug(msg.toString())
+      Logger.debug("Received a message")
+      Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "getLessons" =>
@@ -63,7 +63,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case programmingLanguage: String =>
               plm.setProgrammingLanguage(programmingLanguage)
             case _ =>
-              LoggerUtils.debug("getExercise: non-correct JSON")
+              Logger.debug("getExercise: non-correct JSON")
           }
         case "setLang" =>
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
@@ -71,7 +71,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case lang: String =>
               plm.setLang(Lang(lang))
             case _ =>
-              LoggerUtils.debug("getExercise: non-correct JSON")
+              Logger.debug("getExercise: non-correct JSON")
           }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -85,7 +85,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case (lessonID:String, _) =>
               lecture = plm.switchLesson(lessonID, executionSpy, demoExecutionSpy)
             case (_, _) =>
-              LoggerUtils.debug("getExercise: non-correct JSON")
+              Logger.debug("getExercise: non-correct JSON")
           }
           if(lecture != null) {
             sendMessage("exercise", Json.obj(
@@ -100,7 +100,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case (lessonID:String, exerciseID: String, code: String) =>
               plm.runExercise(lessonID, exerciseID, code)
             case (_, _, _) =>
-              LoggerUtils.debug("runExercise: non-correctJSON")
+              Logger.debug("runExercise: non-correctJSON")
           }
         case "runDemo" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -109,7 +109,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case (lessonID:String, exerciseID: String) =>
               plm.runDemo(lessonID, exerciseID)
             case (_, _) =>
-              LoggerUtils.debug("runDemo: non-correctJSON")
+              Logger.debug("runDemo: non-correctJSON")
           }
         case "stopExecution" =>
           plm.stopExecution
@@ -129,7 +129,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
         case _ =>
-          LoggerUtils.debug("cmd: non-correct JSON")
+          Logger.debug("cmd: non-correct JSON")
       }
   }
   
@@ -149,7 +149,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   }
   
   override def postStop() = {
-    LoggerUtils.debug("postStop: websocket closed - removing the spies")
+    Logger.debug("postStop: websocket closed - removing the spies")
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }

@@ -10,11 +10,11 @@ import spies.ExecutionSpy
 import plm.core.model.lesson.Exercise
 import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
+import log.PLMLogger
+import java.util.Locale
 
 class PLMSpec extends PlaySpec with MockitoSugar {
-
-  var plm = new PLM
-
+  var plm = new PLM(mock[PLMLogger], new Locale("en"))
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {

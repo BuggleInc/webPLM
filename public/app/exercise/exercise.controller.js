@@ -85,6 +85,7 @@
 		exercise.objectiveViewNeeded = false;
 		exercise.animationPlayerNeeded = false;
 		exercise.secondViewNeeded = false;
+		exercise.displaySecondView = false;
 
 		exercise.instructionsIsFullScreen = false;
 		exercise.instructionsClass='';
@@ -97,8 +98,12 @@
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
+
 		exercise.setSecondView = setSecondView;
-		exercise.displaySecondView = false;
+		
+
+		exercise.switchToObjective = switchToObjective;
+
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
 		exercise.setSelectedNextExercise = setSelectedNextExercise;
@@ -246,10 +251,6 @@
 			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
 			exercise.currentState = exercise.currentWorld.currentState;
 			exercise.drawService.setWorld(exercise.currentWorld);
-			if(!exercise.preventLoop && !exercise.playedDemo && worldKind === 'answer') {
-				exercise.preventLoop = true;
-				runDemo();
-			}
 		}
 
 		function setSecondView(b)
@@ -279,6 +280,15 @@
 				// We don't need to query the server again
 				// Just to replay the animation
 				replay();
+			}
+		}
+
+		function switchToObjective() {
+			if(!exercise.playedDemo) {
+				runDemo();
+			}
+			else {
+				setCurrentWorld('answer');
 			}
 		}
 		
