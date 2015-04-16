@@ -16,8 +16,9 @@
     <br/>
     <br/>
     <ui-codemirror ng-show="exercise.ide === 'codemirror'" ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, tabSize: 2, firstLineNumber: 0, autoCloseBrackets: true, mode: 'text/x-java' }"></ui-codemirror>
-    <!--<ui-blockly ng-show="exercise.ide === 'blockly'"></ui-blockly>-->
-    <div ng-show="exercise.ide === 'blockly'">
+    <blockly></blockly>
+    
+    <!--<div ng-show="exercise.ide === 'blockly'">
         <script>
             function blocklyLoaded(blockly) {
                 // Called once Blockly is fully loaded.
@@ -25,7 +26,8 @@
             }
         </script>
         <iframe src="/assets/app/components/frame.html" width="100%" height="452px"></iframe>
-    </div>
+    </div>-->
+    
     <br/>
     <br/>
 </div>
