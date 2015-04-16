@@ -3,33 +3,15 @@
 
     angular
         .module("PLMApp")
-    
         .provider("blockly", function () {
             this.options = {
-                path: "assets/",
+                path: "assets/javascripts/blockly/media/",
                 trashcan: true,
-                toolbox: []
-            };
-
-            this.$get = function () {
-                var localOptions = this.options;
-                return {
-                    getOptions: function () {
-                        return localOptions;
-                    }
-                };
-            };
-
-            this.setOptions = function (options) {
-                this.options = options;
-            };
-        })
-        
-        .config(function myAppConfig(BlocklyProvider) {
-        BlocklyProvider.setOptions({
-            path: "../blockly/media/",
-            trashcan: true,
-            toolbox: [
+                toolbox: [
+                {
+                    name: "TEMPO",
+                    blocks: []
+                },
                 {
                     name: "Logic",
                     blocks: [
@@ -54,6 +36,20 @@
                     ]
                 }
             ]
+            };
+
+            this.$get = function () {
+                var localOptions = this.options;
+                return {
+                    getOptions: function () {
+                        return localOptions;
+                    }
+                };
+            };
+
+            this.setOptions = function (options) {
+                this.options = options;
+            };
         });
 
 })();
