@@ -35,6 +35,16 @@
 			}
 
 			this.memory.push(this.initValues);
+
+			/*
+			this.colors = [];
+			for(var i=0;i<this.values.length;i++)
+			{
+				this.colors.push('#'+Math.floor(Math.random()*16777215).toString(16));
+			}
+			*/
+
+			this.colors = ["#000000","#ff0000","#ff00d0","#1200ff","#00ffec","#00ff24","#663300","#ff5d00","#999966","#6600CC"];
 		};
 
 		SortingWorld.prototype.clone = function()

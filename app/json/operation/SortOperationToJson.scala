@@ -19,6 +19,8 @@ object SortOperationToJson {
         json = copyOperationWrite(copyOperation)
       case countOperation: CountOperation =>
         json = countOperationWrite(countOperation)
+      case getValueOperation : GetValueOperation =>
+        json = getValueOperationWrite(getValueOperation)
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(

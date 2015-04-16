@@ -44,8 +44,6 @@
 		{
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
-
-
 			
 
 			//String of letters
@@ -82,7 +80,7 @@
 					ctx.beginPath();
 					y1 = i * unit + 25;
 					
-					ctx.fillStyle = colors[i];
+					ctx.fillStyle = sortingWorld.colors[sortingWorld.values[i]];
 					if(drawLetters)
 					{
 						ctx.font = "30 px sans-serif";
@@ -96,7 +94,7 @@
 					ctx.beginPath();
 					ctx.moveTo(25,y1);
 					ctx.lineTo(canvasWidth-30,y1);
-					ctx.strokeStyle = colorsLine[i];
+					ctx.strokeStyle = sortingWorld.colors[sortingWorld.values[i]];
 					ctx.stroke();
 					ctx.closePath();
 
@@ -109,6 +107,7 @@
 				return
 			}
 
+
 			//case initial if there are operations
 			for(var i = 0; i < sortingWorld.memory.length;i++)
 			{
@@ -118,7 +117,7 @@
 
 					//draws letter
 					ctx.beginPath();
-					ctx.fillStyle = colors[sortingWorld.values[j]];
+					ctx.fillStyle = sortingWorld.colors[sortingWorld.memory[i][j]];
 					if(drawLetters)
 					{
 						ctx.font = "10px sans-serif";
@@ -126,6 +125,27 @@
 					}
 					ctx.closePath();
 				}
+			}
+
+
+			var lineInd = 0;
+			//draws lines for the unmodified values
+			for(var i = 1; i<sortingWorld.memory.length;i++)
+			{
+				for(var j=0;j<sortingWorld.memory[i].length;j++)
+				{
+					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
+					{
+						ctx.beginPath();
+						y1 = j * unit + 25;
+						ctx.moveTo((timeUnit*lineInd)+10,y1);
+						ctx.lineTo(timeUnit*i,y1);
+						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[i-1][j]];
+						ctx.stroke();
+						ctx.closePath();
+					}
+				}
+				lineInd++;
 			}
 
 			var opInd = 0;
@@ -137,35 +157,38 @@
 		
 					
 					if(sortingWorld.operations[i][j] instanceof SwapOperation)
-					{
-						
+					{ 	 
+
+						if(opInd<sortingWorld.memory.length)
+						{
 						
 						//draw source->dest
 						ctx.beginPath();
 						y1 = sortingWorld.operations[i][j].src * unit + 25;
 						y2 = sortingWorld.operations[i][j].dest * unit + 25;
-						ctx.moveTo((timeUnit*opInd)+10,y1);
+						ctx.moveTo((timeUnit*opInd)+10,y1); 
 						ctx.lineTo(timeUnit*(opInd+1),y2);
-						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
+						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[opInd][sortingWorld.operations[i][j].src]];
 						ctx.stroke();
-						ctx.closePath();
-
+						ctx.closePath(); 
+						
 						//draw dest->source
 						ctx.beginPath();
 						y1 = sortingWorld.operations[i][j].dest * unit + 25;
 						y2 = sortingWorld.operations[i][j].src * unit + 25;
 						ctx.moveTo((timeUnit*opInd)+10,y1);
 						ctx.lineTo((timeUnit*(opInd+1)), y2);
-						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].dest];
+						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[opInd][sortingWorld.operations[i][j].dest]];
 						ctx.stroke();
 						ctx.closePath();
+					}
 					}else if(sortingWorld.operations[i][j] instanceof CopyOperation)
 					{
 						//draws the values copied
 						ctx.beginPath();
 						y1 = sortingWorld.operations[i][j].src * unit + 25;
 						y2 = sortingWorld.operations[i][j].dest * unit +25;
-						ctx.strokeStyle = colorsLine[sortingWorld.operations[i][j].src];
+						ctx.strokeStyle = sortingWorld.colors[sortingWorld.values[sortingWorld.operations[i][j].dest]];
 						ctx.moveTo((timeUnit*opInd)+10,y1);
 						ctx.lineTo((timeUnit*(opInd+1)),y2);
 						ctx.stroke();
@@ -185,7 +208,6 @@
 						ctx.closePath();
 					}else if(sortingWorld.operations[i][j] instanceof GetValueOperation)
 					{
-						console.log(sortingWorld.operations[i][j].position);
 						y1 = sortingWorld.operations[i][j].position * unit + 20;
 						ctx.beginPath();
 						ctx.fillStyle = "#FF00FF";
@@ -193,12 +215,12 @@
 						{
 							ctx.font = "bold 10px sans-serif";
 							ctx.clearRect((timeUnit*(opInd+1)),y1,10,-15);
-							ctx.fillText(letters.charAt(sortingWorld.operations[i][j].value)+"?",(timeUnit*(opInd))-2,y1);
+							ctx.fillText(letters.charAt(sortingWorld.values[sortingWorld.operations[i][j].position])+"?",(timeUnit*(opInd+1))-5,y1);
 						}
 						ctx.closePath();
 					}
 				}
-				opInd++;		
+				opInd++;
 			}
 
 
@@ -208,25 +230,7 @@
 			
 
 
-			var lineInd = 0;
-			//draws lines for the unmodified values
-			for(var i = 1; i<sortingWorld.memory.length;i++)
-			{
-				for(var j=0;j<sortingWorld.memory[i].length;j++)
-				{
-					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
-					{
-						ctx.beginPath();
-						y1 = j * unit + 25;
-						ctx.moveTo((timeUnit*lineInd)+10,y1);
-						ctx.lineTo(timeUnit*i,y1);
-						ctx.strokeStyle = colorsLine[sortingWorld.values[j]];
-						ctx.stroke();
-						ctx.closePath();
-					}
-				}
-				lineInd++;
-			}
+			
 		}
 	}
 })();
