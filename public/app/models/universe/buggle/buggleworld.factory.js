@@ -22,7 +22,7 @@
 			CellAlreadyHaveBaggle, BuggleInOuterSpace) {
 		
 		var BuggleWorld = function (world) {
-            
+
             world = typeof world !== 'undefined' ? world : this.newEmptyWorld();
             
 			this.type = world.type;
@@ -151,6 +151,143 @@
 			}
 		};
         
+        BuggleWorld.prototype.deleteLine = function(lineY) {
+            var bugglesToRemove = [];
+            var buggle;
+            var i, y;
+            
+            for(y = lineY; y < this.height - 1; y++) {
+                for(var x = 0; x < this.width; x++) {
+                    this.cells[x][y] = this.cells[x][y+1];
+                    this.cells[x][y].y = y;  
+                }
+            }
+
+            for(var buggleID in this.entities) {
+				if(this.entities.hasOwnProperty(buggleID)) {
+					buggle = this.entities[buggleID];
+					if(buggle.y === lineY) {
+                        bugglesToRemove.push(buggleID);
+                    }
+                    else if(buggle.y > lineY) {
+                        buggle.y--;
+                    }
+				}	
+			}
+            
+            for(i = 0; i < bugglesToRemove.length; i++) {
+                delete this.entities[bugglesToRemove[i]];
+            }
+            
+            for(i = 0; i < this.width; i++) {
+                this.cells[i].splice(this.height - 1, 1);
+            }
+            
+            this.height--;
+        }
+        
+        BuggleWorld.prototype.deleteColumn = function(lineX) {
+            var bugglesToRemove = [];
+            var buggle;
+            var i, x;
+            
+            for(x = lineX; x < this.width - 1; x++) {
+                for(var y = 0; y < this.height; y++) {
+                    this.cells[x][y] = this.cells[x+1][y];
+                    this.cells[x][y].x = x;  
+                }
+            }
+
+            for(var buggleID in this.entities) {
+				if(this.entities.hasOwnProperty(buggleID)) {
+					buggle = this.entities[buggleID];
+					if(buggle.x === lineX) {
+                        bugglesToRemove.push(buggleID);
+                    }
+                    else if(buggle.x > lineX) {
+                        buggle.x--;
+                    }
+				}	
+			}
+            
+            for(i = 0; i < bugglesToRemove.length; i++) {
+                delete this.entities[bugglesToRemove[i]];
+            }
+            
+            this.cells.splice(this.width - 1, 1);
+            
+            this.width--;
+        }
+        
+        BuggleWorld.prototype.addLine = function(lineY) {
+            var y, x;
+            
+            for(x = 0; x < this.width; x++) {
+                this.cells[x].splice(lineY, 0, new BuggleWorldCell({
+                        color: [255, 255, 255, 255],
+                        content: '',
+                        hasBaggle: false,
+                        hasContent: false,
+                        hasLeftWall: false,
+                        hasTopWall: false,
+                        x: x,
+                        y: lineY
+                    }));
+            }
+            
+            this.height++;
+            
+            for(y = this.height - 1; y > lineY; y--) {
+                for(x = 0; x < this.width; x++) {
+                    this.cells[x][y].y++;
+                }
+            }
+            
+            for(var buggleID in this.entities) {
+				if(this.entities.hasOwnProperty(buggleID)) {
+					if(this.entities[buggleID].y >= lineY) {
+                      this.entities[buggleID].y++;
+                    }
+				}
+			}
+        }
+        
+        BuggleWorld.prototype.addColumn = function(columnX) {
+            var y, x;
+            var newColumn = [];
+            
+            for(y = 0; y < this.height; y++) {
+                newColumn.push(new BuggleWorldCell({
+                    color: [255, 255, 255, 255],
+                    content: '',
+                    hasBaggle: false,
+                    hasContent: false,
+                    hasLeftWall: false,
+                    hasTopWall: false,
+                    x: columnX,
+                    y: y
+                }));
+            }
+            
+            this.cells.splice(columnX, 0, newColumn);
+
+            this.width++;
+            
+            for(x = this.width - 1; x > columnX; x--) {
+                for(y = 0; y < this.height; y++) {
+                    this.cells[x][y].x++;
+                }
+            }
+            
+            for(var buggleID in this.entities) {
+				if(this.entities.hasOwnProperty(buggleID)) {
+					if(this.entities[buggleID].x >= columnX) {
+                      this.entities[buggleID].x++;
+                    }
+				}
+			}
+        }
+        
         BuggleWorld.prototype.newEmptyWorld = function () {
             var i, j;
             var world = {
@@ -161,9 +298,9 @@
                 width: 7
             };
             
-            for(i = 0; i < world.height; i++) {
+            for(i = 0; i < world.width; i++) {
                 world.cells.push([]);
-                for(j = 0; j < world.width; j++) {
+                for(j = 0; j < world.height; j++) {
                     world.cells[i].push({
                         color: [255, 255, 255, 255],
                         content: '',

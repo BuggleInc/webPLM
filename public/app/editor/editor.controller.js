@@ -44,12 +44,18 @@
 		editor.drawService = null;
 		editor.drawingArea = 'drawingArea';
         
+        editor.errorMessage = null;
+        
         editor.selectCell = selectCell;
         editor.initEditor = initEditor;
         editor.setCommand = setCommand;
         editor.setRGBColor = setRGBColor;
         editor.setColorByName = setColorByName;
         editor.setText = setText;
+        editor.addLineAbove = addLineAbove;
+        editor.addLineBelow = addLineBelow;
+        editor.addColumnRight = addColumnRight;
+        editor.addColumnLeft = addColumnLeft;
         
         function initEditor() {
             editor.world = new BuggleWorld();
@@ -85,7 +91,7 @@
             var offset = $('#' + canvasID).offset();
             var x = Math.floor((event.pageX - offset.left) / BuggleWorldView.getCellWidth());
             var y = Math.floor((event.pageY - offset.top) / BuggleWorldView.getCellHeight());
-            
+
             editor.world.selectCell(x, y);
             editor.selectedCell = editor.world.selectedCell;
             
@@ -109,8 +115,29 @@
                     colorCommand();
                     break;
                 case 'text':
-                    editor.setTextInput = editor.selectedCell.content;
-                    $('#setTextModal').foundation('reveal', 'open');
+                    textCommand();
+                    break;
+                case 'addline':
+                    addLineCommand();
+                    break;
+                case 'addcolumn':
+                    addColumnCommand();
+                    break;
+                case 'deleteline':
+                    if(editor.world.height > 1) {
+                        deleteLineCommand(y);
+                    }
+                    else {
+                        displayError('You can\'t delete more lines');
+                    }
+                    break;
+                case 'deletecolumn':
+                    if(editor.world.width > 1) {
+                        deleteColumnCommand(x);
+                    }
+                    else {
+                        displayError('You can\'t delete more columns');
+                    }
                     break;
             }
 
@@ -119,6 +146,11 @@
             }
             
             editor.drawService.update();
+        }
+        
+        function displayError(errorMessage) {
+            editor.errorMessage = errorMessage;
+            $('#errorModal').foundation('reveal', 'open');
         }
         
         function buggleCommand(x, y) {
@@ -184,6 +216,28 @@
             editor.selectedCell.color = (sameColor) ? [255,255,255,255] : editor.color;
         }
         
+        function textCommand() {
+            editor.setTextInput = editor.selectedCell.content;
+            $('#setTextModal').foundation('reveal', 'open');
+        }
+        
+        
+        function addLineCommand() {
+            $('#addLineModal').foundation('reveal', 'open');
+        }
+        
+         function addColumnCommand() {
+            $('#addColumnModal').foundation('reveal', 'open');
+        }
+        
+        function deleteLineCommand(y) {
+            editor.world.deleteLine(y);
+        }
+        
+        function deleteColumnCommand(x) {
+            editor.world.deleteColumn(x);
+        }
+        
         function setColorByName() {
             var newColor = color.nameToRGB(editor.colorNameSelect);
             if(newColor !== null) {
@@ -208,6 +262,26 @@
         function setText() {
             editor.selectedCell.hasContent = (editor.setTextInput.length !== '') ? true : false;
             editor.selectedCell.content = editor.setTextInput;
+            editor.drawService.update();
+        }
+        
+        function addLineAbove() {
+            editor.world.addLine(editor.selectedCell.y);
+            editor.drawService.update();
+        }
+        
+        function addLineBelow() {
+            editor.world.addLine(editor.selectedCell.y + 1);
+            editor.drawService.update();
+        }
+        
+        function addColumnLeft() {
+            editor.world.addColumn(editor.selectedCell.x);
+            editor.drawService.update();
+        }
+        
+        function addColumnRight() {
+            editor.world.addColumn(editor.selectedCell.x + 1);
             editor.drawService.update();
         }
         
