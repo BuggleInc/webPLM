@@ -11,7 +11,6 @@
 		var GetValueOperation = function(data)
 		{
 			this.position = data.position;
-			console.log("///////////////////////////////////////////////",data);
 		};
 
 
@@ -28,7 +27,7 @@
 
 		GetValueOperation.prototype.reverse = function(currentWorld)
 		{
-			var index = currentWorld.memory.indexOf(currentWorld.values);
+				var index = currentWorld.memory.indexOf(currentWorld.memory[currentWorld.memory.length-1]);
 				if(index > -1) currentWorld.memory.splice(index,1);
 		};
 

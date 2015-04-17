@@ -31,16 +31,19 @@
 
 		function draw(canvas, sortingWorld)
 		{
-			
 			initUtils(canvas, sortingWorld);
-			drawInitial(sortingWorld);
+			ctx.beginPath();
+			ctx.fillStyle = "#000000"
 			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
+			ctx.closePath();
+			drawChrono(sortingWorld);
+
 		}
 
 
 
 		
-		function drawInitial(sortingWorld)
+		function drawChrono(sortingWorld)
 		{
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
@@ -50,16 +53,11 @@
 			var letters = "ABCDEFGHIJKLMNOPQRSTWXYZ";
 
 			//an unit of canvasHeight, divided by the number of values
-			var unit = canvasHeight / sortingWorld.values.length;
+			var heightUnit = canvasHeight / sortingWorld.values.length;
 
 
 			//canvasWidth divided by the number of values to know the width of each rectangle
-			var timeUnit = (canvasWidth-9)/ Math.max(amountOperations,1);
-
-			var colors = ["#000000","#ff0000","#ff00d0","#1200ff","#00ffec","#00ff24","#663300","#ff5d00","#999966","#6600CC"];
-			
-			var colorsLine = ["#000","#F00","#F0C","#10F"," #0FE","#0F2","#630","#F50","#996","#60C"];
-
+			var widthUnit = (canvasWidth-9)/ Math.max(amountOperations,1);
 			
 			
 			//if the array is small enough, we display the letters
@@ -78,13 +76,13 @@
 
 					//draws letters
 					ctx.beginPath();
-					y1 = i * unit + 25;
+					y1 = i * heightUnit + 25;
 					
 					ctx.fillStyle = sortingWorld.colors[sortingWorld.values[i]];
 					if(drawLetters)
 					{
 						ctx.font = "30 px sans-serif";
-						ctx.fillText(letters.charAt(sortingWorld.values[i]),25,unit*i+20);
+						ctx.fillText(letters.charAt(sortingWorld.values[i]),25,heightUnit*i+20);
 					}
 
 					ctx.closePath();
@@ -97,15 +95,11 @@
 					ctx.strokeStyle = sortingWorld.colors[sortingWorld.values[i]];
 					ctx.stroke();
 					ctx.closePath();
-
-					
-
-
-
 				}
 
 				return
 			}
+
 
 
 			//case initial if there are operations
@@ -121,13 +115,15 @@
 					if(drawLetters)
 					{
 						ctx.font = "10px sans-serif";
-						ctx.fillText(letters.charAt(sortingWorld.memory[i][j]),timeUnit*i,unit*j+20);
+						ctx.fillText(letters.charAt(sortingWorld.memory[i][j]),widthUnit*i,heightUnit*j+20);
 					}
 					ctx.closePath();
 				}
 			}
 
+			
 
+			//indicates which line we are drawing
 			var lineInd = 0;
 			//draws lines for the unmodified values
 			for(var i = 1; i<sortingWorld.memory.length;i++)
@@ -137,9 +133,9 @@
 					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
 					{
 						ctx.beginPath();
-						y1 = j * unit + 25;
-						ctx.moveTo((timeUnit*lineInd)+10,y1);
-						ctx.lineTo(timeUnit*i,y1);
+						y1 = j * heightUnit + 25;
+						ctx.moveTo((widthUnit*lineInd)+10,y1);
+						ctx.lineTo(widthUnit*i,y1);
 						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[i-1][j]];
 						ctx.stroke();
 						ctx.closePath();
@@ -147,87 +143,104 @@
 				}
 				lineInd++;
 			}
-
+			
+			//indicates which operation we are drawing
 			var opInd = 0;
+
+			//indicates which copy we are drawing
+			var copyInd = 0;
+
+
+			var clearX;
+			var clearY;
 			//draws the lines for the operations
 			for(var i=0; i<sortingWorld.operations.length;i++)
 			{
 				for(var j=0;j<sortingWorld.operations[0].length;j++)
 				{
-		
 					
-					if(sortingWorld.operations[i][j] instanceof SwapOperation)
-					{ 	 
 
+					//draws a clear rectangle erasing some elements which appear before they should 
+					ctx.beginPath();
+					clearX= 9+((sortingWorld.memory.length-1)*widthUnit)
+					clearY=2;
+					ctx.clearRect(clearX,clearY,canvasWidth,canvasHeight-10);
+					ctx.fillStyle = "#000000"
+					ctx.strokeRect(0,0,canvasWidth,canvasHeight);
+					ctx.closePath();
+
+
+					if(sortingWorld.operations[i][j] instanceof SetValOperation)
+					{
+						ctx.beginPath();
+						y1 = sortingWorld.operations[i][j].position * heightUnit + 20;
+						ctx.fillStyle = "#FF0000";
+						if(drawLetters)
+						{
+							ctx.font = "bold 12px sans-serif";
+							ctx.clearRect((widthUnit*(opInd+1)),y1,10,-15);
+							ctx.fillText(letters.charAt(sortingWorld.operations[i][j].value)+"!",(widthUnit*(opInd+1))-2,y1);
+						}
+						ctx.closePath();
+					}else if(sortingWorld.operations[i][j] instanceof GetValueOperation)
+					{
+						ctx.beginPath();
+						y1 = sortingWorld.operations[i][j].position * heightUnit + 20;
+						ctx.fillStyle = "#FF00FF";
+						if(drawLetters)
+						{
+							ctx.font = "bold 12px sans-serif";
+							ctx.clearRect((widthUnit*(opInd+1)),y1,10,-15);
+							ctx.fillText(letters.charAt(sortingWorld.values[sortingWorld.operations[i][j].position])+"?",(widthUnit*(opInd+1))-5,y1);
+						}
+						ctx.closePath();
+					}
+					 else if(sortingWorld.operations[i][j] instanceof SwapOperation)
+					{ 	 
 						if(opInd<sortingWorld.memory.length)
 						{
 						
 						//draw source->dest
 						ctx.beginPath();
-						y1 = sortingWorld.operations[i][j].src * unit + 25;
-						y2 = sortingWorld.operations[i][j].dest * unit + 25;
-						ctx.moveTo((timeUnit*opInd)+10,y1); 
-						ctx.lineTo(timeUnit*(opInd+1),y2);
+						y1 = sortingWorld.operations[i][j].src * heightUnit + 25;
+						y2 = sortingWorld.operations[i][j].dest * heightUnit + 25;
+						ctx.moveTo((widthUnit*opInd)+10,y1); 
+						ctx.lineTo(widthUnit*(opInd+1),y2);
 						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[opInd][sortingWorld.operations[i][j].src]];
 						ctx.stroke();
 						ctx.closePath(); 
 						
 						//draw dest->source
 						ctx.beginPath();
-						y1 = sortingWorld.operations[i][j].dest * unit + 25;
-						y2 = sortingWorld.operations[i][j].src * unit + 25;
-						ctx.moveTo((timeUnit*opInd)+10,y1);
-						ctx.lineTo((timeUnit*(opInd+1)), y2);
+						y1 = sortingWorld.operations[i][j].dest * heightUnit + 25;
+						y2 = sortingWorld.operations[i][j].src * heightUnit + 25;
+						ctx.moveTo((widthUnit*opInd)+10,y1);
+						ctx.lineTo((widthUnit*(opInd+1)), y2);
 						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[opInd][sortingWorld.operations[i][j].dest]];
 						ctx.stroke();
 						ctx.closePath();
 					}
 					}else if(sortingWorld.operations[i][j] instanceof CopyOperation)
 					{
+						if(copyInd<sortingWorld.memory.length)
+						{
 						//draws the values copied
-						ctx.beginPath();
-						y1 = sortingWorld.operations[i][j].src * unit + 25;
-						y2 = sortingWorld.operations[i][j].dest * unit +25;
-						ctx.strokeStyle = sortingWorld.colors[sortingWorld.values[sortingWorld.operations[i][j].dest]];
-						ctx.moveTo((timeUnit*opInd)+10,y1);
-						ctx.lineTo((timeUnit*(opInd+1)),y2);
-						ctx.stroke();
-						ctx.closePath();
-					}
-					else if(sortingWorld.operations[i][j] instanceof SetValOperation)
-					{
-						y1 = sortingWorld.operations[i][j].position * unit + 20;
-						ctx.beginPath();
-						ctx.fillStyle = "#FF0000";
-						if(drawLetters)
-						{
-							ctx.font = "bold 10px sans-serif";
-							ctx.clearRect((timeUnit*(opInd+1)),y1,10,-15);
-							ctx.fillText(letters.charAt(sortingWorld.operations[i][j].value)+"!",(timeUnit*(opInd+1))-2,y1);
+							ctx.beginPath();
+							y1 = sortingWorld.operations[i][j].src * heightUnit + 25;
+							y2 = sortingWorld.operations[i][j].dest * heightUnit +25;
+							ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[copyInd][sortingWorld.operations[i][j].src]];
+							ctx.moveTo((widthUnit*opInd)+10,y1);
+							ctx.lineTo((widthUnit*(opInd+1)),y2);
+							ctx.stroke();
+							ctx.closePath();
 						}
-						ctx.closePath();
-					}else if(sortingWorld.operations[i][j] instanceof GetValueOperation)
-					{
-						y1 = sortingWorld.operations[i][j].position * unit + 20;
-						ctx.beginPath();
-						ctx.fillStyle = "#FF00FF";
-						if(drawLetters)
-						{
-							ctx.font = "bold 10px sans-serif";
-							ctx.clearRect((timeUnit*(opInd+1)),y1,10,-15);
-							ctx.fillText(letters.charAt(sortingWorld.values[sortingWorld.operations[i][j].position])+"?",(timeUnit*(opInd+1))-5,y1);
-						}
-						ctx.closePath();
 					}
+
 				}
 				opInd++;
+				copyInd++;
 			}
 
-
-
-			
-			
-			
 
 
 			

@@ -31,12 +31,16 @@
 			initUtils(canvas, sortingWorld);
 			ctx.beginPath();
 			drawColumn(sortingWorld);
+
+			//draws egde of our drawArena
 			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
+			
+
 			drawText(sortingWorld);
 			ctx.closePath();
-			
 		}
 
+		//draws write and read counts
 		function drawText(sortingWorld)
 		{
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -48,12 +52,13 @@
 		function drawColumn(sortingWorld)
 		{
 			//canvasWidth divided by the number of values to know the width of each rectangle
-			var width = canvasWidth / sortingWorld.values.length;
+			var widthUnit = canvasWidth / sortingWorld.values.length;
 			
+
 			var x;
 
 			//an unit of canvasHeight, divided by the number of values
-			var unit = canvasHeight / sortingWorld.values.length;
+			var heightUnit = canvasHeight / sortingWorld.values.length;
 
 			//String of letters
 			var letters = "ABCDEFGHIJKLMNOPQRSTWXYZ";
@@ -62,20 +67,23 @@
 			for(var i=0; i<sortingWorld.values.length;i++)
 			{
 				//each rectangle takes place in the canvasWidth
-				x = width * i;
+				x = widthUnit * i;
 
 			
 				//To know if the rectangle has his good place, we verify that its value is equal to its position+1
-				if(x == width*sortingWorld.values[i])
+				if(x === widthUnit*sortingWorld.values[i])
 					ctx.fillStyle= "rgb(0,255,0)";
 				else
 					ctx.fillStyle = "rgb(255,0,0)";
 
-				
-				ctx.fillRect(x,canvasHeight,width,-(unit*sortingWorld.values[i]));
+				//draws rectangles
+				ctx.fillRect(x,canvasHeight,widthUnit,-(heightUnit*sortingWorld.values[i]));
 				ctx.fillStyle = "rgb(0,255,0)";
-				ctx.strokeRect(x,canvasHeight,width,-(unit*sortingWorld.values[i]));
 
+				//draws egde of the rectangles
+				ctx.strokeRect(x,canvasHeight,widthUnit,-(heightUnit*sortingWorld.values[i]));
+
+				//draws the letters if you have enough space
 				if(sortingWorld.values.length<150)
 				{
 					ctx.fillStyle = "rgb(0,0,0)";

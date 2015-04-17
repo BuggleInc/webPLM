@@ -203,7 +203,9 @@
 								exercise.animationPlayerNeeded = true;
 								exercise.secondViewNeeded = true;
 								world = new SortingWorld(initialWorld);
+					
 								initCanvas(SortingWorldView.draw);
+							
 								break;
 
 						}
@@ -256,12 +258,13 @@
 		function setSecondView(b)
 		{
 			exercise.displaySecondView = b;
+			
 			if(!b)
-				initCanvas(SortingWorldView.draw);
+				canvas.setDraw(SortingWorldView.draw);
 			else
-				initCanvas(SortingWorldSecondView.draw);
+				canvas.setDraw(SortingWorldSecondView.draw);
 
-			reset(exercise.currentWorldID, exercise.worldKind, true);		
+			canvas.update();
 		}
 		
 		function runDemo() {

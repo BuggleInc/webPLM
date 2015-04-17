@@ -31,7 +31,7 @@
 
 			SwapOperation.prototype.reverse = function(currentWorld)
 			{
-				var index = currentWorld.memory.indexOf(currentWorld.values);
+				var index = currentWorld.memory.indexOf(currentWorld.memory[currentWorld.memory.length-1]);
 				if(index > -1) currentWorld.memory.splice(index,1);
 				var tmp = currentWorld.values[this.dest];
 				currentWorld.values[this.dest] = currentWorld.values[this.src];

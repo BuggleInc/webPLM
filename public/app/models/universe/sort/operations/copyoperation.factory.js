@@ -30,8 +30,8 @@
 		
 		CopyOperation.prototype.reverse = function(currentWorld)
 		{
-			var index = currentWorld.memory.indexOf(currentWorld.values);
-			if(index > -1) currentWorld.memory.splice(index,1);
+				var index = currentWorld.memory.indexOf(currentWorld.memory[currentWorld.memory.length-1]);
+				if(index > -1) currentWorld.memory.splice(index,1);
 			currentWorld.values[this.dest] = this.oldValue;
 		};
 

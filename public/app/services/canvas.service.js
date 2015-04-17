@@ -20,7 +20,8 @@
 				getWorld: getWorld,
 				getCanvasElt: getCanvasElt,
 				getContext: getContext,
-				getDraw: getDraw
+				getDraw: getDraw,
+				setDraw: setDraw
 		};
 		
 		return service;
@@ -58,6 +59,11 @@
 
 		function getCanvasElt() {
 			return canvas;
+		}
+
+		function setDraw(fnctDraw)
+		{
+			draw = fnctDraw;
 		}
 
 		function getContext() {
