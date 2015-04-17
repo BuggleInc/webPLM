@@ -30,6 +30,15 @@
 		var panelID = 'panel';
 		var canvasID = 'canvas';
 
+		
+
+		exercise.tabsName = {};
+		exercise.nameWorld;
+
+		
+		
+		
+
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
 		
@@ -100,8 +109,6 @@
 		exercise.setCurrentWorld = setCurrentWorld;
 
 		exercise.setSecondView = setSecondView;
-		
-
 		exercise.switchToObjective = switchToObjective;
 
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
@@ -186,6 +193,8 @@
 						var world;
 						switch(initialWorld.type) {
 							case 'BuggleWorld':
+								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective"};
+								exercise.nameWorld = initialWorld.type;
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
@@ -198,14 +207,14 @@
 								initDrawWithDOM(BatWorldView.draw);
 								break;
 							case 'SortingWorld':
+								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective", secondView: "ChronoView", secondDemo: "ChronoDemo"};
+								exercise.nameWorld = initialWorld.type;
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
 								exercise.secondViewNeeded = true;
 								world = new SortingWorld(initialWorld);
-					
 								initCanvas(SortingWorldView.draw);
-							
 								break;
 
 						}

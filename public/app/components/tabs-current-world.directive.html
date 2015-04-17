@@ -1,16 +1,16 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
 		<dd ng-class="{ active: exercise.worldKind === 'current' && exercise.displaySecondView === false}" ng-click="exercise.setCurrentWorld('current');exercise.setSecondView(false)">
-			<a translate>World</a>
+			<a translate>{{exercise.tabsName[exercise.nameWorld].name}}</a>
 		</dd>
 		<dd ng-class="{ active: exercise.worldKind === 'answer' && exercise.displaySecondView === false }" ng-click="exercise.switchToObjective();exercise.setSecondView(false)">
-			<a translate>Objective</a>
+			<a translate>{{exercise.tabsName[exercise.nameWorld].demo}}</a>
 		</dd>
 		<dd ng-class="{ active: exercise.worldKind === 'current' && exercise.displaySecondView === true }" ng-click="exercise.setCurrentWorld('current');exercise.setSecondView(true)" ng-show="exercise.secondViewNeeded">
-			<a translate>Second View</a>
+			<a translate>{{exercise.tabsName[exercise.nameWorld].secondView}}</a>
 		</dd>
 		<dd ng-class="{ active: exercise.worldKind === 'answer' && exercise.displaySecondView === true }" ng-click="exercise.switchToObjective();exercise.setSecondView(true)" ng-show="exercise.secondViewNeeded">
-		<a translate>Second Objective View</a>
+		<a translate>{{exercise.tabsName[exercise.nameWorld].secondDemo}}</a>
 		</dd>
 	</dl>
 </div>
