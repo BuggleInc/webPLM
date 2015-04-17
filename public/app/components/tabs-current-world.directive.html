@@ -6,8 +6,11 @@
 		<dd ng-class="{ active: exercise.worldKind === 'answer' && exercise.displaySecondView === false }" ng-click="exercise.switchToObjective();exercise.setSecondView(false)">
 			<a translate>Objective</a>
 		</dd>
-		<dd ng-class="{ active: exercise.displaySecondView === true }" ng-click="exercise.setSecondView(true)" ng-show="exercise.secondViewNeeded" >
+		<dd ng-class="{ active: exercise.worldKind === 'current' && exercise.displaySecondView === true }" ng-click="exercise.setCurrentWorld('current');exercise.setSecondView(true)" ng-show="exercise.secondViewNeeded">
 			<a translate>Second View</a>
+		</dd>
+		<dd ng-class="{ active: exercise.worldKind === 'answer' && exercise.displaySecondView === true }" ng-click="exercise.switchToObjective();exercice.setSecondView(true)">
+		<a translate>Second Objective View</a>
 		</dd>
 	</dl>
 </div>
