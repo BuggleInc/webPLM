@@ -20,7 +20,6 @@ import models.services.{ UserService, UserServiceImpl }
 import net.codingwell.scalaguice.ScalaModule
 import play.api.Play
 import play.api.Play.current
-
 import scala.collection.immutable.ListMap
 
 /**
@@ -54,6 +53,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    * @param eventBus The event bus instance.
    * @param credentialsProvider The credentials provider implementation.
    * @param facebookProvider The Facebook provider implementation.
+   * @param githubProvider The GitHub provider implementation.
    * @param googleProvider The Google provider implementation.
    * @param twitterProvider The Twitter provider implementation.
    * @return The Silhouette environment.
@@ -65,6 +65,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     eventBus: EventBus,
     credentialsProvider: CredentialsProvider,
     facebookProvider: FacebookProvider,
+    gitHubProvider: GitHubProvider,
     googleProvider: GoogleProvider,
     twitterProvider: TwitterProvider): Environment[User, JWTAuthenticator] = {
 
@@ -75,7 +76,8 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
         credentialsProvider.id -> credentialsProvider,
         googleProvider.id -> googleProvider,
         facebookProvider.id -> facebookProvider,
-        twitterProvider.id -> twitterProvider
+        twitterProvider.id -> twitterProvider,
+        gitHubProvider.id -> gitHubProvider
       ),
       eventBus
     )
@@ -178,6 +180,23 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       scope = Play.configuration.getString("silhouette.facebook.scope")))
   }
 
+  /**
+   * Provides the GitHub provider.
+   *
+   * @param httpLayer The HTTP layer implementation.
+   * @param stateProvider The OAuth2 state provider implementation.
+   * @return The GitHub provider.
+   */
+  @Provides
+  def provideGitHubProvider(httpLayer: HTTPLayer, stateProvider: OAuth2StateProvider): GitHubProvider = {
+    GitHubProvider(httpLayer, stateProvider, OAuth2Settings(
+      accessTokenURL = Play.configuration.getString("silhouette.github.accessTokenURL").get,
+      redirectURL = Play.configuration.getString("silhouette.github.redirectURL").get,
+      clientID = Play.configuration.getString("silhouette.github.clientID").getOrElse(""),
+      clientSecret = Play.configuration.getString("silhouette.github.clientSecret").getOrElse(""),
+      scope = Play.configuration.getString("silhouette.github.scope")))
+  }
+  
   /**
    * Provides the Google provider.
    *

@@ -55,6 +55,18 @@
 			popupOptions: { width: 481, height: 269 }
 		});
 
+		// GitHub
+		$authProvider.github({
+			clientId: '5b641498750c99087bb2',
+			url: '/authenticate/github',
+			authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
+			scope: 'user:email',
+			scopeDelimiter: ',',
+			display: 'popup',
+			type: '2.0',
+		});
+
 		// Google
 		$authProvider.google({
 			clientId: '679471441613-89ae7g7r16fein49ogk8pb5abq0qa5tk.apps.googleusercontent.com',
