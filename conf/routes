@@ -16,19 +16,9 @@ GET     /assets/*file                                       controllers.Assets.a
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
 GET     /lessons/*file                                      controllers.Assets.at(path="/lessons", file)
 
-GET         /                                com.tuplejump.playYeoman.Yeoman.index
-
 GET         /user                            @controllers.ApplicationController.user
 GET         /signOut                         @controllers.ApplicationController.signOut
 POST        /signIn                          @controllers.CredentialsAuthController.authenticate
 POST        /signUp                          @controllers.SignUpController.signUp
 GET         /authenticate/:provider          @controllers.SocialAuthController.authenticate(provider)
 POST        /authenticate/:provider          @controllers.SocialAuthController.authenticate(provider)
-
-# Dynamic part of the url
-GET         /views/$template<.+>.html        @controllers.ApplicationController.view(template)
-
-# Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                    controllers.Assets.at(path="/public", file)
-
-->          /                                yeoman.Routes

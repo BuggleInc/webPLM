@@ -28,7 +28,4 @@
     "url": "https://github.com/MatthieuNICOLAS/webPLM/issues"
   },
   "homepage": "https://github.com/MatthieuNICOLAS/webPLM",
-  "scripts": {
-    "postinstall": "cd ui && npm install && bower install"
-  }
 }

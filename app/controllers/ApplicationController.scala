@@ -33,20 +33,4 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
     env.eventBus.publish(LogoutEvent(request.identity, request, request2lang))
     request.authenticator.discard(Future.successful(Ok))
   }
-
-  /**
-   * Provides the desired template.
-   *
-   * @param template The template to provide.
-   * @return The template.
-   */
-  def view(template: String) = UserAwareAction { implicit request =>
-    template match {
-      case "home" => Ok(views.html.home())
-      case "signUp" => Ok(views.html.signUp())
-      case "signIn" => Ok(views.html.signIn())
-      case "navigation" => Ok(views.html.navigation.render())
-      case _ => NotFound
-    }
-  }
 }

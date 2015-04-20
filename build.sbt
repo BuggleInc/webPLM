@@ -1,4 +1,3 @@
-import com.tuplejump.sbt.yeoman.Yeoman
 import com.typesafe.sbt.SbtScalariform._
 import play.PlayScala
 
@@ -43,11 +42,6 @@ scalacOptions ++= Seq(
   "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
   "-Ywarn-numeric-widen" // Warn when numerics are widened.
 )
-
-//********************************************************
-// Yeoman settings
-//********************************************************
-Yeoman.yeomanSettings
 
 //********************************************************
 // Scalariform settings
