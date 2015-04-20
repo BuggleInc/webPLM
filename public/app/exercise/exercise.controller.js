@@ -24,7 +24,7 @@
 		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView, DutchFlagWorld, DutchFlagView) {
+		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView, DutchFlagWorld, DutchFlagView ) {
 
 		var exercise = this;
 		
@@ -276,11 +276,26 @@
 		function setSecondView(b)
 		{
 			exercise.displaySecondView = b;
+
+			var view, secondView;
+
+			switch(exercise.nameWorld)
+			{
+				case 'SortingWorld' :
+					view = SortingWorldView;
+					secondView = SortingWorldSecondView;
+					break;
+				case 'BuggleWorld' :
+					view = BuggleWorldView;
+					break;
+				case 'DutchFlagWorld' :
+					view = DutchFlagView; 
+			}
 			
 			if(!b)
-				canvas.setDraw(SortingWorldView.draw);
+				canvas.setDraw(view.draw);
 			else
-				canvas.setDraw(SortingWorldSecondView.draw);
+				canvas.setDraw(secondView.draw);
 
 			canvas.update();
 		}

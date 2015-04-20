@@ -7,6 +7,8 @@ import plm.universe.bat.BatOperation
 import plm.universe.bugglequest.BuggleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
+import lessons.sort.dutchflag.operations.DutchFlagOperation
+
 
 object OperationToJson {
   
@@ -29,6 +31,8 @@ object OperationToJson {
         json = BatOperationToJson.batOperationWrite(batOperation)
       case sortOperation: SortOperation =>
         json = SortOperationToJson.sortOperationWrite(sortOperation)
+      case dutchFlagOperation: DutchFlagOperation =>
+        json = DutchFlagOperationToJson.dutchFlagOperationWrite(dutchFlagOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

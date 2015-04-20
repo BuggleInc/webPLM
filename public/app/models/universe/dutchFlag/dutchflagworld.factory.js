@@ -6,9 +6,9 @@
 		.module('PLMApp')
 		.factory('DutchFlagWorld', DutchFlagWorld);
 
-	DutchFlagWorld.$inject = [];
+	DutchFlagWorld.$inject = [ 'DutchFlagSwap' ];
 
-	function DutchFlagWorld()
+	function DutchFlagWorld(DutchFlagSwap)
 	{
 		var DutchFlagWorld = function(world)
 		{
@@ -29,8 +29,8 @@
 
 		DutchFlagWorld.prototype.clone = function()
 		{
-			return new SortingWorld(this);
-		}
+			return new DutchFlagWorld(this);
+		};
 
 		DutchFlagWorld.prototype.addOperations = function (operations)
 		{
@@ -47,7 +47,7 @@
 		{
 			switch(operation.type) {
 				case 'dutchFlagSwap':
-					return new dutchFlagSwap(operation);
+					return new DutchFlagSwap(operation);
 			}
 		};
 
@@ -79,8 +79,8 @@
 		DutchFlagWorld.prototype.getEntity = function(entityID)
 		{
 			return this.entities[entityID];
-		}
+		};
 
 		return DutchFlagWorld;
 	}
-})
+})();

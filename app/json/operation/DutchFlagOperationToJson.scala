@@ -11,7 +11,7 @@ object DutchFlagOperationToJson {
     var json:JsValue = null
     dutchFlagOperation match {
       case dutchFlagSwap: DutchFlagSwap =>
-        json = dutchFlagOperationWrite(dutchFlagSwap)
+        json = dutchFlagSwapWrite(dutchFlagSwap)
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(

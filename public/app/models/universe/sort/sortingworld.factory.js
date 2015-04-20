@@ -50,7 +50,7 @@
 		SortingWorld.prototype.clone = function()
 		{
 			return new SortingWorld(this);
-		}
+		};
 
 		SortingWorld.prototype.addOperations = function (operations)
 		{
@@ -107,7 +107,7 @@
 		SortingWorld.prototype.getEntity = function(entityID)
 		{
 			return this.entities[entityID];
-		}
+		};
 
 		return SortingWorld;
 	}

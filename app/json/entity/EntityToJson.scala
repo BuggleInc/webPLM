@@ -21,8 +21,6 @@ object EntityToJson {
     entity match {
       case abstractBuggle: AbstractBuggle =>
         json = AbstractBuggleToJson.abstractBuggleWrite(abstractBuggle)
-      case dutchFlagEntity: DutchFlagEntity =>
-        json = DutchFlagEntityToJson.DutchFlagEntityWrite(dutchFlagEntity)
       }
     
     return Json.obj( 
