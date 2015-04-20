@@ -57,7 +57,7 @@
 
 		// Google
 		$authProvider.google({
-			clientId: '679471441613-jlkq8qqr2sbdmevf5fde7pd65eabp58j.apps.googleusercontent.com',
+			clientId: '679471441613-89ae7g7r16fein49ogk8pb5abq0qa5tk.apps.googleusercontent.com',
 			url: '/authenticate/google',
 			authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
 			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
