@@ -14,7 +14,8 @@
 		'BuggleWorld', 'BuggleWorldView',
 		'BatWorld', 'BatWorldView',
 		'SortingWorld', 'SortingWorldView',
-		'SortingWorldSecondView'
+		'SortingWorldSecondView',
+		'DutchFlagWorld', 'DutchFlagView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -23,7 +24,7 @@
 		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView) {
+		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView, DutchFlagWorld, DutchFlagView) {
 
 		var exercise = this;
 		
@@ -216,6 +217,14 @@
 								world = new SortingWorld(initialWorld);
 								initCanvas(SortingWorldView.draw);
 								break;
+							case 'DutchFlagWorld':
+								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective"};
+								exercise.nameWorld = initialWorld.type;
+								exercise.demoNeeded = true;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								world = new DutchFlagWorld(initialWorld);
+								initCanvas(DutchFlagView.draw);
 
 						}
 						exercise.initialWorlds[worldID] = world;
