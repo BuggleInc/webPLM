@@ -425,9 +425,10 @@
 		}
 
         function setProgrammingLanguage(pl) {
-            if (pl.lang == 'Blockly')
-                exercise.ide = 'blockly'
-            else
+            if (pl.lang == 'Blockly'){
+                exercise.ide = 'blockly';
+                Blockly.fireUiEvent(window, 'resize');
+            }else
                 exercise.ide = 'codemirror'
             exercise.isChangingProgLang = true;
             connection.sendMessage('setProgrammingLanguage', {
