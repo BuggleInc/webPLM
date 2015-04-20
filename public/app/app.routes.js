@@ -17,11 +17,11 @@
 	            controller: 'Home',
 	            controllerAs: 'home'
 	        })
-	        .state('login', {
-	            url: '/ui/login',
-	            templateUrl: 'assets/app/login/login.html',
-	            controller: 'Login',
-	            controllerAs: 'login'
+	        .state('signIn', {
+	            url: '/ui/signIn',
+	            templateUrl: 'assets/app/sign-in/sign-in.html',
+	            controller: 'SignIn',
+	            controllerAs: 'signIn'
 	        })
 	        .state('exercise', {
 	        	url: '/ui/lessons/:lessonID/:exerciseID',
