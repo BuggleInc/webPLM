@@ -9,6 +9,7 @@ import plm.universe.Entity
 import json.entity.EntityToJson
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.SortingWorld
+import lessons.sort.dutchflag.universe.DutchFlagWorld
 
 object WorldToJson {
   
@@ -33,6 +34,8 @@ object WorldToJson {
       	json = BatWorldToJson.batWorlddWrite(batWorld)
       case sortingWorld: SortingWorld =>
         json = SortWorldToJson.sortWorldWrite(sortingWorld)
+      case dutchFlagWorld: DutchFlagWorld =>
+         json = DutchFlagWorldToJson.dutchFlagWorldWrite(dutchFlagWorld)
       case _ =>
         throw NonImplementedWorldException.create;
     }
