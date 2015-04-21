@@ -78,9 +78,9 @@
 
 				//draws rectangles
 				ctx.fillRect(x,canvasHeight,widthUnit,-(heightUnit*sortingWorld.values[i]));
-				ctx.fillStyle = "rgb(0,255,0)";
-
+				
 				//draws egde of the rectangles
+				ctx.fillStyle = "rgb(0,255,0)";
 				ctx.strokeRect(x,canvasHeight,widthUnit,-(heightUnit*sortingWorld.values[i]));
 
 				//draws the letters if you have enough space

@@ -15,7 +15,8 @@
 		'BatWorld', 'BatWorldView',
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
-		'DutchFlagWorld', 'DutchFlagView'
+		'DutchFlagWorld', 'DutchFlagView',
+		'PancakeWorld', 'PancakeView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -24,7 +25,10 @@
 		$timeout, $interval,
 		locker, 
 		BuggleWorld, BuggleWorldView,
-		BatWorld, BatWorldView, SortingWorld, SortingWorldView, SortingWorldSecondView, DutchFlagWorld, DutchFlagView ) {
+		BatWorld, BatWorldView, 
+		SortingWorld, SortingWorldView, SortingWorldSecondView, 
+		DutchFlagWorld, DutchFlagView,
+		PancakeWorld, PancakeView ) {
 
 		var exercise = this;
 		
@@ -142,6 +146,7 @@
 
 		function handleMessage(data) {
 			console.log('message received: ', data);
+			console.log(data);
 			var cmd = data.cmd;
 			var args = data.args;
 			switch(cmd) {
@@ -192,10 +197,10 @@
 						exercise.initialWorlds[worldID] = {};
 						var initialWorld = data.initialWorlds[worldID];
 						var world;
+						exercise.nameWorld = initialWorld.type;
 						switch(initialWorld.type) {
 							case 'BuggleWorld':
 								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective"};
-								exercise.nameWorld = initialWorld.type;
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
@@ -209,7 +214,6 @@
 								break;
 							case 'SortingWorld':
 								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective", secondView: "ChronoView", secondDemo: "ChronoDemo"};
-								exercise.nameWorld = initialWorld.type;
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
@@ -219,12 +223,20 @@
 								break;
 							case 'DutchFlagWorld':
 								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective"};
-								exercise.nameWorld = initialWorld.type;
 								exercise.demoNeeded = true;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
 								world = new DutchFlagWorld(initialWorld);
 								initCanvas(DutchFlagView.draw);
+								break;
+							case 'PancakeWorld' :
+								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective"};
+								exercise.demoNeeded = true;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								world = new PancakeWorld(initialWorld);
+								initCanvas(PancakeView.draw);
+								break; 
 
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -289,7 +301,11 @@
 					view = BuggleWorldView;
 					break;
 				case 'DutchFlagWorld' :
-					view = DutchFlagView; 
+					view = DutchFlagView;
+					break;
+				case 'PancakeWorld' :
+					view = PancakeView;
+					break;
 			}
 			
 			if(!b)
