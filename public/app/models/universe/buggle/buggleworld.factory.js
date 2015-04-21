@@ -150,80 +150,73 @@
 					return new BuggleInOuterSpace(operation);
 			}
 		};
-        
-        BuggleWorld.prototype.deleteLine = function(lineY) {
+
+        BuggleWorld.prototype.addColumn = function(columnX, nb) {
+            nb = typeof nb !== 'undefined' ? nb : 1;
+            var y, x, i, c;
             var bugglesToRemove = [];
-            var buggle;
-            var i, y;
             
-            for(y = lineY; y < this.height - 1; y++) {
-                for(var x = 0; x < this.width; x++) {
-                    this.cells[x][y] = this.cells[x][y+1];
-                    this.cells[x][y].y = y;  
+            for(i = 0; i < nb; i++) {
+                var newColumn = [];
+                for(y = 0; y < this.height; y++) {
+                    newColumn.push(new BuggleWorldCell({
+                        color: [255, 255, 255, 255],
+                        content: '',
+                        hasBaggle: false,
+                        hasContent: false,
+                        hasLeftWall: false,
+                        hasTopWall: false,
+                        x: columnX + i,
+                        y: y
+                    }));
+                }
+                this.cells.splice(columnX + i, 0, newColumn);
+            }
+            
+            if(nb < 0) {
+                this.cells.splice(columnX, Math.abs(nb));
+            }
+            
+            this.width += nb;
+            
+            c = (nb < 0) ? columnX : columnX + nb;
+            
+            for(x = this.width - 1; x >= c; x--) {
+                for(y = 0; y < this.height; y++) {
+                    this.cells[x][y].x = x;
                 }
             }
-
+            
             for(var buggleID in this.entities) {
 				if(this.entities.hasOwnProperty(buggleID)) {
-					buggle = this.entities[buggleID];
-					if(buggle.y === lineY) {
+                    if(nb < 0 && this.entities[buggleID].x >= columnX && this.entities[buggleID].x <= columnX - nb - 1) {
                         bugglesToRemove.push(buggleID);
                     }
-                    else if(buggle.y > lineY) {
-                        buggle.y--;
+					else if((nb < 0 && this.entities[buggleID].x > columnX - nb - 1)
+                                || (nb > 0 && this.entities[buggleID].x >= columnX)) {
+                        this.entities[buggleID].x += nb;
                     }
-				}	
+				}
 			}
             
             for(i = 0; i < bugglesToRemove.length; i++) {
                 delete this.entities[bugglesToRemove[i]];
             }
-            
-            for(i = 0; i < this.width; i++) {
-                this.cells[i].splice(this.height - 1, 1);
-            }
-            
-            this.height--;
-        }
+        };
         
-        BuggleWorld.prototype.deleteColumn = function(lineX) {
+        BuggleWorld.prototype.addLine = function(lineY, nb) {
+            nb = typeof nb !== 'undefined' ? nb : 1;
+            var x, y, i, c;
             var bugglesToRemove = [];
-            var buggle;
-            var i, x;
-            
-            for(x = lineX; x < this.width - 1; x++) {
-                for(var y = 0; y < this.height; y++) {
-                    this.cells[x][y] = this.cells[x+1][y];
-                    this.cells[x][y].x = x;  
-                }
-            }
-
-            for(var buggleID in this.entities) {
-				if(this.entities.hasOwnProperty(buggleID)) {
-					buggle = this.entities[buggleID];
-					if(buggle.x === lineX) {
-                        bugglesToRemove.push(buggleID);
-                    }
-                    else if(buggle.x > lineX) {
-                        buggle.x--;
-                    }
-				}	
-			}
-            
-            for(i = 0; i < bugglesToRemove.length; i++) {
-                delete this.entities[bugglesToRemove[i]];
-            }
-            
-            this.cells.splice(this.width - 1, 1);
-            
-            this.width--;
-        }
-        
-        BuggleWorld.prototype.addLine = function(lineY) {
-            var y, x;
             
             for(x = 0; x < this.width; x++) {
-                this.cells[x].splice(lineY, 0, new BuggleWorldCell({
+                c = (nb < 0) ? lineY - nb : lineY;
+                
+                for(y = this.height - 1; y >= c; y--) {
+                    this.cells[x][y].y += nb;
+                }
+                for(y = 0; y < nb; y++) {
+                    this.cells[x].splice(lineY + y, 0, new BuggleWorldCell({
                         color: [255, 255, 255, 255],
                         content: '',
                         hasBaggle: false,
@@ -231,62 +224,44 @@
                         hasLeftWall: false,
                         hasTopWall: false,
                         x: x,
-                        y: lineY
+                        y: lineY + y
                     }));
-            }
-            
-            this.height++;
-            
-            for(y = this.height - 1; y > lineY; y--) {
-                for(x = 0; x < this.width; x++) {
-                    this.cells[x][y].y++;
+                }
+                if(nb < 0) {
+                    this.cells[x].splice(lineY, nb * -1);
                 }
             }
             
-            for(var buggleID in this.entities) {
-				if(this.entities.hasOwnProperty(buggleID)) {
-					if(this.entities[buggleID].y >= lineY) {
-                      this.entities[buggleID].y++;
-                    }
-				}
-			}
-        }
-        
-        BuggleWorld.prototype.addColumn = function(columnX) {
-            var y, x;
-            var newColumn = [];
-            
-            for(y = 0; y < this.height; y++) {
-                newColumn.push(new BuggleWorldCell({
-                    color: [255, 255, 255, 255],
-                    content: '',
-                    hasBaggle: false,
-                    hasContent: false,
-                    hasLeftWall: false,
-                    hasTopWall: false,
-                    x: columnX,
-                    y: y
-                }));
-            }
-            
-            this.cells.splice(columnX, 0, newColumn);
+            this.height += nb;
 
-            this.width++;
-            
-            for(x = this.width - 1; x > columnX; x--) {
-                for(y = 0; y < this.height; y++) {
-                    this.cells[x][y].x++;
-                }
-            }
-            
             for(var buggleID in this.entities) {
 				if(this.entities.hasOwnProperty(buggleID)) {
-					if(this.entities[buggleID].x >= columnX) {
-                      this.entities[buggleID].x++;
+                    if(nb < 0 && this.entities[buggleID].y >= lineY && this.entities[buggleID].y <= lineY - nb - 1) {
+                        bugglesToRemove.push(buggleID);
+                    }
+					else if((nb < 0 && this.entities[buggleID].y > lineY - nb - 1)
+                                || (nb > 0 && this.entities[buggleID].y >= lineY)) {
+                        this.entities[buggleID].y += nb;
                     }
 				}
 			}
-        }
+            
+            for(i = 0; i < bugglesToRemove.length; i++) {
+                delete this.entities[bugglesToRemove[i]];
+            }
+        };
+        
+        BuggleWorld.prototype.setHeight = function(newHeight) {
+            var nbLines = newHeight - this.height;
+            var position = (nbLines < 0) ? this.height + nbLines : this.height;
+            this.addLine(position, nbLines);
+        };
+        
+        BuggleWorld.prototype.setWidth = function(newWidth) {
+            var nbColumns = newWidth - this.width;
+            var position = (nbColumns < 0) ? this.width + nbColumns : this.width;
+            this.addColumn(position, nbColumns);
+        };
         
         BuggleWorld.prototype.newEmptyWorld = function () {
             var i, j;
@@ -314,7 +289,7 @@
                 }
             }
             return world;
-        }
+        };
         
         BuggleWorld.prototype.selectCell = function (x, y) {
             if(this.selectedCell !== null) {
@@ -322,7 +297,7 @@
             }
             this.selectedCell = this.cells[x][y];
             this.cells[x][y].isSelected = true;
-        }
+        };
         
 		return BuggleWorld;
 	}

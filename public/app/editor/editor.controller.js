@@ -28,7 +28,7 @@
         
         editor.world = null;
         editor.selectedCell = null;
-        editor.command = 'topwall';
+        editor.command = null;
         
         editor.customColorInput = '42/42/42';
         editor.color = [42, 42, 42, 255];
@@ -56,6 +56,8 @@
         editor.addLineBelow = addLineBelow;
         editor.addColumnRight = addColumnRight;
         editor.addColumnLeft = addColumnLeft;
+        editor.width = width;
+        editor.height = height;
         
         function initEditor() {
             editor.world = new BuggleWorld();
@@ -231,11 +233,11 @@
         }
         
         function deleteLineCommand(y) {
-            editor.world.deleteLine(y);
+            editor.world.addLine(y, -2);
         }
         
         function deleteColumnCommand(x) {
-            editor.world.deleteColumn(x);
+            editor.world.addColumn(x, -2);
         }
         
         function setColorByName() {
@@ -287,6 +289,28 @@
         
         function setCommand(command) {
             editor.command = command;
+        }
+        
+        function width(newWidth) {
+            if(angular.isDefined(newWidth)) {
+                newWidth = parseInt(newWidth);
+                if(!isNaN(newWidth) && newWidth > 0) {
+                    editor.world.setWidth(newWidth);
+                    editor.drawService.update();
+                }
+            }
+            return editor.world.width;
+        }
+        
+        function height(newHeight) {
+            if(angular.isDefined(newHeight)) {
+                newHeight = parseInt(newHeight);
+                if(!isNaN(newHeight) && newHeight > 0) {
+                    editor.world.setHeight(newHeight);
+                    editor.drawService.update();
+                }
+            }
+            return editor.world.height;
         }
     }
 })();

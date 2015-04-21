@@ -1,14 +1,15 @@
-<button class="button mini radius tiny" ng-click="editor.setCommand('topwall')" translate>Top wall</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('leftwall')" translate>Left wall</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('addbaggle')" translate>Baggle</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('buggle')" translate>Buggle</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('deletebuggle')" translate>Delete Buggle</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('color')" data-reveal-id="selectColorModal" translate>Color</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('text')" translate>Text</button><br>
-<button class="button mini radius tiny" ng-click="editor.setCommand('addline')" translate>Add Line</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('deleteline')" translate>Remove Line</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('addcolumn')" translate>Add Column</button>
-<button class="button mini radius tiny" ng-click="editor.setCommand('deletecolumn')" translate>Remove Column</button>
+<button class="button mini radius small" ng-click="editor.setCommand('topwall')" translate>Top wall</button>
+<button class="button mini radius small" ng-click="editor.setCommand('leftwall')" translate>Left wall</button>
+<button class="button mini radius small" ng-click="editor.setCommand('addbaggle')" translate>Baggle</button>
+<button class="button mini radius small" ng-click="editor.setCommand('buggle')" translate>Buggle</button>
+<button class="button mini radius small" ng-click="editor.setCommand('deletebuggle')" translate>Delete Buggle</button>
+<button class="button mini radius small" ng-click="editor.setCommand('color')" 
+        data-reveal-id="selectColorModal" translate>Color</button>
+<button class="button mini radius small" ng-click="editor.setCommand('text')" translate>Text</button><br>
+<button class="button mini radius small" ng-click="editor.setCommand('addline')" translate>Add Line</button>
+<button class="button mini radius small" ng-click="editor.setCommand('deleteline')" translate>Remove Line</button>
+<button class="button mini radius small" ng-click="editor.setCommand('addcolumn')" translate>Add Column</button>
+<button class="button mini radius small" ng-click="editor.setCommand('deletecolumn')" translate>Remove Column</button>
 
 <div id="selectColorModal" class="reveal-modal" data-reveal=true>
 	<h2 translate>Choose a color:</h2>
@@ -17,17 +18,18 @@
             <option value="">Choose a color...</option>
         </select>
         <button class="button radius secondary" data-reveal-id="customColorModal" translate>Custom color</button>
-        <button class="button radius right" onclick="$('#selectColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
+        <button class="button radius right" 
+                onclick="$('#selectColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
         <a class="close-reveal-modal">&#215;</a>
     </form>
-    
     
     <div id="customColorModal" class="reveal-modal" data-reveal="true">
         <h2>Custom color</h2>
         <p>What color you want (r/g/b)</p>
         <form ng-submit="editor.setRGBColor()">
             <input ng-model="editor.customColorInput" type="text">
-            <button type="submit" class="button radius right" onclick="$('#customColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
+            <button type="submit" class="button radius right" 
+                    onclick="$('#customColorModal').foundation('reveal', 'close');"  translate>Choose color</button>
         </form>
         <a class="close-reveal-modal">&#215;</a>
     </div>
@@ -38,7 +40,8 @@
     <p>Choose a new message</p>
     <form ng-submit="editor.setText()">
         <input ng-model="editor.setTextInput" type="text">
-        <button type="submit" class="button radius right" onclick="$('#setTextModal').foundation('reveal', 'close');"  translate>Change message</button>
+        <button type="submit" class="button radius right" 
+                onclick="$('#setTextModal').foundation('reveal', 'close');"  translate>Change message</button>
     </form>
 </div>
 

@@ -1,17 +1,21 @@
 <table>
-    <tbody>
+    <thead>
         <tr>
             <th>Property</th>
             <th>Value</th>
         </tr>
+    </thead>
+    <tbody ng-model-options="{ updateOn: 'blur', getterSetter: true }">
         <tr>
             <td>World width</td>
-            <td>{{editor.world.width}}</td>
+            <td><input type="text" ng-model="editor.width" ></td>
         </tr>
         <tr>
             <td>World height</td>
-            <td>{{editor.world.height}}</td>
+            <td><input type="text" ng-model="editor.height"></td>
         </tr>
+    </tbody>
+    <tbody>
         <tr>
             <td>Selected cell X</td>
             <td>{{editor.selectedCell.x}}</td>
@@ -34,13 +38,13 @@
         </tr>
     </tbody>
     <tbody ng-hide="editor.selectedBuggle == null">
-        <tr >
+        <tr>
             <td>Buggle name</td>
             <td>{{editor.selectedBuggleID}}</td>
         </tr>
         <tr>
             <td>Buggle direction</td>
-            <td>{{editor.selectedBuggle.direction}}</td>
+            <td><input type="text" ng-model="editor.selectedBuggle.direction" ng-blur="editor.drawService.update();"></td>
         </tr>
         <tr>
             <td>Buggle color</td>
