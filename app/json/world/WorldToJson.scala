@@ -1,6 +1,7 @@
 package json.world
 
 import exceptions.NonImplementedWorldException
+
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
@@ -10,6 +11,8 @@ import json.entity.EntityToJson
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.SortingWorld
 import lessons.sort.dutchflag.universe.DutchFlagWorld
+import lessons.sort.pancake.universe.PancakeWorld
+import json.world.pancake.PancakeWorldToJson
 
 object WorldToJson {
   
@@ -20,6 +23,7 @@ object WorldToJson {
     }
     return json
   }
+ 
   
   def worldWrite(world: World): JsValue = {
     var json: JsValue = null
@@ -36,6 +40,8 @@ object WorldToJson {
         json = SortWorldToJson.sortWorldWrite(sortingWorld)
       case dutchFlagWorld: DutchFlagWorld =>
          json = DutchFlagWorldToJson.dutchFlagWorldWrite(dutchFlagWorld)
+      case pancakeWorld: PancakeWorld =>
+        json = PancakeWorldToJson.pancakeWorldWrite(pancakeWorld)
       case _ =>
         throw NonImplementedWorldException.create;
     }
