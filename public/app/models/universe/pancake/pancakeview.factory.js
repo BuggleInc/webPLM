@@ -35,7 +35,7 @@
 
 			
 			drawPancake(pancakeWorld);
-
+			drawCircle(pancakeWorld);
 			drawText(pancakeWorld);
 		};
 
@@ -68,6 +68,7 @@
 
 			for(var i=0;i<pancakeWorld.pancakeStack.length;i++)
 			{
+
 				//each pancake has its radius
 				var radius = pancakeWorld.pancakeStack[i].radius;
 
@@ -75,7 +76,7 @@
 				var x = (canvasWidth / 2) - ((widthUnit * radius) / 2);
 
 				//each pancake takes place in the canvasHeight
-				var y = heightUnit * i;
+				var y = canvasHeight - (heightUnit * i);
 
 				var width = widthUnit * radius;
 
@@ -83,16 +84,45 @@
 				ctx.fillStyle = "#FFFF00";
 
 				//draws pancakes
-				ctx.fillRect(x, y, width, heightUnit);
+				ctx.fillRect(x, y, width, -heightUnit);
 
 				//draws edges of the pancakes
 				ctx.beginPath();
 				ctx.fillStyle = "#F00000";
-				ctx.strokeRect(x,y,width,heightUnit);
+				ctx.strokeRect(x,y,width,-heightUnit);
 				ctx.closePath();
 			}
 
 			ctx.closePath();
 		};
+
+		function drawCircle(pancakeWorld)
+		{
+			var heightUnit = canvasHeight / pancakeWorld.pancakeStack.length;
+			var x = canvasWidth / 2;
+
+			
+			var j = 1;
+
+			for(var i=0;i<pancakeWorld.pancakeStack.length;i++)
+			{
+				var y = canvasHeight - (heightUnit * j);
+				var up = pancakeWorld.pancakeStack[i].radius === (pancakeWorld.pancakeStack[j].radius)+1;
+				var down = pancakeWorld.pancakeStack[i].radius === (pancakeWorld.pancakeStack[j].radius)-1;
+				if(up || down)
+				{
+					ctx.beginPath();
+					ctx.fillStyle = "#FF00FF";
+					ctx.arc(x,y,10,0,2 * Math.PI,false);
+					ctx.fill();
+					ctx.closePath();
+				}
+				if(j<pancakeWorld.pancakeStack.length-1)
+					j++;
+
+				
+			}
+		};
+
 	};
 })();
