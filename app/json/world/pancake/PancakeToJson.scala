@@ -7,9 +7,9 @@ object PancakeToJson
 {
 
   def pancakesWrite(pancakeStack: Array[Pancake]): JsValue = {
-    var json: JsValue = Json.obj()
+    var json: JsArray = Json.arr()
     pancakeStack.foreach { pancake => 
-      json = json.as[JsObject] ++ pancakeWrite(pancake).as[JsObject] 
+      json = json.+:(pancakeWrite(pancake))
     }
     return json
   }

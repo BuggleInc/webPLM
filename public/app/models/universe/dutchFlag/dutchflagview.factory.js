@@ -32,10 +32,11 @@
 
 			//draws egde of our drawArena
 			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
+			ctx.closePath();
 
 			drawText(dutchFlagWorld);
 			drawRectangle(dutchFlagWorld);
-			ctx.closePath();
+			
 		};
 
 

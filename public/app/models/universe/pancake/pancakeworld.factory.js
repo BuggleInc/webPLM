@@ -17,7 +17,6 @@
 			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
-
 			this.pancakeStack = [];
 			for(var i=0;i<world.pancakeStack.length;i++)
 			{
