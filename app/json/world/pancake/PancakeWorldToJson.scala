@@ -16,7 +16,8 @@ object PancakeWorldToJson {
             "pancakeStack" -> PancakeToJson.pancakesWrite(pancakeStack)
         )
         json = json.as[JsObject] ++ Json.obj(
-        "type" -> "PancakeWorld"
+        "type" -> "PancakeWorld",
+        "moveCount" -> pancakeWorld.getMoveCount
         )
         return json
   }
