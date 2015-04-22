@@ -35,9 +35,12 @@
         editor.colors = color.getColorsNames();
         editor.colorNameSelect = null;
         
-        editor.setTextInput = null;
+        editor.directions = [{value: 0, name: 'North'},
+                             {value: 1, name: 'East'},
+                             {value: 2, name: 'South'},
+                             {value: 3, name: 'West'}];
         
-        editor.selectedBuggleID = null;
+        editor._selectedBuggleID = null;
         editor.selectedBuggle = null;
         editor.nbBugglesCreated = 0;
         
@@ -51,13 +54,21 @@
         editor.setCommand = setCommand;
         editor.setRGBColor = setRGBColor;
         editor.setColorByName = setColorByName;
-        editor.setText = setText;
         editor.addLineAbove = addLineAbove;
         editor.addLineBelow = addLineBelow;
         editor.addColumnRight = addColumnRight;
         editor.addColumnLeft = addColumnLeft;
-        editor.width = width;
+        editor.selectedBuggleColor = selectedBuggleColor;
+        editor.selectedBuggleID = selectedBuggleID;
+        editor.selectedCellColor = selectedCellColor;
+        editor.selectedCellContent = selectedCellContent;
         editor.height = height;
+        editor.width = width;
+        
+        function displayError(errorMessage) {
+            editor.errorMessage = errorMessage;
+            $('#errorModal').foundation('reveal', 'open');
+        }
         
         function initEditor() {
             editor.world = new BuggleWorld();
@@ -150,11 +161,6 @@
             editor.drawService.update();
         }
         
-        function displayError(errorMessage) {
-            editor.errorMessage = errorMessage;
-            $('#errorModal').foundation('reveal', 'open');
-        }
-        
         function buggleCommand(x, y) {
             var buggle;
             var bugglesID;
@@ -172,8 +178,11 @@
                 i++;
             }
             if(!buggleFound) {
-                editor.nbBugglesCreated++;
-                buggleID = 'buggle' + (editor.nbBugglesCreated);
+                do {
+                    editor.nbBugglesCreated++;
+                    buggleID = 'buggle' + editor.nbBugglesCreated;
+                } while(editor.world.entities.hasOwnProperty(buggleID))
+                
                 buggle = {
                     x: x,
                     y: y,
@@ -185,7 +194,7 @@
                 editor.world.entities[buggleID] = buggle;
             }
             
-            editor.selectedBuggleID = buggleID;
+            editor._selectedBuggleID = buggleID;
             editor.selectedBuggle = buggle;
         }
         
@@ -219,10 +228,9 @@
         }
         
         function textCommand() {
-            editor.setTextInput = editor.selectedCell.content;
+            $scope.contentForm.cellContent.$rollbackViewValue();
             $('#setTextModal').foundation('reveal', 'open');
         }
-        
         
         function addLineCommand() {
             $('#addLineModal').foundation('reveal', 'open');
@@ -233,11 +241,11 @@
         }
         
         function deleteLineCommand(y) {
-            editor.world.addLine(y, -2);
+            editor.world.addLine(y, -1);
         }
         
         function deleteColumnCommand(x) {
-            editor.world.addColumn(x, -2);
+            editor.world.addColumn(x, -1);
         }
         
         function setColorByName() {
@@ -249,22 +257,12 @@
         }
         
         function setRGBColor() {
-            var expr = /(\d+)\/(\d+)\/(\d+)/;
-            editor.color = [];
-            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$1')));
-            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$2')));
-            editor.color.push(parseInt(editor.customColorInput.replace(expr, '$3')));
-            editor.color.forEach(function(num, pos, tab) {
-                if(num > 255)  tab[pos] = 255;
-                else if(num < 0) tab[pos] = 0;
-            });
-            editor.color.push(255);
-        }
-        
-        function setText() {
-            editor.selectedCell.hasContent = (editor.setTextInput.length !== '') ? true : false;
-            editor.selectedCell.content = editor.setTextInput;
-            editor.drawService.update();
+            var newColor = color.strToRGB(editor.customColorInput);
+            if(newColor !== null) {
+                editor.color = newColor;
+                editor.color.push(255);
+            }
+            editor.customColorInput = color.RGBtoStr(editor.color);
         }
         
         function addLineAbove() {
@@ -291,18 +289,61 @@
             editor.command = command;
         }
         
-        function width(newWidth) {
-            if(angular.isDefined(newWidth)) {
-                newWidth = parseInt(newWidth);
-                if(!isNaN(newWidth) && newWidth > 0) {
-                    editor.world.setWidth(newWidth);
+        function selectedBuggleColor(newColor) {
+            if(editor.selectedBuggle === null) {
+                return null;
+            }
+            if(angular.isDefined(newColor)) {
+                newColor = color.strToRGB(newColor) || color.nameToRGB(newColor);
+                if(newColor) {
+                    newColor.push(255);
+                    editor.selectedBuggle.color = newColor;
                     editor.drawService.update();
                 }
             }
-            return editor.world.width;
+            return color.RGBtoName(editor.selectedBuggle.color) || color.RGBtoStr(editor.selectedBuggle.color);
+        }
+        
+        function selectedBuggleID(newID) {
+            if(editor.world === null) {
+               return null;
+            }
+            if(angular.isDefined(newID)) {
+                editor._selectedBuggleID = editor.world.changeBuggleID(editor._selectedBuggleID, newID);
+            }
+            return editor._selectedBuggleID;
+        }
+        
+        function selectedCellColor(newColor) {
+            if(editor.selectedCell === null) {
+                return null;
+            }
+            if(angular.isDefined(newColor)) {
+                newColor = color.strToRGB(newColor) || color.nameToRGB(newColor);
+                if(newColor) {
+                    newColor.push(255);
+                    editor.selectedCell.color = newColor;
+                    editor.drawService.update();
+                }
+            }
+            return color.RGBtoName(editor.selectedCell.color) || color.RGBtoStr(editor.selectedCell.color);
+        }
+        
+        function selectedCellContent(newContent) {
+            if(editor.selectedCell === null) {
+               return null;
+            }
+            if(angular.isDefined(newContent)) {
+                editor.selectedCell.content = newContent;
+                editor.selectedCell.hasContent = newContent !== '';
+            }
+            return editor.selectedCell.content;
         }
         
         function height(newHeight) {
+            if(editor.world === null) {
+               return null;
+            }
             if(angular.isDefined(newHeight)) {
                 newHeight = parseInt(newHeight);
                 if(!isNaN(newHeight) && newHeight > 0) {
@@ -311,6 +352,20 @@
                 }
             }
             return editor.world.height;
+        }
+        
+        function width(newWidth) {
+            if(editor.world === null) {
+               return null;
+            }
+            if(angular.isDefined(newWidth)) {
+                newWidth = parseInt(newWidth);
+                if(!isNaN(newWidth) && newWidth > 0) {
+                    editor.world.setWidth(newWidth);
+                    editor.drawService.update();
+                }
+            }
+            return editor.world.width;
         }
     }
 })();

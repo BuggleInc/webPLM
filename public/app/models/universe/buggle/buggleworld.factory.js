@@ -25,6 +25,7 @@
 
             world = typeof world !== 'undefined' ? world : this.newEmptyWorld();
             
+            this.name = 'New world';
 			this.type = world.type;
 			this.width = world.width;
 			this.height = world.height;
@@ -249,6 +250,15 @@
             for(i = 0; i < bugglesToRemove.length; i++) {
                 delete this.entities[bugglesToRemove[i]];
             }
+        };
+        
+        BuggleWorld.prototype.changeBuggleID= function(buggleID, newID) {
+            if(this.entities.hasOwnProperty(buggleID) && !this.entities.hasOwnProperty(newID)) {
+                this.entities[newID] = this.entities[buggleID];
+                delete this.entities[buggleID];
+                buggleID = newID;
+            }
+            return buggleID;
         };
         
         BuggleWorld.prototype.setHeight = function(newHeight) {

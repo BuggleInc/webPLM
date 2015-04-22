@@ -1,54 +1,101 @@
-<table>
-    <thead>
-        <tr>
-            <th>Property</th>
-            <th>Value</th>
-        </tr>
-    </thead>
-    <tbody ng-model-options="{ updateOn: 'blur', getterSetter: true }">
-        <tr>
-            <td>World width</td>
-            <td><input type="text" ng-model="editor.width" ></td>
-        </tr>
-        <tr>
-            <td>World height</td>
-            <td><input type="text" ng-model="editor.height"></td>
-        </tr>
-    </tbody>
-    <tbody>
-        <tr>
-            <td>Selected cell X</td>
-            <td>{{editor.selectedCell.x}}</td>
-        </tr>
-        <tr>
-            <td>Selected cell Y</td>
-            <td>{{editor.selectedCell.y}}</td>
-        </tr>
-        <tr>
-            <td>Top wall?</td>
-            <td>{{editor.selectedCell.hasTopWall}}</td>
-        </tr>
-        <tr>
-            <td>Left wall?</td>
-            <td>{{editor.selectedCell.hasLeftWall}}</td>
-        </tr>
-        <tr>
-            <td>Baggle?</td>
-            <td>{{editor.selectedCell.hasBaggle}}</td>
-        </tr>
-    </tbody>
-    <tbody ng-hide="editor.selectedBuggle == null">
-        <tr>
-            <td>Buggle name</td>
-            <td>{{editor.selectedBuggleID}}</td>
-        </tr>
-        <tr>
-            <td>Buggle direction</td>
-            <td><input type="text" ng-model="editor.selectedBuggle.direction" ng-blur="editor.drawService.update();"></td>
-        </tr>
-        <tr>
-            <td>Buggle color</td>
-            <td>{{editor.selectedBuggle.color}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+	<div class="small-6 columns block">
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody ng-model-options="{ updateOn: 'blur', getterSetter: true }">
+                <tr>
+                    <td>World name</td>
+                    <td><input type="text" ng-model="editor.world.name" ></td>
+                </tr>
+                <tr>
+                    <td>World width</td>
+                    <td><input type="text" ng-model="editor.width" ></td>
+                </tr>
+                <tr>
+                    <td>World height</td>
+                    <td><input type="text" ng-model="editor.height"></td>
+                </tr>
+            </tbody>
+            <tbody ng-hide="editor.selectedCell == null">
+                <tr>
+                    <td>Cell X</td>
+                    <td>{{editor.selectedCell.x}}</td>
+                </tr>
+                <tr>
+                    <td>Cell Y</td>
+                    <td>{{editor.selectedCell.y}}</td>
+                </tr>
+                <tr>
+                    <td>Message</td>
+                    <td><input type="text" ng-model="editor.selectedCellContent"
+                               ng-model-options="{ getterSetter: true }"
+                               ng-change="editor.drawService.update();"></td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td><input type="text" list="list-colors"
+                                ng-model="editor.selectedCellColor" 
+                                ng-model-options="{ updateOn: 'blur', getterSetter: true }" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>Top wall?</td>
+                    <td><input type="checkbox" ng-model="editor.selectedCell.hasTopWall" 
+                               ng-change="editor.drawService.update();"></td>
+                </tr>
+                <tr>
+                    <td>Left wall?</td>
+                    <td><input type="checkbox" ng-model="editor.selectedCell.hasLeftWall" 
+                               ng-change="editor.drawService.update();"></td>
+                </tr>
+                <tr>
+                    <td>Baggle?</td>
+                    <td><input type="checkbox" ng-model="editor.selectedCell.hasBaggle"
+                               ng-change="editor.drawService.update();"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="small-6 columns block">
+        <table ng-hide="editor.selectedBuggle == null">
+             <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Buggle name</td>
+                    <td><input type="text" ng-model="editor.selectedBuggleID" 
+                               ng-model-options="{ updateOn: 'blur', getterSetter: true }"></td>
+                </tr>
+                <tr>
+                    <td>Buggle direction</td>
+                    <td><select ng-model="editor.selectedBuggle.direction" ng-change="editor.drawService.update();">
+                            <option ng-repeat="direction in editor.directions" value="{{direction.value}}">
+                                {{direction.name}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Buggle color</td>
+                    <td><input type="text" list="list-colors"
+                                ng-model="editor.selectedBuggleColor" 
+                                ng-model-options="{ updateOn: 'blur', getterSetter: true }" >
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <datalist id="list-colors">
+            <option ng-repeat="color in editor.colors" value="{{color}}">
+        </datalist>
+    </div>
+</div>

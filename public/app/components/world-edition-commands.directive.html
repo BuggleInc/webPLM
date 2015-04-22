@@ -1,3 +1,4 @@
+<button class="button mini radius small" ng-click="editor.setCommand('')" translate>Select cell</button>
 <button class="button mini radius small" ng-click="editor.setCommand('topwall')" translate>Top wall</button>
 <button class="button mini radius small" ng-click="editor.setCommand('leftwall')" translate>Left wall</button>
 <button class="button mini radius small" ng-click="editor.setCommand('addbaggle')" translate>Baggle</button>
@@ -38,10 +39,11 @@
 <div id="setTextModal" class="reveal-modal" data-reveal=true>
     <h2>Change message</h2>
     <p>Choose a new message</p>
-    <form ng-submit="editor.setText()">
-        <input ng-model="editor.setTextInput" type="text">
+    <form name="contentForm" ng-submit="editor.drawService.update()">
+        <input name="cellContent" ng-model="editor.selectedCellContent" 
+               ng-model-options="{ updateOn: 'submit', getterSetter: true }" type="text">
         <button type="submit" class="button radius right" 
-                onclick="$('#setTextModal').foundation('reveal', 'close');"  translate>Change message</button>
+                onclick="$('#setTextModal').foundation('reveal', 'close');" translate>Change message</button>
     </form>
 </div>
 
