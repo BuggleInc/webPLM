@@ -148,23 +148,6 @@
                                     ]
                                 },
                     {
-                        name: "Color",
-                        blocks: [
-                            {
-                                type: "colour_picker"
-                                        },
-                            {
-                                type: "colour_random"
-                                        },
-                            {
-                                type: "colour_rgb"
-                                        },
-                            {
-                                type: "colour_blend"
-                                        }
-                                    ]
-                                },
-                    {
                         name: "Procedures",
                         blocks: [
                             {
@@ -262,6 +245,9 @@
                                         },
                             {
                                 type: "logic_operation"
+                                        },
+                            {
+                                type: "logic_ope"
                                         },
                             {
                                 type: "logic_negate"
