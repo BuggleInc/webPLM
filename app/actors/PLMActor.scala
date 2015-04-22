@@ -3,10 +3,9 @@ package actors
 import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
-
 import json._
-
 import models.PLM
+import models.User
 import log.PLMLogger
 import spies._
 import plm.core.model.lesson.Exercise
@@ -21,16 +20,15 @@ import plm.universe.GridWorldCell
 import plm.universe.bugglequest.BuggleWorld
 import plm.universe.bugglequest.AbstractBuggle
 import plm.universe.bugglequest.BuggleWorldCell
-
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
 
 object PLMActor {
-  def props(out: ActorRef, preferredLang: Lang) = Props(new PLMActor(out, preferredLang))
+  def props(uuid: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(uuid, out, preferredLang))
 }
 
-class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
+class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {  
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
@@ -47,12 +45,21 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   
   var registeredSpies: List[ExecutionSpy] = List()
   
+  sendMessage("actorUUID", Json.obj(
+      "uuid" -> uuid  
+    )
+  )
+  
+  ActorsMap.add(uuid, self)
+  
   def receive = {
     case msg: JsValue =>
       Logger.debug("Received a message")
       Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
+        case "login" =>
+          var user: User = (msg \ "user").asOpt[User].getOrElse(null)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -150,6 +157,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
+    ActorsMap.remove(uuid)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }

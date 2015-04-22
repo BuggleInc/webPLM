@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.api.services.AuthInfoService
@@ -13,8 +12,12 @@ import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc.Action
-
 import scala.concurrent.Future
+import akka.actor.ActorSystem
+import actors.ActorsMap
+import play.api.Logger
+import utils.CookieUtils
+
 
 /**
  * The social auth controller.
@@ -34,6 +37,10 @@ class SocialAuthController @Inject() (
    * @return The result to display.
    */
   def authenticate(provider: String) = Action.async { implicit request =>
+    var actorUUID: String = CookieUtils.getCookieValue(request, "actorUUID")
+    if(actorUUID.isEmpty) {
+      Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+    }
     (env.providers.get(provider) match {
       case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
         p.authenticate().flatMap {
@@ -45,6 +52,15 @@ class SocialAuthController @Inject() (
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
           } yield {
+            ActorsMap.get(actorUUID) match {
+              case Some(actor) =>
+                actor ! Json.obj(
+                  "cmd" -> "login",
+                  "user" -> user
+                )
+              case _ =>
+                Logger.debug("Actor not found... Weird isn't it?")
+            }
             env.eventBus.publish(LoginEvent(user, request, request2lang))
             Ok(Json.obj("token" -> token))
           }
