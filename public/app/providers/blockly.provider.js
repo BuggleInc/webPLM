@@ -151,27 +151,23 @@
                         name: "Procedures",
                         blocks: [
                             {
-                                type: "procedures_defnoreturn"
+                                type: "newprocedures_defnoreturn"
                                         },
                             {
-                                type: "procedures_defreturn"
+                                type: "newprocedures_defreturn"
                                         },
                             {
-                                type: "procedures_mutatorcontainer"
+                                type: "newprocedures_callnoreturn"
                                         },
                             {
-                                type: "procedures_mutatorarg"
-                                        },
-                            {
-                                type: "procedures_callnoreturn"
-                                        },
-                            {
-                                type: "procedures_callreturn"
-                                        },
-                            {
-                                type: "procedures_ifreturn"
+                                type: "newprocedures_callreturn"
                                         }
                                     ]
+                                },
+                    {
+                        name: "Variables",
+                        custom: "VARIABLE",
+                        blocks: []
                                 },
                     {
                         name: "Text",
@@ -247,7 +243,7 @@
                                 type: "logic_operation"
                                         },
                             {
-                                type: "logic_ope"
+                                type: "newlogic_operation"
                                         },
                             {
                                 type: "logic_negate"
