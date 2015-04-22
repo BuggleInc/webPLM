@@ -15,39 +15,60 @@
 		
 		FlipOperation.prototype.apply = function(currentWorld)
 		{
-			var length = currentWorld.panecakeStack.length;
+			var length = currentWorld.pancakeStack.length;
 			var clone = [];
-			for(var i=0;i<currentWorld.panecakeStack.length;i++)
+			for(var i=0;i<currentWorld.pancakeStack.length;i++)
 			{
-				clone.push(currentWorld.panecakeStack[i]);
+				clone.push(currentWorld.pancakeStack[i]);
 			}
 
 			var j = 1;
+			if(this.number === 1)
+				currentWorld.pancakeStack[length-1].upsideDown = !currentWorld.pancakeStack[length-1].upsideDown;
 			for(var i=this.number;i>1 && j<=i;i--)
 			{
-				currentWorld.panecakeStack[length-i] = clone[length-j];
-				currentWorld.panecakeStack[length-j] = clone[length-i];
+				
+				currentWorld.pancakeStack[length-i] = clone[length-j];
+				currentWorld.pancakeStack[length-i].upsideDown = !currentWorld.pancakeStack[length-i].upsideDown;
+				
+				currentWorld.pancakeStack[length-j] = clone[length-i];
+				if(i != j)
+					currentWorld.pancakeStack[length-j].upsideDown = !currentWorld.pancakeStack[length-j].upsideDown;
 				j++;
+
 			}
+
+			currentWorld.moveCount++;
+			currentWorld.oldNumber = currentWorld.numberFlip;
+			currentWorld.numberFlip = this.number;
 			
 		};
 
 		FlipOperation.prototype.reverse = function(currentWorld)
 		{
-			var length = currentWorld.panecakeStack.length;
+			var length = currentWorld.pancakeStack.length;
 			var clone = [];
-			for(var i=0;i<currentWorld.panecakeStack.length;i++)
+			for(var i=0;i<currentWorld.pancakeStack.length;i++)
 			{
-				clone.push(currentWorld.panecakeStack[i]);
+				clone.push(currentWorld.pancakeStack[i]);
 			}
 
 			var j = 1;
 			for(var i=this.number;i>1 && j<=i;i--)
 			{
-				currentWorld.panecakeStack[length-i] = clone[length-j];
-				currentWorld.panecakeStack[length-j] = clone[length-i];
+				
+				currentWorld.pancakeStack[length-i] = clone[length-j];
+				currentWorld.pancakeStack[length-i].upsideDown = !currentWorld.pancakeStack[length-i].upsideDown;
+
+				currentWorld.pancakeStack[length-j] = clone[length-i];
+				if(i != j)
+					currentWorld.pancakeStack[length-j].upsideDown = !currentWorld.pancakeStack[length-j].upsideDown;
 				j++;
 			}
+
+			currentWorld.moveCount--;
+			currentWorld.numberFlip = currentWorld.oldNumber;
+			currentWorld.oldNumber = this.number;
 		};
 
 		return FlipOperation;

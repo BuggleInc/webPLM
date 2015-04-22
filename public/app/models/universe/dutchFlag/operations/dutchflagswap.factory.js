@@ -20,7 +20,7 @@
 			currentWorld.content[this.src] = currentWorld.content[this.dest];
 			currentWorld.content[this.dest] = tmp;
 
-			currentWorld.moveCount += 1;
+			currentWorld.moveCount++;
 		};
 
 		DutchFlagSwap.prototype.reverse = function(currentWorld)
@@ -28,6 +28,8 @@
 			var tmp = currentWorld.content[this.dest];
 			currentWorld.content[this.dest] = currentWorld.content[this.src];
 			currentWorld.content[this.src] = tmp ;
+
+			currentWorld.moveCount--;
 		};
 
 		return DutchFlagSwap;

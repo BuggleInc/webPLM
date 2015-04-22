@@ -24,6 +24,10 @@
 			}
 
 			this.moveCount = world.moveCount;
+
+			this.numberFlip = world.numberFlip ;
+
+			this.burnedWorld = world.burnedWorld;
 		};
 
 		PancakeWorld.prototype.clone = function()

@@ -14,7 +14,10 @@ object PancakeWorldToJson {
         Json.obj(
             "pancakeStack" -> PancakeToJson.pancakesWrite(pancakeStack),
             "type" -> "PancakeWorld",
-            "moveCount" -> pancakeWorld.getMoveCount
+            "moveCount" -> pancakeWorld.getMoveCount,
+            "numberFlip" -> 0,
+            "oldNumber" -> 0,
+            "burnedWorld" -> pancakeWorld.isBurnedWorld()
         )
   }
 

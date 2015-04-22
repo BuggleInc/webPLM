@@ -34,8 +34,9 @@
 			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
 			ctx.closePath();
 
-			drawText(dutchFlagWorld);
+			
 			drawRectangle(dutchFlagWorld);
+			drawText(dutchFlagWorld);
 			
 		};
 
@@ -44,10 +45,10 @@
 		{
 			ctx.beginPath();
 
-			ctx.fillStyle = "#F00000";
+			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.font = "15px sans-serif";
 
-			if(dutchFlagWorld.moveCount === 0)
+			if(dutchFlagWorld.moveCount <= 1)
 			ctx.fillText(dutchFlagWorld.moveCount+" Move",5,25);
 			else ctx.fillText(dutchFlagWorld.moveCount+ " Moves",5,25);
 			ctx.closePath();
