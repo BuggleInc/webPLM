@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
   "org.scalatestplus" %% "play" % "1.2.0" % "test",
   "com.mohiva" %% "play-silhouette" % "2.0",
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23",
   cache
 )
 

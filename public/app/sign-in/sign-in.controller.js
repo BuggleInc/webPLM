@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.controller('SignIn', SignIn);
 
-	SignIn.$inject = ['$scope', '$auth'];
+	SignIn.$inject = ['$scope', 'actorUUID', '$auth'];
 
-	function SignIn($scope, $auth) {
+	function SignIn($scope, actorUUID, $auth) {
 		var signIn = this;
 
 		signIn.email = '';

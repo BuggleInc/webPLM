@@ -45,6 +45,8 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
   
   var registeredSpies: List[ExecutionSpy] = List()
   
+  var user: User = null
+  
   sendMessage("actorUUID", Json.obj(
       "uuid" -> uuid  
     )
@@ -59,7 +61,10 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "login" =>
-          var user: User = (msg \ "user").asOpt[User].getOrElse(null)
+          user = (msg \ "user").asOpt[User].getOrElse(null)
+          sendMessage("user", Json.obj(
+            "user" -> user
+          ))
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
