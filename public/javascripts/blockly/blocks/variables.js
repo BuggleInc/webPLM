@@ -117,6 +117,8 @@ Blockly.Blocks['variables_set'] = {
      * @this Blockly.Block
      */
     getVars: function (varType) {
+        console.log('varType: ', varType);
+        console.log('fieldValue: ', this.getFieldValue(varType));
         return [this.getFieldValue(varType)];
     },
     /**

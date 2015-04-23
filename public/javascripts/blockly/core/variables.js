@@ -45,6 +45,7 @@ Blockly.Variables.NAME_TYPE = 'VARIABLE';
  * @return {!Array.<string>} Array of variable names.
  */
 Blockly.Variables.allVariables = function(varType, opt_block) {
+  console.log('dans allVariables: ', varType);
   var blocks;
   if (opt_block) {
     blocks = opt_block.getDescendants();
@@ -71,6 +72,7 @@ Blockly.Variables.allVariables = function(varType, opt_block) {
   for (var name in variableHash) {
     variableList.push(variableHash[name]);
   }
+  console.log('variableList: ', variableList);
   return variableList;
 };
 
@@ -98,7 +100,7 @@ Blockly.Variables.renameVariable = function(varType, oldName, newName) {
  * @param {!Blockly.Workspace} workspace The flyout's workspace.
  */
 Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
-  var variableList = Blockly.Variables.allVariables();
+  var variableList = Blockly.Variables.allVariables('VAR');
   variableList.sort(goog.string.caseInsensitiveCompare);
   // In addition to the user's variables, we also want to display the default
   // variable name at the top.  We also don't want this duplicated if the

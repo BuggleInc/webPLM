@@ -162,13 +162,8 @@
                             {
                                 type: "newprocedures_callreturn"
                                         }
-                                    ]
-                                },
-                    {
-                        name: "Variables",
-                        custom: "VARIABLE",
-                        blocks: []
-                                },
+                        ]
+                    },
                     {
                         name: "Text",
                         blocks: [
@@ -221,6 +216,7 @@
                                 },
                     {
                         name: "Variables",
+                        custom: "VARIABLE",
                         blocks: [
                             {
                                 type: "variables_get"

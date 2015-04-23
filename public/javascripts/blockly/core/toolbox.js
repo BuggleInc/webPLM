@@ -259,6 +259,7 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
   }
   goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
   if (node && node.blocks && node.blocks.length) {
+    console.log('node.blocks: ', node.blocks);
     Blockly.Toolbox.flyout_.show(node.blocks);
   } else {
     // Hide the flyout.

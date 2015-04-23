@@ -349,8 +349,11 @@ Blockly.Flyout.prototype.show = function(xmlList) {
   // Create the blocks to be shown in this flyout.
   var blocks = [];
   var gaps = [];
-  if (xmlList == Blockly.Variables.NAME_TYPE) {
+  console.log('xmlList: ', xmlList);
+  if (true) {
     // Special category for variables.
+    console.log('Ici ?');
+    console.log('blocks: ', blocks);
     Blockly.Variables.flyoutCategory(blocks, gaps, margin,
         /** @type {!Blockly.Workspace} */ (this.workspace_));
   } else if (xmlList == Blockly.Procedures.NAME_TYPE) {
