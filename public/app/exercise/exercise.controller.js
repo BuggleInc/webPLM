@@ -272,7 +272,7 @@
             setCurrentWorld('current');
             
             // Zone test pour blockly
-            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+            Blockly.Python.INFINITE_LOOP_TRAP = null;
             exercise.code = Blockly.Python.workspaceToCode();    
             alert(exercise.code);
             // Zone test pour blockly

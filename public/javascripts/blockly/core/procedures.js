@@ -36,7 +36,7 @@ goog.require('Blockly.Workspace');
 /**
  * Category to separate procedure names from variables and generated functions.
  */
-Blockly.Procedures.NAME_TYPE = 'PROCEDURE';
+Blockly.Procedures.NAME_TYPE = 'NEWPROCEDURES';
 
 /**
  * Find all user-created procedure definitions.
@@ -169,20 +169,20 @@ Blockly.Procedures.rename = function(text) {
  * @param {!Blockly.Workspace} workspace The flyout's workspace.
  */
 Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
-  if (Blockly.Blocks['procedures_defnoreturn']) {
-    var block = Blockly.Block.obtain(workspace, 'procedures_defnoreturn');
+  if (Blockly.Blocks['newprocedures_defnoreturn']) {
+    var block = Blockly.Block.obtain(workspace, 'newprocedures_defnoreturn');
     block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
   }
-  if (Blockly.Blocks['procedures_defreturn']) {
-    var block = Blockly.Block.obtain(workspace, 'procedures_defreturn');
+  if (Blockly.Blocks['newprocedures_defreturn']) {
+    var block = Blockly.Block.obtain(workspace, 'newprocedures_defreturn');
     block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
   }
-  if (Blockly.Blocks['procedures_ifreturn']) {
-    var block = Blockly.Block.obtain(workspace, 'procedures_ifreturn');
+  if (Blockly.Blocks['newprocedures_ifreturn']) {
+    var block = Blockly.Block.obtain(workspace, 'newprocedures_ifreturn');
     block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
@@ -208,8 +208,8 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
   }
 
   var tuple = Blockly.Procedures.allProcedures();
-  populateProcedures(tuple[0], 'procedures_callnoreturn');
-  populateProcedures(tuple[1], 'procedures_callreturn');
+  populateProcedures(tuple[0], 'newprocedures_callnoreturn');
+  populateProcedures(tuple[1], 'newprocedures_callreturn');
 };
 
 /**

@@ -37,7 +37,7 @@ goog.require('Blockly.Workspace');
 /**
  * Category to separate variable names from procedures and generated functions.
  */
-Blockly.Variables.NAME_TYPE = 'VARIABLE';
+Blockly.Variables.NAME_TYPE = 'VARIABLES';
 
 /**
  * Find all user-created variables.

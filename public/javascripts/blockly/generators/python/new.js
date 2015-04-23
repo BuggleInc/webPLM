@@ -89,3 +89,16 @@ Blockly.Python['newprocedures_callreturn'] = function(block) {
   var code = funcName + '(' + args.join(', ') + ')';
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
+
+Blockly.Python['newprocedures_callnoreturn'] = function(block) {
+  // Call a procedure with no return value.
+  var funcName = Blockly.Python.variableDB_.getName(block.getFieldValue('NAME'),
+      Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.Python.valueToCode(block, 'ARG' + x,
+        Blockly.Python.ORDER_NONE) || 'None';
+  }
+  var code = funcName + '(' + args.join(', ') + ')\n';
+  return code;
+};

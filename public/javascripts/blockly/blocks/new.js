@@ -30,7 +30,6 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     init: function () {
-        this.setColour(Blockly.Blocks.procedures.HUE);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
         var nameField = new Blockly.FieldTextInput(name,

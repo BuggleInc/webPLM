@@ -148,23 +148,6 @@
                                     ]
                                 },
                     {
-                        name: "Procedures",
-                        blocks: [
-                            {
-                                type: "newprocedures_defnoreturn"
-                                        },
-                            {
-                                type: "newprocedures_defreturn"
-                                        },
-                            {
-                                type: "newprocedures_callnoreturn"
-                                        },
-                            {
-                                type: "newprocedures_callreturn"
-                                        }
-                        ]
-                    },
-                    {
                         name: "Text",
                         blocks: [
                             {
@@ -214,6 +197,24 @@
                                         }
                                     ]
                                 },
+                    {
+                        name: "Procedures",
+                        custom: "PROCEDURE",
+                        blocks: [
+                            {
+                                type: "newprocedures_defnoreturn"
+                                        },
+                            {
+                                type: "newprocedures_defreturn"
+                                        },
+                            {
+                                type: "newprocedures_callnoreturn"
+                                        },
+                            {
+                                type: "newprocedures_callreturn"
+                                        }
+                        ]
+                    },
                     {
                         name: "Variables",
                         custom: "VARIABLE",
