@@ -16,7 +16,7 @@
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
 		'DutchFlagWorld', 'DutchFlagView',
-		'PancakeWorld', 'PancakeView'
+		'PancakeWorld', 'PancakeView', 'BaseballWorld', 'BaseballView', 'BaseballSecondView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -28,7 +28,8 @@
 		BatWorld, BatWorldView, 
 		SortingWorld, SortingWorldView, SortingWorldSecondView, 
 		DutchFlagWorld, DutchFlagView,
-		PancakeWorld, PancakeView ) {
+		PancakeWorld, PancakeView, BaseballWorld, BaseballView, BaseballSecondView
+		) {
 
 		var exercise = this;
 		
@@ -40,9 +41,6 @@
 		exercise.tabsName = {};
 		exercise.nameWorld;
 
-		
-		
-		
 
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
@@ -237,6 +235,15 @@
 								world = new PancakeWorld(initialWorld);
 								initCanvas(PancakeView.draw);
 								break; 
+							case 'BaseballWorld' :
+								exercise.tabsName[initialWorld.type] = {name: "World", demo: "Objective", secondView: "ChronoView", secondDemo: "ChronoDemo"};
+								exercise.demoNeeded = true;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								exercise.secondViewNeeded = true;
+								world = new BaseballWorld(initialWorld);
+								initCanvas(BaseballView.draw);
+								break;  
 
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -306,6 +313,11 @@
 				case 'PancakeWorld' :
 					view = PancakeView;
 					break;
+				case 'BaseballWorld' :
+					view = BaseballView;
+					secondView = BaseballSecondView;
+				break;   
+
 			}
 			
 			if(!b)

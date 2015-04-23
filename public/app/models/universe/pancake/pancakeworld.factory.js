@@ -27,7 +27,7 @@
 
 			this.numberFlip = world.numberFlip ;
 
-			this.burnedWorld = world.burnedWorld;
+			this.burnedWorld = world.burnedWorld; 
 		};
 
 		PancakeWorld.prototype.clone = function()
