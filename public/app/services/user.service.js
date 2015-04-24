@@ -18,6 +18,8 @@
 
 		var service = {
 			isAuthenticated: isAuthenticated,
+			signIn: signIn,
+			signOut: signOut,
 			getUser: getUser
 		};
 
@@ -25,6 +27,21 @@
 
 		function isAuthenticated() {
 			return $auth.isAuthenticated()
+		}
+
+		function signIn(provider) {
+			$auth.authenticate(provider)
+			.then(function(data) {
+				console.log('You have successfully signed in', data);
+			})
+			.catch(function(response) {
+				console.log(response.data.message);
+			});
+		}
+
+		function signOut() {
+			$auth.logout();
+			connection.sendMessage('signOut', {});
 		}
 
 		function getUser() {

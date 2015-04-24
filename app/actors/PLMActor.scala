@@ -60,11 +60,13 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
       Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
-        case "login" =>
+        case "signIn" =>
           user = (msg \ "user").asOpt[User].getOrElse(null)
           sendMessage("user", Json.obj(
             "user" -> user
           ))
+        case "signOut" =>
+          user = null
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)

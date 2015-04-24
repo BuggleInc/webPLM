@@ -15,6 +15,7 @@
 			<ul class="right">
 				<li ng-hide="userService.isAuthenticated()"><a ui-sref="signIn" translate>Sign In</a></li>
 				<li ng-show="userService.isAuthenticated()"><a ui-sref="profile" translate>Profile</a></li>
+				<li ng-show="userService.isAuthenticated()"><a ng-click="userService.signOut()" translate>Sign Out</a></li>
 				<li><a href="#" translate>About</a></li>
 				<li><a href="#" translate>Contact</a></li>
 				<li><select-lang></select-lang></li>

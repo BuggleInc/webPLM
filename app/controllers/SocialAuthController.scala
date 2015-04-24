@@ -55,7 +55,7 @@ class SocialAuthController @Inject() (
             ActorsMap.get(actorUUID) match {
               case Some(actor) =>
                 actor ! Json.obj(
-                  "cmd" -> "login",
+                  "cmd" -> "signIn",
                   "user" -> user
                 )
               case _ =>

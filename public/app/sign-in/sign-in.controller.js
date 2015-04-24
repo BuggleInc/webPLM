@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.controller('SignIn', SignIn);
 
-	SignIn.$inject = ['$scope', '$auth'];
+	SignIn.$inject = ['$scope', 'userService'];
 
-	function SignIn($scope, $auth) {
+	function SignIn($scope, userService) {
 		var signIn = this;
 
 		signIn.email = '';
@@ -16,13 +16,7 @@
 		signIn.authenticate = authenticate;
 
 		function authenticate (provider) {
-		    $auth.authenticate(provider)
-		    .then(function(data) {
-		    	console.log('You have successfully signed in', data);
-		    })
-		    .catch(function(response) {
-		    	console.log(response.data.message);
-		    });
+			userService.signIn(provider);
 		}
 	}
 })();
