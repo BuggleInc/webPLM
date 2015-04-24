@@ -19,8 +19,11 @@
 					},
 
 				responseError: function(rejection) {
+					var $auth = $injector.get('$auth');
 					if (rejection.status === 401) {
-						$injector.get('$state').go('signIn');
+						if($auth.isAuthenticated()) {
+							$auth.logout();
+						}
 					}
 					return $q.reject(rejection);
 					}
