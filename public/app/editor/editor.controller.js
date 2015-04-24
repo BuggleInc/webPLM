@@ -26,6 +26,8 @@
         
         var editor = this;
         
+        editor.editorMode = 'world';
+
         editor.world = null;
         editor.selectedCell = null;
         editor.command = null;
@@ -47,6 +49,11 @@
 		editor.drawService = null;
 		editor.drawingArea = 'drawingArea';
         
+        editor.programmingLanguages = {all: true, c: false, java: true, scala: false, python: false};
+        console.log(editor.programmingLanguages);
+        editor.missionText = '';
+        editor.filteredMission = editor.missionText;
+        
         editor.errorMessage = null;
         
         editor.selectCell = selectCell;
@@ -64,6 +71,21 @@
         editor.selectedCellContent = selectedCellContent;
         editor.height = height;
         editor.width = width;
+        
+        editor.filterMission = filterMission;
+        
+        var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
+        
+        function handleMessage(data) {
+			console.log('message received: ', data);
+			var cmd = data.cmd;
+			var args = data.args;
+			switch(cmd) {
+				case 'missionFiltered': 
+					editor.filteredMission = args.filteredMission;
+					break;
+			}
+		}
         
         function displayError(errorMessage) {
             editor.errorMessage = errorMessage;
@@ -366,6 +388,23 @@
                 }
             }
             return editor.world.width;
+        }
+        
+        function filterMission() {
+            var listLang = [];
+            for(var lang in editor.programmingLanguages) {
+				if(editor.programmingLanguages.hasOwnProperty(lang) && lang !== 'all') {
+                    if(editor.programmingLanguages[lang]) {
+                        listLang.push(lang);
+                    }
+                }
+            }
+            var args = {
+                missionText: editor.missionText,
+                all: editor.programmingLanguages.all,
+                languages: listLang
+			};
+			connection.sendMessage('filterMission', args);
         }
     }
 })();

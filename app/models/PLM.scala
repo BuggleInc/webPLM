@@ -21,6 +21,8 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
+import plm.core.ui.PlmHtmlEditorKit
+
 class PLM(plmLogger: PLMLogger, locale: Locale) {
   
   var _currentExercise: Exercise = _
@@ -132,5 +134,18 @@ class PLM(plmLogger: PLMLogger, locale: Locale) {
   
   def getMission(progLang: ProgrammingLanguage): String = {
     if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
+  }
+    
+  def filterMission(missionText: String, all: Boolean, showMulti: Boolean, languages: Array[String]): String = {
+    var progLangs: Array[ProgrammingLanguage] = null
+    if(!all) {
+      progLangs = languages.map(l => l match {
+        case "c" => Game.C
+        case "java" => Game.JAVA
+        case "scala" => Game.SCALA
+        case "python" => Game.PYTHON
+      })
+    }
+    return PlmHtmlEditorKit.filterHTMLBis(missionText, all, showMulti, progLangs, null)
   }
 }

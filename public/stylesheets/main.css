@@ -161,3 +161,14 @@ div[ui-view] {
     max-width: 90%;
   }
 }
+
+#mission-input {
+    margin-top: 0;
+    height: 512px;
+}
+
+#mission-preview {
+    overflow: scroll;
+    margin-top: 0;
+    height: 512px;
+}

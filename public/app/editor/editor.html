@@ -1,22 +1,36 @@
 <div class="row">
-    <world-edition-commands></world-edition-commands>
-</div>
-<div class="row">
-	<div class="small-5 columns block">
-        <div class="row">
-            <world-edition></world-edition>
-            <hr>
-        </div>
-    </div>
-    <div class="small-7 columns block">
-        <world-edition-properties></world-edition-properties>
+    <div class="small-2 columns block">
+        <select ng-model="editor.editorMode">
+            <option value="world">Monde</option>
+            <option value="mission">Mission</option>
+        </select>
     </div>
 </div>
 
-<div id="errorModal" class="reveal-modal" data-reveal=true>
-    <h2 translate>Error</h2>
-    <div data-alert class="alert-box alert round">
-        {{editor.errorMessage}}
+<div ng-show="editor.editorMode == 'world'">
+    <div class="row">
+        <world-edition-commands></world-edition-commands>
     </div>
-    <a class="close-reveal-modal">&#215;</a>
+
+    <div class="row">
+        <div class="small-5 columns block">
+            <world-edition></world-edition>
+        </div>
+        <div class="small-7 columns block">
+            <world-edition-properties></world-edition-properties>
+        </div>
+        <hr>
+    </div>
+
+    <div id="errorModal" class="reveal-modal" data-reveal=true>
+        <h2 translate>Error</h2>
+        <div data-alert class="alert-box alert round">
+            {{editor.errorMessage}}
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>
+
+<div ng-show="editor.editorMode == 'mission'">
+    <mission-edition></mission-edition>
 </div>

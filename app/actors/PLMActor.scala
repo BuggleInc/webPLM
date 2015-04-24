@@ -73,6 +73,23 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
+        case "filterMission" =>
+            var optMissionText: Option[String] = (msg \ "args" \ "missionText").asOpt[String]
+            var optAll: Option[Boolean] = (msg \ "args" \ "all").asOpt[Boolean]
+            var optLangs: Option[Array[String]] = (msg \ "args" \ "languages").asOpt[Array[String]]
+
+            (optMissionText.getOrElse(None), optAll.getOrElse(None), optLangs.getOrElse(None)) match {
+                case (missionText: String, all: Boolean, langs: Array[String]) => {
+                    if(all) {
+                        sendMessage("missionFiltered", Json.obj("filteredMission" -> plm.filterMission(missionText, true, false, null)))
+                    }
+                    else {
+                        sendMessage("missionFiltered", Json.obj("filteredMission" -> plm.filterMission(missionText, false, true, langs)))
+                    }
+                }
+                case _ => Logger.debug("filterMission: non-correct JSON")
+            }
+            
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
