@@ -100,9 +100,14 @@ object UserDAOMongoImpl extends Controller with MongoController {
    * @return The saved user.
    */
   def save(user: User) = {
-    Logger.debug("On veut sauvegarder: "+user.fullName)
-    val result = users.insert(user)
-    Logger.debug("On arrive jusque là?")
-    result.map(_ => user)
+    find(user.userID).flatMap {
+      case Some(userSaved) =>
+        Logger.debug("On veut update: "+user.fullName)
+        users.update(Json.obj("userID" -> user.userID), user)
+      case None =>
+        Logger.debug("On veut sauvegarder: "+user.fullName)
+        users.insert(user)
+    }
+    Future.successful(user)
   }
 }
