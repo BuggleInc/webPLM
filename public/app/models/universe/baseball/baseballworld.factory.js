@@ -17,7 +17,8 @@
 			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
-			
+			this.baseAmount = world.baseAmount;	
+			this.posAmount = world.posAmount;
 			this.field = [];
 			for(var i=0; i<world.field.length;i++)
 			{
