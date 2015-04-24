@@ -3,16 +3,17 @@
 	
 	angular
 		.module('PLMApp')
-		.factory('actorUUID', actorUUID)
-		.run(function(actorUUID) {}); // To instanciate the service at startup
+		.factory('userService', userService)
+		.run(function(userService) {}); // To instanciate the service at startup
 	
-	actorUUID.$inject = ['$http', 'connection', 'listenersHandler', '$auth'];
+	userService.$inject = ['$http', '$cookies', 'connection', 'listenersHandler', '$auth'];
 	
-	function actorUUID($http, connection, listenersHandler, $auth) {
+	function userService($http, $cookies, connection, listenersHandler, $auth) {
 
 		listenersHandler.register('onmessage', handleMessage);
 
-		var user;
+		var user = {};
+
 		var actorUUID;
 
 		var service = {
@@ -51,6 +52,7 @@
 			switch(cmd) {
 				case 'actorUUID':
 					actorUUID = args.uuid;
+					$cookies.actorUUID = actorUUID;
 					if(isAuthenticated()) { 
 						retrieveUser();
 					}
