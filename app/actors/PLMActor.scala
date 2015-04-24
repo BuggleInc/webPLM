@@ -47,12 +47,12 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
   
   var user: User = null
   
+  ActorsMap.add(uuid, self)
+
   sendMessage("actorUUID", Json.obj(
       "uuid" -> uuid  
     )
   )
-  
-  ActorsMap.add(uuid, self)
   
   def receive = {
     case msg: JsValue =>

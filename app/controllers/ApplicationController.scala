@@ -26,7 +26,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
     ActorsMap.get(actorUUID) match {
         case Some(actor) =>
           actor ! Json.obj(
-            "cmd" -> "login",
+            "cmd" -> "signIn",
             "user" -> request.identity
           )
           Future.successful(Ok)

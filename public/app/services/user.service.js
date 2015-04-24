@@ -6,9 +6,9 @@
 		.factory('userService', userService)
 		.run(function(userService) {}); // To instanciate the service at startup
 	
-	userService.$inject = ['$http', '$cookies', 'connection', 'listenersHandler', '$auth'];
+	userService.$inject = ['$http', '$cookies', '$timeout', 'connection', 'listenersHandler', '$auth'];
 	
-	function userService($http, $cookies, connection, listenersHandler, $auth) {
+	function userService($http, $cookies, $timeout, connection, listenersHandler, $auth) {
 
 		listenersHandler.register('onmessage', handleMessage);
 
@@ -55,8 +55,8 @@
 
 		function retrieveUser() {
 			$http.get('/user/'+actorUUID)
-			.success(function(data) {
-				console.log('data: ', data);
+			.success(function() {
+				console.log('successfully retrieve your profile');
 			})
 			.error(function(error) {
 				console.log('error: ', error.message);
@@ -70,8 +70,8 @@
 				case 'actorUUID':
 					actorUUID = args.uuid;
 					$cookies.actorUUID = actorUUID;
-					if(isAuthenticated()) { 
-						retrieveUser();
+					if(isAuthenticated()) {
+						$timeout(retrieveUser, 0);
 					}
 					break;
 				case 'user':
