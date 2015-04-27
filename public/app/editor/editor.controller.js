@@ -30,12 +30,11 @@
 
         editor.world = null;
         editor.selectedCell = null;
-        editor.command = null;
+        editor.command = '';
         
         editor.customColorInput = '42/42/42';
         editor.color = [42, 42, 42, 255];
         editor.colors = color.getColorsNames();
-        editor.colorNameSelect = null;
         
         editor.directions = [{value: 0, name: 'North'},
                              {value: 1, name: 'East'},
@@ -60,11 +59,11 @@
         editor.initEditor = initEditor;
         editor.setCommand = setCommand;
         editor.setRGBColor = setRGBColor;
-        editor.setColorByName = setColorByName;
         editor.addLineAbove = addLineAbove;
         editor.addLineBelow = addLineBelow;
         editor.addColumnRight = addColumnRight;
         editor.addColumnLeft = addColumnLeft;
+        editor.editorColor = editorColor;
         editor.selectedBuggleColor = selectedBuggleColor;
         editor.selectedBuggleID = selectedBuggleID;
         editor.selectedCellColor = selectedCellColor;
@@ -148,6 +147,10 @@
                     break;
                 case 'color':
                     colorCommand();
+                    break;
+                case 'pickcolor':
+                    editor.color = editor.selectedCell.color.slice();
+                    editor.setCommand('color');
                     break;
                 case 'text':
                     textCommand();
@@ -270,14 +273,6 @@
             editor.world.addColumn(x, -1);
         }
         
-        function setColorByName() {
-            var newColor = color.nameToRGB(editor.colorNameSelect);
-            if(newColor !== null) {
-                editor.color = newColor;
-                editor.color.push(255);
-            }
-        }
-        
         function setRGBColor() {
             var newColor = color.strToRGB(editor.customColorInput);
             if(newColor !== null) {
@@ -309,6 +304,18 @@
         
         function setCommand(command) {
             editor.command = command;
+        }
+        
+        
+        function editorColor(newColor) {
+            if(angular.isDefined(newColor)) {
+                newColor = color.nameToRGB(newColor) || color.strToRGB(newColor);
+                if(newColor) {
+                    newColor.push(255);
+                    editor.color = newColor;
+                }
+            }
+            return editor.color;
         }
         
         function selectedBuggleColor(newColor) {

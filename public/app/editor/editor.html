@@ -1,17 +1,17 @@
 <div class="row">
+    <div class="small-10 columns block">
+        <world-edition-commands ng-show="editor.editorMode == 'world'"></world-edition-commands>
+    </div>
     <div class="small-2 columns block">
         <select ng-model="editor.editorMode">
             <option value="world">Monde</option>
             <option value="mission">Mission</option>
+            <option value="Solution">Solution</option>
         </select>
     </div>
 </div>
 
 <div ng-show="editor.editorMode == 'world'">
-    <div class="row">
-        <world-edition-commands></world-edition-commands>
-    </div>
-
     <div class="row">
         <div class="small-5 columns block">
             <world-edition></world-edition>

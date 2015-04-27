@@ -172,3 +172,42 @@ div[ui-view] {
     margin-top: 0;
     height: 512px;
 }
+
+#drop-color a {
+    display: inline-block;
+}
+
+.color-preview {
+    display: inline-block;
+    width: 5%;
+    padding-top: 5%;
+    margin-left: 4%;
+    margin-right: 4%;
+    border-radius: 50%;
+    vertical-align: middle;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.color-preview-custom {
+    background: red; /* not working, let's see some red */
+    background: -moz-linear-gradient( top ,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 255, 0, 1) 15%,
+        rgba(0, 255, 0, 1) 30%,
+        rgba(0, 255, 255, 1) 50%,
+        rgba(0, 0, 255, 1) 65%,
+        rgba(255, 0, 255, 1) 80%,
+        rgba(255, 0, 0, 1) 100%);
+    background: -webkit-gradient(linear,  left top,  left bottom, 
+        color-stop(0%, rgba(255, 0, 0, 1)), 
+        color-stop(15%, rgba(255, 255, 0, 1)),
+        color-stop(30%, rgba(0, 255, 0, 1)),
+        color-stop(50%, rgba(0, 255, 255, 1)),
+        color-stop(65%, rgba(0, 0, 255, 1)),
+        color-stop(80%, rgba(255, 0, 255, 1)),
+        color-stop(100%, rgba(255, 0, 0, 1)));
+}
+
+.cursor-pipette {
+    cursor: url('../images/pipette-cursor.gif') 0 14, auto;
+}

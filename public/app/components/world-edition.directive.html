@@ -1,7 +1,7 @@
 <div class="row">
    <div class="small-11 small-centered columns">
        <div class="row" id="drawingArea" >
-         <canvas id="canvas" width="400" height="400" ng-init="editor.initEditor()" ng-click="editor.selectCell($event)" ></canvas>
+         <canvas ng-class="(editor.command=='pickcolor')?'cursor-pipette':''" id="canvas" width="400" height="400" ng-init="editor.initEditor()" ng-click="editor.selectCell($event)" ></canvas>
       </div>
    </div>
 </div>
