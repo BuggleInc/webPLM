@@ -75,10 +75,6 @@ Blockly.parseToolboxTree_ = function (tree) {
         }
         if (typeof tree == 'string') {
             tree = Blockly.Xml.textToDom(tree);
-            //tree = Blockly.Json.domToBlock(tree);
-            //console.log('pasreToolboxTree after domToBlock', tree);
-            //tree = Blockly.Json.blockToDom_(tree);
-            //console.log('pasreToolboxTree after blockToDom', tree);
         }
     } else {
         tree = null;
@@ -476,12 +472,8 @@ Blockly.init_ = function () {
       ['delete.mp3', 'delete.ogg', 'delete.wav'], 'delete');
 };
 
-/**
- * Modify the block tree on the existing toolbox.
- * @param {Node|string} tree DOM tree of blocks, or text representation of same.
- */
+
 Blockly.updateToolbox = function (tree) {
-    Blockly.Workspace.tree = tree;
     tree = Blockly.parseToolboxTree_(tree);
     if (!tree) {
         if (Blockly.languageTree) {

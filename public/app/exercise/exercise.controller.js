@@ -444,12 +444,20 @@
         }
         
         function choiceToolbox(){
+            console.log('');
             console.log('=== setProgrammingLanguage ===');
-            var toolbox = '<xml id="toolbox" style="display: none"><category name="Move"><block type="move_forward"></block><block type="move_backward"></block></category><category name="Buggle"><block type="buggle_set_color"></block></category></xml>';
-            /*var toolbox = [{name: "Move",blocks:[{type: "move_forward"},{type: "move_backward"}]},{name: "Buggle",blocks:[{type: "buggle_set_color"}]}];*/
-            console.log(toolbox);
-            Blockly.updateToolbox(toolbox);
+            /*var toolbox = '<xml id="toolbox" style="display: none"><category name="Move"><block type="move_forward"></block><block type="move_backward"></block></category><category name="Buggle"><block type="buggle_set_color"></block></category></xml>';*/
+            if(exercise.id == 'welcome.lessons.welcome.summative.Moria')
+                var toolbox = [{name: "Move",blocks:[{type: "move_forward"},{type: "move_backward"}]},{name: "Buggle",blocks:[{type: "buggle_set_color"}]}];
+            else
+                var toolbox = [{name: "Brush",blocks:[{type: "brush_up"},{type: "brush_down"}]},{name: "World",blocks:[{type: "world_ground_color"}]}];            
+            Blockly.languageTree = toolbox;
+            console.log('choiceToolbox',exercise);
+            Blockly.languageTree = toolbox;
+            Blockly.Toolbox.populate_();
+            //Blockly.updateToolbox(toolbox);
             console.log('===== setProgrammingLanguage =====');
+            console.log('');
         }
 
         function updateUI(pl, instructions, api, code) {
