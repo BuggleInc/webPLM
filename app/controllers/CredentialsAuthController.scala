@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api.exceptions.{ConfigurationException, ProviderException}
 import com.mohiva.play.silhouette.api.services.AuthInfoService
 import com.mohiva.play.silhouette.api.util.Credentials
@@ -16,9 +15,11 @@ import play.api.i18n.Messages
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.mvc.Action
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import actors.ActorsMap
+import play.api.Logger
+import utils.CookieUtils
 
 /**
  * The credentials auth controller.
@@ -45,6 +46,10 @@ class CredentialsAuthController @Inject() (
    * @return The result to display.
    */
   def authenticate = Action.async(parse.json) { implicit request =>
+    var actorUUID: String = CookieUtils.getCookieValue(request, "actorUUID")
+    if(actorUUID.isEmpty) {
+      Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+    }
     request.body.validate[Credentials].map { credentials =>
       (env.providers.get(CredentialsProvider.ID) match {
         case Some(p: CredentialsProvider) => p.authenticate(credentials)
@@ -53,6 +58,15 @@ class CredentialsAuthController @Inject() (
         userService.retrieve(loginInfo).flatMap {
           case Some(user) => env.authenticatorService.create(user.loginInfo).flatMap { authenticator =>
             env.eventBus.publish(LoginEvent(user, request, request2lang))
+            ActorsMap.get(actorUUID) match {
+              case Some(actor) =>
+                actor ! Json.obj(
+                  "cmd" -> "signIn",
+                  "user" -> user
+                )
+              case _ =>
+                Logger.debug("Actor not found... Weird isn't it?")
+            }
             env.authenticatorService.init(authenticator).map { token =>
               Ok(Json.obj("token" -> token))
             }

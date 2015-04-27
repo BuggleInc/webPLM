@@ -1,0 +1,41 @@
+<form>
+    <div class="row"> <!-- first name -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline" translate><strong>First name</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="text" id="right-label" ng-model="signUp.firstName" placeholder="First name" required>
+        </div>
+    </div> <!-- /first name -->
+
+    <div class="row"> <!-- last name -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline" translate><strong>Last name</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="text" id="right-label" ng-model="signUp.lastName" placeholder="Last name" required>
+        </div>
+    </div> <!-- /last name -->
+
+    <div class="row"> <!-- e-mail -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline" translate><strong>Email</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="email" id="right-label" ng-model="signUp.email" placeholder="Email" required>
+        </div>
+    </div> <!-- /e-mail -->
+
+    <div class="row"> <!-- password -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline" translate><strong>Password</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="password" id="right-label" ng-model="signUp.pwd" placeholder="Password" required>
+        </div>
+    </div> <!-- /password-->
+
+    <div class="row text-center">
+        <input type="submit" class="button" ng-click="signUp.submit()" value="Sign up"/>
+    </div>
+</form>

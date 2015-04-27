@@ -23,6 +23,12 @@
 	            controller: 'SignIn',
 	            controllerAs: 'signIn'
 	        })
+	        .state('signUp', {
+	            url: '/ui/signUp',
+	            templateUrl: 'assets/app/sign-up/sign-up.html',
+	            controller: 'SignUp',
+	            controllerAs: 'signUp'
+	        })
 	        .state('profile', {
 	            url: '/ui/profile',
 	            templateUrl: 'assets/app/profile/profile.html',

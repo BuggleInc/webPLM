@@ -18,7 +18,9 @@
 
 		var service = {
 			isAuthenticated: isAuthenticated,
-			signIn: signIn,
+			signUp: signUp,
+			signInWithCredentials: signInWithCredentials,
+			signInWithProvider: signInWithProvider,
 			signOut: signOut,
 			getUser: getUser
 		};
@@ -29,10 +31,31 @@
 			return $auth.isAuthenticated()
 		}
 
-		function signIn(provider) {
+		function signUp(email, password, firstName, lastName) {
+			$auth.signup({
+				email: email,
+				password: password,
+				firstName: firstName,
+				lastName: lastName
+			}).then(function(response) {
+				console.log(response.data);
+			});
+		}
+
+		function signInWithCredentials(email, password) {
+			$auth.login({
+				email: email,
+				password: password
+			})
+			.then(function(data) {
+				console.log('You have successfully signed in with credentials', data);
+			});
+		}
+
+		function signInWithProvider(provider) {
 			$auth.authenticate(provider)
 			.then(function(data) {
-				console.log('You have successfully signed in', data);
+				console.log('You have successfully signed in with provider', data);
 			})
 			.catch(function(response) {
 				console.log(response.data.message);

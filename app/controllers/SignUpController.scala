@@ -2,7 +2,6 @@ package controllers
 
 import java.util.UUID
 import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.services.AuthInfoService
 import com.mohiva.play.silhouette.api.util.PasswordHasher
@@ -15,8 +14,10 @@ import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc.Action
-
+import utils.CookieUtils
 import scala.concurrent.Future
+import actors.ActorsMap
+import play.api.Logger
 
 /**
  * The sign up controller.
@@ -39,6 +40,10 @@ class SignUpController @Inject() (
    * @return The result to display.
    */
   def signUp = Action.async(parse.json) { implicit request =>
+    var actorUUID: String = CookieUtils.getCookieValue(request, "actorUUID")
+    if(actorUUID.isEmpty) {
+      Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+    }
     request.body.validate[SignUpForm.Data].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
       userService.retrieve(loginInfo).flatMap {
@@ -61,6 +66,15 @@ class SignUpController @Inject() (
             authenticator <- env.authenticatorService.create(loginInfo)
             token <- env.authenticatorService.init(authenticator)
           } yield {
+            ActorsMap.get(actorUUID) match {
+              case Some(actor) =>
+                actor ! Json.obj(
+                  "cmd" -> "signUp",
+                  "user" -> user
+                )
+              case _ =>
+                Logger.debug("Actor not found... Weird isn't it?")
+            }
             env.eventBus.publish(SignUpEvent(user, request, request2lang))
             env.eventBus.publish(LoginEvent(user, request, request2lang))
             Ok(Json.obj("token" -> token))
