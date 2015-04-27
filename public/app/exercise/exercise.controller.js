@@ -434,12 +434,22 @@
             if (pl.lang == 'Blockly') {
                 exercise.ide = 'blockly';
                 Blockly.fireUiEvent(window, 'resize');
+                choiceToolbox();
             } else
                 exercise.ide = 'codemirror'
             exercise.isChangingProgLang = true;
             connection.sendMessage('setProgrammingLanguage', {
                 programmingLanguage: pl.lang
             });
+        }
+        
+        function choiceToolbox(){
+            console.log('=== setProgrammingLanguage ===');
+            var toolbox = '<xml id="toolbox" style="display: none"><category name="Move"><block type="move_forward"></block><block type="move_backward"></block></category><category name="Buggle"><block type="buggle_set_color"></block></category></xml>';
+            /*var toolbox = [{name: "Move",blocks:[{type: "move_forward"},{type: "move_backward"}]},{name: "Buggle",blocks:[{type: "buggle_set_color"}]}];*/
+            console.log(toolbox);
+            Blockly.updateToolbox(toolbox);
+            console.log('===== setProgrammingLanguage =====');
         }
 
         function updateUI(pl, instructions, api, code) {

@@ -45,7 +45,6 @@ Blockly.Variables.NAME_TYPE = 'VARIABLES';
  * @return {!Array.<string>} Array of variable names.
  */
 Blockly.Variables.allVariables = function(varType, opt_block) {
-  console.log('dans allVariables: ', varType);
   var blocks;
   if (opt_block) {
     blocks = opt_block.getDescendants();
@@ -72,7 +71,6 @@ Blockly.Variables.allVariables = function(varType, opt_block) {
   for (var name in variableHash) {
     variableList.push(variableHash[name]);
   }
-  console.log('variableList: ', variableList);
   return variableList;
 };
 
