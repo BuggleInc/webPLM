@@ -12,9 +12,11 @@ import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
 import log.PLMLogger
 import java.util.Locale
+import java.util.UUID
 
 class PLMSpec extends PlaySpec with MockitoSugar {
-  var plm = new PLM(mock[PLMLogger], new Locale("en"))
+  var userUUID: String = UUID.randomUUID.toString
+  var plm = new PLM(mock[PLMLogger], new Locale("en"), userUUID)
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {

@@ -23,6 +23,7 @@ import plm.universe.bugglequest.BuggleWorldCell
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
+import java.util.UUID
 
 object PLMActor {
   def props(uuid: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(uuid, out, preferredLang))
@@ -32,7 +33,10 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
-  var plm = new PLM(plmLogger, preferredLang.toLocale)
+  
+  var userUUID = UUID.randomUUID.toString
+  
+  var plm = new PLM(plmLogger, preferredLang.toLocale, userUUID)
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
   plm.game.addGameStateListener(resultSpy)
