@@ -37,6 +37,10 @@
 			return angle * (Math.PI / 180);
 		}
 
+		function computeAngle(amountSides)
+		{
+			return (180 * amountSides - 360) / (amountSides * 2);
+		}
 
 
 		function drawField(baseballWorld)
@@ -45,7 +49,9 @@
 			var radius = canvasHeight / 2;
 
 			//Firstly, we need a circle where take place the left top corner of our rectangles
-			var dif = (radius-75) + (nb * 2);
+			var dif = (radius-75) + (nb * 3);
+
+			var dif2 = (radius-50) + (nb * 2);
 			
 			var height = 91 - (4 * nb);
 			var width = 118 - (4 * nb);
@@ -53,13 +59,17 @@
 			//we need a circle divided by the double number of bases
 			var angle = toRad(360 / (nb * 2));
 
+			var angleCircle = toRad(360 / (baseballWorld.posAmount * nb * 5));
+
 			var angleRotation = angle / nb;
 
 			var firstX;
 			var firstY;
+			var circleX;
+			var circleY;
 
 			var XCenter = canvasWidth /2;
-			var YCenter  = radius;
+			var YCenter = radius;
 
 			var dX1;
 			var dY1;
@@ -67,12 +77,30 @@
 			var dX2;
 			var dY2;
 
+			var dX3;
+			var dY3;
 
-			firstX = canvasWidth / 2 - 60;
-			firstY = canvasHeight / 2 + dif - 13;
+			var dX4;
+			var dY4;
+
+			var unknownX;
+			var unknownY;
+
+			var x ;
+			var y ;
 
 
-			
+			firstX = canvasWidth / 2 - 45;
+			firstY = canvasHeight / 2 + dif - 10;
+
+			circleX = canvasWidth /2 + 20;
+			circleY = canvasHeight /2  + dif2;
+
+			var secondX = canvasWidth / 2 - 60;
+			var secondY = canvasHeight -11;
+
+			var Fmemo = [];
+			var Smemo = [];
 
 			ctx.beginPath();
 			ctx.fillStyle = "#006600";
@@ -92,79 +120,123 @@
 			ctx.stroke();
 			ctx.closePath(); 
 
+
+
 			//draws a circle with a diam = diam - height
 			ctx.beginPath();
 			ctx.fillStyle = "#000000";
 			ctx.arc(canvasWidth /2 ,canvasHeight /2, dif  ,2 * Math.PI, false);
 			ctx.fill();
-			ctx.closePath();
-
-
+			ctx.closePath(); 
 
 
 			for(var i=0; i<nb*2; i++)
 			{
-				dX1 = firstX - XCenter;
-				dY1 = firstY - YCenter;
 
-				
-				ctx.beginPath();
-				ctx.fillStyle = baseballWorld.colors[i];
-				ctx.fillRect(firstX, firstY, 10, 10);
-				ctx.closePath();  
+					dX1 = firstX - XCenter;
+					dY1 = firstY - YCenter;
+
+					dX3 = secondX - XCenter;
+					dY3 = secondY - YCenter;
+					 
+					dX2 = dX1 * Math.cos(angle) - dY1 * Math.sin(angle);
+					dY2 = dX1 * Math.sin(angle) + dY1 * Math.cos(angle); 
+
+					dX4 = dX3 * Math.cos(angle) - dY3 * Math.sin(angle);
+					dY4 = dX3 * Math.sin(angle) + dY3 * Math.cos(angle);
+
+					ctx.beginPath();
+					ctx.moveTo(secondX,secondY);
+					Smemo[0] = secondX ;
+					Smemo[1] = secondY ;
+					secondX = dX4 + XCenter;
+					secondY = dY4 + YCenter;
+					ctx.lineTo(secondX, secondY);
+					Fmemo[0] = firstX ;
+					Fmemo[1] = firstY ;
+					firstX = dX2 + XCenter;
+					firstY = dY2 + YCenter;
+					ctx.lineTo(firstX, firstY);				
+					//found the middle of two diagonals
+					unknownX = (Smemo[0] + firstX) / 2 ;
+					unknownY = (Smemo[1] + firstY) / 2 ;
+
+					x = 2 * unknownX - secondX ;
+					y = 2 * unknownY - secondY ;
+					ctx.lineTo(x, y);
+					ctx.lineTo(Smemo[0], Smemo[1]);
 
 
-				if(i % 2 == 0)
-				{
-				ctx.save();
-			
-				//translate context to center of canvas
-    			ctx.translate(firstX, firstY);
+					ctx.fillStyle = baseballWorld.colors[i/2];
+
+					if(i % 2 === 0)
+					ctx.fill();
+					
 
 
-				ctx.rotate(toRad(i*45));
-				
-				ctx.beginPath();
-				ctx.fillStyle = baseballWorld.colors[i];
-				ctx.fillRect(0, 0,width,height);
+					ctx.closePath();
 
-				ctx.strokeStyle = "#000000";
-				ctx.strokeRect(0, 0, width, height);
-				ctx.closePath();
+					
 
-				for (var j = 0; j<baseballWorld.posAmount; j++) {
-
+					//middle to middle
+					if(i % 2 === 0)
+					{
 						ctx.beginPath();
-						ctx.fillStyle = "#FFFFFF";
-						ctx.arc(width / (baseballWorld.posAmount * 2) + (width / baseballWorld.posAmount * (j)) , height / 2, 30 - (5*baseballWorld.posAmount) ,2 * Math.PI, false);
-						ctx.fill();
+						unknownX = (Smemo[0] + x) / 2;
+						unknownY = (Smemo[1] + y) / 2;
+						ctx.moveTo(unknownX,unknownY);
+						unknownX = (firstX + secondX) / 2;
+						unknownY = (firstY + secondY) / 2;
+						ctx.lineTo(unknownX, unknownY);
+						ctx.strokeStyle = "#000000";
+						ctx.stroke();
 						ctx.closePath();
-				};
 
-				
-
-				ctx.beginPath();
-				ctx.fillStyle = "#FFFFFF";
-				ctx.arc(canvasWidth /3 + canvasWidth / 4, (canvasHeight / 6 * 4.8) + (canvasHeight / 6 * 4.8)/9 ,30, 2 * Math.PI, false);
-				ctx.fill();
-				ctx.closePath();
-    			
-				ctx.closePath(); 
-				ctx.restore();
+					}
 
 
-				} 
-				dX2 = dX1 * Math.cos(angle) - dY1 * Math.sin(angle);
-				dY2 = dX1 * Math.sin(angle) + dY1 * Math.cos(angle);
 
-				firstX = dX2 + XCenter;
-				firstY = dY2 + YCenter;
+					/*
 
+					for (var j = 0; j<baseballWorld.posAmount; j++) {
 
+							ctx.beginPath();
+							ctx.fillStyle = "#FFFFFF";
+							ctx.arc(width / (baseballWorld.posAmount * 2) + (width / baseballWorld.posAmount * (j)) , height / 2, 30 - (5*baseballWorld.posAmount) ,2 * Math.PI, false);
+							ctx.fill();
+							ctx.closePath();
+					};  */
 
 			} 
 
+			
+			/*
+			ctx.beginPath();
+			ctx.strokeStyle = "#000000";
+			ctx.arc(canvasWidth / 2, canvasHeight /2, dif2, 2 * Math.PI, false);
+			ctx.stroke();
+			ctx.closePath();
 
+			for(var j = 0; j<baseballWorld.posAmount * nb * 5; j++)
+			{
+				dX1 = circleX - XCenter;
+				dY1 = circleY - YCenter;
+
+				ctx.beginPath();
+				ctx.fillStyle = "#FF00FF";
+				ctx.fillRect(circleX, circleY,10,10);
+				ctx.closePath();
+
+				dX2 = dX1 * Math.cos(angleCircle) - dY1 * Math.sin(angleCircle);
+				dY2 = dX1 * Math.sin(angleCircle) + dY1 * Math.cos(angleCircle); 
+
+				circleX = dX2 + XCenter ;
+				circleY = dY2 + YCenter ;
+
+
+			}
+	
+			*/
 
 			/*
 			ctx.beginPath();
