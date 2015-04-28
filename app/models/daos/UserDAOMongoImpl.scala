@@ -18,8 +18,6 @@ import play.api.libs.json._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import java.util.UUID
-import play.api.Logger
-
 
 class UserDAOMongoImpl extends UserDAO {
   def find(loginInfo: LoginInfo) = UserDAOMongoImpl.find(loginInfo)
@@ -44,7 +42,6 @@ object UserDAOMongoImpl extends Controller with MongoController {
    * @return The found user or None if no user for the given login info could be found.
    */
   def find(loginInfo: LoginInfo) = {
-    Logger.debug("Looking for: "+loginInfo.providerKey)
     val cursor: Cursor[User] = users.
       // find all people with loginInfo `loginInfo`
       find(Json.obj(
@@ -73,9 +70,7 @@ object UserDAOMongoImpl extends Controller with MongoController {
    * @return The found user or None if no user for the given ID could be found.
    */
   def find(userID: UUID) = {
-    Logger.debug("Looking for: "+userID)
     val cursor: Cursor[User] = users.
-      // find all people with name `name`
       find(Json.obj("userID" -> userID)).
       // sort them by creation date
       // perform the query and get a cursor of JsObject
@@ -102,10 +97,8 @@ object UserDAOMongoImpl extends Controller with MongoController {
   def save(user: User) = {
     find(user.userID).flatMap {
       case Some(userSaved) =>
-        Logger.debug("On veut update: "+user.fullName)
         users.update(Json.obj("userID" -> user.userID), user)
       case None =>
-        Logger.debug("On veut sauvegarder: "+user.fullName)
         users.insert(user)
     }
     Future.successful(user)
