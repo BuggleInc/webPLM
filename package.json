@@ -20,7 +20,7 @@
     "url": "git://github.com/MatthieuNICOLAS/webPLM.git"
   },
   "author": "Matthieu NICOLAS",
-  "license": "GNU GPL3",
+  "license": "GNU AGPL",
   "bugs": {
     "url": "https://github.com/MatthieuNICOLAS/webPLM/issues"
   },
