@@ -32,6 +32,9 @@
 			"rgb(111,78,55)", "rgb(251,206,177)", "rgb(109,7,26)", "rgb(155,150,10)",
 			"rgb(75,0,130)", "rgb(150,85,120)", "#FF3300", "#00FFFF", "#4C0000", "#242400", "#1A4C33",
 			 "#80804C", "#FF9900", "#CC0066", "#666699", "#009999", "#661A80", "#333329"];
+
+			 this.holeBase = world.holeBase;
+			 this.holePos  = world.holePos;
 		};
 
 		BaseballWorld.prototype.clone = function()

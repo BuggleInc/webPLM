@@ -45,6 +45,7 @@
 			initUtils(canvas, baseballWorld);
 			ctx.beginPath();
 			drawField(baseballWorld);
+			drawText(baseballWorld);
 			ctx.closePath();
 		}
 
@@ -57,6 +58,23 @@
 		{
 			return (180 * amountSides - 360) / (amountSides * 2);
 		}
+
+
+		function drawText(baseballWorld)
+		{
+		ctx.beginPath();
+
+		ctx.fillStyle = "#FFFFFF";
+
+		ctx.font = "15px sans-serif";
+		if(baseballWorld.moveCount <= 1)
+			ctx.fillText(baseballWorld.moveCount+" Move",5,25);
+		else ctx.fillText(baseballWorld.moveCount+ " Moves",5,25);
+			
+
+		ctx.closePath();
+		}
+
 
 
 		function drawField(baseballWorld)
@@ -287,6 +305,8 @@
 
 							next += distance * 2 ;
 
+							console.log("buggle :", baseballWorld.field[(i/2)*baseballWorld.posAmount+j]);
+							console.log("base :", i/2);
 							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
 							{
 								ctx.beginPath();
@@ -325,18 +345,12 @@
 							lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 							cx = ax + (lambda * (bx - ax));
 							cy = ay + (lambda * (by - ay));
-
-
-
-
-
-
-							
-							
-							
 						}
-						
+
 					}
+
+					
+
 
 					/*
 
@@ -439,8 +453,6 @@
 			ctx.closePath();
 
 			*/
-
-
 			
 		}
 
@@ -448,7 +460,7 @@
 
 
 
-	}
+	};
 
 
 })();
