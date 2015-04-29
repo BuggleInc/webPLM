@@ -18,6 +18,7 @@ import play.api.libs.json.Json
  */
 case class User(
   userID: UUID,
+  gitID: UUID,
   loginInfo: LoginInfo,
   firstName: Option[String],
   lastName: Option[String],

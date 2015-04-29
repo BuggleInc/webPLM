@@ -27,5 +27,5 @@ trait UserService extends IdentityService[User] {
    * @param profile The social profile to save.
    * @return The user for whom the profile was saved.
    */
-  def save[A <: AuthInfo](profile: CommonSocialProfile): Future[User]
+  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: String): Future[User]
 }

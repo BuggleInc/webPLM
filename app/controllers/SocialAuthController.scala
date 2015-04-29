@@ -17,7 +17,7 @@ import akka.actor.ActorSystem
 import actors.ActorsMap
 import play.api.Logger
 import utils.CookieUtils
-
+import java.util.UUID
 
 /**
  * The social auth controller.
@@ -41,13 +41,17 @@ class SocialAuthController @Inject() (
     if(actorUUID.isEmpty) {
       Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
     }
+    var gitID: String = CookieUtils.getCookieValue(request, "gitID")
+    if(gitID.isEmpty) {
+      gitID = UUID.randomUUID.toString
+    }
     (env.providers.get(provider) match {
       case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
         p.authenticate().flatMap {
           case Left(result) => Future.successful(result)
           case Right(authInfo) => for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile)
+            user <- userService.save(profile, gitID)
             authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)

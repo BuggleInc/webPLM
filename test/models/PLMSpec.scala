@@ -16,7 +16,7 @@ import java.util.UUID
 
 class PLMSpec extends PlaySpec with MockitoSugar {
   var userUUID: String = UUID.randomUUID.toString
-  var plm = new PLM(mock[PLMLogger], new Locale("en"), userUUID)
+  var plm = new PLM(userUUID, mock[PLMLogger], new Locale("en"))
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {

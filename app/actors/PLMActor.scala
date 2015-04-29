@@ -26,17 +26,23 @@ import play.api.Logger
 import java.util.UUID
 
 object PLMActor {
-  def props(uuid: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(uuid, out, preferredLang))
+  def props(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(actorUUID, gitID, out, preferredLang))
 }
 
-class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) extends Actor {  
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
-  
-  var userUUID = UUID.randomUUID.toString
-  
-  var plm = new PLM(plmLogger, preferredLang.toLocale, userUUID)
+
+  var currentGitID = gitID;
+  if(currentGitID.isEmpty) {
+    currentGitID = UUID.randomUUID.toString
+    sendMessage("gitID", Json.obj(
+        "gitID" -> currentGitID  
+      )
+    )
+  }
+  var plm = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
   plm.game.addGameStateListener(resultSpy)
@@ -51,10 +57,10 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
   
   var user: User = null
   
-  ActorsMap.add(uuid, self)
+  ActorsMap.add(actorUUID, self)
 
   sendMessage("actorUUID", Json.obj(
-      "uuid" -> uuid  
+      "actorUUID" -> actorUUID  
     )
   )
   
@@ -64,13 +70,21 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
       Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
-        case "signIn" =>
+        case "signIn" | "signUp" =>
           user = (msg \ "user").asOpt[User].getOrElse(null)
           sendMessage("user", Json.obj(
             "user" -> user
           ))
+          currentGitID = user.gitID.toString
+          plm.setUserUUID(currentGitID)
         case "signOut" =>
           user = null
+          currentGitID = UUID.randomUUID.toString
+          sendMessage("gitID", Json.obj(
+              "gitID" -> currentGitID  
+            )
+          )
+          plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -168,7 +182,7 @@ class PLMActor(uuid: String, out: ActorRef, preferredLang: Lang) extends Actor {
   
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
-    ActorsMap.remove(uuid)
+    ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }

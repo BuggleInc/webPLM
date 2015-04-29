@@ -72,6 +72,7 @@
 		}
 
 		function setUser(data) {
+			delete $cookies.gitID;
 			user = data;
 			console.log('user: ', user);
 		}
@@ -91,10 +92,15 @@
 			var args = data.args;
 			switch(cmd) {
 				case 'actorUUID':
-					actorUUID = args.uuid;
+					actorUUID = args.actorUUID;
 					$cookies.actorUUID = actorUUID;
 					if(isAuthenticated()) {
 						$timeout(retrieveUser, 0);
+					}
+					break;
+				case 'gitID':
+					if(!isAuthenticated()) {
+						$cookies.gitID = args.gitID;
 					}
 					break;
 				case 'user':

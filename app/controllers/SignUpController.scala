@@ -41,8 +41,12 @@ class SignUpController @Inject() (
    */
   def signUp = Action.async(parse.json) { implicit request =>
     var actorUUID: String = CookieUtils.getCookieValue(request, "actorUUID")
+    var gitID: String = CookieUtils.getCookieValue(request, "gitID")
     if(actorUUID.isEmpty) {
       Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+    }
+    if(gitID.isEmpty) {
+      gitID = UUID.randomUUID.toString
     }
     request.body.validate[SignUpForm.Data].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
@@ -53,6 +57,7 @@ class SignUpController @Inject() (
           val authInfo = passwordHasher.hash(data.password)
           val user = User(
             userID = UUID.randomUUID(),
+            gitID = UUID.fromString(gitID),
             loginInfo = loginInfo,
             firstName = Some(data.firstName),
             lastName = Some(data.lastName),
