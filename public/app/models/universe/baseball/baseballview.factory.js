@@ -83,11 +83,18 @@
 			var dX4;
 			var dY4;
 
+			var dX5;
+			var dY5;
+
 			var unknownX;
 			var unknownY;
 
 			var x ;
 			var y ;
+
+			var ax, ay, bx, by, cx, cy;
+
+			var distance, lambda, next ;
 
 
 			firstX = canvasWidth / 2 - 45;
@@ -192,9 +199,58 @@
 						ctx.stroke();
 						ctx.closePath();
 
+
+						ctx.beginPath();
+							ctx.fillStyle = "#FFFFFF";
+							ax = (Smemo[0] + x) / 2 ;
+							ay = (Smemo[1] + y) / 2 ;
+
+							bx = (firstX + secondX) / 2 ;
+							by = (firstY + secondY) / 2 ;
+
+							distance = Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)) / (baseballWorld.posAmount*2) ;
+							
+
+							lambda = distance / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2))); 
+	
+							cx = ax + (lambda * (bx - ax));
+							cy = ay + (lambda * (by - ay)); 
+
+							next = distance						
+						for(var j=0;j<baseballWorld.posAmount;j++)
+						{
+							/*ctx.beginPath();
+							ctx.fillStyle = "#FFFFFF";
+							ctx.fillRect,10,10);
+							ctx.fillStyle = "#000000";
+							ctx.fillRect((firstX + secondX) / 2,(firstY + secondY) / 2,10,10);
+							dX5 = ((Smemo[0] + x) /2) - ((firstX + secondX) /2);
+							dY5 = ((Smemo[1] + y)/2) + ((firstY + secondY)/2);
+							xPos = (Smemo[0] + x) / 2 + (dX5 / (baseballWorld.posAmount * 2));
+							yPos = (Smemo[1] + y) / 2 + (dY5 / (baseballWorld.posAmount *2)) ;
+							//ctx.fillRect(xPos,yPos,10,10);
+							ctx.closePath(); */
+
+							//ctx.fillRect(cx,cy,10,10);
+							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
+							ctx.fill();
+
+							next += distance * 2 ;
+
+
+							
+
+							lambda = next   	/ (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
+							cx = ax + (lambda * (bx - ax));
+							cy = ay + (lambda * (by - ay));
+
+
+							
+							
+							
+						}
+						ctx.closePath();
 					}
-
-
 
 					/*
 
