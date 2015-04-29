@@ -10,6 +10,22 @@
 		var ctx;
 		var canvasWidth;
 		var canvasHeight;
+		
+		var INVADER_SPRITE_SIZE = 11;
+		var INVADER_SPRITE = 
+			[
+				[ 0,0,0,0,0,0,0,0,0,0,0 ],
+				[ 0,0,1,0,0,0,0,0,1,0,0 ],
+				[ 0,0,0,1,0,0,0,1,0,0,0 ],
+				[ 0,0,1,1,1,1,1,1,1,0,0 ],
+				[ 0,1,1,0,1,1,1,0,1,1,0 ],
+				[ 1,1,1,1,1,1,1,1,1,1,1 ],
+				[ 1,0,1,1,1,1,1,1,1,0,1 ],
+				[ 1,0,1,0,0,0,0,0,1,0,1 ],
+				[ 0,0,0,1,1,0,1,1,0,0,0 ],
+				[ 0,0,0,0,0,0,0,0,0,0,0 ],
+				[ 0,0,0,0,0,0,0,0,0,0,0 ],
+			] ;
 
 		var service = {
 			draw: draw,
@@ -95,6 +111,9 @@
 			var ax, ay, bx, by, cx, cy;
 
 			var distance, lambda, next ;
+
+			var buggleX;
+			var buggleY;
 
 
 			firstX = canvasWidth / 2 - 45;
@@ -201,12 +220,14 @@
 
 
 						ctx.beginPath();
-							ctx.fillStyle = "#FFFFFF";
+							
 							ax = (Smemo[0] + x) / 2 ;
 							ay = (Smemo[1] + y) / 2 ;
 
 							bx = (firstX + secondX) / 2 ;
 							by = (firstY + secondY) / 2 ;
+
+							
 
 							distance = Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)) / (baseballWorld.posAmount*2) ;
 							
@@ -232,24 +253,89 @@
 							ctx.closePath(); */
 
 							//ctx.fillRect(cx,cy,10,10);
+							ctx.fillStyle = "#FFFFFF" ;
 							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
 							ctx.fill();
-
-							next += distance * 2 ;
-
+							ctx.closePath();
 
 							
 
-							lambda = next   	/ (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
+							ctx.beginPath();
+
+							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != i/2 && baseballWorld.field[(i/2)*baseballWorld.posAmount+j]  != -1 )
+							{
+								ctx.strokeStyle = "#FF0000";
+								ctx.lineWidth = 3;
+							}
+							else
+							{
+								ctx.strokeStyle = "#000000";
+								ctx.lineWidth = 1;
+							}
+
+							/*
+							console.log("base :",i/2);
+							console.log("buggle :",baseballWorld.field[(i/2)*baseballWorld.posAmount+j]); */
+
+
+							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
+							ctx.stroke();
+
+							ctx.closePath();
+
+							ctx.lineWidth = 1;
+
+							next += distance * 2 ;
+
+							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
+							{
+								ctx.beginPath();
+
+
+								var dx, dy;
+
+								var pixW = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
+								var pixY = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
+
+								/*
+								var padX = 0.5*(1)* 39-(5*baseballWorld.posAmount)-(1.65*(nb-2));
+								var padY = 0.5*(1)* 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)); */
+
+								/*
+								var ox = buggle.x * cellWidth;
+								var oy = buggle.y * cellHeight; */
+
+								ctx.fillStyle = baseballWorld.colors[baseballWorld.field[(i/2)*baseballWorld.posAmount+j]] ;
+								
+								buggleX = cx - 20 + (1.2*(nb-4)) + (3 * baseballWorld.posAmount-2);
+								buggleY = cy - 19 + (1.1*(nb-4)) + (3 * baseballWorld.posAmount-2);
+
+								for(dy=0; dy<INVADER_SPRITE_SIZE; dy++) {
+									for(dx=0; dx<INVADER_SPRITE_SIZE; dx++) {
+										if(INVADER_SPRITE[dy][dx] === 1) {
+											ctx.fillRect(buggleX+dx*pixW, buggleY+dy*pixY, pixW, pixY);
+										}
+									}
+								}
+
+								ctx.closePath();
+							}
+							
+
+							lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 							cx = ax + (lambda * (bx - ax));
 							cy = ay + (lambda * (by - ay));
+
+
+
+
 
 
 							
 							
 							
 						}
-						ctx.closePath();
+						
 					}
 
 					/*
@@ -263,7 +349,12 @@
 							ctx.closePath();
 					};  */
 
-			} 
+			}
+/*
+
+				for(var i=0;i<baseballWorld.field.length;i++)
+				console.log(baseballWorld.field[i]);  */
+			
 
 			
 			/*
