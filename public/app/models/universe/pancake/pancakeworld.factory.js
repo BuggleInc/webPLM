@@ -85,6 +85,5 @@
 		};
 
 		return PancakeWorld;
-
 	}
 })();

@@ -61,17 +61,17 @@
 			return canvas;
 		}
 
-		function setDraw(fnctDraw)
-		{
-			draw = fnctDraw;
-		}
-
 		function getContext() {
 			return ctx;
 		}
 
 		function getDraw() {
 			return draw;
+		}
+
+		function setDraw(fnctDraw)
+		{
+			draw = fnctDraw;
 		}
 	}
 })();

@@ -2,7 +2,6 @@ package json.operation
 
 import play.api.libs.json._
 import plm.universe.sort.operations._
-import plm.universe.sort.operations.GetValueOperation
 
 
 object SortOperationToJson {
@@ -24,8 +23,9 @@ object SortOperationToJson {
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(
-        "sortID" -> sortOperation.getEntity.getName )
-       return json 
+        "sortID" -> sortOperation.getEntity.getName
+    )
+    return json 
   }
   
   def swapOperationWrite(swapOperation: SwapOperation): JsValue =
@@ -42,7 +42,6 @@ object SortOperationToJson {
       "destination" -> copyOperation.getDestination(),
       "source" -> copyOperation.getSource(),
       "oldValue" -> copyOperation.getOldValue()
-      
     )
   }
   
@@ -62,13 +61,13 @@ object SortOperationToJson {
         "write" -> countOperation.getWrite(),
         "oldRead" -> countOperation.getOldRead(),
         "oldWrite" -> countOperation.getOldWrite()
-        )
+    )
   }
   
   def getValueOperationWrite(getValueOperation: GetValueOperation): JsValue =
   {
     Json.obj(
         "position" -> getValueOperation.getPosition()
-        )
+    )
   }
 }

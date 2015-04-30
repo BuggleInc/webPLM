@@ -11,14 +11,14 @@ object PancakeWorldToJson {
   def pancakeWorldWrite(pancakeWorld: PancakeWorld): JsValue =
   {
     var pancakeStack = pancakeWorld.getStack
-        Json.obj(
-            "pancakeStack" -> PancakeToJson.pancakesWrite(pancakeStack),
-            "type" -> "PancakeWorld",
-            "moveCount" -> pancakeWorld.getMoveCount,
-            "numberFlip" -> 0,
-            "oldNumber" -> 0,
-            "burnedWorld" -> pancakeWorld.isBurnedWorld()
-        )
+    Json.obj(
+        "pancakeStack" -> PancakeToJson.pancakesWrite(pancakeStack),
+        "type" -> "PancakeWorld",
+        "moveCount" -> pancakeWorld.getMoveCount,
+        "numberFlip" -> 0,
+        "oldNumber" -> 0,
+        "burnedWorld" -> pancakeWorld.isBurnedWorld()
+    )
   }
 
 }

@@ -38,11 +38,8 @@
 
 			this.memory.push(this.initValues);
 
-		
-			this.colors = ["#0000FF", "#FF0000", "#FFFF00",
-			"#00FF00", "#00FFFF", "#FF00FF","#663300", "#336699", "#993366", "#666699" ];
-			
-			
+			this.colors = ['#0000FF', '#FF0000', '#FFFF00',
+			'#00FF00', '#00FFFF', '#FF00FF','#663300', '#336699', '#993366', '#666699' ];
 		};
 
 		SortingWorld.prototype.clone = function()

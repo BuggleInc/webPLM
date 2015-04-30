@@ -16,15 +16,16 @@ object PancakeOperationToJson {
       case _ => json = Json.obj()
     }
     json = json.as[JsObject] ++ Json.obj(
-        "pancakeID" -> pancakeOperation.getEntity.getName )
-        return json
+        "pancakeID" -> pancakeOperation.getEntity.getName
+    )
+    return json
   }
   
   def flipOperationWrite(flipOperation: FlipOperation): JsValue =
   {
     Json.obj(
-        "number" -> flipOperation.getNumber()
-        )
+        "number" -> flipOperation.getNumber
+    )
   }
 
 }

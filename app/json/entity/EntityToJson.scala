@@ -20,7 +20,7 @@ object EntityToJson {
     entity match {
       case abstractBuggle: AbstractBuggle =>
         json = AbstractBuggleToJson.abstractBuggleWrite(abstractBuggle)
-      }
+    }
     
     return Json.obj( 
         entity.getName -> json
