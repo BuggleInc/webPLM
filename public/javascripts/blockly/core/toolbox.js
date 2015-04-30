@@ -172,8 +172,6 @@ Blockly.Toolbox.populate_ = function () {
             }
         }
     }
-    console.log('populate_languageTree', Blockly.languageTree);
-    console.log('populate_Toolbox.tree_', Blockly.Toolbox.tree_);
     syncTrees(Blockly.languageTree, this.tree_);
     /*[{name: "Move",blocks:[{type: "move_forward"},{type: "move_backward"}]},{name: "Buggle",blocks:[{type: "buggle_set_color"}]}]*/
 
@@ -263,7 +261,6 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function (node) {
     }
     goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
     if (node && node.blocks && node.blocks.length) {
-        console.log('node.blocks: ', node.blocks);
         Blockly.Toolbox.flyout_.show(node.blocks);
     } else {
         // Hide the flyout.

@@ -69,6 +69,7 @@
 
         exercise.editor = null;
         exercise.ide = "codemirror";
+        exercise.toolbox = null;
 
         exercise.exercisesAsList = null;
         exercise.exercisesAsTree = null;
@@ -164,6 +165,10 @@
             exercise.api = $sce.trustAsHtml(data.api);
             exercise.code = data.code.trim();
             exercise.currentWorldID = data.selectedWorldID;
+            if (data.toolbox === '<no blocks>')
+                console.log('setExercise_data : no blocks', data.toolbox)
+            else
+                exercise.toolbox = JSON.parse(data.toolbox);
 
             if (data.exception === 'nonImplementedWorldException') {
                 exercise.nonImplementedWorldException = true;
@@ -270,13 +275,13 @@
                 reset(key, 'current', false);
             });
             setCurrentWorld('current');
-            
+
             // Zone test pour blockly
             Blockly.Python.INFINITE_LOOP_TRAP = null;
-            exercise.code = Blockly.Python.workspaceToCode();    
+            exercise.code = Blockly.Python.workspaceToCode();
             alert(exercise.code);
             // Zone test pour blockly
-            
+
             args = {
                 lessonID: exercise.lessonID,
                 exerciseID: exercise.id,
@@ -284,9 +289,9 @@
             };
             connection.sendMessage('runExercise', args);
             exercise.isRunning = true;
-            
-            
-            
+
+
+
         }
 
         function stopExecution() {
@@ -431,33 +436,17 @@
         }
 
         function setProgrammingLanguage(pl) {
-            if (pl.lang == 'Blockly') {
+            if (pl.lang === 'Blockly') {
                 exercise.ide = 'blockly';
                 Blockly.fireUiEvent(window, 'resize');
-                choiceToolbox();
+                Blockly.languageTree = exercise.toolbox;
+                Blockly.Toolbox.populate_();
             } else
                 exercise.ide = 'codemirror'
             exercise.isChangingProgLang = true;
             connection.sendMessage('setProgrammingLanguage', {
                 programmingLanguage: pl.lang
             });
-        }
-        
-        function choiceToolbox(){
-            console.log('');
-            console.log('=== setProgrammingLanguage ===');
-            /*var toolbox = '<xml id="toolbox" style="display: none"><category name="Move"><block type="move_forward"></block><block type="move_backward"></block></category><category name="Buggle"><block type="buggle_set_color"></block></category></xml>';*/
-            if(exercise.id == 'welcome.lessons.welcome.summative.Moria')
-                var toolbox = [{name: "Move",blocks:[{type: "move_forward"},{type: "move_backward"}]},{name: "Buggle",blocks:[{type: "buggle_set_color"}]}];
-            else
-                var toolbox = [{name: "Brush",blocks:[{type: "brush_up"},{type: "brush_down"}]},{name: "World",blocks:[{type: "world_ground_color"}]}];            
-            Blockly.languageTree = toolbox;
-            console.log('choiceToolbox',exercise);
-            Blockly.languageTree = toolbox;
-            Blockly.Toolbox.populate_();
-            //Blockly.updateToolbox(toolbox);
-            console.log('===== setProgrammingLanguage =====');
-            console.log('');
         }
 
         function updateUI(pl, instructions, api, code) {

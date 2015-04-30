@@ -373,8 +373,6 @@ Blockly.Flyout.prototype.show = function (xmlList) {
             (this.workspace_));
     } else {
         for (var i = 0, xml; xml = xmlList[i]; i++) {
-            console.log(xml);
-            console.log(xmlList);
             //      if (xml.tagName && xml.tagName.toUpperCase() == 'BLOCK') {
             var block = Blockly.Json.domToBlock(
                 /** @type {!Blockly.Workspace} */
