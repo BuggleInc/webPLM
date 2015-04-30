@@ -7,8 +7,9 @@ Getting Started
 ---------------
 
 First, [install Play Framework](https://www.playframework.com/documentation/2.3.x/Installing).
+Also a MongoDB instance have to be running if you want to use the user account features. [Check this page](http://docs.mongodb.org/manual/installation/) if you need to install it.
 
-Now you have to clone the repository:
+Then clone the repository:
 ```
 git clone https://github.com/MatthieuNICOLAS/webPLM.git
 ```
