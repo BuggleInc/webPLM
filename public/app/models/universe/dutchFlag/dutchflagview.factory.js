@@ -72,13 +72,13 @@
 				switch(dutchFlagWorld.content[i])
 				{
 					case 0 :
-						ctx.fillStyle = "#FF0000";
+						ctx.fillStyle = "#0000FF";
 						break;
 					case 1 :
 						ctx.fillStyle = "#FFFFFF";
 						break;
 					case 2 :
-						ctx.fillStyle = "#0000FF";
+						ctx.fillStyle = "#FF0000";
 						break;
 				}
 

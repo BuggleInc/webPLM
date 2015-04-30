@@ -5,7 +5,7 @@
 		</span>
 	</div>
 	<div class="small-9 columns">
-		<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
+		<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current',exercise.drawFnct)">
 		</select>
 	</div>
 </div>
