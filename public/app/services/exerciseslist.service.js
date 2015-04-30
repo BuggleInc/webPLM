@@ -33,6 +33,9 @@
 				case 'exercises':
 					updateExercisesList(args.exercises);
 					break;
+				case 'newHumanLang':
+					connection.sendMessage('getExercises', {});
+					break;
 			}
 		}
 
