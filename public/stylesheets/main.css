@@ -22,6 +22,11 @@
 	position: relative;
 }
 
+.tabs dd > a
+{
+	padding-right: 0.5rem;
+	padding-left: 0.5rem;
+}
 .overflow {
 	overflow-y: auto;
 	height: 500px;

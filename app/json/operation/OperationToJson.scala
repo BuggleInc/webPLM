@@ -6,6 +6,10 @@ import plm.universe.GridWorldCellOperation
 import plm.universe.bat.BatOperation
 import plm.universe.bugglequest.BuggleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import plm.universe.sort.operations.SortOperation
+import lessons.sort.dutchflag.operations.DutchFlagOperation
+import lessons.sort.pancake.universe.operations.PancakeOperation
+
 
 object OperationToJson {
   
@@ -26,6 +30,12 @@ object OperationToJson {
         json = GridWorldCellOperationToJson.gridWorldCellOperationWrite(gridWorldCellOperation)
       case batOperation: BatOperation =>
         json = BatOperationToJson.batOperationWrite(batOperation)
+      case sortOperation: SortOperation =>
+        json = SortOperationToJson.sortOperationWrite(sortOperation)
+      case dutchFlagOperation: DutchFlagOperation =>
+        json = DutchFlagOperationToJson.dutchFlagOperationWrite(dutchFlagOperation)
+      case pancakeOperation: PancakeOperation =>
+        json = PancakeOperationToJson.pancakeOperationWrite(pancakeOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    
