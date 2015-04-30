@@ -280,6 +280,7 @@
 
 							ctx.beginPath();
 
+
 							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != i/2 && baseballWorld.field[(i/2)*baseballWorld.posAmount+j]  != -1 )
 							{
 								ctx.strokeStyle = "#FF0000";
@@ -291,10 +292,6 @@
 								ctx.lineWidth = 1;
 							}
 
-							/*
-							console.log("base :",i/2);
-							console.log("buggle :",baseballWorld.field[(i/2)*baseballWorld.posAmount+j]); */
-
 
 							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
 							ctx.stroke();
@@ -305,8 +302,6 @@
 
 							next += distance * 2 ;
 
-							console.log("buggle :", baseballWorld.field[(i/2)*baseballWorld.posAmount+j]);
-							console.log("base :", i/2);
 							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
 							{
 								ctx.beginPath();
@@ -351,7 +346,6 @@
 
 					
 
-
 					/*
 
 					for (var j = 0; j<baseballWorld.posAmount; j++) {
@@ -366,8 +360,6 @@
 			}
 /*
 
-				for(var i=0;i<baseballWorld.field.length;i++)
-				console.log(baseballWorld.field[i]);  */
 			
 
 			
@@ -453,7 +445,7 @@
 			ctx.closePath();
 
 			*/
-			
+		
 		}
 
 

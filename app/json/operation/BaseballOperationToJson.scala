@@ -24,7 +24,7 @@ object BaseballOperationToJson {
   {
     Json.obj(
         "base" -> moveOperation.getBase,
-        "postion" -> moveOperation.getPosition,
+        "position" -> moveOperation.getPosition,
         "oldBase" -> moveOperation.getOldBase,
         "oldPosition" -> moveOperation.getOldPosition)
   }
