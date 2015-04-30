@@ -36,19 +36,10 @@
 		var panelID = 'panel';
 		var canvasID = 'canvas';
 
-<<<<<<< HEAD
-		
 
-		exercise.tabsName = {};
-		exercise.nameWorld;
-
-=======
 		exercise.tabs = [];
 		exercise.currentTab = 0;
 		exercise.drawFnct = null;
-		
-		
->>>>>>> master
 
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
