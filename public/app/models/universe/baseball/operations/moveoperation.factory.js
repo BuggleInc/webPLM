@@ -20,6 +20,7 @@
 			currentWorld.field[this.base * currentWorld.posAmount + this.position] = -1;
 			currentWorld.holeBase = this.base;
 			currentWorld.holePos = this.position;
+			currentWorld.move = this.base * currentWorld.posAmount + this.position;
 			currentWorld.moveCount++;
 		};
 
@@ -29,6 +30,7 @@
 			currentWorld.field[this.oldBase*currentWorld.posAmount + this.oldPosition] = -1;
 			currentWorld.holeBase = this.oldBase;
 			currentWorld.holePos = this.oldPosition;
+			currentWorld.move = this.oldBase*currentWorld.posAmount + this.oldPosition
 			currentWorld.moveCount--;
 
 		};

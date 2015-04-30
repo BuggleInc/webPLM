@@ -22,7 +22,7 @@
 			ctx = canvas.getContext('2d');
 			canvasWidth = canvas.width;
 			canvasHeight = canvas.height;
-		};
+		}
 
 		function draw(canvas, pancakeWorld)
 		{
@@ -44,22 +44,20 @@
 			
 			drawCircle(pancakeWorld);
 			drawText(pancakeWorld);
-
-			
-		};
+		}
 
 		function drawText(pancakeWorld)
 		{
 			ctx.beginPath();
 
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "15px sans-serif";
+			ctx.fillStyle = 'rgb(0,0,0)';
+			ctx.font = '15px sans-serif';
 
 			if(pancakeWorld.moveCount <= 1)
-			ctx.fillText(pancakeWorld.moveCount+" Move",5,25);
-			else ctx.fillText(pancakeWorld.moveCount+ " Moves",5,25);
+			ctx.fillText(pancakeWorld.moveCount+' Move',5,25);
+			else ctx.fillText(pancakeWorld.moveCount+ ' Moves',5,25);
 			ctx.closePath();
-		};
+		}
 
 		function drawPancake(pancakeWorld)
 		{
@@ -68,13 +66,9 @@
 			//each pancake has its height
 			var heightUnit = canvasHeight / pancakeWorld.pancakeStack.length;
 
-
-			
-
 			//each pancake has a radius between 1 and 1 * the number of pancakes
 			var widthUnit = canvasWidth / (pancakeWorld.pancakeStack.length + 1); //+1 for the edges
 			
-
 			for(var i=0;i<pancakeWorld.pancakeStack.length;i++)
 			{
 
@@ -90,21 +84,20 @@
 				//the width depends of the radius
 				var width = widthUnit * radius;
 
-
-				ctx.fillStyle = "#FFFF00";
+				ctx.fillStyle = '#FFFF00';
 
 				//draws pancakes
 				ctx.fillRect(x, y, width, -heightUnit);
 
 				//draws edges of the pancakes
 				ctx.beginPath();
-				ctx.fillStyle = "#F00000";
+				ctx.fillStyle = '#F00000';
 				ctx.strokeRect(x,y,width,-heightUnit);
 				ctx.closePath();
 			}
 
 			ctx.closePath();
-		};
+		}
 
 		function drawBurned(pancakeWorld)
 		{
@@ -120,7 +113,6 @@
 				//if the pancake looks the sky
 				if(pancakeWorld.pancakeStack[i].upsideDown)
 				{
-					console.log("i :", i, " ", pancakeWorld.pancakeStack[i].upsideDown);
 					ctx.beginPath();
 					if(length > 19)
 					{
@@ -141,7 +133,7 @@
 					
 					ctx.moveTo(x,y);
 					ctx.lineTo(x2,y);
-					ctx.strokeStyle = "#663300";
+					ctx.strokeStyle = '#663300';
 
 					ctx.stroke();
 					ctx.lineWidth = 1;
@@ -149,7 +141,6 @@
 				} 
 				else
 				{ 
-					console.log("i :", i, " ", pancakeWorld.pancakeStack[i].upsideDown);
 					x = (canvasWidth /2 ) - ((widthUnit * pancakeWorld.pancakeStack[i].radius) / 2);
 					x2 = x + (widthUnit * pancakeWorld.pancakeStack[i].radius);
 					if(length > 19)
@@ -167,7 +158,7 @@
 					
 					ctx.moveTo(x,y);
 					ctx.lineTo(x2,y);
-					ctx.strokeStyle = "#663300";
+					ctx.strokeStyle = '#663300';
 					
 					ctx.stroke();
 					ctx.lineWidth = 1;
@@ -185,7 +176,6 @@
 					radius = pancakeWorld.pancakeStack[i].radius;
 			}
 
-
 			var widthUnit = canvasWidth / (pancakeWorld.pancakeStack.length + 1);
 			var x = (canvasWidth/2) - ((widthUnit * radius) / 2);
 			var heightUnit = canvasHeight / pancakeWorld.pancakeStack.length;
@@ -199,7 +189,7 @@
 			ctx.moveTo(1,y+50);
 			ctx.lineTo(x,y+21);
 			ctx.lineWidth = 5;
-			ctx.strokeStyle = "rgb(0,0,0)";
+			ctx.strokeStyle = 'rgb(0,0,0)';
 			ctx.stroke();
 			ctx.lineWidth = 1;
 			ctx.closePath();
@@ -209,21 +199,23 @@
 			ctx.moveTo(x-2,y+21);
 			ctx.lineTo(x2,y+21);
 			ctx.lineWidth = 5;
-			ctx.strokeStyle = "rgb(0,0,0)";
+			ctx.strokeStyle = 'rgb(0,0,0)';
 			ctx.stroke();
 			ctx.lineWidth = 1;
 			ctx.closePath();
-		};
+		}
 
 		function drawCircle(pancakeWorld)
 		{
 			var heightUnit = canvasHeight / pancakeWorld.pancakeStack.length;
 			var x = canvasWidth / 2;
 			var radius;
-			if(pancakeWorld.pancakeStack.length > 19)
+			if(pancakeWorld.pancakeStack.length > 19) {
 				radius = 5;
-			else radius = 10;
-			
+			}
+			else {
+				radius = 10;
+			}
 			var j = 1;
 
 			for(var i=0;i<pancakeWorld.pancakeStack.length;i++)
@@ -236,20 +228,16 @@
 				if(up || down)
 				{
 					ctx.beginPath();
-					ctx.fillStyle = "#FF00FF";
+					ctx.fillStyle = '#FF00FF';
 
 					ctx.arc(x,y,radius,0,2 * Math.PI,false);
 					ctx.fill();
 					ctx.closePath();
 				}
-				if(j<pancakeWorld.pancakeStack.length-1)
+				if(j<pancakeWorld.pancakeStack.length-1) {
 					j++;
-
-				
+				}
 			}
-		};
-
-
-
-	};
+		}
+	}
 })();

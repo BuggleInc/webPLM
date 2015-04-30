@@ -13,25 +13,22 @@
 			this.position = data.position;
 		};
 
-
 		GetValueOperation.prototype.apply = function(currentWorld)
 		{
-
-				var stock = [];
-				for(var i=0;i<currentWorld.values.length;i++)
-				{
-					stock.push(currentWorld.values[i]);
-				}
-				currentWorld.memory.push(stock);
+			var stock = [];
+			for(var i=0;i<currentWorld.values.length;i++)
+			{
+				stock.push(currentWorld.values[i]);
+			}
+			currentWorld.memory.push(stock);
 		};
 
 		GetValueOperation.prototype.reverse = function(currentWorld)
 		{
-				var index = currentWorld.memory.indexOf(currentWorld.memory[currentWorld.memory.length-1]);
-				if(index > -1) currentWorld.memory.splice(index,1);
+			var index = currentWorld.memory.indexOf(currentWorld.memory[currentWorld.memory.length-1]);
+			if(index > -1) currentWorld.memory.splice(index,1);
 		};
 
 		return GetValueOperation;
-
 	}		
 })();

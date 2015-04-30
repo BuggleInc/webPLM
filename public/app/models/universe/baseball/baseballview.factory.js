@@ -120,6 +120,8 @@
 			var dX5;
 			var dY5;
 
+
+
 			var unknownX;
 			var unknownY;
 
@@ -128,7 +130,11 @@
 
 			var ax, ay, bx, by, cx, cy;
 
+			var arrowX;
+			var arrowY;
+
 			var distance, lambda, next ;
+			var ArrDistance, ArrLambda;
 
 			var buggleX;
 			var buggleY;
@@ -165,13 +171,13 @@
 			ctx.closePath(); 
 
 
-
+/*
 			//draws a circle with a diam = diam - height
 			ctx.beginPath();
 			ctx.fillStyle = "#000000";
 			ctx.arc(canvasWidth /2 ,canvasHeight /2, dif  ,2 * Math.PI, false);
 			ctx.fill();
-			ctx.closePath(); 
+			ctx.closePath();  */
 
 
 			for(var i=0; i<nb*2; i++)
@@ -258,23 +264,31 @@
 							next = distance						
 						for(var j=0;j<baseballWorld.posAmount;j++)
 						{
-							/*ctx.beginPath();
-							ctx.fillStyle = "#FFFFFF";
-							ctx.fillRect,10,10);
-							ctx.fillStyle = "#000000";
-							ctx.fillRect((firstX + secondX) / 2,(firstY + secondY) / 2,10,10);
-							dX5 = ((Smemo[0] + x) /2) - ((firstX + secondX) /2);
-							dY5 = ((Smemo[1] + y)/2) + ((firstY + secondY)/2);
-							xPos = (Smemo[0] + x) / 2 + (dX5 / (baseballWorld.posAmount * 2));
-							yPos = (Smemo[1] + y) / 2 + (dY5 / (baseballWorld.posAmount *2)) ;
-							//ctx.fillRect(xPos,yPos,10,10);
-							ctx.closePath(); */
+							
+							if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
+								{
+									ctx.beginPath();
+									ctx.fillStyle = baseballWorld.colors[(i/2)*baseballWorld.posAmount+j];
+									ctx.moveTo(cx,cy);
+									ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
+									ctx.stroke();
+									ctx.closePath();
 
-							//ctx.fillRect(cx,cy,10,10);
+								}
+							
+								if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
+								{
+									baseballWorld.holeX = cx;
+									baseballWorld.holeY = cy;
+								}
+
+
 							ctx.fillStyle = "#FFFFFF" ;
 							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
 							ctx.fill();
 							ctx.closePath();
+
+
 
 							
 
@@ -336,10 +350,12 @@
 								ctx.closePath();
 							}
 							
-
+							
 							lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 							cx = ax + (lambda * (bx - ax));
 							cy = ay + (lambda * (by - ay));
+
+								
 						}
 
 					}

@@ -315,22 +315,22 @@
 									name : "Objective",
 									worldKind : "answer",
 									tabNumber : 1,
-									drawFnct : BaseballWorld.view
+									drawFnct : BaseballView.draw
 								},
 								{
 									name : "ChronoView",
 									worldKind : "current",
 									tabNumber : 2,
-									drawFnct : BaseballView.draw
+									drawFnct : BaseballSecondView.draw
 								},
 								{
 									name : "ChronoDemo",
 									worldKind : "answer",
 									tabNumber : 3,
-									drawFnct : BaseballView.drawFnct
+									drawFnct : BaseballSecondView.drawFnct
 								}
 								];
-								exercise.drawFnct = BaseballView.drawFnct;
+								exercise.drawFnct = BaseballView.draw;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
 								exercise.secondViewNeeded = true;

@@ -35,6 +35,9 @@
 
 			 this.holeBase = world.holeBase;
 			 this.holePos  = world.holePos;
+
+			 this.holeX = 0;
+			 this.holeY = 0;
 		};
 
 		BaseballWorld.prototype.clone = function()

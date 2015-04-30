@@ -13,7 +13,7 @@ object SortWorldToJson {
         "values" -> sortingWorld.getValues,
         "readCount" -> sortingWorld.getReadCount,
         "writeCount" -> sortingWorld.getWriteCount
-        )   
+    )   
   }
 
 }

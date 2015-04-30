@@ -26,14 +26,14 @@
 			if(this.number === 1)
 				currentWorld.pancakeStack[length-1].upsideDown = !currentWorld.pancakeStack[length-1].upsideDown;
 			for(var i=this.number;i>1 && j<=i;i--)
-			{
-				
+			{	
 				currentWorld.pancakeStack[length-i] = clone[length-j];
 				currentWorld.pancakeStack[length-i].upsideDown = !currentWorld.pancakeStack[length-i].upsideDown;
 				
 				currentWorld.pancakeStack[length-j] = clone[length-i];
-				if(i != j)
+				if(i != j) {
 					currentWorld.pancakeStack[length-j].upsideDown = !currentWorld.pancakeStack[length-j].upsideDown;
+				}
 				j++;
 
 			}
@@ -56,7 +56,6 @@
 			var j = 1;
 			for(var i=this.number;i>1 && j<=i;i--)
 			{
-				
 				currentWorld.pancakeStack[length-i] = clone[length-j];
 				currentWorld.pancakeStack[length-i].upsideDown = !currentWorld.pancakeStack[length-i].upsideDown;
 

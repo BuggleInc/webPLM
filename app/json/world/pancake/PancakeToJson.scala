@@ -18,6 +18,7 @@ object PancakeToJson
   {
     Json.obj(
         "radius" -> pancake.getRadius(),
-        "upsideDown" -> pancake.isUpsideDown)
+        "upsideDown" -> pancake.isUpsideDown
+    )
   }
 }

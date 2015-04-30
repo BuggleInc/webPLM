@@ -23,7 +23,7 @@
 			ctx=canvas.getContext('2d');
 			canvasWidth = canvas.width;
 			canvasHeight = canvas.height;
-		};
+		}
 
 		function draw(canvas, dutchFlagWorld)
 		{
@@ -38,21 +38,24 @@
 			drawRectangle(dutchFlagWorld);
 			drawText(dutchFlagWorld);
 			
-		};
+		}
 
 
 		function drawText(dutchFlagWorld)
 		{
 			ctx.beginPath();
 
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "15px sans-serif";
+			ctx.fillStyle = 'rgb(0,0,0)';
+			ctx.font = '15px sans-serif';
 
-			if(dutchFlagWorld.moveCount <= 1)
-			ctx.fillText(dutchFlagWorld.moveCount+" Move",5,25);
-			else ctx.fillText(dutchFlagWorld.moveCount+ " Moves",5,25);
+			if(dutchFlagWorld.moveCount <= 1) {
+				ctx.fillText(dutchFlagWorld.moveCount+' Move',5,25);
+			}
+			else {
+				ctx.fillText(dutchFlagWorld.moveCount+ ' Moves',5,25);
+			}
 			ctx.closePath();
-		};
+		}
 
 		function drawRectangle(dutchFlagWorld)
 		{
@@ -61,7 +64,7 @@
 
 			var width = canvasWidth;
 
-			for(var i=0; i<dutchFlagWorld.content.length;i++)
+			for(var i=0; i<dutchFlagWorld.content.length; i++)
 			{
 				//each rectangle takes place in the canvasHeight
 				var y = heightUnit * i;
@@ -72,13 +75,13 @@
 				switch(dutchFlagWorld.content[i])
 				{
 					case 0 :
-						ctx.fillStyle = "#0000FF";
+						ctx.fillStyle = '#0000FF';
 						break;
 					case 1 :
-						ctx.fillStyle = "#FFFFFF";
+						ctx.fillStyle = '#FFFFFF';
 						break;
 					case 2 :
-						ctx.fillStyle = "#FF0000";
+						ctx.fillStyle = '#FF0000';
 						break;
 				}
 
@@ -87,13 +90,10 @@
 				ctx.closePath();
 
 				ctx.beginPath();
-				ctx.fillStyle = "#F00000";
+				ctx.fillStyle = '#F00000';
 				ctx.strokeRect(0,y,width,heightUnit);
 				ctx.closePath();
-			}	
-
-		};
-					
-	};
-
+			}
+		}			
+	}
 })();

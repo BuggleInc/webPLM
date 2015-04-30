@@ -10,6 +10,6 @@ object DutchFlagWorldToJson {
         "type" -> "DutchFlagWorld",
         "content" -> dutchFlagWorld.getContent,
         "moveCount" -> dutchFlagWorld.getMove
-        )
+    )
   }
 }
