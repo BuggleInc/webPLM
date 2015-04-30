@@ -4,7 +4,6 @@ import play.api.libs.json._
 import plm.universe.Entity
 import plm.universe.bugglequest.AbstractBuggle
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
-import lessons.sort.dutchflag.universe.DutchFlagEntity
 
 object EntityToJson {
   

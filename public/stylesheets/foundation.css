@@ -3286,13 +3286,12 @@ meta.foundation-mq-topbar {
     position: relative;
     margin-bottom: 0 !important;
     list-style: none;
-    float: left;
-    tab-size: 10; }
+    float: left; }
     .tabs dd > a, .tabs .tab-title > a {
       display: block;
       background-color: #EFEFEF;
       color: #222222;
-      padding: 1rem 3rem;
+      padding: 1rem 2rem;
       font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-size: 1rem; }
       .tabs dd > a:hover, .tabs .tab-title > a:hover {
@@ -3349,7 +3348,7 @@ meta.foundation-mq-topbar {
     margin: 0 0 1.25rem; }
 
   .tabs-content.vertical {
-    width: 40%; 
+    width: 80%; 
     max-width: 80%;
     float: left;
     margin-left: -1px;

@@ -146,7 +146,6 @@
 
 		function handleMessage(data) {
 			console.log('message received: ', data);
-			console.log(data);
 			var cmd = data.cmd;
 			var args = data.args;
 			switch(cmd) {
