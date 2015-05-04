@@ -26,17 +26,16 @@ import play.api.Logger
 import java.util.UUID
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(actorUUID, gitID, out, preferredLang))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
 
   var currentGitID = gitID;
-  if(currentGitID.isEmpty) {
-    currentGitID = UUID.randomUUID.toString
+  if(newUser) {
     sendMessage("gitID", Json.obj(
         "gitID" -> currentGitID  
       )

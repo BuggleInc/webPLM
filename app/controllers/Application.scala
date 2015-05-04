@@ -20,21 +20,6 @@ import utils.CookieUtils
 object Application extends Controller {
   val system = ActorSystem("application")
 
-  def langIsAvailable(code: String): Boolean = {
-    Lang.availables.exists { lang => lang.code == code }
-  }
-
-  def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
-    var cookieLangCode: String = CookieUtils.getCookieValue(request, "lang")
-    if(langIsAvailable(cookieLangCode)) {
-      preferredLang = Lang(cookieLangCode)
-    }
-    var actorUUID: String = UUID.randomUUID.toString
-    var gitID: String = CookieUtils.getCookieValue(request, "gitID")
-	PLMActor.props(actorUUID,  gitID, out, preferredLang)
-  }
-
   def index = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }

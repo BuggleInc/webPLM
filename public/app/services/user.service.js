@@ -87,6 +87,13 @@
 			});
 		}
 
+		function setGitID(gitID) {
+			$cookies.gitID = gitID;
+			if($auth.isAuthenticated()) {
+				$auth.logout();
+			}
+		}
+
 		function handleMessage(data) {
 			var cmd = data.cmd;
 			var args = data.args;
@@ -94,14 +101,9 @@
 				case 'actorUUID':
 					actorUUID = args.actorUUID;
 					$cookies.actorUUID = actorUUID;
-					if(isAuthenticated()) {
-						$timeout(retrieveUser, 0);
-					}
 					break;
 				case 'gitID':
-					if(!isAuthenticated()) {
-						$cookies.gitID = args.gitID;
-					}
+					setGitID(args.gitID);
 					break;
 				case 'user':
 					setUser(args.user);

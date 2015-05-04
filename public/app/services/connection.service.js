@@ -7,8 +7,12 @@
 	
 	connection.$inject = ['$rootScope'];
 	
-	function connection ($rootScope) {		
-		var socket = new WebSocket('ws://'+document.location.host+'/websocket');
+	function connection ($rootScope) {
+		var url = 'ws://'+document.location.host+'/websocket';
+		if(localStorage['satellizer_token'] !== undefined) {
+			url+= '?token='+localStorage['satellizer_token'];
+		}
+		var socket = new WebSocket(url);
 		var connectStatus = false;
 		var pendingMessages = [];
 		
