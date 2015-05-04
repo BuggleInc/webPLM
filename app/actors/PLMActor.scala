@@ -27,6 +27,7 @@ import java.util.UUID
 
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
+  def propsWithUser(actorUUID: String, user: User, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, user, preferredLang, out))
 }
 
 class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
@@ -62,6 +63,14 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       "actorUUID" -> actorUUID  
     )
   )
+  
+  def this(actorUUID: String, user: User, preferredLang: Lang, out: ActorRef) {
+    this(actorUUID, user.gitID.toString, false, preferredLang, out)
+    sendMessage("user", Json.obj(
+            "user" -> user
+          )
+    )
+  }
   
   def receive = {
     case msg: JsValue =>

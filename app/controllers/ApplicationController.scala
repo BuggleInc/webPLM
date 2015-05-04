@@ -51,7 +51,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) => 
-        Right(PLMActor.props(actorUUID,  user.gitID.toString, false, preferredLang) _)
+        Right(PLMActor.propsWithUser(actorUUID,  user, preferredLang) _)
       case HandlerResult(r, None) => 
         var newUser: Boolean = false;
         var gitID: String = CookieUtils.getCookieValue(request, "gitID")
