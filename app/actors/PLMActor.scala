@@ -3,10 +3,9 @@ package actors
 import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
-
 import json._
-
 import models.PLM
+import models.User
 import log.PLMLogger
 import spies._
 import plm.core.model.lesson.Exercise
@@ -21,20 +20,29 @@ import plm.universe.GridWorldCell
 import plm.universe.bugglequest.BuggleWorld
 import plm.universe.bugglequest.AbstractBuggle
 import plm.universe.bugglequest.BuggleWorldCell
-
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
+import java.util.UUID
 
 object PLMActor {
-  def props(out: ActorRef, preferredLang: Lang) = Props(new PLMActor(out, preferredLang))
+  def props(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) = Props(new PLMActor(actorUUID, gitID, out, preferredLang))
 }
 
-class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
+class PLMActor(actorUUID: String, gitID: String, out: ActorRef, preferredLang: Lang) extends Actor {  
   var availableLangs = Lang.availables
   var isProgressSpyAdded: Boolean = false
   var plmLogger = new PLMLogger(this)
-  var plm = new PLM(plmLogger, preferredLang.toLocale)
+
+  var currentGitID = gitID;
+  if(currentGitID.isEmpty) {
+    currentGitID = UUID.randomUUID.toString
+    sendMessage("gitID", Json.obj(
+        "gitID" -> currentGitID  
+      )
+    )
+  }
+  var plm = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
   
   var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
   plm.game.addGameStateListener(resultSpy)
@@ -47,12 +55,36 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   
   var registeredSpies: List[ExecutionSpy] = List()
   
+  var user: User = null
+  
+  ActorsMap.add(actorUUID, self)
+
+  sendMessage("actorUUID", Json.obj(
+      "actorUUID" -> actorUUID  
+    )
+  )
+  
   def receive = {
     case msg: JsValue =>
       Logger.debug("Received a message")
       Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
+        case "signIn" | "signUp" =>
+          user = (msg \ "user").asOpt[User].getOrElse(null)
+          sendMessage("user", Json.obj(
+            "user" -> user
+          ))
+          currentGitID = user.gitID.toString
+          plm.setUserUUID(currentGitID)
+        case "signOut" =>
+          user = null
+          currentGitID = UUID.randomUUID.toString
+          sendMessage("gitID", Json.obj(
+              "gitID" -> currentGitID  
+            )
+          )
+          plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -150,6 +182,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
   
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
+    ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }

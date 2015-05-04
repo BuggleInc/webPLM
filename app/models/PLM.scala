@@ -21,11 +21,11 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
-class PLM(plmLogger: PLMLogger, locale: Locale) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(plmLogger, locale)
+  var game = new Game(userUUID, plmLogger, locale)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -132,5 +132,9 @@ class PLM(plmLogger: PLMLogger, locale: Locale) {
   
   def getMission(progLang: ProgrammingLanguage): String = {
     if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
+  }
+  
+  def setUserUUID(userUUID: String) {
+    game.setUserUUID(userUUID)
   }
 }

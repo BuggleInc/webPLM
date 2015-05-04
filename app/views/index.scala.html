@@ -28,6 +28,7 @@
 		<script type="text/javascript" src="/assets/javascripts/translations.js"></script>
 		<script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
 		<script type="text/javascript" src="/assets/javascripts/angular-locker.js"></script>
+		<script type="text/javascript" src="/assets/javascripts/satellizer.js"></script>
 	</head> 
 	<body ng-app="PLMApp">
 	
@@ -54,10 +55,12 @@
 	<!-- AngularJS application's files -->
 	<script src="/assets/app/app.js"></script>
 	<script src="/assets/app/app.routes.js"></script>
+	<script src="/assets/app/app.auth.js"></script>
 
 	<!-- Application's services -->
 	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
@@ -74,6 +77,9 @@
 	<script type="text/javascript" src="/assets/app/components/results.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/select-lang.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/select-programming-language.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/sign-in-form.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/sign-up-form.directive.js"></script>
+	<script type="text/javascript" src="/assets/app/components/social-buttons.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/switch-exercise.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/success-modal.directive.js"></script>
 	<script type="text/javascript" src="/assets/app/components/tabs-current-world.directive.js"></script>
@@ -124,4 +130,7 @@
 	<!-- Application's controllers -->
 	<script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
 	<script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
+	<script type="text/javascript" src="/assets/app/sign-in/sign-in.controller.js"></script>
+	<script type="text/javascript" src="/assets/app/sign-up/sign-up.controller.js"></script>
+	<script type="text/javascript" src="/assets/app/profile/profile.controller.js"></script>
 </html> 

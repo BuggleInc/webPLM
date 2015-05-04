@@ -18,7 +18,10 @@ module.exports = function(grunt) {
     jasmine: {
       components: {
         src: [
-          'public/app/**/*js'
+          'public/app/app.js',
+          'public/app/app.routes.js',
+          'public/app/app.auth.js',
+          'public/app/**/*.js'
         ],
         options: {
           vendor: [
@@ -30,7 +33,8 @@ module.exports = function(grunt) {
             'public/javascripts/angular-ui-codemirror/ui-codemirror.js',
             'public/javascripts/angular-locker.js',
             'public/javascripts/angular-mocks.js',
-            'public/javascripts/angular-gettext/dist/angular-gettext.js'
+            'public/javascripts/angular-gettext/dist/angular-gettext.js',
+            'public/javascripts/satellizer.js'
           ],
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'
         }
