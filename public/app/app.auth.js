@@ -60,7 +60,7 @@
 
 		// GitHub
 		$authProvider.github({
-			clientId: '5b641498750c99087bb2',
+			clientId: 'c9bd1da1b907edef783c',
 			url: '/authenticate/github',
 			authorizationEndpoint: 'https://github.com/login/oauth/authorize',
 			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
@@ -72,7 +72,7 @@
 
 		// Google
 		$authProvider.google({
-			clientId: '679471441613-89ae7g7r16fein49ogk8pb5abq0qa5tk.apps.googleusercontent.com',
+			clientId: '440881557579-gk8rs3j0tm0oko7mo45fouodg02q6r8l.apps.googleusercontent.com',
 			url: '/authenticate/google',
 			authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
 			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
