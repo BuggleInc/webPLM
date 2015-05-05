@@ -76,6 +76,20 @@
 		}
 
 
+		function drawArrow(fromx,fromy, tox, toy)
+		{
+			var head = 10;
+			var angle = Math.atan2(toy-fromy,tox-fromx);
+			ctx.moveTo(fromx,fromy);
+			ctx.lineTo(tox,toy);
+			ctx.moveTo(tox, toy);
+			ctx.lineTo(tox-head*Math.cos(angle-Math.PI/6),toy-head*Math.sin(angle-Math.PI/6));
+			ctx.moveTo(tox,toy);
+			ctx.lineTo(tox-head*Math.cos(angle+Math.PI/6),toy-head*Math.sin(angle+Math.PI/6));
+			ctx.lineCap = 'round' ;
+		}
+
+
 
 		function drawField(baseballWorld)
 		{
@@ -267,32 +281,7 @@
 							next = distance	;				
 						for(var j=0;j<baseballWorld.posAmount;j++)
 						{
-							if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
-								{ 
-									ctx.beginPath();
-									console.log("index :", indexColor);
-										ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
-										console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-									
-									console.log(baseballWorld.field);
-									console.log("couleur :", baseballWorld.field[indexColor]);
-									//console.log("index :", baseballWorld.move);
-									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
-									//ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
-									ctx.lineTo(baseballWorld.holeX, baseballWorld.holeY);
-									//console.log((i/2)*baseballWorld.posAmount+j);
-									console.log("index :", indexColor);
-									ctx.stroke();
-									ctx.closePath();		
-								}
-								
 
-							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
-								{
-									baseballWorld.holeX = cx + (ArrLambda * (x - ax));
-									baseballWorld.holeY = cy + (ArrLambda * (y - ay));
-								} 
-							
 							
 							
 
@@ -328,7 +317,9 @@
 
 							ctx.lineWidth = 1;
 
-							next += distance * 2 ;
+
+
+							
 							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
 							{
 								ctx.beginPath();
@@ -361,10 +352,50 @@
 								}
 
 								ctx.closePath();
-
 							}
-							
-							
+
+
+							if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
+								{ /*
+									ctx.beginPath();
+									console.log("index :", indexColor);
+										ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+										console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+									
+									console.log(baseballWorld.field);
+									console.log("couleur :", baseballWorld.field[indexColor]);
+									//console.log("index :", baseballWorld.move);
+									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
+									//ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
+									ctx.lineTo(baseballWorld.holeX, baseballWorld.holeY);
+									ctx.lineWidth = 2;
+									//console.log((i/2)*baseballWorld.posAmount+j);
+									console.log("index :", indexColor);
+									ctx.stroke();
+									ctx.closePath();		*/
+
+									ctx.beginPath();
+									
+									ctx.strokeStyle = "#000000" ;
+									drawArrow(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)),baseballWorld.holeX,baseballWorld.holeY);
+									ctx.lineWidth = 7;
+									ctx.stroke();
+									ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+									ctx.lineWidth = 5;
+									ctx.stroke();
+									ctx.closePath();
+								}
+								
+								ctx.lineWidth = 1;
+							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
+								{
+									baseballWorld.holeX = cx + 6/5*(ArrLambda * (x - ax));
+									baseballWorld.holeY = cy + 6/5*(ArrLambda * (y - ay));
+								} 
+
+
+								next += distance * 2 ;
+
 							lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 							cx = ax + (lambda * (bx - ax));
 							cy = ay + (lambda * (by - ay));
