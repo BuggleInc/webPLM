@@ -1,13 +1,29 @@
 package controllers
 
-import javax.inject.Inject
-import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
-import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
-import models.User
-import play.api.libs.json.Json
+import java.util.UUID
+
 import scala.concurrent.Future
+
 import actors.ActorsMap
+import actors.PLMActor
+import javax.inject.Inject
+import models.User
 import play.api.Logger
+import play.api.Play.current
+import play.api.i18n.Lang
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
+import play.api.mvc.AnyContentAsEmpty
+import play.api.mvc.Request
+import play.api.mvc.RequestHeader
+import play.api.mvc.WebSocket
+import utils.CookieUtils
+
+import com.mohiva.play.silhouette.api.Environment
+import com.mohiva.play.silhouette.api.LogoutEvent
+import com.mohiva.play.silhouette.api.Silhouette
+import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 
 /**
  * The basic application controller.
@@ -17,6 +33,36 @@ import play.api.Logger
 class ApplicationController @Inject() (implicit val env: Environment[User, JWTAuthenticator])
   extends Silhouette[User, JWTAuthenticator] {
 
+  def langIsAvailable(code: String): Boolean = {
+    Lang.availables.exists { lang => lang.code == code }
+  }
+
+  def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
+    var token = optToken.getOrElse("")
+    var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)
+    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
+    var cookieLangCode: String = CookieUtils.getCookieValue(request, "lang")
+    if(langIsAvailable(cookieLangCode)) {
+      preferredLang = Lang(cookieLangCode)
+    }
+    var actorUUID: String = UUID.randomUUID.toString
+    implicit val req = Request(requestWithToken, AnyContentAsEmpty)
+    SecuredRequestHandler { securedRequest =>
+      Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
+    }.map {
+      case HandlerResult(r, Some(user)) => 
+        Right(PLMActor.propsWithUser(actorUUID,  user, preferredLang) _)
+      case HandlerResult(r, None) => 
+        var newUser: Boolean = false;
+        var gitID: String = CookieUtils.getCookieValue(request, "gitID")
+        if(gitID.isEmpty) {
+          newUser = true;
+          gitID = UUID.randomUUID.toString
+        }
+        Right(PLMActor.props(actorUUID,  gitID, newUser, preferredLang) _)
+    }
+  }
+  
   /**
    * Returns the user.
    *

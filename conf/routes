@@ -9,8 +9,6 @@ GET     /ui/lessons                                         controllers.Applicat
 GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
 GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
 GET     /specRunner                                         controllers.Application.specRunner()
-# Websocket
-GET     /websocket                                          controllers.Application.socket
 
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
@@ -22,3 +20,6 @@ POST    /signIn                                             @controllers.Credent
 POST    /signUp                                             @controllers.SignUpController.signUp
 GET     /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
 POST    /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
+
+# Websocket
+GET     /websocket                                          @controllers.ApplicationController.socket(token: Option[String])
