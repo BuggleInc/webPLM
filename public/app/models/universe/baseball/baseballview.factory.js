@@ -120,8 +120,6 @@
 			var dX5;
 			var dY5;
 
-
-
 			var unknownX;
 			var unknownY;
 
@@ -134,11 +132,12 @@
 			var arrowY;
 
 			var distance, lambda, next ;
-			var ArrDistance, ArrLambda;
+			var ArrDistance, ArrLambda, ArrNext;
 
 			var buggleX;
 			var buggleY;
 
+			var indexColor = baseballWorld.oldMove;
 
 			firstX = canvasWidth / 2 - 45;
 			firstY = canvasHeight / 2 + dif - 10;
@@ -179,7 +178,7 @@
 			ctx.fill();
 			ctx.closePath();  */
 
-
+			console.log("********************************************************");
 			for(var i=0; i<nb*2; i++)
 			{
 
@@ -251,38 +250,53 @@
 							bx = (firstX + secondX) / 2 ;
 							by = (firstY + secondY) / 2 ;
 
+
 							
+							ArrDistance = Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2)) ;
+							ArrLambda = ArrDistance / (Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2)));
 
 							distance = Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)) / (baseballWorld.posAmount*2) ;
-							
-
 							lambda = distance / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2))); 
 	
 							cx = ax + (lambda * (bx - ax));
-							cy = ay + (lambda * (by - ay)); 
+							cy = ay + (lambda * (by - ay));
 
-							next = distance						
+					
+  
+							
+							next = distance	;				
 						for(var j=0;j<baseballWorld.posAmount;j++)
 						{
-							
 							if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
-								{
+								{ 
 									ctx.beginPath();
-									ctx.fillStyle = baseballWorld.colors[(i/2)*baseballWorld.posAmount+j];
-									ctx.moveTo(cx,cy);
-									ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
+									console.log("index :", indexColor);
+										ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+										console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+									
+									console.log(baseballWorld.field);
+									console.log("couleur :", baseballWorld.field[indexColor]);
+									//console.log("index :", baseballWorld.move);
+									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
+									//ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
+									ctx.lineTo(baseballWorld.holeX, baseballWorld.holeY);
+									//console.log((i/2)*baseballWorld.posAmount+j);
+									console.log("index :", indexColor);
 									ctx.stroke();
-									ctx.closePath();
-
+									ctx.closePath();		
 								}
-							
-								if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
+								
+
+							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
 								{
-									baseballWorld.holeX = cx;
-									baseballWorld.holeY = cy;
-								}
+									baseballWorld.holeX = cx + (ArrLambda * (x - ax));
+									baseballWorld.holeY = cy + (ArrLambda * (y - ay));
+								} 
+							
+							
+							
 
-
+							ctx.beginPath();
 							ctx.fillStyle = "#FFFFFF" ;
 							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
 							ctx.fill();
@@ -315,7 +329,6 @@
 							ctx.lineWidth = 1;
 
 							next += distance * 2 ;
-
 							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
 							{
 								ctx.beginPath();
@@ -348,6 +361,7 @@
 								}
 
 								ctx.closePath();
+
 							}
 							
 							

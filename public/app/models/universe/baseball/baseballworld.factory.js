@@ -25,6 +25,13 @@
 				this.field.push(world.field[i]);
 			}
 
+
+			this.initial = [];
+			for(var i=0; i<world.field.length;i++)
+			{
+				this.initial.push(world.field[i]);
+			}
+
 			this.moveCount = world.moveCount;
 
 			this.colors = [ "#0000FF", "#00FF00", "rgb(255,0,255)", "rgb(255,204,0)", "rgb(158,253,56)",
@@ -36,8 +43,11 @@
 			 this.holeBase = world.holeBase;
 			 this.holePos  = world.holePos;
 
-			 this.holeX = 0;
-			 this.holeY = 0;
+			 this.move;
+			 this.oldMove;
+
+			 this.holeX ;
+			 this.holeY ;
 		};
 
 		BaseballWorld.prototype.clone = function()
