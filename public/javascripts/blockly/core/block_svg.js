@@ -1143,3 +1143,12 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ =
   }
   steps.push('z');
 };
+
+/**
+ * Return the root node of the SVG or null if none exists.
+ * @return {Element} The root SVG node (probably a group).
+ */
+Blockly.BlockSvg.prototype.getSvgRoot = function() {
+    console.log('svp',this.svgGroup_);
+  return this.svgGroup_;
+};

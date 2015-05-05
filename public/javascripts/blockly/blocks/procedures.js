@@ -379,7 +379,6 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
      * @this Blockly.Block
      */
     init: function () {
-        this.setColour(290);
         this.appendDummyInput()
             .appendField(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
         this.appendStatementInput('STACK');
@@ -397,7 +396,6 @@ Blockly.Blocks['procedures_mutatorarg'] = {
      * @this Blockly.Block
      */
     init: function () {
-        this.setColour(290);
         this.appendDummyInput()
             .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
             .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');

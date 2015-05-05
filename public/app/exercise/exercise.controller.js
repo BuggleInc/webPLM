@@ -277,9 +277,11 @@
             setCurrentWorld('current');
 
             // Zone test pour blockly
-            Blockly.Python.INFINITE_LOOP_TRAP = null;
-            exercise.code = Blockly.Python.workspaceToCode();
-            alert(exercise.code);
+            if (exercise.ide === 'blockly') {
+                Blockly.Python.INFINITE_LOOP_TRAP = null;
+                exercise.code = Blockly.Python.workspaceToCode();
+                alert(exercise.code);
+            }
             // Zone test pour blockly
 
             args = {
@@ -289,8 +291,6 @@
             };
             connection.sendMessage('runExercise', args);
             exercise.isRunning = true;
-
-
 
         }
 
@@ -442,7 +442,7 @@
                 Blockly.languageTree = exercise.toolbox;
                 Blockly.Toolbox.populate_();
             } else
-                exercise.ide = 'codemirror'
+                exercise.ide = 'codemirror';
             exercise.isChangingProgLang = true;
             connection.sendMessage('setProgrammingLanguage', {
                 programmingLanguage: pl.lang

@@ -38,7 +38,7 @@ goog.require('Blockly.Workspace');
  */
 Blockly.Procedures.NAME_TYPE = 'NEWPROCEDURES';
 
-/**
+/**s
  * Find all user-created procedure definitions.
  * @return {!Array.<!Array.<!Array>>} Pair of arrays, the
  *     first contains procedures without return variables, the second with.

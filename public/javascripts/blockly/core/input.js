@@ -201,9 +201,13 @@ Blockly.Input.prototype.setAlign = function(align) {
  * Initialize the fields on this input.
  */
 Blockly.Input.prototype.init = function() {
+    console.log('### input_top ###');
   for (var x = 0; x < this.fieldRow.length; x++) {
+    console.log('### input_mid_sourceBlock ###',this.sourceBlock_);
+    console.log('### input_mid_fieldRow ###',this.fieldRow);
     this.fieldRow[x].init(this.sourceBlock_);
   }
+    console.log('### input_bottom ###');
 };
 
 /**

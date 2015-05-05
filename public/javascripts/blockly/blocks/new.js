@@ -30,6 +30,8 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     init: function () {
+        console.log('defnoreturn_init_arguments_top', this.arguments_);
+        this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
         var nameField = new Blockly.FieldTextInput(name,
@@ -44,6 +46,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
         this.arguments_ = [];
         this.setStatements_(true);
         this.statementConnection_ = null;
+        console.log('defnoreturn_init_arguments_bottom', this.arguments_);
     },
     /**
      * Add or remove the statement block from this function definition.
@@ -51,6 +54,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     setStatements_: function (hasStatements) {
+        console.log('defnoreturn_setStatements_arguments_top', this.arguments_);
         if (this.hasStatements_ === hasStatements) {
             return;
         }
@@ -64,6 +68,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
             this.removeInput('STACK', true);
         }
         this.hasStatements_ = hasStatements;
+        console.log('defnoreturn_setStatements_arguments_bottom', this.arguments_);
     },
     /**
      * Update the display of parameters for this procedure definition block.
@@ -72,6 +77,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     updateParams_: function () {
+        console.log('defnoreturn_updateParams_arguments_top', this.arguments_);
         // Check for duplicated arguments.
         var badArg = false;
         var hash = {};
@@ -94,6 +100,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
                 ' ' + this.arguments_.join(', ');
         }
         this.setFieldValue(paramString, 'PARAMS');
+        console.log('defnoreturn_updateParams_arguments_bottom', this.arguments_);
     },
     /**
      * Create XML to represent the argument inputs.
@@ -101,6 +108,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     mutationToDom: function () {
+        console.log('defnoreturn_mutationToDom_arguments_top', this.arguments_);
         var container = document.createElement('mutation');
         for (var i = 0; i < this.arguments_.length; i++) {
             var parameter = document.createElement('arg');
@@ -112,6 +120,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
         if (!this.hasStatements_) {
             container.setAttribute('statements', 'false');
         }
+        console.log('defnoreturn_mutationToDom_arguments_bottom', this.arguments_);
         return container;
     },
     /**
@@ -120,6 +129,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     domToMutation: function (xmlElement) {
+        console.log('defnoreturn_domToMutation_arguments_top', this.arguments_);
         this.arguments_ = [];
         for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
             if (childNode.nodeName.toLowerCase() == 'arg') {
@@ -130,6 +140,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
 
         // Show or hide the statement input.
         this.setStatements_(xmlElement.getAttribute('statements') !== 'false');
+        console.log('defnoreturn_domToMutation_arguments_bottom', this.arguments_);
     },
     /**
      * Populate the mutator's dialog with this block's components.
@@ -138,6 +149,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     decompose: function (workspace) {
+        console.log('defnoreturn_decompose_arguments_top', this.arguments_);
         var containerBlock = Blockly.Block.obtain(workspace,
             'procedures_mutatorcontainer');
         containerBlock.initSvg();
@@ -164,6 +176,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
         // Initialize procedure's callers with blank IDs.
         Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
             this.workspace, this.arguments_, null);
+        console.log('defnoreturn_decompose_arguments_bottom', this.arguments_);
         return containerBlock;
     },
     /**
@@ -172,8 +185,10 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     compose: function (containerBlock) {
+        console.log('defnoreturn_mutationToDom_arguments_top', this.arguments_);
         // Parameter list.
         this.arguments_ = [];
+        console.log('defnoreturn_mutationToDom_arguments_mid', this.arguments_);
         this.paramIds_ = [];
         var paramBlock = containerBlock.getInputTargetBlock('STACK');
         while (paramBlock) {
@@ -218,16 +233,19 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
                 }
             }
         }
+        console.log('defnoreturn_mutationToDom_arguments_bottom', this.arguments_);
     },
     /**
      * Dispose of any callers.
      * @this Blockly.Block
      */
     dispose: function () {
+        console.log('defnoreturn_dispose_arguments_top', this.arguments_);
         var name = this.getFieldValue('NAME');
         Blockly.Procedures.disposeCallers(name, this.workspace);
         // Call parent's destructor.
         this.constructor.prototype.dispose.apply(this, arguments);
+        console.log('defnoreturn_dispose_arguments_bottom', this.arguments_);
     },
     /**
      * Return the signature of this procedure definition.
@@ -238,6 +256,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     getProcedureDef: function () {
+        console.log('defnoreturn_getProcedureDef_arguments', this.arguments_);
         return [this.getFieldValue('NAME'), this.arguments_, false];
     },
     /**
@@ -246,6 +265,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     getVars: function () {
+        console.log('defnoreturn_getVars_arguments', this.arguments_);
         return this.arguments_;
     },
     /**
@@ -256,6 +276,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     renameVar: function (oldName, newName) {
+        console.log('defnoreturn_renameVar_arguments_top', this.arguments_);
         var change = false;
         for (var i = 0; i < this.arguments_.length; i++) {
             if (Blockly.Names.equals(oldName, this.arguments_[i])) {
@@ -276,6 +297,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
                 }
             }
         }
+        console.log('defnoreturn_renameVar_arguments_bottom', this.arguments_);
     },
     /**
      * Add custom menu options to this block's context menu.
@@ -283,6 +305,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     customContextMenu: function (options) {
+        console.log('defnoreturn_customContextMenu_arguments_top', this.arguments_);
         // Add option to create caller.
         var option = {
             enabled: true
@@ -317,6 +340,7 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
                 options.push(option);
             }
         }
+        console.log('defnoreturn_customContextMenu_arguments_bottom', this.arguments_);
     },
     callType_: 'newprocedures_callnoreturn'
 };
@@ -327,6 +351,8 @@ Blockly.Blocks['newprocedures_defreturn'] = {
      * @this Blockly.Block
      */
     init: function () {
+        this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
+        this.setColour(Blockly.Blocks.procedures.HUE);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
         var nameField = new Blockly.FieldTextInput(name,
@@ -370,242 +396,406 @@ Blockly.Blocks['newprocedures_defreturn'] = {
 };
 
 Blockly.Blocks['newprocedures_callnoreturn'] = {
-  /**
-   * Block for calling a procedure with no return value.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.appendDummyInput('TOPROW')
-        .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
-        .appendField('', 'NAME');
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    // Tooltip is set in domToMutation.
-    this.arguments_ = [];
-    this.quarkConnections_ = {};
-    this.quarkArguments_ = null;
-  },
-  /**
-   * Returns the name of the procedure this block calls.
-   * @return {string} Procedure name.
-   * @this Blockly.Block
-   */
-  getProcedureCall: function() {
-    // The NAME field is guaranteed to exist, null will never be returned.
-    return /** @type {string} */ (this.getFieldValue('NAME'));
-  },
-  /**
-   * Notification that a procedure is renaming.
-   * If the name matches this block's procedure, rename it.
-   * @param {string} oldName Previous name of procedure.
-   * @param {string} newName Renamed procedure.
-   * @this Blockly.Block
-   */
-  renameProcedure: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
-      this.setFieldValue(newName, 'NAME');
-      this.setTooltip(
-          (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
-           Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
-          .replace('%1', newName));
-    }
-  },
-  /**
-   * Notification that the procedure's parameters have changed.
-   * @param {!Array.<string>} paramNames New param names, e.g. ['x', 'y', 'z'].
-   * @param {!Array.<string>} paramIds IDs of params (consistent for each
-   *     parameter through the life of a mutator, regardless of param renaming),
-   *     e.g. ['piua', 'f8b_', 'oi.o'].
-   * @this Blockly.Block
-   */
-  setProcedureParameters: function(paramNames, paramIds) {
-    // Data structures:
-    // this.arguments = ['x', 'y']
-    //     Existing param names.
-    // this.quarkConnections_ {piua: null, f8b_: Blockly.Connection}
-    //     Look-up of paramIds to connections plugged into the call block.
-    // this.quarkArguments_ = ['piua', 'f8b_']
-    //     Existing param IDs.
-    // Note that quarkConnections_ may include IDs that no longer exist, but
-    // which might reappear if a param is reattached in the mutator.
-    if (!paramIds) {
-      // Reset the quarks (a mutator is about to open).
-      this.quarkConnections_ = {};
-      this.quarkArguments_ = null;
-      return;
-    }
-    if (goog.array.equals(this.arguments_, paramNames)) {
-      // No change.
-      this.quarkArguments_ = paramIds;
-      return;
-    }
-    this.setCollapsed(false);
-    if (paramIds.length != paramNames.length) {
-      throw 'Error: paramNames and paramIds must be the same length.';
-    }
-    if (!this.quarkArguments_) {
-      // Initialize tracking for this block.
-      this.quarkConnections_ = {};
-      if (paramNames.join('\n') == this.arguments_.join('\n')) {
-        // No change to the parameters, allow quarkConnections_ to be
-        // populated with the existing connections.
+    /**
+     * Block for calling a procedure with no return value.
+     * @this Blockly.Block
+     */
+    init: function () {
+        console.log('callnoreturn_init_arguments_top', this.arguments_);
+        this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
+        this.setColour(Blockly.Blocks.procedures.HUE);
+        this.appendDummyInput('TOPROW')
+            .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
+            .appendField('', 'NAME');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        // Tooltip is set in domToMutation.
+        this.arguments_ = [];
+        this.quarkConnections_ = {};
+        this.quarkArguments_ = null;
+        console.log('callnoreturn_init_arguments_bottom', this.arguments_);
+    },
+    /**
+     * Returns the name of the procedure this block calls.
+     * @return {string} Procedure name.
+     * @this Blockly.Block
+     */
+    getProcedureCall: function () {
+        console.log('callnoreturn_getProcedureCall_arguments', this.arguments_);
+        // The NAME field is guaranteed to exist, null will never be returned.
+        return /** @type {string} */ (this.getFieldValue('NAME'));
+    },
+    /**
+     * Notification that a procedure is renaming.
+     * If the name matches this block's procedure, rename it.
+     * @param {string} oldName Previous name of procedure.
+     * @param {string} newName Renamed procedure.
+     * @this Blockly.Block
+     */
+    renameProcedure: function (oldName, newName) {
+        console.log('callnoreturn_renameProcedure_arguments_top', this.arguments_);
+        if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
+            this.setFieldValue(newName, 'NAME');
+            this.setTooltip(
+                (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
+                    Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+                .replace('%1', newName));
+        }
+        console.log('callnoreturn_renameProcedure_arguments_bottom', this.arguments_);
+    },
+    /**
+     * Notification that the procedure's parameters have changed.
+     * @param {!Array.<string>} paramNames New param names, e.g. ['x', 'y', 'z'].
+     * @param {!Array.<string>} paramIds IDs of params (consistent for each
+     *     parameter through the life of a mutator, regardless of param renaming),
+     *     e.g. ['piua', 'f8b_', 'oi.o'].
+     * @this Blockly.Block
+     */
+    setProcedureParameters: function (paramNames, paramIds) {
+        console.log('=== callnoreturn_setProcedureParameters_arguments_top', this.arguments_);
+        console.log('=== callnoreturn_setProcedureParameters_paramNames_top', paramNames);
+        console.log('=== callnoreturn_setProcedureParameters_paramIds_top', paramIds);
+        // Data structures:
+        // this.arguments = ['x', 'y']
+        //     Existing param names.
+        // this.quarkConnections_ {piua: null, f8b_: Blockly.Connection}
+        //     Look-up of paramIds to connections plugged into the call block.
+        // this.quarkArguments_ = ['piua', 'f8b_']
+        //     Existing param IDs.
+        // Note that quarkConnections_ may include IDs that no longer exist, but
+        // which might reappear if a param is reattached in the mutator.
+        console.log('===== 01 =====', this.arguments_);
+        if (!paramIds) {
+            console.log('===== 02 =====', this.arguments_);
+            // Reset the quarks (a mutator is about to open).
+            this.quarkConnections_ = {};
+            this.quarkArguments_ = null;
+            console.log('===== 03 =====', this.arguments_);
+            return;
+        }
+        console.log('===== 04 =====', this.arguments_);
+        if (goog.array.equals(this.arguments_, paramNames)) {
+            console.log('===== 05 =====', this.arguments_);
+            // No change.
+            this.quarkArguments_ = paramIds;
+            console.log('===== 06 =====', this.arguments_);
+            return;
+        }
+        console.log('===== 07 =====', this.arguments_);
+        this.setCollapsed(false);
+        if (paramIds.length != paramNames.length) {
+            console.log('===== 08 =====', this.arguments_);
+            throw 'Error: paramNames and paramIds must be the same length.';
+        }
+        console.log('===== 09 =====', this.arguments_);
+        if (!this.quarkArguments_) {
+            console.log('===== 10 =====', this.arguments_);
+            // Initialize tracking for this block.
+            this.quarkConnections_ = {};
+            console.log('===== 11 =====', this.arguments_);
+            if (paramNames.join('\n') == this.arguments_.join('\n')) {
+                console.log('===== 12 =====', this.arguments_);
+                // No change to the parameters, allow quarkConnections_ to be
+                // populated with the existing connections.
+                this.quarkArguments_ = paramIds;
+                console.log('===== 13 =====', this.arguments_);
+            } else {
+                console.log('===== 14 =====', this.arguments_);
+                this.quarkArguments_ = [];
+                console.log('===== 15 =====', this.arguments_);
+            }
+            console.log('===== 16 =====', this.arguments_);
+        }
+        console.log('===== 17 =====', this.arguments_);
+        // Switch off rendering while the block is rebuilt.
+        var savedRendered = this.rendered;
+        this.rendered = false;
+        // Update the quarkConnections_ with existing connections.
+        console.log('===== 18 =====', this.arguments_);
+        for (var i = this.arguments_.length - 1; i >= 0; i--) {
+            console.log('===== 19 =====', this.arguments_);
+            var input = this.getInput('ARG' + i);
+            console.log('===== 20 =====', this.arguments_);
+            if (input) {
+                console.log('===== 21 =====', this.arguments_);
+                var connection = input.connection.targetConnection;
+                this.quarkConnections_[this.quarkArguments_[i]] = connection;
+                console.log('===== 22 =====', this.arguments_);
+                // Disconnect all argument blocks and remove all inputs.
+                this.removeInput('ARG' + i);
+                console.log('===== 23 =====', this.arguments_);
+            }
+        }
+        // Rebuild the block's arguments.
+        console.log('===== 24 =====', this.arguments_);
+        this.arguments_ = [].concat(paramNames);
+        console.log('===== 25 =====', this.arguments_);
         this.quarkArguments_ = paramIds;
-      } else {
-        this.quarkArguments_ = [];
-      }
-    }
-    // Switch off rendering while the block is rebuilt.
-    var savedRendered = this.rendered;
-    this.rendered = false;
-    // Update the quarkConnections_ with existing connections.
-    for (var i = this.arguments_.length - 1; i >= 0; i--) {
-      var input = this.getInput('ARG' + i);
-      if (input) {
-        var connection = input.connection.targetConnection;
-        this.quarkConnections_[this.quarkArguments_[i]] = connection;
-        // Disconnect all argument blocks and remove all inputs.
-        this.removeInput('ARG' + i);
-      }
-    }
-    // Rebuild the block's arguments.
-    this.arguments_ = [].concat(paramNames);
-    this.quarkArguments_ = paramIds;
-    for (var i = 0; i < this.arguments_.length; i++) {
-      var input = this.appendValueInput('ARG' + i)
-          .setAlign(Blockly.ALIGN_RIGHT)
-          .appendField(this.arguments_[i]);
-      if (this.quarkArguments_) {
-        // Reconnect any child blocks.
-        var quarkName = this.quarkArguments_[i];
-        if (quarkName in this.quarkConnections_) {
-          var connection = this.quarkConnections_[quarkName];
-          if (!connection || connection.targetConnection ||
-              connection.sourceBlock_.workspace != this.workspace) {
-            // Block no longer exists or has been attached elsewhere.
-            delete this.quarkConnections_[quarkName];
-          } else {
-            input.connection.connect(connection);
-          }
+        console.log('===== 26 =====', this.arguments_);
+        for (var i = 0; i < this.arguments_.length; i++) {
+            console.log('===== 27 =====', this.arguments_);
+            var input = this.appendValueInput('ARG' + i)
+                .setAlign(Blockly.ALIGN_RIGHT)
+                .appendField(this.arguments_[i]);
+            console.log('===== 28 =====', this.arguments_);
+            if (this.quarkArguments_) {
+                console.log('===== 29 =====', this.arguments_);
+                // Reconnect any child blocks.
+                var quarkName = this.quarkArguments_[i];
+                console.log('===== 30 =====', this.arguments_);
+                if (quarkName in this.quarkConnections_) {
+                    console.log('===== 31 =====', this.arguments_);
+                    var connection = this.quarkConnections_[quarkName];
+                    console.log('===== 32 =====', this.arguments_);
+                    if (!connection || connection.targetConnection || connection.sourceBlock_.workspace != this.workspace) {
+                        console.log('===== 34 =====', this.arguments_);
+                        // Block no longer exists or has been attached elsewhere.
+                        delete this.quarkConnections_[quarkName];
+                        console.log('===== 35 =====', this.arguments_);
+                    } else {
+                        console.log('===== 36 =====', this.arguments_);
+                        input.connection.connect(connection);
+                        console.log('===== 37 =====', this.arguments_);
+                    }
+                    console.log('===== 38 =====', this.arguments_);
+                }
+                console.log('===== 39 =====', this.arguments_);
+            }
+            console.log('===== 40 =====', this.arguments_);
+            input.init();
+            console.log('===== 41 =====', this.arguments_);
         }
-      }
-      input.init();
-    }
-    // Add 'with:' if there are parameters.
-    var input = this.getInput('TOPROW');
-    if (input) {
-      if (this.arguments_.length) {
-        if (!this.getField_('WITH')) {
-          input.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
-          input.init();
+        console.log('===== 42 =====', this.arguments_);
+        // Add 'with:' if there are parameters.
+        var input = this.getInput('TOPROW');
+        console.log('===== 43 =====', this.arguments_);
+        if (input) {
+            console.log('===== 44 =====', this.arguments_);
+            if (this.arguments_.length) {
+                console.log('===== 45 =====', this.arguments_);
+                if (!this.getField_('WITH')) {
+                    console.log('===== 46 =====', this.arguments_);
+                    input.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+                    console.log('===== 47 =====', this.arguments_);
+                    input.init();
+                    console.log('===== 48 =====', this.arguments_);
+                }
+                console.log('===== 49 =====', this.arguments_);
+            } else {
+                console.log('===== 50 =====', this.arguments_);
+                if (this.getField_('WITH')) {
+                    console.log('===== 51 =====', this.arguments_);
+                    input.removeField('WITH');
+                    console.log('===== 52 =====', this.arguments_);
+                }
+                console.log('===== 53 =====', this.arguments_);
+            }
+            console.log('===== 54 =====', this.arguments_);
         }
-      } else {
-        if (this.getField_('WITH')) {
-          input.removeField('WITH');
+        console.log('===== 55 =====', this.arguments_);
+        // Restore rendering and show the changes.
+        this.rendered = savedRendered;
+        console.log('===== 56 =====', this.arguments_);
+        if (this.rendered) {
+            console.log('===== 57 =====', this.arguments_);
+            this.render();
+            console.log('===== 58 =====', this.arguments_);
         }
-      }
-    }
-    // Restore rendering and show the changes.
-    this.rendered = savedRendered;
-    if (this.rendered) {
-      this.render();
-    }
-  },
-  /**
-   * Create XML to represent the (non-editable) name and arguments.
-   * @return {Element} XML storage element.
-   * @this Blockly.Block
-   */
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    container.setAttribute('name', this.getProcedureCall());
-    for (var i = 0; i < this.arguments_.length; i++) {
-      var parameter = document.createElement('arg');
-      parameter.setAttribute('name', this.arguments_[i]);
-      container.appendChild(parameter);
-    }
-    return container;
-  },
-  /**
-   * Parse XML to restore the (non-editable) name and parameters.
-   * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
-   */
-  domToMutation: function(xmlElement) {
-    var name = xmlElement.getAttribute('name');
-    this.setFieldValue(name, 'NAME');
-    this.setTooltip(
-        (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
-         Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
-    var def = Blockly.Procedures.getDefinition(name, this.workspace);
-    if (def && def.mutator && def.mutator.isVisible()) {
-      // Initialize caller with the mutator's IDs.
-      this.setProcedureParameters(def.arguments_, def.paramIds_);
-    } else {
-      var args = [];
-      for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
-        if (childNode.nodeName.toLowerCase() == 'arg') {
-          args.push(childNode.getAttribute('name'));
+        console.log('=== callnoreturn_setProcedureParameters_arguments_bottom', this.arguments_);
+        console.log('=== callnoreturn_setProcedureParameters_paramNames_bottom', paramNames);
+        console.log('=== callnoreturn_setProcedureParameters_paramIds_bottom', paramIds);
+    },
+    /**
+     * Create XML to represent the (non-editable) name and arguments.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function () {
+        console.log('callnoreturn_mutationToDom_arguments_top', this.arguments_);
+        var container = document.createElement('mutation');
+        container.setAttribute('name', this.getProcedureCall());
+        for (var i = 0; i < this.arguments_.length; i++) {
+            var parameter = document.createElement('arg');
+            parameter.setAttribute('name', this.arguments_[i]);
+            container.appendChild(parameter);
         }
-      }
-      // For the second argument (paramIds) use the arguments list as a dummy
-      // list.
-      this.setProcedureParameters(args, args);
+        console.log('callnoreturn_mutationToDom_arguments_bottom', this.arguments_);
+        return container;
+    },
+    /**
+     * Parse XML to restore the (non-editable) name and parameters.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function (xmlElement) {
+        console.log('callnoreturn_domToMutation_arguments_top', this.arguments_);
+        var name = xmlElement.getAttribute('name');
+        this.setFieldValue(name, 'NAME');
+        this.setTooltip(
+            (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
+                Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+        var def = Blockly.Procedures.getDefinition(name, this.workspace);
+        if (def && def.mutator && def.mutator.isVisible()) {
+            // Initialize caller with the mutator's IDs.
+            this.setProcedureParameters(def.arguments_, def.paramIds_);
+        } else {
+            var args = [];
+            for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
+                if (childNode.nodeName.toLowerCase() == 'arg') {
+                    args.push(childNode.getAttribute('name'));
+                }
+            }
+            // For the second argument (paramIds) use the arguments list as a dummy
+            // list.
+            this.setProcedureParameters(args, args);
+        }
+        console.log('callnoreturn_domToMutation_arguments_bottom', this.arguments_);
+    },
+    /**
+     * Notification that a variable is renaming.
+     * If the name matches one of this block's variables, rename it.
+     * @param {string} oldName Previous name of variable.
+     * @param {string} newName Renamed variable.
+     * @this Blockly.Block
+     */
+    renameVar: function (oldName, newName) {
+        console.log('callnoreturn_renameVar_arguments_top', this.arguments_);
+        for (var i = 0; i < this.arguments_.length; i++) {
+            if (Blockly.Names.equals(oldName, this.arguments_[i])) {
+                this.arguments_[i] = newName;
+                this.getInput('ARG' + i).fieldRow[0].setText(newName);
+            }
+        }
+        console.log('callnoreturn_renameVar_arguments_bottom', this.arguments_);
+    },
+    /**
+     * Add menu option to find the definition block for this call.
+     * @param {!Array} options List of menu options to add to.
+     * @this Blockly.Block
+     */
+    customContextMenu: function (options) {
+        console.log('callnoreturn_customContextMenu_arguments_top', this.arguments_);
+        var option = {
+            enabled: true
+        };
+        option.text = Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF;
+        var name = this.getProcedureCall();
+        var workspace = this.workspace;
+        option.callback = function () {
+            var def = Blockly.Procedures.getDefinition(name, workspace);
+            def && def.select();
+        };
+        options.push(option);
+        console.log('callnoreturn_customContextMenu_arguments_bottom', this.arguments_);
     }
-  },
-  /**
-   * Notification that a variable is renaming.
-   * If the name matches one of this block's variables, rename it.
-   * @param {string} oldName Previous name of variable.
-   * @param {string} newName Renamed variable.
-   * @this Blockly.Block
-   */
-  renameVar: function(oldName, newName) {
-    for (var i = 0; i < this.arguments_.length; i++) {
-      if (Blockly.Names.equals(oldName, this.arguments_[i])) {
-        this.arguments_[i] = newName;
-        this.getInput('ARG' + i).fieldRow[0].setText(newName);
-      }
-    }
-  },
-  /**
-   * Add menu option to find the definition block for this call.
-   * @param {!Array} options List of menu options to add to.
-   * @this Blockly.Block
-   */
-  customContextMenu: function(options) {
-    var option = {enabled: true};
-    option.text = Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF;
-    var name = this.getProcedureCall();
-    var workspace = this.workspace;
-    option.callback = function() {
-      var def = Blockly.Procedures.getDefinition(name, workspace);
-      def && def.select();
-    };
-    options.push(option);
-  }
 };
 
 Blockly.Blocks['newprocedures_callreturn'] = {
-  /**
-   * Block for calling a procedure with a return value.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.appendDummyInput('TOPROW')
-        .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
-        .appendField('', 'NAME');
-    this.setOutput(true);
-    // Tooltip is set in domToMutation.
-    this.arguments_ = [];
-    this.quarkConnections_ = {};
-    this.quarkArguments_ = null;
-  },
-  getProcedureCall: Blockly.Blocks['newprocedures_callnoreturn'].getProcedureCall,
-  renameProcedure: Blockly.Blocks['newprocedures_callnoreturn'].renameProcedure,
-  setProcedureParameters:
-      Blockly.Blocks['newprocedures_callnoreturn'].setProcedureParameters,
-  mutationToDom: Blockly.Blocks['newprocedures_callnoreturn'].mutationToDom,
-  domToMutation: Blockly.Blocks['newprocedures_callnoreturn'].domToMutation,
-  renameVar: Blockly.Blocks['newprocedures_callnoreturn'].renameVar,
-  customContextMenu: Blockly.Blocks['newprocedures_callnoreturn'].customContextMenu
+    /**
+     * Block for calling a procedure with a return value.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
+        this.setColour(Blockly.Blocks.procedures.HUE);
+        this.appendDummyInput('TOPROW')
+            .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
+            .appendField('', 'NAME');
+        this.setOutput(true);
+        // Tooltip is set in domToMutation.
+        this.arguments_ = [];
+        this.quarkConnections_ = {};
+        this.quarkArguments_ = null;
+    },
+    getProcedureCall: Blockly.Blocks['newprocedures_callnoreturn'].getProcedureCall,
+    renameProcedure: Blockly.Blocks['newprocedures_callnoreturn'].renameProcedure,
+    setProcedureParameters: Blockly.Blocks['newprocedures_callnoreturn'].setProcedureParameters,
+    mutationToDom: Blockly.Blocks['newprocedures_callnoreturn'].mutationToDom,
+    domToMutation: Blockly.Blocks['newprocedures_callnoreturn'].domToMutation,
+    renameVar: Blockly.Blocks['newprocedures_callnoreturn'].renameVar,
+    customContextMenu: Blockly.Blocks['newprocedures_callnoreturn'].customContextMenu
+};
+
+Blockly.Blocks['newprocedures_ifreturn'] = {
+    /**
+     * Block for conditionally returning a value from a procedure.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
+        this.appendValueInput('CONDITION')
+            .setCheck('Boolean')
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendValueInput('VALUE')
+            .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+        this.setInputsInline(true);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP);
+        this.hasReturnValue_ = true;
+    },
+    /**
+     * Create XML to represent whether this block has a return value.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function () {
+        var container = document.createElement('mutation');
+        container.setAttribute('value', Number(this.hasReturnValue_));
+        return container;
+    },
+    /**
+     * Parse XML to restore whether this block has a return value.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function (xmlElement) {
+        var value = xmlElement.getAttribute('value');
+        this.hasReturnValue_ = (value == 1);
+        if (!this.hasReturnValue_) {
+            this.removeInput('VALUE');
+            this.appendDummyInput('VALUE')
+                .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+        }
+    },
+    /**
+     * Called whenever anything on the workspace changes.
+     * Add warning if this flow block is not nested inside a loop.
+     * @this Blockly.Block
+     */
+    onchange: function () {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        var legal = false;
+        // Is the block nested in a procedure?
+        var block = this;
+        do {
+            if (block.type == 'newprocedures_defnoreturn' ||
+                block.type == 'newprocedures_defreturn') {
+                legal = true;
+                break;
+            }
+            block = block.getSurroundParent();
+        } while (block);
+        if (legal) {
+            // If needed, toggle whether this block has a return value.
+            if (block.type == 'newprocedures_defnoreturn' && this.hasReturnValue_) {
+                this.removeInput('VALUE');
+                this.appendDummyInput('VALUE')
+                    .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+                this.hasReturnValue_ = false;
+            } else if (block.type == 'newprocedures_defreturn' &&
+                !this.hasReturnValue_) {
+                this.removeInput('VALUE');
+                this.appendValueInput('VALUE')
+                    .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+                this.hasReturnValue_ = true;
+            }
+            this.setWarningText(null);
+        } else {
+            this.setWarningText(Blockly.Msg.PROCEDURES_IFRETURN_WARNING);
+        }
+    }
 };
