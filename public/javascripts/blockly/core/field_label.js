@@ -69,24 +69,18 @@ Blockly.FieldLabel.prototype.EDITABLE = false;
  * @param {!Blockly.Block} block The block containing this text.
  */
 Blockly.FieldLabel.prototype.init = function (block) {
-    console.log('field_label_init_block_01', block);
-    if (this.sourceBlock_) {
-        console.log('field_label_init_block_02', block);
-        throw 'Text has already been initialized once.';
-    }
-    console.log('field_label_init_block_03', block);
+    
+    // O.o
+    /*if (this.sourceBlock_) {
+        // 'Text has already been initialized once.';
+        return
+    }*/
     this.sourceBlock_ = block;
-    console.log('field_label_init_block_040', block);
-    console.log('field_label_init_block_041', block.getSvgRoot());
-    console.log('field_label_init_block_042', block.getSvgRoot().appendChild(this.textElement_));
-    block.getSvgRoot().appendChild(this.textElement_);
-    console.log('field_label_init_block_05', block);
-
+    if (block.getSvgRoot())
+        block.getSvgRoot().appendChild(this.textElement_);
     // Configure the field to be transparent with respect to tooltips.
     this.textElement_.tooltip = this.sourceBlock_;
-    console.log('field_label_init_block_06', block);
     Blockly.Tooltip.bindMouseEvents(this.textElement_);
-    console.log('field_label_init_block_07', block);
 };
 
 /**
