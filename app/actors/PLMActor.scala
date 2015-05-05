@@ -31,45 +31,27 @@ object PLMActor {
 }
 
 class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
-  var availableLangs = Lang.availables
-  var isProgressSpyAdded: Boolean = false
-  var plmLogger = new PLMLogger(this)
-
-  var currentGitID = gitID;
-  if(newUser) {
-    sendMessage("gitID", Json.obj(
-        "gitID" -> currentGitID  
-      )
-    )
-  }
-  var plm = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
+  var availableLangs: Seq[Lang] = Lang.availables
+  var plmLogger: PLMLogger = new PLMLogger(this)
   
-  var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
-  plm.game.addGameStateListener(resultSpy)
+  var resultSpy: ExecutionResultListener = null
+  var progLangSpy: ProgLangListener  = null
+  var humanLangSpy: HumanLangListener = null
+  var registeredSpies: List[ExecutionSpy] = null
   
-  var progLangSpy: ProgLangListener = new ProgLangListener(this, plm)
-  plm.game.addProgLangListener(progLangSpy, true)
+  var currentUser: User = null
   
-  var humanLangSpy: HumanLangListener = new HumanLangListener(this, plm)
-  plm.game.addHumanLangListener(humanLangSpy, true)
+  var currentGitID: String = null
+  setCurrentGitID(gitID, newUser)
   
-  var registeredSpies: List[ExecutionSpy] = List()
+  var plm: PLM = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
   
-  var user: User = null
-  
-  ActorsMap.add(actorUUID, self)
-
-  sendMessage("actorUUID", Json.obj(
-      "actorUUID" -> actorUUID  
-    )
-  )
+  initSpies
+  registerActor
   
   def this(actorUUID: String, user: User, preferredLang: Lang, out: ActorRef) {
     this(actorUUID, user.gitID.toString, false, preferredLang, out)
-    sendMessage("user", Json.obj(
-            "user" -> user
-          )
-    )
+    setCurrentUser(user)
   }
   
   def receive = {
@@ -79,19 +61,12 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
-          user = (msg \ "user").asOpt[User].getOrElse(null)
-          sendMessage("user", Json.obj(
-            "user" -> user
-          ))
-          currentGitID = user.gitID.toString
+          setCurrentUser((msg \ "user").asOpt[User].getOrElse(null))
+          setCurrentGitID(currentUser.gitID.toString, false)
           plm.setUserUUID(currentGitID)
         case "signOut" =>
-          user = null
-          currentGitID = UUID.randomUUID.toString
-          sendMessage("gitID", Json.obj(
-              "gitID" -> currentGitID  
-            )
-          )
+          setCurrentUser(null)
+          setCurrentGitID(UUID.randomUUID.toString, true)
           plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
@@ -182,6 +157,49 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   def sendMessage(cmdName: String, mapArgs: JsValue) {
     out ! createMessage(cmdName, mapArgs)
+  }
+  
+  def setCurrentUser(newUser: User) {
+    var json: JsValue = Json.obj()
+    
+    currentUser = newUser
+    if(currentUser != null) {
+      json = Json.obj(
+        "user" -> currentUser
+      )
+    }
+    sendMessage("user", json)
+  }
+  
+  def setCurrentGitID(newGitID: String, toSend: Boolean) {
+    currentGitID = newGitID;
+    if(toSend) {
+      sendMessage("gitID", Json.obj(
+          "gitID" -> currentGitID  
+        )
+      )
+    }
+  } 
+  
+  def initSpies() {
+    resultSpy = new ExecutionResultListener(this, plm.game)
+    plm.game.addGameStateListener(resultSpy)
+    
+    progLangSpy = new ProgLangListener(this, plm)
+    plm.game.addProgLangListener(progLangSpy, true)
+    
+    humanLangSpy = new HumanLangListener(this, plm)
+    plm.game.addHumanLangListener(humanLangSpy, true)
+    
+    registeredSpies = List()
+  }
+  
+  def registerActor() {
+    ActorsMap.add(actorUUID, self)
+    sendMessage("actorUUID", Json.obj(
+        "actorUUID" -> actorUUID  
+      )
+    )
   }
   
   def registerSpy(spy: ExecutionSpy) {
