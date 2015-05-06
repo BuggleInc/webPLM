@@ -18,6 +18,7 @@ import play.api.mvc.AnyContentAsEmpty
 import play.api.mvc.Request
 import play.api.mvc.RequestHeader
 import play.api.mvc.WebSocket
+import utils.LangUtils
 import utils.CookieUtils
 
 import com.mohiva.play.silhouette.api.Environment
@@ -33,25 +34,17 @@ import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 class ApplicationController @Inject() (implicit val env: Environment[User, JWTAuthenticator])
   extends Silhouette[User, JWTAuthenticator] {
 
-  def langIsAvailable(code: String): Boolean = {
-    Lang.availables.exists { lang => lang.code == code }
-  }
-
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
     var token = optToken.getOrElse("")
     var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)
-    var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
-    var cookieLangCode: String = CookieUtils.getCookieValue(request, "lang")
-    if(langIsAvailable(cookieLangCode)) {
-      preferredLang = Lang(cookieLangCode)
-    }
+    var preferredLang: Lang = LangUtils.getPreferredLang(request)
     var actorUUID: String = UUID.randomUUID.toString
     implicit val req = Request(requestWithToken, AnyContentAsEmpty)
     SecuredRequestHandler { securedRequest =>
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) => 
-        Right(PLMActor.propsWithUser(actorUUID,  user, preferredLang) _)
+        Right(PLMActor.propsWithUser(actorUUID,  user) _)
       case HandlerResult(r, None) => 
         var newUser: Boolean = false;
         var gitID: String = CookieUtils.getCookieValue(request, "gitID")

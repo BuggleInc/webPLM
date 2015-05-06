@@ -18,6 +18,8 @@ import actors.ActorsMap
 import play.api.Logger
 import utils.CookieUtils
 import java.util.UUID
+import utils.LangUtils
+import play.api.i18n.Lang
 
 /**
  * The social auth controller.
@@ -41,6 +43,7 @@ class SocialAuthController @Inject() (
     if(actorUUID.isEmpty) {
       Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
     }
+    var preferredLang: Lang = LangUtils.getPreferredLang(request)
     var gitID: String = CookieUtils.getCookieValue(request, "gitID")
     if(gitID.isEmpty) {
       gitID = UUID.randomUUID.toString
@@ -51,7 +54,7 @@ class SocialAuthController @Inject() (
           case Left(result) => Future.successful(result)
           case Right(authInfo) => for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile, gitID)
+            user <- userService.save(profile, UUID.fromString(gitID), Some(preferredLang))
             authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)

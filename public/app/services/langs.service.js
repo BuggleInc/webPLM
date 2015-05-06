@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.factory('langs', langs);
 	
-	langs.$inject = ['$rootScope', '$cookies', 'gettextCatalog', 'listenersHandler', 'connection'];
+	langs.$inject = ['$rootScope', '$cookies', '$auth', 'gettextCatalog', 'listenersHandler', 'connection'];
 
-	function langs ($rootScope, $cookies, gettextCatalog, listenersHandler, connection) {
+	function langs ($rootScope, $cookies, $auth, gettextCatalog, listenersHandler, connection) {
 		var availableLangs = [];
 		var selectedLang = $cookies.lang;
 
@@ -50,7 +50,9 @@
 		}
 
 		function setSelectedLang (lang) {
-			$cookies.lang = lang.code;
+			if(!$auth.isAuthenticated()) {
+				$cookies.lang = lang.code;
+			}
 			selectedLang = lang;
 			gettextCatalog.setCurrentLanguage(lang.code);
 			connection.sendMessage('setLang', { "lang": lang.code });

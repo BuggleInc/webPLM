@@ -27,7 +27,7 @@ import java.util.UUID
 
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
-  def propsWithUser(actorUUID: String, user: User, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, user, preferredLang, out))
+  def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
 class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
@@ -49,8 +49,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   initSpies
   registerActor
   
-  def this(actorUUID: String, user: User, preferredLang: Lang, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, preferredLang, out)
+  def this(actorUUID: String, user: User, out: ActorRef) {
+    this(actorUUID, user.gitID.toString, false, user.preferredLang.getOrElse(Lang("en")), out)
     setCurrentUser(user)
   }
   
