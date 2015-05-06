@@ -28,7 +28,7 @@
 		{
 			initUtils(canvas, baseballWorld);
 			ctx.beginPath();
-
+			ctx.strokeStyle = '#000000';
 			//draws edge of our drawArena
 			ctx.strokeRect(0,0, canvasWidth, canvasHeight);
 			ctx.closePath();
