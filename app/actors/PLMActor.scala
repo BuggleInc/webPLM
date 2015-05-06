@@ -24,6 +24,7 @@ import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
+import models.daos.UserDAOMongoImpl
 
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
@@ -41,10 +42,12 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentUser: User = null
   
+  var currentPreferredLang = preferredLang
+  
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale)
   
   initSpies
   registerActor
@@ -84,7 +87,14 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
           (optLang.getOrElse(None)) match {
             case lang: String =>
-              plm.setLang(Lang(lang))
+              currentPreferredLang = Lang(lang)
+              plm.setLang(currentPreferredLang)
+              if(currentUser != null) {
+                currentUser = currentUser.copy(
+                    preferredLang = Some(currentPreferredLang)
+                )
+                UserDAOMongoImpl.save(currentUser)
+              }
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
