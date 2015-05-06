@@ -30,7 +30,6 @@
 				signIn.errorMsg = '';
 			})
 			.catch(function (response) {
-				console.log('Erreur dans credentials! ', response);
 				signIn.showErrorMsg = true;
 				signIn.errorMsg = CREDENTIALS_ERROR_MESSAGE;
 			});
@@ -44,7 +43,6 @@
 				signIn.errorMsg = '';
 			})
 			.catch(function (response) {
-				console.log('Erreur dans provider! ', response);
 				signIn.showErrorMsg = true;
 				signIn.errorMsg = PROVIDER_ERROR_MESSAGE;
 			});
