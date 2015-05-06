@@ -32,39 +32,27 @@
 		}
 
 		function signUp(email, password, firstName, lastName) {
-			$auth.signup({
+			return $auth.signup({
 				email: email,
 				password: password,
 				firstName: firstName,
 				lastName: lastName
-			}).then(function(response) {
-				console.log(response.data);
 			});
 		}
 
 		function signInWithCredentials(email, password) {
-			$auth.login({
+			return $auth.login({
 				email: email,
 				password: password
-			})
-			.then(function(data) {
-				console.log('You have successfully signed in with credentials', data);
 			});
 		}
 
 		function signInWithProvider(provider) {
-			$auth.authenticate(provider)
-			.then(function(data) {
-				console.log('You have successfully signed in with provider', data);
-			})
-			.catch(function(response) {
-				console.log(response.data.message);
-			});
+			return $auth.authenticate(provider);
 		}
 
 		function signOut() {
-			$auth.logout();
-			connection.sendMessage('signOut', {});
+			return $auth.logout();
 		}
 
 		function getUser() {
@@ -74,7 +62,6 @@
 		function setUser(data) {
 			delete $cookies.gitID;
 			user = data;
-			console.log('user: ', user);
 		}
 
 		function retrieveUser() {

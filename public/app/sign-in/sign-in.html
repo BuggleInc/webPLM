@@ -3,6 +3,12 @@
 		<h2 translate>Sign in with your credentials</h2>
 	</div>
 	<hr/>
+	<div ng-show="signIn.showErrorMsg" class="row"> <!-- error-message -->
+        <div data-alert class="alert-box warning radius">
+            {{signIn.errorMsg}}
+            <a class="close" ng-click="signIn.hideErrorMsg()">&times;</a>
+        </div>
+    </div> <!-- /error-message -->
 	<sign-in-form></sign-in-form>
 	<div class="row text-center">
 		<span translate>Not a member? <a ui-sref="signUp" translate>Sign up now</a></span>
