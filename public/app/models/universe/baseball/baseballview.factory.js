@@ -280,6 +280,8 @@
 							//x and y of the first point of the arrow
 							var arrcx = cx + (arrLambda * (x - ax));
 							var arrcy = cy + (arrLambda * (y - ay));
+							//dotted arrows
+							ctx.setLineDash([10, 8]);
 							ctx.beginPath();
 							ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
 							ctx.moveTo(arrcx, arrcy);
@@ -287,6 +289,8 @@
 							ctx.lineWidth = 5;
 							ctx.stroke();
 							drawArrowHead(arrcx, arrcy, baseballWorld.holeX, baseballWorld.holeY);
+							//stop to draw dotted lines
+							ctx.setLineDash([]);
 						}
 
 						//To avoid bad lineWidth
