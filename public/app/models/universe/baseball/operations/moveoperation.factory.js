@@ -10,7 +10,7 @@
 		{
 			this.base = data.base;
 			this.position = data.position;
-		}
+		};
 
 		MoveOperation.prototype.apply = function (currentWorld)
 		{	currentWorld.move = this.base * currentWorld.posAmount + this.position;

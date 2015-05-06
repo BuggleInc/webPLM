@@ -39,8 +39,8 @@
 
 			this.move;
 			this.oldMove;
-			this.holeX ;
-			this.holeY ;
+			this.holeX;
+			this.holeY;
 		};
 
 		BaseballWorld.prototype.clone = function()

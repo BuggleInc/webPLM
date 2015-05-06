@@ -195,14 +195,14 @@
 							case 'BuggleWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : BuggleWorldView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : BuggleWorldView.draw
 								 }
@@ -216,8 +216,8 @@
 							case 'BatWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : BatWorldView.draw
 								 }
@@ -230,26 +230,26 @@
 							case 'SortingWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name: "ChronoView",
-								 	worldKind : "current",
+								 	name: 'ChronoView',
+								 	worldKind : 'current',
 								 	tabNumber : 2,
 								 	drawFnct : SortingWorldSecondView.draw
 								 },
 								 {
-								 	name : "ChronoDemo",
-								 	worldKind : "answer",
+								 	name : 'ChronoDemo',
+								 	worldKind : 'answer',
 								 	tabNumber : 3,
 								 	drawFnct : SortingWorldSecondView.draw
 								 }
@@ -264,14 +264,14 @@
 							case 'DutchFlagWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : DutchFlagView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : DutchFlagView.draw
 								 }
@@ -285,14 +285,14 @@
 							case 'PancakeWorld' :
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : PancakeView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : PancakeView.draw
 								 }
@@ -306,26 +306,26 @@
 							case 'BaseballWorld' :
 								exercise.tabs = [
 								{
-									name: "World",
-									worldKind : "current",
+									name: 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : BaseballView.draw
 								},
 								{
-									name : "Objective",
-									worldKind : "answer",
+									name : 'Objective',
+									worldKind : 'answer',
 									tabNumber : 1,
 									drawFnct : BaseballView.draw
 								},
 								{
-									name : "ChronoView",
-									worldKind : "current",
+									name : 'ChronoView',
+									worldKind : 'current',
 									tabNumber : 2,
 									drawFnct : BaseballSecondView.draw
 								},
 								{
-									name : "ChronoDemo",
-									worldKind : "answer",
+									name : 'ChronoDemo',
+									worldKind : 'answer',
 									tabNumber : 3,
 									drawFnct : BaseballSecondView.drawFnct
 								}

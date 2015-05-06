@@ -1,6 +1,7 @@
 (function ()
 {
 	'use strict';
+
 	angular
 		.module('PLMApp')
 		.factory('BaseballView', BaseballView);
@@ -25,7 +26,7 @@
 				[ 0,0,0,1,1,0,1,1,0,0,0 ],
 				[ 0,0,0,0,0,0,0,0,0,0,0 ],
 				[ 0,0,0,0,0,0,0,0,0,0,0 ],
-			] ;
+			];
 
 		var service = {
 			draw: draw,
@@ -49,507 +50,263 @@
 			ctx.closePath();
 		}
 
+		//convert degrees in radians
 		function toRad(angle)
 		{
 			return angle * (Math.PI / 180);
 		}
 
-		function computeAngle(amountSides)
-		{
-			return (180 * amountSides - 360) / (amountSides * 2);
-		}
-
-
+		//draws the amount of moves
 		function drawText(baseballWorld)
 		{
-		ctx.beginPath();
-
-		ctx.fillStyle = "#FFFFFF";
-
-		ctx.font = "15px sans-serif";
-		if(baseballWorld.moveCount <= 1)
-			ctx.fillText(baseballWorld.moveCount+" Move",5,25);
-		else ctx.fillText(baseballWorld.moveCount+ " Moves",5,25);
+			ctx.beginPath();
+			ctx.fillStyle = '#FFFFFF';
+			ctx.font = '15px sans-serif';
 			
-
-		ctx.closePath();
+			if(baseballWorld.moveCount <= 1)
+				ctx.fillText(baseballWorld.moveCount+' Move',5,25);
+			else 
+				ctx.fillText(baseballWorld.moveCount+ ' Moves',5,25);
+			
+			ctx.closePath();
 		}
 
-
+		//draws arrows heads
 		function drawArrowHead(fromx,fromy, tox, toy)
 		{
+			//head length
 			var head = 10;
+
+			//angle to place correctly the head
 			var angle = Math.atan2(toy-(canvasHeight/2),tox-(canvasWidth/2));
 			ctx.moveTo(tox, toy);
 			ctx.lineTo(tox-head*Math.cos(angle-Math.PI/6),toy-head*Math.sin(angle-Math.PI/6));
 			ctx.moveTo(tox,toy);
 			ctx.lineTo(tox-head*Math.cos(angle+Math.PI/6),toy-head*Math.sin(angle+Math.PI/6));
 			ctx.moveTo(fromx,fromy);
-			ctx.lineCap = 'round' ;
+
+			//add a round effect 
+			ctx.lineCap = 'round';
 			ctx.stroke();
 		}
 
-
-/*
-		function drawArrowHead(x, y , angle, sizex, sizey)
-		{
-			/*
-			var hx = sizex / 2 ;
-			var hy = sizey / 2;
-
-			ctx.translate((x),(y));
-			ctx.rotate(angle);
-			ctx.translate(-hx,-hy);
-
-			ctx.beginPath();
-			ctx.moveTo(0,0);
-			ctx.lineTo(0,1*sizey);
-			ctx.lineTo(1*sizex,1*hy);
-			ctx.fill();
-			ctx.closePath();
-
-			ctx.translate(hx,hy);
-			ctx.rotate(-angle);
-			ctx.translate(-x,-y); */
-
-
-		function findAngle(sx, sy, ex, ey)
-		{
-			return  Math.atan2((ey-sy) / (ex - sx));
-		}
-
+		//draws the field, bases, positions, and buggles 
 		function drawField(baseballWorld)
 		{
 			var nb = baseballWorld.baseAmount;
+			var width = canvasWidth / 2;
 			var radius = canvasHeight / 2;
 
 			//Firstly, we need a circle where take place the left top corner of our rectangles
 			var dif = (radius-75) + (nb * 3);
 
-			var dif2 = (radius-50) + (nb * 2);
-			
-			var height = 91 - (4 * nb);
-			var width = 118 - (4 * nb);
-
 			//we need a circle divided by the double number of bases
 			var angle = toRad(360 / (nb * 2));
 
-			var angleCircle = toRad(360 / (baseballWorld.posAmount * nb * 5));
+			//x and y of our first corner of rectangles
+			var firstX = width - 45;
+			var firstY = radius + dif - 10;
 
-			var angleRotation = angle / nb;
+			//x and y of our second corner of rectangles
+			var secondX = width - 60;
+			var secondY = canvasHeight - 11;
 
-			var firstX;
-			var firstY;
-			var circleX;
-			var circleY;
+			//these variables allows us to stock some values
+			var Fmemo = [], Smemo = [];
 
-			var XCenter = canvasWidth /2;
-			var YCenter = radius;
+			//x and y of our center
+			var XCenter = width, YCenter = radius;
 
-			var dX1;
-			var dY1;
+			//these variables are used to found points(corners) on the circle
+			var dX1, dY1, dX2, dY2, dX3, dY3, dX4, dY4;
 
-			var dX2;
-			var dY2;
+			//these variables are used to found the 4th corner(to draw a parallelogram)
+			var unknownX, unknownY;
 
-			var dX3;
-			var dY3;
+			//x and y of the 4th corner
+			var x, y;
 
-			var dX4;
-			var dY4;
+			//these variables are used to compute some distances between two points
+			var ax, ay, bx, by, cx, cy, distance, lambda, next, arrLambda, arrDistance;
 
-			var dX5;
-			var dY5;
+			//x and y of the buggle
+			var buggleX, buggleY;
 
-			var unknownX;
-			var unknownY;
-
-			var x ;
-			var y ;
-
-			var ax, ay, bx, by, cx, cy;
-
-			var arrowX;
-			var arrowY;
-
-			var distance, lambda, next ;
-			var ArrDistance, ArrLambda, ArrNext;
-
-			var buggleX;
-			var buggleY;
-
+			//index in order to choose the color in the array baseballworld.colors
 			var indexColor = baseballWorld.oldMove;
 
-			firstX = canvasWidth / 2 - 45;
-			firstY = canvasHeight / 2 + dif - 10;
-
-			circleX = canvasWidth /2 + 20;
-			circleY = canvasHeight /2  + dif2;
-
-			var secondX = canvasWidth / 2 - 60;
-			var secondY = canvasHeight -11;
-
-			var Fmemo = [];
-			var Smemo = [];
-
+			//draws the pitch
 			ctx.beginPath();
-			ctx.fillStyle = "#006600";
+			ctx.fillStyle = '#006600';
 			ctx.fillRect(0,0,canvasWidth,canvasHeight);
-			ctx.closePath(); 
+			ctx.closePath();
 
-			
+			//draws the ground
 			ctx.beginPath();
-			ctx.fillStyle = "#663300";
-			ctx.arc(canvasWidth /2 ,canvasHeight /2, canvasWidth / 2 ,2 * Math.PI, false);
+			ctx.fillStyle = '#663300';
+			ctx.arc(width, radius, radius, 2 * Math.PI, false);
 			ctx.fill();
 			ctx.closePath();
 
+			//draws the border ground
 			ctx.beginPath();
-			ctx.strokeStyle = "rgb(0,0,0)";
-			ctx.arc(canvasWidth /2 ,canvasHeight /2, canvasWidth / 2 ,2 * Math.PI, false);
+			ctx.strokeStyle = 'rgb(0,0,0)';
+			ctx.arc(width, radius, radius,2 * Math.PI, false);
 			ctx.stroke();
-			ctx.closePath(); 
+			ctx.closePath();
 
-
-			/*
-			//draws a circle with a diam = diam - height
-			ctx.beginPath();
-			ctx.fillStyle = "#000000";
-			ctx.arc(canvasWidth /2 ,canvasHeight /2, dif  ,2 * Math.PI, false);
-			ctx.fill();
-			ctx.closePath();  */
-
-			console.log("********************************************************");
 			for(var i=0; i<nb*2; i++)
 			{
+				//draws bases
+				dX1 = firstX - XCenter;
+				dY1 = firstY - YCenter;
+				dX3 = secondX - XCenter;
+				dY3 = secondY - YCenter;
+				dX2 = dX1 * Math.cos(angle) - dY1 * Math.sin(angle);
+				dY2 = dX1 * Math.sin(angle) + dY1 * Math.cos(angle);
+				dX4 = dX3 * Math.cos(angle) - dY3 * Math.sin(angle);
+				dY4 = dX3 * Math.sin(angle) + dY3 * Math.cos(angle);
 
-					dX1 = firstX - XCenter;
-					dY1 = firstY - YCenter;
+				ctx.beginPath();
+				ctx.moveTo(secondX,secondY);
+				Smemo[0] = secondX;
+				Smemo[1] = secondY;
+				secondX = dX4 + XCenter;
+				secondY = dY4 + YCenter;
+				ctx.lineTo(secondX, secondY);
+				Fmemo[0] = firstX;
+				Fmemo[1] = firstY;
+				firstX = dX2 + XCenter;
+				firstY = dY2 + YCenter;
+				ctx.lineTo(firstX, firstY);				
+				
+				//found the middle of two diagonals
+				unknownX = (Smemo[0] + firstX) / 2;
+				unknownY = (Smemo[1] + firstY) / 2;
 
-					dX3 = secondX - XCenter;
-					dY3 = secondY - YCenter;
-					 
-					dX2 = dX1 * Math.cos(angle) - dY1 * Math.sin(angle);
-					dY2 = dX1 * Math.sin(angle) + dY1 * Math.cos(angle); 
+				//found the 4th corner
+				x = 2 * unknownX - secondX;
+				y = 2 * unknownY - secondY;
+				ctx.lineTo(x, y);
+				ctx.lineTo(Smemo[0], Smemo[1]);
 
-					dX4 = dX3 * Math.cos(angle) - dY3 * Math.sin(angle);
-					dY4 = dX3 * Math.sin(angle) + dY3 * Math.cos(angle);
+				//Chooses the bases color
+				ctx.fillStyle = baseballWorld.colors[i/2];
 
-					ctx.beginPath();
-					ctx.moveTo(secondX,secondY);
-					Smemo[0] = secondX ;
-					Smemo[1] = secondY ;
-					secondX = dX4 + XCenter;
-					secondY = dY4 + YCenter;
-					ctx.lineTo(secondX, secondY);
-					Fmemo[0] = firstX ;
-					Fmemo[1] = firstY ;
-					firstX = dX2 + XCenter;
-					firstY = dY2 + YCenter;
-					ctx.lineTo(firstX, firstY);				
-					//found the middle of two diagonals
-					unknownX = (Smemo[0] + firstX) / 2 ;
-					unknownY = (Smemo[1] + firstY) / 2 ;
-
-					x = 2 * unknownX - secondX ;
-					y = 2 * unknownY - secondY ;
-					ctx.lineTo(x, y);
-					ctx.lineTo(Smemo[0], Smemo[1]);
-
-
-					ctx.fillStyle = baseballWorld.colors[i/2];
-
-					if(i % 2 === 0)
+				//displays them only if it's a base
+				if(i % 2 === 0)
 					ctx.fill();
-					
-
-
-					ctx.closePath();
+				
+				ctx.closePath();
 
 					
 
-					//middle to middle
-					if(i % 2 === 0)
+				//draws the positions
+				if(i % 2 === 0)
+				{
+					//found the middle of the parallelogram
+					unknownX = (Smemo[0] + x) / 2;
+					unknownY = (Smemo[1] + y) / 2;
+					unknownX = (firstX + secondX) / 2;
+					unknownY = (firstY + secondY) / 2;
+					ax = (Smemo[0] + x) / 2;
+					ay = (Smemo[1] + y) / 2;
+					bx = (firstX + secondX) / 2;
+					by = (firstY + secondY) / 2;
+
+					//locate the center of the positions
+					distance = Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)) / (baseballWorld.posAmount*2);
+					lambda = distance / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
+					arrDistance = Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2));
+					arrLambda = arrDistance / (Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2)));
+					cx = ax + (lambda * (bx - ax));
+					cy = ay + (lambda * (by - ay));
+					next = distance;	
+
+					for(var j=0;j<baseballWorld.posAmount;j++)
 					{
+						//draws the positions
 						ctx.beginPath();
-						unknownX = (Smemo[0] + x) / 2;
-						unknownY = (Smemo[1] + y) / 2;
-						ctx.moveTo(unknownX,unknownY);
-						unknownX = (firstX + secondX) / 2;
-						unknownY = (firstY + secondY) / 2;
-						ctx.lineTo(unknownX, unknownY);
-						ctx.strokeStyle = "#000000";
+						ctx.fillStyle = '#FFFFFF';
+						ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false);
+						ctx.fill();
+						ctx.closePath();
+
+						//draws the border position in red if the buggle isnt correctly placed
+						ctx.beginPath();
+						if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != i/2 && baseballWorld.field[(i/2)*baseballWorld.posAmount+j]  != -1)
+						{
+							ctx.strokeStyle = '#FF0000';
+							ctx.lineWidth = 3;
+						}
+						else
+						{
+							ctx.strokeStyle = '#000000';
+							ctx.lineWidth = 1;
+						}
+
+						ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false);
 						ctx.stroke();
 						ctx.closePath();
 
+						//to avoid bad lineWidth
+						ctx.lineWidth = 1;
 
-						ctx.beginPath();
-							
-							ax = (Smemo[0] + x) / 2 ;
-							ay = (Smemo[1] + y) / 2 ;
-
-							bx = (firstX + secondX) / 2 ;
-							by = (firstY + secondY) / 2 ;
-
-
-							
-							ArrDistance = Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2)) ;
-							ArrLambda = ArrDistance / (Math.sqrt(Math.pow(ax-x,2)+Math.pow(ay-y,2)));
-
-							distance = Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)) / (baseballWorld.posAmount*2) ;
-							lambda = distance / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2))); 
-	
-							cx = ax + (lambda * (bx - ax));
-							cy = ay + (lambda * (by - ay));
-
-					
-  
-							
-							next = distance	;				
-						for(var j=0;j<baseballWorld.posAmount;j++)
+						//draws buggles	
+						if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
 						{
-
 							
-							
+							var dx, dy;
+							var pixW = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
+							var pixY = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
 
 							ctx.beginPath();
-							ctx.fillStyle = "#FFFFFF" ;
-							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
-							ctx.fill();
-							ctx.closePath();
-
-
-
-							
-
-							ctx.beginPath();
-
-
-							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != i/2 && baseballWorld.field[(i/2)*baseballWorld.posAmount+j]  != -1 )
-							{
-								ctx.strokeStyle = "#FF0000";
-								ctx.lineWidth = 3;
-							}
-							else
-							{
-								ctx.strokeStyle = "#000000";
-								ctx.lineWidth = 1;
-							}
-
-
-							ctx.arc(cx, cy, 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)), 2 * Math.PI, false );
-							ctx.stroke();
-
-							ctx.closePath();
-
-							ctx.lineWidth = 1;
-
-
-
-							
-							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] != -1)
-							{
-								ctx.beginPath();
-
-
-								var dx, dy;
-
-								var pixW = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
-								var pixY = 5.3-(0.6*baseballWorld.posAmount)-(2.5*(nb)) / INVADER_SPRITE_SIZE;
-
-								/*
-								var padX = 0.5*(1)* 39-(5*baseballWorld.posAmount)-(1.65*(nb-2));
-								var padY = 0.5*(1)* 39-(5*baseballWorld.posAmount)-(1.65*(nb-2)); */
-
-								/*
-								var ox = buggle.x * cellWidth;
-								var oy = buggle.y * cellHeight; */
-
-								ctx.fillStyle = baseballWorld.colors[baseballWorld.field[(i/2)*baseballWorld.posAmount+j]] ;
-								
-								buggleX = cx - 20 + (1.2*(nb-4)) + (3 * baseballWorld.posAmount-2);
-								buggleY = cy - 19 + (1.1*(nb-4)) + (3 * baseballWorld.posAmount-2);
-
-								for(dy=0; dy<INVADER_SPRITE_SIZE; dy++) {
-									for(dx=0; dx<INVADER_SPRITE_SIZE; dx++) {
-										if(INVADER_SPRITE[dy][dx] === 1) {
-											ctx.fillRect(buggleX+dx*pixW, buggleY+dy*pixY, pixW, pixY);
-										}
+							ctx.fillStyle = baseballWorld.colors[baseballWorld.field[(i/2)*baseballWorld.posAmount+j]];
+							buggleX = cx - 20 + (1.2*(nb-4)) + (3 * baseballWorld.posAmount-2);
+							buggleY = cy - 19 + (1.1*(nb-4)) + (3 * baseballWorld.posAmount-2);
+							for(dy=0; dy<INVADER_SPRITE_SIZE; dy++) {
+								for(dx=0; dx<INVADER_SPRITE_SIZE; dx++) {
+									if(INVADER_SPRITE[dy][dx] === 1) {
+										ctx.fillRect(buggleX+dx*pixW, buggleY+dy*pixY, pixW, pixY);
 									}
 								}
-
-								ctx.closePath();
 							}
-
-
-							if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
-								{ /*
-									ctx.beginPath();
-									console.log("index :", indexColor);
-										ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
-										console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-									
-									console.log(baseballWorld.field);
-									console.log("couleur :", baseballWorld.field[indexColor]);
-									//console.log("index :", baseballWorld.move);
-									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
-									//ctx.arcTo(cx,cy,baseballWorld.holeX,baseballWorld.holeY,200);
-									ctx.lineTo(baseballWorld.holeX, baseballWorld.holeY);
-									ctx.lineWidth = 2;
-									//console.log((i/2)*baseballWorld.posAmount+j);
-									console.log("index :", indexColor);
-									ctx.stroke();
-									ctx.closePath();		*/
-
-
-
-									/*
-									ctx.beginPath();
-									
-									ctx.strokeStyle = "#000000" ;
-									drawArrow(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)),baseballWorld.holeX,baseballWorld.holeY);
-									ctx.lineWidth = 7;
-									ctx.stroke();
-									ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
-									ctx.lineWidth = 5;
-									ctx.stroke();
-									ctx.closePath(); */
-
-									ctx.beginPath();
-									ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
-									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
-									ctx.quadraticCurveTo(canvasWidth / 2, canvasHeight / 2, baseballWorld.holeX, baseballWorld.holeY);
-									ctx.lineWidth = 5;
-									ctx.stroke();
-
-									drawArrowHead(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)),baseballWorld.holeX, baseballWorld.holeY );
-
-									/*
-									var a = findAngle(canvasWidth / 2, canvasHeight / 2, baseballWorld.holeX, baseballWorld.holeY) ;
-									ctx.fillRect(baseballWorld.holeX, baseballWorld.holeY, 2,2);
-									drawArrowHead(baseballWorld.holeX, baseballWorld.holeY, a, 12,12); */
-								}
-								
-								ctx.lineWidth = 1;
-							if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
-								{
-									baseballWorld.holeX = cx + 6/5*(ArrLambda * (x - ax));
-									baseballWorld.holeY = cy + 6/5*(ArrLambda * (y - ay));
-								} 
-
-
-								next += distance * 2 ;
-
-							lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
-							cx = ax + (lambda * (bx - ax));
-							cy = ay + (lambda * (by - ay));
-
-								
+							ctx.closePath();
 						}
 
-					}
-
-					
-
-					/*
-
-					for (var j = 0; j<baseballWorld.posAmount; j++) {
-
+						//draws arrows
+						if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
+						{
+							//x and y of the first point of the arrow
+							var arrcx = cx + (arrLambda * (x - ax));
+							var arrcy = cy + (arrLambda * (y - ay));
 							ctx.beginPath();
-							ctx.fillStyle = "#FFFFFF";
-							ctx.arc(width / (baseballWorld.posAmount * 2) + (width / baseballWorld.posAmount * (j)) , height / 2, 30 - (5*baseballWorld.posAmount) ,2 * Math.PI, false);
-							ctx.fill();
-							ctx.closePath();
-					};  */
+							ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+							ctx.moveTo(arrcx, arrcy);
+							ctx.quadraticCurveTo(width, radius, baseballWorld.holeX, baseballWorld.holeY);
+							ctx.lineWidth = 5;
+							ctx.stroke();
+							drawArrowHead(arrcx, arrcy, baseballWorld.holeX, baseballWorld.holeY);
+						}
 
+						//To avoid bad lineWidth
+						ctx.lineWidth = 1;
+
+						//found the empty location	
+						if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
+						{
+							baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
+							baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
+						} 
+
+						next += distance * 2;
+
+						lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
+						cx = ax + (lambda * (bx - ax));
+						cy = ay + (lambda * (by - ay));
+					}
+				}
 			}
-
-			
-			/*
-			ctx.beginPath();
-			ctx.strokeStyle = "#000000";
-			ctx.arc(canvasWidth / 2, canvasHeight /2, dif2, 2 * Math.PI, false);
-			ctx.stroke();
-			ctx.closePath();
-
-			for(var j = 0; j<baseballWorld.posAmount * nb * 5; j++)
-			{
-				dX1 = circleX - XCenter;
-				dY1 = circleY - YCenter;
-
-				ctx.beginPath();
-				ctx.fillStyle = "#FF00FF";
-				ctx.fillRect(circleX, circleY,10,10);
-				ctx.closePath();
-
-				dX2 = dX1 * Math.cos(angleCircle) - dY1 * Math.sin(angleCircle);
-				dY2 = dX1 * Math.sin(angleCircle) + dY1 * Math.cos(angleCircle); 
-
-				circleX = dX2 + XCenter ;
-				circleY = dY2 + YCenter ;
-
-
-			}
-	
-			*/
-
-			/*
-			ctx.beginPath();
-			ctx.fillStyle = "#66FF33";
-			ctx.fillRect(canvasWidth / 3, canvasHeight - 84, canvasWidth / 3, canvasHeight / 6);
-			ctx.closePath();
-			ctx.beginPath();
-			ctx.strokeStyle = "rgb(0,0,0)";
-			ctx.strokeRect(canvasWidth / 3, canvasHeight - 84 , canvasWidth / 3, canvasHeight / 6);
-			ctx.closePath();
-
-			ctx.beginPath();
-			ctx.fillStyle = "#FF00FF";
-			ctx.fillRect(canvasWidth / 3, 15, canvasWidth / 3, canvasHeight / 6);
-			ctx.closePath();
-			ctx.beginPath();
-			ctx.strokeStyle = "rgb(0,0,0)";
-			ctx.strokeRect(canvasWidth / 3, 15, canvasWidth / 3, canvasHeight / 6);
-			ctx.closePath();
-
-			ctx.beginPath();
-			ctx.fillStyle = "#FFFF00";
-			ctx.fillRect(15, canvasHeight / 3, canvasWidth / 6, canvasHeight / 3);
-			ctx.closePath();
-			ctx.beginPath();
-			ctx.strokeStyle = "#000000";
-			ctx.strokeRect(15, canvasHeight / 3, canvasWidth / 6, canvasHeight / 3);
-			ctx.closePath();
-
-			ctx.beginPath();
-			ctx.fillStyle = "#0000FF";
-			ctx.fillRect(canvasWidth - 84, canvasHeight / 3, canvasWidth / 6, canvasHeight / 3 );
-			ctx.closePath();
-			ctx.beginPath();
-			ctx.strokeStyle = "#000000";
-			ctx.strokeRect(canvasWidth - 84, canvasHeight / 3, canvasWidth / 6, canvasHeight / 3 );
-			ctx.closePath();
-
-
-
-
-
-			ctx.beginPath();
-			ctx.fillStyle = "#FFFFFF";
-			ctx.arc(canvasWidth /3 + canvasWidth / 9 -10 ,(canvasHeight / 6 * 4.8) + (canvasHeight / 6 * 4.8)/9, 30 ,2 * Math.PI, false);
-			ctx.fill();
-			ctx.closePath();
-
-			ctx.beginPath();
-			ctx.fillStyle = "#FFFFFF";
-			ctx.arc(canvasWidth /3 + canvasWidth / 4, (canvasHeight / 6 * 4.8) + (canvasHeight / 6 * 4.8)/9 ,30, 2 * Math.PI, false);
-			ctx.fill();
-			ctx.closePath();
-
-			*/
-		
 		}
 	}
-
-
 })();
