@@ -76,20 +76,47 @@
 		}
 
 
-		function drawArrow(fromx,fromy, tox, toy)
+		function drawArrowHead(fromx,fromy, tox, toy)
 		{
 			var head = 10;
-			var angle = Math.atan2(toy-fromy,tox-fromx);
-			ctx.moveTo(fromx,fromy);
-			ctx.lineTo(tox,toy);
+			var angle = Math.atan2(toy-(canvasHeight/2),tox-(canvasWidth/2));
 			ctx.moveTo(tox, toy);
 			ctx.lineTo(tox-head*Math.cos(angle-Math.PI/6),toy-head*Math.sin(angle-Math.PI/6));
 			ctx.moveTo(tox,toy);
 			ctx.lineTo(tox-head*Math.cos(angle+Math.PI/6),toy-head*Math.sin(angle+Math.PI/6));
+			ctx.moveTo(fromx,fromy);
 			ctx.lineCap = 'round' ;
+			ctx.stroke();
 		}
 
 
+/*
+		function drawArrowHead(x, y , angle, sizex, sizey)
+		{
+			/*
+			var hx = sizex / 2 ;
+			var hy = sizey / 2;
+
+			ctx.translate((x),(y));
+			ctx.rotate(angle);
+			ctx.translate(-hx,-hy);
+
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			ctx.lineTo(0,1*sizey);
+			ctx.lineTo(1*sizex,1*hy);
+			ctx.fill();
+			ctx.closePath();
+
+			ctx.translate(hx,hy);
+			ctx.rotate(-angle);
+			ctx.translate(-x,-y); */
+
+
+		function findAngle(sx, sy, ex, ey)
+		{
+			return  Math.atan2((ey-sy) / (ex - sx));
+		}
 
 		function drawField(baseballWorld)
 		{
@@ -184,7 +211,7 @@
 			ctx.closePath(); 
 
 
-/*
+			/*
 			//draws a circle with a diam = diam - height
 			ctx.beginPath();
 			ctx.fillStyle = "#000000";
@@ -374,6 +401,9 @@
 									ctx.stroke();
 									ctx.closePath();		*/
 
+
+
+									/*
 									ctx.beginPath();
 									
 									ctx.strokeStyle = "#000000" ;
@@ -383,7 +413,21 @@
 									ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
 									ctx.lineWidth = 5;
 									ctx.stroke();
-									ctx.closePath();
+									ctx.closePath(); */
+
+									ctx.beginPath();
+									ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+									ctx.moveTo(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)));
+									ctx.quadraticCurveTo(canvasWidth / 2, canvasHeight / 2, baseballWorld.holeX, baseballWorld.holeY);
+									ctx.lineWidth = 5;
+									ctx.stroke();
+
+									drawArrowHead(cx + (ArrLambda * (x - ax)), cy + (ArrLambda * (y - ay)),baseballWorld.holeX, baseballWorld.holeY );
+
+									/*
+									var a = findAngle(canvasWidth / 2, canvasHeight / 2, baseballWorld.holeX, baseballWorld.holeY) ;
+									ctx.fillRect(baseballWorld.holeX, baseballWorld.holeY, 2,2);
+									drawArrowHead(baseballWorld.holeX, baseballWorld.holeY, a, 12,12); */
 								}
 								
 								ctx.lineWidth = 1;
@@ -419,9 +463,6 @@
 					};  */
 
 			}
-/*
-
-			
 
 			
 			/*
@@ -508,12 +549,7 @@
 			*/
 		
 		}
-
-
-
-
-
-	};
+	}
 
 
 })();
