@@ -385,7 +385,7 @@
 			exercise.drawService.setDraw(drawFnct);
 			exercise.drawFnct = drawFnct;
 			exercise.drawService.setWorld(exercise.currentWorld);
-			if(!exercise.playedDemo && worldKind === 'answer') {
+			if(!exercise.isRunning && worldKind === 'answer') {
 				runDemo();
 			}
 		}
