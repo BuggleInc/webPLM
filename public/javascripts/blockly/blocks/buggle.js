@@ -3,7 +3,7 @@ Blockly.Blocks['buggle_get_color'] = {
         this.setColour(0);
         this.appendDummyInput()
             .appendField("getBodyColor");
-        this.setOutput(true, "String");
+        this.setOutput(true, "Color");
         this.setTooltip('Get the color of the body.');
     }
 };
@@ -12,8 +12,10 @@ Blockly.Blocks['buggle_set_color'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("setBodyColor")
-            .appendField(new Blockly.FieldDropdown([["black", "Color.black"], ["blue", "Color.blue"], ["cyan", "Color.cyan"], ["darkgrey", "Color.darkgrey"], ["gray", "Color.gray"], ["green", "Color.green"], ["lightgrey", "Color.lightgray"], ["magenta", "Color.magenta"], ["orange", "Color.orange"], ["pink", "Color.pink"], ["red", "Color.red"], ["white", "Color.white"], ["yellow", "Color.yellow"]]), "VAL");
+            .appendField("setBodyColor");
+        this.appendValueInput("VAL")
+            .setCheck("Color");
+        this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('Set the color of the body.');
@@ -54,8 +56,10 @@ Blockly.Blocks['buggle_set_heading'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("setDirection")
-            .appendField(new Blockly.FieldDropdown([["north", "Direction.NORTH"], ["south", "Direction.SOUTH"], ["east", "Direction.EAST"], ["west", "Direction.WEST"]]), "VAL");
+            .appendField("setDirection");
+        this.appendValueInput("VAL")
+            .setCheck("Direction");
+        this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('Set heading.');

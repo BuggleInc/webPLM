@@ -19,7 +19,7 @@ Blockly.Python['brush_get_color'] = function (block) {
 };
 
 Blockly.Python['brush_set_color'] = function (block) {
-    var val = block.getFieldValue('VAL');
+    var val = Blockly.Python.valueToCode(block, 'VAL', Blockly.Python.ORDER_ATOMIC);
     var code = 'setBrushColor('+val+')\n';
     return code;
 };

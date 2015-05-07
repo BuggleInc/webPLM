@@ -43,3 +43,42 @@ Blockly.Python['world_message_clear'] = function (block) {
     var code = 'clearMessage()\n';
     return code;
 };
+
+Blockly.Python['world_crossing'] = function (block) {
+    // Only use if crossing() is already defined in the exercise
+    var code = 'crossing()';
+    return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['world_exitReached'] = function (block) {
+    // Only use if exitReached() is already defined in the exercise
+    var code = 'exitReached()';
+    return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['world_ground_white'] = function (block) {
+    // Only use if isGroundWhite() is already defined in the exercise
+    var code = 'isGroundWhite()';
+    return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['world_ground_orange'] = function (block) {
+    // Only use if isGroundWhite() is already defined in the exercise
+    var code = 'isGroundWhite()';
+    return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['world_height_get'] = function (block) {
+    var code = 'getWorldHeight()';
+    return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python['world_width_get'] = function (block) {
+    var code = 'getWorldWidth()';
+    return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python['world_indication_get'] = function (block) {
+    var code = 'getIndication()';
+    return [code, Blockly.Python.ORDER_NONE];
+};

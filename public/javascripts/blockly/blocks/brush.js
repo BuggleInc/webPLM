@@ -44,8 +44,10 @@ Blockly.Blocks['brush_set_color'] = {
     init: function () {
         this.setColour(330);
         this.appendDummyInput()
-            .appendField("setBrushColor")
-            .appendField(new Blockly.FieldDropdown([["black", "Color.black"], ["blue", "Color.blue"], ["cyan", "Color.cyan"], ["darkgrey", "Color.darkgrey"], ["gray", "Color.gray"], ["green", "Color.green"], ["lightgrey", "Color.lightgray"], ["magenta", "Color.magenta"], ["orange", "Color.orange"], ["pink", "Color.pink"], ["red", "Color.red"], ["white", "Color.white"], ["yellow", "Color.yellow"]]), "VAL");
+            .appendField("setBrushColor");
+        this.appendValueInput("VAL")
+            .setCheck("Color");
+        this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('Change the brush color.');

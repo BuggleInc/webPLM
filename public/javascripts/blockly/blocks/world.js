@@ -94,3 +94,73 @@ Blockly.Blocks['world_message_clear'] = {
         this.setTooltip('Erase the message.');
     }
 };
+
+Blockly.Blocks['world_crossing'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("crossing");
+        this.setOutput(true, 'Boolean');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_exitReached'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("exitReached");
+        this.setOutput(true, 'Boolean');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_ground_white'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("isGroundWhite");
+        this.setOutput(true, 'Boolean');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_ground_orange'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("isOverOrange");
+        this.setOutput(true, 'Boolean');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_height_get'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("getWorldHeight");
+        this.setOutput(true, 'Number');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_width_get'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("getWorldWidth");
+        this.setOutput(true, 'Number');
+        this.setTooltip('');
+    }
+};
+
+Blockly.Blocks['world_indication_get'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("getIndication");
+        this.setOutput(true, 'Char');
+        this.setTooltip('');
+    }
+};

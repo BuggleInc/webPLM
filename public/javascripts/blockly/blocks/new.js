@@ -139,7 +139,6 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     decompose: function (workspace) {
-        console.log('decompose');
         var containerBlock = Blockly.Block.obtain(workspace,
             'procedures_mutatorcontainer');
         containerBlock.initSvg();
@@ -174,7 +173,6 @@ Blockly.Blocks['newprocedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     compose: function (containerBlock) {
-        console.log('compose');
         // Parameter list.
         this.arguments_ = [];
         this.paramIds_ = [];
