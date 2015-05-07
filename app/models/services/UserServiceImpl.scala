@@ -2,15 +2,14 @@ package models.services
 
 import java.util.UUID
 import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.api.services.AuthInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import models.User
 import models.daos.UserDAO
 import play.api.libs.concurrent.Execution.Implicits._
-
 import scala.concurrent.Future
+import play.api.i18n.Lang
 
 /**
  * Handles actions to users.
@@ -43,7 +42,7 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
    * @param profile The social profile to save.
    * @return The user for whom the profile was saved.
    */
-  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: String) = {
+  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: UUID, preferredLang: Lang) = {
     userDAO.find(profile.loginInfo).flatMap {
       case Some(user) => // Update user with profile
         userDAO.save(user.copy(
@@ -51,17 +50,19 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
           lastName = profile.lastName,
           fullName = profile.fullName,
           email = profile.email,
-          avatarURL = profile.avatarURL
+          avatarURL = profile.avatarURL,
+          preferredLang = preferredLang
         ))
       case None => // Insert a new user
         userDAO.save(User(
           userID = UUID.randomUUID(),
-          gitID = UUID.fromString(gitID),
+          gitID = gitID,
           loginInfo = profile.loginInfo,
           firstName = profile.firstName,
           lastName = profile.lastName,
           fullName = profile.fullName,
           email = profile.email,
+          preferredLang = preferredLang,
           avatarURL = profile.avatarURL
         ))
     }

@@ -24,10 +24,11 @@ import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
+import models.daos.UserDAOMongoImpl
 
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
-  def propsWithUser(actorUUID: String, user: User, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, user, preferredLang, out))
+  def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
 class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
@@ -41,16 +42,18 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentUser: User = null
   
+  var currentPreferredLang = preferredLang
+  
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, preferredLang.toLocale)
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale)
   
   initSpies
   registerActor
   
-  def this(actorUUID: String, user: User, preferredLang: Lang, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, preferredLang, out)
+  def this(actorUUID: String, user: User, out: ActorRef) {
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, out)
     setCurrentUser(user)
   }
   
@@ -61,11 +64,9 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
-          setCurrentUser((msg \ "user").asOpt[User].getOrElse(null))
-          setCurrentGitID(currentUser.gitID.toString, false)
-          plm.setUserUUID(currentGitID)
+          setCurrentUser((msg \ "user").asOpt[User].get)
         case "signOut" =>
-          setCurrentUser(null)
+          clearCurrentUser()
           setCurrentGitID(UUID.randomUUID.toString, true)
           plm.setUserUUID(currentGitID)
         case "getLessons" =>
@@ -84,7 +85,9 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
           (optLang.getOrElse(None)) match {
             case lang: String =>
-              plm.setLang(Lang(lang))
+              currentPreferredLang = Lang(lang)
+              plm.setLang(currentPreferredLang)
+              savePreferredLang()
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -160,15 +163,23 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   }
   
   def setCurrentUser(newUser: User) {
-    var json: JsValue = Json.obj()
-    
     currentUser = newUser
-    if(currentUser != null) {
-      json = Json.obj(
+    sendMessage("user", Json.obj(
         "user" -> currentUser
       )
-    }
-    sendMessage("user", json)
+    )
+    
+    setCurrentGitID(currentUser.gitID.toString, false)
+    plm.setUserUUID(currentGitID)
+    plm.setLang(currentUser.preferredLang)
+  }
+  
+  def clearCurrentUser() {
+    currentUser = null
+    sendMessage("user", Json.obj())
+    
+    currentGitID = UUID.randomUUID.toString
+    setCurrentGitID(currentGitID, false)
   }
   
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
@@ -204,6 +215,15 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   def registerSpy(spy: ExecutionSpy) {
     registeredSpies = registeredSpies ::: List(spy)
+  }
+  
+  def savePreferredLang() {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          preferredLang = currentPreferredLang
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
   }
   
   override def postStop() = {

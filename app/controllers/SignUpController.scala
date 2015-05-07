@@ -18,6 +18,8 @@ import utils.CookieUtils
 import scala.concurrent.Future
 import actors.ActorsMap
 import play.api.Logger
+import utils.LangUtils
+import play.api.i18n.Lang
 
 /**
  * The sign up controller.
@@ -45,6 +47,7 @@ class SignUpController @Inject() (
     if(actorUUID.isEmpty) {
       Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
     }
+    var preferredLang: Lang = LangUtils.getPreferredLang(request)
     if(gitID.isEmpty) {
       gitID = UUID.randomUUID.toString
     }
@@ -63,6 +66,7 @@ class SignUpController @Inject() (
             lastName = Some(data.lastName),
             fullName = Some(data.firstName + " " + data.lastName),
             email = Some(data.email),
+            preferredLang = preferredLang,
             avatarURL = None
           )
           for {
