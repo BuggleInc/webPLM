@@ -18,7 +18,7 @@
 			getAvailableLangs: getAvailableLangs,
 			updateAvailableLangs: updateAvailableLangs,
 			getSelectedLang: getSelectedLang,
-			setSelectedLang: setSelectedLang
+			setRemotelySelectedLang: setRemotelySelectedLang
 		};
 		
 		return service;
@@ -49,13 +49,16 @@
 			return selectedLang;
 		}
 
+		function setRemotelySelectedLang(lang) {
+			connection.sendMessage('setLang', { 'lang': lang.code });
+		}
+
 		function setSelectedLang (lang) {
 			if(!$auth.isAuthenticated()) {
 				$cookies.lang = lang.code;
 			}
 			selectedLang = lang;
 			gettextCatalog.setCurrentLanguage(lang.code);
-			connection.sendMessage('setLang', { "lang": lang.code });
 		}
 	}
 })();
