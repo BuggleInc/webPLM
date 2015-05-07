@@ -53,7 +53,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   registerActor
   
   def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang.getOrElse(Lang("en")), out)
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, out)
     setCurrentUser(user)
   }
   
@@ -64,11 +64,9 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
-          setCurrentUser((msg \ "user").asOpt[User].getOrElse(null))
-          setCurrentGitID(currentUser.gitID.toString, false)
-          plm.setUserUUID(currentGitID)
+          setCurrentUser((msg \ "user").asOpt[User].get)
         case "signOut" =>
-          setCurrentUser(null)
+          clearCurrentUser()
           setCurrentGitID(UUID.randomUUID.toString, true)
           plm.setUserUUID(currentGitID)
         case "getLessons" =>
@@ -89,12 +87,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
             case lang: String =>
               currentPreferredLang = Lang(lang)
               plm.setLang(currentPreferredLang)
-              if(currentUser != null) {
-                currentUser = currentUser.copy(
-                    preferredLang = Some(currentPreferredLang)
-                )
-                UserDAOMongoImpl.save(currentUser)
-              }
+              savePreferredLang()
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -170,15 +163,23 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   }
   
   def setCurrentUser(newUser: User) {
-    var json: JsValue = Json.obj()
-    
     currentUser = newUser
-    if(currentUser != null) {
-      json = Json.obj(
+    sendMessage("user", Json.obj(
         "user" -> currentUser
       )
-    }
-    sendMessage("user", json)
+    )
+    
+    setCurrentGitID(currentUser.gitID.toString, false)
+    plm.setUserUUID(currentGitID)
+    plm.setLang(currentUser.preferredLang)
+  }
+  
+  def clearCurrentUser() {
+    currentUser = null
+    sendMessage("user", Json.obj())
+    
+    currentGitID = UUID.randomUUID.toString
+    setCurrentGitID(currentGitID, false)
   }
   
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
@@ -214,6 +215,15 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   def registerSpy(spy: ExecutionSpy) {
     registeredSpies = registeredSpies ::: List(spy)
+  }
+  
+  def savePreferredLang() {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          preferredLang = currentPreferredLang
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
   }
   
   override def postStop() = {

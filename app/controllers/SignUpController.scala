@@ -66,7 +66,7 @@ class SignUpController @Inject() (
             lastName = Some(data.lastName),
             fullName = Some(data.firstName + " " + data.lastName),
             email = Some(data.email),
-            preferredLang = Some(preferredLang),
+            preferredLang = preferredLang,
             avatarURL = None
           )
           for {

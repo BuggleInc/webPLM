@@ -30,7 +30,7 @@ case class User(
   lastName: Option[String],
   fullName: Option[String],
   email: Option[String],
-  preferredLang: Option[Lang],
+  preferredLang: Lang,
   avatarURL: Option[String]) extends Identity
 
 /**
