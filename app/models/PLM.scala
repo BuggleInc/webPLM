@@ -21,11 +21,11 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String]) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(userUUID, plmLogger, locale)
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"))
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 

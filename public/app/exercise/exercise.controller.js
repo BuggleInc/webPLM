@@ -544,13 +544,17 @@
 		}
 
 		function updateUI(pl, instructions, api, code) {
-			exercise.currentProgrammingLanguage = pl;
-			setIDEMode(pl);
+			if(pl !== null) {
+				exercise.currentProgrammingLanguage = pl;
+				setIDEMode(pl);
+			}
 			exercise.instructions = $sce.trustAsHtml(instructions);
-			if(api !== null)
+			if(api !== null) {
 				exercise.api = $sce.trustAsHtml(api);
-			if(code !== null)
-			exercise.code = code;
+			}
+			if(code !== null) {
+				exercise.code = code;
+			}
 		}
 
 		function resetExercise() {
