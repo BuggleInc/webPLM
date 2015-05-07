@@ -65,9 +65,10 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
           setCurrentUser((msg \ "user").asOpt[User].get)
+          plm.setUserUUID(currentGitID)
+          plm.setLang(currentUser.preferredLang)
         case "signOut" =>
           clearCurrentUser()
-          setCurrentGitID(UUID.randomUUID.toString, true)
           plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
@@ -170,8 +171,6 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     )
     
     setCurrentGitID(currentUser.gitID.toString, false)
-    plm.setUserUUID(currentGitID)
-    plm.setLang(currentUser.preferredLang)
   }
   
   def clearCurrentUser() {
@@ -179,7 +178,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     sendMessage("user", Json.obj())
     
     currentGitID = UUID.randomUUID.toString
-    setCurrentGitID(currentGitID, false)
+    setCurrentGitID(currentGitID, true)
   }
   
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
