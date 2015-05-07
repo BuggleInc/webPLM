@@ -27,11 +27,11 @@ import java.util.UUID
 import models.daos.UserDAOMongoImpl
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang)(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, out))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
   def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, out: ActorRef) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, lastProgLang: Option[String], out: ActorRef) extends Actor {  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -47,13 +47,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale)
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang)
   
   initSpies
   registerActor
   
   def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang, out)
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, out)
     setCurrentUser(user)
   }
   
@@ -79,6 +79,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           (optProgrammingLanguage.getOrElse(None)) match {
             case programmingLanguage: String =>
               plm.setProgrammingLanguage(programmingLanguage)
+              saveLastProgLang(programmingLanguage)
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -214,6 +215,15 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   def registerSpy(spy: ExecutionSpy) {
     registeredSpies = registeredSpies ::: List(spy)
+  }
+  
+  def saveLastProgLang(programmingLanguage: String) {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          lastProgLang = Some(programmingLanguage)
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
   }
   
   def savePreferredLang() {

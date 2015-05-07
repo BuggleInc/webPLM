@@ -10,6 +10,7 @@ import play.api.libs.json.Reads
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.JsSuccess
+import plm.core.lang.ProgrammingLanguage
 
 /**
  * The user object.
@@ -31,6 +32,7 @@ case class User(
   fullName: Option[String],
   email: Option[String],
   preferredLang: Lang,
+  lastProgLang: Option[String],
   avatarURL: Option[String]) extends Identity
 
 /**

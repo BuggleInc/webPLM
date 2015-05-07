@@ -52,7 +52,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(actorUUID,  gitID, newUser, preferredLang) _)
+        Right(PLMActor.props(actorUUID,  gitID, newUser, preferredLang, None) _)
     }
   }
   
