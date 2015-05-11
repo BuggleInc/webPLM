@@ -18,6 +18,8 @@ import actors.ActorsMap
 import play.api.Logger
 import utils.CookieUtils
 import java.util.UUID
+import utils.LangUtils
+import play.api.i18n.Lang
 
 /**
  * The social auth controller.
@@ -41,29 +43,28 @@ class SocialAuthController @Inject() (
     if(actorUUID.isEmpty) {
       Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
     }
-    var gitID: String = CookieUtils.getCookieValue(request, "gitID")
-    if(gitID.isEmpty) {
-      gitID = UUID.randomUUID.toString
-    }
     (env.providers.get(provider) match {
       case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
         p.authenticate().flatMap {
           case Left(result) => Future.successful(result)
-          case Right(authInfo) => for {
+          case Right(authInfo) => 
+            var preferredLang: Lang = LangUtils.getPreferredLang(request)
+            var gitID: String = CookieUtils.getOrElseCookieValue(request, "gitID", UUID.randomUUID.toString)
+            for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile, gitID)
+            user <- userService.save(profile, UUID.fromString(gitID), preferredLang)
             authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
-          } yield {
-            ActorsMap.get(actorUUID) match {
-              case Some(actor) =>
-                actor ! Json.obj(
-                  "cmd" -> "signIn",
-                  "user" -> user
-                )
-              case _ =>
-                Logger.debug("Actor not found... Weird isn't it?")
+            } yield {
+              ActorsMap.get(actorUUID) match {
+                case Some(actor) =>
+                  actor ! Json.obj(
+                    "cmd" -> "signIn",
+                    "user" -> user
+                  )
+                case _ =>
+                  Logger.debug("Actor not found... Weird isn't it?")
             }
             env.eventBus.publish(LoginEvent(user, request, request2lang))
             Ok(Json.obj("token" -> token))

@@ -1,9 +1,16 @@
 package models
 
 import java.util.UUID
-
 import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
 import play.api.libs.json.Json
+import play.api.i18n.Lang
+import play.api.libs.json.Writes
+import play.api.libs.json.JsPath
+import play.api.libs.json.Reads
+import play.api.libs.json.Format
+import play.api.libs.json.JsValue
+import play.api.libs.json.JsSuccess
+import plm.core.lang.ProgrammingLanguage
 
 /**
  * The user object.
@@ -24,15 +31,31 @@ case class User(
   lastName: Option[String],
   fullName: Option[String],
   email: Option[String],
+  preferredLang: Lang,
+  lastProgLang: Option[String],
   avatarURL: Option[String]) extends Identity
 
 /**
  * The companion object.
  */
 object User {
+  
+  implicit val langWrites = new Writes[Lang] {
+    def writes(lang: Lang) = Json.obj(
+      "code" -> lang.code
+    )
+  }
+  
+  implicit val langRead = new Reads[Lang] {
+    def reads(json: JsValue) = {
+      var optCode: Option[String] = (json \ "code").asOpt[String]
+      JsSuccess(Lang(optCode.getOrElse("en")))
+    }
+  }
 
   /**
    * Converts the [User] object to Json and vice versa.
    */
+    
   implicit val jsonFormat = Json.format[User]
 }
