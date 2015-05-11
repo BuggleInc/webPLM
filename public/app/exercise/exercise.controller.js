@@ -282,11 +282,14 @@
                 exercise.code = Blockly.Python.workspaceToCode();
                 alert(exercise.code);
 
-                /* Récup du code des blocks du workspace 
+                // Récup du code des blocks du workspace 
                 var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
-                var xml_text = Blockly.Xml.domToText(xml);*/
+                var xml_text = Blockly.Xml.domToText(xml);
+                alert(xml_text);
+                console.log(xml_text);
 
-                /* Charge à partir de la variable xml des blocks dans le workspace
+                // Charge à partir de la variable xml des blocks dans le workspace
+                /*var tmp = '';
                 var xml = Blockly.Xml.textToDom(tmp);
                 Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);*/
             }

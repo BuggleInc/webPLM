@@ -203,9 +203,7 @@ Blockly.Blocks['lists_repeat'] = {
         this.setHelpUrl(Blockly.Msg.LISTS_REPEAT_HELPURL);
         this.setColour(260);
         this.setOutput(true, 'Array');
-        this.interpolateMsg(Blockly.Msg.LISTS_REPEAT_TITLE,
-            ['ITEM', null, Blockly.ALIGN_RIGHT],
-            ['NUM', 'Number', Blockly.ALIGN_RIGHT],
+        this.interpolateMsg(Blockly.Msg.LISTS_REPEAT_TITLE, ['ITEM', null, Blockly.ALIGN_RIGHT], ['NUM', 'Number', Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.LISTS_REPEAT_TOOLTIP);
     }
@@ -219,8 +217,7 @@ Blockly.Blocks['lists_length'] = {
     init: function () {
         this.setHelpUrl(Blockly.Msg.LISTS_LENGTH_HELPURL);
         this.setColour(260);
-        this.interpolateMsg(Blockly.Msg.LISTS_LENGTH_TITLE,
-            ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
+        this.interpolateMsg(Blockly.Msg.LISTS_LENGTH_TITLE, ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Number');
         this.setTooltip(Blockly.Msg.LISTS_LENGTH_TOOLTIP);
@@ -235,8 +232,7 @@ Blockly.Blocks['lists_isEmpty'] = {
     init: function () {
         this.setHelpUrl(Blockly.Msg.LISTS_IS_EMPTY_HELPURL);
         this.setColour(260);
-        this.interpolateMsg(Blockly.Msg.LISTS_IS_EMPTY_TITLE,
-            ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
+        this.interpolateMsg(Blockly.Msg.LISTS_IS_EMPTY_TITLE, ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setOutput(true, 'Boolean');
@@ -250,8 +246,7 @@ Blockly.Blocks['lists_indexOf'] = {
      * @this Blockly.Block
      */
     init: function () {
-        var OPERATORS =
-            [
+        var OPERATORS = [
                 [Blockly.Msg.LISTS_INDEX_OF_FIRST, 'FIRST'],
                 [Blockly.Msg.LISTS_INDEX_OF_LAST, 'LAST']
             ];
@@ -274,14 +269,12 @@ Blockly.Blocks['lists_getIndex'] = {
      * @this Blockly.Block
      */
     init: function () {
-        var MODE =
-            [
+        var MODE = [
                 [Blockly.Msg.LISTS_GET_INDEX_GET, 'GET'],
                 [Blockly.Msg.LISTS_GET_INDEX_GET_REMOVE, 'GET_REMOVE'],
                 [Blockly.Msg.LISTS_GET_INDEX_REMOVE, 'REMOVE']
             ];
-        this.WHERE_OPTIONS =
-            [
+        this.WHERE_OPTIONS = [
                 [Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
                 [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
                 [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
@@ -337,14 +330,23 @@ Blockly.Blocks['lists_getIndex'] = {
      */
     domToMutation: function (xmlElement) {
         var elements = [].concat(xmlElement);
-        for (var x = 0; x < elements.length; x++) {
+        console.log('elements', elements);
+        console.log(elements.length);
+        
+        /* Careful! This part generate a error on element[x].name */
+        /*for (var x = 0; x < elements.length; x++) {
+            console.log('element_start :', x, elements[x], elements[x].name);
             if (elements[x].name.toLowerCase() == 'statement') {
+                console.log('1', x, elements[x]);
                 this.updateStatement_(Blockly.Json.parseBoolean(elements[x].value));
             }
             if (elements[x].name.toLowerCase() == 'at') {
+                console.log('2', x, elements[x]);
                 this.updateAt_(Blockly.Json.parseBoolean(elements[x].value));
             }
-        }
+            console.log('element_end :', x, elements[x]);
+        }*/
+        
     },
     /**
      * Switch between a value block and a statement block.
@@ -413,13 +415,11 @@ Blockly.Blocks['lists_setIndex'] = {
      * @this Blockly.Block
      */
     init: function () {
-        var MODE =
-            [
+        var MODE = [
                 [Blockly.Msg.LISTS_SET_INDEX_SET, 'SET'],
                 [Blockly.Msg.LISTS_SET_INDEX_INSERT, 'INSERT']
             ];
-        this.WHERE_OPTIONS =
-            [
+        this.WHERE_OPTIONS = [
                 [Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
                 [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
                 [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
@@ -519,14 +519,12 @@ Blockly.Blocks['lists_getSublist'] = {
      * @this Blockly.Block
      */
     init: function () {
-        this.WHERE_OPTIONS_1 =
-            [
+        this.WHERE_OPTIONS_1 = [
                 [Blockly.Msg.LISTS_GET_SUBLIST_START_FROM_START, 'FROM_START'],
                 [Blockly.Msg.LISTS_GET_SUBLIST_START_FROM_END, 'FROM_END'],
                 [Blockly.Msg.LISTS_GET_SUBLIST_START_FIRST, 'FIRST']
             ];
-        this.WHERE_OPTIONS_2 =
-            [
+        this.WHERE_OPTIONS_2 = [
                 [Blockly.Msg.LISTS_GET_SUBLIST_END_FROM_START, 'FROM_START'],
                 [Blockly.Msg.LISTS_GET_SUBLIST_END_FROM_END, 'FROM_END'],
                 [Blockly.Msg.LISTS_GET_SUBLIST_END_LAST, 'LAST']
