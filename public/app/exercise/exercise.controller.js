@@ -70,6 +70,7 @@
         exercise.editor = null;
         exercise.ide = "codemirror";
         exercise.toolbox = null;
+        exercise.studentCode = null;
 
         exercise.exercisesAsList = null;
         exercise.exercisesAsTree = null;
@@ -284,22 +285,36 @@
 
                 // Récup du code des blocks du workspace 
                 var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
-                var xml_text = Blockly.Xml.domToText(xml);
-                alert(xml_text);
-                // console.log(xml_text);
+                exercise.studentCode = Blockly.Xml.domToText(xml);
+                alert(exercise.studentCode);
+                // console.log(studentCode);
 
                 // Charge à partir de la variable xml des blocks dans le workspace
                 /*var tmp = '';
                 var xml = Blockly.Xml.textToDom(tmp);
                 Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);*/
+                console.log(Blockly);
+                console.log(Blockly.Msg);
+                //Blockly.Msg = 'fr';
             }
             // End Blockly test area
 
-            args = {
-                lessonID: exercise.lessonID,
-                exerciseID: exercise.id,
-                code: exercise.code
-            };
+            if (exercise.ide === 'blockly') {
+                args = {
+                    lessonID: exercise.lessonID,
+                    ide: exercise.ide,
+                    exerciseID: exercise.id,
+                    code: exercise.code,
+                    studentCode: exercise.studentCode
+                };
+            } else {
+                args = {
+                    lessonID: exercise.lessonID,
+                    ide: exercise.ide,
+                    exerciseID: exercise.id,
+                    code: exercise.code
+                };
+            }
             connection.sendMessage('runExercise', args);
             exercise.isRunning = true;
 
