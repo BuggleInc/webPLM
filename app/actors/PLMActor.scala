@@ -65,10 +65,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
           setCurrentUser((msg \ "user").asOpt[User].get)
+          registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
           plm.setLang(currentUser.preferredLang)
+          plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
         case "signOut" =>
           clearCurrentUser()
+          registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
@@ -139,10 +142,12 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
           ))
         case "getExercises" =>
-          var lectures = plm.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
-          sendMessage("exercises", Json.obj(
-            "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
-          ))
+          if(plm.currentExercise != null) {
+            var lectures = plm.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
+            sendMessage("exercises", Json.obj(
+              "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
+            ))
+          }
         case "getLangs" =>
           sendMessage("langs", Json.obj(
             "selected" -> LangToJson.langWrite(preferredLang),

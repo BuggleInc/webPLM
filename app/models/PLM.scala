@@ -135,6 +135,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   def setUserUUID(userUUID: String) {
+    _currentExercise = null
     game.setUserUUID(userUUID)
   }
 }
