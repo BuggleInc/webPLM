@@ -72,19 +72,12 @@ Blockly.Blocks['controls_if'] = {
         if (!this.elseifCount_ && !this.elseCount_) {
             return null;
         }
-
-        var container = [];
+        var container = document.createElement('mutation');
         if (this.elseifCount_) {
-            var parameter = {};
-            parameter.name = 'elseif';
-            parameter.value = this.elseifCount_;
-            container.push(parameter);
+            container.setAttribute('elseif', this.elseifCount_);
         }
         if (this.elseCount_) {
-            var parameter = {};
-            parameter.name = 'else';
-            parameter.value = this.elseCount_;
-            container.push(parameter);
+            container.setAttribute('else', 1);
         }
         return container;
     },
@@ -94,21 +87,13 @@ Blockly.Blocks['controls_if'] = {
      * @this Blockly.Block
      */
     domToMutation: function (xmlElement) {
-        this.arguments_ = [];
-        var elements = [].concat(xmlElement);
-        for (var x = 0; x < elements.length; x++) {
-            if (elements[x].name.toLowerCase() == 'else') {
-                this.elseCount_ = parseInt(elements[x].value, 10);
-            }
-            if (elements[x].name.toLowerCase() == 'elseif') {
-                this.elseifCount_ = parseInt(elements[x].value, 10);
-            }
-        }
-        for (var x = 1; x <= this.elseifCount_; x++) {
-            this.appendValueInput('IF' + x)
+        this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
+        this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
+        for (var i = 1; i <= this.elseifCount_; i++) {
+            this.appendValueInput('IF' + i)
                 .setCheck('Boolean')
                 .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-            this.appendStatementInput('DO' + x)
+            this.appendStatementInput('DO' + i)
                 .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
         }
         if (this.elseCount_) {
@@ -160,32 +145,32 @@ Blockly.Blocks['controls_if'] = {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'controls_if_elseif':
-                    this.elseifCount_++;
-                    var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-                        .setCheck('Boolean')
-                        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-                    var doInput = this.appendStatementInput('DO' + this.elseifCount_);
-                    doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-                    // Reconnect any child blocks.
-                    if (clauseBlock.valueConnection_) {
-                        ifInput.connection.connect(clauseBlock.valueConnection_);
-                    }
-                    if (clauseBlock.statementConnection_) {
-                        doInput.connection.connect(clauseBlock.statementConnection_);
-                    }
-                    break;
-                case 'controls_if_else':
-                    this.elseCount_++;
-                    var elseInput = this.appendStatementInput('ELSE');
-                    elseInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-                    // Reconnect any child blocks.
-                    if (clauseBlock.statementConnection_) {
-                        elseInput.connection.connect(clauseBlock.statementConnection_);
-                    }
-                    break;
-                default:
-                    throw 'Unknown block type.';
+            case 'controls_if_elseif':
+                this.elseifCount_++;
+                var ifInput = this.appendValueInput('IF' + this.elseifCount_)
+                    .setCheck('Boolean')
+                    .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+                var doInput = this.appendStatementInput('DO' + this.elseifCount_);
+                doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+                // Reconnect any child blocks.
+                if (clauseBlock.valueConnection_) {
+                    ifInput.connection.connect(clauseBlock.valueConnection_);
+                }
+                if (clauseBlock.statementConnection_) {
+                    doInput.connection.connect(clauseBlock.statementConnection_);
+                }
+                break;
+            case 'controls_if_else':
+                this.elseCount_++;
+                var elseInput = this.appendStatementInput('ELSE');
+                elseInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+                // Reconnect any child blocks.
+                if (clauseBlock.statementConnection_) {
+                    elseInput.connection.connect(clauseBlock.statementConnection_);
+                }
+                break;
+            default:
+                throw 'Unknown block type.';
             }
             clauseBlock = clauseBlock.nextConnection &&
                 clauseBlock.nextConnection.targetBlock();
@@ -201,22 +186,22 @@ Blockly.Blocks['controls_if'] = {
         var x = 1;
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'controls_if_elseif':
-                    var inputIf = this.getInput('IF' + x);
-                    var inputDo = this.getInput('DO' + x);
-                    clauseBlock.valueConnection_ =
-                        inputIf && inputIf.connection.targetConnection;
-                    clauseBlock.statementConnection_ =
-                        inputDo && inputDo.connection.targetConnection;
-                    x++;
-                    break;
-                case 'controls_if_else':
-                    var inputDo = this.getInput('ELSE');
-                    clauseBlock.statementConnection_ =
-                        inputDo && inputDo.connection.targetConnection;
-                    break;
-                default:
-                    throw 'Unknown block type.';
+            case 'controls_if_elseif':
+                var inputIf = this.getInput('IF' + x);
+                var inputDo = this.getInput('DO' + x);
+                clauseBlock.valueConnection_ =
+                    inputIf && inputIf.connection.targetConnection;
+                clauseBlock.statementConnection_ =
+                    inputDo && inputDo.connection.targetConnection;
+                x++;
+                break;
+            case 'controls_if_else':
+                var inputDo = this.getInput('ELSE');
+                clauseBlock.statementConnection_ =
+                    inputDo && inputDo.connection.targetConnection;
+                break;
+            default:
+                throw 'Unknown block type.';
             }
             clauseBlock = clauseBlock.nextConnection &&
                 clauseBlock.nextConnection.targetBlock();
@@ -321,8 +306,7 @@ Blockly.Blocks['logic_operation'] = {
      * @this Blockly.Block
      */
     init: function () {
-        this.OPERATORS =
-            [
+        this.OPERATORS = [
                 [Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
                 [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']
             ];
@@ -375,9 +359,9 @@ Blockly.Blocks['logic_operation'] = {
             }
 
             for (var x = 1; x <= this.opCount_; x++) {
-                this.appendValueInput('IN' + (x+1))
+                this.appendValueInput('IN' + (x + 1))
                     .setCheck('Boolean')
-                    .appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP' + (x+1));
+                    .appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP' + (x + 1));
             }
         }
     },
@@ -409,23 +393,23 @@ Blockly.Blocks['logic_operation'] = {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'logic_compare_number':
-                    this.opCount_++;
+            case 'logic_compare_number':
+                this.opCount_++;
 
-                    var ifInput = this.appendValueInput('IN' + (this.opCount_ + 1))
-                        .setCheck('Boolean')
-                        .appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP' + (this.opCount_ + 1));
+                var ifInput = this.appendValueInput('IN' + (this.opCount_ + 1))
+                    .setCheck('Boolean')
+                    .appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP' + (this.opCount_ + 1));
 
-                    // Reconnect any child blocks.
-                    if (clauseBlock.valueConnection_) {
-                        ifInput.connection.connect(clauseBlock.valueConnection_);
-                    }
-                    if (clauseBlock.statementConnection_) {
-                        doInput.connection.connect(clauseBlock.statementConnection_);
-                    }
-                    break;
-                default:
-                    console.log('Unknown block type ' + clauseBlock.type);
+                // Reconnect any child blocks.
+                if (clauseBlock.valueConnection_) {
+                    ifInput.connection.connect(clauseBlock.valueConnection_);
+                }
+                if (clauseBlock.statementConnection_) {
+                    doInput.connection.connect(clauseBlock.statementConnection_);
+                }
+                break;
+            default:
+                console.log('Unknown block type ' + clauseBlock.type);
             }
             clauseBlock = clauseBlock.nextConnection &&
                 clauseBlock.nextConnection.targetBlock();
@@ -441,17 +425,17 @@ Blockly.Blocks['logic_operation'] = {
         var x = 1;
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'logic_compare_number':
-                    var inputIf = this.getInput('IN' + x);
-                    var inputDo = this.getInput('OP' + x);
-                    clauseBlock.valueConnection_ =
-                        inputIf && inputIf.connection.targetConnection;
-                    clauseBlock.statementConnection_ =
-                        inputDo && inputDo.connection.targetConnection;
-                    x++;
-                    break;
-                default:
-                    throw 'Unknown block type.';
+            case 'logic_compare_number':
+                var inputIf = this.getInput('IN' + x);
+                var inputDo = this.getInput('OP' + x);
+                clauseBlock.valueConnection_ =
+                    inputIf && inputIf.connection.targetConnection;
+                clauseBlock.statementConnection_ =
+                    inputDo && inputDo.connection.targetConnection;
+                x++;
+                break;
+            default:
+                throw 'Unknown block type.';
             }
             clauseBlock = clauseBlock.nextConnection &&
                 clauseBlock.nextConnection.targetBlock();
@@ -499,8 +483,7 @@ Blockly.Blocks['logic_negate'] = {
         this.setHelpUrl(Blockly.Msg.LOGIC_NEGATE_HELPURL);
         this.setColour(210);
         this.setOutput(true, 'Boolean');
-        this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE,
-            ['BOOL', 'Boolean', Blockly.ALIGN_RIGHT],
+        this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', 'Boolean', Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
     }
@@ -512,8 +495,7 @@ Blockly.Blocks['logic_boolean'] = {
      * @this Blockly.Block
      */
     init: function () {
-        var BOOLEANS =
-            [
+        var BOOLEANS = [
                 [Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
                 [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']
             ];

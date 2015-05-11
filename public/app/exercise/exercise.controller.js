@@ -276,7 +276,7 @@
             });
             setCurrentWorld('current');
 
-            // Zone test pour blockly
+            // Start Blockly test area
             if (exercise.ide === 'blockly') {
                 Blockly.Python.INFINITE_LOOP_TRAP = null;
                 exercise.code = Blockly.Python.workspaceToCode();
@@ -289,11 +289,11 @@
                 console.log(xml_text);
 
                 // Charge à partir de la variable xml des blocks dans le workspace
-                /*var tmp = '';
+                var tmp = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="controls_if" id="10" inline="false" x="43" y="-2"><mutation elseif="1" else="1"></mutation><value name="IF0"><block type="logic_boolean" id="24"><field name="BOOL">FALSE</field></block></value><statement name="DO0"><block type="turn_back" id="64"></block></statement><value name="IF1"><block type="logic_boolean" id="51"><field name="BOOL">TRUE</field></block></value><statement name="DO1"><block type="move_forward" id="37"></block></statement><statement name="ELSE"><block type="move_backward" id="50"></block></statement></block></xml>';
                 var xml = Blockly.Xml.textToDom(tmp);
-                Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);*/
+                Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
             }
-            // Zone test pour blockly
+            // End Blockly test area
 
             args = {
                 lessonID: exercise.lessonID,
