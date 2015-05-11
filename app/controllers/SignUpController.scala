@@ -61,6 +61,7 @@ class SignUpController @Inject() (
           val user = User(
             userID = UUID.randomUUID(),
             gitID = UUID.fromString(gitID),
+            trackUser = Some(data.trackUser),
             loginInfo = loginInfo,
             firstName = Some(data.firstName),
             lastName = Some(data.lastName),

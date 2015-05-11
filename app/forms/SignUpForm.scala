@@ -17,7 +17,8 @@ object SignUpForm {
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
       "email" -> email,
-      "password" -> nonEmptyText
+      "password" -> nonEmptyText,
+      "trackUser" -> boolean
     )(Data.apply)(Data.unapply)
   )
 
@@ -33,7 +34,8 @@ object SignUpForm {
     firstName: String,
     lastName: String,
     email: String,
-    password: String)
+    password: String,
+    trackUser: Boolean)
 
   /**
    * The companion object.

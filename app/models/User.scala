@@ -31,6 +31,7 @@ case class User(
   lastName: Option[String],
   fullName: Option[String],
   email: Option[String],
+  trackUser: Option[Boolean],
   preferredLang: Lang,
   lastProgLang: Option[String],
   avatarURL: Option[String]) extends Identity
