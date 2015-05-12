@@ -24,8 +24,8 @@
         var panelID = 'panel';
         var canvasID = 'canvas';
         
-        var editorExerciseLessonID = 'welcome';
-        var editorExerciseID = 'welcome.lessons.welcome.editor.Editor';
+        var editorExerciseLessonID = 'editor';
+        var editorExerciseID = 'editor.lessons.editor.editor.Editor';
         
         var editor = this;
         
@@ -238,10 +238,10 @@
                     addColumnCommand();
                     break;
                 case 'deleteline':
-                    deleteLineCommand();
+                    deleteLineCommand(y);
                     break;
                 case 'deletecolumn':
-                    deleteColumnCommand();
+                    deleteColumnCommand(x);
                     break;
             }
 

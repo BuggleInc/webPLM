@@ -22,9 +22,9 @@ object BuggleWorldCellToJson {
     )
   }
   
-  def JsonToBuggleWorldCells(buggleWorld: BuggleWorld, cells: JsValue): Array[Array[BuggleWorldCell]] = {
+  def JsonToBuggleWorldCells(buggleWorld: BuggleWorld, width: Int, height: Int, cells: JsValue): Array[Array[BuggleWorldCell]] = {
     var optColumns: Option[Array[JsArray]] = cells.asOpt[Array[JsArray]]
-    var newCells: Array[Array[BuggleWorldCell]] = Array.ofDim[BuggleWorldCell](7,7)
+    var newCells: Array[Array[BuggleWorldCell]] = Array.ofDim[BuggleWorldCell](width, height)
     
     optColumns.getOrElse(None) match {
       case columns: Array[JsArray] =>

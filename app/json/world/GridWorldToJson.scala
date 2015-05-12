@@ -43,7 +43,7 @@ object GridWorldToJson {
      optBuggles.getOrElse(None)) match {
       case (name: String, width: Int, height: Int, buggles: JsObject) => {
        newWorld = new BuggleWorld(game, name, width, height)
-        var newCells = BuggleWorldCellToJson.JsonToBuggleWorldCells(newWorld, JsBuggleWorld \ "cells")
+        var newCells = BuggleWorldCellToJson.JsonToBuggleWorldCells(newWorld, width, height, JsBuggleWorld \ "cells")
         for(column <- newCells) {
           for(cell <- column) {
             newWorld.setCell(cell, cell.getX, cell.getY)

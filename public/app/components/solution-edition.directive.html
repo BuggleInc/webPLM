@@ -2,9 +2,9 @@
     <div class="small-4 columns">
         <ul class="tabs" data-tab>
             <li class="tab-title" ng-class="{ active: editor.solutionDisplayPanel === 'solution' }" 
-                ng-click="exercise.solutionDisplayPanel = 'solution'"><a translate>Solution code</a></li>
+                ng-click="editor.solutionDisplayPanel = 'solution'"><a translate>Solution code</a></li>
             <li class="tab-title" ng-class="{ active: editor.solutionDisplayPanel === 'api' }" 
-                ng-click="exercise.solutionDisplayPanel = 'api'"><a translate>API</a></li>
+                ng-click="editor.solutionDisplayPanel = 'api'"><a translate>API</a></li>
         </ul>
     </div>
      <div class="small-6 columns">
@@ -20,7 +20,7 @@
         <div class="tabs-content">
             <div ng-show="editor.solutionDisplayPanel === 'solution'">
                 <ui-codemirror ng-model="editor.solutionCodes[editor.currentProgrammingLanguage.lang]" 
-                           ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, 
+                               ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, 
                                                  lineNumbers: true, tabSize: 2, firstLineNumber: 0, 
                                                  autoCloseBrackets: true, mode: 'text/x-java' }">
                 </ui-codemirror>
