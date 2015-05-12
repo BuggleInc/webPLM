@@ -42,7 +42,7 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
    * @param profile The social profile to save.
    * @return The user for whom the profile was saved.
    */
-  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: UUID, trackUser: Option[Boolean], preferredLang: Lang) = {
+  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: UUID, trackUser: Option[Boolean], preferredLang: Option[Lang]) = {
     userDAO.find(profile.loginInfo).flatMap {
       case Some(user) => // Update user with profile
         userDAO.save(user.copy(

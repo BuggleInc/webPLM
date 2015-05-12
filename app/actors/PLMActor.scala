@@ -27,11 +27,11 @@ import java.util.UUID
 import models.daos.UserDAOMongoImpl
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
   def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Lang, lastProgLang: Option[String], out: ActorRef) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], out: ActorRef) extends Actor {  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -42,7 +42,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentUser: User = null
   
-  var currentPreferredLang = preferredLang
+  var currentPreferredLang: Lang = preferredLang.getOrElse(Lang("en"))
   
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
@@ -67,7 +67,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           setCurrentUser((msg \ "user").asOpt[User].get)
           registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
-          plm.setLang(currentUser.preferredLang)
+          currentUser.preferredLang.getOrElse(None) match {
+            case newLang: Lang =>
+              currentPreferredLang = newLang
+              plm.setLang(currentPreferredLang)
+            case _ =>
+              savePreferredLang()
+          }
           plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
         case "signOut" =>
           clearCurrentUser()
@@ -150,7 +156,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           }
         case "getLangs" =>
           sendMessage("langs", Json.obj(
-            "selected" -> LangToJson.langWrite(preferredLang),
+            "selected" -> LangToJson.langWrite(currentPreferredLang),
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
         case _ =>
@@ -234,7 +240,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   def savePreferredLang() {
     if(currentUser != null) {
       currentUser = currentUser.copy(
-          preferredLang = currentPreferredLang
+          preferredLang = Some(currentPreferredLang)
       )
       UserDAOMongoImpl.save(currentUser)
     }

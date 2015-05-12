@@ -32,7 +32,7 @@ case class User(
   fullName: Option[String],
   email: Option[String],
   trackUser: Option[Boolean],
-  preferredLang: Lang,
+  preferredLang: Option[Lang],
   lastProgLang: Option[String],
   avatarURL: Option[String]) extends Identity
 
@@ -49,8 +49,7 @@ object User {
   
   implicit val langRead = new Reads[Lang] {
     def reads(json: JsValue) = {
-      var optCode: Option[String] = (json \ "code").asOpt[String]
-      JsSuccess(Lang(optCode.getOrElse("en")))
+      JsSuccess(Lang((json \ "code").as[String]))
     }
   }
 
