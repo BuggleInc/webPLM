@@ -52,7 +52,7 @@ class SocialAuthController @Inject() (
             var gitID: String = CookieUtils.getOrElseCookieValue(request, "gitID", UUID.randomUUID.toString)
             for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile, UUID.fromString(gitID), preferredLang)
+            user <- userService.save(profile, UUID.fromString(gitID), Some(preferredLang))
             authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
