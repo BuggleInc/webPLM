@@ -8,6 +8,9 @@
 	function animationPlayer() {
 		return {
 			restrict: 'E',
+            scope: {
+                ctrl: '=ctrl'
+            },
 			templateUrl: '/assets/app/components/animation-player.directive.html'
 		};
 	}

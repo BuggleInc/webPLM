@@ -309,6 +309,13 @@
             this.cells[x][y].isSelected = true;
         };
         
+        BuggleWorld.prototype.deselectCell = function () {
+            if(this.selectedCell) {
+                this.selectedCell.isSelected = false;
+            }
+            this.selectedCell = null;
+        };
+        
 		return BuggleWorld;
 	}
 })();

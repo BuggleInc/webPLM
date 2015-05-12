@@ -9,7 +9,7 @@
 		'$window', '$http', '$scope', '$sce', '$stateParams',
 		'connection', 'listenersHandler', 'langs', 'exercisesList',
 		'canvas', 'color',
-		'$timeout',
+		'$timeout', '$interval',
 		'locker',
 		'BuggleWorld', 'BuggleWorldView'
 	];
@@ -17,21 +17,32 @@
     function Editor($window, $http, $scope, $sce, $stateParams,
 		connection, listenersHandler, langs, exercisesList,
 		canvas, color,
-		$timeout,
+		$timeout, $interval,
 		locker,
 		BuggleWorld, BuggleWorldView) {
         
         var panelID = 'panel';
         var canvasID = 'canvas';
         
+        var editorExerciseLessonID = 'welcome';
+        var editorExerciseID = 'welcome.lessons.welcome.editor.Editor';
+        
         var editor = this;
         
         editor.editorMode = 'world';
-
+        
+        editor.colorService = color;
+        editor.drawService = null;
+		editor.drawingArea = 'drawingArea';
+        
+        editor.errorMessage = null;
+        
+        /*
+            World editor
+        */
         editor.world = null;
         editor.selectedCell = null;
         editor.command = '';
-        
         editor.customColorInput = '42/42/42';
         editor.color = [42, 42, 42, 255];
         editor.colors = color.getColorsNames();
@@ -44,16 +55,44 @@
         editor._selectedBuggleID = null;
         editor.selectedBuggle = null;
         editor.nbBugglesCreated = 0;
-        
-		editor.drawService = null;
-		editor.drawingArea = 'drawingArea';
-        
-        editor.programmingLanguages = {all: true, c: false, java: true, scala: false, python: false};
-        console.log(editor.programmingLanguages);
+
+        /*
+            Mission editor
+        */
+        editor.missionProgrammingLanguages = {all: true, c: false, java: false, scala: false, python: false};
         editor.missionText = '';
         editor.filteredMission = editor.missionText;
         
-        editor.errorMessage = null;
+        /*
+            Solution editor
+        */
+        var worldID = 'New world';
+        editor.api = '';
+        editor.solutionDisplayPanel = 'solution';
+        editor.initialWorlds = {};
+		editor.answerWorlds = {};
+		editor.currentWorlds = {};
+        editor.currentWorld = null;
+		editor.currentWorldID = null;
+		editor.worldKind = 'current';
+		editor.worldIDs = [];
+        editor.updateModelLoop = null;
+		editor.updateViewLoop = null;
+        editor.isRunning = false;
+		editor.isPlaying = false;
+        editor.timer = locker.get('timer');
+        editor.currentState = -1;
+		editor.lastStateDrawn = -1;
+		editor.preventLoop = false;
+        
+        editor.isChangingProgLang = false;
+        
+        editor.solutionInitalWorld = null;
+        editor.solutionCurrentWorld = null;
+        editor.programmingLanguages = [];
+        editor.currentProgrammingLanguage = '';
+        editor.solutionCodes = {java: '', scala: '', c: '', python: ''};
+        editor.solutionEditor = null;
         
         editor.selectCell = selectCell;
         editor.initEditor = initEditor;
@@ -73,6 +112,18 @@
         
         editor.filterMission = filterMission;
         
+        editor.handleOperations = handleOperations;
+        editor.startUpdateModelLoop = startUpdateModelLoop;
+        editor.updateModel = updateModel;
+        editor.startUpdateViewLoop = startUpdateViewLoop;
+        editor.setWorldState = setWorldState;
+        editor.updateView = updateView;
+        editor.initSolutionEditor = initSolutionEditor;
+        editor.runSolution = runSolution;
+        editor.setProgrammingLanguage = setProgrammingLanguage;
+        editor.replay = replay;
+        editor.reset = reset;
+        
         var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
         
         function handleMessage(data) {
@@ -80,9 +131,22 @@
 			var cmd = data.cmd;
 			var args = data.args;
 			switch(cmd) {
+                case 'exercise':
+                    setEditorExercise(args.exercise);
+                    break;
 				case 'missionFiltered': 
 					editor.filteredMission = args.filteredMission;
 					break;
+                case 'newProgLang':
+                    updateUI(args.newProgLang, args.instructions, null, args.code);
+                    editor.isChangingProgLang = false;
+                    break;
+                case 'operations':
+					handleOperations(args.worldID, 'current', args.operations);
+					break;
+                case 'executionResult':
+                    editor.isRunning = false;
+                    break;
 			}
 		}
         
@@ -91,8 +155,21 @@
             $('#errorModal').foundation('reveal', 'open');
         }
         
+        $scope.codemirrorLoaded = function(_solutionEditor){
+			editor.solutionEditor = _solutionEditor;
+		};
+        
+        
+        /*
+            World editor
+        */
+        
         function initEditor() {
-            editor.world = new BuggleWorld();
+            canvasID = 'canvas';
+            editor.drawingArea = 'drawingArea';
+            if(!editor.world) {
+                editor.world = new BuggleWorld();
+            }
             initCanvas(BuggleWorldView.draw);
             editor.drawService.setWorld(editor.world);
             editor.drawService.update();
@@ -149,8 +226,7 @@
                     colorCommand();
                     break;
                 case 'pickcolor':
-                    editor.color = editor.selectedCell.color.slice();
-                    editor.setCommand('color');
+                    pickColorCommand();
                     break;
                 case 'text':
                     textCommand();
@@ -162,20 +238,10 @@
                     addColumnCommand();
                     break;
                 case 'deleteline':
-                    if(editor.world.height > 1) {
-                        deleteLineCommand(y);
-                    }
-                    else {
-                        displayError('You can\'t delete more lines');
-                    }
+                    deleteLineCommand();
                     break;
                 case 'deletecolumn':
-                    if(editor.world.width > 1) {
-                        deleteColumnCommand(x);
-                    }
-                    else {
-                        displayError('You can\'t delete more columns');
-                    }
+                    deleteColumnCommand();
                     break;
             }
 
@@ -252,6 +318,11 @@
             editor.selectedCell.color = (sameColor) ? [255,255,255,255] : editor.color;
         }
         
+        function pickColorCommand() {
+            editor.color = editor.selectedCell.color.slice();
+            editor.setCommand('color');
+        }
+        
         function textCommand() {
             $scope.contentForm.cellContent.$rollbackViewValue();
             $('#setTextModal').foundation('reveal', 'open');
@@ -266,11 +337,21 @@
         }
         
         function deleteLineCommand(y) {
-            editor.world.addLine(y, -1);
+            if(editor.world.height > 1) {
+                editor.world.addLine(y, -1);
+            }
+            else {
+                displayError('You can\'t delete more lines');
+            }
         }
         
         function deleteColumnCommand(x) {
-            editor.world.addColumn(x, -1);
+            if(editor.world.width > 1) {
+                editor.world.addColumn(x, -1);
+            }
+            else {
+                displayError('You can\'t delete more columns');
+            }
         }
         
         function setRGBColor() {
@@ -305,7 +386,6 @@
         function setCommand(command) {
             editor.command = command;
         }
-        
         
         function editorColor(newColor) {
             if(angular.isDefined(newColor)) {
@@ -397,6 +477,11 @@
             return editor.world.width;
         }
         
+        
+        /*
+          Mission editor
+        */
+      
         function filterMission() {
             var listLang = [];
             for(var lang in editor.programmingLanguages) {
@@ -413,5 +498,195 @@
 			};
 			connection.sendMessage('filterMission', args);
         }
+        
+        
+        /*
+            Solution editor
+        */
+        
+        function initSolutionEditor() {
+            getEditorExercise();
+            
+            canvasID = 'solutionCanvas';
+            editor.drawingArea = 'solutionDrawingArea';
+            initCanvas(BuggleWorldView.draw);
+            
+            editor.world.deselectCell();
+            
+            editor.currentWorldID = worldID;
+            editor.initialWorlds[worldID] = editor.world;
+            editor.currentWorlds[worldID] = editor.world.clone();
+            editor.worldIDs = Object.keys(editor.currentWorlds);
+            setCurrentWorld('current');
+            editor.drawService.update();
+        }
+        
+        function runSolution() {
+            editor.updateViewLoop = null;
+			editor.isPlaying = true;
+			editor.worldIDs.map(function(key) {
+				reset(key, 'current', false);
+			});
+			setCurrentWorld('current');
+            
+            var args = {
+                lessonID: editorExerciseLessonID,
+                exerciseID: editorExerciseID,
+                lang: editor.currentProgrammingLanguage.lang,
+                code: editor.solutionCodes[editor.currentProgrammingLanguage.lang],
+                world: editor.currentWorld
+            };
+            connection.sendMessage('editorRunSolution', args);
+            editor.isRunning = true;
+        }
+        
+        function getEditorExercise() {
+            var args = {
+                lessonID: editorExerciseLessonID,
+                exerciseID: editorExerciseID
+			};
+            connection.sendMessage('getExercise', args);
+        }
+        
+        function setEditorExercise(data) {
+            editor.api = $sce.trustAsHtml(data.api);
+            editor.programmingLanguages = data.programmingLanguages;
+            for(var i = 0; i < editor.programmingLanguages.length; i++) {
+                var pl = editor.programmingLanguages[i];
+                if(pl.lang === data.currentProgrammingLanguage) {
+                   editor.currentProgrammingLanguage = pl;
+                   setIDEMode(pl);
+                }
+            }
+            $(document).foundation('dropdown', 'reflow');
+        }
+        
+        function handleOperations(worldID, worldKind, operations) {
+			var world = editor[worldKind+'Worlds'][worldID];
+			world.addOperations(operations);
+			if(editor.updateViewLoop === null) {
+				editor.isPlaying = true;
+				startUpdateModelLoop();
+				startUpdateViewLoop();
+			}
+		}
+        
+        function startUpdateModelLoop() {
+			editor.updateModelLoop = $timeout(updateModel, editor.timer);
+		}
+        
+        function updateModel() {
+			var currentState = editor.currentWorld.currentState;
+			var nbStates = editor.currentWorld.operations.length-1;
+			if(currentState !== nbStates) {
+				editor.currentWorld.setState(++currentState);
+				editor.currentState = currentState;
+			}
+			
+			if(!editor.isRunning && currentState === nbStates){
+				editor.updateModelLoop = null;
+				editor.isPlaying = false;
+			}
+			else {
+				editor.updateModelLoop = $timeout(updateModel, editor.timer);
+			}
+		}
+        
+        function startUpdateViewLoop() {
+			editor.updateViewLoop = $interval(updateView, 1/10);
+		}
+        
+        function setWorldState(state) {
+			$timeout.cancel(editor.updateModelLoop);
+			$interval.cancel(editor.updateViewLoop);
+			editor.isPlaying = false;
+			state = parseInt(state);
+			editor.currentWorld.setState(state);
+			editor.currentState = state;
+			editor.drawService.update();
+		}
+        
+        function updateView() {
+			if(editor.lastStateDrawn !== editor.currentWorld.currentState) {
+				editor.drawService.update();
+				editor.lastStateDrawn = editor.currentWorld.currentState;
+			}
+
+			if(!editor.isPlaying){
+				$interval.cancel(editor.updateViewLoop);
+			}
+		}
+
+        function setCurrentWorld(worldKind) {
+			$timeout.cancel(editor.updateModelLoop);
+			$interval.cancel(editor.updateViewLoop);
+			editor.worldKind = worldKind;
+			editor.currentWorld = editor[editor.worldKind+'Worlds'][editor.currentWorldID];
+			editor.currentState = editor.currentWorld.currentState;
+			editor.drawService.setWorld(editor.currentWorld);
+		}
+        
+        function setIDEMode(pl) {
+			switch(pl.lang.toLowerCase()) {
+				case 'java':
+					editor.solutionEditor.setOption('mode', 'text/x-java');
+					break;
+				case 'scala':
+					editor.solutionEditor.setOption('mode', 'text/x-scala');
+					break;
+				case 'c':
+					editor.solutionEditor.setOption('mode', 'text/x-csrc');
+					break;
+				case 'python':
+					editor.solutionEditor.setOption('mode', 'text/x-python');
+					break;
+			}
+		}
+        
+        function setProgrammingLanguage(pl) {
+			editor.isChangingProgLang = true;
+			connection.sendMessage('setProgrammingLanguage', { programmingLanguage: pl.lang });
+		}
+        
+        function updateUI(pl, instructions, api, code) {
+			editor.currentProgrammingLanguage = pl;
+			setIDEMode(pl);
+			editor.instructions = $sce.trustAsHtml(instructions);
+			if(api !== null)
+                editor.api = $sce.trustAsHtml(api);
+		}
+        
+        function replay() {
+			reset(editor.currentWorldID, editor.worldKind, true);
+			editor.isPlaying = true;
+			startUpdateModelLoop();
+			startUpdateViewLoop();
+		}
+        
+        function reset(worldID, worldKind, keepOperations) {
+			// We may want to keep the operations in order to replay the execution
+			var operations = [];
+			var steps = [];
+			if(keepOperations === true) {
+				operations = editor[worldKind+'Worlds'][worldID].operations;
+				steps = editor[worldKind+'Worlds'][worldID].steps;
+			}
+
+			var initialWorld = editor.initialWorlds[worldID];
+			editor[worldKind+'Worlds'][worldID] = initialWorld.clone();
+			editor[worldKind+'Worlds'][worldID].operations = operations;
+			editor[worldKind+'Worlds'][worldID].steps = steps;
+
+			if(worldID === editor.currentWorldID) {
+				editor.currentState = -1;
+				editor.currentWorld = editor[worldKind+'Worlds'][worldID];
+				editor.drawService.setWorld(editor.currentWorld);
+			}
+
+			editor.lastStateDrawn = -1;
+			
+			$timeout.cancel(editor.updateViewLoop);
+			editor.isPlaying = false;
+		}
     }
 })();

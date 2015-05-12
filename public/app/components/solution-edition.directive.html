@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="small-4 columns">
+        <ul class="tabs" data-tab>
+            <li class="tab-title" ng-class="{ active: editor.solutionDisplayPanel === 'solution' }" 
+                ng-click="exercise.solutionDisplayPanel = 'solution'"><a translate>Solution code</a></li>
+            <li class="tab-title" ng-class="{ active: editor.solutionDisplayPanel === 'api' }" 
+                ng-click="exercise.solutionDisplayPanel = 'api'"><a translate>API</a></li>
+        </ul>
+    </div>
+     <div class="small-6 columns">
+        <select-programming-language ctrl="editor"></select-programming-language>
+    </div>
+    <div class="small-2 columns">
+        <button class="button radius" ng-click="editor.runSolution()" translate>Run</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-6 columns">
+        <div class="tabs-content">
+            <div ng-show="editor.solutionDisplayPanel === 'solution'">
+                <ui-codemirror ng-model="editor.solutionCodes[editor.currentProgrammingLanguage.lang]" 
+                           ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, 
+                                                 lineNumbers: true, tabSize: 2, firstLineNumber: 0, 
+                                                 autoCloseBrackets: true, mode: 'text/x-java' }">
+                </ui-codemirror>
+            </div>
+            <div class="row overflow" ng-show="editor.solutionDisplayPanel === 'api'">
+                <div ng-bind-html="editor.api"></div>
+            </div>
+        </div>
+    </div>
+    <div class="small-5 columns">
+        <div class="row" id="solutionDrawingArea">
+            <canvas id="solutionCanvas" width="400" height="400"></canvas>
+        </div>
+        <animation-player ctrl="editor"></animation-player>
+    </div>
+</div>

@@ -13,12 +13,18 @@
                 ng-class="{success: editor.command=='buggle'}" translate>Buggle</button></li>
     <li>
         <button class="button mini small" ng-click="editor.setCommand('deletebuggle')"
-                ng-class="{success: editor.command=='deletebuggle'}" translate>Delete Buggle</button>         </li>
+                ng-class="{success: editor.command=='deletebuggle'}" translate>Delete Buggle</button>
+    </li>
 
-    <li><button class="button mini radius small" ng-click="editor.setCommand('color')"
+    <li class="color-indic-li">
+        <div class="color-indic ng-hide-add-active" ng-show="editor.command == 'color' || editor.command == 'pickcolor'"
+            ng-style="{ 'background-color': '#' + editor.colorService.RGBtoHex(editor.color)}">
+        </div>
+        <button class="button mini radius small" ng-click="editor.setCommand('color')"
                 ng-class="{success: editor.command=='color' || editor.command=='pickcolor'}"
                 data-dropdown="drop-color" aria-controls="drop-color" aria-expanded="false" 
-                class="button dropdown">Color</button></li>
+                class="button dropdown">Color</button>
+    </li>
     
     <ul id="drop-color" data-dropdown-content class="f-dropdown" aria-hidden="true">
         <li data-reveal-id="customColorModal">
@@ -28,7 +34,9 @@
             <div class="color-preview color-preview-cfc"></div><a>Choose from cell...</a>
         </li>
         <li ng-repeat="color in editor.colors" ng-click="editor.editorColor(color);">
-            <div class="color-preview" ng-style="{ backgroundColor: color }"></div><a>{{color}}</a>
+            <div class="color-preview" ng-style="{ backgroundColor: '#' + editor.colorService.nameToHex(color) }">
+            </div>
+            <a>{{color}}</a>
         </li>
     </ul>
 

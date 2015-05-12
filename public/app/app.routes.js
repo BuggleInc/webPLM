@@ -31,7 +31,7 @@
                 url: 'ui/editor/',
                 templateUrl: 'assets/app/editor/editor.html',
                 controller: 'Editor',
-                controllerAs: 'editor'
+                controllerAs: 'editor',
             });
 	}
 })();

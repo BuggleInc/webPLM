@@ -12,7 +12,9 @@
         
         var service = {
             getColorsNames: getColorsNames,
+            nameToHex: nameToHex,
             nameToRGB: nameToRGB,
+            RGBtoHex: RGBtoHex,
             RGBtoName: RGBtoName,
             RGBtoStr: RGBtoStr,
             strToRGB: strToRGB
@@ -23,9 +25,24 @@
             return colorsNames.slice(0);
         }
         
+        function nameToHex(name) {
+            return RGBtoHex(nameToRGB(name));
+        }
+        
         function nameToRGB(name) {
             var index = colorsNames.indexOf(name);
             return (index !== -1) ? colorsRGB[index].slice(0) : null;
+        }
+        
+        function RGBtoHex(rgbValue) {
+            var red = rgbValue[0].toString(16);
+            var green = rgbValue[1].toString(16);
+            var blue = rgbValue[2].toString(16);
+            red = (red.length === 1) ? 0 + red : red;
+            green = (green.length === 1) ? 0 + green : green;
+            blue = (blue.length === 1) ? 0 + blue : blue;
+            
+            return red + green + blue;
         }
         
         function RGBtoName(rgbValue) {

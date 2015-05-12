@@ -1,16 +1,16 @@
-<button class="button tiny round" ng-disabled="exercise.isRunning || exercise.currentWorld.currentState === -1" ng-click="exercise.reset(exercise.currentWorldID, exercise.worldKind, true)">
+<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === -1" ng-click="ctrl.reset(ctrl.currentWorldID, ctrl.worldKind, true)">
   <i class="fi-previous size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="exercise.isRunning || exercise.currentWorld.currentState === -1" ng-click="exercise.setWorldState(exercise.currentWorld.currentState-1)">
+<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === -1" ng-click="ctrl.setWorldState(ctrl.currentWorld.currentState-1)">
   <i class="fi-rewind size-8"></i>
 </button>
-<input ng-disabled="exercise.isRunning" type="range" ng-model="exercise.currentState" ng-change="exercise.setWorldState(exercise.currentState);" max="{{exercise.currentWorld.operations.length-1}}" min="-1"/>
-<button class="button tiny round" ng-disabled="exercise.isRunning || exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.currentState+1)">
+<input ng-disabled="ctrl.isRunning" type="range" ng-model="ctrl.currentState" ng-change="ctrl.setWorldState(ctrl.currentState);" max="{{ctrl.currentWorld.operations.length-1}}" min="-1"/>
+<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === (ctrl.currentWorld.operations.length-1)" ng-click="ctrl.setWorldState(ctrl.currentWorld.currentState+1)">
   <i class="fi-fast-forward size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="exercise.isRunning || exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.operations.length-1)">
+<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === (ctrl.currentWorld.operations.length-1)" ng-click="ctrl.setWorldState(ctrl.currentWorld.operations.length-1)">
   <i class="fi-next size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="exercise.isPlaying || exercise.currentWorld.operations.length === 0" ng-click="exercise.replay()">
+<button class="button tiny round" ng-disabled="ctrl.isPlaying || ctrl.currentWorld.operations.length === 0" ng-click="ctrl.replay()">
   <i class="fi-loop size-8"></i>
 </button>

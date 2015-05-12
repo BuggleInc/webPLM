@@ -5,6 +5,7 @@ import play.api.libs.json._
 import play.api.mvc.RequestHeader
 
 import json._
+import json.world._
 
 import models.PLM
 import log.PLMLogger
@@ -89,7 +90,23 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
                 }
                 case _ => Logger.debug("filterMission: non-correct JSON")
             }
-            
+        case "editorRunSolution" =>
+          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
+          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
+          var optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
+          var buggleWorld = GridWorldToJson.JsonToBuggleWorld(plm.game, (msg \ "args" \ "world"))
+        
+          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None)) match {
+            case (lessonID:String, exerciseID: String, code: String) =>            
+              plm.currentExercise.setupWorlds(Array(buggleWorld))
+              var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
+              var lect: Lecture = plm.game.getCurrentLesson.getCurrentExercise
+              var exo: Exercise = lect.asInstanceOf[Exercise]
+              plm.addExecutionSpy(exo, executionSpy, Exercise.WorldKind.CURRENT)
+              plm.runExercise(lessonID, exerciseID, code)
+            case (_, _, _) =>
+             Logger.debug("editorRunSolution: non-correct JSON")
+          }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

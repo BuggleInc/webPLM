@@ -21,7 +21,11 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
+import plm.core.model.lesson.ExerciseTemplated
 import plm.core.ui.PlmHtmlEditorKit
+import plm.universe.bugglequest._
+import plm.universe.Direction
+import java.awt.Color
 
 class PLM(plmLogger: PLMLogger, locale: Locale) {
   
@@ -148,4 +152,5 @@ class PLM(plmLogger: PLMLogger, locale: Locale) {
     }
     return PlmHtmlEditorKit.filterHTMLBis(missionText, all, showMulti, progLangs, null)
   }
+
 }

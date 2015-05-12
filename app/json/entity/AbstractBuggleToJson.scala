@@ -1,7 +1,12 @@
 package json.entity
 
+import java.awt.Color
+
 import play.api.libs.json._
 import plm.universe.bugglequest.AbstractBuggle
+import plm.universe.bugglequest.SimpleBuggle
+import plm.universe.bugglequest.BuggleWorld
+import plm.universe.Direction
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 
 object AbstractBuggleToJson {
@@ -14,5 +19,37 @@ object AbstractBuggleToJson {
       "direction" -> abstractBuggle.getDirection.intValue,
       "carryBaggle" -> abstractBuggle.isCarryingBaggle()
     )
+  }
+  
+  def JsonSimpleBugglesWrite(buggleWorld: BuggleWorld, jsSimpleBuggles: JsObject): Array[SimpleBuggle] = {
+    var bugglesID = jsSimpleBuggles.keys
+    var newBuggles: Array[SimpleBuggle] = new Array[SimpleBuggle](bugglesID.size)
+    var i = 0;
+    for(buggleID <- bugglesID) {
+      var optBuggle: Option[JsObject] = (jsSimpleBuggles \ buggleID).asOpt[JsObject]
+      optBuggle.getOrElse(None) match {
+        case buggle: JsObject =>
+          newBuggles(i) = JsonSimpleBuggleWrite(buggleWorld, buggleID, buggle)
+          i += 1
+      }
+    }
+    return newBuggles
+  }
+  
+  def JsonSimpleBuggleWrite(buggleWorld: BuggleWorld, name: String, jsSimpleBuggle: JsObject): SimpleBuggle = {
+    var optX: Option[Int] = (jsSimpleBuggle \ "x").asOpt[Int]
+    var optY: Option[Int] = (jsSimpleBuggle \ "y").asOpt[Int]
+    var optColor: Option[Array[Int]] = (jsSimpleBuggle \ "color").asOpt[Array[Int]]
+    var optDirection: Option[Int] = (jsSimpleBuggle \ "direction").asOpt[Int]
+    var optcarryBaggle: Option[Boolean] = (jsSimpleBuggle \ "carryBaggle").asOpt[Boolean]
+    
+    (optX.getOrElse(None), optY.getOrElse(None), optColor.getOrElse(None), 
+     optDirection.getOrElse(None), optcarryBaggle.getOrElse(None)) match {
+      case (x: Int, y: Int, color: Array[Int], direction: Int, carryBaggle: Boolean) => {
+        return new SimpleBuggle(buggleWorld, name, x, y, Direction.NORTH,
+                                new Color(color(0), color(1), color(2), color(3)),
+                                new Color(color(0), color(1), color(2), color(3)))
+      }
+    }
   }
 }

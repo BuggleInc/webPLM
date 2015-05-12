@@ -4,9 +4,9 @@
     </div>
     <div class="small-2 columns block">
         <select ng-model="editor.editorMode">
-            <option value="world">Monde</option>
+            <option ng-click="editor.initEditor()" value="world">Monde</option>
             <option value="mission">Mission</option>
-            <option value="Solution">Solution</option>
+            <option ng-click="editor.initSolutionEditor()" value="solution">Solution</option>
         </select>
     </div>
 </div>
@@ -33,4 +33,8 @@
 
 <div ng-show="editor.editorMode == 'mission'">
     <mission-edition></mission-edition>
+</div>
+
+<div ng-show="editor.editorMode == 'solution'">
+    <solution-edition></solution-edition>
 </div>
