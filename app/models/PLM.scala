@@ -27,11 +27,11 @@ import plm.universe.bugglequest._
 import plm.universe.Direction
 import java.awt.Color
 
-class PLM(plmLogger: PLMLogger, locale: Locale) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String]) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(plmLogger, locale)
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"))
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -153,4 +153,8 @@ class PLM(plmLogger: PLMLogger, locale: Locale) {
     return PlmHtmlEditorKit.filterHTMLBis(missionText, all, showMulti, progLangs, null)
   }
 
+  def setUserUUID(userUUID: String) {
+    _currentExercise = null
+    game.setUserUUID(userUUID)
+  }
 }

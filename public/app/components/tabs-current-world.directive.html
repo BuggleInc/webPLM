@@ -1,10 +1,7 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd ng-class="{ active: exercise.worldKind === 'current' }" ng-click="exercise.setCurrentWorld('current')">
-			<a translate>World</a>
-		</dd>
-		<dd ng-class="{ active: exercise.worldKind === 'answer' }" ng-click="exercise.switchToObjective()">
-			<a translate>Objective</a>
+		<dd ng-repeat="tab in exercise.tabs" ng-class="{active: exercise.currentTab === tab.tabNumber}" ng-click="exercise.switchToTab(tab)">
+			<a>{{tab.name}}</a>
 		</dd>
 	</dl>
 </div>
