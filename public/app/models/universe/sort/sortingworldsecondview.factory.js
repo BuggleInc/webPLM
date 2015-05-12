@@ -37,7 +37,6 @@
 
 		function drawChrono(sortingWorld)
 		{ 
-
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
 
@@ -45,8 +44,6 @@
 			{
 				if(sortingWorld.operations[i].length ===  1)
 					amountOperations--;
-
-
 			}
 			
 			//String of letters

@@ -327,7 +327,7 @@
 									name : 'ChronoDemo',
 									worldKind : 'answer',
 									tabNumber : 3,
-									drawFnct : BaseballSecondView.drawFnct
+									drawFnct : BaseballSecondView.draw
 								}
 								];
 								exercise.drawFnct = BaseballView.draw;
