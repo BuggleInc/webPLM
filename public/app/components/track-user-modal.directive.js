@@ -15,8 +15,7 @@
 				$(document).foundation('reveal', 'reflow');
 				scope.userService = userService;
 				scope.$watch('userService.getUser()', function (data) {
-					console.log('Yo dans le watch');
-					var user = scope.userService.getUser();
+					var user = userService.getUser();
 					if(Object.keys(user).length !== 0 && user.trackUser === undefined) {
 						$('#trackUserModal').foundation('reveal','open');
 					}

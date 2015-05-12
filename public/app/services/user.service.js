@@ -22,7 +22,8 @@
 			signInWithCredentials: signInWithCredentials,
 			signInWithProvider: signInWithProvider,
 			signOut: signOut,
-			getUser: getUser
+			getUser: getUser,
+			setTrackUser: setTrackUser
 		};
 
 		return service;
@@ -79,6 +80,11 @@
 			if($auth.isAuthenticated()) {
 				$auth.logout();
 			}
+		}
+
+		function setTrackUser(trackUser) {
+			user.trackUser = trackUser;
+			connection.sendMessage('setTrackUser', { trackUser: trackUser });
 		}
 
 		function handleMessage(data) {

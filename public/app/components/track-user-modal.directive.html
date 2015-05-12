@@ -5,8 +5,8 @@
   <p class="lead" translate>Do you accept to make public your usage data?</p>
   <div class="row center">
 	  <button class="secondary" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Let me decide later</button>
-	  <button class="alert" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>No, don't publish my data</button>
-	  <button onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Ok, share my data</button>
+	  <button class="alert" ng-click="userService.setTrackUser(false)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>No, don't publish my data</button>
+	  <button ng-click="userService.setTrackUser(true)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Ok, share my data</button>
   </div>
   You can later update your preference from your profile's page.
   <a class="close-reveal-modal">&#215;</a>
