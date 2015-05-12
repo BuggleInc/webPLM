@@ -48,7 +48,7 @@ object AbstractBuggleToJson {
       case (x: Int, y: Int, color: Array[Int], direction: Int, carryBaggle: Boolean) => {
         return new SimpleBuggle(buggleWorld, name, x, y, Direction.NORTH,
                                 new Color(color(0), color(1), color(2), color(3)),
-                                new Color(color(0), color(1), color(2), color(3)))
+                                new Color(42, 42, 42, 255))
       }
     }
   }

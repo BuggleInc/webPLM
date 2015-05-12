@@ -651,7 +651,6 @@
         function updateUI(pl, instructions, api, code) {
 			editor.currentProgrammingLanguage = pl;
 			setIDEMode(pl);
-			editor.instructions = $sce.trustAsHtml(instructions);
 			if(api !== null)
                 editor.api = $sce.trustAsHtml(api);
 		}
@@ -688,5 +687,16 @@
 			$timeout.cancel(editor.updateViewLoop);
 			editor.isPlaying = false;
 		}
+        
+        $scope.$on('$destroy',function() {
+			offDisplayMessage();
+			$timeout.cancel(editor.updateModelLoop);
+			$interval.cancel(editor.updateViewLoop);
+			editor.initialWorlds = {};
+			editor.currentWorlds = {};
+			editor.currentWorld = null;
+			editor.drawService.setWorld(null);
+			editor.api = null;
+		});
     }
 })();
