@@ -102,7 +102,6 @@
 		exercise.instructionsClass='';
 		exercise.worldsViewClass='';
 
-		exercise.setCurrentTab = setCurrentTab;
 		exercise.runDemo = runDemo;
 		exercise.runCode = runCode;
 		exercise.reset = reset;
@@ -110,6 +109,7 @@
 		exercise.stopExecution = stopExecution;
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
+		exercise.switchToTab = switchToTab;
 
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
@@ -153,7 +153,6 @@
 				case 'demoEnded':
 					console.log('The demo ended!');
 					exercise.isRunning = false;
-					exercise.playedDemo = true;
 					break;
 				case 'operations':
 					handleOperations(args.worldID, 'current', args.operations);
@@ -196,14 +195,14 @@
 							case 'BuggleWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : BuggleWorldView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : BuggleWorldView.draw
 								 }
@@ -217,8 +216,8 @@
 							case 'BatWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : BatWorldView.draw
 								 }
@@ -231,26 +230,26 @@
 							case 'SortingWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name: "ChronoView",
-								 	worldKind : "current",
+								 	name: 'ChronoView',
+								 	worldKind : 'current',
 								 	tabNumber : 2,
 								 	drawFnct : SortingWorldSecondView.draw
 								 },
 								 {
-								 	name : "ChronoDemo",
-								 	worldKind : "answer",
+								 	name : 'ChronoDemo',
+								 	worldKind : 'answer',
 								 	tabNumber : 3,
 								 	drawFnct : SortingWorldSecondView.draw
 								 }
@@ -265,14 +264,14 @@
 							case 'DutchFlagWorld':
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : DutchFlagView.draw
 								 },
 								 {
-								 	name : "Objective",
-								 	worldKind : "answer",
+								 	name : 'Objective',
+								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : DutchFlagView.draw
 								 }
@@ -286,13 +285,13 @@
 							case 'PancakeWorld' :
 								exercise.tabs = [
 								{
-									name : "World",
-									worldKind : "current",
+									name : 'World',
+									worldKind : 'current',
 									tabNumber : 0,
 									drawFnct : PancakeView.draw
 								 },
 								 {
-								 	name : "Objective",
+								 	name : 'Objective',
 								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : PancakeView.draw
@@ -348,7 +347,7 @@
 
 				exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-				setCurrentWorld('current', exercise.drawFnct);
+				setCurrentWorld('current');
 
 				window.addEventListener('resize', resizeCodeMirror, false);
 			}
@@ -377,18 +376,15 @@
 			exercise.api = $sce.trustAsHtml(api);
 		}
 		
-		function setCurrentWorld(worldKind, drawFnct) {
+		function setCurrentWorld(worldKind) {
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
 			exercise.worldKind = worldKind;
 			exercise.currentWorld = exercise[exercise.worldKind+'Worlds'][exercise.currentWorldID];
-			exercise.currentState = exercise.currentWorld.currentState;
-			exercise.drawService.setDraw(drawFnct);
-			exercise.drawFnct = drawFnct;
+			$timeout(function () {
+				exercise.currentState = exercise.currentWorld.currentState;
+			}, 0);
 			exercise.drawService.setWorld(exercise.currentWorld);
-			if(!exercise.playedDemo && worldKind === 'answer') {
-				runDemo();
-			}
 		}
 		
 		function runDemo() {
@@ -400,6 +396,7 @@
 						exerciseID: exercise.id,
 				};
 				connection.sendMessage('runDemo', args);
+				exercise.playedDemo = true;
 				exercise.isRunning = true;
 			}
 			else {
@@ -417,12 +414,12 @@
 			exercise.worldIDs.map(function(key) {
 				reset(key, 'current', false);
 			});
-			setCurrentWorld('current', exercise.drawFnct);
+			setCurrentWorld('current');
 			exercise.tabs.map(function(element)
 			{
 				if(element.worldKind === 'current' && element.drawFnct === exercise.drawFnct)
 				{
-					setCurrentTab(element.tabNumber);
+					exercise.currentTab = element.tabNumber;
 				}
 			})
 			args = {
@@ -485,7 +482,7 @@
 		function handleOperations(worldID, worldKind, operations) {
 			var world = exercise[worldKind+'Worlds'][worldID];
 			world.addOperations(operations);
-			if(exercise.updateViewLoop === null) {
+			if(world === exercise.currentWorld && exercise.updateViewLoop === null) {
 				exercise.isPlaying = true;
 				startUpdateModelLoop();
 				startUpdateViewLoop();
@@ -559,11 +556,6 @@
 			exercise.selectedNextExercise = exo;
 		}
 
-		function setCurrentTab(tabNumber)
-		{
-			exercise.currentTab = tabNumber;
-		}
-
 		function setIDEMode(pl) {
 			switch(pl.lang.toLowerCase()) {
 				case 'java':
@@ -587,13 +579,17 @@
 		}
 
 		function updateUI(pl, instructions, api, code) {
-			exercise.currentProgrammingLanguage = pl;
-			setIDEMode(pl);
+			if(pl !== null) {
+				exercise.currentProgrammingLanguage = pl;
+				setIDEMode(pl);
+			}
 			exercise.instructions = $sce.trustAsHtml(instructions);
-			if(api !== null)
+			if(api !== null) {
 				exercise.api = $sce.trustAsHtml(api);
-			if(code !== null)
-			exercise.code = code;
+			}
+			if(code !== null) {
+				exercise.code = code;
+			}
 		}
 
 		function resetExercise() {
@@ -666,6 +662,25 @@
 			exercise.editor.setSize(null, drawingAreaHeight);
 			exercise.editor.refresh();
 			$(document).foundation('equalizer', 'reflow');
+		}
+
+		function switchToTab(tab) {
+			exercise.currentTab = tab.tabNumber;
+			if(exercise.drawFnct !== tab.drawFnct) {
+				setDrawFnct(tab.drawFnct);
+			}
+			if(exercise.worldKind !== tab.worldKind) {
+				setCurrentWorld(tab.worldKind);
+				if(!exercise.playedDemo && tab.worldKind === 'answer') {
+					runDemo();
+				}
+			}
+		}
+
+		function setDrawFnct(drawFnct) {
+			exercise.drawService.setDraw(drawFnct);
+			exercise.drawFnct = drawFnct;
+			exercise.drawService.update();
 		}
 
 		function resizeInstructions() {
