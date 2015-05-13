@@ -16,7 +16,8 @@
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
 		'DutchFlagWorld', 'DutchFlagView',
-		'PancakeWorld', 'PancakeView'
+		'PancakeWorld', 'PancakeView', 
+		'BaseballWorld', 'BaseballView', 'BaseballSecondView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -28,18 +29,18 @@
 		BatWorld, BatWorldView, 
 		SortingWorld, SortingWorldView, SortingWorldSecondView, 
 		DutchFlagWorld, DutchFlagView,
-		PancakeWorld, PancakeView ) {
+		PancakeWorld, PancakeView, BaseballWorld, BaseballView, BaseballSecondView
+		) {
 
 		var exercise = this;
 		
 		var panelID = 'panel';
 		var canvasID = 'canvas';
 
+
 		exercise.tabs = [];
 		exercise.currentTab = 0;
 		exercise.drawFnct = null;
-		
-		
 
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
@@ -302,6 +303,40 @@
 								world = new PancakeWorld(initialWorld);
 								initCanvas(PancakeView.draw);
 								break; 
+							case 'BaseballWorld' :
+								exercise.tabs = [
+								{
+									name: 'World',
+									worldKind : 'current',
+									tabNumber : 0,
+									drawFnct : BaseballView.draw
+								},
+								{
+									name : 'Objective',
+									worldKind : 'answer',
+									tabNumber : 1,
+									drawFnct : BaseballView.draw
+								},
+								{
+									name : 'ChronoView',
+									worldKind : 'current',
+									tabNumber : 2,
+									drawFnct : BaseballSecondView.draw
+								},
+								{
+									name : 'ChronoDemo',
+									worldKind : 'answer',
+									tabNumber : 3,
+									drawFnct : BaseballSecondView.draw
+								}
+								];
+								exercise.drawFnct = BaseballView.draw;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								exercise.secondViewNeeded = true;
+								world = new BaseballWorld(initialWorld);
+								initCanvas(BaseballView.draw);
+								break;  
 
 						}
 						exercise.initialWorlds[worldID] = world;
