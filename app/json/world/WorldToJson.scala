@@ -13,6 +13,7 @@ import plm.universe.sort.SortingWorld
 import lessons.sort.dutchflag.universe.DutchFlagWorld
 import lessons.sort.pancake.universe.PancakeWorld
 import json.world.pancake.PancakeWorldToJson
+import lessons.recursion.hanoi.universe.HanoiWorld
 
 object WorldToJson {
   
@@ -42,6 +43,8 @@ object WorldToJson {
          json = DutchFlagWorldToJson.dutchFlagWorldWrite(dutchFlagWorld)
       case pancakeWorld: PancakeWorld =>
         json = PancakeWorldToJson.pancakeWorldWrite(pancakeWorld)
+      case hanoiWorld: HanoiWorld =>
+        json = HanoiWorldToJson.hanoiWorldWrite(hanoiWorld)          
       case _ =>
         throw NonImplementedWorldException.create;
     }
