@@ -2,10 +2,10 @@
 	<hr/>
 	<div class="row">
 		<div class="small-9 columns">
-			<h4>Welcome {{ profile.getUser().firstName }} {{ profile.getUser().lastName }}</h4>
+			<h4>Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}</h4>
 		</div>
 		<div class="small-3 columns">
-			<img style="height:40px;" ng-src="{{ profile.getUser().avatarURL }}">
+			<img style="height:40px;" ng-src="{{ profile.user.avatarURL }}">
 		</div>
 	</div>
 	<hr/>
@@ -15,23 +15,50 @@
 			<strong>Email:</strong>
 		</div>
 		<div class="small-6 columns">
-			{{ profile.getUser().email }}
+			{{ profile.user.email }}
 		</div>
 	</div>
-	<div class="row">
-		<div class="small-6 columns">
-			<strong>First name:</strong>
+	<div ng-show="profile.mode === 'view'">
+		<div class="row">
+			<div class="small-6 columns">
+				<strong>First name:</strong>
+			</div>
+			<div class="small-6 columns">
+				{{ profile.user.firstName }}
+			</div>
 		</div>
-		<div class="small-6 columns">
-			{{ profile.getUser().firstName }}
+		<div class="row">
+			<div class="small-6 columns">
+				<strong>Last name:</strong>
+			</div>
+			<div class="small-6 columns">
+				{{ profile.user.lastName }}
+			</div>
+		</div>
+		<div class="row center">
+			<button ng-click="profile.switchToMode('edit')">Edit profile</button>
 		</div>
 	</div>
-	<div class="row">
-		<div class="small-6 columns">
-			<strong>Last name:</strong>
+	<div ng-show="profile.mode === 'edit'">
+		<div class="row">
+			<div class="small-6 columns">
+				<strong>First name:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="text" ng-model="profile.userTemp.firstName">
+			</div>
 		</div>
-		<div class="small-6 columns">
-			{{ profile.getUser().lastName }}
+		<div class="row">
+			<div class="small-6 columns">
+				<strong>Last name:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="text" ng-show="profile.mode === 'edit'" ng-model="profile.userTemp.lastName">
+			</div>
+		</div>
+		<div class="row center">
+			<button class="secondary" ng-click="profile.switchToMode('view')">Cancel</button>
+			<button ng-click="profile.updateProfile()">Confirm changes</button>
 		</div>
 	</div>
 </div>
