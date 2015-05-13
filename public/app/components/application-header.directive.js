@@ -5,10 +5,15 @@
 		.module('PLMApp')
 		.directive('applicationHeader', applicationHeader);
 	
-	function applicationHeader() {
+	applicationHeader.$inject = ['userService'];
+
+	function applicationHeader(userService) {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/application-header.directive.html'
+			templateUrl: '/assets/app/components/application-header.directive.html',
+			link: function (scope, element, attrs) {
+				scope.userService = userService;
+			}
 		};
 	}
 })();

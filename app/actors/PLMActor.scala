@@ -3,10 +3,9 @@ package actors
 import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
-
 import json._
-
 import models.PLM
+import models.User
 import log.PLMLogger
 import spies._
 import plm.core.model.lesson.Exercise
@@ -21,31 +20,42 @@ import plm.universe.GridWorldCell
 import plm.universe.bugglequest.BuggleWorld
 import plm.universe.bugglequest.AbstractBuggle
 import plm.universe.bugglequest.BuggleWorldCell
-
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
+import java.util.UUID
+import models.daos.UserDAOMongoImpl
 
 object PLMActor {
-  def props(out: ActorRef, preferredLang: Lang) = Props(new PLMActor(out, preferredLang))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
+  def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
-class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
-  var availableLangs = Lang.availables
-  var isProgressSpyAdded: Boolean = false
-  var plmLogger = new PLMLogger(this)
-  var plm = new PLM(plmLogger, preferredLang.toLocale)
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], out: ActorRef) extends Actor {  
+  var availableLangs: Seq[Lang] = Lang.availables
+  var plmLogger: PLMLogger = new PLMLogger(this)
   
-  var resultSpy: ExecutionResultListener = new ExecutionResultListener(this, plm.game)
-  plm.game.addGameStateListener(resultSpy)
+  var resultSpy: ExecutionResultListener = null
+  var progLangSpy: ProgLangListener  = null
+  var humanLangSpy: HumanLangListener = null
+  var registeredSpies: List[ExecutionSpy] = null
   
-  var progLangSpy: ProgLangListener = new ProgLangListener(this, plm)
-  plm.game.addProgLangListener(progLangSpy, true)
+  var currentUser: User = null
   
-  var humanLangSpy: HumanLangListener = new HumanLangListener(this, plm)
-  plm.game.addHumanLangListener(humanLangSpy, true)
+  var currentPreferredLang: Lang = preferredLang.getOrElse(Lang("en"))
   
-  var registeredSpies: List[ExecutionSpy] = List()
+  var currentGitID: String = null
+  setCurrentGitID(gitID, newUser)
+  
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang)
+  
+  initSpies
+  registerActor
+  
+  def this(actorUUID: String, user: User, out: ActorRef) {
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, out)
+    setCurrentUser(user)
+  }
   
   def receive = {
     case msg: JsValue =>
@@ -53,6 +63,22 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
       Logger.debug(msg.toString())
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
+        case "signIn" | "signUp" =>
+          setCurrentUser((msg \ "user").asOpt[User].get)
+          registeredSpies.foreach { spy => spy.unregister }
+          plm.setUserUUID(currentGitID)
+          currentUser.preferredLang.getOrElse(None) match {
+            case newLang: Lang =>
+              currentPreferredLang = newLang
+              plm.setLang(currentPreferredLang)
+            case _ =>
+              savePreferredLang()
+          }
+          plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
+        case "signOut" =>
+          clearCurrentUser()
+          registeredSpies.foreach { spy => spy.unregister }
+          plm.setUserUUID(currentGitID)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -62,6 +88,7 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
           (optProgrammingLanguage.getOrElse(None)) match {
             case programmingLanguage: String =>
               plm.setProgrammingLanguage(programmingLanguage)
+              saveLastProgLang(programmingLanguage)
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -69,7 +96,9 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
           (optLang.getOrElse(None)) match {
             case lang: String =>
-              plm.setLang(Lang(lang))
+              currentPreferredLang = Lang(lang)
+              plm.setLang(currentPreferredLang)
+              savePreferredLang()
             case _ =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -119,13 +148,15 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
               "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
           ))
         case "getExercises" =>
-          var lectures = plm.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
-          sendMessage("exercises", Json.obj(
-            "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
-          ))
+          if(plm.currentExercise != null) {
+            var lectures = plm.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
+            sendMessage("exercises", Json.obj(
+              "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
+            ))
+          }
         case "getLangs" =>
           sendMessage("langs", Json.obj(
-            "selected" -> LangToJson.langWrite(preferredLang),
+            "selected" -> LangToJson.langWrite(currentPreferredLang),
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
         case _ =>
@@ -144,12 +175,80 @@ class PLMActor(out: ActorRef, preferredLang: Lang) extends Actor {
     out ! createMessage(cmdName, mapArgs)
   }
   
+  def setCurrentUser(newUser: User) {
+    currentUser = newUser
+    sendMessage("user", Json.obj(
+        "user" -> currentUser
+      )
+    )
+    
+    setCurrentGitID(currentUser.gitID.toString, false)
+  }
+  
+  def clearCurrentUser() {
+    currentUser = null
+    sendMessage("user", Json.obj())
+    
+    currentGitID = UUID.randomUUID.toString
+    setCurrentGitID(currentGitID, true)
+  }
+  
+  def setCurrentGitID(newGitID: String, toSend: Boolean) {
+    currentGitID = newGitID;
+    if(toSend) {
+      sendMessage("gitID", Json.obj(
+          "gitID" -> currentGitID  
+        )
+      )
+    }
+  } 
+  
+  def initSpies() {
+    resultSpy = new ExecutionResultListener(this, plm.game)
+    plm.game.addGameStateListener(resultSpy)
+    
+    progLangSpy = new ProgLangListener(this, plm)
+    plm.game.addProgLangListener(progLangSpy, true)
+    
+    humanLangSpy = new HumanLangListener(this, plm)
+    plm.game.addHumanLangListener(humanLangSpy, true)
+    
+    registeredSpies = List()
+  }
+  
+  def registerActor() {
+    ActorsMap.add(actorUUID, self)
+    sendMessage("actorUUID", Json.obj(
+        "actorUUID" -> actorUUID  
+      )
+    )
+  }
+  
   def registerSpy(spy: ExecutionSpy) {
     registeredSpies = registeredSpies ::: List(spy)
   }
   
+  def saveLastProgLang(programmingLanguage: String) {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          lastProgLang = Some(programmingLanguage)
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
+  }
+  
+  def savePreferredLang() {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          preferredLang = Some(currentPreferredLang)
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
+  }
+  
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
+    ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }

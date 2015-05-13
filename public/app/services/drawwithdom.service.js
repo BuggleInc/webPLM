@@ -16,6 +16,7 @@
 				setWorld: setWorld,
 				update: update,
 				getWorld: getWorld,
+				setDraw: setDraw
 		};
 		
 		return service;
@@ -38,6 +39,11 @@
 
 		function update() {
 			draw(drawingArea, currentWorld);
+		}
+
+		function setDraw(drawFnct)
+		{
+			draw = drawFnct;
 		}
 	}
 })();

@@ -10,6 +10,31 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.provider {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.provider > img {
+	width:64px;
+	height:64px;
+}
+
+.facebook { background: #3B5998; }
+
+.google { background: #DF4A32; }
+.google:hover { background: #E94A2F; }
+.google:active { background: #C03D28; }
+
+.github { opacity: 0.9; }
+.github:hover { opacity: 0.8; }
+.github:active { opacity: 1; }
+
+.twitter { background: #00ACED; }
+
 .passed {
 	color: green;
 }
@@ -22,6 +47,11 @@
 	position: relative;
 }
 
+.tabs dd > a
+{
+	padding-right: 0.5rem;
+	padding-left: 0.5rem;
+}
 .overflow {
 	overflow-y: auto;
 	height: 500px;
