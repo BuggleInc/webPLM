@@ -16,7 +16,8 @@
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
 		'DutchFlagWorld', 'DutchFlagView',
-		'PancakeWorld', 'PancakeView', 'BaseballWorld', 'BaseballView', 'BaseballSecondView'
+		'PancakeWorld', 'PancakeView', 
+		'BaseballWorld', 'BaseballView', 'BaseballSecondView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -195,14 +196,14 @@
 							case 'BuggleWorld':
 								exercise.tabs = [
 								{
-									name : 'World',
-									worldKind : 'current',
+									name : "World",
+									worldKind : "current",
 									tabNumber : 0,
 									drawFnct : BuggleWorldView.draw
 								 },
 								 {
-								 	name : 'Objective',
-								 	worldKind : 'answer',
+								 	name : "Objective",
+								 	worldKind : "answer",
 								 	tabNumber : 1,
 								 	drawFnct : BuggleWorldView.draw
 								 }
@@ -216,8 +217,8 @@
 							case 'BatWorld':
 								exercise.tabs = [
 								{
-									name : 'World',
-									worldKind : 'current',
+									name : "World",
+									worldKind : "current",
 									tabNumber : 0,
 									drawFnct : BatWorldView.draw
 								 }
@@ -230,26 +231,26 @@
 							case 'SortingWorld':
 								exercise.tabs = [
 								{
-									name : 'World',
-									worldKind : 'current',
+									name : "World",
+									worldKind : "current",
 									tabNumber : 0,
 									drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name : 'Objective',
-								 	worldKind : 'answer',
+								 	name : "Objective",
+								 	worldKind : "answer",
 								 	tabNumber : 1,
 								 	drawFnct : SortingWorldView.draw
 								 },
 								 {
-								 	name: 'ChronoView',
-								 	worldKind : 'current',
+								 	name: "ChronoView",
+								 	worldKind : "current",
 								 	tabNumber : 2,
 								 	drawFnct : SortingWorldSecondView.draw
 								 },
 								 {
-								 	name : 'ChronoDemo',
-								 	worldKind : 'answer',
+								 	name : "ChronoDemo",
+								 	worldKind : "answer",
 								 	tabNumber : 3,
 								 	drawFnct : SortingWorldSecondView.draw
 								 }
@@ -264,14 +265,14 @@
 							case 'DutchFlagWorld':
 								exercise.tabs = [
 								{
-									name : 'World',
-									worldKind : 'current',
+									name : "World",
+									worldKind : "current",
 									tabNumber : 0,
 									drawFnct : DutchFlagView.draw
 								 },
 								 {
-								 	name : 'Objective',
-								 	worldKind : 'answer',
+								 	name : "Objective",
+								 	worldKind : "answer",
 								 	tabNumber : 1,
 								 	drawFnct : DutchFlagView.draw
 								 }
@@ -285,13 +286,13 @@
 							case 'PancakeWorld' :
 								exercise.tabs = [
 								{
-									name : 'World',
-									worldKind : 'current',
+									name : "World",
+									worldKind : "current",
 									tabNumber : 0,
 									drawFnct : PancakeView.draw
 								 },
 								 {
-								 	name : 'Objective',
+								 	name : "Objective",
 								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : PancakeView.draw
@@ -385,7 +386,7 @@
 			exercise.drawService.setDraw(drawFnct);
 			exercise.drawFnct = drawFnct;
 			exercise.drawService.setWorld(exercise.currentWorld);
-			if(!exercise.isRunning && worldKind === 'answer') {
+			if(!exercise.playedDemo && worldKind === 'answer') {
 				runDemo();
 			}
 		}
