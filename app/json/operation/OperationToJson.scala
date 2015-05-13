@@ -1,5 +1,6 @@
 package json.operation
 
+import lessons.sort.baseball.operations._
 import play.api.libs.json._
 import plm.universe.Operation
 import plm.universe.GridWorldCellOperation
@@ -9,6 +10,7 @@ import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
 import lessons.sort.dutchflag.operations.DutchFlagOperation
 import lessons.sort.pancake.universe.operations.PancakeOperation
+
 
 
 object OperationToJson {
@@ -36,6 +38,8 @@ object OperationToJson {
         json = DutchFlagOperationToJson.dutchFlagOperationWrite(dutchFlagOperation)
       case pancakeOperation: PancakeOperation =>
         json = PancakeOperationToJson.pancakeOperationWrite(pancakeOperation)
+      case baseballOperation: BaseballOperation =>
+        json = BaseballOperationToJson.baseballOperationWrite(baseballOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

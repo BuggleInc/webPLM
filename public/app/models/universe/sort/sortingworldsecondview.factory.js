@@ -37,7 +37,6 @@
 
 		function drawChrono(sortingWorld)
 		{ 
-
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
 
@@ -45,8 +44,6 @@
 			{
 				if(sortingWorld.operations[i].length ===  1)
 					amountOperations--;
-
-
 			}
 			
 			//String of letters
@@ -89,7 +86,6 @@
 					
 					ctx.closePath();
 
-
 					//draws line
 					ctx.beginPath();
 					ctx.moveTo(25,y1);
@@ -100,8 +96,6 @@
 				}
 				return
 			}
-
-
 
 			//case initial if there are operations
 			if(drawLetters)
@@ -241,7 +235,6 @@
 							ctx.closePath();
 						}
 					}
-
 				}
 				if(sortingWorld.operations[i].length != 1)
 				{
