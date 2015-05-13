@@ -76,7 +76,10 @@
 		function updateUser(newUser) {
 			user.firstName = newUser.firstName;
 			user.lastName = newUser.lastName;
-			connection.sendMessage('updateUser', { user: user });
+			connection.sendMessage('updateUser', { 
+				firstName: user.firstName,
+				lastName: user.lastName 
+			});
 		}
 
 		function setGitID(gitID) {
