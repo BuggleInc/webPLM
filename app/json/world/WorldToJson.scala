@@ -1,7 +1,6 @@
 package json.world
 
 import exceptions.NonImplementedWorldException
-
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
@@ -14,6 +13,7 @@ import lessons.sort.dutchflag.universe.DutchFlagWorld
 import lessons.sort.pancake.universe.PancakeWorld
 import json.world.pancake.PancakeWorldToJson
 import lessons.sort.baseball.universe._
+import json.world.baseball.BaseballWorldToJson
 
 object WorldToJson {
   

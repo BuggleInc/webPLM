@@ -19,10 +19,14 @@
 			this.currentState = -1;
 			
 			this.field = [];
+			this.initValues = [];
 			for(var i=0; i<world.field.length;i++)
 			{
 				this.field.push(world.field[i]);
+				this.initValues.push(world.field[i]);
 			}
+			this.memory = [];
+			this.memory.push(this.initValues);
 
 			this.colors = [ '#0000FF', '#00FF00', 'rgb(255,0,255)', 'rgb(255,204,0)', 'rgb(158,253,56)',
 			'rgb(255,56,0)', 'rgb(204,204,255)', 'rgb(0,103,165)', 'rgb(201,0,22)',

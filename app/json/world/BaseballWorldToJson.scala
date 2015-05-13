@@ -1,4 +1,4 @@
-package json.world
+package json.world.baseball
 
 import lessons.sort.baseball.universe._
 import play.api.libs.json.Json.JsValueWrapper
@@ -15,6 +15,6 @@ object BaseballWorldToJson
          "posAmount" -> baseballWorld.getPositionsAmount,
          "moveCount" -> baseballWorld.getMoveCount(),
          "holePos" -> baseballWorld.getHolePosition,
-         "holeBase" -> baseballWorld.getHoleBase )
+         "holeBase" -> baseballWorld.getHoleBase)
    }
 }
