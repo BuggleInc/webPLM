@@ -10,7 +10,6 @@ import plm.universe.sort.operations.SortOperation
 import lessons.sort.dutchflag.operations.DutchFlagOperation
 import lessons.sort.pancake.universe.operations.PancakeOperation
 
-
 object OperationToJson {
   
   def operationsWrite(operations: Array[Operation]): JsValue = {
