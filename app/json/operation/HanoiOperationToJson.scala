@@ -4,7 +4,7 @@ import play.api.libs.json._
 import lessons.recursion.hanoi.operations.HanoiOperation
 import lessons.recursion.hanoi.operations.HanoiMove
 
-object HanoiOperation {
+object HanoiOperationToJson {
 
   def hanoiOperationWrite(hanoiOperation: HanoiOperation): JsValue =
   {
