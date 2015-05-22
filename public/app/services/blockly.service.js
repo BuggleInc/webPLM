@@ -4,7 +4,7 @@
     angular
         .module("PLMApp")
         .service('Blockly', function ($timeout) {
-        
+
             var me = this;
             this.holdoffChanges = false;
             this.setWorkspace = function (workspace) {
@@ -27,10 +27,6 @@
             };
 
             this.getWorkspace = function () {
-                return Blockly.Json.getWorkspace(Blockly.getMainWorkspace());
-            };
-
-            this.setToolbox = function (toolbox) {
                 return Blockly.Json.getWorkspace(Blockly.getMainWorkspace());
             };
 
