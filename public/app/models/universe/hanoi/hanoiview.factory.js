@@ -82,6 +82,7 @@
 			{
 				for(var j=0;j<slots[i].length;j++)
 				{
+					console.log(slots[i][j]);
 					width = slots[i][j] * coef;
 					x = (borderWidth + (i * ((canvasWidth - borderWidth*2) / (slots.length-1))) + 2.5) - (width / 2);
 					y = canvasHeight - ((canvasHeight - borderHeight) / 2) - ((space + height) * (j+1))

@@ -10,12 +10,19 @@ object HanoiWorldToJson {
     var arraySlot = JsArray()
     slotVal.foreach { vector =>
       var arrayVector = JsArray()
-      vector.toArray(Array[Integer]()).foreach { integer => integer.intValue() 
+      vector.toArray(Array[Integer]()).foreach { integer => 
+        arrayVector = arrayVector.append(Json.toJson(integer.intValue()))
     }
     arraySlot = arraySlot :+ arrayVector
   }
   return arraySlot
 }
+  /*
+  def integerWrite(integer: Integer): JsValue =
+  {
+    Json.toJson(integer.intValue())
+  } */
+  
   def hanoiWorldWrite(hanoiWorld: HanoiWorld): JsValue = {
     Json.obj(
         "type" -> "HanoiWorld",

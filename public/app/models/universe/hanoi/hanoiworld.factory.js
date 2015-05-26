@@ -24,17 +24,6 @@
 			{
 				this.slotVal.push(world.slotVal[i]);
 			}
-
-			//TMP
-			if(this.slotVal[0].length < 7)
-			{
-				for(var i=8;i>=1;i--)
-				{
-					this.slotVal[0].push(i);
-				}
-			}
-
-			console.log(this.slotVal[0].length);
 		};
 
 		HanoiWorld.prototype.clone = function()
