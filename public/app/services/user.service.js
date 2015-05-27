@@ -70,16 +70,19 @@
 		function cloneUser() {
 			return {
 				firstName: user.firstName,
-				lastName: user.lastName
+				lastName: user.lastName,
+                trackUser: user.trackUser
 			};
 		}
 
 		function updateUser(newUser) {
 			user.firstName = newUser.firstName;
 			user.lastName = newUser.lastName;
+            user.trackUser = newUser.trackUser;
 			connection.sendMessage('updateUser', { 
 				firstName: user.firstName,
-				lastName: user.lastName 
+				lastName: user.lastName,
+                trackUser: user.trackUser
 			});
 		}
 
