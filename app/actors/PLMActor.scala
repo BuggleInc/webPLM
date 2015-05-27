@@ -168,11 +168,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
         case "updateUser" =>
           var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
-          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
-            case (firstName:String, lastName: String) =>
+          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          (optFirstName.getOrElse(None), optFirstName.getOrElse(None), optTrackUser.getOrElse(None)) match {
+            case (firstName:String, lastName: String, trackUser: Boolean) =>
               currentUser = currentUser.copy(
                   firstName = optFirstName,
-                  lastName = optLastName
+                  lastName = optLastName,
+                  trackUser = optTrackUser
               )
               UserDAOMongoImpl.save(currentUser)
             case _ =>
