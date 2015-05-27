@@ -65,7 +65,7 @@
 			
 			if(baseballWorld.moveCount <= 1)
 				ctx.fillText(baseballWorld.moveCount+' Move',5,25);
-			else 
+			else
 				ctx.fillText(baseballWorld.moveCount+ ' Moves',5,25);
 			
 			ctx.closePath();
@@ -85,12 +85,12 @@
 			ctx.lineTo(tox-head*Math.cos(angle+Math.PI/6),toy-head*Math.sin(angle+Math.PI/6));
 			ctx.moveTo(fromx,fromy);
 
-			//add a round effect 
+			//add a round effect
 			ctx.lineCap = 'round';
 			ctx.stroke();
 		}
 
-		//draws the field, bases, positions, and buggles 
+		//draws the field, bases, positions, and buggles
 		function drawField(baseballWorld)
 		{
 			var nb = baseballWorld.baseAmount;
@@ -199,8 +199,6 @@
 				
 				ctx.closePath();
 
-					
-
 				//draws the positions
 				if(i % 2 === 0)
 				{
@@ -275,36 +273,53 @@
 						}
 
 						//draws arrows
-						if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
-						{
+						if((i/2)*baseballWorld.posAmount+j === baseballWorld.move && !baseballWorld.isReverse)
+						{ 
 							//x and y of the first point of the arrow
 							var arrcx = cx + (arrLambda * (x - ax));
-							var arrcy = cy + (arrLambda * (y - ay));
+							var arrcy = cy + (arrLambda * (y - ay))
+							
 							//dotted arrows
 							ctx.setLineDash([10, 8]);
 							ctx.beginPath();
+							console.log("index :", indexColor);
 							ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
 							ctx.moveTo(arrcx, arrcy);
 							ctx.quadraticCurveTo(width, radius, baseballWorld.holeX, baseballWorld.holeY);
 							ctx.lineWidth = 5;
 							ctx.stroke();
 							drawArrowHead(arrcx, arrcy, baseballWorld.holeX, baseballWorld.holeY);
+
 							//stop to draw dotted lines
 							ctx.setLineDash([]);
 						}
-
-						//To avoid bad lineWidth
+				
+						//find the position of the arrow's head
+						if(baseballWorld.memory.length === 1)
+							{
+								if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
+								{
+									baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
+									baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
+								}
+							}else if((baseballWorld.memory.length != (baseballWorld.operations.length+1)) && baseballWorld.memory.length != 1)
+							{
+								if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === baseballWorld.field[baseballWorld.holeBase*baseballWorld.posAmount+baseballWorld.holePos])
+								{
+									baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
+									baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
+								}
+							}else if(baseballWorld.memory.length != 2 && baseballWorld.memory.length != (baseballWorld.operations.length-1))
+							{
+								if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === baseballWorld.field[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition])
+								{
+									baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
+									baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
+								}
+							}
+						
 						ctx.lineWidth = 1;
-
-						//found the empty location	
-						if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
-						{
-							baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
-							baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
-						} 
-
 						next += distance * 2;
-
 						lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 						cx = ax + (lambda * (bx - ax));
 						cy = ay + (lambda * (by - ay));
