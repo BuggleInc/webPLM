@@ -22,7 +22,12 @@
 			this.slotVal = [];
 			for(var i=0;i<world.slotVal.length;i++)
 			{
-				this.slotVal.push(world.slotVal[i]);
+				var stock = [];
+				for(var j=0;j<world.slotVal[i].length;j++)
+				{
+					stock.push(world.slotVal[i][j]);
+				}
+				this.slotVal.push(stock);
 			}
 		};
 
