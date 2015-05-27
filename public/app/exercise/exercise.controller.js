@@ -141,6 +141,7 @@
             var args = data.args;
             switch (cmd) {
             case 'exercise':
+                console.log('handleMessage(data)_exercise | args', args)
                 setExercise(args.exercise);
                 break;
             case 'executionResult':
@@ -160,6 +161,7 @@
                 exercise.logs += args.msg;
                 break;
             case 'newProgLang':
+                console.log('handleMessage(data)_newProgLang | args', args)
                 updateUI(args.newProgLang, args.instructions, null, args.code);
                 exercise.isChangingProgLang = false;
                 break;
@@ -170,11 +172,13 @@
         }
 
         function setExercise(data) {
+            console.log('exercise.controller.setExercise(data) | data', data);
+            if (exercise.ide === 'blockly')
+                console.log('console.YYYEEEAAAAAA', data);
             exercise.id = data.id;
             exercise.instructions = $sce.trustAsHtml(data.instructions);
             exercise.api = $sce.trustAsHtml(data.api);
             exercise.code = data.code.trim();
-            console.log('coucou', data);
             /*if(data.code.trim != null)
             exercise.studentCode = data.workspace.trim();*/
             exercise.currentWorldID = data.selectedWorldID;
@@ -320,10 +324,13 @@
                 window.addEventListener('resize', resizeCodeMirror, false);
             }
 
+            console.log('exercise.controller.setExercise(data) | exercise.programmingLanguages', exercise.programmingLanguages);
+            console.log('exercise.controller.setExercise(data) | data.programmingLanguages', data.programmingLanguages);
             exercise.programmingLanguages = data.programmingLanguages;
             for (var i = 0; i < exercise.programmingLanguages.length; i++) {
                 var pl = exercise.programmingLanguages[i];
                 if (pl.lang === data.currentProgrammingLanguage) {
+                    console.log('exercise.controller.setExercise(data) | pl.lang', pl.lang);
                     exercise.currentProgrammingLanguage = pl;
                     setIDEMode(pl);
                 }
@@ -570,21 +577,6 @@
         }
 
         function setProgrammingLanguage(pl) {
-            if (pl.lang === 'Blockly') {
-                exercise.ide = 'blockly';
-                Blockly.fireUiEvent(window, 'resize');
-                /*console.log(exercise.studentCode);
-                console.log(Blockly.getMainWorkspace());
-                if (exercise.studentCode != null) {
-                    var xml = Blockly.Xml.textToDom(exercise.studentCode);
-                    Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
-                }*/
-                //Blockly.languageTree = exercise.toolbox;
-                //Blockly.Toolbox.populate_();
-            } else {
-                //Blockly.getMainWorkspace().clear();
-                exercise.ide = 'codemirror';
-            }
             exercise.isChangingProgLang = true;
             connection.sendMessage('setProgrammingLanguage', {
                 programmingLanguage: pl.lang
@@ -594,13 +586,31 @@
         function updateUI(pl, instructions, api, code) {
             if (pl !== null) {
                 exercise.currentProgrammingLanguage = pl;
-                setIDEMode(pl);
+                if (pl.lang === 'Blockly') {
+                    exercise.ide = 'blockly';
+                    Blockly.fireUiEvent(window, 'resize');
+                    if (code !== null) {
+                        exercise.studentCode = code;
+                        if (exercise.studentCode !== "") {
+                            var xml = Blockly.Xml.textToDom(exercise.studentCode);
+                            Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
+                        }
+                    }
+                    console.log('exercise.controller.updateUI_studentCode |', exercise.studentCode);
+                    //Blockly.languageTree = exercise.toolbox;
+                    //Blockly.Toolbox.populate_();
+                } else {
+                    Blockly.getMainWorkspace().clear();
+                    setIDEMode(pl);
+                    exercise.ide = 'codemirror';
+                    if (code !== null)
+                        exercise.code = code;
+                    console.log('exercise.controller.updateUI_code |', exercise.code);
+                }
             }
             exercise.instructions = $sce.trustAsHtml(instructions);
             if (api !== null)
                 exercise.api = $sce.trustAsHtml(api);
-            if (code !== null)
-                exercise.code = code;
         }
 
         function resetExercise() {

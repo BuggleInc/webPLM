@@ -87,7 +87,6 @@ var cmd: Option[String] = (msg \ "cmd").asOpt[String]
 		var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
 				(optProgrammingLanguage.getOrElse(None)) match {
 				case programmingLanguage: String =>
-				Logger.debug("##### BA setProgrammingLanguage ##### "+programmingLanguage)
 				plm.setProgrammingLanguage(programmingLanguage)
 				saveLastProgLang(programmingLanguage)
 				case _ =>
@@ -104,6 +103,7 @@ var cmd: Option[String] = (msg \ "cmd").asOpt[String]
 				Logger.debug("getExercise: non-correct JSON")
 		}
 		case "getExercise" =>
+    Logger.debug("PASSAGE")
 		var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
 				var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
 						var lecture: Lecture = null;
@@ -233,14 +233,10 @@ def registerSpy(spy: ExecutionSpy) {
 }
 
 def saveLastProgLang(programmingLanguage: String) {
-	Logger.debug("##### BD setProgrammingLanguage ##### "+programmingLanguage)
-  Logger.debug("##### BE setProgrammingLanguage ##### "+currentUser)
 	if(currentUser != null) {
 		currentUser = currentUser.copy(
 				lastProgLang = Some(programmingLanguage)
 				)
-				Logger.debug("##### BB setProgrammingLanguage ##### "+programmingLanguage)
-				Logger.debug("##### BC setProgrammingLanguage ##### "+lastProgLang)
 				UserDAOMongoImpl.save(currentUser)
 	}
 }

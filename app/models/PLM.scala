@@ -91,17 +91,10 @@ def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy:
 			def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
 				Logger.debug("Code:\n"+code)
 				_currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
-				Logger.debug("######## A : PLM.scala ###########:\n"+_currentExercise.getSourceFileCount(programmingLanguage))
-				Logger.debug("######## AA 0 Name : PLM.scala ########\n"+_currentExercise.getSourceFile(programmingLanguage, 0).getName())
-				Logger.debug("######## AB 0 body : PLM.scala ########\n"+_currentExercise.getSourceFile(programmingLanguage, 0).getBody())
 
 				if(workspace != null){
 					Logger.debug("Workspace:\n"+workspace)
-					Logger.debug("PLM.scala => bloque le run avec Blockly\n")
-					Logger.debug("######## A : PLM.scala ###########:\n"+_currentExercise.getSourceFileCount(programmingLanguage))
 					_currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
-					Logger.debug("######## AA 1 Name : PLM.scala ########\n"+_currentExercise.getSourceFile(programmingLanguage, 1).getName())
-					Logger.debug("######## AB 1 body : PLM.scala ########\n"+_currentExercise.getSourceFile(programmingLanguage, 1).getBody())
 				}
 
 				game.startExerciseExecution()
@@ -122,36 +115,37 @@ def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy:
 				}
 
 				def getStudentCode: String = {
+          //if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()) != null) _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()).getBody else ""
 						if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getBody else ""
 					}
 
-					def getStudentworkspace: String = {
-								if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 1) != null) _currentExercise.getSourceFile(programmingLanguage, 1).getBody else ""
-						}
+        /*def getStudentworkspace: String = {
+            if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 1) != null) _currentExercise.getSourceFile(programmingLanguage, 1).getBody else ""
+          }*/
 
-						def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-							game.addProgressSpyListener(progressSpyListener)  
-						}
+					def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
+						game.addProgressSpyListener(progressSpyListener)  
+					}
 
-						def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-							game.removeProgressSpyListener(progressSpyListener)  
-						}
+					def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
+						game.removeProgressSpyListener(progressSpyListener)  
+					}
 
-						def setLang(lang: Lang) {
-							if(_currentLang != lang) {
-								_currentLang = lang
-										game.setLocale(_currentLang.toLocale)
-							}
+					def setLang(lang: Lang) {
+						if(_currentLang != lang) {
+							_currentLang = lang
+									game.setLocale(_currentLang.toLocale)
 						}
+					}
 
-						def currentExercise: Exercise = _currentExercise
+					def currentExercise: Exercise = _currentExercise
 
-								def getMission(progLang: ProgrammingLanguage): String = {
-								if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
-						}
+							def getMission(progLang: ProgrammingLanguage): String = {
+							if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
+					}
 
-						def setUserUUID(userUUID: String) {
-							_currentExercise = null
-									game.setUserUUID(userUUID)
-						}
+					def setUserUUID(userUUID: String) {
+						_currentExercise = null
+								game.setUserUUID(userUUID)
+					}
 }
