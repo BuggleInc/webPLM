@@ -615,6 +615,8 @@
 			exercise.resultType = null;
 			exercise.result = null;
 			exercise.logs = null;
+            window.removeEventListener('resize', resizeCanvas, false);
+            window.removeEventListener('resize', resizeCodeMirror, false);
 		});
 
 		function initCanvas(draw) {
