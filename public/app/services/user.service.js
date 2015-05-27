@@ -6,9 +6,9 @@
 		.factory('userService', userService)
 		.run(function(userService) {}); // To instanciate the service at startup
 	
-	userService.$inject = ['$http', '$cookies', '$timeout', 'connection', 'listenersHandler', '$auth'];
+	userService.$inject = ['$cookies', 'connection', 'listenersHandler', '$auth'];
 	
-	function userService($http, $cookies, $timeout, connection, listenersHandler, $auth) {
+	function userService($cookies, connection, listenersHandler, $auth) {
 
 		listenersHandler.register('onmessage', handleMessage);
 
@@ -23,7 +23,9 @@
 			signInWithProvider: signInWithProvider,
 			signOut: signOut,
 			getUser: getUser,
-			setTrackUser: setTrackUser
+			setTrackUser: setTrackUser,
+			updateUser: updateUser,
+			cloneUser: cloneUser
 		};
 
 		return service;
@@ -65,13 +67,19 @@
 			user = data;
 		}
 
-		function retrieveUser() {
-			$http.get('/user/'+actorUUID)
-			.success(function() {
-				console.log('successfully retrieve your profile');
-			})
-			.error(function(error) {
-				console.log('error: ', error.message);
+		function cloneUser() {
+			return {
+				firstName: user.firstName,
+				lastName: user.lastName
+			};
+		}
+
+		function updateUser(newUser) {
+			user.firstName = newUser.firstName;
+			user.lastName = newUser.lastName;
+			connection.sendMessage('updateUser', { 
+				firstName: user.firstName,
+				lastName: user.lastName 
 			});
 		}
 

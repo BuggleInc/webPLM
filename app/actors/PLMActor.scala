@@ -165,6 +165,19 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
             "selected" -> LangToJson.langWrite(currentPreferredLang),
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
+        case "updateUser" =>
+          var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
+          var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
+          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
+            case (firstName:String, lastName: String) =>
+              currentUser = currentUser.copy(
+                  firstName = optFirstName,
+                  lastName = optLastName
+              )
+              UserDAOMongoImpl.save(currentUser)
+            case _ =>
+              Logger.debug("updateUser: non-correct JSON")
+          }
         case "setTrackUser" =>
           var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
           (optTrackUser.getOrElse(None)) match {
