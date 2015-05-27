@@ -35,20 +35,19 @@
 			//draws the amount of move
 			drawText(hanoiWorld);
 
+			//draws towers of Hanoi
 			drawColumn(hanoiWorld);
 
+			//draws discs
 			drawDiscs(hanoiWorld);
-
 			ctx.closePath();
 		}
 
 		function drawText(hanoiWorld)
 		{
 			ctx.beginPath();
-
 			ctx.fillStyle = 'rgb(0,0,0)';
 			ctx.font = '15px sans-serif';
-
 			if(hanoiWorld.moveCount <= 1)
 			ctx.fillText(hanoiWorld.moveCount+' Move',5,25);
 			else ctx.fillText(hanoiWorld.moveCount+ ' Moves',5,25);
@@ -68,14 +67,14 @@
 				ctx.beginPath();
 				ctx.fillStyle = '#000000';
 				ctx.fillRect(x, y, 5, height);
-			}	ctx.closePath();
+				ctx.closePath();
+			}
 		}
 
 		function drawDiscs(hanoiWorld)
 		{
 			var slots = hanoiWorld.slotVal;
 			var height = 18, coef = 15, borderHeight = 200, borderWidth = 65, space = (borderHeight - (height * 8)) / 9;
-
 			var x, y, width;
 			
 			for(var i=0;i<slots.length;i++)
