@@ -110,6 +110,8 @@
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
 		exercise.switchToTab = switchToTab;
+        exercise.switchDisplayedInstructions = switchDisplayedInstructions;
+        exercise.switchDisplayedResults = switchDisplayedResults;
 
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
@@ -118,8 +120,34 @@
 		exercise.resetExercise = resetExercise;
 		exercise.resizeInstructions = resizeInstructions;
 
+        exercise.idle = false;
+            
+        startIdleLoop();
+        
+        function signalIdle() {
+			// User is away
+            exercise.idle = true;
+        }
+        
+        function startIdleLoop() {
+            exercise.idleLoop = $timeout(signalIdle, 5*60*1000); // 5 min
+        }
+        
+        function resetIdleLoop() {
+            if(exercise.idle === false) {
+
+                $timeout.cancel(exercise.idleLoop);
+            }
+            else {
+				// User is back
+                exercise.idle = false;
+            }
+            startIdleLoop();
+        }
+        
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
+            exercise.editor.on('change', resetIdleLoop);
 			resizeCodeMirror();
 		};
 
@@ -526,6 +554,7 @@
 		}
 		
 		function setWorldState(state) {
+            resetIdleLoop();
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
 			exercise.isPlaying = false;
@@ -667,6 +696,7 @@
 		}
 
 		function switchToTab(tab) {
+            resetIdleLoop();
 			exercise.currentTab = tab.tabNumber;
 			if(exercise.drawFnct !== tab.drawFnct) {
 				setDrawFnct(tab.drawFnct);
@@ -679,6 +709,16 @@
 			}
 		}
 
+        function switchDisplayedInstructions(tab) {
+            resetIdleLoop();
+            exercise.displayInstructions = tab;
+        }
+        
+        function switchDisplayedResults(tab) {
+            resetIdleLoop();
+            exercise.displayResults = tab;
+        }
+        
 		function setDrawFnct(drawFnct) {
 			exercise.drawService.setDraw(drawFnct);
 			exercise.drawFnct = drawFnct;
