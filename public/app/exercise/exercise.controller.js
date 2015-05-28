@@ -18,6 +18,7 @@
 		'DutchFlagWorld', 'DutchFlagView',
 		'PancakeWorld', 'PancakeView', 
 		'BaseballWorld', 'BaseballView', 'BaseballSecondView'
+		'HanoiWorld', 'HanoiView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -30,7 +31,8 @@
 		SortingWorld, SortingWorldView, SortingWorldSecondView, 
 		DutchFlagWorld, DutchFlagView,
 		PancakeWorld, PancakeView, BaseballWorld, BaseballView, BaseballSecondView
-		) {
+		HanoiWorld, HanoiView ) {
+
 
 		var exercise = this;
 		
@@ -336,8 +338,28 @@
 								exercise.secondViewNeeded = true;
 								world = new BaseballWorld(initialWorld);
 								initCanvas(BaseballView.draw);
-								break;  
-
+								break;
+							case 'HanoiWorld' :
+								exercise.tabs = [
+								{
+									name : 'World',
+									worldKind : 'current',
+									tabNumber : 0,
+									drawFnct : HanoiView.draw
+								},
+								{
+									name : 'Objective',
+									worldKind : 'answer',
+									tabNumer : 1,
+									drawFnct : HanoiView.draw
+								}
+								];
+								exercise.drawFnct = HanoiView.draw;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								world = new HanoiWorld(initialWorld);
+								initCanvas(HanoiView.draw);
+								break;
 						}
 						exercise.initialWorlds[worldID] = world;
 						exercise.answerWorlds[worldID] = world.clone();
