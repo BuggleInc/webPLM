@@ -12,7 +12,6 @@ import lessons.sort.dutchflag.operations.DutchFlagOperation
 import lessons.sort.pancake.universe.operations.PancakeOperation
 import lessons.recursion.hanoi.operations.HanoiOperation
 
-
 object OperationToJson {
   
   def operationsWrite(operations: Array[Operation]): JsValue = {
