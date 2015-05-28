@@ -38,7 +38,7 @@
 		
 		<div ui-view></div>
 		
-        <toaster-container></toaster-container>
+        <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
         
 		<footer class="row">
 			<hr>
@@ -62,13 +62,14 @@
 	<script src="/assets/app/app.auth.js"></script>
 
 	<!-- Application's services -->
-	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/langs.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+    <script type="text/javascript" src="/assets/app/services/toasterutils.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 	
 	<!-- Application's components -->
 	<script type="text/javascript" src="/assets/app/components/animation-player.directive.js"></script>
