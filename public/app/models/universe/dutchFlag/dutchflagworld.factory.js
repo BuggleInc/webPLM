@@ -24,6 +24,15 @@
 				this.content.push(world.content[i]);
 			}
 
+			this.memory = [];
+			this.initialValues = [];
+			for(var i=0;i<world.content.length;i++)
+			{
+				this.initialValues.push(world.content[i]);
+			}
+
+			this.memory.push(this.initialValues);
+
 			this.moveCount = world.moveCount;
 		};
 

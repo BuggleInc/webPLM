@@ -15,9 +15,9 @@
 		'BatWorld', 'BatWorldView',
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
-		'DutchFlagWorld', 'DutchFlagView',
+		'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
 		'PancakeWorld', 'PancakeView', 
-		'BaseballWorld', 'BaseballView', 'BaseballSecondView'
+		'BaseballWorld', 'BaseballView', 'BaseballSecondView',
 		'HanoiWorld', 'HanoiView'
 	];
 
@@ -29,8 +29,9 @@
 		BuggleWorld, BuggleWorldView,
 		BatWorld, BatWorldView, 
 		SortingWorld, SortingWorldView, SortingWorldSecondView, 
-		DutchFlagWorld, DutchFlagView,
-		PancakeWorld, PancakeView, BaseballWorld, BaseballView, BaseballSecondView
+		DutchFlagWorld, DutchFlagView, DutchFlagSecondView,
+		PancakeWorld, PancakeView, 
+		BaseballWorld, BaseballView, BaseballSecondView,
 		HanoiWorld, HanoiView ) {
 
 
@@ -276,11 +277,24 @@
 								 	worldKind : 'answer',
 								 	tabNumber : 1,
 								 	drawFnct : DutchFlagView.draw
+								 },
+								 {
+								 	name : 'ChronoView',
+								 	worldKind : 'current',
+								 	tabNumber : 2,
+								 	drawFnct : DutchFlagSecondView.draw
+								 },
+								 {
+								 	name : 'ChronoDemo',
+								 	worldKind : 'answer',
+								 	tabNumber : 3,
+								 	drawFnct : DutchFlagSecondView.draw
 								 }
 								]; 
 								exercise.drawFnct = DutchFlagView.draw;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
+								exercise.secondViewNeeded = true;
 								world = new DutchFlagWorld(initialWorld);
 								initCanvas(DutchFlagView.draw);
 								break;
