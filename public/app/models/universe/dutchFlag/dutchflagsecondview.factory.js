@@ -50,7 +50,7 @@
 		{
 			var length = dutchFlagWorld.content.length;
 			var x,y,space;
-			var height = 5, width = canvasWidth - 15;
+			var height = 5, width = canvasWidth - 15, dim = 10, location = dim / 2;
 
 			for(var i=0;i<length;i++)
 			{
@@ -63,6 +63,9 @@
 				ctx.lineTo(canvasWidth-15,y);
 				//to know the color of each line, we are looking its value
 				ctx.strokeStyle = colors[dutchFlagWorld.content[i]];
+				ctx.fillStyle = colors[dutchFlagWorld.content[i]];
+				ctx.fillRect(x-location,y-location, dim, dim);
+				ctx.fillRect(canvasWidth-15-location, y-location, dim, dim);
 				ctx.lineWidth = height ;
 				ctx.stroke();
 				ctx.closePath();
@@ -93,6 +96,10 @@
 						if(memory[i+1][j] === memory[i][j])
 						{
 							ctx.moveTo(x,y);
+
+							if(i === 0)
+								ctx.fillRect(x-location, y-location, dim, dim);
+
 							x2 = 15 + widthUnit * (i+1);
 							ctx.lineTo(x2,y);
 							ctx.lineWidth = 5;
