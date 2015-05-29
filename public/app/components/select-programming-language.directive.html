@@ -1,6 +1,6 @@
-<a ng-disabled="ctrl.isRunning || ctrl.isChangingProgLang" class="button secondary mini radius" data-dropdown="dropProgLangs"><img class="left" ng-src="{{ctrl.currentProgrammingLanguage.icon}}"/>&nbsp;{{ctrl.currentProgrammingLanguage.lang}}</a>
+<a ng-disabled="ctrl.isRunning || ide.isChangingProgLang()" class="button secondary mini radius" data-dropdown="dropProgLangs"><img class="left" ng-src="{{ide.programmingLanguage().icon}}"/>&nbsp;{{ide.programmingLanguage().lang}}</a>
 <ul id="dropProgLangs" class="f-dropdown" data-dropdown-content=true>
-	<li ng-repeat="pl in ctrl.programmingLanguages" ng-class="{ 'active-operation': pl.lang === ctrl.currentProgrammingLanguage }" ng-click="ctrl.setProgrammingLanguage(pl)">
+	<li ng-repeat="pl in ide.programmingLanguages()" ng-class="{ 'active-operation': pl.lang === ide.programmingLanguage() }" ng-click="ide.programmingLanguage(pl)">
   		<a><img ng-src="{{pl.icon}}"/>&nbsp;{{pl.lang}}</a>
  	</li>
 </ul>

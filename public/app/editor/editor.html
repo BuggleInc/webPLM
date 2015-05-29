@@ -4,7 +4,7 @@
     </div>
     <div class="small-2 columns block">
         <select ng-model="editor.editorMode">
-            <option ng-click="editor.initEditor()" value="world">Monde</option>
+            <option ng-click="editor.initEditor()" value="world">Worlds</option>
             <option value="mission">Mission</option>
             <option ng-click="editor.initSolutionEditor()" value="solution">Solution</option>
         </select>
@@ -12,6 +12,9 @@
 </div>
 
 <div ng-show="editor.editorMode == 'world'">
+    
+    <world-edition-worlds></world-edition-worlds>
+    
     <div class="row">
         <div class="small-5 columns block">
             <world-edition></world-edition>

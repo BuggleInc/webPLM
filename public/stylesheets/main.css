@@ -287,3 +287,13 @@ div[ui-view] {
 {
     opacity: 1;
 }
+
+button.selected-btn, button.selected-btn:focus, button.selected-btn:active, button.selected-btn:hover {
+    background-color: #006586;
+    box-shadow: 0px 2px 3px #00516B inset;
+}
+
+#select-world-row .columns {
+    padding-top: 0;
+    padding-bottom: 0;
+}

@@ -1,0 +1,35 @@
+<div class="row" id="select-world-row">
+    <div class="small-2 columns block">
+        <select ng-model="editor.currentWorldName" 
+                ng-change="editor.switchWorld(editor.currentWorldName);"
+                ng-options="world.name as world.name for world in editor.initialWorlds">
+        </select>
+    </div>
+    <div class="small-10 columns block">
+        <button class="button tiny radius" 
+                ng-click="editor.addWorld()" ng-class="{success: addWorldHover}" 
+                ng-mouseenter="addWorldHover = true"
+                ng-mouseleave="addWorldHover = false">
+            Add World
+        </button>
+        <button class="button tiny radius" 
+                ng-click="editor.deleteWorldCommand()"
+                ng-class="{ disabled: editor.initialWorlds.length === 1, alert: deleteWorldHover}"
+                ng-mouseenter="deleteWorldHover = true"
+                ng-mouseleave="deleteWorldHover = false">
+            Delete World
+        </button>
+    </div>
+
+    <div id="deleteWorldModal" class="reveal-modal" data-reveal=true>
+        <h2 translate>Delete {{editor.world.name}}?</h2>
+        <p translate>
+            Are you sure you want to delete world <strong>{{editor.world.name}}</strong>?
+        </p>
+        <button class="button radius" onclick="$('#deleteWorldModal').foundation('reveal', 'close');"
+                ng-click="editor.deleteWorld(editor.world.name)" translate>Delete</button>
+        <button class="button radius secondary" onclick="$('#deleteWorldModal').foundation('reveal', 'close');"
+                translate>Cancel</button>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</div>

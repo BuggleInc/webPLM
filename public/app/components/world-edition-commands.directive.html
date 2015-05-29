@@ -1,29 +1,54 @@
 <ul class="button-group radius">
-    
     <li><button class="button mini small" ng-click="editor.setCommand('')" 
-                ng-class="{success: editor.command==''}" translate>Select cell</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('topwall')" 
-                ng-class="{success: editor.command=='topwall'}" translate>Top wall</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('leftwall')"
-                ng-class="{success: editor.command=='leftwall'}" translate>Left wall</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('addbaggle')"
-                ng-class="{success: editor.command=='addbaggle'}" translate>Baggle</button></li>
+                ng-class="{'selected-btn': editor.command==''}" translate>
+            Select cell
+        </button>
+    </li>
     
-    <li><button class="button mini small" ng-click="editor.setCommand('buggle')" 
-                ng-class="{success: editor.command=='buggle'}" translate>Buggle</button></li>
     <li>
-        <button class="button mini small" ng-click="editor.setCommand('deletebuggle')"
-                ng-class="{success: editor.command=='deletebuggle'}" translate>Delete Buggle</button>
+        <button class="button mini radius small dropdown"
+                data-dropdown="drop-wall" aria-controls="drop-wall" aria-expanded="false"
+                ng-click="editor.setCommand(editor.lastWallCommand.ID)" 
+                ng-class="{'selected-btn': editor.commandType=='wall'}" translate>
+            {{editor.lastWallCommand.name}}
+        </button>
+        
+        <ul id="drop-wall" data-dropdown-content class="f-dropdown" aria-hidden="true">
+            <li><a href="" ng-click="editor.setCommand('topwall')">Top wall</a></li>
+            <li><a href="" ng-click="editor.setCommand('leftwall')">Left wall</a></li>
+        </ul>
+    </li>
+    
+    <li><button class="button mini small" ng-click="editor.setCommand('addbaggle')"
+                ng-class="{'selected-btn': editor.command=='addbaggle'}" translate>
+            Baggle
+        </button>
+    </li>
+    
+    <li>
+        <button class="button mini radius small dropdown"
+                data-dropdown="drop-buggle" aria-controls="drop-buggle" aria-expanded="false"
+                ng-click="editor.setCommand(editor.lastBuggleCommand.ID)" 
+                ng-class="{'selected-btn': editor.commandType=='buggle'}" translate>
+            {{editor.lastBuggleCommand.name}}
+        </button>
+        
+        <ul id="drop-buggle" data-dropdown-content class="f-dropdown" aria-hidden="true">
+            <li><a href="" ng-click="editor.setCommand('buggle')">Buggle</a></li>
+            <li><a href="" ng-click="editor.setCommand('deletebuggle')">Delete Buggle</a></li>
+        </ul>
     </li>
 
+    
     <li class="color-indic-li">
         <div class="color-indic ng-hide-add-active" ng-show="editor.command == 'color' || editor.command == 'pickcolor'"
             ng-style="{ 'background-color': '#' + editor.colorService.RGBtoHex(editor.color)}">
         </div>
         <button class="button mini radius small" ng-click="editor.setCommand('color')"
-                ng-class="{success: editor.command=='color' || editor.command=='pickcolor'}"
-                data-dropdown="drop-color" aria-controls="drop-color" aria-expanded="false" 
-                class="button dropdown">Color</button>
+                ng-class="{'selected-btn': editor.command=='color' || editor.command=='pickcolor'}"
+                data-dropdown="drop-color" aria-controls="drop-color" aria-expanded="false" >
+            Color
+        </button>
     </li>
     
     <ul id="drop-color" data-dropdown-content class="f-dropdown" aria-hidden="true">
@@ -41,21 +66,26 @@
     </ul>
 
     <li><button class="button mini small" ng-click="editor.setCommand('text')" 
-                ng-class="{success: editor.command=='text'}" translate>Text</button></li>
+                ng-class="{'selected-btn': editor.command=='text'}" translate>Text</button></li>
+    
+    <li>
+        <button class="button mini radius small dropdown"
+                data-dropdown="drop-grid" aria-controls="drop-grid" aria-expanded="false"
+                ng-click="editor.setCommand(editor.lastGridCommand.ID)" 
+                ng-class="{'selected-btn': editor.commandType=='grid'}" translate>
+            {{editor.lastGridCommand.name}}
+        </button>
+        
+        <ul id="drop-grid" data-dropdown-content class="f-dropdown" aria-hidden="true">
+            <li><a href="" ng-click="editor.setCommand('addline')">Add line</a></li>
+            <li><a href="" ng-click="editor.setCommand('deleteline')">Remove line</a></li>
+            <li><a href="" ng-click="editor.setCommand('addcolumn')">Add column</a></li>
+            <li><a href="" ng-click="editor.setCommand('deletecolumn')">Remove column</a></li>
+        </ul>
+    </li>
+
 </ul>
-
-<ul class="button-group radius">
-    <li><button class="button mini small" ng-click="editor.setCommand('addline')" 
-                ng-class="{success: editor.command=='addline'}" translate>Add Line</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('deleteline')" 
-                ng-class="{success: editor.command=='deleteline'}" translate>Remove Line</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('addcolumn')" 
-                ng-class="{success: editor.command=='addcolumn'}" translate>Add Column</button></li>
-    <li><button class="button mini small" ng-click="editor.setCommand('deletecolumn')"
-                ng-class="{success: editor.command=='deletecolumn'}" translate>Remove Column</button></li>
-</ul>
-
-
+    
 <div id="customColorModal" class="reveal-modal" data-reveal="true">
     <h2>Custom color</h2>
     <p>What color you want (r/g/b)</p>

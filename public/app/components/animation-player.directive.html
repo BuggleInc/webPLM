@@ -1,16 +1,16 @@
-<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === -1" ng-click="ctrl.reset(ctrl.currentWorldID, ctrl.worldKind, true)">
+<button class="button tiny round" ng-disabled="ctrl.worlds.isRunning() || ctrl.worlds.currentWorld().currentState === -1" ng-click="ctrl.worlds.reset(ctrl.worlds.currentWorldID(), ctrl.worlds.worldKind(), true)">
   <i class="fi-previous size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === -1" ng-click="ctrl.setWorldState(ctrl.currentWorld.currentState-1)">
+<button class="button tiny round" ng-disabled="ctrl.worlds.isRunning() || ctrl.worlds.currentWorld().currentState === -1" ng-click="ctrl.worlds.currentState(ctrl.worlds.currentWorld().currentState-1)">
   <i class="fi-rewind size-8"></i>
 </button>
-<input ng-disabled="ctrl.isRunning" type="range" ng-model="ctrl.currentState" ng-change="ctrl.setWorldState(ctrl.currentState);" max="{{ctrl.currentWorld.operations.length-1}}" min="-1"/>
-<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === (ctrl.currentWorld.operations.length-1)" ng-click="ctrl.setWorldState(ctrl.currentWorld.currentState+1)">
+<input ng-disabled="ctrl.worlds.isRunning()" type="range" ng-model="ctrl.worlds.currentState" ng-model-options="{ getterSetter: true }" max="{{ctrl.worlds.currentWorld().operations.length-1}}" min="-1"/>
+<button class="button tiny round" ng-disabled="ctrl.worlds.isRunning() || ctrl.worlds.currentWorld().currentState === (ctrl.worlds.currentWorld().operations.length-1)" ng-click="ctrl.worlds.currentState(ctrl.worlds.currentWorld().currentState+1)">
   <i class="fi-fast-forward size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="ctrl.isRunning || ctrl.currentWorld.currentState === (ctrl.currentWorld.operations.length-1)" ng-click="ctrl.setWorldState(ctrl.currentWorld.operations.length-1)">
+<button class="button tiny round" ng-disabled="ctrl.worlds.isRunning() || ctrl.worlds.currentWorld().currentState === (ctrl.worlds.currentWorld().operations.length-1)" ng-click="ctrl.worlds.currentState(ctrl.worlds.currentWorld().operations.length-1)">
   <i class="fi-next size-8"></i>
 </button>
-<button class="button tiny round" ng-disabled="ctrl.isPlaying || ctrl.currentWorld.operations.length === 0" ng-click="ctrl.replay()">
+<button class="button tiny round" ng-disabled="ctrl.worlds.isPlaying() || ctrl.worlds.currentWorld().operations.length === 0" ng-click="ctrl.worlds.replay()">
   <i class="fi-loop size-8"></i>
 </button>

@@ -25,7 +25,7 @@
 
             world = typeof world !== 'undefined' ? world : this.newEmptyWorld();
             
-            this.name = 'New world';
+            this.name = world.hasOwnProperty('name') ? world.name : 'New world';
 			this.type = world.type;
 			this.width = world.width;
 			this.height = world.height;

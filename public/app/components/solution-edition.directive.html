@@ -7,8 +7,15 @@
                 ng-click="editor.solutionDisplayPanel = 'api'"><a translate>API</a></li>
         </ul>
     </div>
-     <div class="small-6 columns">
+     <div class="small-3 columns">
         <select-programming-language ctrl="editor"></select-programming-language>
+    </div>
+    <div class="small-3 columns">
+        <select id="selectWorld" ng-model="editor.worlds.currentWorldID" 
+                ng-model-options="{ getterSetter: true }" 
+                ng-options="worldID for worldID in editor.worlds.worldIDs()" 
+                ng-change="editor.worlds.setCurrentWorld('current')">
+		</select>
     </div>
     <div class="small-2 columns">
         <button class="button radius" ng-click="editor.runSolution()" translate>Run</button>
@@ -19,7 +26,7 @@
     <div class="small-6 columns">
         <div class="tabs-content">
             <div ng-show="editor.solutionDisplayPanel === 'solution'">
-                <ui-codemirror ng-model="editor.solutionCodes[editor.currentProgrammingLanguage.lang]" 
+                <ui-codemirror ng-model="editor.solutionCodes[editor.ideService.programmingLanguage().lang]" 
                                ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, 
                                                  lineNumbers: true, tabSize: 2, firstLineNumber: 0, 
                                                  autoCloseBrackets: true, mode: 'text/x-java' }">

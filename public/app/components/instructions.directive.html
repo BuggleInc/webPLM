@@ -18,7 +18,7 @@
 			<label for="executionSpeed" class="left"><strong translate>Execution speed:</strong></label>
 		</div>
 		<div class="small-7 columns">
-			<input class="left" type="range" id="executionSpeed" ng-model="exercise.timer" ng-change="exercise.updateSpeed()" max="3000" min="40"/>
+			<input class="left" type="range" id="executionSpeed" ng-model="exercise.worlds.timer" ng-model-options="{ getterSetter: true }" ng-change="exercise.updateSpeed()" max="3000" min="40"/>
 		</div>
 	</div>
 </div>

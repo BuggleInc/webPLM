@@ -45,8 +45,14 @@ object AbstractBuggleToJson {
     
     (optX.getOrElse(None), optY.getOrElse(None), optColor.getOrElse(None), 
      optDirection.getOrElse(None), optcarryBaggle.getOrElse(None)) match {
-      case (x: Int, y: Int, color: Array[Int], direction: Int, carryBaggle: Boolean) => {
-        return new SimpleBuggle(buggleWorld, name, x, y, Direction.NORTH,
+      case (x: Int, y: Int, color: Array[Int], directionNb: Int, carryBaggle: Boolean) => {
+        var direction = directionNb match {
+          case Direction.NORTH_VALUE => Direction.NORTH
+          case Direction.EAST_VALUE  => Direction.EAST
+          case Direction.WEST_VALUE  => Direction.WEST
+          case Direction.SOUTH_VALUE => Direction.SOUTH
+        }
+        return new SimpleBuggle(buggleWorld, name, x, y, direction,
                                 new Color(color(0), color(1), color(2), color(3)),
                                 new Color(42, 42, 42, 255))
       }

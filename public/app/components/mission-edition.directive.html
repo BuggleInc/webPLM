@@ -2,16 +2,22 @@
     <div class="row">
         <div class="small-6 columns block"></div>
         <div class="small-6 columns block">
-            <input type="checkbox" ng-model="editor.programmingLanguages.all" ng-change="editor.filterMission()"> All
-            <input type="checkbox" ng-model="editor.programmingLanguages.c" ng-change="editor.filterMission()"> C
-            <input type="checkbox" ng-model="editor.programmingLanguages.java" ng-change="editor.filterMission()"> java
-            <input type="checkbox" ng-model="editor.programmingLanguages.scala" ng-change="editor.filterMission()"> Scala
-            <input type="checkbox" ng-model="editor.programmingLanguages.python" ng-change="editor.filterMission()"> Python
+            <input type="checkbox" ng-model="editor.missionProgrammingLanguages.all" 
+                   ng-change="editor.filterMission()"> All
+            <input type="checkbox" ng-model="editor.missionProgrammingLanguages.c" 
+                   ng-change="editor.filterMission()"> C
+            <input type="checkbox" ng-model="editor.missionProgrammingLanguages.java" 
+                   ng-change="editor.filterMission()"> java
+            <input type="checkbox" ng-model="editor.missionProgrammingLanguages.scala" 
+                   ng-change="editor.filterMission()"> Scala
+            <input type="checkbox" ng-model="editor.missionProgrammingLanguages.python" 
+                   ng-change="editor.filterMission()"> Python
         </div>
     </div>
     
     <div class="small-6 columns block">
-        <textarea id="mission-input" ng-model-options="{ debounce: 300 }" ng-model="editor.missionText" ng-change="editor.filterMission()"></textarea>
+        <textarea id="mission-input" ng-model-options="{ debounce: 300 }" ng-model="editor.missionText" 
+                  ng-change="editor.filterMission()"></textarea>
     </div>
     <div class="small-6 columns block">
         <p ng-bind-html="editor.filteredMission" id="mission-preview"></p>

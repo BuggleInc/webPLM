@@ -5,7 +5,7 @@
 		</span>
 	</div>
 	<div class="small-9 columns">
-		<select id="selectWorld" ng-model="exercise.currentWorldID" ng-options="worldID for worldID in exercise.worldIDs | orderBy: 'this'" ng-change="exercise.setCurrentWorld('current')">
+		<select id="selectWorld" ng-model="exercise.worlds.currentWorldID" ng-model-options="{ getterSetter: true }" ng-options="worldID for worldID in exercise.worlds.worldIDs() | orderBy: 'this'" ng-change="exercise.worlds.setCurrentWorld('current')">
 		</select>
 	</div>
 </div>
@@ -13,13 +13,13 @@
 	<div class="small-11 small-centered columns">
 		<tabs-current-world ng-show="exercise.objectiveViewNeeded"></tabs-current-world>
 		<div class="row" id="drawingArea">
-			<span ng-show="exercise.drawServiceType === 'drawWithDOM'">
+			<span ng-show="exercise.worlds.drawServiceType() === 'drawWithDOM'">
 				<br><br><br>
 				<div id="panel" class="panel">
 				</div>
 				<br>
 			</span>
-			<canvas ng-show="exercise.drawServiceType === 'canvas'" id="canvas" width="400" height="400"></canvas>
+			<canvas ng-show="exercise.worlds.drawServiceType() === 'canvas'" id="canvas" width="400" height="400"></canvas>
 		</div>
 		<animation-player ctrl="exercise" ng-show="exercise.animationPlayerNeeded"></animation-player>
 	</div>

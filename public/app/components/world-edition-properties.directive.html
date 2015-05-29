@@ -10,7 +10,7 @@
             <tbody ng-model-options="{ updateOn: 'blur', getterSetter: true }">
                 <tr>
                     <td>World name</td>
-                    <td><input type="text" ng-model="editor.world.name" ></td>
+                    <td><input type="text" ng-model="editor.worldName" ></td>
                 </tr>
                 <tr>
                     <td>World width</td>
@@ -77,7 +77,9 @@
                 </tr>
                 <tr>
                     <td>Buggle direction</td>
-                    <td><select ng-model="editor.selectedBuggle.direction" ng-change="editor.drawService.update();">
+                    <td><select ng-model="editor.selectedBuggle.direction" 
+                                ng-change="editor.drawService.update();"
+                                convert-to-number>
                             <option ng-repeat="direction in editor.directions" value="{{direction.value}}">
                                 {{direction.name}}
                             </option>
