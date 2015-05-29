@@ -79,15 +79,15 @@
 			var memory = dutchFlagWorld.memory;
 			var mem = [];
 			var x, y, x2, y2, space;
-			var dim = 10, widthUnit = (canvasWidth-30) / memory.length+1, location = dim / 2;
-			var heightUnit = (canvasHeight-30) / memory[0].length;
+			var dim = 10, widthUnit = canvasWidth / (dutchFlagWorld.operations.length+1), location = dim / 2;
 			
 			for(var i=0;i<memory.length;i++)
 			{
-				x = 15 + widthUnit * i;
+				space = (canvasHeight - (dim * memory[0].length)) / (memory[0].length+1);
+				x = widthUnit/2 + widthUnit * i;
 				for(var j=0;j<dutchFlagWorld.memory[i].length;j++)
 				{
-					y = 15 + heightUnit * j;
+					y = space + (space + dim) * j;
 					ctx.beginPath();
 					ctx.strokeStyle = colors[dutchFlagWorld.memory[i][j]];
 					ctx.fillStyle = colors[dutchFlagWorld.memory[i][j]];
@@ -100,7 +100,7 @@
 							if(i === 0)
 								ctx.fillRect(x-location, y-location, dim, dim);
 
-							x2 = 15 + widthUnit * (i+1);
+							x2 = widthUnit/2 + widthUnit * (i+1);
 							ctx.lineTo(x2,y);
 							ctx.lineWidth = 5;
 							ctx.stroke();
@@ -110,8 +110,8 @@
 							if(dutchFlagWorld.operations[i][0].src === j)
 							{
 								ctx.moveTo(x,y);
-								x2 = 15 + widthUnit * (i+1);
-								y2 = 15 + heightUnit * (dutchFlagWorld.operations[i][0].dest)
+								x2 = widthUnit/2 + widthUnit * (i+1);
+								y2 = space + (space + dim) * (dutchFlagWorld.operations[i][0].dest)
 								ctx.lineTo(x2,y2);
 								ctx.lineWidth = 5;
 								ctx.stroke();
@@ -122,8 +122,8 @@
 							}else
 							{
 								ctx.moveTo(x,y);
-								x2 = 15 + widthUnit * (i+1);
-								y2 = 15 + heightUnit * (dutchFlagWorld.operations[i][0].src);
+								x2 = widthUnit/2 + widthUnit * (i+1);
+								y2 = space + (space + dim) * (dutchFlagWorld.operations[i][0].src);
 								ctx.moveTo(x,y);
 								ctx.lineTo(x2,y2);
 								ctx.lineWidth = 5;
@@ -135,6 +135,12 @@
 							}
 						}
 					}
+
+					if(i === memory.length-1)
+					{
+						ctx.fillRect(x-location, y-location, dim, dim);
+					}
+
 					ctx.strokeStyle = '#000000';
 					ctx.closePath();
 				}
