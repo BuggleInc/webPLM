@@ -128,14 +128,14 @@
 							}
 						}
 					}
-					/*
-					if(dutchFlagWorld.operations[i-1].src === j)
-					{
-						ctx.moveTo(x,y);
-						
-					}*/
+					ctx.strokeStyle = '#000000';
 					ctx.closePath();
 				}
+			}
+
+			if(memory.length === 1)
+			{
+				drawInitial(dutchFlagWorld);
 			}
 		}
 	}
