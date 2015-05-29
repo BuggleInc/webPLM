@@ -569,16 +569,17 @@
                     if (code !== null) {
                         exercise.studentCode = code;
                         if (exercise.studentCode !== "") {
-                            var xml = Blockly.Xml.textToDom(exercise.studentCode);
-                            Blockly.getMainWorkspace().clear();
-                            Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
+                            BlocklyStorage.loadXml_(exercise.studentCode);
+                            $timeout(function () {
+                                var blocks = Blockly.getMainWorkspace().getAllBlocks();
+                                for (var i = 0; i < blocks.length; i++) {
+                                    blocks[i].render();
+                                }
+                            }, 0);
                         }
                     }
                     Blockly.languageTree = exercise.toolbox;
                     Blockly.Toolbox.populate_();
-                    $timeout(function () {
-                        Blockly.fireUiEvent(window, 'resize');
-                    }, 3000);
                 } else {
                     Blockly.getMainWorkspace().clear();
                     exercise.ide = 'codemirror';
