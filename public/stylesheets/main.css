@@ -10,6 +10,14 @@
 .size-60 { font-size: 60px; }
 .size-72 { font-size: 72px; }
 
+.hover {
+    cursor: pointer;
+}
+
+.alert-box {
+    display: inline-block;
+}
+
 .provider {
   display: inline-block;
   width: 64px;
