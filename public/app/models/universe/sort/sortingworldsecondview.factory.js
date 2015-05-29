@@ -146,9 +146,8 @@
 				for(var j=0;j<sortingWorld.operations[0].length;j++)
 				{
 					//draws a clear rectangle erasing some elements which appear before they should 
-					
 					ctx.beginPath();
-					clearX= 9+((sortingWorld.memory.length-1)*widthUnit)
+					clearX=9+((sortingWorld.memory.length-1)*widthUnit);
 					clearY=2;
 					ctx.clearRect(clearX,clearY,canvasWidth,canvasHeight-50);
 					ctx.strokeStyle = '#000000' ;
