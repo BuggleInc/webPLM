@@ -138,4 +138,8 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     _currentExercise = null
     game.setUserUUID(userUUID)
   }
+  
+  def signalIdle(start: String, end: String, duration: String) {
+    game.signalIdle(start, end, duration)
+  }
 }

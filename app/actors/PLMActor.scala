@@ -25,6 +25,8 @@ import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
 import models.daos.UserDAOMongoImpl
+import codes.reactive.scalatime._
+import Scalatime._
 
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
@@ -48,6 +50,10 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   setCurrentGitID(gitID, newUser)
   
   var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang)
+  
+  var userIdle: Boolean = false;
+  var idleStart: Instant = null
+  var idleEnd: Instant = null
   
   initSpies
   registerActor
@@ -172,6 +178,10 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
             case _ =>
               Logger.debug("updateUser: non-correct JSON")
           }
+        case "userIdle" =>
+          setUserIdle
+        case "userBack" =>
+          clearUserIdle
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
@@ -259,8 +269,33 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     }
   }
   
+  def setUserIdle() {
+    userIdle = true
+    idleStart = Instant.apply
+    Logger.debug("start idling at: "+ idleStart)      
+  }
+  
+  def clearUserIdle() {
+    userIdle = false
+    idleEnd = Instant.apply
+    if(idleStart != null) {
+      var duration = Duration.between(idleStart, idleEnd)
+      Logger.debug("end idling at: "+ idleEnd)
+      Logger.debug("duration: " + duration)
+      plm.signalIdle(idleStart.toString, idleEnd.toString, duration.toString)
+    }
+    else {
+      Logger.error("receive 'userBack' but not previous 'userIdle'")
+    }
+    idleStart = null
+    idleEnd = null
+  }
+  
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
+    if(userIdle) {
+      clearUserIdle
+    }
     ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)

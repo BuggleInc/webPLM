@@ -127,6 +127,7 @@
         function signalIdle() {
 			// User is away
             exercise.idle = true;
+            connection.sendMessage('userIdle', {});
         }
         
         function startIdleLoop() {
@@ -135,12 +136,12 @@
         
         function resetIdleLoop() {
             if(exercise.idle === false) {
-
                 $timeout.cancel(exercise.idleLoop);
             }
             else {
 				// User is back
                 exercise.idle = false;
+                connection.sendMessage('userBack', {});
             }
             startIdleLoop();
         }
@@ -632,6 +633,7 @@
 
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
+            $timeout.cancel(exercise.idleLoop);
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
 			exercise.initialWorlds = {};
