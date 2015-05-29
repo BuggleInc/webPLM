@@ -17,28 +17,30 @@
 		};
 		return service;
         
-        function info(message) {
-		    $timeout(function () {
-                toaster.pop('info', '', message);
+        function pop(type, title, message, duration) {
+            $timeout(function () {
+                toaster.pop(type, title, message, duration);
             }, 0);
+        }
+        
+        function info(message, optDuration) {
+            var duration = optDuration || 1500;
+            pop('info', '', message, duration);
 		}
         
-		function success(title, message) {
-		    $timeout(function () {
-                toaster.pop('success', title, message);
-            }, 0);
+		function success(title, message, optDuration) {
+            var duration = optDuration || 1500;
+            pop('success', title, message, duration);
 		}
 		
-        function warning(title, message) {
-		    $timeout(function () {
-                toaster.pop('warning', title, message);
-            }, 0);
+        function warning(title, message, optDuration) {
+            var duration = optDuration || 3000;
+            pop('warning', title, message, duration);
 		}
         
-        function error(title, message) {
-		    $timeout(function () {
-                toaster.pop('error', title, message, -1);
-            }, 0);
+        function error(title, message, optDuration) {
+            var duration = optDuration || -1;
+            pop('error', title, message, duration);
 		}
 	}
 })();
