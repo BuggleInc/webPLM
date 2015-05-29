@@ -55,7 +55,10 @@
 		}
 
 		function signOut() {
-			$auth.logout();
+			$auth.logout()
+            .then(function () {
+                toasterUtils.info('You have been logged out');
+            });
 		}
 
 		function getUser() {
