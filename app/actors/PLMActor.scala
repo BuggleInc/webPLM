@@ -300,5 +300,6 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }
+    plm.game.quit
   }
 }
