@@ -175,6 +175,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
                   lastName = optLastName
               )
               UserDAOMongoImpl.save(currentUser)
+              sendMessage("userUpdated", Json.obj())
             case _ =>
               Logger.debug("updateUser: non-correct JSON")
           }

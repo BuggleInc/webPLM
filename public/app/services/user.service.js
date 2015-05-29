@@ -6,16 +6,17 @@
 		.factory('userService', userService)
 		.run(function(userService) {}); // To instanciate the service at startup
 	
-	userService.$inject = ['$cookies', 'connection', 'listenersHandler', '$auth'];
+	userService.$inject = ['$timeout', '$cookies', 'connection', 'listenersHandler', '$auth', 'toasterUtils'];
 	
-	function userService($cookies, connection, listenersHandler, $auth) {
+	function userService($timeout, $cookies, connection, listenersHandler, $auth, toasterUtils) {
 
 		listenersHandler.register('onmessage', handleMessage);
 
 		var user = {};
 
 		var actorUUID;
-
+        var timeoutProfileUpdate;
+        
 		var service = {
 			isAuthenticated: isAuthenticated,
 			signUp: signUp,
@@ -54,7 +55,10 @@
 		}
 
 		function signOut() {
-			return $auth.logout();
+			$auth.logout()
+            .then(function () {
+                toasterUtils.info('You have been logged out');
+            });
 		}
 
 		function getUser() {
@@ -80,6 +84,9 @@
 				firstName: user.firstName,
 				lastName: user.lastName 
 			});
+            timeoutProfileUpdate = $timeout(function () {
+                toasterUtils.error('Error during update', 'An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later.');
+            }, 10000);
 		}
 
 		function setGitID(gitID) {
@@ -103,6 +110,10 @@
 				case 'user':
 					setUser(args.user);
 					break;
+                case 'userUpdated':
+                    $timeout.cancel(timeoutProfileUpdate);
+                    toasterUtils.info('Your profile has been successfully updated');
+                    break;
 			}
 		}
 	}

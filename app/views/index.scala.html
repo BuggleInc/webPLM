@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="/assets/stylesheets/foundation.min.css">
 		<link rel="stylesheet" href="/assets/stylesheets/main.css">
 		<link rel="stylesheet" href="/assets/stylesheets/animate.css">
+        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/toaster.css"></link>
 		<link rel="stylesheet" type="text/css" href="/assets/javascripts/codemirror/lib/codemirror.css">
 		<link rel="stylesheet" type="text/css" href="/assets/stylesheets/foundation-icons.css"></link>
 		<link href="/assets/images/foundation-icons.svg"></link>
@@ -29,6 +30,7 @@
 		<script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
 		<script type="text/javascript" src="/assets/javascripts/angular-locker.js"></script>
 		<script type="text/javascript" src="/assets/javascripts/satellizer.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/toaster.js"></script>
 	</head> 
 	<body ng-app="PLMApp">
 	
@@ -36,6 +38,8 @@
 		
 		<div ui-view></div>
 		
+        <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+        
 		<footer class="row">
 			<hr>
 			<p>&copy;PLM</p>
@@ -58,13 +62,14 @@
 	<script src="/assets/app/app.auth.js"></script>
 
 	<!-- Application's services -->
-	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
 	<script type="text/javascript" src="/assets/app/services/langs.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+    <script type="text/javascript" src="/assets/app/services/toasterutils.service.js"></script>
+	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 	
 	<!-- Application's components -->
 	<script type="text/javascript" src="/assets/app/components/animation-player.directive.js"></script>

@@ -34,7 +34,8 @@ module.exports = function(grunt) {
             'public/javascripts/angular-locker.js',
             'public/javascripts/angular-mocks.js',
             'public/javascripts/angular-gettext/dist/angular-gettext.js',
-            'public/javascripts/satellizer.js'
+            'public/javascripts/satellizer.js',
+            'public/javascripts/toaster.js'
           ],
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'
         }
