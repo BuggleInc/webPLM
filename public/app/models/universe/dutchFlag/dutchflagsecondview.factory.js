@@ -76,7 +76,7 @@
 			var memory = dutchFlagWorld.memory;
 			var mem = [];
 			var x, y, x2, y2, space;
-			var dim = 5, widthUnit = (canvasWidth-30) / memory.length+1;
+			var dim = 10, widthUnit = (canvasWidth-30) / memory.length+1, location = dim / 2;
 			var heightUnit = (canvasHeight-30) / memory[0].length;
 			
 			for(var i=0;i<memory.length;i++)
@@ -87,7 +87,7 @@
 					y = 15 + heightUnit * j;
 					ctx.beginPath();
 					ctx.strokeStyle = colors[dutchFlagWorld.memory[i][j]];
-					
+					ctx.fillStyle = colors[dutchFlagWorld.memory[i][j]];
 					if(i != memory.length-1)
 					{
 						if(memory[i+1][j] === memory[i][j])
@@ -104,20 +104,26 @@
 							{
 								ctx.moveTo(x,y);
 								x2 = 15 + widthUnit * (i+1);
-								y2 = 18 + heightUnit * (dutchFlagWorld.operations[i][0].dest)
+								y2 = 15 + heightUnit * (dutchFlagWorld.operations[i][0].dest)
 								ctx.lineTo(x2,y2);
-								ctx.lineWidth = 6;
+								ctx.lineWidth = 5;
 								ctx.stroke();
+								ctx.fillRect(x2-location, y2-location, dim, dim);
+								ctx.fillRect(x-location, y-location, dim, dim);
+								ctx.fill();
 								ctx.lineWidth = 1;
 							}else
 							{
 								ctx.moveTo(x,y);
 								x2 = 15 + widthUnit * (i+1);
-								y2 = 18 + heightUnit * (dutchFlagWorld.operations[i][0].src);
+								y2 = 15 + heightUnit * (dutchFlagWorld.operations[i][0].src);
 								ctx.moveTo(x,y);
 								ctx.lineTo(x2,y2);
-								ctx.lineWidth = 6;
+								ctx.lineWidth = 5;
 								ctx.stroke(); 
+								ctx.fillRect(x2-location, y2-location, dim, dim);
+								ctx.fillRect(x-location, y-location, dim, dim);
+								ctx.fill();
 								ctx.lineWidth = 1;
 							}
 						}
