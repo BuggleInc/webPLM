@@ -10,11 +10,18 @@
 	function toasterUtils(toaster, $timeout) {
 		
 		var service = {
+                info: info,
 				success: success,
                 warning: warning,
 				error: error
 		};
 		return service;
+        
+        function info(message) {
+		    $timeout(function () {
+                toaster.pop('info', '', message);
+            }, 0);
+		}
         
 		function success(title, message) {
 		    $timeout(function () {
