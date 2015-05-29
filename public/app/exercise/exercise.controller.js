@@ -290,7 +290,7 @@
 								 	tabNumber : 3,
 								 	drawFnct : DutchFlagSecondView.draw
 								 }
-								]; 
+								];
 								exercise.drawFnct = DutchFlagView.draw;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
@@ -312,7 +312,7 @@
 								 	tabNumber : 1,
 								 	drawFnct : PancakeView.draw
 								 }
-								]; 
+								];
 								exercise.drawFnct = PancakeView.draw;
 								exercise.objectiveViewNeeded = true;
 								exercise.animationPlayerNeeded = true;
