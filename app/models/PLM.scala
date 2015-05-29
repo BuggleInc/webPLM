@@ -115,13 +115,8 @@ def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy:
 				}
 
 				def getStudentCode: String = {
-          //if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()) != null) _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()).getBody else ""
-						if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getBody else ""
+						if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()) != null) _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()).getBody else ""
 					}
-
-        /*def getStudentworkspace: String = {
-            if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 1) != null) _currentExercise.getSourceFile(programmingLanguage, 1).getBody else ""
-          }*/
 
 					def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
 						game.addProgressSpyListener(progressSpyListener)  

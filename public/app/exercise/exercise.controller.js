@@ -118,6 +118,7 @@
         $scope.codemirrorLoaded = function (_editor) {
             exercise.editor = _editor;
             resizeCodeMirror();
+
         };
 
         function getExercise() {
@@ -141,7 +142,6 @@
             var args = data.args;
             switch (cmd) {
             case 'exercise':
-                console.log('handleMessage(data)_exercise | args', args)
                 setExercise(args.exercise);
                 break;
             case 'executionResult':
@@ -161,7 +161,6 @@
                 exercise.logs += args.msg;
                 break;
             case 'newProgLang':
-                console.log('handleMessage(data)_newProgLang | args', args)
                 updateUI(args.newProgLang, args.instructions, null, args.code);
                 exercise.isChangingProgLang = false;
                 break;
@@ -172,19 +171,15 @@
         }
 
         function setExercise(data) {
-            console.log('exercise.controller.setExercise(data) | data', data);
             if (exercise.ide === 'blockly')
-                console.log('console.YYYEEEAAAAAA', data);
-            exercise.id = data.id;
+                exercise.id = data.id;
             exercise.instructions = $sce.trustAsHtml(data.instructions);
             exercise.api = $sce.trustAsHtml(data.api);
             exercise.code = data.code.trim();
-            /*if(data.code.trim != null)
-            exercise.studentCode = data.workspace.trim();*/
+            /*if (data.workspace !== null)
+                exercise.studentCode = data.workspace.trim();*/
             exercise.currentWorldID = data.selectedWorldID;
-            if (data.toolbox === '<no blocks>')
-                console.log('setExercise_data : no blocks', data.toolbox)
-            else
+            if (data.toolbox !== '<no blocks>')
                 exercise.toolbox = JSON.parse(data.toolbox);
 
             if (data.exception === 'nonImplementedWorldException') {
@@ -324,13 +319,10 @@
                 window.addEventListener('resize', resizeCodeMirror, false);
             }
 
-            console.log('exercise.controller.setExercise(data) | exercise.programmingLanguages', exercise.programmingLanguages);
-            console.log('exercise.controller.setExercise(data) | data.programmingLanguages', data.programmingLanguages);
             exercise.programmingLanguages = data.programmingLanguages;
             for (var i = 0; i < exercise.programmingLanguages.length; i++) {
                 var pl = exercise.programmingLanguages[i];
                 if (pl.lang === data.currentProgrammingLanguage) {
-                    console.log('exercise.controller.setExercise(data) | pl.lang', pl.lang);
                     exercise.currentProgrammingLanguage = pl;
                     setIDEMode(pl);
                 }
@@ -395,25 +387,12 @@
                 }
             });
 
-            // Start Blockly test area
             if (exercise.ide === 'blockly') {
                 Blockly.Python.INFINITE_LOOP_TRAP = null;
                 exercise.code = Blockly.Python.workspaceToCode();
-                //alert(exercise.code);
-
-                // Récup du code des blocks du workspace 
                 var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
                 exercise.studentCode = Blockly.Xml.domToText(xml);
-                //alert(exercise.studentCode);
-                // console.log(studentCode);
 
-                // Charge à partir de la variable xml des blocks dans le workspace
-                /*var tmp = '';
-                var xml = Blockly.Xml.textToDom(tmp);
-                Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);*/
-            }
-
-            if (exercise.ide === 'blockly') {
                 args = {
                     lessonID: exercise.lessonID,
                     exerciseID: exercise.id,
@@ -427,8 +406,6 @@
                     code: exercise.code
                 };
             }
-
-            // End Blockly test area
 
             connection.sendMessage('runExercise', args);
             exercise.isRunning = true;
@@ -584,28 +561,34 @@
         }
 
         function updateUI(pl, instructions, api, code) {
+            console.log('DEBUG_001_Blockly', Blockly);
             if (pl !== null) {
                 exercise.currentProgrammingLanguage = pl;
                 if (pl.lang === 'Blockly') {
                     exercise.ide = 'blockly';
-                    Blockly.fireUiEvent(window, 'resize');
                     if (code !== null) {
                         exercise.studentCode = code;
                         if (exercise.studentCode !== "") {
                             var xml = Blockly.Xml.textToDom(exercise.studentCode);
+                            Blockly.getMainWorkspace().clear();
                             Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
                         }
                     }
-                    console.log('exercise.controller.updateUI_studentCode |', exercise.studentCode);
-                    //Blockly.languageTree = exercise.toolbox;
-                    //Blockly.Toolbox.populate_();
+                    Blockly.languageTree = exercise.toolbox;
+                    Blockly.Toolbox.populate_();
+                    $timeout(function () {
+                        Blockly.fireUiEvent(window, 'resize');
+                    }, 3000);
                 } else {
                     Blockly.getMainWorkspace().clear();
-                    setIDEMode(pl);
                     exercise.ide = 'codemirror';
+                    setIDEMode(pl);
                     if (code !== null)
                         exercise.code = code;
-                    console.log('exercise.controller.updateUI_code |', exercise.code);
+                    //exercise.editor.
+                    $timeout(function () {
+                        exercise.editor.refresh();
+                    }, 0);
                 }
             }
             exercise.instructions = $sce.trustAsHtml(instructions);

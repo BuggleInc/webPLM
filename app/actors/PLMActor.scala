@@ -103,7 +103,6 @@ var cmd: Option[String] = (msg \ "cmd").asOpt[String]
 				Logger.debug("getExercise: non-correct JSON")
 		}
 		case "getExercise" =>
-    Logger.debug("PASSAGE")
 		var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
 				var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
 						var lecture: Lecture = null;

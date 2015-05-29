@@ -213,6 +213,8 @@ Blockly.Xml.textToDom = function (text) {
  * @param {!Element} xml XML DOM.
  */
 Blockly.Xml.domToWorkspace = function (workspace, xml) {
+    console.log('DEBUG_002_workspace',workspace);
+    console.log('DEBUG_003_xml',xml);
     if (Blockly.RTL) {
         var width = workspace.getMetrics().viewWidth;
     }
