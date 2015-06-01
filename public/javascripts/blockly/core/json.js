@@ -28,7 +28,7 @@
 goog.provide('Blockly.Json');
 
 /**
- * Encode a block tree as XML.
+ * Encode a block tree as Json.
  * @param {!Object} workspace The SVG workspace.
  * @return {!Object} XML document.
  */
@@ -142,7 +142,7 @@ Blockly.Json.blockToDom_ = function (block) {
 };
 
 /**
- * Decode an XML DOM and create blocks on the workspace.
+ * Decode an Json DOM and create blocks on the workspace.
  * @param {!Blockly.Workspace} workspace The SVG workspace.
  * @param {!Object} json input object array.
  */
@@ -163,10 +163,10 @@ Blockly.Json.setWorkspace = function (workspace, json) {
 };
 
 /**
- * Decode an XML block tag and create a block (and possibly sub blocks) on the
+ * Decode an Json block tag and create a block (and possibly sub blocks) on the
  * workspace.
  * @param {!Blockly.Workspace} workspace The workspace.
- * @param {!Element} xmlBlock XML block element.
+ * @param {!Element} jsonBlock Json block element.
  * @param {boolean=} opt_reuseBlock Optional arg indicating whether to
  *     reinitialize an existing block.
  * @return {!Blockly.Block} The root block created.
@@ -320,7 +320,7 @@ Blockly.Json.parseBoolean = function (boolIn) {
 
 /**
  * Remove any 'next' block (statements in a stack).
- * @param {!Element} xmlBlock XML block element.
+ * @param {!Element} jsonBlock Json block element.
  */
 Blockly.Json.deleteNext = function (jsonBlock) {
     if (jsonBlock.children != null) {

@@ -561,7 +561,6 @@
         }
 
         function updateUI(pl, instructions, api, code) {
-            console.log('DEBUG_001_Blockly', Blockly);
             if (pl !== null) {
                 exercise.currentProgrammingLanguage = pl;
                 if (pl.lang === 'Blockly') {
@@ -569,7 +568,9 @@
                     if (code !== null) {
                         exercise.studentCode = code;
                         if (exercise.studentCode !== "") {
-                            BlocklyStorage.loadXml_(exercise.studentCode);
+                            var xml = Blockly.Xml.textToDom(exercise.studentCode);
+                            Blockly.getMainWorkspace().clear();
+                            Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
                             $timeout(function () {
                                 var blocks = Blockly.getMainWorkspace().getAllBlocks();
                                 for (var i = 0; i < blocks.length; i++) {
@@ -586,7 +587,6 @@
                     setIDEMode(pl);
                     if (code !== null)
                         exercise.code = code;
-                    //exercise.editor.
                     $timeout(function () {
                         exercise.editor.refresh();
                     }, 0);
