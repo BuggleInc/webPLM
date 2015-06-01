@@ -24,6 +24,8 @@
 			signOut: signOut,
 			getUser: getUser,
 			setTrackUser: setTrackUser,
+            askTrackUser: askTrackUser,
+            setNextAskTrackUser: setNextAskTrackUser,
 			updateUser: updateUser,
 			cloneUser: cloneUser
 		};
@@ -95,9 +97,27 @@
 
 		function setTrackUser(trackUser) {
 			user.trackUser = trackUser;
+            delete localStorage.nextAskTrackUser;
 			connection.sendMessage('setTrackUser', { trackUser: trackUser });
 		}
 
+        function askTrackUser() {
+            var now;
+            var nextAskTrackUser;
+            if(localStorage.nextAskTrackUser === undefined) {
+                return true;
+            }
+            now = new Date();
+            nextAskTrackUser = new Date(localStorage.nextAskTrackUser);
+            return nextAskTrackUser < now;
+        }
+        
+        function setNextAskTrackUser() {
+            var nextAskTrackUser = new Date();
+            nextAskTrackUser.setDate(nextAskTrackUser.getDate() + 3); // Ask again in 3 days
+            localStorage.nextAskTrackUser = nextAskTrackUser;
+        }
+        
 		function handleMessage(data) {
 			var cmd = data.cmd;
 			var args = data.args;

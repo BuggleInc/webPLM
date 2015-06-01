@@ -4,10 +4,10 @@
   <p translate>This anonymous data can also help scientists to understand how people learn programming. With that in mind, we would like to provide your usage data and make it public. <a target="_blank" href="https://github.com/mquinson/PLM-data">As you can see here</a>, no nominative information is published, only the source code written to solve the challenges.</p>
   <p class="lead" translate>Do you accept to make public your usage data?</p>
   <div class="row center">
-	  <button class="secondary" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Let me decide later</button>
+	  <button class="secondary" ng-click="userService.setNextAskTrackUser()" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Let me decide later</button>
 	  <button class="alert" ng-click="userService.setTrackUser(false)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>No, don't publish my data</button>
 	  <button ng-click="userService.setTrackUser(true)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Ok, share my data</button>
   </div>
   You can later update your preference from your profile's page.
-  <a class="close-reveal-modal">&#215;</a>
+  <a class="close-reveal-modal" ng-click="userService.setNextAskTrackUser()">&#215;</a>
 </div>

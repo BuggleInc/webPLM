@@ -16,7 +16,7 @@
 				scope.userService = userService;
 				scope.$watch('userService.getUser()', function (data) {
 					var user = userService.getUser();
-					if(Object.keys(user).length !== 0 && user.trackUser === undefined) {
+					if(Object.keys(user).length !== 0 && user.trackUser === undefined && userService.askTrackUser() === true) {
 						$('#trackUserModal').foundation('reveal','open');
 					}
 				});
