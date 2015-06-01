@@ -37,7 +37,6 @@
 
 		function drawChrono(sortingWorld)
 		{ 
-
 			//allows you to know if you have to divided the width
 			var amountOperations = sortingWorld.operations.length;
 
@@ -45,8 +44,6 @@
 			{
 				if(sortingWorld.operations[i].length ===  1)
 					amountOperations--;
-
-
 			}
 			
 			//String of letters
@@ -70,7 +67,6 @@
 				for(var i = 0; i < sortingWorld.values.length;i++)
 				{
 					//draws letters
-					y1 = i * heightUnit + 25;
 					ctx.beginPath();
 					ctx.strokeStyle = '#000000'
 					ctx.strokeRect(0,0,canvasWidth,canvasHeight);
@@ -80,12 +76,15 @@
 					if(drawLetters)
 					{
 						ctx.closePath();
+						y1 = i * heightUnit + 25;
 						ctx.font = '30 px sans-serif';
 						ctx.fillText(letters.charAt(sortingWorld.values[i]),25,heightUnit*i+20);
 						ctx.closePath();
 					}
+					else
+						y1 = i * heightUnit + 5;
+					
 					ctx.closePath();
-
 
 					//draws line
 					ctx.beginPath();
@@ -97,8 +96,6 @@
 				}
 				return
 			}
-
-
 
 			//case initial if there are operations
 			if(drawLetters)
@@ -126,7 +123,12 @@
 					if(sortingWorld.memory[i-1][j] == sortingWorld.memory[i][j])
 					{
 						ctx.beginPath();
-						y1 = j * heightUnit + 25;
+
+						if(drawLetters)
+							y1 = j * heightUnit + 25;
+						else
+							y1 = j * heightUnit + 5;
+						
 						ctx.strokeStyle = sortingWorld.colors[sortingWorld.memory[i-1][j]];
 						ctx.moveTo((widthUnit*lineInd)+10,y1);
 						ctx.lineTo(widthUnit*i,y1);
@@ -152,9 +154,8 @@
 				for(var j=0;j<sortingWorld.operations[0].length;j++)
 				{
 					//draws a clear rectangle erasing some elements which appear before they should 
-					
 					ctx.beginPath();
-					clearX= 9+((sortingWorld.memory.length-1)*widthUnit)
+					clearX=9+((sortingWorld.memory.length-1)*widthUnit);
 					clearY=2;
 					ctx.clearRect(clearX,clearY,canvasWidth,canvasHeight-50);
 					ctx.strokeStyle = '#000000' ;
@@ -234,7 +235,6 @@
 							ctx.closePath();
 						}
 					}
-
 				}
 				if(sortingWorld.operations[i].length != 1)
 				{

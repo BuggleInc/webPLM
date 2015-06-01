@@ -16,7 +16,8 @@
 		'SortingWorld', 'SortingWorldView',
 		'SortingWorldSecondView',
 		'DutchFlagWorld', 'DutchFlagView',
-		'PancakeWorld', 'PancakeView'
+		'PancakeWorld', 'PancakeView', 
+		'BaseballWorld', 'BaseballView', 'BaseballSecondView'
 	];
 
 	function Exercise($window, $http, $scope, $sce, $stateParams,
@@ -28,18 +29,18 @@
 		BatWorld, BatWorldView, 
 		SortingWorld, SortingWorldView, SortingWorldSecondView, 
 		DutchFlagWorld, DutchFlagView,
-		PancakeWorld, PancakeView ) {
+		PancakeWorld, PancakeView, BaseballWorld, BaseballView, BaseballSecondView
+		) {
 
 		var exercise = this;
 		
 		var panelID = 'panel';
 		var canvasID = 'canvas';
 
+
 		exercise.tabs = [];
 		exercise.currentTab = 0;
 		exercise.drawFnct = null;
-		
-		
 
 		exercise.lessonID = $stateParams.lessonID;
 		exercise.id = $stateParams.exerciseID;
@@ -109,6 +110,8 @@
 		exercise.setWorldState = setWorldState;
 		exercise.setCurrentWorld = setCurrentWorld;
 		exercise.switchToTab = switchToTab;
+        exercise.switchDisplayedInstructions = switchDisplayedInstructions;
+        exercise.switchDisplayedResults = switchDisplayedResults;
 
 		exercise.setProgrammingLanguage = setProgrammingLanguage;
 		exercise.setSelectedRootLecture = setSelectedRootLecture;
@@ -117,8 +120,35 @@
 		exercise.resetExercise = resetExercise;
 		exercise.resizeInstructions = resizeInstructions;
 
+        exercise.idle = false;
+            
+        startIdleLoop();
+        
+        function signalIdle() {
+			// User is away
+            exercise.idle = true;
+            connection.sendMessage('userIdle', {});
+        }
+        
+        function startIdleLoop() {
+            exercise.idleLoop = $timeout(signalIdle, 5*60*1000); // 5 min
+        }
+        
+        function resetIdleLoop() {
+            if(exercise.idle === false) {
+                $timeout.cancel(exercise.idleLoop);
+            }
+            else {
+				// User is back
+                exercise.idle = false;
+                connection.sendMessage('userBack', {});
+            }
+            startIdleLoop();
+        }
+        
 		$scope.codemirrorLoaded = function(_editor){
 			exercise.editor = _editor;
+            exercise.editor.on('change', resetIdleLoop);
 			resizeCodeMirror();
 		};
 
@@ -302,6 +332,40 @@
 								world = new PancakeWorld(initialWorld);
 								initCanvas(PancakeView.draw);
 								break; 
+							case 'BaseballWorld' :
+								exercise.tabs = [
+								{
+									name: 'World',
+									worldKind : 'current',
+									tabNumber : 0,
+									drawFnct : BaseballView.draw
+								},
+								{
+									name : 'Objective',
+									worldKind : 'answer',
+									tabNumber : 1,
+									drawFnct : BaseballView.draw
+								},
+								{
+									name : 'ChronoView',
+									worldKind : 'current',
+									tabNumber : 2,
+									drawFnct : BaseballSecondView.draw
+								},
+								{
+									name : 'ChronoDemo',
+									worldKind : 'answer',
+									tabNumber : 3,
+									drawFnct : BaseballSecondView.draw
+								}
+								];
+								exercise.drawFnct = BaseballView.draw;
+								exercise.objectiveViewNeeded = true;
+								exercise.animationPlayerNeeded = true;
+								exercise.secondViewNeeded = true;
+								world = new BaseballWorld(initialWorld);
+								initCanvas(BaseballView.draw);
+								break;  
 
 						}
 						exercise.initialWorlds[worldID] = world;
@@ -491,6 +555,7 @@
 		}
 		
 		function setWorldState(state) {
+            resetIdleLoop();
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
 			exercise.isPlaying = false;
@@ -568,6 +633,7 @@
 
 		$scope.$on('$destroy',function() {
 			offDisplayMessage();
+            $timeout.cancel(exercise.idleLoop);
 			$timeout.cancel(exercise.updateModelLoop);
 			$interval.cancel(exercise.updateViewLoop);
 			exercise.initialWorlds = {};
@@ -580,6 +646,8 @@
 			exercise.resultType = null;
 			exercise.result = null;
 			exercise.logs = null;
+            window.removeEventListener('resize', resizeCanvas, false);
+            window.removeEventListener('resize', resizeCodeMirror, false);
 		});
 
 		function initCanvas(draw) {
@@ -630,6 +698,7 @@
 		}
 
 		function switchToTab(tab) {
+            resetIdleLoop();
 			exercise.currentTab = tab.tabNumber;
 			if(exercise.drawFnct !== tab.drawFnct) {
 				setDrawFnct(tab.drawFnct);
@@ -642,6 +711,16 @@
 			}
 		}
 
+        function switchDisplayedInstructions(tab) {
+            resetIdleLoop();
+            exercise.displayInstructions = tab;
+        }
+        
+        function switchDisplayedResults(tab) {
+            resetIdleLoop();
+            exercise.displayResults = tab;
+        }
+        
 		function setDrawFnct(drawFnct) {
 			exercise.drawService.setDraw(drawFnct);
 			exercise.drawFnct = drawFnct;
