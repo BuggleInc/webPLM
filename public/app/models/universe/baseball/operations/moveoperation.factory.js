@@ -1,4 +1,4 @@
-(function () 
+(function ()
 {
 	angular
 		.module('PLMApp')
@@ -45,7 +45,7 @@
 			currentWorld.holeBase = this.oldBase
 			currentWorld.holePos = this.oldPosition;
 			currentWorld.move = this.oldBase*currentWorld.posAmount + this.oldPosition;
-			currentWorld.oldMove = currentWorld.holeBase*currentWorld.posAmount + currentWorld.holePos; 
+			currentWorld.oldMove = currentWorld.holeBase*currentWorld.posAmount + currentWorld.holePos;
 			currentWorld.field[this.base*currentWorld.posAmount + this.position] = currentWorld.field[this.oldBase*currentWorld.posAmount + this.oldPosition];
 			currentWorld.field[this.oldBase*currentWorld.posAmount + this.oldPosition] = -1;
 			currentWorld.isReverse = true;
