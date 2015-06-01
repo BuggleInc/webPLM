@@ -29,11 +29,11 @@ import codes.reactive.scalatime._
 import Scalatime._
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
   def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], out: ActorRef) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -49,7 +49,9 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang)
+  var currentTrackUser: Boolean = trackUser.getOrElse(false)
+  
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -59,7 +61,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   registerActor
   
   def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, out)
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
   
@@ -73,6 +75,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           setCurrentUser((msg \ "user").asOpt[User].get)
           registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
+          currentTrackUser = currentUser.trackUser.getOrElse(false)
+          plm.setTrackUser(currentTrackUser)
           currentUser.preferredLang.getOrElse(None) match {
             case newLang: Lang =>
               currentPreferredLang = newLang
@@ -85,6 +89,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           clearCurrentUser()
           registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
+          currentTrackUser = false
+          plm.setTrackUser(currentTrackUser)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -96,7 +102,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setProgrammingLanguage(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
-              Logger.debug("getExercise: non-correct JSON")
+              Logger.debug("setProgrammingLanguage: non-correct JSON")
           }
         case "setLang" =>
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
@@ -106,7 +112,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setLang(currentPreferredLang)
               savePreferredLang()
             case _ =>
-              Logger.debug("getExercise: non-correct JSON")
+              Logger.debug("setLang: non-correct JSON")
           }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -168,11 +174,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
         case "updateUser" =>
           var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
-          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
-            case (firstName:String, lastName: String) =>
+          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          (optFirstName.getOrElse(None), optFirstName.getOrElse(None), optTrackUser.getOrElse(None)) match {
+            case (firstName:String, lastName: String, trackUser: Boolean) =>
               currentUser = currentUser.copy(
                   firstName = optFirstName,
-                  lastName = optLastName
+                  lastName = optLastName,
+                  trackUser = optTrackUser
               )
               UserDAOMongoImpl.save(currentUser)
               sendMessage("userUpdated", Json.obj())
@@ -183,6 +191,16 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           setUserIdle
         case "userBack" =>
           clearUserIdle
+        case "setTrackUser" =>
+          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          (optTrackUser.getOrElse(None)) match {
+            case trackUser: Boolean =>
+              currentTrackUser = trackUser
+              saveTrackUser(currentTrackUser)
+              plm.setTrackUser(currentTrackUser)              
+            case _ =>
+              Logger.debug("setTrackUser: non-correct JSON")
+          }
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
@@ -290,6 +308,15 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     }
     idleStart = null
     idleEnd = null
+  }
+  
+  def saveTrackUser(trackUser: Boolean) {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          trackUser = Some(trackUser)
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
   }
   
   override def postStop() = {

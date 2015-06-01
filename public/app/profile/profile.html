@@ -35,6 +35,25 @@
 				{{ profile.user.lastName }}
 			</div>
 		</div>
+        <div class="row">
+			<div class="small-6 columns">
+				<strong>Last name:</strong>
+			</div>
+			<div class="small-6 columns">
+				{{ profile.user.lastName }}
+			</div>
+		</div>
+        <div class="row">
+			<div class="small-6 columns">
+				<strong>Track user:</strong>
+			</div>
+			<div class="small-6 columns" ng-show="profile.user.trackUser !== undefined">
+				<input type="checkbox" disabled="true" ng-model="profile.user.trackUser">
+			</div>
+            <div class="small-6 columns" ng-show="profile.user.trackUser === undefined">
+				Not chosen yet
+			</div>
+		</div>
 		<div class="row center">
 			<button ng-click="profile.switchToMode('edit')">Edit profile</button>
 		</div>
@@ -53,7 +72,15 @@
 				<strong>Last name:</strong>
 			</div>
 			<div class="small-6 columns">
-				<input type="text" ng-show="profile.mode === 'edit'" ng-model="profile.userTemp.lastName">
+				<input type="text" ng-model="profile.userTemp.lastName">
+			</div>
+		</div>
+        <div class="row">
+			<div class="small-6 columns">
+				<strong>Track user:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="checkbox" ng-model="profile.userTemp.trackUser">
 			</div>
 		</div>
 		<div class="row center">

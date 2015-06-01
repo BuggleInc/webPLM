@@ -21,11 +21,11 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String]) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"))
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -141,5 +141,9 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   def signalIdle(start: String, end: String, duration: String) {
     game.signalIdle(start, end, duration)
+  }
+  
+  def setTrackUser(trackUser: Boolean) {
+    game.setTrackUser(trackUser)
   }
 }
