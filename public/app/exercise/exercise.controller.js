@@ -166,6 +166,7 @@
                 break;
             case 'newHumanLang':
                 updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
+                console.log('DEBUG002_handleMessage_newHumanLang_data.args.newHumanLang.code', data.args.newHumanLang.code);
                 break;
             }
         }
@@ -561,6 +562,7 @@
         }
 
         function updateUI(pl, instructions, api, code) {
+            console.log('DEBUG_001_updateUI_api', api);
             if (pl !== null) {
                 exercise.currentProgrammingLanguage = pl;
                 if (pl.lang === 'Blockly') {
