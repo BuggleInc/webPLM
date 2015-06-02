@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -12,21 +12,47 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: public/app/components/track-user-modal.directive.html:4
+msgid ""
+", no nominative information is published, only the source code written to "
+"solve the challenges."
+msgstr ""
+", aucun nom n'est publié, seulement le code source écrit pour résoudre les "
+"exercices."
+
 #: public/app/components/lesson-overview.directive.html:13
 msgid "A graph representing your progress will be displayed here."
 msgstr ""
 "Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon "
 "choisie."
 
+#: public/app/components/application-header.directive.html:20
+msgid "About"
+msgstr "À propos"
+
+#: public/app/sign-up/sign-up.html:8
+msgid "Already a member?"
+msgstr "Déjà un compte?"
+
+#: public/app/services/user.service.js:96
+msgid ""
+"An error occurred while updating your profile. Please excuse us for the "
+"inconvenience and retry to submit your changes later."
+msgstr ""
+"Une erreur est survenue lors de la mise à jour de votre profil. Veuillez "
+"nous excusez de ce désagrément et veuillez re-soumettre vos modifications "
+"plus tard."
+
 #: public/app/components/instructions.directive.html:4
 msgid "API"
 msgstr "API"
 
-#: public/app/components/application-header.directive.html:16
-msgid "About"
-msgstr "À propos"
+#: public/app/components/track-user-modal.directive.html:4
+msgid "As you can see here"
+msgstr "Comme vous pouvez le voir ici"
 
 #: public/app/components/reset-exercise.directive.html:7
+#: public/app/profile/profile.html:79
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -34,7 +60,19 @@ msgstr "Annuler"
 msgid "Choose an exercise:"
 msgstr "Choisir un exercice:"
 
-#: public/app/components/application-header.directive.html:17
+#: public/app/profile/profile.html:80
+msgid "Confirm changes"
+msgstr "Confirmer les modifications"
+
+#: public/app/components/ide.directive.html:8
+msgid "Congratulations, switch to the next exercise!"
+msgstr "Félicitations, passez à l'exercice suivant!"
+
+#: public/app/services/connection.service.js:41
+msgid "Connexion lost"
+msgstr "Déconnecté"
+
+#: public/app/components/application-header.directive.html:21
 msgid "Contact"
 msgstr "Nous contacter"
 
@@ -46,17 +84,40 @@ msgstr "Continuer"
 msgid "Controls"
 msgstr "Contrôles"
 
-#: public/app/components/ide.directive.html:8
-msgid "Demo"
-msgstr "Démo"
-
 #: public/app/components/lesson-overview.directive.html:4
 msgid "Description of the lesson"
 msgstr "Description de la leçon"
 
+#: public/app/components/track-user-modal.directive.html:5
+msgid "Do you accept to make public your usage data?"
+msgstr "Est-ce que vous acceptez de rendre public tes traces d'utilisations?"
+
+#: public/app/components/track-user-modal.directive.html:2
+msgid "Do you want to share your data?"
+msgstr "Est-ce que vous souhaitez partager vos données?"
+
 #: public/app/components/success-modal.directive.html:5
 msgid "Do you want to try the next one?"
 msgstr "Voulez-vous tenter l'exercice suivant?"
+
+#: public/app/profile/profile.html:50
+msgid "Edit profile"
+msgstr "Modifier le profil"
+
+#: public/app/components/sign-in-form.directive.html:7
+#: public/app/components/sign-up-form.directive.html:25
+msgid "Email"
+msgstr "Email"
+
+#: public/app/components/sign-in-form.directive.html:4
+#: public/app/components/sign-up-form.directive.html:22
+#: public/app/profile/profile.html:15
+msgid "Email:"
+msgstr "Email:"
+
+#: public/app/services/user.service.js:95
+msgid "Error during update"
+msgstr "Erreur au cours de la mise à jour"
 
 #: public/app/components/instructions.directive.html:18
 msgid "Execution speed:"
@@ -66,7 +127,16 @@ msgstr "Vitesse d'exécution:"
 msgid "Exercises"
 msgstr "Exercices"
 
-#: public/app/components/application-header.directive.html:23
+#: public/app/components/sign-up-form.directive.html:7
+msgid "First name"
+msgstr "Prénom"
+
+#: public/app/components/sign-up-form.directive.html:4
+#: public/app/profile/profile.html:24 public/app/profile/profile.html:56
+msgid "First name:"
+msgstr "Prénom:"
+
+#: public/app/components/application-header.directive.html:27
 msgid "Home"
 msgstr "Accueil"
 
@@ -74,7 +144,28 @@ msgstr "Accueil"
 msgid "Instructions"
 msgstr "Consignes"
 
-#: public/app/components/results.directive.html:5
+#: public/app/components/sign-up-form.directive.html:16
+msgid "Last name"
+msgstr "Nom"
+
+#: public/app/components/sign-up-form.directive.html:13
+#: public/app/profile/profile.html:32 public/app/profile/profile.html:64
+msgid "Last name:"
+msgstr "Nom:"
+
+#: public/app/components/track-user-modal.directive.html:7
+msgid "Let me decide later"
+msgstr "Décider plus tard"
+
+#: public/app/sign-in/sign-in.controller.js:12
+msgid "Login failed; Invalid userID or password"
+msgstr "Échec de la connexion; Identifiant ou mot de passe invalide"
+
+#: public/app/sign-in/sign-in.controller.js:13
+msgid "Login failed; request failed"
+msgstr "Échec de la connexion; échec de la requête"
+
+#: public/app/components/results.directive.html:7
 msgid "Logs"
 msgstr "Logs"
 
@@ -82,31 +173,67 @@ msgstr "Logs"
 msgid "Menu"
 msgstr "Menu"
 
-#: public/app/components/results.directive.html:23
+#: public/app/components/ide.directive.html:7
+msgid "Mmm, no quite... More information below!"
+msgstr "Mmm, pas exactement... Plus d'information plus bas! "
+
+#: public/app/components/results.directive.html:27
 msgid "No error logs yet... Congratulations!"
 msgstr "Pas de messages d'erreurs pour le moment...Félicitations!"
 
-#: public/app/components/results.directive.html:17
+#: public/app/components/ide.directive.html:6
+msgid "No results yet"
+msgstr "Pas encore de résultats"
+
+#: public/app/components/results.directive.html:21
 msgid "No results yet, please run your program before."
 msgstr ""
 "Pas de résultats pour le moment, veuillez exécuter votre programme au "
 "préalable."
 
+#: public/app/components/track-user-modal.directive.html:8
+msgid "No, don't publish my data"
+msgstr "Non, ne publiez pas mes données"
+
+#: public/app/sign-in/sign-in.html:14
+msgid "Not a member?"
+msgstr "Pas encore de compte?"
+
+#: public/app/profile/profile.html:45
+msgid "Not chosen yet"
+msgstr "Pas encore de décision prise"
+
 #: public/app/components/success-modal.directive.html:7
 msgid "Not yet"
 msgstr "Pas encore"
 
-#: public/app/components/tabs-current-world.directive.html:7
-msgid "Objective"
-msgstr "Objectif"
+#: public/app/components/track-user-modal.directive.html:9
+msgid "Ok, share my data"
+msgstr "Ok, partager mes données"
+
+#: public/app/sign-in/sign-in.html:17
+msgid ""
+"Or use your existing account on one of the following services to sign in:"
+msgstr ""
+"Ou utilisez votre compte d'un des services suivant pour vous authentifier:"
+
+#: public/app/components/sign-in-form.directive.html:16
+#: public/app/components/sign-up-form.directive.html:34
+msgid "Password"
+msgstr "Mot de passe"
+
+#: public/app/components/sign-in-form.directive.html:13
+#: public/app/components/sign-up-form.directive.html:31
+msgid "Password:"
+msgstr "Mot de passe:"
 
 #: public/app/components/instructions.directive.html:16
 msgid "Player's options"
 msgstr "Options du lecteur"
 
-#: public/app/components/results.directive.html:4
-msgid "Program steps"
-msgstr "Étapes du programme"
+#: public/app/components/application-header.directive.html:18
+msgid "Profile"
+msgstr "Profil"
 
 #: public/app/components/reset-exercise.directive.html:1
 msgid "Reset"
@@ -128,7 +255,7 @@ msgstr ""
 "Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
 "irrécupérable. Êtes-vous sûr de vouloir continuer?"
 
-#: public/app/components/ide.directive.html:6
+#: public/app/components/ide.directive.html:3
 msgid "Run"
 msgstr "Exécuter"
 
@@ -136,7 +263,47 @@ msgstr "Exécuter"
 msgid "Selected world:"
 msgstr "Monde sélectionné:"
 
-#: public/app/components/ide.directive.html:7
+#: public/app/services/connection.service.js:46
+msgid "Session closed"
+msgstr "Session fermée"
+
+#: public/app/components/sign-in-form.directive.html:21
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: public/app/components/application-header.directive.html:16
+msgid "Sign In"
+msgstr "Se connecter"
+
+#: public/app/sign-up/sign-up.html:8
+msgid "Sign in now"
+msgstr "Se connecter maintenant"
+
+#: public/app/sign-in/sign-in.html:3
+msgid "Sign in with your credentials"
+msgstr "Se connecter via vos identifiants"
+
+#: public/app/components/application-header.directive.html:19
+msgid "Sign Out"
+msgstr "Se déconnecter"
+
+#: public/app/components/sign-up-form.directive.html:39
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: public/app/components/application-header.directive.html:17
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+#: public/app/sign-up/sign-up.html:3
+msgid "Sign up for a new account"
+msgstr "Créer un nouveau compte"
+
+#: public/app/sign-in/sign-in.html:14
+msgid "Sign up now"
+msgstr "S'inscrire maintenant"
+
+#: public/app/components/ide.directive.html:4
 msgid "Stop"
 msgstr "Stop"
 
@@ -153,10 +320,15 @@ msgid "The description of the selected lesson will be displayed here."
 msgstr ""
 "C'est ici que s'affichera la description de la leçon que vous aurez choisie."
 
-#: public/app/components/results.directive.html:11
-msgid "The different steps of your program's execution will be displayed here."
+#: public/app/components/track-user-modal.directive.html:3
+msgid ""
+"The PLM currently saves your usage data anonymously on its servers. That "
+"way, you can retrieve your session from any connected computer as long as "
+"you sign in."
 msgstr ""
-"Les différents étapes de l'exécution de votre programme seront affichées ici."
+"La PLM enregistre actuellement vos données d'utilisation anonyme sur ses "
+"serveurs. Grâce à ça, vous pouvez retrouver votre session depuis n'importe "
+"quel ordinateur tant que vous vous authentifier."
 
 #: public/app/components/worlds-view.directive.html:4
 msgid ""
@@ -167,6 +339,17 @@ msgstr ""
 "L'action se déroule dans un ou plusieurs mondes, selon l'exercice en cours. "
 "Chaque monde représente une configuration différente, n'oublie pas que ton "
 "programme doit fonctionner pour chacune d'entre elles ;-)"
+
+#: public/app/components/track-user-modal.directive.html:4
+msgid ""
+"This anonymous data can also help scientists to understand how people learn "
+"programming. With that in mind, we would like to provide your usage data and "
+"make it public."
+msgstr ""
+"Ces données anonymes peuvent aussi aider les chercheurs à comprendre comment "
+"les utilisateurs apprennent la programmation. Dans cette optique, nous "
+"souhaitons mettre à disposition vos traces d'utilisations aux chercheurs en "
+"les rendant publiques."
 
 #: public/app/components/world-non-implemented.directive.html:1
 msgid ""
@@ -185,25 +368,83 @@ msgstr ""
 "webloria.loria.fr/~quinson/Teaching/PLM/\">ici</a> pour faire cet exercice."
 "<a class=\"close\">&times;</a>"
 
+#: public/app/profile/profile.html:40 public/app/profile/profile.html:72
+msgid "Usage data release:"
+msgstr "Publication des traces d'utilisation"
+
 #: public/app/components/reset-exercise.directive.html:3
 msgid "Warning!"
 msgstr "Attention!"
+
+#: public/app/profile/profile.html:5
+msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
+msgstr "Bienvenue {{ profile.user.firstName }} {{ profile.user.lastName }}"
 
 #: public/app/home/home.html:2
 msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
 msgstr "Bienvenue dans PLM, <small>l'exerciseur du programmeur</small>"
 
-#: public/app/components/tabs-current-world.directive.html:4
-msgid "World"
-msgstr "Monde"
-
 #: public/app/components/success-modal.directive.html:8
 msgid "Yes, sure"
 msgstr " Bien sûr"
 
+#: public/app/components/track-user-modal.directive.html:11
+msgid "You can later update your preference from your profile's page."
+msgstr ""
+"Vous pouvez ensuite mettre à jour vos préférences depuis votre page de "
+"profil."
+
+#: public/app/services/connection.service.js:42
+msgid ""
+"You have been brutally disconnected from the server, probably due to a "
+"crash. You should copy your current work before refreshing the page. Please "
+"excuse us for the inconvenience."
+msgstr ""
+"Vous avez été brutalement déconnecté du serveur, probablement à cause d'un "
+"crash. Vous devriez copier votre travail actuel avant de rafraîchir la page. "
+"Veuillez nous excuser de ce désagrément."
+
+#: public/app/services/connection.service.js:47
+msgid ""
+"You have been disconnected from the server. If it was not wanted, don't "
+"forget to copy your current work before refreshing the page."
+msgstr ""
+"Vous avez été déconnecté du serveur. Si ce n'était pas prévu, n'oubliez pas "
+"de copier votre travail actuel avant de rafraîchir la page."
+
+#: public/app/services/user.service.js:63
+msgid "You have been logged out"
+msgstr "Vous avez été déconnecté"
+
+#: public/app/sign-in/sign-in.controller.js:14
+msgid "You have successfully signed in"
+msgstr "L'authentification s'est bien déroulée"
+
+#: public/app/services/user.service.js:147
+msgid "Your profile has been successfully updated"
+msgstr "Votre profil a été correctement mis à jour"
+
 #: public/app/components/lesson-overview.directive.html:9
 msgid "Your progress"
 msgstr "Votre progression"
+
+#~ msgid "Demo"
+#~ msgstr "Démo"
+
+#~ msgid "Objective"
+#~ msgstr "Objectif"
+
+#~ msgid "Program steps"
+#~ msgstr "Étapes du programme"
+
+#~ msgid ""
+#~ "The different steps of your program's execution will be displayed here."
+#~ msgstr ""
+#~ "Les différents étapes de l'exécution de votre programme seront affichées "
+#~ "ici."
+
+#~ msgid "World"
+#~ msgstr "Monde"
 
 #~ msgid "Application restart needed"
 #~ msgstr "Redémarrage de l'application requis"
