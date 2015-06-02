@@ -58,17 +58,6 @@
                         type: "buggle_is_selected"
                     }]
                 }, {
-                    name: "Colour",
-                    blocks: [{
-                        type: "colour_picker"
-                    }, {
-                        type: "colour_random"
-                    }, {
-                        type: "colour_rgb"
-                    }, {
-                        type: "colour_blend"
-                    }]
-                }, {
                     name: "Constant",
                     blocks: [{
                         type: "color"
@@ -102,8 +91,6 @@
                         type: "controls_if"
                     }, {
                         type: "logic_compare"
-                    }, {
-                        type: "logic_operation"
                     }, {
                         type: "newlogic_operation"
                     }, {
@@ -141,8 +128,6 @@
                     }, {
                         type: "math_constant"
                     }, {
-                        type: "math_number_property"
-                    }, {
                         type: "math_change"
                     }, {
                         type: "math_round"
@@ -152,8 +137,6 @@
                         type: "math_modulo"
                     }, {
                         type: "math_constrain"
-                    }, {
-                        type: "math_random_int"
                     }, {
                         type: "math_random_float"
                     }]

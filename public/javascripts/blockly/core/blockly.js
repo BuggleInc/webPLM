@@ -780,6 +780,7 @@ Blockly.getMainWorkspace = function () {
 if (!window['Blockly']) {
     window['Blockly'] = {};
 }
+
 window['Blockly']['getMainWorkspace'] = Blockly.getMainWorkspace;
 window['Blockly']['addChangeListener'] = Blockly.addChangeListener;
 window['Blockly']['removeChangeListener'] = Blockly.removeChangeListener;

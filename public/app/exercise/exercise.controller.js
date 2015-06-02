@@ -55,6 +55,7 @@
         exercise.resultType = null;
         exercise.result = '';
         exercise.logs = '';
+        exercise.humanLang = 'en';
 
         exercise.nonImplementedWorldException = false;
 
@@ -118,7 +119,6 @@
         $scope.codemirrorLoaded = function (_editor) {
             exercise.editor = _editor;
             resizeCodeMirror();
-
         };
 
         function getExercise() {
@@ -165,28 +165,18 @@
                 exercise.isChangingProgLang = false;
                 break;
             case 'newHumanLang':
+                exercise.humanLang = data.args.newHumanLang.code;
+                //$('body').append('<script type="text/javascript" src="/assets/javascripts/blockly/msg/js/en.js"></script>');
                 updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
-                console.log('DEBUG002_handleMessage_newHumanLang_data.args.newHumanLang.code', data.args.newHumanLang.code);
                 break;
             }
         }
 
         function setExercise(data) {
-            if (exercise.ide === 'blockly')
-                exercise.id = data.id;
-            exercise.instructions = $sce.trustAsHtml(data.instructions);
-            exercise.api = $sce.trustAsHtml(data.api);
-            exercise.code = data.code.trim();
-            /*if (data.workspace !== null)
-                exercise.studentCode = data.workspace.trim();*/
             exercise.currentWorldID = data.selectedWorldID;
-            if (data.toolbox !== '<no blocks>')
-                exercise.toolbox = JSON.parse(data.toolbox);
-
-            if (data.exception === 'nonImplementedWorldException') {
+            setToolbox(data.toolbox);
+            if (data.exception === 'nonImplementedWorldException')
                 exercise.nonImplementedWorldException = true;
-            }
-
             if (!exercise.nonImplementedWorldException) {
                 for (var worldID in data.initialWorlds) {
                     if (data.initialWorlds.hasOwnProperty(worldID)) {
@@ -324,8 +314,7 @@
             for (var i = 0; i < exercise.programmingLanguages.length; i++) {
                 var pl = exercise.programmingLanguages[i];
                 if (pl.lang === data.currentProgrammingLanguage) {
-                    exercise.currentProgrammingLanguage = pl;
-                    setIDEMode(pl);
+                    updateUI(pl, data.instructions, data.api, data.code.trim());
                 }
             }
 
@@ -340,8 +329,21 @@
         }
 
         function updateInstructions(instructions, api) {
-            exercise.instructions = $sce.trustAsHtml(instructions);
-            exercise.api = $sce.trustAsHtml(api);
+            if (instructions !== null)
+                exercise.instructions = $sce.trustAsHtml(instructions);
+            if (api !== null)
+                exercise.api = $sce.trustAsHtml(api);
+        }
+
+        function updateToolbox() {
+            /*Blockly.languageTree = exercise.toolbox;
+            Blockly.Toolbox.populate_();*/
+        }
+
+        function setToolbox(toolbox) {
+            /*if (toolbox !== '<no blocks>')
+                exercise.toolbox = JSON.parse(toolbox);
+            updateToolbox();*/
         }
 
         function setCurrentWorld(worldKind) {
@@ -562,7 +564,6 @@
         }
 
         function updateUI(pl, instructions, api, code) {
-            console.log('DEBUG_001_updateUI_api', api);
             if (pl !== null) {
                 exercise.currentProgrammingLanguage = pl;
                 if (pl.lang === 'Blockly') {
@@ -581,8 +582,7 @@
                             }, 0);
                         }
                     }
-                    Blockly.languageTree = exercise.toolbox;
-                    Blockly.Toolbox.populate_();
+                    updateToolbox();
                 } else {
                     Blockly.getMainWorkspace().clear();
                     exercise.ide = 'codemirror';
@@ -594,9 +594,7 @@
                     }, 0);
                 }
             }
-            exercise.instructions = $sce.trustAsHtml(instructions);
-            if (api !== null)
-                exercise.api = $sce.trustAsHtml(api);
+            updateInstructions(instructions, api);
         }
 
         function resetExercise() {
@@ -702,4 +700,5 @@
             }
         }
     }
+
 })();
