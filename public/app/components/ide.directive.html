@@ -4,8 +4,8 @@
 		<button class="button mini radius" ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning" translate>Stop</button>
         <span ng-class="{ secondary: exercise.resultType === null,  alert: exercise.resultType === 0, success: exercise.resultType ===1 }" class="alert-box radius secondary">
             <span ng-show="exercise.resultType === null" translate>No results yet</span>
-            <span ng-show="exercise.resultType === 0" translate>It failed... See the results below for more information!</span>
-            <span ng-show="exercise.resultType === 1" class="hover" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})" translate>Congratulations, you can move to the next exercise!</span>
+            <span ng-show="exercise.resultType === 0" translate>Mmm, no quite... More information below!</span>
+            <span ng-show="exercise.resultType === 1" class="hover" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})" translate>Congratulations, switch to the next exercise!</span>
         </span>
 	</span>	
 	<span class="right">

@@ -6,9 +6,9 @@
 		.factory('userService', userService)
 		.run(function(userService) {}); // To instanciate the service at startup
 	
-	userService.$inject = ['$timeout', '$cookies', 'connection', 'listenersHandler', '$auth', 'toasterUtils'];
+	userService.$inject = ['$timeout', '$cookies', 'connection', 'listenersHandler', '$auth', 'toasterUtils', 'gettextCatalog'];
 	
-	function userService($timeout, $cookies, connection, listenersHandler, $auth, toasterUtils) {
+	function userService($timeout, $cookies, connection, listenersHandler, $auth, toasterUtils, gettextCatalog) {
 
 		listenersHandler.register('onmessage', handleMessage);
 
@@ -60,7 +60,8 @@
 		function signOut() {
 			$auth.logout()
             .then(function () {
-                toasterUtils.info('You have been logged out');
+                var msg = gettextCatalog.getString('You have been logged out');
+                toasterUtils.info(msg);
             });
 		}
 
@@ -91,7 +92,9 @@
                 trackUser: user.trackUser
 			});
             timeoutProfileUpdate = $timeout(function () {
-                toasterUtils.error('Error during update', 'An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later.');
+                var title = gettextCatalog.getString('Error during update');
+                var msg = gettextCatalog.getString('An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later.');
+                toasterUtils.error(title, msg);
             }, 10000);
 		}
 
@@ -141,7 +144,7 @@
 					break;
                 case 'userUpdated':
                     $timeout.cancel(timeoutProfileUpdate);
-                    toasterUtils.info('Your profile has been successfully updated');
+                    toasterUtils.info(gettextCatalog.getString('Your profile has been successfully updated'));
                     break;
 			}
 		}

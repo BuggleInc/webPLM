@@ -175,8 +175,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
           var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
-          (optFirstName.getOrElse(None), optFirstName.getOrElse(None), optTrackUser.getOrElse(None)) match {
-            case (firstName:String, lastName: String, trackUser: Boolean) =>
+          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
+            case (firstName:String, lastName: String) =>
               currentUser = currentUser.copy(
                   firstName = optFirstName,
                   lastName = optLastName,
