@@ -5,15 +5,32 @@
 		.module('PLMApp')
 		.controller('Profile', Profile);
 
-	Profile.$inject = ['userService'];
+	Profile.$inject = ['$scope', 'userService'];
 
-	function Profile(userService) {
+	function Profile($scope, userService) {
 		var profile = this;
 
-		profile.getUser = getUser;
+		$scope.$on('$destroy', $scope.$watch('userService.getUser()', setUser));
 
-		function getUser() {
-			return userService.getUser();
+		profile.mode = 'view';
+		profile.user;
+		profile.userTemp;
+
+		profile.switchToMode = switchToMode;
+		profile.updateProfile = updateProfile;
+
+		function switchToMode(mode) {
+			profile.mode = mode;
+		}
+
+		function setUser() {
+			profile.user = userService.getUser();
+			profile.userTemp = userService.cloneUser();
+		}
+
+		function updateProfile() {
+			userService.updateUser(profile.userTemp);
+			switchToMode('view');
 		}
 	}
 })();

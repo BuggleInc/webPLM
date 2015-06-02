@@ -25,13 +25,15 @@ import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
 import models.daos.UserDAOMongoImpl
+import codes.reactive.scalatime._
+import Scalatime._
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
+  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
   def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], out: ActorRef) extends Actor {  
+class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -47,13 +49,19 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang)
+  var currentTrackUser: Boolean = trackUser.getOrElse(false)
+  
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  
+  var userIdle: Boolean = false;
+  var idleStart: Instant = null
+  var idleEnd: Instant = null
   
   initSpies
   registerActor
   
   def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, out)
+    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
   
@@ -67,6 +75,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           setCurrentUser((msg \ "user").asOpt[User].get)
           registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
+          currentTrackUser = currentUser.trackUser.getOrElse(false)
+          plm.setTrackUser(currentTrackUser)
           currentUser.preferredLang.getOrElse(None) match {
             case newLang: Lang =>
               currentPreferredLang = newLang
@@ -79,6 +89,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           clearCurrentUser()
           registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
+          currentTrackUser = false
+          plm.setTrackUser(currentTrackUser)
         case "getLessons" =>
           sendMessage("lessons", Json.obj(
             "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
@@ -90,7 +102,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setProgrammingLanguage(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
-              Logger.debug("getExercise: non-correct JSON")
+              Logger.debug("setProgrammingLanguage: non-correct JSON")
           }
         case "setLang" =>
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
@@ -100,7 +112,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setLang(currentPreferredLang)
               savePreferredLang()
             case _ =>
-              Logger.debug("getExercise: non-correct JSON")
+              Logger.debug("setLang: non-correct JSON")
           }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -159,6 +171,36 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
             "selected" -> LangToJson.langWrite(currentPreferredLang),
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
+        case "updateUser" =>
+          var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
+          var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
+          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
+            case (firstName:String, lastName: String) =>
+              currentUser = currentUser.copy(
+                  firstName = optFirstName,
+                  lastName = optLastName,
+                  trackUser = optTrackUser
+              )
+              UserDAOMongoImpl.save(currentUser)
+              sendMessage("userUpdated", Json.obj())
+            case _ =>
+              Logger.debug("updateUser: non-correct JSON")
+          }
+        case "userIdle" =>
+          setUserIdle
+        case "userBack" =>
+          clearUserIdle
+        case "setTrackUser" =>
+          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          (optTrackUser.getOrElse(None)) match {
+            case trackUser: Boolean =>
+              currentTrackUser = trackUser
+              saveTrackUser(currentTrackUser)
+              plm.setTrackUser(currentTrackUser)              
+            case _ =>
+              Logger.debug("setTrackUser: non-correct JSON")
+          }
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
@@ -246,11 +288,46 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     }
   }
   
+  def setUserIdle() {
+    userIdle = true
+    idleStart = Instant.apply
+    Logger.debug("start idling at: "+ idleStart)      
+  }
+  
+  def clearUserIdle() {
+    userIdle = false
+    idleEnd = Instant.apply
+    if(idleStart != null) {
+      var duration = Duration.between(idleStart, idleEnd)
+      Logger.debug("end idling at: "+ idleEnd)
+      Logger.debug("duration: " + duration)
+      plm.signalIdle(idleStart.toString, idleEnd.toString, duration.toString)
+    }
+    else {
+      Logger.error("receive 'userBack' but not previous 'userIdle'")
+    }
+    idleStart = null
+    idleEnd = null
+  }
+  
+  def saveTrackUser(trackUser: Boolean) {
+    if(currentUser != null) {
+      currentUser = currentUser.copy(
+          trackUser = Some(trackUser)
+      )
+      UserDAOMongoImpl.save(currentUser)
+    }
+  }
+  
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
+    if(userIdle) {
+      clearUserIdle
+    }
     ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
     registeredSpies.foreach { spy => spy.unregister }
+    plm.game.quit
   }
 }

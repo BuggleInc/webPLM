@@ -1,0 +1,13 @@
+<div id="trackUserModal" class="reveal-modal" data-reveal=true>
+  <h2 translate>Do you want to share your data?</h2>
+  <p translate>The PLM currently saves your usage data anonymously on its servers. That way, you can retrieve your session from any connected computer as long as you sign in.</p>
+  <p><span translate>This anonymous data can also help scientists to understand how people learn programming. With that in mind, we would like to provide your usage data and make it public.</span>&nbsp;<a target="_blank" href="https://github.com/mquinson/PLM-data" translate>As you can see here</a><span translate>, no nominative information is published, only the source code written to solve the challenges.</span></p>
+  <p class="lead" translate>Do you accept to make public your usage data?</p>
+  <div class="row center">
+	  <button class="secondary" ng-click="userService.setNextAskTrackUser()" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Let me decide later</button>
+	  <button class="alert" ng-click="userService.setTrackUser(false)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>No, don't publish my data</button>
+	  <button ng-click="userService.setTrackUser(true)" onclick="$('#trackUserModal').foundation('reveal', 'close');" translate>Ok, share my data</button>
+  </div>
+  <span translate>You can later update your preference from your profile's page.</span>
+  <a class="close-reveal-modal" ng-click="userService.setNextAskTrackUser()">&#215;</a>
+</div>
