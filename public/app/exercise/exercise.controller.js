@@ -9,6 +9,7 @@
   '$window', '$http', '$scope', '$sce', '$stateParams',
   'connection', 'listenersHandler', 'langs', 'exercisesList',
   'canvas', 'drawWithDOM',
+  'blocklyService',
   '$timeout', '$interval',
   'locker',
   'BuggleWorld', 'BuggleWorldView',
@@ -22,6 +23,7 @@
     function Exercise($window, $http, $scope, $sce, $stateParams,
         connection, listenersHandler, langs, exercisesList,
         canvas, drawWithDOM,
+        blocklyService,
         $timeout, $interval,
         locker,
         BuggleWorld, BuggleWorldView,
@@ -336,14 +338,16 @@
         }
 
         function updateToolbox() {
-            /*Blockly.languageTree = exercise.toolbox;
-            Blockly.Toolbox.populate_();*/
+            Blockly.languageTree = exercise.toolbox;
+            Blockly.Toolbox.populate_();
         }
 
         function setToolbox(toolbox) {
-            /*if (toolbox !== '<no blocks>')
+            if (toolbox !== '<no blocks>')
                 exercise.toolbox = JSON.parse(toolbox);
-            updateToolbox();*/
+            else
+                exercise.toolbox = blocklyService.getOptions().toolbox;
+            updateToolbox();
         }
 
         function setCurrentWorld(worldKind) {
