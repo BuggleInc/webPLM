@@ -4,8 +4,10 @@
     angular
         .module("PLMApp")
         .service("blocklyService", blocklyService);
+    
+    blocklyService.$inject = ['BlocklyMsg'];
 
-    function blocklyService() {
+    function blocklyService(BlocklyMsg) {
         var options = {
             path: "/assets/javascripts/blockly/media/",
             trashcan: true,
@@ -239,7 +241,9 @@
                     }]
                 }]
         };
-
+        
+        Blockly.Msg = BlocklyMsg;
+        console.log(Blockly.Msg.COUCOU);
         var service = {
             getOptions: getOptions,
             setOptions: setOptions
