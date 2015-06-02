@@ -4,7 +4,7 @@
     angular
         .module("PLMApp")
         .service("blocklyService", blocklyService);
-    
+
     blocklyService.$inject = ['BlocklyMsg'];
 
     function blocklyService(BlocklyMsg) {
@@ -241,14 +241,19 @@
                     }]
                 }]
         };
-        
-        Blockly.Msg = BlocklyMsg;
-        console.log(Blockly.Msg.COUCOU);
+
+        updateMsg();
+        console.log(Blockly.Msg);
         var service = {
             getOptions: getOptions,
-            setOptions: setOptions
+            setOptions: setOptions,
+            updateMsg: updateMsg
         };
         return service;
+
+        function updateMsg() {
+            Blockly.Msg = BlocklyMsg.getModel();
+        }
 
         function getOptions() {
             return options;

@@ -2,7 +2,7 @@ Blockly.Blocks['move_forward'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("forward");
+            .appendField(Blockly.Msg.FORWARD);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('Moving forward.');
