@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     nggettext_extract: {
       pot: {
         files: {
-          'po/template.pot': ['public/app/**/*.html']
+          'po/template.pot': ['public/app/**/*.html', 'public/app/**/*.js']
         }
       },
     },
@@ -34,7 +34,8 @@ module.exports = function(grunt) {
             'public/javascripts/angular-locker.js',
             'public/javascripts/angular-mocks.js',
             'public/javascripts/angular-gettext/dist/angular-gettext.js',
-            'public/javascripts/satellizer.js'
+            'public/javascripts/satellizer.js',
+            'public/javascripts/toaster.js'
           ],
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'
         }

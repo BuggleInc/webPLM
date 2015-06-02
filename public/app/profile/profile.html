@@ -2,36 +2,82 @@
 	<hr/>
 	<div class="row">
 		<div class="small-9 columns">
-			<h4>Welcome {{ profile.getUser().firstName }} {{ profile.getUser().lastName }}</h4>
+			<h4 translate>Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}</h4>
 		</div>
 		<div class="small-3 columns">
-			<img style="height:40px;" ng-src="{{ profile.getUser().avatarURL }}">
+			<img style="height:40px;" ng-src="{{ profile.user.avatarURL }}">
 		</div>
 	</div>
 	<hr/>
 
 	<div class="row">
 		<div class="small-6 columns">
-			<strong>Email:</strong>
+			<strong translate>Email:</strong>
 		</div>
 		<div class="small-6 columns">
-			{{ profile.getUser().email }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="small-6 columns">
-			<strong>First name:</strong>
-		</div>
-		<div class="small-6 columns">
-			{{ profile.getUser().firstName }}
+			{{ profile.user.email }}
 		</div>
 	</div>
-	<div class="row">
-		<div class="small-6 columns">
-			<strong>Last name:</strong>
+	<div ng-show="profile.mode === 'view'">
+		<div class="row">
+			<div class="small-6 columns">
+				<strong translate>First name:</strong>
+			</div>
+			<div class="small-6 columns">
+				{{ profile.user.firstName }}
+			</div>
 		</div>
-		<div class="small-6 columns">
-			{{ profile.getUser().lastName }}
+		<div class="row">
+			<div class="small-6 columns">
+				<strong translate>Last name:</strong>
+			</div>
+			<div class="small-6 columns">
+				{{ profile.user.lastName }}
+			</div>
+		</div>
+        <div class="row">
+			<div class="small-6 columns">
+				<strong translate>Usage data release:</strong>
+			</div>
+			<div class="small-6 columns" ng-show="profile.user.trackUser !== undefined">
+				<input type="checkbox" disabled="true" ng-model="profile.user.trackUser">
+			</div>
+            <div class="small-6 columns" ng-show="profile.user.trackUser === undefined" translate>
+				Not chosen yet
+			</div>
+		</div>
+		<div class="row center">
+			<button ng-click="profile.switchToMode('edit')" translate>Edit profile</button>
+		</div>
+	</div>
+	<div ng-show="profile.mode === 'edit'">
+		<div class="row">
+			<div class="small-6 columns">
+				<strong translate>First name:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="text" ng-model="profile.userTemp.firstName">
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-6 columns">
+				<strong translate>Last name:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="text" ng-model="profile.userTemp.lastName">
+			</div>
+		</div>
+        <div class="row">
+			<div class="small-6 columns">
+				<strong translate>Usage data release:</strong>
+			</div>
+			<div class="small-6 columns">
+				<input type="checkbox" ng-model="profile.userTemp.trackUser">
+			</div>
+		</div>
+		<div class="row center">
+			<button class="secondary" ng-click="profile.switchToMode('view')" translate>Cancel</button>
+			<button ng-click="profile.updateProfile()" translate>Confirm changes</button>
 		</div>
 	</div>
 </div>

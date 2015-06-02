@@ -1,8 +1,8 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.displayInstructions = 'instructions'"><a translate>Instructions</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.displayInstructions = 'api'"><a translate>API</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.displayInstructions = 'controls'"><a translate>Controls</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.switchDisplayedInstructions('instructions')"><a translate>Instructions</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.switchDisplayedInstructions('api')"><a translate>API</a></dd>
+		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.switchDisplayedInstructions('controls')"><a translate>Controls</a></dd>
 		<span class="button secondary mini right" ng-click="exercise.resizeInstructions();">
 			<i ng-show="!exercise.instructionsIsFullScreen" class="fi-arrows-expand"></i>
 			<i ng-show="exercise.instructionsIsFullScreen" class="fi-arrows-compress"></i>
