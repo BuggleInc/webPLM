@@ -477,10 +477,7 @@
                 WOLRD_WIDTH_GET_TITLE: gettextCatalog.getString("getWorldWidth"),
                 WORLD_WIDTH_GET_TOOLTIP: gettextCatalog.getString("Tooltip for getWorldWidth block not define."),
 
-
-
-
-                // ################################### AREA 51
+                // ###################################
 
                 PROCEDURES_DEFRETURN_TITLE: gettextCatalog.getString("to"), //this.PROCEDURES_DEFNORETURN_TITLE,
                 LISTS_GET_SUBLIST_INPUT_IN_LIST: gettextCatalog.getString("in list"), //gettextCatalog.getString(this.LISTS_INLIST),
