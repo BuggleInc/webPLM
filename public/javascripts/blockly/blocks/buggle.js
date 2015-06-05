@@ -56,13 +56,13 @@ Blockly.Blocks['buggle_set_heading'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.BRUSH_SET_HEADING_TITLE);
+            .appendField(Blockly.Msg.BUGGLE_SET_HEADING_TITLE);
         this.appendValueInput("VAL")
             .setCheck("Direction");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.BRUSH_SET_HEADING_TOOLTIP);
+        this.setTooltip(Blockly.Msg.BUGGLE_SET_HEADING_TOOLTIP);
     }
 };
 
