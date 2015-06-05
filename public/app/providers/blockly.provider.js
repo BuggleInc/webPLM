@@ -28,7 +28,7 @@
                 path: "/assets/javascripts/blockly/media/",
                 trashcan: true,
                 toolbox: [{
-                    name: "Brush",
+                    name: Blockly.Msg.TOOLBOX_BRUSH_NAME,
                     blocks: [{
                         type: "brush_down"
                     }, {
@@ -41,7 +41,7 @@
                         type: "brush_set_color"
                     }]
                 }, {
-                    name: "Buggle",
+                    name: Blockly.Msg.TOOLBOX_BUGGLE_NAME,
                     blocks: [{
                         type: "buggle_get_color"
                     }, {
@@ -58,14 +58,14 @@
                         type: "buggle_is_selected"
                     }]
                 }, {
-                    name: "Constant",
+                    name: Blockly.Msg.TOOLBOX_CONSTANS_NAME,
                     blocks: [{
                         type: "color"
                     }, {
                         type: "direction"
                     }]
                 }, {
-                    name: "Lists",
+                    name: Blockly.Msg.TOOLBOX_LISTS_NAME,
                     blocks: [{
                         type: "lists_create_empty"
                     }, {
@@ -86,7 +86,7 @@
                         type: "lists_getSublist"
                     }]
                 }, {
-                    name: "Logic",
+                    name: Blockly.Msg.TOOLBOX_LOGIC_NAME,
                     blocks: [{
                         type: "controls_if"
                     }, {
@@ -103,7 +103,7 @@
                         type: "logic_ternary"
                     }]
                 }, {
-                    name: "Loops",
+                    name: Blockly.Msg.TOOLBOX_LOOPS_NAME,
                     blocks: [{
                         type: "controls_repeat"
                     }, {
@@ -116,7 +116,7 @@
                         type: "controls_flow_statements"
                     }]
                 }, {
-                    name: "Math",
+                    name: Blockly.Msg.TOOLBOX_MATHS_NAME,
                     blocks: [{
                         type: "math_number"
                     }, {
@@ -141,7 +141,7 @@
                         type: "math_random_float"
                     }]
                 }, {
-                    name: "Move",
+                    name: Blockly.Msg.TOOLBOX_MOVE_NAME,
                     blocks: [{
                         type: "move_forward"
                     }, {
@@ -168,7 +168,7 @@
                         type: "set_position"
                     }]
                 }, {
-                    name: "Procedures",
+                    name: Blockly.Msg.TOOLBOX_PROCEDURES_NAME,
                     custom: "PROCEDURE",
                     blocks: [{
                         type: "newprocedures_defnoreturn"
@@ -180,7 +180,7 @@
                         type: "newprocedures_callreturn"
                     }]
                 }, {
-                    name: "Text",
+                    name: Blockly.Msg.TOOLBOX_TEXT_NAME,
                     blocks: [{
                         type: "text"
                     }, {
@@ -213,7 +213,7 @@
                         type: "text_prompt_ext"
                     }]
                 }, {
-                    name: "Variables",
+                    name: Blockly.Msg.TOOLBOX_VARIABLE_NAME,
                     custom: "VARIABLE",
                     blocks: [{
                         type: "variables_get"
@@ -221,7 +221,7 @@
                         type: "variables_set"
                     }]
                 }, {
-                    name: "World",
+                    name: Blockly.Msg.TOOLBOX_WORLD_NAME,
                     blocks: [{
                         type: "world_ground_color"
                     }, {
