@@ -2,9 +2,9 @@ Blockly.Blocks['buggle_get_color'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("getBodyColor");
+            .appendField(Blockly.Msg.BUGGLE_GET_COLOR_TITLE);
         this.setOutput(true, "Color");
-        this.setTooltip('Get the color of the body.');
+        this.setTooltip(Blockly.Msg.BUGGLE_GET_COLOR_TOOLTIP);
     }
 };
 
@@ -12,13 +12,13 @@ Blockly.Blocks['buggle_set_color'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("setBodyColor");
+            .appendField(Blockly.Msg.BUGGLE_SET_COLOR_TITLE);
         this.appendValueInput("VAL")
             .setCheck("Color");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Set the color of the body.');
+        this.setTooltip(Blockly.Msg.BUGGLE_SET_COLOR_TOOLTIP);
     }
 };
 
@@ -26,9 +26,9 @@ Blockly.Blocks['buggle_facingWall'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("isFacingWall");
+            .appendField(Blockly.Msg.BUGGLE_FACINGWALL_TITLE);
         this.setOutput(true, 'Boolean');
-        this.setTooltip('Look for a wall forward.');
+        this.setTooltip(Blockly.Msg.BUGGLE_FACINGWALL_TOOLTIP);
     }
 };
 
@@ -36,9 +36,9 @@ Blockly.Blocks['buggle_backingWall'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("isBackingWall");
+            .appendField(Blockly.Msg.BUGGLE_BACKINGWALL_TITLE);
         this.setOutput(true, 'Boolean');
-        this.setTooltip('Look for a wall backward.');
+        this.setTooltip(Blockly.Msg.BUGGLE_BACKINGWALL_TOOLTIP);
     }
 };
 
@@ -46,9 +46,9 @@ Blockly.Blocks['buggle_get_heading'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("getDirection");
+            .appendField(Blockly.Msg.BUGGLE_GET_HEADING_TITLE);
         this.setOutput(true, "Direction");
-        this.setTooltip('Get heading.');
+        this.setTooltip(Blockly.Msg.BUGGLE_GET_HEADING_TOOLTIP);
     }
 };
 
@@ -56,13 +56,13 @@ Blockly.Blocks['buggle_set_heading'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("setDirection");
+            .appendField(Blockly.Msg.BRUSH_SET_HEADING_TITLE);
         this.appendValueInput("VAL")
             .setCheck("Direction");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Set heading.');
+        this.setTooltip(Blockly.Msg.BRUSH_SET_HEADING_TOOLTIP);
     }
 };
 
@@ -70,8 +70,8 @@ Blockly.Blocks['buggle_is_selected'] = {
     init: function () {
         this.setColour(0);
         this.appendDummyInput()
-            .appendField("isSelected");
+            .appendField(Blockly.Msg.BUGGLE_IS_SELECTED_TITLE);
         this.setOutput(true, 'Boolean');
-        this.setTooltip('Check whether the buggle is currently selected in the interface.');
+        this.setTooltip(Blockly.Msg.BUGGLE_IS_SELECTED_TOOLTIP);
     }
 };

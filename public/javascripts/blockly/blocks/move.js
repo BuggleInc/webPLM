@@ -2,10 +2,10 @@ Blockly.Blocks['move_forward'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.FORWARD);
+            .appendField(Blockly.Msg.MOVE_FORWARD_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Moving forward.');
+        this.setTooltip(Blockly.Msg.MOVE_FORWARD_TOOLTIP);
     }
 };
 
@@ -13,10 +13,10 @@ Blockly.Blocks['move_backward'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("backward");
+            .appendField(Blockly.Msg.MOVE_BACKWARD_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Moving back.');
+        this.setTooltip(Blockly.Msg.MOVE_BACKWARD_TOOLTIP);
     }
 };
 
@@ -24,14 +24,14 @@ Blockly.Blocks['move_forward_many'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("forward");
+            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_TITLE)
+            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_STEP);
         this.appendValueInput("VAL")
-            .setCheck("Number")
-            .appendField("| steps =");
+            .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Moving forward.');
+        this.setTooltip(Blockly.Msg.MOVE_FORWARD_MANY_TOOLTIP);
     }
 };
 
@@ -39,14 +39,14 @@ Blockly.Blocks['move_backward_many'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("backward")
-            .appendField("| steps =");
+            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_TITLE)
+            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_STEP);
         this.appendValueInput("VAL")
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Moving back.');
+        this.setTooltip(Blockly.Msg.MOVE_BACKWARD_MANY_TOOLTIP);
     }
 };
 
@@ -54,10 +54,10 @@ Blockly.Blocks['turn_right'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("right");
+            .appendField(Blockly.Msg.TURN_RIGHT_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Turn right.');
+        this.setTooltip(Blockly.Msg.TURN_RIGHT_TOOLTIP);
     }
 };
 
@@ -65,10 +65,10 @@ Blockly.Blocks['turn_left'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("left");
+            .appendField(Blockly.Msg.TURN_LEFT_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Turn left.');
+        this.setTooltip(Blockly.Msg.TURN_LEFT_TOOLTIP);
     }
 };
 
@@ -76,10 +76,10 @@ Blockly.Blocks['turn_back'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("back");
+            .appendField(Blockly.Msg.TURN_BACK_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Turn back.');
+        this.setTooltip(Blockly.Msg.TURN_BACK_TOOLTIP);
     }
 };
 
@@ -87,9 +87,9 @@ Blockly.Blocks['get_x'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("getX");
+            .appendField(Blockly.Msg.GET_X_TITLE);
         this.setOutput(true, 'Number');
-        this.setTooltip('Get X coordinate.');
+        this.setTooltip(Blockly.Msg.GET_X_TOOLTIP);
     }
 };
 
@@ -97,9 +97,9 @@ Blockly.Blocks['get_y'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("getY");
+            .appendField(Blockly.Msg.GET_Y_TITLE);
         this.setOutput(true, 'Number');
-        this.setTooltip('Get Y coordinate.');
+        this.setTooltip(Blockly.Msg.GET_Y_TOOLTIP);
     }
 };
 
@@ -107,14 +107,14 @@ Blockly.Blocks['set_x'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("setX");
+            .appendField(Blockly.Msg.SET_X_TITLE);
         this.appendValueInput("VAL")
-            .appendField("| x =")
+            .appendField(Blockly.Msg.SET_X_FIELD)
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Set X coordinate.');
+        this.setTooltip(Blockly.Msg.SET_X_TOOLTIP);
     }
 };
 
@@ -122,14 +122,14 @@ Blockly.Blocks['set_y'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("setY");
+            .appendField(Blockly.Msg.SET_Y_TITLE);
         this.appendValueInput("VAL")
-            .appendField("| y =")
+            .appendField(Blockly.Msg.SET_Y_FIELD)
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Set Y coordinate.');
+        this.setTooltip(Blockly.Msg.SET_Y_TOOLTIP);
     }
 };
 
@@ -137,16 +137,16 @@ Blockly.Blocks['set_position'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField("setPos");
-        this.appendValueInput("VAL_X")
+            .appendField(Blockly.Msg.SET_POS_TITLE);
+        this.appendValueInput(Blockly.Msg.SET_POS_FIELD_X)
             .appendField("| x =")
             .setCheck("Number");
-        this.appendValueInput("VAL_Y")
+        this.appendValueInput(Blockly.Msg.SET_POS_FIELD_Y)
             .appendField("y =")
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip('Set position');
+        this.setTooltip(Blockly.Msg.SET_POS_TOOLTIP);
     }
 };

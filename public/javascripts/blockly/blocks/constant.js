@@ -5,7 +5,7 @@ Blockly.Blocks['color'] = {
             .appendField("color")
             .appendField(new Blockly.FieldDropdown([["black", "Color.black"], ["blue", "Color.blue"], ["cyan", "Color.cyan"], ["darkgrey", "Color.darkgrey"], ["gray", "Color.gray"], ["green", "Color.green"], ["lightgrey", "Color.lightgray"], ["magenta", "Color.magenta"], ["orange", "Color.orange"], ["pink", "Color.pink"], ["red", "Color.red"], ["white", "Color.white"], ["yellow", "Color.yellow"]]), "VAL");
         this.setOutput(true, 'Color');
-        this.setTooltip('Color.');
+        this.setTooltip(Blockly.Msg.COLOR_TOOLTIP);
     }
 };
 
