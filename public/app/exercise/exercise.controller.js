@@ -196,12 +196,10 @@
                 exercise.logs += args.msg;
                 break;
             case 'newProgLang':
-                    console.log('DEBUG_001',args.instructions);
                 updateUI(args.newProgLang, args.instructions, null, args.code);
                 exercise.isChangingProgLang = false;
                 break;
             case 'newHumanLang':
-                    console.log('DEBUG_002',args.instructions);
                 updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
                 break;
             }
@@ -413,10 +411,9 @@
         }
 
         function updateToolbox() {
-            if (exercise.toolbox !== null) //{
+            if (exercise.toolbox !== null)
                 Blockly.languageTree = exercise.toolbox;
             Blockly.Toolbox.populate_();
-            //}
         }
 
         function setToolbox(toolbox) {
