@@ -24,9 +24,9 @@ Blockly.Blocks['move_forward_many'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_TITLE)
-            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_STEP);
+            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_TITLE);
         this.appendValueInput("VAL")
+            .appendField(Blockly.Msg.MOVE_FORWARD_MANY_STEP)
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
@@ -39,9 +39,9 @@ Blockly.Blocks['move_backward_many'] = {
     init: function () {
         this.setColour(30);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_TITLE)
-            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_STEP);
+            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_TITLE);
         this.appendValueInput("VAL")
+            .appendField(Blockly.Msg.MOVE_BACKWARD_MANY_STEP)
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
@@ -138,11 +138,11 @@ Blockly.Blocks['set_position'] = {
         this.setColour(30);
         this.appendDummyInput()
             .appendField(Blockly.Msg.SET_POS_TITLE);
-        this.appendValueInput(Blockly.Msg.SET_POS_FIELD_X)
-            .appendField("| x =")
+        this.appendValueInput("VAL_X")
+            .appendField(Blockly.Msg.SET_POS_FIELD_X)
             .setCheck("Number");
-        this.appendValueInput(Blockly.Msg.SET_POS_FIELD_Y)
-            .appendField("y =")
+        this.appendValueInput("VAL_Y")
+            .appendField(Blockly.Msg.SET_POS_FIELD_Y)
             .setCheck("Number");
         this.setInputsInline(true);
         this.setPreviousStatement(true);
