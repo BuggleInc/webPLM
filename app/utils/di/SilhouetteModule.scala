@@ -6,6 +6,7 @@ import com.mohiva.play.silhouette.api.util._
 import com.mohiva.play.silhouette.api.{ Environment, EventBus }
 import com.mohiva.play.silhouette.impl.authenticators._
 import com.mohiva.play.silhouette.impl.daos.{ CacheAuthenticatorDAO, DelegableAuthInfoDAO }
+import utils.di.PLMAccountsProvider._
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.providers.oauth1._
 import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{ CookieSecretProvider, CookieSecretSettings }
@@ -64,6 +65,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     authenticatorService: AuthenticatorService[JWTAuthenticator],
     eventBus: EventBus,
     credentialsProvider: CredentialsProvider,
+    plmAccountsProvider: PLMAccountsProvider,
     facebookProvider: FacebookProvider,
     gitHubProvider: GitHubProvider,
     googleProvider: GoogleProvider,
@@ -74,6 +76,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       authenticatorService,
       ListMap(
         credentialsProvider.id -> credentialsProvider,
+        plmAccountsProvider.id ->  plmAccountsProvider,
         googleProvider.id -> googleProvider,
         facebookProvider.id -> facebookProvider,
         twitterProvider.id -> twitterProvider,
@@ -163,6 +166,23 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     new CredentialsProvider(authInfoService, passwordHasher, Seq(passwordHasher))
   }
 
+  /**
+   * Provides the PLMAccounts provider.
+   *
+   * @param httpLayer The HTTP layer implementation.
+   * @param stateProvider The OAuth2 state provider implementation.
+   * @return The PLMAccounts provider.
+   */
+  @Provides
+  def providePLMAccountsProvider(httpLayer: HTTPLayer, stateProvider: OAuth2StateProvider): PLMAccountsProvider = {
+    PLMAccountsProvider(httpLayer, stateProvider, OAuth2Settings(
+      accessTokenURL = Play.configuration.getString("silhouette.plmaccounts.accessTokenURL").get,
+      redirectURL = Play.configuration.getString("silhouette.plmaccounts.redirectURL").get,
+      clientID = Play.configuration.getString("silhouette.plmaccounts.clientID").getOrElse(""),
+      clientSecret = Play.configuration.getString("silhouette.plmaccounts.clientSecret").getOrElse(""),
+      scope = Play.configuration.getString("silhouette.plmaccounts.scope")))
+  }
+  
   /**
    * Provides the Facebook provider.
    *
