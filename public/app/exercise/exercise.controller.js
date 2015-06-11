@@ -386,12 +386,16 @@
             }
 
             exercise.programmingLanguages = data.programmingLanguages;
+            var isset = false;
             for (var i = 0; i < exercise.programmingLanguages.length; i++) {
                 var pl = exercise.programmingLanguages[i];
                 if (pl.lang === data.currentProgrammingLanguage) {
                     updateUI(pl, data.instructions, data.api, data.code.trim());
+                    isset = true;
                 }
             }
+            if (!isset)
+                updateUI(exercise.programmingLanguages[0], data.instructions, data.api, data.code.trim());
 
             $(document).foundation('dropdown', 'reflow');
             $(document).foundation('equalizer', 'reflow');
