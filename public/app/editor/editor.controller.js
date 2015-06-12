@@ -26,6 +26,8 @@
         
         var editorExerciseLessonID = 'editor';
         var editorExerciseID = 'editor.lessons.editor.editor.Editor';
+        var lessonToLoadID = $stateParams.lessonID;
+        var exerciseToLoadID = $stateParams.exerciseID;
         
         var editor = this;
         
@@ -37,6 +39,8 @@
         
         editor.errorMessage = null;
         
+        editor.exerciseName = '';
+
         /*
             World editor
         */
@@ -123,7 +127,24 @@
         editor.initSolutionEditor = initSolutionEditor;
         editor.runSolution = runSolution;
         
+        /*
+            Save
+        */
+        editor.saveExercise = saveExercise;
         
+        
+        /*
+            Editor
+        */
+        function getExercise(lessonID, exerciseID, mode) {
+			var args = {
+				lessonID: lessonID,
+			};
+			if(exerciseID !== '') {
+				args.exerciseID = exerciseID;
+			}
+			connection.sendMessage(mode, args);
+		}
         
         var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
         
@@ -134,6 +155,9 @@
 			switch(cmd) {
                 case 'exercise':
                     setEditorExercise(args.exercise);
+                    break;
+                case 'exerciseToEdit':
+                    initFromExercise(args.exercise);
                     break;
 				case 'missionFiltered': 
 					editor.filteredMission = args.filteredMission;
@@ -146,7 +170,7 @@
                     break;
 			}
 		}
-        
+
         function displayError(errorMessage) {
             editor.errorMessage = errorMessage;
             $('#errorModal').foundation('reveal', 'open');
@@ -160,20 +184,75 @@
         /*
             World editor
         */
-        
         function initEditor() {
             canvasID = 'canvas';
             editor.drawingArea = 'drawingArea';
             initCanvas(BuggleWorldView.draw);
+            
             if(editor.world === null) {
-                editor.addWorld('New world');
+                initWorlds();
             }
             else {
                 editor.drawService.setWorld(editor.world);
             }
-            editor.drawService.update();
         }
         
+        function initFromExercise(exercise) {
+            var lastNewWorldName;
+            for(var worldID in exercise.initialWorlds) {
+                var buggleWorld = new BuggleWorld(exercise.initialWorlds[worldID]);
+                buggleWorld.name = worldID;
+                editor.initialWorlds.push(buggleWorld);
+                lastNewWorldName = worldID;
+            }
+            switchWorld(lastNewWorldName);
+            
+            editor.missionText = exercise.missionHTML;
+            editor.filterMission();
+            
+            
+            var templateRegex = /^[\s\S]*((?:(?:\/\*)|#) BEGIN TEMPLATE(?: \*\/)?)([\s\S]+)((?:(?:\/\*)|#) BEGIN SOLUTION(?: \*\/)?)([\s\S]+)((?:(?:\/\*)|#) END SOLUTION(?: \*\/)?)([\s\S]+)((?:(?:\/\*)|#) END TEMPLATE(?: \*\/)?)[\s\S]*$/;
+            
+            var noTemplateRegex = /^[\s\S]*((?:(?:\/\*)|#) BEGIN SOLUTION(?: \*\/)?)([\s\S]+)((?:(?:\/\*)|#) END SOLUTION(?: \*\/)?)[\s\S]*$/;
+            
+            for(var solution in exercise.solutionCodes) {  
+                var beginTemplate = '';
+                var endTemplate = '';
+                var beginSolution = '';
+                var endSolution = '';
+                var templateCode1 = '\n';
+                var templateCode2 = '\n';
+                var solutionCode = '';
+
+                if(exercise.solutionCodes[solution].match(templateRegex)) {
+                    beginTemplate = exercise.solutionCodes[solution].replace(templateRegex, '$1');
+                    endTemplate = exercise.solutionCodes[solution].replace(templateRegex, '$7');
+                    beginSolution = exercise.solutionCodes[solution].replace(templateRegex, '$3');
+                    endSolution = exercise.solutionCodes[solution].replace(templateRegex, '$5');
+                    templateCode1 = exercise.solutionCodes[solution].replace(templateRegex, '$2');
+                    templateCode2 = exercise.solutionCodes[solution].replace(templateRegex, '$6');
+                    solutionCode = exercise.solutionCodes[solution].replace(templateRegex, '$4');
+                }
+                else {
+                    beginSolution = exercise.solutionCodes[solution].replace(noTemplateRegex, '$1');
+                    endSolution = exercise.solutionCodes[solution].replace(noTemplateRegex, '$3');
+                    solutionCode = exercise.solutionCodes[solution].replace(noTemplateRegex, '$2');
+                }
+                
+                editor.solutionCodes[solution] = beginTemplate + templateCode1 + beginSolution + solutionCode 
+                                                 + endSolution + templateCode2 + endTemplate;
+            }
+        }
+        
+        function initWorlds() {
+            if(angular.isDefined(lessonToLoadID)) {
+                getExercise(lessonToLoadID, exerciseToLoadID, 'getExerciseToEdit');
+            }
+            else {
+                editor.addWorld('New world');
+            }
+        }
+
         function initCanvas(draw) {
 			var canvasElt;
 			var canvasWidth;
@@ -300,6 +379,7 @@
                 if(world.name === name) {
                     editor.deselectAll();
                     editor.world = world;
+                    editor.currentWorldName = editor.world.name;
                     editor.drawService.setWorld(world);
                 }
             }
@@ -635,7 +715,7 @@
         */
         
         function initSolutionEditor() {
-            getEditorExercise();
+            getExercise(editorExerciseLessonID, editorExerciseID, 'getExercise');
             
             canvasID = 'solutionCanvas';
             editor.drawingArea = 'solutionDrawingArea';
@@ -663,25 +743,38 @@
                 lessonID: editorExerciseLessonID,
                 exerciseID: editorExerciseID,
                 lang: ide.programmingLanguage().lang,
-                code: editor.solutionCodes[ide.programmingLanguage().lang],
+                code: editor.solutionCodes[ide.programmingLanguage().lang.toLowerCase()],
                 world: worlds.currentWorld()
             };
             connection.sendMessage('editorRunSolution', args);
             worlds.isRunning(true);
         }
-        
-        function getEditorExercise() {
-            var args = {
-                lessonID: editorExerciseLessonID,
-                exerciseID: editorExerciseID
-			};
-            connection.sendMessage('getExercise', args);
-        }
-        
+
         function setEditorExercise(data) {
             editor.api = $sce.trustAsHtml(data.api);
             ide.programmingLanguages(data.programmingLanguages, data.currentProgrammingLanguage);
             $(document).foundation('dropdown', 'reflow');
+        }
+        
+        
+        /*
+            Save
+        */
+        
+        function saveExercise() {
+            var lightInitialWorlds = [];
+            
+            for(var i = 0 ; i < editor.initialWorlds.length ; i++) {
+                lightInitialWorlds[i] = editor.initialWorlds[i].toLightJSON()
+            }
+            
+            var args = {
+                name: editor.exerciseName,
+                worlds: lightInitialWorlds,
+                mission: editor.missionText
+            };
+            
+            connection.sendMessage('editorSaveExercise', args);
         }
         
         $scope.$on('$destroy',function() {

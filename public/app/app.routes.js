@@ -46,10 +46,20 @@
 	        	controllerAs: 'exercise'
 	        })
             .state('editor', {
-                url: 'ui/editor/',
+                url: '/ui/editor',
                 templateUrl: 'assets/app/editor/editor.html',
                 controller: 'Editor',
-                controllerAs: 'editor',
+                controllerAs: 'editor'
+            })
+            .state('editorLoadExercise', {
+                url: '/ui/editor/:lessonID/:exerciseID',
+                templateUrl: 'assets/app/editor/editor.html',
+                params: {
+		            lessonID: {value: null, squash: false},
+		            exerciseID: {value: '', squash: false}
+		        },
+                controller: 'Editor',
+                controllerAs: 'editor'
             });
 	}
 })();

@@ -35,6 +35,18 @@ object Application extends Controller {
   def exercise(lessonID: String, exerciseID: String) = Action { implicit request =>
     Ok(views.html.index("Accueil"))
   }
+  
+  def editor = Action { implicit request =>
+    Ok(views.html.index("Accueil"))
+  }
+  
+  def editorLoadLesson(lessonID: String) = Action { implicit request =>
+    Ok(views.html.index("Accueil"))
+  }
+  
+  def editorLoadExercise(lessonID: String, exerciseID: String) = Action { implicit request =>
+    Ok(views.html.index("Accueil"))
+  }
 
   def specRunner() = Action { implicit request =>
     Ok(views.html.specRunner())

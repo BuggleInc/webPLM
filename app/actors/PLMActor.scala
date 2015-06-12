@@ -27,6 +27,21 @@ import play.api.Logger
 import java.util.UUID
 import models.daos.UserDAOMongoImpl
 
+import java.util.HashMap
+import java.nio.file.Files
+import java.nio.file.FileSystems
+import java.nio.file.FileVisitResult
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.SimpleFileVisitor
+import java.nio.file.attribute.BasicFileAttributes
+import java.io.File
+import java.io.BufferedWriter
+import java.io.BufferedReader
+import java.io.FileWriter
+import java.io.FileReader
+import java.io.IOException
+
 object PLMActor {
   def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, out))
   def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
@@ -117,7 +132,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
                         sendMessage("missionFiltered", Json.obj("filteredMission" -> plm.filterMission(missionText, false, true, langs)))
                     }
                 }
-                case _ => Logger.debug("filterMission: non-correct JSON")
+                case (_, _, _) => Logger.debug("filterMission: non-correct JSON")
             }
         case "editorRunSolution" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -136,6 +151,112 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
             case (_, _, _) =>
              Logger.debug("editorRunSolution: non-correct JSON")
           }
+        
+        case "editorSaveExercise" =>
+          var optName: Option[String] = (msg \ "args" \ "name").asOpt[String]
+          var optMission: Option[String] =  (msg \ "args" \ "mission").asOpt[String]
+          var optWorlds: Option[Array[JsObject]] = (msg \ "args" \ "worlds").asOpt[Array[JsObject]]
+        
+          (optName.getOrElse(None), optMission.getOrElse(None), optWorlds.getOrElse(None)) match {
+            case (name: String, mission: String, jsWorlds: Array[JsObject]) => {
+              
+              var worlds: Array[BuggleWorld] = new Array[BuggleWorld](0)
+              for(jsWorld <- jsWorlds) {
+                worlds = GridWorldToJson.JsonToBuggleWorld(plm.game, jsWorld) +: worlds
+              }
+              
+              /*
+                Delete old exercise files
+              */
+              class DeleteFiles extends SimpleFileVisitor[Path] {
+
+                override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+                  Files.delete(file);
+                  return FileVisitResult.CONTINUE;
+                }
+
+                override def postVisitDirectory(dir: Path, e: IOException): FileVisitResult = {
+                  if (e == null) {
+                    Files.delete(dir);
+                    return FileVisitResult.CONTINUE;
+                  } 
+                  else {
+                    throw e;
+                  }
+                }
+              }
+              
+              var exercisePath = Paths.get("./editor/exercises", name)
+              
+              if(Files.exists(exercisePath)) {
+                Files.walkFileTree(exercisePath, new DeleteFiles())
+              }
+                 
+              Files.createDirectory(exercisePath)
+              
+              /*
+                Try writing exercise
+              */
+              try {
+                var buffer: BufferedWriter = null
+                
+                /* Writing main class... */
+                var bufferRead: BufferedReader = new BufferedReader(new FileReader("./editor/classTemplate.java"));
+                var newLine: String = null
+                var mainClassContent: String = ""
+                do {
+                  newLine = bufferRead.readLine()
+                  mainClassContent = mainClassContent + newLine + "\n"
+                } while(newLine != null)
+                mainClassContent = mainClassContent.replace("$className", name)
+                var loadWorldsContent: String = ""
+                for(world <- worlds) {
+                  loadWorldsContent = loadWorldsContent + "BuggleWorld.newFromFile(\"" + world.getName + "\")," + "\n"
+                }
+                mainClassContent = mainClassContent.replace("$loadWorlds", loadWorldsContent)
+                buffer = new BufferedWriter(new FileWriter("./editor/exercises/" + name + "/" + name + ".java"))
+                buffer.write(mainClassContent)
+                buffer.close
+                bufferRead.close
+                
+                /* Writing worlds... */
+                for(world <- worlds) {
+                  buffer = new BufferedWriter(new FileWriter("./editor/exercises/" + name + "/" 
+                                                               + world.getName + ".map"))
+                  world.writeToFile(buffer)
+                  buffer.close
+                }
+                
+                /* Writing missions... */
+                buffer = new BufferedWriter(new FileWriter("./editor/exercises/" + name + "/" + name + ".html"))
+                buffer.write(mission)
+                buffer.close
+                
+                /* Writing solutions... */
+                var progLangs = plm._currentExercise.getProgLanguages.toArray(Array[ProgrammingLanguage]())
+                
+                for(pl <- progLangs) {
+                  var className = name.capitalize + "Entity"
+                  var replace = new HashMap[String, String]()
+                  
+                  replace.put("class Editor", "class " + className)
+
+                  buffer = new BufferedWriter(new FileWriter("./editor/exercises/" + name + "/" 
+                                                             + className + "." + pl.getExt));
+                  buffer.write(plm.getCompilableContent(replace, pl));
+                  buffer.close
+                }
+                
+              }
+              catch {
+                case e: IOException =>
+                  Logger.debug("Error while writing world file")
+              }
+            }
+            case (_) =>
+              Logger.debug("editorSaveExercise: non-correct JSON")
+          }
+        
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
@@ -155,6 +276,34 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
             ))
           }
+        case "getExerciseToEdit" =>
+          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
+          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
+          var lecture: Lecture = null;
+          var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
+          var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
+          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
+            case (lessonID:String, exerciseID: String) =>
+              lecture = plm.switchExercise(lessonID, exerciseID, executionSpy, demoExecutionSpy)
+            case (lessonID:String, _) =>
+              lecture = plm.switchLesson(lessonID, executionSpy, demoExecutionSpy)
+            case (_, _) =>
+              Logger.debug("getExerciseToEdit: non-correct JSON")
+          }
+          if(lecture != null) {
+            var progLangs = lecture.asInstanceOf[Exercise].getProgLanguages.toArray(Array[ProgrammingLanguage]())
+            var solutionCodes: Array[(String,String)] = new Array[(String,String)](progLangs.length)
+            var i = 0
+            for(progLang <- progLangs) {
+              solutionCodes(i) = (progLang.getLang, plm.getSolutionCode(progLang))
+              i = i + 1
+            }
+            
+            sendMessage("exerciseToEdit", Json.obj(
+              "exercise" -> LectureToJson.lectureWritesForEditor(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID, solutionCodes)
+            ))
+          }
+        
         case "runExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]

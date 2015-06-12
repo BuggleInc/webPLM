@@ -315,6 +315,23 @@
             }
             this.selectedCell = null;
         };
+      
+        BuggleWorld.prototype.toLightJSON = function () {
+            var world = new BuggleWorld(this);
+            world.cells = [];
+            
+            for(var i = 0 ; i < this.cells.length ; i++) {
+                world.cells[i] = [];
+                for(var j = 0 ; j < this.cells[i].length ; j++) {
+                    var currentCell = this.cells[i][j];
+                    if(!currentCell.isEmpty()) {
+                        world.cells[i].push(currentCell.toLightJSON());
+                    }
+                }
+            }
+            
+            return world;
+        };
         
 		return BuggleWorld;
 	}

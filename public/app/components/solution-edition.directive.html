@@ -26,7 +26,7 @@
     <div class="small-6 columns">
         <div class="tabs-content">
             <div ng-show="editor.solutionDisplayPanel === 'solution'">
-                <ui-codemirror ng-model="editor.solutionCodes[editor.ideService.programmingLanguage().lang]" 
+                <ui-codemirror ng-model="editor.solutionCodes[editor.ideService.programmingLanguage().lang.toLowerCase()]" 
                                ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, 
                                                  lineNumbers: true, tabSize: 2, firstLineNumber: 0, 
                                                  autoCloseBrackets: true, mode: 'text/x-java' }">

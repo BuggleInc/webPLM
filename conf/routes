@@ -8,6 +8,9 @@ GET     /ui                                                 controllers.Applicat
 GET     /ui/lessons                                         controllers.Application.indexLessons
 GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
 GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
+GET     /ui/editor                                          controllers.Application.editor
+GET     /ui/editor/:lessonID                                controllers.Application.editorLoadLesson(lessonID: String)
+GET     /ui/editor/:lessonID/*exerciseID                    controllers.Application.editorLoadExercise(lessonID: String, exerciseID: String)
 GET     /specRunner                                         controllers.Application.specRunner()
 
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)

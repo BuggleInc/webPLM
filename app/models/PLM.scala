@@ -26,6 +26,7 @@ import plm.core.ui.PlmHtmlEditorKit
 import plm.universe.bugglequest._
 import plm.universe.Direction
 import java.awt.Color
+import java.util.Map
 
 class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String]) {
   
@@ -119,6 +120,18 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getBody else ""
   }
   
+  def getCompilableContent: String = {
+    if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getCompilableContent(StudentOrCorrection.STUDENT) else ""
+  }
+  
+  def getCompilableContent(patterns: Map[String, String], pl: ProgrammingLanguage): String = {
+    if(_currentExercise != null && _currentExercise.getSourceFile(pl, 0) != null) _currentExercise.getSourceFile(pl, 0).getCompilableContent(patterns, StudentOrCorrection.STUDENT) else ""
+  }
+  
+  def getSolutionCode(progLang: ProgrammingLanguage): String =  {
+    return _currentExercise.getSourceFile(progLang, 0).getCorrection
+  }
+  
   def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
     game.addProgressSpyListener(progressSpyListener)  
   }
@@ -139,7 +152,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def getMission(progLang: ProgrammingLanguage): String = {
     if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
   }
-    
+  
   def filterMission(missionText: String, all: Boolean, showMulti: Boolean, languages: Array[String]): String = {
     var progLangs: Array[ProgrammingLanguage] = null
     if(!all) {

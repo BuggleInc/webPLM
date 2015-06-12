@@ -38,6 +38,26 @@ object LectureToJson {
 
     return json
   }
+  
+  def lectureWritesForEditor (lecture: Lecture, progLang: ProgrammingLanguage, code: String, 
+                              initialWorlds: Array[World], selectedWorldID: String,
+                              solutionCodes: Array[(String,String)]): JsValue = {
+    
+    var jsonSolutions = Json.obj()
+    for(solution <- solutionCodes) {
+      jsonSolutions = jsonSolutions.as[JsObject] ++ Json.obj(
+        solution._1.toLowerCase -> solution._2
+      )
+    }
+    
+    var json = lectureWrites(lecture, progLang, code, initialWorlds, selectedWorldID)
+    json = json.as[JsObject] ++ Json.obj(
+      "missionHTML" -> lecture.getRawMission(),
+      "solutionCodes" -> jsonSolutions
+    )
+    
+    return json
+  }
 
   def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {    
     return Json.obj(

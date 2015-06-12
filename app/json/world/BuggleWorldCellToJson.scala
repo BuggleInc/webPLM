@@ -28,16 +28,31 @@ object BuggleWorldCellToJson {
     
     optColumns.getOrElse(None) match {
       case columns: Array[JsArray] =>
+        var colX = 0
         for(column <- columns) {
           var optCells: Option[Array[JsObject]] = column.asOpt[Array[JsObject]]
           
           optCells.getOrElse(None) match {
             case cells: Array[JsObject] =>
-              for(cell <- cells) {
-                var newCell = JsonToBuggleWorldCell(buggleWorld, cell)
-                newCells(newCell.getX)(newCell.getY) = newCell
+              var i = 0
+              var j = 0
+              for(i <- 0 to height - 1) {
+                if(j < cells.length) {
+                  var newCell = JsonToBuggleWorldCell(buggleWorld, cells(j))
+                  if(newCell.getY == i) {
+                    newCells(colX)(i) = newCell
+                    j += 1
+                  }
+                  else {
+                    newCells(colX)(i) = new BuggleWorldCell(buggleWorld , colX, i)
+                  }
+                }
+                else {
+                  newCells(colX)(i) = new BuggleWorldCell(buggleWorld , colX, i)
+                }
               }
           }
+          colX += 1
         }
     }
     return newCells
@@ -54,30 +69,33 @@ object BuggleWorldCellToJson {
     var optHasLeftWall: Option[Boolean] = (cell \ "hasLeftWall").asOpt[Boolean]
     var optHasTopWall: Option[Boolean] = (cell \ "hasTopWall").asOpt[Boolean]
 
-    (optX.getOrElse(None), optY.getOrElse(None), optColor.getOrElse(None), optHasBaggle.getOrElse(None),
-     optHasContent.getOrElse(None), optContent.getOrElse(None),
-     optHasLeftWall.getOrElse(None), optHasTopWall.getOrElse(None)) match {
-      case(x: Int, y: Int, color: Array[Int], hasBaggle: Boolean,
-           hasContent: Boolean, content: String,
-           hasLeftWall: Boolean, hasTopWall: Boolean) => {
-
+    (optX.getOrElse(None), optY.getOrElse(None)) match {
+      case(x: Int, y: Int) => {
         newCell = new BuggleWorldCell(buggleWorld , x, y)
-        newCell.setColor(new Color(color(0), color(1), color(2), color(3)))
-
-        if(hasBaggle) {
-          newCell.baggleAdd()
-        }
-        if(hasContent) {
-          newCell.setContent(content)
-        }
-        if(hasLeftWall) {
-          newCell.putLeftWall()
-        }
-        if(hasTopWall) {
-          newCell.putTopWall()
-        }
       }
     }
+    
+    var color = optColor.getOrElse(null)
+    if(color != null) {
+      newCell.setColor(new Color(color(0), color(1), color(2), color(3)))
+    }
+    else {
+      newCell.setColor(new Color(255, 255, 255, 255))
+    }
+    
+    if(optHasBaggle.getOrElse(false)) {
+      newCell.baggleAdd()
+    }
+    if(optHasContent.getOrElse(false)) {
+      newCell.setContent(optContent.getOrElse(""))
+    }
+    if(optHasLeftWall.getOrElse(false)) {
+      newCell.putLeftWall()
+    }
+    if(optHasTopWall.getOrElse(false)) {
+      newCell.putTopWall()
+    }
+    
     return newCell;
   }
 }

@@ -41,3 +41,16 @@
 <div ng-show="editor.editorMode == 'solution'">
     <solution-edition></solution-edition>
 </div>
+
+<div class="row" style="text-align: center;">
+    <div class="small-5 columns block">
+        <div class="row collapse">
+            <div class="small-7 columns block">
+                <input type="text" ng-model="editor.exerciseName" placeholder="Exercise name">
+            </div>
+            <div class="small-5 columns block">
+                <a href="" class="button postfix radius" ng-click="editor.saveExercise()">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
