@@ -73,6 +73,7 @@
     function setUser(data) {
       delete $cookies.gitID;
       user = data;
+      console.log('user: ', data);
     }
 
     function cloneUser() {

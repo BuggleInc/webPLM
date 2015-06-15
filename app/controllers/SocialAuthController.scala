@@ -28,8 +28,7 @@ import play.api.i18n.Lang
  */
 class SocialAuthController @Inject() (
   val env: Environment[User, JWTAuthenticator],
-  val userService: UserService,
-  val authInfoService: AuthInfoService)
+  val userService: UserService)
   extends Silhouette[User, JWTAuthenticator] {
 
   /**
@@ -52,7 +51,6 @@ class SocialAuthController @Inject() (
             for {
             profile <- p.retrieveProfile(authInfo)
             user <- userService.save(profile, None, Some(preferredLang))
-            authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
             } yield {

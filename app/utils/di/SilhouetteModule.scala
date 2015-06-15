@@ -34,14 +34,12 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   def configure() {
     bind[UserService].to[UserServiceImpl]
     bind[UserDAO].to[UserDAORestImpl]
-    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAOMongo]
     bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]
     bind[DelegableAuthInfoDAO[OAuth2Info]].to[OAuth2InfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
     bind[HTTPLayer].to[PlayHTTPLayer]
     bind[OAuth2StateProvider].to[DummyStateProvider]
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
-    bind[PasswordHasher].toInstance(new BCryptPasswordHasher)
     bind[FingerprintGenerator].toInstance(new DefaultFingerprintGenerator(false))
     bind[EventBus].toInstance(EventBus())
   }
@@ -64,7 +62,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     userService: UserService,
     authenticatorService: AuthenticatorService[JWTAuthenticator],
     eventBus: EventBus,
-    credentialsProvider: CredentialsProvider,
     plmAccountsProvider: PLMAccountsProvider,
     facebookProvider: FacebookProvider,
     gitHubProvider: GitHubProvider,
@@ -75,7 +72,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       userService,
       authenticatorService,
       ListMap(
-        credentialsProvider.id -> credentialsProvider,
         plmAccountsProvider.id ->  plmAccountsProvider,
         googleProvider.id -> googleProvider,
         facebookProvider.id -> facebookProvider,
@@ -109,23 +105,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   }
 
   /**
-   * Provides the auth info service.
-   *
-   * @param passwordInfoDAO The implementation of the delegable password auth info DAO.
-   * @param oauth1InfoDAO The implementation of the delegable OAuth1 auth info DAO.
-   * @param oauth2InfoDAO The implementation of the delegable OAuth2 auth info DAO.
-   * @return The auth info service instance.
-   */
-  @Provides
-  def provideAuthInfoService(
-    passwordInfoDAO: DelegableAuthInfoDAO[PasswordInfo],
-    oauth1InfoDAO: DelegableAuthInfoDAO[OAuth1Info],
-    oauth2InfoDAO: DelegableAuthInfoDAO[OAuth2Info]): AuthInfoService = {
-
-    new DelegableAuthInfoService(passwordInfoDAO, oauth1InfoDAO, oauth2InfoDAO)
-  }
-
-  /**
    * Provides the avatar service.
    *
    * @param httpLayer The HTTP layer implementation.
@@ -149,21 +128,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       httpOnlyCookie = Play.configuration.getBoolean("silhouette.oauth1TokenSecretProvider.httpOnlyCookie").get,
       expirationTime = Play.configuration.getInt("silhouette.oauth1TokenSecretProvider.expirationTime").get
     ), Clock())
-  }
-
-  /**
-   * Provides the credentials provider.
-   *
-   * @param authInfoService The auth info service implemenetation.
-   * @param passwordHasher The default password hasher implementation.
-   * @return The credentials provider.
-   */
-  @Provides
-  def provideCredentialsProvider(
-    authInfoService: AuthInfoService,
-    passwordHasher: PasswordHasher): CredentialsProvider = {
-
-    new CredentialsProvider(authInfoService, passwordHasher, Seq(passwordHasher))
   }
 
   /**
