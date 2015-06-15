@@ -146,7 +146,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       clientSecret = Play.configuration.getString("silhouette.plmaccounts.clientSecret").getOrElse(""),
       scope = Play.configuration.getString("silhouette.plmaccounts.scope")))
   }
-  
+
   /**
    * Provides the Facebook provider.
    *
