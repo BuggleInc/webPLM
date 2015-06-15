@@ -49,14 +49,14 @@ class SocialAuthController @Inject() (
           case Left(result) => Future.successful(result)
           case Right(authInfo) => 
             var preferredLang: Lang = LangUtils.getPreferredLang(request)
-            var gitID: String = CookieUtils.getOrElseCookieValue(request, "gitID", UUID.randomUUID.toString)
             for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile, UUID.fromString(gitID), None, Some(preferredLang))
+            user <- userService.save(profile, None, Some(preferredLang))
             authInfo <- authInfoService.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
             } yield {
+            if(!userService.error) {
               ActorsMap.get(actorUUID) match {
                 case Some(actor) =>
                   actor ! Json.obj(
@@ -65,9 +65,14 @@ class SocialAuthController @Inject() (
                   )
                 case _ =>
                   Logger.debug("Actor not found... Weird isn't it?")
+              }
+              env.eventBus.publish(LoginEvent(user, request, request2lang))
+              Ok(Json.obj("token" -> token))
             }
-            env.eventBus.publish(LoginEvent(user, request, request2lang))
-            Ok(Json.obj("token" -> token))
+            else {
+              userService.setError(false)
+              InternalServerError(Json.obj("error" -> "An error occurred while saving the user"))
+            }
           }
         }
       case _ => Future.failed(new ProviderException(s"Cannot authenticate with unexpected social provider $provider"))

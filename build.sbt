@@ -27,7 +27,8 @@ libraryDependencies ++= Seq(
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
   "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23",
   "codes.reactive" %% "scala-time-threeten" % "0.3.0-SNAPSHOT",
-  cache
+  cache,
+  ws
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

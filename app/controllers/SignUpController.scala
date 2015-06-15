@@ -59,8 +59,7 @@ class SignUpController @Inject() (
         case None =>
           val authInfo = passwordHasher.hash(data.password)
           val user = User(
-            userID = UUID.randomUUID(),
-            gitID = UUID.fromString(gitID),
+            gitID = gitID,
             trackUser = None,
             loginInfo = loginInfo,
             firstName = Some(data.firstName),
@@ -72,7 +71,6 @@ class SignUpController @Inject() (
             avatarURL = None
           )
           for {
-            user <- userService.save(user)
             authInfo <- authInfoService.save(loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(loginInfo)
             token <- env.authenticatorService.init(authenticator)
