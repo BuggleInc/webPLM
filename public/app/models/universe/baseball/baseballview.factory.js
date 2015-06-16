@@ -43,10 +43,14 @@
 
 		function draw(canvas, baseballWorld)
 		{
+			//stock some points
+			var points = [];
+
 			initUtils(canvas, baseballWorld);
 			ctx.beginPath();
-			drawField(baseballWorld);
+			drawField(baseballWorld, points);
 			drawText(baseballWorld);
+			drawArrows(baseballWorld, points);
 			ctx.closePath();
 		}
 
@@ -65,7 +69,7 @@
 			
 			if(baseballWorld.moveCount <= 1)
 				ctx.fillText(baseballWorld.moveCount+' Move',5,25);
-			else 
+			else
 				ctx.fillText(baseballWorld.moveCount+ ' Moves',5,25);
 			
 			ctx.closePath();
@@ -85,13 +89,13 @@
 			ctx.lineTo(tox-head*Math.cos(angle+Math.PI/6),toy-head*Math.sin(angle+Math.PI/6));
 			ctx.moveTo(fromx,fromy);
 
-			//add a round effect 
+			//add a round effect
 			ctx.lineCap = 'round';
 			ctx.stroke();
 		}
 
-		//draws the field, bases, positions, and buggles 
-		function drawField(baseballWorld)
+		//draws the field, bases, positions, and buggles
+		function drawField(baseballWorld, points)
 		{
 			var nb = baseballWorld.baseAmount;
 			var width = canvasWidth / 2;
@@ -131,9 +135,6 @@
 
 			//x and y of the buggle
 			var buggleX, buggleY;
-
-			//index in order to choose the color in the array baseballworld.colors
-			var indexColor = baseballWorld.oldMove;
 
 			//draws the pitch
 			ctx.beginPath();
@@ -198,8 +199,6 @@
 					ctx.fill();
 				
 				ctx.closePath();
-
-					
 
 				//draws the positions
 				if(i % 2 === 0)
@@ -274,41 +273,52 @@
 							ctx.closePath();
 						}
 
-						//draws arrows
-						if((i/2)*baseballWorld.posAmount+j === baseballWorld.move)
-						{
-							//x and y of the first point of the arrow
-							var arrcx = cx + (arrLambda * (x - ax));
-							var arrcy = cy + (arrLambda * (y - ay));
-							//dotted arrows
-							ctx.setLineDash([10, 8]);
-							ctx.beginPath();
-							ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
-							ctx.moveTo(arrcx, arrcy);
-							ctx.quadraticCurveTo(width, radius, baseballWorld.holeX, baseballWorld.holeY);
-							ctx.lineWidth = 5;
-							ctx.stroke();
-							drawArrowHead(arrcx, arrcy, baseballWorld.holeX, baseballWorld.holeY);
-							//stop to draw dotted lines
-							ctx.setLineDash([]);
-						}
-
-						//To avoid bad lineWidth
+						//x and y of the first point of the arrow
+						var arrcx = cx + (arrLambda * (x - ax));
+						var arrcy = cy + (arrLambda * (y - ay));
+						points.push([(i/2)*baseballWorld.posAmount+j,arrcx, arrcy]);
 						ctx.lineWidth = 1;
-
-						//found the empty location	
-						if(baseballWorld.field[(i/2)*baseballWorld.posAmount+j] === -1)
-						{
-							baseballWorld.holeX = cx + 6/5*(arrLambda * (x - ax));
-							baseballWorld.holeY = cy + 6/5*(arrLambda * (y - ay));
-						} 
-
 						next += distance * 2;
-
 						lambda = next / (Math.sqrt(Math.pow(bx-ax,2)+Math.pow(by-ay,2)));
 						cx = ax + (lambda * (bx - ax));
 						cy = ay + (lambda * (by - ay));
 					}
+				}
+			}
+		}
+
+		//draws the arrows body
+		function drawArrows(baseballWorld, points)
+		{
+			var nb = baseballWorld.baseAmount;
+			var width = canvasWidth / 2;
+			var radius = canvasHeight / 2;
+
+			//index in order to choose the color in the array baseballworld.colors
+			var indexColor = baseballWorld.oldMove;
+
+			for(var i=0; i<baseballWorld.posAmount*nb;i++)
+			{
+				//draws arrows
+				if(i === baseballWorld.move)
+				{
+					//dotted arrows
+					ctx.setLineDash([10, 8]);
+					ctx.beginPath();
+					
+					if(!baseballWorld.isReverse)
+						ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[indexColor]];
+					else
+						ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition]];
+
+					ctx.moveTo(points[baseballWorld.holeBase*baseballWorld.posAmount + baseballWorld.holePos][1],points[baseballWorld.holeBase*baseballWorld.posAmount + baseballWorld.holePos][2]);
+					ctx.quadraticCurveTo(width, radius, points[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition][1], points[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition][2]);
+					ctx.lineWidth = 5;
+					ctx.stroke();
+					drawArrowHead(points[baseballWorld.holeBase*baseballWorld.posAmount + baseballWorld.holePos][1], points[baseballWorld.holeBase*baseballWorld.posAmount + baseballWorld.holePos][2], points[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition][1], points[baseballWorld.oldBase*baseballWorld.posAmount+baseballWorld.oldPosition][2]);
+					ctx.lineWidth = 1;
+					//stop to draw dotted lines
+					ctx.setLineDash([]);
 				}
 			}
 		}

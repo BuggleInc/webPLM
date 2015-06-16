@@ -28,11 +28,11 @@
 			this.memory = [];
 			this.memory.push(this.initValues);
 
-			this.colors = [ '#0000FF', '#00FF00', 'rgb(255,0,255)', '#996600', 'rgb(158,253,56)',
+			this.colors = [ '#0000FF', '#00FF00', 'rgb(255,0,255)', '#996600',
 			'rgb(255,56,0)', '#333300', 'rgb(0,103,165)', 'rgb(201,0,22)',
-			'rgb(111,78,55)', 'rgb(251,206,177)', 'rgb(109,7,26)', 'rgb(155,150,10)',
+			'rgb(111,78,55)','rgb(109,7,26)', 'rgb(155,150,10)',
 			'rgb(75,0,130)', 'rgb(150,85,120)', '#FF3300', '#00FFFF', '#4C0000', '#242400', '#1A4C33',
-			 '#80804C', '#FF9900', '#CC0066', '#666699', '#009999', '#661A80', '#333329'];
+			'#80804C', '#FF9900', '#CC0066', '#666699', '#009999', '#661A80', '#333329'];
 
 			this.baseAmount = world.baseAmount;	
 			this.posAmount = world.posAmount;
@@ -45,6 +45,9 @@
 			this.oldMove;
 			this.holeX;
 			this.holeY;
+			this.oldBase;
+			this.oldPosition;
+			this.isReverse = false;
 		};
 
 		BaseballWorld.prototype.clone = function()
