@@ -26,7 +26,6 @@ object WorldToJson {
     return json
   }
  
-  
   def worldWrite(world: World): JsValue = {
     var json: JsValue = null
     world match {
