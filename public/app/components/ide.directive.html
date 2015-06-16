@@ -15,8 +15,11 @@
 	</span>
 </div>
 <div class="row">
-	<br/><br/>
-	<ui-codemirror ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, tabSize: 2, firstLineNumber: 0, autoCloseBrackets: true, mode: 'text/x-java' }"></ui-codemirror>
-	<br/><br/>
+    <br/>
+    <br/>
+    <ui-codemirror ng-show="exercise.ide === 'codemirror'" ng-model="exercise.code" ui-codemirror-opts="{ onLoad: codemirrorLoaded, lineWrapping : true, lineNumbers: true, tabSize: 2, firstLineNumber: 0, autoCloseBrackets: true, mode: 'text/x-java' }"></ui-codemirror>
+    <blockly ng-show="exercise.ide === 'blockly'"></blockly>
+    <br/>
+    <br/>
 </div>
 <success-modal></success-modal>

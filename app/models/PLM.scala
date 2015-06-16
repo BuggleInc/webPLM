@@ -88,10 +88,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   
-  def runExercise(lessonID: String, exerciseID: String, code: String) {
+  def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
-    
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
+    if(workspace != null){
+      Logger.debug("Workspace:\n"+workspace)
+      _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
+    }
     game.startExerciseExecution()
   }
   
@@ -110,7 +113,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   def getStudentCode: String = {
-    if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, 0) != null) _currentExercise.getSourceFile(programmingLanguage, 0).getBody else ""
+    if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()) != null) _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()).getBody else ""
   }
   
   def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {

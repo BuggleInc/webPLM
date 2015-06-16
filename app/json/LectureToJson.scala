@@ -21,7 +21,8 @@ object LectureToJson {
       "selectedWorldID" -> selectedWorldID,
       "api" -> initialWorlds.head.getAbout,
       "programmingLanguages" -> ProgrammingLanguageToJson.programmingLanguagesWrite(progLangArray),
-      "currentProgrammingLanguage" -> progLang.getLang
+      "currentProgrammingLanguage" -> progLang.getLang,
+      "toolbox" -> lecture.getToolbox
     )
 
     try {
