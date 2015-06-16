@@ -14,6 +14,7 @@ import lessons.sort.pancake.universe.PancakeWorld
 import json.world.pancake.PancakeWorldToJson
 import lessons.sort.baseball.universe._
 import json.world.baseball.BaseballWorldToJson
+import lessons.recursion.hanoi.universe.HanoiWorld
 
 object WorldToJson {
   
@@ -25,7 +26,6 @@ object WorldToJson {
     return json
   }
  
-  
   def worldWrite(world: World): JsValue = {
     var json: JsValue = null
     world match {
@@ -45,6 +45,8 @@ object WorldToJson {
         json = PancakeWorldToJson.pancakeWorldWrite(pancakeWorld)
       case baseballWorld: BaseballWorld =>
         json = BaseballWorldToJson.baseballWorldWrite(baseballWorld)
+      case hanoiWorld: HanoiWorld =>
+        json = HanoiWorldToJson.hanoiWorldWrite(hanoiWorld)          
       case _ =>
         throw NonImplementedWorldException.create;
     }
