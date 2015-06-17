@@ -9,6 +9,7 @@
   '$window', '$http', '$scope', '$sce', '$stateParams',
   'connection', 'listenersHandler', 'langs', 'exercisesList',
   'canvas', 'drawWithDOM',
+  'blocklyService',
   '$timeout', '$interval',
   'locker',
   'BuggleWorld', 'BuggleWorldView',
@@ -24,6 +25,7 @@
   function Exercise($window, $http, $scope, $sce, $stateParams,
     connection, listenersHandler, langs, exercisesList,
     canvas, drawWithDOM,
+    blocklyService,
     $timeout, $interval,
     locker,
     BuggleWorld, BuggleWorldView,
@@ -84,6 +86,9 @@
     exercise.programmingLanguages = [];
 
     exercise.editor = null;
+    exercise.ide = 'codemirror';
+    exercise.toolbox = null;
+    exercise.studentCode = null;
 
     exercise.exercisesAsList = null;
     exercise.exercisesAsTree = null;
@@ -214,6 +219,9 @@
       }
 
       if (!exercise.nonImplementedWorldException) {
+        if (data.toolbox) {
+          setToolbox(data.toolbox);
+        }
         for (var worldID in data.initialWorlds) {
           if (data.initialWorlds.hasOwnProperty(worldID)) {
             exercise.initialWorlds[worldID] = {};
@@ -412,14 +420,18 @@
         setCurrentWorld('current');
 
         window.addEventListener('resize', resizeCodeMirror, false);
-      }
 
-      exercise.programmingLanguages = data.programmingLanguages;
-      for (var i = 0; i < exercise.programmingLanguages.length; i++) {
-        var pl = exercise.programmingLanguages[i];
-        if (pl.lang === data.currentProgrammingLanguage) {
-          exercise.currentProgrammingLanguage = pl;
-          setIDEMode(pl);
+        exercise.programmingLanguages = data.programmingLanguages;
+        var isset = false;
+        for (var i = 0; i < exercise.programmingLanguages.length; i++) {
+          var pl = exercise.programmingLanguages[i];
+          if (pl.lang === data.currentProgrammingLanguage) {
+            updateUI(pl, data.instructions, data.api, data.code.trim());
+            isset = true;
+          }
+        }
+        if (!isset) {
+          updateUI(exercise.programmingLanguages[0], data.instructions, data.api, data.code.trim());
         }
       }
 
@@ -481,11 +493,25 @@
           exercise.currentTab = element.tabNumber;
         }
       })
-      args = {
-        lessonID: exercise.lessonID,
-        exerciseID: exercise.id,
-        code: exercise.code
-      };
+      if (exercise.ide === 'blockly') {
+        Blockly.Python.INFINITE_LOOP_TRAP = null;
+        exercise.code = Blockly.Python.workspaceToCode();
+        var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+        exercise.studentCode = Blockly.Xml.domToText(xml);
+
+        args = {
+          lessonID: exercise.lessonID,
+          exerciseID: exercise.id,
+          code: exercise.code,
+          workspace: exercise.studentCode
+        };
+      } else {
+        args = {
+          lessonID: exercise.lessonID,
+          exerciseID: exercise.id,
+          code: exercise.code
+        };
+      }
       connection.sendMessage('runExercise', args);
       exercise.isRunning = true;
     }
@@ -615,44 +641,6 @@
       exercise.selectedNextExercise = exo;
     }
 
-    function setIDEMode(pl) {
-      switch (pl.lang.toLowerCase()) {
-      case 'java':
-        exercise.editor.setOption('mode', 'text/x-java');
-        break;
-      case 'scala':
-        exercise.editor.setOption('mode', 'text/x-scala');
-        break;
-      case 'c':
-        exercise.editor.setOption('mode', 'text/x-csrc');
-        break;
-      case 'python':
-        exercise.editor.setOption('mode', 'text/x-python');
-        break;
-      }
-    }
-
-    function setProgrammingLanguage(pl) {
-      exercise.isChangingProgLang = true;
-      connection.sendMessage('setProgrammingLanguage', {
-        programmingLanguage: pl.lang
-      });
-    }
-
-    function updateUI(pl, instructions, api, code) {
-      if (pl !== null) {
-        exercise.currentProgrammingLanguage = pl;
-        setIDEMode(pl);
-      }
-      exercise.instructions = $sce.trustAsHtml(instructions);
-      if (api !== null) {
-        exercise.api = $sce.trustAsHtml(api);
-      }
-      if (code !== null) {
-        exercise.code = code;
-      }
-    }
-
     function resetExercise() {
       $('#resetExerciseModal').foundation('reveal', 'close');
       connection.sendMessage('revertExercise', {});
@@ -768,6 +756,84 @@
         exercise.instructionsClass = '';
         exercise.worldsViewClass = '';
       }
+    }
+
+    function updateToolbox() {
+      if (exercise.toolbox !== null) {
+        Blockly.languageTree = exercise.toolbox;
+      }
+      Blockly.Toolbox.populate_();
+    }
+
+    function setToolbox(toolbox) {
+      if (toolbox !== '<no blocks>') {
+        exercise.toolbox = JSON.parse(toolbox);
+      } else {
+        exercise.toolbox = blocklyService.getOptions().toolbox;
+      }
+      updateToolbox();
+    }
+
+    function setIDEMode(pl) {
+      if (exercise.editor) {
+        switch (pl.lang.toLowerCase()) {
+        case 'java':
+          exercise.editor.setOption('mode', 'text/x-java');
+          break;
+        case 'scala':
+          exercise.editor.setOption('mode', 'text/x-scala');
+          break;
+        case 'c':
+          exercise.editor.setOption('mode', 'text/x-csrc');
+          break;
+        case 'python':
+          exercise.editor.setOption('mode', 'text/x-python');
+          break;
+        }
+      }
+    }
+
+    function setProgrammingLanguage(pl) {
+      exercise.isChangingProgLang = true;
+      connection.sendMessage('setProgrammingLanguage', {
+        programmingLanguage: pl.lang
+      });
+    }
+
+    function updateUI(pl, instructions, api, code) {
+      if (pl !== null) {
+        exercise.currentProgrammingLanguage = pl;
+        if (pl.lang === 'Blockly') {
+          exercise.ide = 'blockly';
+          if (code !== null) {
+            exercise.studentCode = code;
+            if (exercise.studentCode !== '') {
+              var xml = Blockly.Xml.textToDom(exercise.studentCode);
+              Blockly.getMainWorkspace().clear();
+              Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
+              $timeout(function () {
+                var blocks = Blockly.getMainWorkspace().getAllBlocks();
+                for (var i = 0; i < blocks.length; i++) {
+                  blocks[i].render();
+                }
+              }, 0);
+            }
+          }
+          updateToolbox();
+        } else {
+          if (exercise.ide === 'blockly') {
+            Blockly.getMainWorkspace().clear();
+          }
+          exercise.ide = 'codemirror';
+          setIDEMode(pl);
+          if (code !== null)
+            exercise.code = code;
+          $timeout(function () {
+            exercise.editor.refresh();
+          }, 0);
+        }
+      }
+      updateInstructions(instructions, api);
     }
   }
 })();
