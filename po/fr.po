@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2015-06-18 01:09+0200\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -506,7 +506,7 @@ msgstr "faire quelque chose"
 
 #: public/app/components/track-user-modal.directive.html:5
 msgid "Do you accept to make public your usage data?"
-msgstr "Est-ce que vous acceptez de rendre public tes traces d'utilisations?"
+msgstr "Est-ce que vous acceptez de rendre public vos traces d'utilisations?"
 
 #: public/app/components/track-user-modal.directive.html:2
 msgid "Do you want to share your data?"
@@ -2061,10 +2061,7 @@ msgid ""
 "The PLM currently saves your usage data anonymously on its servers. That "
 "way, you can retrieve your session from any connected computer as long as "
 "you sign in."
-msgstr ""
-"La PLM enregistre actuellement vos données d'utilisation anonyme sur ses "
-"serveurs. Grâce à ça, vous pouvez retrouver votre session depuis n'importe "
-"quel ordinateur tant que vous vous authentifier."
+msgstr "La PLM enregistre actuellement vos données d'utilisation anonyme sur ses serveurs. Vous pouvez ainsi retrouver votre session depuis n'importe quel ordinateur."
 
 #: public/app/components/worlds-view.directive.html:4
 msgid ""
@@ -2284,9 +2281,7 @@ msgstr "Bien sûr"
 
 #: public/app/components/track-user-modal.directive.html:11
 msgid "You can later update your preference from your profile's page."
-msgstr ""
-"Vous pouvez ensuite mettre à jour vos préférences depuis votre page de "
-"profil."
+msgstr "Vous pouvez changer vos préférences à tout instant depuis votre page de profil."
 
 #: public/app/services/connection.service.js:42
 msgid ""
