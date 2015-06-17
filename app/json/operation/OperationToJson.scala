@@ -10,8 +10,7 @@ import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
 import lessons.sort.dutchflag.operations.DutchFlagOperation
 import lessons.sort.pancake.universe.operations.PancakeOperation
-
-
+import lessons.recursion.hanoi.operations.HanoiOperation
 
 object OperationToJson {
   
@@ -40,6 +39,8 @@ object OperationToJson {
         json = PancakeOperationToJson.pancakeOperationWrite(pancakeOperation)
       case baseballOperation: BaseballOperation =>
         json = BaseballOperationToJson.baseballOperationWrite(baseballOperation)
+      case hanoiOperation: HanoiOperation =>
+        json = HanoiOperationToJson.hanoiOperationWrite(hanoiOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

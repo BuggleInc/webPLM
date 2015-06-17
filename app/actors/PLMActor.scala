@@ -137,10 +137,13 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
           var optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
-          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None)) match {
-            case (lessonID:String, exerciseID: String, code: String) =>
-              plm.runExercise(lessonID, exerciseID, code)
-            case (_, _, _) =>
+          var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
+          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
+        	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
+        		  plm.runExercise(lessonID, exerciseID, code, workspace)
+            case (lessonID:String, exerciseID: String, code: String, _) =>
+              plm.runExercise(lessonID, exerciseID, code, null)
+            case (_, _, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }
         case "runDemo" =>

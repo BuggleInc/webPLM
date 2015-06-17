@@ -1,64 +1,67 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.factory('langs', langs);
-	
-	langs.$inject = ['$rootScope', '$cookies', '$auth', 'gettextCatalog', 'listenersHandler', 'connection'];
+(function () {
+    'use strict';
 
-	function langs ($rootScope, $cookies, $auth, gettextCatalog, listenersHandler, connection) {
-		var availableLangs = [];
-		var selectedLang = $cookies.lang;
+    angular
+        .module('PLMApp')
+        .factory('langs', langs);
 
-		listenersHandler.register('onmessage', handleMessage);
-		connection.sendMessage('getLangs', {});
+    langs.$inject = ['$rootScope', '$cookies', '$auth', 'gettextCatalog', 'listenersHandler', 'connection', 'blocklyService'];
 
-		var service = {
-			getAvailableLangs: getAvailableLangs,
-			updateAvailableLangs: updateAvailableLangs,
-			getSelectedLang: getSelectedLang,
-			setRemotelySelectedLang: setRemotelySelectedLang
-		};
-		
-		return service;
-		
-		function handleMessage(data) {
-			var cmd = data.cmd;
-			var args = data.args;
-			switch(cmd) {
-				case 'langs':
-					setSelectedLang(args.selected);
-					updateAvailableLangs(args.availables);
-					break;
-				case 'newHumanLang':
-					setSelectedLang(args.newHumanLang);
-					break;
-			}
-		}
+    function langs($rootScope, $cookies, $auth, gettextCatalog, listenersHandler, connection, blocklyService) {
+        var availableLangs = [];
+        var selectedLang = $cookies.lang;
 
-		function updateAvailableLangs(availables) {
-			availableLangs = availables;
-		}
+        listenersHandler.register('onmessage', handleMessage);
+        connection.sendMessage('getLangs', {});
 
-		function getAvailableLangs() {
-			return availableLangs;
-		}
+        var service = {
+            getAvailableLangs: getAvailableLangs,
+            updateAvailableLangs: updateAvailableLangs,
+            getSelectedLang: getSelectedLang,
+            setRemotelySelectedLang: setRemotelySelectedLang
+        };
 
-		function getSelectedLang() {
-			return selectedLang;
-		}
+        return service;
 
-		function setRemotelySelectedLang(lang) {
-			connection.sendMessage('setLang', { 'lang': lang.code });
-		}
+        function handleMessage(data) {
+            var cmd = data.cmd;
+            var args = data.args;
+            switch (cmd) {
+            case 'langs':
+                setSelectedLang(args.selected);
+                updateAvailableLangs(args.availables);
+                break;
+            case 'newHumanLang':
+                setSelectedLang(args.newHumanLang);
+                break;
+            }
+        }
 
-		function setSelectedLang (lang) {
-			if(!$auth.isAuthenticated()) {
-				$cookies.lang = lang.code;
-			}
-			selectedLang = lang;
-			gettextCatalog.setCurrentLanguage(lang.code);
-		}
-	}
+        function updateAvailableLangs(availables) {
+            availableLangs = availables;
+        }
+
+        function getAvailableLangs()  {
+            return availableLangs;
+        }
+
+        function getSelectedLang() {
+            return selectedLang;
+        }
+
+        function setRemotelySelectedLang(lang) {
+            connection.sendMessage('setLang', {
+                'lang': lang.code
+            });
+        }
+
+        function setSelectedLang(lang) {
+            if (!$auth.isAuthenticated()) {
+                $cookies.lang = lang.code;
+            }
+            selectedLang = lang;
+            gettextCatalog.setCurrentLanguage(lang.code);
+            blocklyService.updateMsg();
+        }
+    }
 })();
