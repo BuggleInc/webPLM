@@ -47,6 +47,7 @@
     exercise.drawFnct = null;
 
     exercise.lessonID = $stateParams.lessonID;
+    exercise.lessonName = exercise.lessonID.charAt(0).toUpperCase() + exercise.lessonID.slice(1);
     exercise.id = $stateParams.exerciseID;
 
     exercise.displayInstructions = 'instructions';
@@ -81,6 +82,13 @@
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
     exercise.preventLoop = false;
+
+    locker.bind($scope, 'showInstructions', true);
+    exercise.showInstructions = locker.get('showInstructions');
+    locker.bind($scope, 'showCodeEditor', true);
+    exercise.showCodeEditor = locker.get('showCodeEditor');
+    locker.bind($scope, 'showAPI', false);
+    exercise.showAPI = locker.get('showAPI');
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
@@ -126,6 +134,7 @@
     exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
     exercise.resizeInstructions = resizeInstructions;
+    exercise.resizeCanvas = resizeCanvas;
 
     exercise.idle = false;
 
@@ -155,7 +164,7 @@
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
       exercise.editor.on('change', resetIdleLoop);
-      resizeCodeMirror();
+      //resizeCodeMirror();
     };
 
     function getExercise() {
@@ -209,6 +218,8 @@
 
     function setExercise(data) {
       exercise.id = data.id;
+      exercise.name = data.id.split('.').pop();
+
       exercise.instructions = $sce.trustAsHtml(data.instructions);
       exercise.api = $sce.trustAsHtml(data.api);
       exercise.code = data.code.trim();
@@ -226,6 +237,7 @@
           if (data.initialWorlds.hasOwnProperty(worldID)) {
             exercise.initialWorlds[worldID] = {};
             var initialWorld = data.initialWorlds[worldID];
+            data.initialWorlds[worldID].id = worldID;
             var world;
             exercise.nameWorld = initialWorld.type;
             switch (initialWorld.type) {
@@ -409,6 +421,7 @@
               initCanvas(HanoiView.draw);
               break;
             }
+            world.id = worldID;
             exercise.initialWorlds[worldID] = world;
             exercise.answerWorlds[worldID] = world.clone();
             exercise.currentWorlds[worldID] = world.clone();
@@ -419,7 +432,7 @@
 
         setCurrentWorld('current');
 
-        window.addEventListener('resize', resizeCodeMirror, false);
+        //window.addEventListener('resize', resizeCodeMirror, false);
 
         exercise.programmingLanguages = data.programmingLanguages;
         var isset = false;
@@ -666,7 +679,7 @@
       exercise.result = null;
       exercise.logs = null;
       window.removeEventListener('resize', resizeCanvas, false);
-      window.removeEventListener('resize', resizeCodeMirror, false);
+      //window.removeEventListener('resize', resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -702,7 +715,7 @@
     }
 
     function resizeCanvas() {
-      var canvasWidth = $('#' + exercise.drawingArea).parent().width();
+      var canvasWidth = Math.min($('#' + exercise.drawingArea).parent().width(), 400);
       var canvasHeight = canvasWidth;
       exercise.drawService.resize(canvasWidth, canvasHeight);
       $(document).foundation('equalizer', 'reflow');

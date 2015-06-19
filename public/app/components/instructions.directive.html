@@ -1,24 +1,3 @@
 <div class="row">
-	<dl class="tabs" data-tab=true>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'instructions' }" ng-click="exercise.switchDisplayedInstructions('instructions')"><a translate>Instructions</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'api' }" ng-click="exercise.switchDisplayedInstructions('api')"><a translate>API</a></dd>
-		<dd class="tab-title" ng-class="{ active: exercise.displayInstructions === 'controls' }" ng-click="exercise.switchDisplayedInstructions('controls')"><a translate>Controls</a></dd>
-		<span class="button secondary mini right" ng-click="exercise.resizeInstructions();">
-			<i ng-show="!exercise.instructionsIsFullScreen" class="fi-arrows-expand"></i>
-			<i ng-show="exercise.instructionsIsFullScreen" class="fi-arrows-compress"></i>
-		</span>
-	</dl>
-</div>
-<div class="row overflow" ng-class="exercise.instructionsClass">
-	<div ng-show="exercise.displayInstructions === 'instructions'" ng-bind-html="exercise.instructions"></div>
-	<div ng-show="exercise.displayInstructions === 'api'" ng-bind-html="exercise.api"></div>
-	<div ng-show="exercise.displayInstructions === 'controls'">
-		<h2 translate>Player's options</h2>
-		<div class="small-5 columns">
-			<label for="executionSpeed" class="left"><strong translate>Execution speed:</strong></label>
-		</div>
-		<div class="small-7 columns">
-			<input class="left" type="range" id="executionSpeed" ng-model="exercise.timer" ng-change="exercise.updateSpeed()" max="3000" min="40"/>
-		</div>
-	</div>
+  <div ng-bind-html="exercise.instructions"></div>
 </div>

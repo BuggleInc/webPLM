@@ -1,0 +1,44 @@
+<div class="row">
+  <span class="left">
+    <a>{{ exercise.lessonName }}</a> / <a>{{ exercise.name }}</a>
+  </span>
+  <span class="right">
+    <strong>Show:</strong>
+    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showInstructions"> instructions
+    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showCodeEditor;"> editor
+    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showAPI;"> API
+    <select-programming-language></select-programming-language>
+  </span>
+</div>
+<div style="position: absolute; top: calc(2.5% + 7rem); height: 60%; display: flex; margin-left: 5%; margin-right: 5%; width: 90%; justify-content: space-between;">
+  <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1; margin-right:2.5%;">
+    <h3>Instructions: </h3>
+    <worlds-view></worlds-view>
+    <instructions></instructions>
+  </div>
+  <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%; margin-right: 2.5%;">
+    <h3>Code Editor: </h3>
+    <ide></ide>
+  </div>
+  <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%; margin-right:2.5%;">
+    <div ng-bind-html="exercise.api"></div>
+  </div>
+</div>
+<div style="position: absolute; top: calc(66% + 6rem); height: 20%; display: flex; margin-left: 5%; margin-right:5%;  width: 90%; justify-content: space-between;">
+  <div style="height: 100%; overflow-y: auto; flex: 1; margin-right:2.5%;">
+    <h3>Execution results: </h3>
+    <div ng-show="exercise.result === ''">
+      <p class="lead" translate>No results yet, please run your program before.</p>
+    </div>
+    <div class="with-newlines" ng-show="exercise.result !== ''">{{exercise.result}}</div>
+  </div>
+  <div style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%;">
+    <h3>Tests: </h3>
+    <div class="row" ng-repeat="world in exercise.initialWorlds">
+      <strong>{{ world.id }}:</strong>
+      <button ng-click="exercise.runCode()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang" translate>Run</button>
+      <button ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning" translate>Stop</button>
+      <button translate>Demo</button>
+    </div>
+  </div>
+</div>
