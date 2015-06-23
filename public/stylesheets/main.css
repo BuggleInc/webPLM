@@ -245,10 +245,6 @@ html {
   border-bottom-left-radius: 20px;
 }
 
-.row {
-  max-width: 90%;
-}
-
 .with-newlines {
   white-space: pre-wrap;
 }

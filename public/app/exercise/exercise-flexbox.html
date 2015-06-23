@@ -10,109 +10,11 @@
         </span>
       </section>
     </nav>
-
-    <aside class="left-off-canvas-menu">
-      <ul class="off-canvas-list">
-        <li>
-          <label>Profile</label>
-        </li>
-        <li class="text-center"><h5 style="color: rgba(255,255,255,0.7);">Not logged yet!</h5></li>
-        <li class="text-center"><a ui-sref="signIn" style="display: inline;">Sign In</a><span style="color: rgba(255,255,255,0.7);"> / </span><a ui-sref="signUp" style="display: inline;">Sign Up</a></li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Programming Language</label>
-        </li>
-        <li class="has-submenu">
-          <a>Java</a>
-          <ul class="left-submenu">
-            <li class="back">
-              <a href="#">Back</a>
-            </li>
-            <li>
-              <label>Switch to</label>
-            </li>
-            <li>
-              <a>Java</a>
-            </li>
-            <li>
-              <a>Scala</a>
-            </li>
-            <li>
-              <a>Python</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Language</label>
-        </li>
-        <li class="has-submenu">
-          <a>English</a>
-          <ul class="left-submenu">
-            <li class="back">
-              <a href="#">Back</a>
-            </li>
-            <li>
-              <label>Switch to</label>
-            </li>
-            <li>
-              <a>Français</a>
-            </li>
-            <li>
-              <a>English</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label ui-sref="home">Home</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Switch exercise</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list" style="min-height: 6rem; height: calc(100% - 14*2rem); overflow-y: auto;">
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Report a bug</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Contact us</label>
-        </li>
-      </ul>
-    </aside>
-
+  
     <section class="main-section">
       <br>
       <div style="margin-left: 5%; margin-right: 5%; background-color: #fff;">
-        <div style="position: absolute; height: 60%; display: flex; width: 90%; justify-content: space-between; align-items: baseline;">
+        <div style="position: absolute; height: 60%; display: flex; width: 90%; justify-content: space-between;">
           <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1;">
             <h4>Instructions: </h4>
             <div class="panel">
@@ -121,7 +23,9 @@
             <worlds-view></worlds-view>
           </div>
           <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
-            <h4>Code editor: </h4>
+            <h4 class="left">Code editor: </h4>
+            <button class="right  small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions"><strong>API</strong></button>
+            <br><br>
             <ide></ide>
           </div>
           <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
