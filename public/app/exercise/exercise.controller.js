@@ -41,7 +41,6 @@
     var panelID = 'panel';
     var canvasID = 'canvas';
 
-
     exercise.tabs = [];
     exercise.currentTab = 0;
     exercise.drawFnct = null;

@@ -1,44 +1,166 @@
-<div class="row">
-  <span class="left">
-    <a>{{ exercise.lessonName }}</a> / <a>{{ exercise.name }}</a>
-  </span>
-  <span class="right">
-    <strong>Show:</strong>
-    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showInstructions"> instructions
-    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showCodeEditor;"> editor
-    <input type="checkbox" ng-click="exercise.resizeCanvas();" ng-model="showAPI;"> API
-    <select-programming-language></select-programming-language>
-  </span>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+      </section>
+
+      <section class="middle tab-bar-section">
+          <a><h1 class="title">{{ exercise.lessonName }} / {{ exercise.name }}</h1></a>
+        </span>
+      </section>
+    </nav>
+
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li>
+          <label>Profile</label>
+        </li>
+        <li class="text-center"><h5 style="color: rgba(255,255,255,0.7);">Not logged yet!</h5></li>
+        <li class="text-center"><a ui-sref="signIn" style="display: inline;">Sign In</a><span style="color: rgba(255,255,255,0.7);"> / </span><a ui-sref="signUp" style="display: inline;">Sign Up</a></li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label>Programming Language</label>
+        </li>
+        <li class="has-submenu">
+          <a>Java</a>
+          <ul class="left-submenu">
+            <li class="back">
+              <a href="#">Back</a>
+            </li>
+            <li>
+              <label>Switch to</label>
+            </li>
+            <li>
+              <a>Java</a>
+            </li>
+            <li>
+              <a>Scala</a>
+            </li>
+            <li>
+              <a>Python</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label>Language</label>
+        </li>
+        <li class="has-submenu">
+          <a>English</a>
+          <ul class="left-submenu">
+            <li class="back">
+              <a href="#">Back</a>
+            </li>
+            <li>
+              <label>Switch to</label>
+            </li>
+            <li>
+              <a>Français</a>
+            </li>
+            <li>
+              <a>English</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label ui-sref="home">Home</label>
+        </li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label>Switch exercise</label>
+        </li>
+      </ul>
+      <ul class="off-canvas-list" style="min-height: 6rem; height: calc(100% - 14*2rem); overflow-y: auto;">
+        <li><a href="#">Environment >></a>
+        </li>
+        <li><a href="#">Instructions >></a>
+        </li>
+        <li><a href="#">Environment >></a>
+        </li>
+        <li><a href="#">Instructions >></a>
+        </li>
+        <li><a href="#">Environment >></a>
+        </li>
+        <li><a href="#">Instructions >></a>
+        </li>
+        <li><a href="#">Environment >></a>
+        </li>
+        <li><a href="#">Instructions >></a>
+        </li>
+        <li><a href="#">Environment >></a>
+        </li>
+        </li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label>Report a bug</label>
+        </li>
+      </ul>
+      <ul class="off-canvas-list">
+        <li>
+          <label>Contact us</label>
+        </li>
+      </ul>
+    </aside>
+
+    <section class="main-section">
+      <br>
+      <div style="margin-left: 5%; margin-right: 5%; background-color: #fff;">
+        <div style="position: absolute; height: 60%; display: flex; width: 90%; justify-content: space-between; align-items: baseline;">
+          <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1;">
+            <h4>Instructions: </h4>
+            <div class="panel">
+              <instructions></instructions>
+            </div>
+            <worlds-view></worlds-view>
+          </div>
+          <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
+            <h4>Code editor: </h4>
+            <ide></ide>
+          </div>
+          <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
+            <div ng-bind-html="exercise.api"></div>
+          </div>
+        </div>
+        <hr style="position: absolute; top: 70% ; width:90%;">
+        <div style=" position: absolute; top: 75%; height: 20%; display: flex; width: 90%; justify-content: space-between; align-items: baseline; ">
+          <div style="height: 100%; overflow-y: auto; flex: 1; ">
+            <h4>Execution results: </h4>
+            <div ng-show="exercise.result===''">
+              <p class="lead " translate>No results yet, please run your program before.</p>
+            </div>
+            <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
+          </div>
+          <div style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%; ">
+            <h4>Tests: </h4>
+            <div class="row " ng-repeat="world in exercise.initialWorlds ">
+              <strong>{{ world.id }}:</strong>
+              <button ng-click="exercise.runCode() " ng-disabled="exercise.isRunning || exercise.isChangingProgLang " translate>Run</button>
+              <button ng-click="exercise.stopExecution() " ng-disabled="!exercise.isRunning " translate>Stop</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <a class="exit-off-canvas"></a>
+
+  </div>
 </div>
-<div style="position: absolute; top: calc(2.5% + 7rem); height: 60%; display: flex; margin-left: 5%; margin-right: 5%; width: 90%; justify-content: space-between;">
-  <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1; margin-right:2.5%;">
-    <h3>Instructions: </h3>
-    <worlds-view></worlds-view>
-    <instructions></instructions>
-  </div>
-  <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%; margin-right: 2.5%;">
-    <h3>Code Editor: </h3>
-    <ide></ide>
-  </div>
-  <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%; margin-right:2.5%;">
-    <div ng-bind-html="exercise.api"></div>
-  </div>
-</div>
-<div style="position: absolute; top: calc(66% + 6rem); height: 20%; display: flex; margin-left: 5%; margin-right:5%;  width: 90%; justify-content: space-between;">
-  <div style="height: 100%; overflow-y: auto; flex: 1; margin-right:2.5%;">
-    <h3>Execution results: </h3>
-    <div ng-show="exercise.result === ''">
-      <p class="lead" translate>No results yet, please run your program before.</p>
-    </div>
-    <div class="with-newlines" ng-show="exercise.result !== ''">{{exercise.result}}</div>
-  </div>
-  <div style="height: 100%; overflow-y: auto; flex: 1; margin-left:2.5%;">
-    <h3>Tests: </h3>
-    <div class="row" ng-repeat="world in exercise.initialWorlds">
-      <strong>{{ world.id }}:</strong>
-      <button ng-click="exercise.runCode()" ng-disabled="exercise.isRunning || exercise.isChangingProgLang" translate>Run</button>
-      <button ng-click="exercise.stopExecution()" ng-disabled="!exercise.isRunning" translate>Stop</button>
-      <button translate>Demo</button>
-    </div>
-  </div>
-</div>
+
+<script>
+  $(document).foundation('offcanvas', 'reflow');
+
+  var windowObjectReference;
+  var strWindowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+
+  function openRequestedPopup() {
+    windowObjectReference = window.open("http://www.cnn.com/", "CNN_WindowName", strWindowFeatures);
+  }
+</script>
