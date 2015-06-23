@@ -3,7 +3,7 @@
     <label>Language</label>
   </li>
   <li class="has-submenu">
-    <a>English</a>
+    <a>{{ langs.getSelectedLang().name }}</a>
     <ul class="left-submenu">
       <li class="back">
         <a href="#">Back</a>
@@ -11,11 +11,8 @@
       <li>
         <label>Switch to</label>
       </li>
-      <li>
-        <a>Français</a>
-      </li>
-      <li>
-        <a>English</a>
+      <li ng-repeat="lang in langs.getAvailableLangs()" ng-class="{ 'active-operation': lang.code === langs.getSelectedLang().code }" ng-click="langs.setRemotelySelectedLang(lang);">
+        <a>{{lang.name}}</a>
       </li>
     </ul>
   </li>
