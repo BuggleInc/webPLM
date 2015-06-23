@@ -1,105 +1,124 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.factory('exercisesList', exercisesList);
-	
-	exercisesList.$inject = ['$rootScope', 'listenersHandler', 'connection'];
+(function () {
+  'use strict';
 
-	function exercisesList ($rootScope, listenersHandler, connection) {
-		var exercisesList;
-		var exercisesTree;
+  angular
+    .module('PLMApp')
+    .factory('exercisesList', exercisesList);
 
-		var currentLessonID;
-		var currentExerciseID;
+  exercisesList.$inject = ['$rootScope', 'listenersHandler', 'connection'];
 
-		listenersHandler.register('onmessage', handleMessage);
+  function exercisesList($rootScope, listenersHandler, connection) {
+    var exercisesList;
+    var exercisesTree;
 
-		var service = {
-			getExercisesList: getExercisesList,
-			getExercisesTree: getExercisesTree,
-			getNextExerciseID: getNextExerciseID,
-			setCurrentLessonID: setCurrentLessonID,
-			setCurrentExerciseID: setCurrentExerciseID
-		};
-		
-		return service;
-		
-		function handleMessage(data) {
-			var cmd = data.cmd;
-			var args = data.args;
-			switch(cmd) {
-				case 'exercises':
-					updateExercisesList(args.exercises);
-					break;
-				case 'newHumanLang':
-					connection.sendMessage('getExercises', {});
-					break;
-			}
-		}
+    var currentLessonID;
+    var currentRootLectureID;
+    var currentExerciseID;
 
-		function getExercisesList() {
-			return exercisesList;
-		}
-		
-		function getExercisesTree() {
-			return exercisesTree;
-		}
+    listenersHandler.register('onmessage', handleMessage);
 
-		function getNextExerciseID() {
-			for(var i=0; i<exercisesList.length - 1; i++) {
-				var exercise = exercisesList[i];
-				if(currentExerciseID === exercise.id) {
-					return exercisesList[i+1].id;
-				}
-			}
-		}
+    var service = {
+      getExercisesList: getExercisesList,
+      getExercisesTree: getExercisesTree,
+      getNextExerciseID: getNextExerciseID,
+      setCurrentLessonID: setCurrentLessonID,
+      setCurrentExerciseID: setCurrentExerciseID,
+      getCurrentExerciseID: getCurrentExerciseID,
+      isCurrentExerciseAChild: isCurrentExerciseAChild
+    };
 
-		function setCurrentLessonID (lessonID) {
-			if(lessonID !== currentLessonID) {
-				currentLessonID = lessonID;
-				connection.sendMessage('getExercises', {});
-			}
-			else {
-				$rootScope.$broadcast('exercisesListReady');
-			}			
-		}
+    return service;
 
-		function setCurrentExerciseID(exerciseID) {
-			currentExerciseID = exerciseID;
-		}
+    function handleMessage(data) {
+      var cmd = data.cmd;
+      var args = data.args;
+      switch (cmd) {
+      case 'exercises':
+        updateExercisesList(args.exercises);
+        break;
+      case 'newHumanLang':
+        connection.sendMessage('getExercises', {});
+        break;
+      }
+    }
 
-		function updateExercisesList(exercises) {
-			exercisesList = exercises;
-			refactorExercisesListAsTree();
-			$rootScope.$broadcast('exercisesListReady');
-		}
+    function getExercisesList() {
+      return exercisesList;
+    }
 
-		function refactorExercisesListAsTree() {
-			var dataMap;
-			var treeData;
+    function getExercisesTree() {
+      return exercisesTree;
+    }
 
-			// Refactor the exercises list as a tree
-			dataMap = exercisesList.reduce(function(map, node) {
-				map[node.name] = node;
-			 	return map;
-			}, {});
-			treeData = [];
-			exercisesList.forEach(function(node) {
-				// add to parent
-				var parent = dataMap[node.parent];
-				if (parent) {
-					// create child array if it doesn't exist
-					(parent.children || (parent.children = []))
-					// add node to child array
-					.push(node);
-				} else {
-					// parent is null or missing
-					treeData.push(node);
-				}
-			});
-			exercisesTree = treeData;
-		}
-	}
+    function getNextExerciseID() {
+      for (var i = 0; i < exercisesList.length - 1; i++) {
+        var exercise = exercisesList[i];
+        if (currentExerciseID === exercise.id) {
+          return exercisesList[i + 1].id;
+        }
+      }
+    }
+
+    function setCurrentLessonID(lessonID) {
+      if (lessonID !== currentLessonID) {
+        currentLessonID = lessonID;
+        connection.sendMessage('getExercises', {});
+      } else {
+        $rootScope.$broadcast('exercisesListReady');
+      }
+    }
+
+    function setCurrentExerciseID(exerciseID) {
+      currentExerciseID = exerciseID;
+    }
+
+    function getCurrentExerciseID() {
+      return currentExerciseID;
+    }
+
+    function updateExercisesList(exercises) {
+      exercisesList = exercises;
+      refactorExercisesListAsTree();
+      $rootScope.$broadcast('exercisesListReady');
+    }
+
+    function refactorExercisesListAsTree() {
+      var dataMap;
+      var treeData;
+
+      // Refactor the exercises list as a tree
+      dataMap = exercisesList.reduce(function (map, node) {
+        map[node.name] = node;
+        return map;
+      }, {});
+      treeData = [];
+      exercisesList.forEach(function (node) {
+        // add to parent
+        var parent = dataMap[node.parent];
+        if (parent) {
+          // create child array if it doesn't exist
+          (parent.children || (parent.children = []))
+          // add node to child array
+          .push(node);
+        } else {
+          // parent is null or missing
+          treeData.push(node);
+        }
+      });
+      exercisesTree = treeData;
+    }
+
+    function isCurrentExerciseAChild(rootLecture) {
+      var i;
+      if (rootLecture.id === currentExerciseID) {
+        return true;
+      }
+      for (i = 0; i < rootLecture.children.length; i++) {
+        if (rootLecture.children[i].id === currentExerciseID) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 })();

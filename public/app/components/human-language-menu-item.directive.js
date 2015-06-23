@@ -7,7 +7,6 @@
 
   humanLanguageMenuItem.$inject = ['langs'];
 
-
   function humanLanguageMenuItem(langs) {
     return {
       restrict: 'E',

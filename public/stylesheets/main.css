@@ -42,6 +42,10 @@
   font-size: 72px;
 }
 
+.active-menu-item {
+  background-color: rgba(51, 163, 199, 0.61);
+}
+
 body,
 html {
   height: 100%;
