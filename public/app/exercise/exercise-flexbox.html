@@ -2,7 +2,7 @@
   <div class="inner-wrap">
     <nav class="tab-bar">
       <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+        <a class="left-off-canvas-toggle menu-icon"><span></span></a>
       </section>
 
       <section class="middle tab-bar-section">
@@ -11,103 +11,7 @@
       </section>
     </nav>
 
-    <aside class="left-off-canvas-menu">
-      <ul class="off-canvas-list">
-        <li>
-          <label>Profile</label>
-        </li>
-        <li class="text-center"><h5 style="color: rgba(255,255,255,0.7);">Not logged yet!</h5></li>
-        <li class="text-center"><a ui-sref="signIn" style="display: inline;">Sign In</a><span style="color: rgba(255,255,255,0.7);"> / </span><a ui-sref="signUp" style="display: inline;">Sign Up</a></li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Programming Language</label>
-        </li>
-        <li class="has-submenu">
-          <a>Java</a>
-          <ul class="left-submenu">
-            <li class="back">
-              <a href="#">Back</a>
-            </li>
-            <li>
-              <label>Switch to</label>
-            </li>
-            <li>
-              <a>Java</a>
-            </li>
-            <li>
-              <a>Scala</a>
-            </li>
-            <li>
-              <a>Python</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Language</label>
-        </li>
-        <li class="has-submenu">
-          <a>English</a>
-          <ul class="left-submenu">
-            <li class="back">
-              <a href="#">Back</a>
-            </li>
-            <li>
-              <label>Switch to</label>
-            </li>
-            <li>
-              <a>Français</a>
-            </li>
-            <li>
-              <a>English</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label ui-sref="home">Home</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Switch exercise</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list" style="min-height: 6rem; height: calc(100% - 14*2rem); overflow-y: auto;">
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        <li><a href="#">Instructions >></a>
-        </li>
-        <li><a href="#">Environment >></a>
-        </li>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Report a bug</label>
-        </li>
-      </ul>
-      <ul class="off-canvas-list">
-        <li>
-          <label>Contact us</label>
-        </li>
-      </ul>
-    </aside>
+    <exercise-left-menu></exercise-left-menu>
 
     <section class="main-section">
       <br>
