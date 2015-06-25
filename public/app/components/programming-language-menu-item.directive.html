@@ -2,8 +2,8 @@
   <li>
     <label>Programming Language</label>
   </li>
-  <li class="has-submenu">
-    <a>Java</a>
+  <li ng-disabled="exercise.isRunning || exercise.isChangingProgLang" class="has-submenu">
+    <a>{{exercise.currentProgrammingLanguage.lang}}<img class="right" ng-src="{{exercise.currentProgrammingLanguage.icon}}" /></a>
     <ul class="left-submenu">
       <li class="back">
         <a href="#">Back</a>
@@ -11,15 +11,17 @@
       <li>
         <label>Switch to</label>
       </li>
-      <li>
-        <a>Java</a>
-      </li>
-      <li>
-        <a>Scala</a>
-      </li>
-      <li>
-        <a>Python</a>
+      <li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
+        <a>{{pl.lang}}<img class="right" ng-src="{{pl.icon}}" /></a>
       </li>
     </ul>
   </li>
 </ul>
+<!-- 
+<a ng-disabled="exercise.isRunning || exercise.isChangingProgLang" class="button secondary mini radius" data-dropdown="dropProgLangs"><img class="left" ng-src="{{exercise.currentProgrammingLanguage.icon}}"/>&nbsp;{{exercise.currentProgrammingLanguage.lang}}</a>
+<ul id="dropProgLangs" class="f-dropdown" data-dropdown-content=true>
+	<li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
+  		<a><img ng-src="{{pl.icon}}"/>&nbsp;{{pl.lang}}</a>
+ 	</li>
+</ul>
+-->
