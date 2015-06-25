@@ -1,62 +1,41 @@
-<div class="off-canvas-wrap" data-offcanvas>
-  <div class="inner-wrap">
-    <nav class="tab-bar">
-      <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-      </section>
-
-      <section class="middle tab-bar-section">
-          <a><h1 class="title">{{ exercise.lessonName }} / {{ exercise.name }}</h1></a>
-        </span>
-      </section>
-    </nav>
-
-    <exercise-left-menu></exercise-left-menu>
-
-    <section class="main-section">
-      <br>
-      <div style="margin-left: 5%; margin-right: 5%; background-color: #fff;">
-        <div style="position: absolute; height: 60%; display: flex; width: 90%; justify-content: space-between;">
-          <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1;">
-            <h4>Instructions: </h4>
-            <div class="panel">
-              <instructions></instructions>
-            </div>
-            <worlds-view></worlds-view>
-          </div>
-          <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
-            <h4 class="left">Code editor: </h4>
-            <button class="right  small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions"><strong>API</strong></button>
-            <br><br>
-            <ide></ide>
-          </div>
-          <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
-            <div ng-bind-html="exercise.api"></div>
-          </div>
-        </div>
-        <hr style="position: absolute; top: 70% ; width:90%;">
-        <div style=" position: absolute; top: 75%; height: 20%; display: flex; width: 90%; justify-content: space-between; align-items: baseline; ">
-          <div style="height: 100%; overflow-y: auto; flex: 1; ">
-            <h4>Execution results: </h4>
-            <div ng-show="exercise.result===''">
-              <p class="lead " translate>No results yet, please run your program before.</p>
-            </div>
-            <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
-          </div>
-          <div style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%; ">
-            <h4>Tests: </h4>
-            <div class="row " ng-repeat="world in exercise.initialWorlds ">
-              <strong>{{ world.id }}:</strong>
-              <button ng-click="exercise.runCode() " ng-disabled="exercise.isRunning || exercise.isChangingProgLang " translate>Run</button>
-              <button ng-click="exercise.stopExecution() " ng-disabled="!exercise.isRunning " translate>Stop</button>
-            </div>
-          </div>
-        </div>
+<div style="margin-left: 5%; margin-right: 5%; background-color: #fff;">
+  <div style="position: absolute; height: 60%; display: flex; width: 90%; justify-content: space-between;">
+    <div ng-show="showInstructions" style="height: 100%; overflow-y: auto; flex: 1;">
+      <h4>Instructions: </h4>
+      <div class="panel">
+        <instructions></instructions>
       </div>
-    </section>
-
-    <a class="exit-off-canvas"></a>
-
+      <worlds-view></worlds-view>
+    </div>
+    <div ng-show="showCodeEditor" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
+      <h4 class="left">Code editor: </h4>
+      <button class="right  small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions"><strong>API</strong>
+      </button>
+      <br>
+      <br>
+      <ide></ide>
+    </div>
+    <div ng-show="showAPI" style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%;">
+      <div ng-bind-html="exercise.api"></div>
+    </div>
+  </div>
+  <hr style="position: absolute; top: 70% ; width:90%;">
+  <div style=" position: absolute; top: 75%; height: 20%; display: flex; width: 90%; justify-content: space-between; align-items: baseline; ">
+    <div style="height: 100%; overflow-y: auto; flex: 1; ">
+      <h4>Execution results: </h4>
+      <div ng-show="exercise.result===''">
+        <p class="lead " translate>No results yet, please run your program before.</p>
+      </div>
+      <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
+    </div>
+    <div style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%; ">
+      <h4>Tests: </h4>
+      <div class="row " ng-repeat="world in exercise.initialWorlds ">
+        <strong>{{ world.id }}:</strong>
+        <button ng-click="exercise.runCode() " ng-disabled="exercise.isRunning || exercise.isChangingProgLang " translate>Run</button>
+        <button ng-click="exercise.stopExecution() " ng-disabled="!exercise.isRunning " translate>Stop</button>
+      </div>
+    </div>
   </div>
 </div>
 

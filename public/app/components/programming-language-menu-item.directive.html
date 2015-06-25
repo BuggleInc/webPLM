@@ -2,8 +2,8 @@
   <li>
     <label>Programming Language</label>
   </li>
-  <li ng-disabled="exercise.isRunning || exercise.isChangingProgLang" class="has-submenu">
-    <a>{{exercise.currentProgrammingLanguage.lang}}<img class="right" ng-src="{{exercise.currentProgrammingLanguage.icon}}" /></a>
+  <li ng-disabled="progLang.isDisabled()" class="has-submenu">
+    <a>{{progLangs.getCurrentProglang().lang}}<img class="right" ng-src="{{progLangs.getCurrentProglang().icon}}" /></a>
     <ul class="left-submenu">
       <li class="back">
         <a href="#">Back</a>
@@ -11,7 +11,7 @@
       <li>
         <label>Switch to</label>
       </li>
-      <li ng-repeat="pl in exercise.programmingLanguages" ng-class="{ 'active-operation': pl.lang === exercise.currentProgrammingLanguage }" ng-click="exercise.setProgrammingLanguage(pl)">
+      <li ng-repeat="pl in progLangs.getProgLangs()" ng-class="{ 'active-menu-item': pl.lang === progLangs.getCurrentProglang().lang }" ng-click="progLangs.setCurrentProglang(pl)">
         <a>{{pl.lang}}<img class="right" ng-src="{{pl.icon}}" /></a>
       </li>
     </ul>

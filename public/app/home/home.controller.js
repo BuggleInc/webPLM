@@ -1,64 +1,68 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.controller('Home', Home);
+(function () {
+  'use strict';
 
-	Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler'];
+  angular
+    .module('PLMApp')
+    .controller('Home', Home);
 
-	function Home($http, $scope, $state, $sce, langs, connection, listenersHandler) {
-		var home = this;
+  Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler', 'navigation'];
 
-		home.lessons = [];
-		home.currentLesson = null;
-		home.currentExerciseID = '';
+  function Home($http, $scope, $state, $sce, langs, connection, listenersHandler, navigation) {
+    var home = this;
 
-		home.getLessons = getLessons;
-		home.setLessons = setLessons;
-		home.setCurrentLesson = setCurrentLesson;
-		home.goToLesson = goToLesson;
+    home.lessons = [];
+    home.currentLesson = null;
+    home.currentExerciseID = '';
 
-		var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
+    home.getLessons = getLessons;
+    home.setLessons = setLessons;
+    home.setCurrentLesson = setCurrentLesson;
+    home.goToLesson = goToLesson;
 
-		getLessons();
+    navigation.setCurrentPageTitle('Home');
 
-		function handleMessage(data) {
-			var cmd = data.cmd;
-			var args = data.args;
+    var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 
-			console.log('message received: ', data);
-			switch(cmd) {
-				case 'lessons': 
-				case 'newHumanLang':
-					setLessons(args.lessons);
-					break;
-			}
-		}
+    getLessons();
 
-		function getLessons() {
-			connection.sendMessage('getLessons', null);
-		}
+    function handleMessage(data) {
+      var cmd = data.cmd;
+      var args = data.args;
 
-		function setLessons(lessons) {
-			home.lessons = lessons.map(function (lesson) {
-			  lesson.description = $sce.trustAsHtml(lesson.description);
-			  return lesson;
-			});
-			home.currentLesson = null;
-			console.log('updated home.lessons: ', home.lessons);
-		}
+      console.log('message received: ', data);
+      switch (cmd) {
+      case 'lessons':
+      case 'newHumanLang':
+        setLessons(args.lessons);
+        break;
+      }
+    }
 
-		function setCurrentLesson (lesson) {
-			home.currentLesson = lesson;
-		}
-		
-		function goToLesson () {
-			$state.go('exercise', { 'lessonID': home.currentLesson.id });
-		}
+    function getLessons() {
+      connection.sendMessage('getLessons', null);
+    }
 
-		$scope.$on('$destroy',function() {
-			offHandleMessage();
-		});
-	}
+    function setLessons(lessons) {
+      home.lessons = lessons.map(function (lesson) {
+        lesson.description = $sce.trustAsHtml(lesson.description);
+        return lesson;
+      });
+      home.currentLesson = null;
+      console.log('updated home.lessons: ', home.lessons);
+    }
+
+    function setCurrentLesson(lesson) {
+      home.currentLesson = lesson;
+    }
+
+    function goToLesson() {
+      $state.go('exercise', {
+        'lessonID': home.currentLesson.id
+      });
+    }
+
+    $scope.$on('$destroy', function () {
+      offHandleMessage();
+    });
+  }
 })();

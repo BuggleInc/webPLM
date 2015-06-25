@@ -36,8 +36,30 @@
 </head>
 
 <body ng-app="PLMApp">
-  <div class="page" ui-view></div>
+  <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="tab-bar">
+        <section class="left-small">
+          <a class="left-off-canvas-toggle menu-icon"><span></span></a>
+        </section>
 
+        <section class="middle tab-bar-section">
+          <a><h1 class="title">{{navigation.getCurrentPageTitle()}}</h1></a>
+          </span>
+        </section>
+      </nav>
+
+      <exercise-left-menu></exercise-left-menu>
+
+      <section class="main-section">
+        <br>
+        <div class="page" ui-view></div>
+      </section>
+
+      <a class="exit-off-canvas"></a>
+
+    </div>
+  </div>
   <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
   <track-user-modal></track-user-modal>
 </body>
@@ -92,6 +114,8 @@
 <script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/langs.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/navigation.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/proglangs.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/toasterutils.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 

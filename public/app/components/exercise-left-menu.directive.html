@@ -1,13 +1,13 @@
 <aside class="left-off-canvas-menu">
   <profile-menu-item></profile-menu-item>
-  <programming-language-menu-item></programming-language-menu-item>
+  <programming-language-menu-item ng-if="progLangs.progLangsAreAvailable()"></programming-language-menu-item>
   <human-language-menu-item></human-language-menu-item>
   <ul class="off-canvas-list">
     <li>
       <label ui-sref="home">Home</label>
     </li>
   </ul>
-  <switch-exercise-menu-item></switch-exercise-menu-item>
+  <switch-exercise-menu-item ng-if="navigation.isInLesson()"></switch-exercise-menu-item>
   <ul class="off-canvas-list">
     <li>
       <label>Report a bug</label>

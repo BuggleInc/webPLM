@@ -7,7 +7,7 @@
 
   Exercise.$inject = [
   '$window', '$http', '$scope', '$sce', '$stateParams',
-  'connection', 'listenersHandler', 'langs', 'exercisesList',
+  'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation',
   'canvas', 'drawWithDOM',
   'blocklyService',
   '$timeout', '$interval',
@@ -23,7 +23,7 @@
  ];
 
   function Exercise($window, $http, $scope, $sce, $stateParams,
-    connection, listenersHandler, langs, exercisesList,
+    connection, listenersHandler, langs, progLangs, exercisesList, navigation,
     canvas, drawWithDOM,
     blocklyService,
     $timeout, $interval,
@@ -54,7 +54,6 @@
 
     exercise.isRunning = false;
     exercise.isPlaying = false;
-    exercise.isChangingProgLang = false;
     exercise.playedDemo = false;
 
     exercise.instructions = null;
@@ -127,7 +126,6 @@
     exercise.switchDisplayedInstructions = switchDisplayedInstructions;
     exercise.switchDisplayedResults = switchDisplayedResults;
 
-    exercise.setProgrammingLanguage = setProgrammingLanguage;
     exercise.setSelectedRootLecture = setSelectedRootLecture;
     exercise.setSelectedNextExercise = setSelectedNextExercise;
     exercise.updateSpeed = updateSpeed;
@@ -207,7 +205,6 @@
         break;
       case 'newProgLang':
         updateUI(args.newProgLang, args.instructions, null, args.code);
-        exercise.isChangingProgLang = false;
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
@@ -218,6 +215,10 @@
     function setExercise(data) {
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
+
+      navigation.setCurrentLessonID(exercise.lessonID);
+      navigation.setCurrentExerciseID(exercise.id);
+      navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
       exercise.instructions = $sce.trustAsHtml(data.instructions);
       exercise.api = $sce.trustAsHtml(data.api);
@@ -433,18 +434,16 @@
 
         //window.addEventListener('resize', resizeCodeMirror, false);
 
-        exercise.programmingLanguages = data.programmingLanguages;
-        var isset = false;
-        for (var i = 0; i < exercise.programmingLanguages.length; i++) {
-          var pl = exercise.programmingLanguages[i];
+        progLangs.setProgLangs(data.programmingLanguages);
+        var progLang = data.programmingLanguages[0];
+        for (var i = 0; i < data.programmingLanguages.length; i++) {
+          var pl = data.programmingLanguages[i];
           if (pl.lang === data.currentProgrammingLanguage) {
-            updateUI(pl, data.instructions, data.api, data.code.trim());
-            isset = true;
+            progLang = pl;
           }
         }
-        if (!isset) {
-          updateUI(exercise.programmingLanguages[0], data.instructions, data.api, data.code.trim());
-        }
+        progLangs.setCurrentProglang(progLang);
+        updateUI(progLang, data.instructions, data.api, data.code.trim());
       }
 
       $(document).foundation('dropdown', 'reflow');
@@ -805,16 +804,8 @@
       }
     }
 
-    function setProgrammingLanguage(pl) {
-      exercise.isChangingProgLang = true;
-      connection.sendMessage('setProgrammingLanguage', {
-        programmingLanguage: pl.lang
-      });
-    }
-
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
-        exercise.currentProgrammingLanguage = pl;
         if (pl.lang === 'Blockly') {
           exercise.ide = 'blockly';
           if (code !== null) {
