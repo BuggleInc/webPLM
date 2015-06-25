@@ -14,6 +14,7 @@
       link: function (scope, element, attrs) {
         scope.exercisesList = exercisesList;
         $(document).foundation('offcanvas', 'reflow');
+        $(document).foundation('accordion', 'reflow');
       }
     };
   }
