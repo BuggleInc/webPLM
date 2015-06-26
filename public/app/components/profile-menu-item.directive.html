@@ -2,6 +2,25 @@
   <li>
     <label>Profile</label>
   </li>
-  <li class="text-center"><h5 style="color: rgba(255,255,255,0.7);">Not logged yet!</h5></li>
-  <li class="text-center"><a ui-sref="signIn" style="display: inline;">Sign In</a><span style="color: rgba(255,255,255,0.7);"> / </span><a ui-sref="signUp" style="display: inline;">Sign Up</a></li>
+  <span ng-if="!userService.isAuthenticated()">
+    <li>
+      <a ui-sref="signIn" translate>Sign In</a>
+    </li>
+    <li>
+      <a ui-sref="signUp" translate>Sign Up</a>
+    </li>
+  </span>
+  <span ng-if="userService.isAuthenticated()">
+    <li>
+      <a ui-sref="profile">
+        {{ userService.getUser().fullName }}
+        <img class="right" ng-src="{{ userService.getUser().avatarURL ? userService.getUser().avatarURL : '/assets/images/buggle-top.svg' }}">
+      </a>
+    </li>
+    <li>
+      <a>
+        <span ng-click="userService.signOut()" translate>Sign Out</span>
+      </a>
+    </li>
+  </span>
 </ul>

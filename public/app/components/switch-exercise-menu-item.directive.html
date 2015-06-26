@@ -12,13 +12,13 @@
       <a>
         <strong>{{rootLecture.name}} {{'('+(rootLecture.children.length+1)+')'}}</strong>
         <span class="right">{{rootLecture.deployed ? "-" : "+"}}</span>
-  </a>
-  </li>
-  <li ng-show="rootLecture.deployed" ng-class="{'active-menu-item': rootLecture.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: 'welcome', exerciseID: rootLecture.id })">
-    <a style="margin-left: 5%">{{rootLecture.name}}</a>
-  </li>
-  <li ng-show="rootLecture.deployed" ng-repeat="exo in rootLecture.children" ng-class="{'active-menu-item': exo.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: 'welcome', exerciseID: exo.id })">
-    <a style="margin-left: 5%">{{exo.name}}</a>
-  </li>
+      </a>
+    </li>
+    <li ng-show="rootLecture.deployed" ng-class="{'active-menu-item': rootLecture.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: 'welcome', exerciseID: rootLecture.id })">
+      <a style="margin-left: 5%">{{rootLecture.name}}</a>
+    </li>
+    <li ng-show="rootLecture.deployed" ng-repeat="exo in rootLecture.children" ng-class="{'active-menu-item': exo.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: 'welcome', exerciseID: exo.id })">
+      <a style="margin-left: 5%">{{exo.name}}</a>
+    </li>
   </span>
 </ul>
