@@ -20,7 +20,7 @@
     </div>
   </div>
   <hr style="position: absolute; top: 70% ; width:90%;">
-  <div style=" position: absolute; top: 75%; height: 20%; display: flex; width: 90%; justify-content: space-between; align-items: baseline; ">
+  <div style=" position: absolute; top: 75%; height: 20%; display: flex; width: 90%; justify-content: space-between; align-items: baseline;">
     <div style="height: 100%; overflow-y: auto; flex: 1; ">
       <h4>Execution results: </h4>
       <div ng-show="exercise.result===''">
@@ -29,11 +29,19 @@
       <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
     </div>
     <div style="height: 100%; overflow-y: auto; flex: 1; margin-left: 2.5%; ">
-      <h4>Tests: </h4>
-      <div class="row " ng-repeat="world in exercise.initialWorlds ">
-        <strong>{{ world.id }}:</strong>
-        <button ng-click="exercise.runCode() " ng-disabled="exercise.isRunning || exercise.isChangingProgLang " translate>Run</button>
-        <button ng-click="exercise.stopExecution() " ng-disabled="!exercise.isRunning " translate>Stop</button>
+      <h4>Tests cases: </h4>
+      <div style="display: flex; flex-wrap: wrap;">
+        <ul class="button-group" ng-repeat="world in exercise.initialWorlds" style="flex: 1;">
+          <li ng-click="exercise.currentWorldID = world.id; exercise.setCurrentWorld('current');">
+            <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button">{{ world.id }}</a>
+          </li>
+          <li ng-click="exercise.runCode()" ng-if="!exercise.isRunning">
+            <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button" style="padding-left: 1rem; padding-right: 1rem;"><i class="mdi mdi-play"></i></a>
+          </li>
+          <li ng-click="exercise.stopExecution()" ng-if="exercise.isRunning" >
+            <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button" style="padding-left: 1rem; padding-right: 1rem;"><i class="mdi mdi-stop"></i></a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
