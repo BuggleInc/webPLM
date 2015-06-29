@@ -21,10 +21,21 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.AMQP.BasicProperties;
+
 class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
+  var corrId : String = java.util.UUID.randomUUID().toString();
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
@@ -55,8 +66,8 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
+    //addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+    //addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
@@ -95,15 +106,64 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    game.startExerciseExecution()
+    //game.startExerciseExecution()
+    askGameLaunch(lessonID, exerciseID, code);
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
-    game.startExerciseDemoExecution()
+    //game.startExerciseDemoExecution()
+    //askGameLaunch(); <= prepare new command ?
   }
   
+  def askGameLaunch(lessonID:String, exerciseID:String, code:String) {
+    // Parameters 
+    var QUEUE_NAME_REQUEST : String = "worker_in"
+    var QUEUE_NAME_REPLY : String = "worker_out"
+    
+    // This part handles compilation with workers.
+    // Properties
+    var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).replyTo(QUEUE_NAME_REPLY).build()
+    System.out.println(corrId)
+    // Connection
+    var factory : ConnectionFactory = new ConnectionFactory()
+    factory.setHost("localhost")
+    var connection : Connection  = factory.newConnection()
+    var channelOut : Channel = connection.createChannel()
+    var channelIn : Channel = connection.createChannel()
+    channelOut.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, null)
+    channelIn.queueDeclare(QUEUE_NAME_REPLY, false, false, false, null)
+    //Request
+    var msg : String = ""
+    msg += "{ \"lesson\" : \"" + lessonID + "\", " +
+      "exercise : \"" + exerciseID + "\"}"
+    channelOut.basicPublish("", QUEUE_NAME_REQUEST, props,
+        msg.getBytes("UTF-8"))
+    // Reply
+    var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
+    channelIn.basicConsume(QUEUE_NAME_REPLY, true, consumer)
+    var state: Boolean = true;
+    while(state) {
+      var delivery : QueueingConsumer.Delivery = consumer.nextDelivery()
+      if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+        var message : String = new String(delivery.getBody(), "UTF-8");
+        var p : JSONParser = new JSONParser();
+        try {
+          var replyJSON: JSONObject = p.parse(message).asInstanceOf[JSONObject];
+          var r : String = replyJSON.get("msgType").toString();
+          if(r.equals("0") || r.equals("1")) {
+            state = false;
+          }
+        } catch {
+          case e : ParseException => // NO OP
+        }
+      }
+    }
+  }
+  
+  
   def stopExecution() {
-    game.stopExerciseExecution()
+    //game.stopExerciseExecution()
+    // NO OP ?
   }
   
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
