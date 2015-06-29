@@ -32,10 +32,10 @@
       <h4>Tests cases: </h4>
       <div style="display: flex; flex-wrap: wrap;">
         <ul class="button-group" ng-repeat="world in exercise.initialWorlds" style="flex: 1;">
-          <li ng-click="exercise.currentWorldID = world.id; exercise.setCurrentWorld('current');">
+          <li ng-click="exercise.setCurrentWorld(world.id, exercise.worldKind);">
             <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button">{{ world.id }}</a>
           </li>
-          <li ng-click="exercise.runCode()" ng-if="!exercise.isRunning">
+          <li ng-click="exercise.runCode(world.id)" ng-if="!exercise.isRunning">
             <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button" style="padding-left: 1rem; padding-right: 1rem;"><i class="mdi mdi-play"></i></a>
           </li>
           <li ng-click="exercise.stopExecution()" ng-if="exercise.isRunning" >

@@ -430,7 +430,7 @@
 
         exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-        setCurrentWorld('current');
+        setCurrentWorld(exercise.currentWorldID, 'current');
 
         //window.addEventListener('resize', resizeCodeMirror, false);
 
@@ -461,9 +461,10 @@
       exercise.api = $sce.trustAsHtml(api);
     }
 
-    function setCurrentWorld(worldKind) {
+    function setCurrentWorld(worldID, worldKind) {
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
+      exercise.currentWorldID = worldID;
       exercise.worldKind = worldKind;
       exercise.currentWorld = exercise[exercise.worldKind + 'Worlds'][exercise.currentWorldID];
       $timeout(function () {
@@ -490,7 +491,7 @@
       }
     }
 
-    function runCode() {
+    function runCode(worldID) {
       var args;
 
       exercise.updateViewLoop = null;
@@ -498,7 +499,7 @@
       exercise.worldIDs.map(function (key) {
         reset(key, 'current', false);
       });
-      setCurrentWorld('current');
+      setCurrentWorld(worldID, 'current');
       exercise.tabs.map(function (element) {
         if (element.worldKind === 'current' && element.drawFnct === exercise.drawFnct) {
           exercise.currentTab = element.tabNumber;
@@ -734,7 +735,7 @@
         setDrawFnct(tab.drawFnct);
       }
       if (exercise.worldKind !== tab.worldKind) {
-        setCurrentWorld(tab.worldKind);
+        setCurrentWorld(exercise.currentWorldID, tab.worldKind);
         if (!exercise.playedDemo && tab.worldKind === 'answer') {
           runDemo();
         }
