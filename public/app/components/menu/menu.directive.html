@@ -4,10 +4,10 @@
       <a ui-sref="home">Home</a>
     </li>
   </ul>
-  <profile-menu-item></profile-menu-item>
-  <programming-language-menu-item ng-if="progLangs.progLangsAreAvailable()"></programming-language-menu-item>
-  <human-language-menu-item></human-language-menu-item>
-  <switch-exercise-menu-item ng-if="navigation.isInLesson()"></switch-exercise-menu-item>
+  <profile></profile>
+  <human-language></human-language>
+  <programming-language ng-if="progLangs.progLangsAreAvailable()"></programming-language>
+  <switch-exercise ng-if="navigation.isInLesson()"></switch-exercise>
   <ul class="off-canvas-list">
     <li>
       <label>Report a bug</label>

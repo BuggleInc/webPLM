@@ -3,11 +3,11 @@
 
   angular
     .module('PLMApp')
-    .directive('humanLanguageMenuItem', humanLanguageMenuItem);
+    .directive('humanLanguage', humanLanguage);
 
-  humanLanguageMenuItem.$inject = ['langs'];
+  humanLanguage.$inject = ['langs'];
 
-  function humanLanguageMenuItem(langs) {
+  function humanLanguage(langs) {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/menu/human-language.directive.html',

@@ -3,9 +3,9 @@
 
   angular
     .module('PLMApp')
-    .directive('programmingLanguageMenuItem', programmingLanguageMenuItem);
+    .directive('programmingLanguage', programmingLanguage);
 
-  function programmingLanguageMenuItem() {
+  function programmingLanguage() {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/menu/programming-language.directive.html'

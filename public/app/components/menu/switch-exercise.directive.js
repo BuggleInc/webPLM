@@ -3,11 +3,11 @@
 
   angular
     .module('PLMApp')
-    .directive('switchExerciseMenuItem', switchExerciseMenuItem);
+    .directive('switchExercise', switchExercise);
 
-  switchExerciseMenuItem.$inject = ['exercisesList'];
+  switchExercise.$inject = ['exercisesList'];
 
-  function switchExerciseMenuItem(exercisesList) {
+  function switchExercise(exercisesList) {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/menu/switch-exercise.directive.html',

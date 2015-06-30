@@ -3,11 +3,11 @@
 
   angular
     .module('PLMApp')
-    .directive('profileMenuItem', profileMenuItem);
+    .directive('profile', profile);
 
-  profileMenuItem.$inject = ['userService'];
+  profile.$inject = ['userService'];
   
-  function profileMenuItem(userService) {
+  function profile(userService) {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/menu/profile.directive.html',

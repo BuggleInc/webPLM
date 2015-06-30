@@ -3,11 +3,11 @@
 
   angular
     .module('PLMApp')
-    .directive('exerciseLeftMenu', exerciseLeftMenu);
+    .directive('menu', menu);
 
-  exerciseLeftMenu.$inject = ['navigation', 'progLangs'];
+  menu.$inject = ['navigation', 'progLangs'];
 
-  function exerciseLeftMenu(navigation, progLangs) {
+  function menu(navigation, progLangs) {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/menu/menu.directive.html',
