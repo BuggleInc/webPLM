@@ -21,6 +21,7 @@
       getExercisesTree: getExercisesTree,
       getNextExerciseID: getNextExerciseID,
       setCurrentLessonID: setCurrentLessonID,
+      getCurrentLessonID: getCurrentLessonID,
       setCurrentExerciseID: setCurrentExerciseID,
       getCurrentExerciseID: getCurrentExerciseID,
       isCurrentExerciseAChild: isCurrentExerciseAChild
@@ -71,6 +72,10 @@
       }
     }
 
+    function getCurrentLessonID() {
+      return currentLessonID;
+    }
+    
     function setCurrentExerciseID(exerciseID) {
       currentExerciseID = exerciseID;
     }
