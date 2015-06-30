@@ -5,11 +5,13 @@
 		.module('PLMApp')
 		.controller('SignUp', SignUp);
 
-	SignUp.$inject = ['userService'];
+	SignUp.$inject = ['userService', 'gettextCatalog', 'navigation'];
 
-	function SignUp(userService) {
+	function SignUp(userService, gettextCatalog, navigation) {
 		var signUp = this;
 
+        navigation.setCurrentPageTitle(gettextCatalog.getString('Sign up'));
+    
 		signUp.email = '';
 		signUp.pwd = '';
 		signUp.firstName = '';

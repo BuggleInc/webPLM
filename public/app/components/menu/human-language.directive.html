@@ -1,0 +1,19 @@
+<ul class="off-canvas-list">
+  <li>
+    <label translate>Language</label>
+  </li>
+  <li class="has-submenu">
+    <a>{{ langs.getSelectedLang().name }}</a>
+    <ul class="left-submenu">
+      <li class="back">
+        <a translate>Back</a>
+      </li>
+      <li>
+        <label translate>Switch to</label>
+      </li>
+      <li ng-repeat="lang in langs.getAvailableLangs()" ng-class="{ 'active-operation': lang.code === langs.getSelectedLang().code }" ng-click="langs.setRemotelySelectedLang(lang);">
+        <a>{{lang.name}}</a>
+      </li>
+    </ul>
+  </li>
+</ul>

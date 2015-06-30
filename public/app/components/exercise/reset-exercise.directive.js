@@ -8,7 +8,7 @@
 	function resetExercise() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/reset-exercise.directive.html',
+			templateUrl: '/assets/app/components/exercise/reset-exercise.directive.html',
 			link: function (scope, element, attrs) {
 				$(document).foundation('reveal', 'reflow');
 			}

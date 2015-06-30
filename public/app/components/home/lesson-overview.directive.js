@@ -8,7 +8,7 @@
 	function lessonOverview () {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/lesson-overview.directive.html'
+			templateUrl: '/assets/app/components/home/lesson-overview.directive.html'
 		};
 	}
 })();

@@ -8,7 +8,7 @@
 	function signInForm() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/sign-in-form.directive.html'
+			templateUrl: '/assets/app/components/sign-in/sign-in-form.directive.html'
 		};
 	}
 })();

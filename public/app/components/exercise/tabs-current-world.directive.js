@@ -8,7 +8,7 @@
 	function tabsCurrentWorld () {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/tabs-current-world.directive.html'
+			templateUrl: '/assets/app/components/exercise/tabs-current-world.directive.html'
 		};
 	}
 })();
