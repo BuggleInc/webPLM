@@ -51,7 +51,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentTrackUser: Boolean = trackUser.getOrElse(false)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, this, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
