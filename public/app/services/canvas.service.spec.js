@@ -52,8 +52,8 @@
 
 			expect(actualCanvasElt).toEqual(canvasElt);
 			expect(actualContext).toEqual(ctx);
-			expect(actualCanvasElt.width).toEqual(canvasWidth);
-			expect(actualCanvasElt.height).toEqual(canvasHeight);
+			expect(actualCanvasElt.width).toEqual(Math.min(canvasWidth, 400));
+			expect(actualCanvasElt.height).toEqual(Math.min(canvasHeight, 400));
 			expect(actualDraw).toEqual(draw.fnctDraw);
 		});
 
