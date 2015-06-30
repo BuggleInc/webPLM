@@ -7,18 +7,12 @@
 
   function navigation() {
     var currentPageTitle = 'Home';
-    var currentLessonID = '';
-    var currentExerciseID = '';
+    var inLesson = false;
 
     var service = {
       setCurrentPageTitle: setCurrentPageTitle,
       getCurrentPageTitle: getCurrentPageTitle,
-      setCurrentLessonID: setCurrentLessonID,
-      getCurrentLessonID: getCurrentLessonID,
-      setCurrentRootLectureID: setCurrentRootLectureID,
-      getCurrentRootLectureID: getCurrentRootLectureID,
-      setCurrentExerciseID: setCurrentExerciseID,
-      getCurrentExerciseID: getCurrentExerciseID,
+      setInlesson: setInLesson,
       isInLesson: isInLesson
     };
 
@@ -40,14 +34,6 @@
       return currentLessonID;
     }
 
-    function setCurrentRootLectureID(rootLectureID) {
-      currentRootLectureID = rootLectureID;
-    }
-
-    function getCurrentRootLectureID() {
-      return currentRootLectureID;
-    }
-
     function setCurrentExerciseID(exerciseID) {
       currentExerciseID = exerciseID;
     }
@@ -56,8 +42,12 @@
       return currentExerciseID;
     }
 
+    function setInLesson(boolean) {
+      inLesson = boolean;
+    }
+    
     function isInLesson() {
-      return currentLessonID !== '';
+      return inLesson;
     }
   }
 })();

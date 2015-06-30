@@ -12,7 +12,6 @@
     var exercisesTree;
 
     var currentLessonID;
-    var currentRootLectureID;
     var currentExerciseID;
 
     listenersHandler.register('onmessage', handleMessage);
@@ -33,6 +32,10 @@
       var cmd = data.cmd;
       var args = data.args;
       switch (cmd) {
+        case 'exercise':
+          var exercise = args.exercise;
+          setCurrentExerciseID(exercise.id);
+          break;
       case 'exercises':
         updateExercisesList(args.exercises);
         break;
@@ -113,9 +116,11 @@
       if (rootLecture.id === currentExerciseID) {
         return true;
       }
-      for (i = 0; i < rootLecture.children.length; i++) {
-        if (rootLecture.children[i].id === currentExerciseID) {
-          return true;
+      else if(rootLecture.children) {
+        for (i = 0; i < rootLecture.children.length; i++) {
+          if (rootLecture.children[i].id === currentExerciseID) {
+            return true;
+          }
         }
       }
       return false;

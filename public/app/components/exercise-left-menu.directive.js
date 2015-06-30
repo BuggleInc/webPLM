@@ -14,6 +14,7 @@
       link: function (scope, element, attrs) {
         scope.navigation = navigation;
         scope.progLangs = progLangs;
+        $(document).foundation('offcanvas', 'reflow');
       }
     };
   }

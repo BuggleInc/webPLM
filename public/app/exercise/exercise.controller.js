@@ -49,9 +49,6 @@
     exercise.lessonName = exercise.lessonID.charAt(0).toUpperCase() + exercise.lessonID.slice(1);
     exercise.id = $stateParams.exerciseID;
 
-    exercise.displayInstructions = 'instructions';
-    exercise.displayResults = 'result';
-
     exercise.isRunning = false;
     exercise.isPlaying = false;
     exercise.playedDemo = false;
@@ -79,7 +76,6 @@
 
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
-    exercise.preventLoop = false;
 
     locker.bind($scope, 'showInstructions', true);
     exercise.showInstructions = locker.get('showInstructions');
@@ -95,12 +91,6 @@
     exercise.ide = 'codemirror';
     exercise.toolbox = null;
     exercise.studentCode = null;
-
-    exercise.exercisesAsList = null;
-    exercise.exercisesAsTree = null;
-    exercise.defaultNextExercise = null;
-    exercise.selectedRootLecture = null;
-    exercise.selectedNextExercise = null;
 
     exercise.drawServiceType = '';
     exercise.drawService = null;
@@ -123,11 +113,7 @@
     exercise.setWorldState = setWorldState;
     exercise.setCurrentWorld = setCurrentWorld;
     exercise.switchToTab = switchToTab;
-    exercise.switchDisplayedInstructions = switchDisplayedInstructions;
-    exercise.switchDisplayedResults = switchDisplayedResults;
 
-    exercise.setSelectedRootLecture = setSelectedRootLecture;
-    exercise.setSelectedNextExercise = setSelectedNextExercise;
     exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
     exercise.resizeInstructions = resizeInstructions;
@@ -174,8 +160,6 @@
       connection.sendMessage('getExercise', args);
     }
 
-    $scope.$on('exercisesListReady', initExerciseSelector);
-
     var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
     getExercise();
 
@@ -216,8 +200,7 @@
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
 
-      navigation.setCurrentLessonID(exercise.lessonID);
-      navigation.setCurrentExerciseID(exercise.id);
+      navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
       exercise.instructions = $sce.trustAsHtml(data.instructions);
@@ -632,27 +615,6 @@
       exercise.drawService.update();
     }
 
-    function initExerciseSelector() {
-      exercisesList.setCurrentExerciseID(exercise.id);
-      exercise.exercisesAsList = exercisesList.getExercisesList();
-      exercise.exercisesAsTree = exercisesList.getExercisesTree();
-      exercise.defaultNextExercise = exercisesList.getNextExerciseID();
-      exercise.selectedRootLecture = null;
-      exercise.selectedNextExercise = null;
-
-      // Update modal
-      $(document).foundation('reveal', 'reflow');
-    }
-
-    function setSelectedRootLecture(rootLecture) {
-      exercise.selectedRootLecture = rootLecture;
-      setSelectedNextExercise(rootLecture);
-    }
-
-    function setSelectedNextExercise(exo) {
-      exercise.selectedNextExercise = exo;
-    }
-
     function resetExercise() {
       $('#resetExerciseModal').foundation('reveal', 'close');
       connection.sendMessage('revertExercise', {});
@@ -714,7 +676,7 @@
     }
 
     function resizeCanvas() {
-      var canvasWidth = Math.min($('#' + exercise.drawingArea).parent().width(), 400);
+      var canvasWidth = $('#' + exercise.drawingArea).parent().width();
       var canvasHeight = canvasWidth;
       exercise.drawService.resize(canvasWidth, canvasHeight);
       $(document).foundation('equalizer', 'reflow');
@@ -741,17 +703,7 @@
         }
       }
     }
-
-    function switchDisplayedInstructions(tab) {
-      resetIdleLoop();
-      exercise.displayInstructions = tab;
-    }
-
-    function switchDisplayedResults(tab) {
-      resetIdleLoop();
-      exercise.displayResults = tab;
-    }
-
+    
     function setDrawFnct(drawFnct) {
       exercise.drawService.setDraw(drawFnct);
       exercise.drawFnct = drawFnct;

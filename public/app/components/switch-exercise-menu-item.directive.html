@@ -5,7 +5,7 @@
 </ul>
 <ul class="off-canvas-list" style="min-height: 6rem; height: 60%; overflow-y: auto;">
   <span ng-repeat="rootLecture in exercisesList.getExercisesTree()">
-    <li ng-if="rootLecture.children === undefined" ng-class="{'active-menu-item': rootLecture.id === exercisesList.getCurrentExerciseID() }" ng-click="exercisesList.setCurrentRootLecture(rootLecture.id)" ui-sref="exercise({ lessonID: 'welcome', exerciseID: rootLecture.id })">
+    <li ng-if="rootLecture.children === undefined" ng-class="{'active-menu-item': exercisesList.isCurrentExerciseAChild(rootLecture)}" ui-sref="exercise({ lessonID: 'welcome', exerciseID: rootLecture.id })">
       <a><strong>{{rootLecture.name}}</strong></a>
     </li>
     <li ng-if="rootLecture.children !== undefined" ng-class="{'active-menu-item': exercisesList.isCurrentExerciseAChild(rootLecture)}" ng-click="rootLecture.deployed = !rootLecture.deployed" class="accordion-navigation">
