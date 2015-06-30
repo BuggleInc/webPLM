@@ -5,9 +5,9 @@
     .module('PLMApp')
     .controller('Home', Home);
 
-  Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler', 'navigation'];
+  Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler', 'navigation', 'gettextCatalog'];
 
-  function Home($http, $scope, $state, $sce, langs, connection, listenersHandler, navigation) {
+  function Home($http, $scope, $state, $sce, langs, connection, listenersHandler, navigation, gettextCatalog) {
     var home = this;
 
     home.lessons = [];
@@ -19,7 +19,7 @@
     home.setCurrentLesson = setCurrentLesson;
     home.goToLesson = goToLesson;
 
-    navigation.setCurrentPageTitle('Home');
+    navigation.setCurrentPageTitle(gettextCatalog.getString('Home'));
 
     var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 

@@ -5,14 +5,16 @@
 		.module('PLMApp')
 		.controller('SignIn', SignIn);
 
-	SignIn.$inject = ['userService', 'toasterUtils', 'gettextCatalog'];
+	SignIn.$inject = ['userService', 'toasterUtils', 'gettextCatalog', 'navigation'];
 
-	function SignIn(userService, toasterUtils, gettextCatalog) {
+	function SignIn(userService, toasterUtils, gettextCatalog, navigation) {
 		var signIn = this;
 		var CREDENTIALS_ERROR_MESSAGE = gettextCatalog.getString('Login failed; Invalid userID or password');
 		var PROVIDER_ERROR_MESSAGE = gettextCatalog.getString('Login failed; request failed');
 		var SUCCESSFUL_LOGIN_MESSAGE = gettextCatalog.getString('You have successfully signed in');
 		
+        navigation.setCurrentPageTitle(gettextCatalog.getString('Sign in'));
+    
 		signIn.email = '';
 		signIn.pwd = '';
 
