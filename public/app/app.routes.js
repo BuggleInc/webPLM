@@ -37,7 +37,7 @@
       })
       .state('exercise', {
         url: '/ui/lessons/:lessonID/:exerciseID',
-        templateUrl: 'assets/app/exercise/exercise-flexbox.html',
+        templateUrl: 'assets/app/exercise/exercise.html',
         params: {
           lessonID: {
             value: null,
