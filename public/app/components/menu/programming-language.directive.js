@@ -8,7 +8,7 @@
   function programmingLanguageMenuItem() {
     return {
       restrict: 'E',
-      templateUrl: '/assets/app/components/programming-language-menu-item.directive.html'
+      templateUrl: '/assets/app/components/menu/programming-language.directive.html'
     };
   }
 })();

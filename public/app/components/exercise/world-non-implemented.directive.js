@@ -8,7 +8,7 @@
 	function worldNonImplemented() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/world-non-implemented.directive.html',
+			templateUrl: '/assets/app/components/exercise/world-non-implemented.directive.html',
 			link: function (scope, element, attrs) {
 				scope.$on('newLangSelected', function () {
 					$(document).foundation('alert', 'reflow');

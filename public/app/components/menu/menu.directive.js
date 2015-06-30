@@ -10,7 +10,7 @@
   function exerciseLeftMenu(navigation, progLangs) {
     return {
       restrict: 'E',
-      templateUrl: '/assets/app/components/exercise-left-menu.directive.html',
+      templateUrl: '/assets/app/components/menu/menu.directive.html',
       link: function (scope, element, attrs) {
         scope.navigation = navigation;
         scope.progLangs = progLangs;

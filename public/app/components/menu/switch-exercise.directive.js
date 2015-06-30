@@ -10,7 +10,7 @@
   function switchExerciseMenuItem(exercisesList) {
     return {
       restrict: 'E',
-      templateUrl: '/assets/app/components/switch-exercise-menu-item.directive.html',
+      templateUrl: '/assets/app/components/menu/switch-exercise.directive.html',
       link: function (scope, element, attrs) {
         scope.exercisesList = exercisesList;
         $(document).foundation('accordion', 'reflow');

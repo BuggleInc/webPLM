@@ -8,7 +8,7 @@
 	function worldsView() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/worlds-view.directive.html',
+			templateUrl: '/assets/app/components/exercise/worlds-view.directive.html',
 			link: function (scope, element, attrs) {
 				scope.$on('newLangSelected', function () {
 					$(document).foundation('tooltip', 'reflow');
