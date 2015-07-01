@@ -32,7 +32,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var corrId : String = java.util.UUID.randomUUID().toString();
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
@@ -64,7 +63,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     //addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    //addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
+    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
@@ -104,18 +103,18 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
     //game.startExerciseExecution()
-    askGameLaunch(lessonID, exerciseID, code, false);
+    askGameLaunch(lessonID, exerciseID, code);
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
-    //game.startExerciseDemoExecution()
-    askGameLaunch(lessonID, exerciseID, game.getlesson().getExercise(), true);
+    game.startExerciseDemoExecution()
   }
   
-  def askGameLaunch(lessonID:String, exerciseID:String, code:String, demoMode : Boolean) {
+  def askGameLaunch(lessonID:String, exerciseID:String, code:String) {
     // Parameters 
     var QUEUE_NAME_REQUEST : String = "worker_in"
     var QUEUE_NAME_REPLY : String = "worker_out"
+    var corrId : String = java.util.UUID.randomUUID().toString();
     
     // This part handles compilation with workers.
 // Properties
@@ -140,6 +139,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     channelOut.basicPublish("", QUEUE_NAME_REQUEST, props,
         msg.toString.getBytes("UTF-8"))
 // Reply
+    Logger.debug("waiting for logs as " + corrId)
     var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
     channelIn.basicConsume(QUEUE_NAME_REPLY, true, consumer)
     var state: Boolean = true;
@@ -149,25 +149,22 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
         var message : String = new String(delivery.getBody(), "UTF-8");
         var replyJSON = Json.parse(message)
         (replyJSON \ "msgType").asOpt[Int].getOrElse(None) match {
-          case (msgType:Int) => 
-            if(!demoMode) {
-              // TODO enregistrer le resultat
-              Logger.debug("Executed - Now sending the exercise's result")
-              plmActor.sendMessage("executionResult", Json.parse(message))
-            }
+          case (msgType:Int) =>
+            // TODO enregistrer le resultat
+            Logger.debug("Executed - Now sending the exercise's result")
+            plmActor.sendMessage("executionResult", Json.parse(message))
             state = false;
           case (_) =>
-            if(!demoMode) {
-              Logger.debug("The world moved!")
-              plmActor.sendMessage("operations", Json.parse(message))
-            }
-            else {
-              plmActor.sendMessage("demoOperations", Json.parse(message))
-            }
+            Logger.debug("The world moved!")
+            plmActor.sendMessage("operations", Json.parse(message))
         }
       }
+      else{
+      }
     }
-    Logger.debug("Test")
+    channelOut.close();
+    channelIn.close();
+    connection.close();
   }
   
   
