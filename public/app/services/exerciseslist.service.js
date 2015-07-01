@@ -55,6 +55,9 @@
     }
 
     function getNextExerciseID() {
+      if(exercisesList === undefined) {
+        return '';
+      }
       for (var i = 0; i < exercisesList.length - 1; i++) {
         var exercise = exercisesList[i];
         if (currentExerciseID === exercise.id) {
