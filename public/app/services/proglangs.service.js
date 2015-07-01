@@ -21,7 +21,7 @@
       getCurrentProglang: getCurrentProglang,
       setDisabled: setDisabled,
       isDisabled: isDisabled,
-      progLangsAreAvailable: progLangsAreAvailable
+      areAvailable: areAvailable
     };
 
     return service;
@@ -65,7 +65,7 @@
       return disabled;
     }
 
-    function progLangsAreAvailable() {
+    function areAvailable() {
       return programmingLanguages.length > 0;
     }
   }

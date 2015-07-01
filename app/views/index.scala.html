@@ -39,14 +39,23 @@
 <body ng-app="PLMApp">
   <div class="off-canvas-wrap" data-offcanvas>
     <div class="inner-wrap">
-      <nav class="tab-bar">
+      <nav class="top-bar tab-bar">
         <section class="left-small">
           <a class="left-off-canvas-toggle menu-icon"><span></span></a>
         </section>
 
         <section class="middle tab-bar-section">
-          <a><h1 class="title">{{navigation.getCurrentPageTitle()}}</h1></a>
+          <span>
+            <strong class="title">{{navigation.getCurrentPageTitle()}}</strong>
           </span>
+        </section>
+        
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <programming-languages></programming-languages>
+            <human-languages></human-languages>
+          </ul>
         </section>
       </nav>
 
@@ -121,6 +130,8 @@
 <script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 
 <!-- Application's components -->
+<script type="text/javascript" src="/assets/app/components/human-languages.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/programming-languages.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/success-modal.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/track-user-modal.directive.js"></script>
 <!-- Exercise's components -->
@@ -138,10 +149,8 @@
 <script type="text/javascript" src="/assets/app/components/home/lesson-gallery.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/home/lesson-overview.directive.js"></script>
 <!-- Menu's components -->
-<script type="text/javascript" src="/assets/app/components/menu/human-language.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/menu/menu.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/menu/profile.directive.js"></script>
-<script type="text/javascript" src="/assets/app/components/menu/programming-language.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/menu/switch-exercise.directive.js"></script>
 <!-- Sign-in's components -->
 <script type="text/javascript" src="/assets/app/components/sign-in/sign-in-form.directive.js"></script>
