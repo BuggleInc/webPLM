@@ -1,0 +1,18 @@
+<span ng-if="!userService.isAuthenticated()">
+  <li>
+    <a ui-sref="signIn" translate>Sign In</a>
+  </li>
+  <li>
+    <a ui-sref="signUp" translate>Sign Up</a>
+  </li>
+</span>
+<span ng-if="userService.isAuthenticated()">
+  <li>
+    <a ui-sref="profile">{{ userService.getUser().fullName }}</a>
+  </li>
+  <li>
+    <a>
+      <span ng-click="userService.signOut()" translate>Sign Out</span>
+    </a>
+  </li>
+</span>
