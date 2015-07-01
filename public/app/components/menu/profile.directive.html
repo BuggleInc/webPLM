@@ -12,9 +12,9 @@
   </span>
   <span ng-if="userService.isAuthenticated()">
     <li>
-      <a ui-sref="profile">
-        {{ userService.getUser().fullName }}
-        <img class="right" ng-src="{{ userService.getUser().avatarURL ? userService.getUser().avatarURL : '/assets/images/buggle-top.svg' }}">
+      <a style="display: flex; justify-content: space-between" ui-sref="profile">
+        <span style="flex: 1; ">{{ userService.getUser().fullName }}</span>
+        <span style="flex: 1; "><img height="50px" width="50px" class="right" ng-src="{{ userService.getUser().avatarURL ? userService.getUser().avatarURL : '/assets/images/buggle-top.svg' }}"></span>
       </a>
     </li>
     <li>
