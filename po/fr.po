@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-18 01:09+0200\n"
+"PO-Revision-Date: 2015-07-02 13:28+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -150,7 +150,7 @@ msgstr "autoriser les déclarations"
 msgid "Already a member?"
 msgstr "Déjà un compte?"
 
-#: public/app/services/user.service.js:96
+#: public/app/services/user.service.js:97
 msgid ""
 "An error occurred while updating your profile. Please excuse us for the "
 "inconvenience and retry to submit your changes later."
@@ -163,7 +163,7 @@ msgstr ""
 msgid "and"
 msgstr "et"
 
-#: public/app/exercise/exercise.html:13
+#: public/app/exercise/exercise.html:10
 msgid "API"
 msgstr "API"
 
@@ -202,11 +202,6 @@ msgstr "moyenne de la liste"
 #: public/app/services/blocklymsg.service.js:442
 msgid "back"
 msgstr "retourne"
-
-#: public/app/components/menu/human-language.directive.html:9
-#: public/app/components/menu/programming-language.directive.html:9
-msgid "Back"
-msgstr "Retour"
 
 #: public/app/services/blocklymsg.service.js:319
 #: public/app/services/blocklymsg.service.js:321
@@ -319,7 +314,7 @@ msgstr "Choisir une couleur dans la palette"
 msgid "clearMessage"
 msgstr "effaceMessage"
 
-#: public/app/exercise/exercise.html:11
+#: public/app/exercise/exercise.html:8
 msgid "Code editor:"
 msgstr "Éditeur de code:"
 
@@ -367,7 +362,7 @@ msgstr "contraindre %1 entre %2 et %3"
 msgid "Constrain a number to be between the specified limits (inclusive)."
 msgstr "Contraindre un nombre à être entre les limites spécifiées (incluses)."
 
-#: public/app/components/menu/menu.directive.html:19
+#: public/app/components/menu/menu.directive.html:17
 msgid "Contact us"
 msgstr "Nous contacter"
 
@@ -562,11 +557,11 @@ msgstr "Activer le bloc"
 msgid "Erase the message."
 msgstr "Effacer le message."
 
-#: public/app/services/user.service.js:95
+#: public/app/services/user.service.js:96
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
-#: public/app/exercise/exercise.html:26
+#: public/app/exercise/exercise.html:24
 msgid "Execution results:"
 msgstr "Résultats de l'exécution:"
 
@@ -782,7 +777,6 @@ msgstr "Aide"
 msgid "Highlight function definition"
 msgstr "Surligner la définition de la fonction"
 
-#: public/app/components/menu/menu.directive.html:4
 #: public/app/home/home.controller.js:22
 msgid "Home"
 msgstr "Accueil"
@@ -1085,9 +1079,9 @@ msgstr "Insère l’élément au début d’une liste."
 msgid "Inserts the item randomly in a list."
 msgstr "Insère l’élément au hasard dans une liste."
 
-#: public/app/exercise/exercise.html:4
-msgid "Instructions:"
-msgstr "Consignes:"
+#: public/app/exercise/exercise.html:11
+msgid "Instructions"
+msgstr "Consignes"
 
 #: public/app/services/blocklymsg.service.js:250
 msgid "is divisible by"
@@ -1166,10 +1160,6 @@ msgstr "élément"
 #: public/app/services/blocklymsg.service.js:388
 msgid "join"
 msgstr "joindre"
-
-#: public/app/components/menu/human-language.directive.html:3
-msgid "Language"
-msgstr "Langue"
 
 #: public/app/services/blocklymsg.service.js:150
 msgid "last"
@@ -1304,7 +1294,6 @@ msgid "No error logs yet... Congratulations!"
 msgstr "Pas de messages d'erreurs pour le moment...Félicitations!"
 
 #: public/app/components/exercise/results.directive.html:21
-#: public/app/exercise/exercise.html:28
 msgid "No results yet, please run your program before."
 msgstr ""
 "Pas de résultats pour le moment, veuillez exécuter votre programme au "
@@ -1356,7 +1345,7 @@ msgstr ""
 msgid "orange"
 msgstr "orange"
 
-#: public/app/components/menu/menu.directive.html:13
+#: public/app/components/menu/menu.directive.html:11
 msgid "Other links"
 msgstr "Autres liens"
 
@@ -1406,10 +1395,6 @@ msgstr "Procedures"
 #: public/app/profile/profile.controller.js:13
 msgid "Profile"
 msgstr "Profil"
-
-#: public/app/components/menu/programming-language.directive.html:3
-msgid "Programming Language"
-msgstr "Langage de programmation"
 
 #: public/app/services/blocklymsg.service.js:421
 msgid "prompt for number with message"
@@ -1554,7 +1539,7 @@ msgstr "répéter jusqu’à"
 msgid "repeat while"
 msgstr "répéter tant que"
 
-#: public/app/components/menu/menu.directive.html:16
+#: public/app/components/menu/menu.directive.html:14
 msgid "Report a bug"
 msgstr "Signaler un bug"
 
@@ -1956,6 +1941,7 @@ msgid "Sign in"
 msgstr "Se connecter"
 
 #: public/app/components/menu/profile.directive.html:7
+#: public/app/components/profile-top-bar.directive.html:3
 msgid "Sign In"
 msgstr "Se connecter"
 
@@ -1968,6 +1954,7 @@ msgid "Sign in with your credentials"
 msgstr "Se connecter via vos identifiants"
 
 #: public/app/components/menu/profile.directive.html:22
+#: public/app/components/profile-top-bar.directive.html:15
 msgid "Sign Out"
 msgstr "Se déconnecter"
 
@@ -1977,6 +1964,7 @@ msgid "Sign up"
 msgstr "S'inscrire"
 
 #: public/app/components/menu/profile.directive.html:10
+#: public/app/components/profile-top-bar.directive.html:6
 msgid "Sign Up"
 msgstr "S'inscrire"
 
@@ -2021,10 +2009,9 @@ msgstr "somme de la liste"
 msgid "Switch exercise"
 msgstr "Changer d'exercice"
 
-#: public/app/components/menu/human-language.directive.html:12
-#: public/app/components/menu/programming-language.directive.html:12
-msgid "Switch to"
-msgstr "Sélectionner"
+#: public/app/components/menu/menu.directive.html:5
+msgid "Switch lesson"
+msgstr "Changer de leçon"
 
 #: public/app/services/blocklymsg.service.js:310
 msgid "tan"
@@ -2034,7 +2021,7 @@ msgstr "tan"
 msgid "test"
 msgstr "test"
 
-#: public/app/exercise/exercise.html:33
+#: public/app/exercise/exercise.html:28
 msgid "Test cases:"
 msgstr "Cas de tests:"
 
@@ -2052,7 +2039,10 @@ msgid ""
 "The PLM currently saves your usage data anonymously on its servers. That "
 "way, you can retrieve your session from any connected computer as long as "
 "you sign in."
-msgstr "La PLM enregistre actuellement vos données d'utilisation anonyme sur ses serveurs. Vous pouvez ainsi retrouver votre session depuis n'importe quel ordinateur."
+msgstr ""
+"La PLM enregistre actuellement vos données d'utilisation anonyme sur ses "
+"serveurs. Vous pouvez ainsi retrouver votre session depuis n'importe quel "
+"ordinateur."
 
 #: public/app/components/track-user-modal.directive.html:4
 msgid ""
@@ -2262,7 +2252,9 @@ msgstr "Bien sûr"
 
 #: public/app/components/track-user-modal.directive.html:11
 msgid "You can later update your preference from your profile's page."
-msgstr "Vous pouvez changer vos préférences à tout instant depuis votre page de profil."
+msgstr ""
+"Vous pouvez changer vos préférences à tout instant depuis votre page de "
+"profil."
 
 #: public/app/services/connection.service.js:42
 msgid ""
@@ -2290,13 +2282,22 @@ msgstr "Vous avez été déconnecté"
 msgid "You have successfully signed in"
 msgstr "L'authentification s'est bien déroulée"
 
-#: public/app/services/user.service.js:147
+#: public/app/services/user.service.js:150
 msgid "Your profile has been successfully updated"
 msgstr "Votre profil a été correctement mis à jour"
 
 #: public/app/components/home/lesson-overview.directive.html:9
 msgid "Your progress"
 msgstr "Votre progression"
+
+#~ msgid "Back"
+#~ msgstr "Retour"
+
+#~ msgid "Language"
+#~ msgstr "Langue"
+
+#~ msgid "Programming Language"
+#~ msgstr "Langage de programmation"
 
 #~ msgid "About"
 #~ msgstr "À propos"
