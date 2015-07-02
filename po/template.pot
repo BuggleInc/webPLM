@@ -131,7 +131,7 @@ msgstr ""
 msgid "Already a member?"
 msgstr ""
 
-#: public/app/services/user.service.js:96
+#: public/app/services/user.service.js:97
 msgid "An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later."
 msgstr ""
 
@@ -139,7 +139,7 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-#: public/app/exercise/exercise.html:13
+#: public/app/exercise/exercise.html:10
 msgid "API"
 msgstr ""
 
@@ -177,11 +177,6 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:442
 msgid "back"
-msgstr ""
-
-#: public/app/components/menu/human-language.directive.html:9
-#: public/app/components/menu/programming-language.directive.html:9
-msgid "Back"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:319
@@ -287,7 +282,7 @@ msgstr ""
 msgid "clearMessage"
 msgstr ""
 
-#: public/app/exercise/exercise.html:11
+#: public/app/exercise/exercise.html:8
 msgid "Code editor:"
 msgstr ""
 
@@ -335,7 +330,7 @@ msgstr ""
 msgid "Constrain a number to be between the specified limits (inclusive)."
 msgstr ""
 
-#: public/app/components/menu/menu.directive.html:19
+#: public/app/components/menu/menu.directive.html:17
 msgid "Contact us"
 msgstr ""
 
@@ -521,11 +516,11 @@ msgstr ""
 msgid "Erase the message."
 msgstr ""
 
-#: public/app/services/user.service.js:95
+#: public/app/services/user.service.js:96
 msgid "Error during update"
 msgstr ""
 
-#: public/app/exercise/exercise.html:26
+#: public/app/exercise/exercise.html:24
 msgid "Execution results:"
 msgstr ""
 
@@ -733,7 +728,6 @@ msgstr ""
 msgid "Highlight function definition"
 msgstr ""
 
-#: public/app/components/menu/menu.directive.html:4
 #: public/app/home/home.controller.js:22
 msgid "Home"
 msgstr ""
@@ -1012,8 +1006,8 @@ msgstr ""
 msgid "Inserts the item randomly in a list."
 msgstr ""
 
-#: public/app/exercise/exercise.html:4
-msgid "Instructions:"
+#: public/app/exercise/exercise.html:11
+msgid "Instructions"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:250
@@ -1092,10 +1086,6 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:388
 msgid "join"
-msgstr ""
-
-#: public/app/components/menu/human-language.directive.html:3
-msgid "Language"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:150
@@ -1232,7 +1222,6 @@ msgid "No error logs yet... Congratulations!"
 msgstr ""
 
 #: public/app/components/exercise/results.directive.html:21
-#: public/app/exercise/exercise.html:28
 msgid "No results yet, please run your program before."
 msgstr ""
 
@@ -1280,7 +1269,7 @@ msgstr ""
 msgid "orange"
 msgstr ""
 
-#: public/app/components/menu/menu.directive.html:13
+#: public/app/components/menu/menu.directive.html:11
 msgid "Other links"
 msgstr ""
 
@@ -1325,10 +1314,6 @@ msgstr ""
 #: public/app/components/menu/profile.directive.html:3
 #: public/app/profile/profile.controller.js:13
 msgid "Profile"
-msgstr ""
-
-#: public/app/components/menu/programming-language.directive.html:3
-msgid "Programming Language"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:421
@@ -1460,7 +1445,7 @@ msgstr ""
 msgid "repeat while"
 msgstr ""
 
-#: public/app/components/menu/menu.directive.html:16
+#: public/app/components/menu/menu.directive.html:14
 msgid "Report a bug"
 msgstr ""
 
@@ -1824,6 +1809,7 @@ msgid "Sign in"
 msgstr ""
 
 #: public/app/components/menu/profile.directive.html:7
+#: public/app/components/profile-top-bar.directive.html:3
 msgid "Sign In"
 msgstr ""
 
@@ -1836,6 +1822,7 @@ msgid "Sign in with your credentials"
 msgstr ""
 
 #: public/app/components/menu/profile.directive.html:22
+#: public/app/components/profile-top-bar.directive.html:15
 msgid "Sign Out"
 msgstr ""
 
@@ -1845,6 +1832,7 @@ msgid "Sign up"
 msgstr ""
 
 #: public/app/components/menu/profile.directive.html:10
+#: public/app/components/profile-top-bar.directive.html:6
 msgid "Sign Up"
 msgstr ""
 
@@ -1888,9 +1876,8 @@ msgstr ""
 msgid "Switch exercise"
 msgstr ""
 
-#: public/app/components/menu/human-language.directive.html:12
-#: public/app/components/menu/programming-language.directive.html:12
-msgid "Switch to"
+#: public/app/components/menu/menu.directive.html:5
+msgid "Switch lesson"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:310
@@ -1901,7 +1888,7 @@ msgstr ""
 msgid "test"
 msgstr ""
 
-#: public/app/exercise/exercise.html:33
+#: public/app/exercise/exercise.html:28
 msgid "Test cases:"
 msgstr ""
 
@@ -2122,7 +2109,7 @@ msgstr ""
 msgid "You have successfully signed in"
 msgstr ""
 
-#: public/app/services/user.service.js:147
+#: public/app/services/user.service.js:150
 msgid "Your profile has been successfully updated"
 msgstr ""
 
