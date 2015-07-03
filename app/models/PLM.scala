@@ -33,6 +33,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
+  var gitGest = new Git(game, userUUID)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -129,7 +130,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     channelIn.queueDeclare(QUEUE_NAME_REPLY, false, false, false, null)
 //Request
     var msg : JsValue = Json.obj(
-          "user" -> "test",
           "lesson" -> ("lessons." + lessonID),
           "exercise" -> exerciseID,
           "localization" -> game.getLocale.getLanguage,
@@ -150,7 +150,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
         var replyJSON = Json.parse(message)
         (replyJSON \ "msgType").asOpt[Int].getOrElse(None) match {
           case (msgType:Int) =>
-            // TODO enregistrer le resultat
+            gitGest.gitEndExecutionPush(replyJSON, code);
             Logger.debug("Executed - Now sending the exercise's result")
             plmActor.sendMessage("executionResult", Json.parse(message))
             state = false;
@@ -166,6 +166,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     channelIn.close();
     connection.close();
   }
+  
   
   
   def stopExecution() {
