@@ -141,25 +141,33 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
 // Reply
     Logger.debug("waiting for logs as " + corrId)
     var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-    channelIn.basicConsume(QUEUE_NAME_REPLY, true, consumer)
+    channelIn.basicConsume(QUEUE_NAME_REPLY, FALSE, consumer)
     var state: Boolean = true;
     while(state) {
-      var delivery : QueueingConsumer.Delivery = consumer.nextDelivery()
-      if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-        var message : String = new String(delivery.getBody(), "UTF-8");
-        var replyJSON = Json.parse(message)
-        (replyJSON \ "msgType").asOpt[Int].getOrElse(None) match {
-          case (msgType:Int) =>
-            gitGest.gitEndExecutionPush(replyJSON, code);
-            Logger.debug("Executed - Now sending the exercise's result")
-            plmActor.sendMessage("executionResult", Json.parse(message))
-            state = false;
-          case (_) =>
-            Logger.debug("The world moved!")
-            plmActor.sendMessage("operations", Json.parse(message))
-        }
+      var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
+      if(delivery == null) {
+        Logger.debug("Execution timeout : sending data about it.")
+        plmActor.sendMessage("executionResult", Json.obj(
+            "outcome" -> "UNKNOWN",
+            "msgType" -> "0",
+            "msg" -> "The compiler crashed unexpectedly."))
+        state = false;
       }
-      else{
+      else {
+        if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+          var message : String = new String(delivery.getBody(), "UTF-8");
+          var replyJSON = Json.parse(message)
+          (replyJSON \ "msgType").asOpt[Int].getOrElse(None) match {
+            case (msgType:Int) =>
+              gitGest.gitEndExecutionPush(replyJSON, code);
+              Logger.debug("Executed - Now sending the exercise's result")
+              plmActor.sendMessage("executionResult", Json.parse(message))
+              state = false;
+            case (_) =>
+              Logger.debug("The world moved!")
+              plmActor.sendMessage("operations", Json.parse(message))
+          }
+        }
       }
     }
     channelOut.close();
