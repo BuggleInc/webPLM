@@ -141,7 +141,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
 // Reply
     Logger.debug("waiting for logs as " + corrId)
     var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-    channelIn.basicConsume(QUEUE_NAME_REPLY, FALSE, consumer)
+    channelIn.basicConsume(QUEUE_NAME_REPLY, false, consumer)
     var state: Boolean = true;
     while(state) {
       var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
@@ -155,6 +155,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       }
       else {
         if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+          channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
           var message : String = new String(delivery.getBody(), "UTF-8");
           var replyJSON = Json.parse(message)
           (replyJSON \ "msgType").asOpt[Int].getOrElse(None) match {
@@ -168,6 +169,8 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
               plmActor.sendMessage("operations", Json.parse(message))
           }
         }
+        else
+          channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
       }
     }
     channelOut.close();
