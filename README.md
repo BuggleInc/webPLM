@@ -14,11 +14,16 @@ Then clone the repository:
 git clone https://github.com/MatthieuNICOLAS/webPLM.git
 ```
 
-You may now run the application using the following commands:
+You may now run the application in production mode using the following commands:
 ```
 cd path/to/webPLM
 activator start
 ```
+
+If you prefer to run it in debug mode (where it reloads everything
+automatically when files change), use ```activator ~run``` instead. If
+you want to start it on port 8080 instead of 9000 by default, use
+```activator "~run 8080"```
 
 To access to your application, browse to <http://localhost:9000>
 
