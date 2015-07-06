@@ -1,32 +1,31 @@
 WebPLM
 ==============
 
-This project's goal is to move [PLM](https://github.com/oster/PLM) from a fat client to a web application using [Play Framework](https://www.playframework.com/) as the back-end and [AngularJS](https://angularjs.org/) to provide the front-end.
+This is the web interface of the
+[PLM](https://github.com/BuggleInc/PLM) project. It uses the [Play
+Framework](https://www.playframework.com/) as the back-end and
+[AngularJS](https://angularjs.org/) for the front-end.
 
 Getting Started
 ---------------
 
 First, [install Play Framework](https://www.playframework.com/documentation/2.3.x/Installing).
-Also a MongoDB instance have to be running if you want to use the user account features. [Check this page](http://docs.mongodb.org/manual/installation/) if you need to install it.
+Also a MongoDB instance have to be running if you want to use the user
+account features. [Check this page](http://docs.mongodb.org/manual/installation/) 
+if you need to install it.   
 
-Then clone the repository:
-```
-git clone https://github.com/MatthieuNICOLAS/webPLM.git
-```
-
-You may now run the application in production mode using the following commands:
-```
-cd path/to/webPLM
-activator start
-```
+You can run the application in production mode by running 
+```activator start ``` from the directory containing your clone of
+this repository.
 
 If you prefer to run it in debug mode (where it reloads everything
-automatically when files change), use ```activator ~run``` instead. If
-you want to start it on port 8080 instead of 9000 by default, use
-```activator "~run 8080"```
+automatically when files change), use ```activator ~run``` instead.
+Remove the ~ so that it only reloads when you reload the page in the
+browser.
 
-To access to your application, browse to <http://localhost:9000>
-
+To access to your application, browse to <http://localhost:9000> If
+you want to start it on port 8080 instead, use ```activator "~run
+8080"```
 
 License
 -------
