@@ -29,18 +29,21 @@
 		function init(canvasElt, canvasWidth, canvasHeight, fnctDraw) {
 			canvas = canvasElt;
 			ctx = canvas.getContext('2d');
-			canvas.width = canvasWidth;
-			canvas.height = canvasHeight;
+      setSize(canvasWidth, canvasHeight);
 			draw = fnctDraw;
 		}
 		
 		function resize(canvasWidth, canvasHeight) {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			canvas.width = canvasWidth;
-			canvas.height = canvasHeight;
+			setSize(canvasWidth, canvasHeight);
 			update();
 		}
 
+    function setSize(canvasWidth, canvasHeight) {
+      canvas.width = Math.min(canvasWidth, 400);
+			canvas.height = Math.min(canvasHeight, 400);
+    }
+    
 		function setWorld (world) {
 			currentWorld = world;
 			if(currentWorld !== null) {

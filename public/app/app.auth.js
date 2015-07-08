@@ -43,12 +43,12 @@
     $authProvider.tokenName = 'token';
     $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
     $authProvider.authHeader = 'X-Auth-Token';
-
+    
     // PLMAccounts
     $authProvider.plmAccounts({
       clientId: '5582bd6c9c4dbe3dc646c1f7',
       url: '/authenticate/plmAccounts',
-      authorizationEndpoint: 'http://localhost:3000/#!/dialog/authorize',
+      authorizationEndpoint: window.location.protocol + '//' + window.location.hostname + ':3000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
       scope: 'email',
       scopeDelimiter: ',',
@@ -56,8 +56,8 @@
       display: 'popup',
       type: '2.0',
       popupOptions: {
-        width: 481,
-        height: 269
+        width: 580,
+        height: 400
       }
     });
 

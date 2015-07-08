@@ -8,7 +8,7 @@
 	function results() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/results.directive.html'
+			templateUrl: '/assets/app/components/exercise/results.directive.html'
 		};
 	}
 })();

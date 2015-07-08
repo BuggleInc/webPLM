@@ -62,8 +62,8 @@
         .then(function () {
           var msg = gettextCatalog.getString('You have been logged out');
           toasterUtils.info(msg);
-          connection.sendMessage('signOut', {});
         });
+      connection.sendMessage('signOut', {});
     }
 
     function getUser()  {
@@ -73,7 +73,6 @@
     function setUser(data) {
       delete $cookies.gitID;
       user = data;
-      console.log('user: ', data);
     }
 
     function cloneUser() {

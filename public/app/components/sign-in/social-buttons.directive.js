@@ -8,7 +8,7 @@
 	function socialButtons() {
 		return {
 			restrict: 'E',
-			templateUrl: '/assets/app/components/social-buttons.directive.html'
+			templateUrl: '/assets/app/components/sign-in/social-buttons.directive.html'
 		};
 	}
 })();

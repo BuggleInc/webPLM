@@ -1,0 +1,25 @@
+plm:
+  build: .
+  volumes:
+    - "~/.plm:/.plm"
+  ports:
+    - "80:9000"
+  links:
+    - accounts
+    - profiles
+accounts:
+  image: plm-accounts
+  ports:
+    - "8080: 3000"
+  links:
+    - db
+profiles:
+  image: plm-profiles
+  links:
+    - db
+db:
+  image: mongo
+  volumes:
+    - "~/mongodb/data:/data/db"
+  ports: 
+    - "27017:27017"

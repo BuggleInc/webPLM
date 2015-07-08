@@ -1,0 +1,23 @@
+<form>
+    <div class="row"> <!-- e-mail -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline"><strong translate>Email:</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="email" id="right-label" ng-model="signIn.email" placeholder="{{ 'Email'|translate }}" required>
+        </div>
+    </div> <!-- /e-mail -->
+
+    <div class="row"> <!-- password -->
+        <div class="small-3 columns">
+            <label for="right-label" class="right inline"><strong translate>Password:</strong></label>
+        </div>
+        <div class="small-9 columns">
+            <input type="password" id="right-label" ng-model="signIn.pwd" placeholder="{{ 'Password'|translate }}" required>
+        </div>
+    </div> <!-- /password-->
+
+    <div class="row text-center">
+        <input type="submit" class="button" ng-click="signIn.submit()" value="{{ 'Sign in'|translate }}"/>
+    </div>
+</form>

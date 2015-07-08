@@ -1,23 +1,32 @@
-<div class="row">
-	<div class="small-12 medium-5 columns block">
-		<div class="row" ng-show="!exercise.nonImplementedWorldException" ng-class="exercise.worldsViewClass">
-			<worlds-view></worlds-view>
-			<hr/>
-		</div>
-		<div class="row" ng-show="exercise.nonImplementedWorldException">
-			<world-non-implemented></world-non-implemented>
-		</div>
-		<div class="row">
-			<instructions></instructions>
-		</div>
-	</div>
-	<div class="small-12 medium-6 columns right block">
-		<div class="row">
-			<ide></ide>
-		</div>
-		<hr/>
-		<div class="row">
-			<results></results>
-		</div>
-	</div>
+<div style="margin-left: 5%; margin-right: 5%;">
+  <div class="top-row" style="display: flex; justify-content: space-between;">
+    <div ng-show="showInstructions" class="flex-block">
+      <instructions></instructions>
+      <worlds-view></worlds-view>
+    </div>
+    <div class="flex-block" style="margin-left: 2.5%;">
+      <h4 class="left" translate>Code editor: </h4>
+      <button class="right small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions">
+        <strong ng-show="!showAPI" translate>API</strong>
+        <strong ng-show="!showInstructions" translate>Instructions</strong>
+      </button>
+      <br>
+      <br>
+      <ide></ide>
+    </div>
+    <div ng-show="showAPI" class="flex-block" style="margin-left: 2.5%;">
+      <div ng-bind-html="exercise.api"></div>
+    </div>
+  </div>
+  <hr class="mid-row">
+  <div class="bottom-row" style="display: flex; justify-content: space-between; align-items: baseline;">
+    <div class="flex-block">
+      <h4 translate>Execution results: </h4>
+      <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
+    </div>
+    <div class="flex-block" style="margin-left: 2.5%; ">
+      <h4 translate>Test cases: </h4>
+      <test-cases></test-cases>
+    </div>
+  </div>
 </div>
