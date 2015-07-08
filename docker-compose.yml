@@ -10,7 +10,7 @@ plm:
 accounts:
   image: plm-accounts
   ports:
-    - "8080: 3000"
+    - "8080:3000"
   links:
     - db
 profiles:
