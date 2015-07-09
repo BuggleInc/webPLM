@@ -5,6 +5,7 @@ import models.User
 import scala.concurrent.Future
 import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.Play
 import play.api.Play.current
 import play.api.libs.ws._
 import play.api.libs.ws.ning.NingAsyncHttpClientConfigBuilder
@@ -25,6 +26,7 @@ class UserDAORestImpl extends UserDAO {
 }
 
 object UserDAORestImpl {
+  val profilesServiceURL = Play.configuration.getString("silhouette.plmprofiles.url").get + "/profiles
 
   /**
    * Finds a user by its login info.
@@ -33,7 +35,7 @@ object UserDAORestImpl {
    * @return The found user or None if no user for the given login info could be found.
    */
   def find(loginInfo: LoginInfo) = {
-    var resourceURI = "http://localhost:3001/profiles/"+loginInfo.providerID+"/"+loginInfo.providerKey
+    var resourceURI = profilesServiceURL+"/"+loginInfo.providerID+"/"+loginInfo.providerKey
     WS.url(resourceURI).get().map {
       response =>
         Logger.debug("On a eu une réponse!")
@@ -58,7 +60,7 @@ object UserDAORestImpl {
   def save(user: User) = {
     val data: JsValue = UserToJson.userWrite(user)
     Logger.debug("Dans save: " + data.toString)
-    WS.url("http://localhost:3001/profiles").post(data).map {
+    WS.url(profilesServiceURL).post(data).map {
       response =>
         if(response.status == 200) {
           Logger.debug("On a bien reçu une rep: "+ response.json.toString)
@@ -79,7 +81,7 @@ object UserDAORestImpl {
    */
   def update(user: User) = {
     val data = UserToJson.userWrite(user)
-    var resourceURI = "http://localhost:3001/profiles/"+user.loginInfo.providerID+"/"+user.loginInfo.providerKey
+    var resourceURI = profilesServiceURL+"/"+user.loginInfo.providerID+"/"+user.loginInfo.providerKey
     WS.url(resourceURI).put(data).map {
       response => 
         if(response.status == 200) {
