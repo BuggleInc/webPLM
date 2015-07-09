@@ -5,6 +5,8 @@ import com.mohiva.play.silhouette.api.util.HTTPLayer
 import com.mohiva.play.silhouette.impl.exceptions.ProfileRetrievalException
 import com.mohiva.play.silhouette.impl.providers._
 import PLMAccountsProvider._
+import play.api.Play
+import play.api.Play.current
 import play.api.http.HeaderNames
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.JsValue
@@ -122,8 +124,7 @@ object PLMAccountsProvider {
    * The Custom constants.
    */
   val ID = "plmAccounts"
-  val API = "http://localhost:3000/oauth/users/%s"
-
+  val API = Play.configuration.getString("silhouette.plmaccounts.apiURL").get
   /**
    * Creates an instance of the provider.
    *

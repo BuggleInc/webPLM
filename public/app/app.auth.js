@@ -46,7 +46,7 @@
     
     // PLMAccounts
     $authProvider.plmAccounts({
-      clientId: '5582bd6c9c4dbe3dc646c1f7',
+      clientId: '559e2e2e3892466d4ed76487',
       url: '/authenticate/plmAccounts',
       authorizationEndpoint: window.location.protocol + '//' + window.location.hostname + ':3000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',

@@ -4,19 +4,21 @@ plm:
     - "~/.plm:/.plm"
   ports:
     - "80:9000"
+  environment: 
+    PLMACCOUNTS_CLIENT_SECRET:
   links:
     - accounts
     - profiles
 accounts:
   image: plm-accounts
   ports:
-    - "8080:3000"
+    - "3000:3000"
   links:
     - db
 profiles:
   image: plm-profiles
   ports:
-    - "3000:3000"
+    - "3001:3000"
   links:
     - db
 db:
