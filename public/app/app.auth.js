@@ -47,7 +47,7 @@
     $authProvider.plmAccounts({
       clientId: 'I8mYYmI9NRC5guz8aoXe',
       url: '/authenticate/plmAccounts',
-      authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr/#!/dialog/authorize',
+      authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr:9000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
       scope: 'email',
       scopeDelimiter: ',',
