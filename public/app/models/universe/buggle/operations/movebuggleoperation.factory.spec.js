@@ -66,6 +66,27 @@
 		it('should replace buggle.x by oldX and buggle.y by oldY when reversed', function () {
 			moveBuggleOperation.reverse(currentWorld);
 			expect(buggle.x).toEqual(oldX);
+            expect(buggle.y).toEqual(oldY);
 		});
+        
+        it('should not change buggle.x and buggle.y when applied then reversed', function () {
+            buggle = new _Buggle({x: oldX, y: oldY});
+            var currentX = buggle.x;
+            var currentY = buggle.y;
+            moveBuggleOperation.apply(currentWorld);
+            moveBuggleOperation.reverse(currentWorld);
+            expect(buggle.x).toEqual(currentX);
+            expect(buggle.y).toEqual(currentY);
+        });
+        
+        it('should not change buggle.x and buggle.y when reversed then applied', function () {
+            buggle = new _Buggle({x: newX, y: newY});
+            var currentX = buggle.x;
+            var currentY = buggle.y;
+            moveBuggleOperation.reverse(currentWorld);
+            moveBuggleOperation.apply(currentWorld);
+            expect(buggle.x).toEqual(currentX);
+            expect(buggle.y).toEqual(currentY);
+        });
 	});
 })();

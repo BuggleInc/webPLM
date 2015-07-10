@@ -1,4 +1,4 @@
-(function(){
+(function () {
 	'use strict';
 
 	describe('ChangeBuggleBrushDown', function() {
@@ -23,8 +23,8 @@
 			var getEntity;
 			var dataOperation;
 			var dataBuggle;
-
-			dataBuggle = {};
+			
+			dataBuggle = {brushDown:oldBrushDown};
 			buggle = new _Buggle(dataBuggle);
 			
 			getEntity = sinon.stub();
@@ -37,7 +37,7 @@
 
 			buggleID = getRandomString(15);
 			newBrushDown = getRandomBoolean();
-			oldBrushDown = getRandomBoolean();
+            oldBrushDown = getRandomBoolean();
 
 			dataOperation = {
 				buggleID: buggleID,
@@ -61,6 +61,22 @@
 		it('should replace buggle.brushDown by oldBrushDown when reversed', function () {
 			changeBuggleBrushDown.reverse(currentWorld);
 			expect(buggle.brushDown).toEqual(oldBrushDown);
+		});
+		
+		it('should not change buggle.brush when applied then reversed', function () {
+            buggle = new _Buggle({brushDown: oldBrushDown});
+			var current = buggle.brushDown;
+			changeBuggleBrushDown.apply(currentWorld);
+			changeBuggleBrushDown.reverse(currentWorld);
+			expect(buggle.brushDown).toEqual(current);
+		});
+        
+        it('should not change buggle.brush when reversed then applied', function () {
+			buggle = new _Buggle({brushDown: newBrushDown});
+			var current = buggle.brushDown;
+			changeBuggleBrushDown.reverse(currentWorld);
+			changeBuggleBrushDown.apply(currentWorld);
+			expect(buggle.brushDown).toEqual(current);
 		});
 	});
 })();

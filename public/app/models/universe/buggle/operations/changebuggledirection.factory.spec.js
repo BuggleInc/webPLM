@@ -58,5 +58,21 @@
 			changeBuggleDirection.reverse(currentWorld);
 			expect(buggle.direction).toEqual(oldDirection);
 		});
+        
+        it('should not change buggle.direction when applied then reversed', function () {
+            buggle = new _Buggle({direction: newDirection});
+            var current = buggle.direction;
+            changeBuggleDirection.apply(currentWorld);
+            changeBuggleDirection.reverse(currentWorld);
+            expect(buggle.direction).toEqual(current);
+        });
+        
+        it('should not change buggle.direction when reversed then applied', function () {
+            buggle = new _Buggle({direction: oldDirection});
+            var current = buggle.direction;
+            changeBuggleDirection.reverse(currentWorld);
+            changeBuggleDirection.apply(currentWorld);
+            expect(buggle.direction).toEqual(current);
+        });
 	});
 })();

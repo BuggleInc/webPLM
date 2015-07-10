@@ -64,5 +64,25 @@
 			changeCellColor.reverse(currentWorld);
 			expect(cell.color).toEqual(oldColor);
 		});
+        
+        it('should not change cell.color when applied then reversed', function () {
+            cell = new _BuggleWorldCell({color: oldColor});
+            var current = cell.color;
+            changeCellColor.apply(currentWorld);
+            changeCellColor.reverse(currentWorld);
+            expect(cell.color).toEqual(current);
+        });
+        
+        it('should not change cell.color when reversed then applied', function () {
+            cell = new _BuggleWorldCell({color: getRandomColor()});
+            var current = cell.color;
+            changeCellColor.reverse(currentWorld);
+            changeCellColor.apply(currentWorld);
+            expect(cell.color).toEqual(current);
+            expect(cell.color).toEqual(1);
+            expect(current).toEqual(1);
+            expect(oldColor).toEqual(1);
+            expect(newColor).toEqual(1);
+        });
 	});
 })();
