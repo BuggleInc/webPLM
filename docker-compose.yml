@@ -5,6 +5,8 @@ plm:
   ports:
     - "80:9000"
   environment: 
+    GITHUB_CLIENT_SECRET:
+    GOOGLE_CLIENT_SECRET:
     PLMACCOUNTS_CLIENT_SECRET:
   links:
     - accounts
@@ -12,7 +14,7 @@ plm:
 accounts:
   image: plm-accounts
   ports:
-    - "3000:3000"
+    - "9000:3000"
   links:
     - db
 profiles:

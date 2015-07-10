@@ -48,7 +48,7 @@
     $authProvider.plmAccounts({
       clientId: '559e2e2e3892466d4ed76487',
       url: '/authenticate/plmAccounts',
-      authorizationEndpoint: window.location.protocol + '//' + window.location.hostname + ':3000/#!/dialog/authorize',
+      authorizationEndpoint: window.location.protocol + '//' + window.location.hostname + ':9000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
       scope: 'email',
       scopeDelimiter: ',',
@@ -84,7 +84,7 @@
       url: '/authenticate/github',
       authorizationEndpoint: 'https://github.com/login/oauth/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
-      scope: 'user:email',
+      scope: 'user',
       scopeDelimiter: ',',
       display: 'popup',
       type: '2.0',

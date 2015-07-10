@@ -26,7 +26,7 @@ class UserDAORestImpl extends UserDAO {
 }
 
 object UserDAORestImpl {
-  val profilesServiceURL = Play.configuration.getString("silhouette.plmprofiles.url").get + "/profiles
+  val profilesServiceURL = Play.configuration.getString("silhouette.plmprofiles.url").get + "/profiles"
 
   /**
    * Finds a user by its login info.

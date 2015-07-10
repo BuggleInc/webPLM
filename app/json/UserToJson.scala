@@ -15,6 +15,8 @@ object UserToJson {
     var json = Json.obj(
       "firstName" -> user.firstName,
       "lastName" -> user.lastName,
+      "fullName" -> user.fullName,
+      "avatarURL" -> user.avatarURL,
       "email" -> user.email,
       "loginInfo" -> Json.obj(
         "providerID" -> user.loginInfo.providerID,
@@ -58,7 +60,7 @@ object UserToJson {
           providerKey =   (json \ "loginInfo" \ "providerKey").as[String]
         ),
       preferredLang = preferredLang,
-      avatarURL = None,
+      avatarURL = (json \ "avatarURL").asOpt[String],
       lastProgLang = None,
       trackUser = None
     )
