@@ -1,0 +1,39 @@
+<div class="contain-to-grid">
+  <nav class="top-bar" data-topbar=true role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a ui-sref="home">PLM</a></h1>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon">
+        <a href="#"><span translate>Menu</span></a>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li ng-hide="userService.isAuthenticated()"><a ui-sref="signIn" translate>Sign In</a>
+        </li>
+        <li ng-show="userService.isAuthenticated()"><a ui-sref="profile" translate>Profile</a>
+        </li>
+        <li ng-show="userService.isAuthenticated()"><a ng-click="userService.signOut()" translate>Sign Out</a>
+        </li>
+        <li><a href="#" translate>About</a>
+        </li>
+        <li><a href="#" translate>Contact</a>
+        </li>
+        <li>
+          <select-lang></select-lang>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li><a ui-sref="home" translate>Home</a>
+        </li>
+      </ul>
+    </section>
+  </nav>
+  <!-- /.nav -->
+</div>

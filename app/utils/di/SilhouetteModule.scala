@@ -6,6 +6,7 @@ import com.mohiva.play.silhouette.api.util._
 import com.mohiva.play.silhouette.api.{ Environment, EventBus }
 import com.mohiva.play.silhouette.impl.authenticators._
 import com.mohiva.play.silhouette.impl.daos.{ CacheAuthenticatorDAO, DelegableAuthInfoDAO }
+import utils.di.PLMAccountsProvider._
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.providers.oauth1._
 import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{ CookieSecretProvider, CookieSecretSettings }
@@ -32,15 +33,13 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    */
   def configure() {
     bind[UserService].to[UserServiceImpl]
-    bind[UserDAO].to[UserDAOMongoImpl]
-    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAOMongo]
+    bind[UserDAO].to[UserDAORestImpl]
     bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]
     bind[DelegableAuthInfoDAO[OAuth2Info]].to[OAuth2InfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
     bind[HTTPLayer].to[PlayHTTPLayer]
     bind[OAuth2StateProvider].to[DummyStateProvider]
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
-    bind[PasswordHasher].toInstance(new BCryptPasswordHasher)
     bind[FingerprintGenerator].toInstance(new DefaultFingerprintGenerator(false))
     bind[EventBus].toInstance(EventBus())
   }
@@ -63,7 +62,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     userService: UserService,
     authenticatorService: AuthenticatorService[JWTAuthenticator],
     eventBus: EventBus,
-    credentialsProvider: CredentialsProvider,
+    plmAccountsProvider: PLMAccountsProvider,
     facebookProvider: FacebookProvider,
     gitHubProvider: GitHubProvider,
     googleProvider: GoogleProvider,
@@ -73,7 +72,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
       userService,
       authenticatorService,
       ListMap(
-        credentialsProvider.id -> credentialsProvider,
+        plmAccountsProvider.id ->  plmAccountsProvider,
         googleProvider.id -> googleProvider,
         facebookProvider.id -> facebookProvider,
         twitterProvider.id -> twitterProvider,
@@ -106,23 +105,6 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   }
 
   /**
-   * Provides the auth info service.
-   *
-   * @param passwordInfoDAO The implementation of the delegable password auth info DAO.
-   * @param oauth1InfoDAO The implementation of the delegable OAuth1 auth info DAO.
-   * @param oauth2InfoDAO The implementation of the delegable OAuth2 auth info DAO.
-   * @return The auth info service instance.
-   */
-  @Provides
-  def provideAuthInfoService(
-    passwordInfoDAO: DelegableAuthInfoDAO[PasswordInfo],
-    oauth1InfoDAO: DelegableAuthInfoDAO[OAuth1Info],
-    oauth2InfoDAO: DelegableAuthInfoDAO[OAuth2Info]): AuthInfoService = {
-
-    new DelegableAuthInfoService(passwordInfoDAO, oauth1InfoDAO, oauth2InfoDAO)
-  }
-
-  /**
    * Provides the avatar service.
    *
    * @param httpLayer The HTTP layer implementation.
@@ -149,18 +131,20 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   }
 
   /**
-   * Provides the credentials provider.
+   * Provides the PLMAccounts provider.
    *
-   * @param authInfoService The auth info service implemenetation.
-   * @param passwordHasher The default password hasher implementation.
-   * @return The credentials provider.
+   * @param httpLayer The HTTP layer implementation.
+   * @param stateProvider The OAuth2 state provider implementation.
+   * @return The PLMAccounts provider.
    */
   @Provides
-  def provideCredentialsProvider(
-    authInfoService: AuthInfoService,
-    passwordHasher: PasswordHasher): CredentialsProvider = {
-
-    new CredentialsProvider(authInfoService, passwordHasher, Seq(passwordHasher))
+  def providePLMAccountsProvider(httpLayer: HTTPLayer, stateProvider: OAuth2StateProvider): PLMAccountsProvider = {
+    PLMAccountsProvider(httpLayer, stateProvider, OAuth2Settings(
+      accessTokenURL = Play.configuration.getString("silhouette.plmaccounts.accessTokenURL").get,
+      redirectURL = Play.configuration.getString("silhouette.plmaccounts.redirectURL").get,
+      clientID = Play.configuration.getString("silhouette.plmaccounts.clientID").getOrElse(""),
+      clientSecret = Play.configuration.getString("silhouette.plmaccounts.clientSecret").getOrElse(""),
+      scope = Play.configuration.getString("silhouette.plmaccounts.scope")))
   }
 
   /**

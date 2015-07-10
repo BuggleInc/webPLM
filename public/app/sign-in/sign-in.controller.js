@@ -1,58 +1,41 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.controller('SignIn', SignIn);
+(function () {
+  'use strict';
 
-	SignIn.$inject = ['userService', 'toasterUtils', 'gettextCatalog', 'navigation'];
+  angular
+    .module('PLMApp')
+    .controller('SignIn', SignIn);
 
-	function SignIn(userService, toasterUtils, gettextCatalog, navigation) {
-		var signIn = this;
-		var CREDENTIALS_ERROR_MESSAGE = gettextCatalog.getString('Login failed; Invalid userID or password');
-		var PROVIDER_ERROR_MESSAGE = gettextCatalog.getString('Login failed; request failed');
-		var SUCCESSFUL_LOGIN_MESSAGE = gettextCatalog.getString('You have successfully signed in');
-		
-        navigation.setCurrentPageTitle(gettextCatalog.getString('Sign in'));
-    
-		signIn.email = '';
-		signIn.pwd = '';
+  SignIn.$inject = ['userService', 'toasterUtils', 'gettextCatalog'];
 
-		signIn.showErrorMsg = false;
-		signIn.errorMsg = '';
+  function SignIn(userService, toasterUtils, gettextCatalog) {
+    var signIn = this;
+    var PROVIDER_ERROR_MESSAGE = gettextCatalog.getString('Login failed; request failed');
+    var SUCCESSFUL_LOGIN_MESSAGE = gettextCatalog.getString('You have successfully signed in');
 
-		signIn.submit = submit;
-		signIn.authenticate = authenticate;
-		signIn.hideErrorMsg = hideErrorMsg;
+    signIn.email = '';
+    signIn.pwd = '';
 
-		function submit() {
-			userService.signInWithCredentials(signIn.email, signIn.pwd)
-			.then(function (data) {
-				signIn.showErrorMsg = false;
-				signIn.errorMsg = '';
-                toasterUtils.info(SUCCESSFUL_LOGIN_MESSAGE);
-			})
-			.catch(function (response) {
-				signIn.showErrorMsg = true;
-				signIn.errorMsg = CREDENTIALS_ERROR_MESSAGE;
-			});
-		}
+    signIn.showErrorMsg = false;
+    signIn.errorMsg = '';
 
-		function authenticate(provider) {
-			userService.signInWithProvider(provider)
-			.then(function (data) {
-				signIn.showErrorMsg = false;
-				signIn.errorMsg = '';
-                toasterUtils.info(SUCCESSFUL_LOGIN_MESSAGE);
-			})
-			.catch(function (response) {
-				signIn.showErrorMsg = true;
-				signIn.errorMsg = PROVIDER_ERROR_MESSAGE;
-			});
-		}
+    signIn.authenticate = authenticate;
+    signIn.hideErrorMsg = hideErrorMsg;
 
-		function hideErrorMsg() {
-			signIn.showErrorMsg = false;
-		}
-	}
+    function authenticate(provider) {
+      userService.signInWithProvider(provider)
+        .then(function (data) {
+          signIn.showErrorMsg = false;
+          signIn.errorMsg = '';
+          toasterUtils.info(SUCCESSFUL_LOGIN_MESSAGE);
+        })
+        .catch(function (response) {
+          signIn.showErrorMsg = true;
+          signIn.errorMsg = PROVIDER_ERROR_MESSAGE;
+        });
+    }
+
+    function hideErrorMsg() {
+      signIn.showErrorMsg = false;
+    }
+  }
 })();

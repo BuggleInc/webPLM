@@ -1,64 +1,83 @@
-(function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.config(config);
-	
-	function config ($httpProvider, $authProvider) {
-	    
-	    $httpProvider.interceptors.push(function($q, $injector) {
-			return {
-				request: function(request) {
-					var $auth = $injector.get('$auth');
-					if ($auth.isAuthenticated()) {
-						request.headers['X-Auth-Token'] = $auth.getToken();
-					}
+(function () {
+  'use strict';
 
-					return request;
-					},
+  angular
+    .module('PLMApp')
+    .config(config);
 
-				responseError: function(rejection) {
-					var $auth = $injector.get('$auth');
-					if (rejection.status === 401) {
-						if($auth.isAuthenticated()) {
-							$auth.logout();
-						}
-					}
-					return $q.reject(rejection);
-					}
-			};
-		});
+  function config($httpProvider, $authProvider) {
 
-		// Auth config
-		$authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
-		$authProvider.loginOnSignup = true;
-		$authProvider.loginRedirect = '/home';
-		$authProvider.logoutRedirect = '/';
-		$authProvider.signupRedirect = '/home';
-		$authProvider.loginUrl = '/signIn';
-		$authProvider.signupUrl = '/signUp';
-		$authProvider.loginRoute = '/signIn';
-		$authProvider.signupRoute = '/signUp';
-		$authProvider.tokenName = 'token';
-		$authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
-		$authProvider.authHeader = 'X-Auth-Token';
+    $httpProvider.interceptors.push(function ($q, $injector) {
+      return {
+        request: function (request) {
+          var $auth = $injector.get('$auth');
+          if ($auth.isAuthenticated()) {
+            request.headers['X-Auth-Token'] = $auth.getToken();
+          }
 
-		// Facebook
-		$authProvider.facebook({
-			clientId: '1503078423241610',
-			url: '/authenticate/facebook',
-			authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
-			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
-			scope: 'email',
-			scopeDelimiter: ',',
-			requiredUrlParams: ['display', 'scope'],
-			display: 'popup',
-			type: '2.0',
-			popupOptions: { width: 481, height: 269 }
-		});
+          return request;
+        },
+        responseError: function (rejection) {
+          var $auth = $injector.get('$auth');
+          if (rejection.status === 401) {
+            if ($auth.isAuthenticated()) {
+              $auth.logout();
+            }
+          }
+          return $q.reject(rejection);
+        }
+      };
+    });
 
-		// GitHub
+    // Auth config
+    $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
+    $authProvider.loginOnSignup = true;
+    $authProvider.loginRedirect = '/home';
+    $authProvider.logoutRedirect = '/';
+    $authProvider.signupRedirect = '/home';
+    $authProvider.loginUrl = '/signIn';
+    $authProvider.signupUrl = '/signUp';
+    $authProvider.loginRoute = '/signIn';
+    $authProvider.signupRoute = '/signUp';
+    $authProvider.tokenName = 'token';
+    $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
+    $authProvider.authHeader = 'X-Auth-Token';
+    
+    // PLMAccounts
+    $authProvider.plmAccounts({
+      clientId: 'I8mYYmI9NRC5guz8aoXe',
+      url: '/authenticate/plmAccounts',
+      authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr/#!/dialog/authorize',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
+      scope: 'email',
+      scopeDelimiter: ',',
+      requiredUrlParams: ['display', 'scope'],
+      display: 'popup',
+      type: '2.0',
+      popupOptions: {
+        width: 580,
+        height: 400
+      }
+    });
+
+    // Facebook
+    $authProvider.facebook({
+      clientId: '1503078423241610',
+      url: '/authenticate/facebook',
+      authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
+      scope: 'email',
+      scopeDelimiter: ',',
+      requiredUrlParams: ['display', 'scope'],
+      display: 'popup',
+      type: '2.0',
+      popupOptions: {
+        width: 481,
+        height: 269
+      }
+    });
+
+    // GitHub
 		$authProvider.github({
 			clientId: 'c9bd1da1b907edef783c',
 			url: '/authenticate/github',
@@ -86,11 +105,14 @@
 			popupOptions: { width: 580, height: 400 }
 		});
 
-		// Twitter
-		$authProvider.twitter({
-			url: '/authenticate/twitter',
-			type: '1.0',
-			popupOptions: { width: 495, height: 645 }
-		});
-	}
+    // Twitter
+    $authProvider.twitter({
+      url: '/authenticate/twitter',
+      type: '1.0',
+      popupOptions: {
+        width: 495,
+        height: 645
+      }
+    });
+  }
 })();

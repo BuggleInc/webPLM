@@ -21,18 +21,19 @@ trait UserDAO {
   def find(loginInfo: LoginInfo): Future[Option[User]]
 
   /**
-   * Finds a user by its user ID.
-   *
-   * @param userID The ID of the user to find.
-   * @return The found user or None if no user for the given ID could be found.
-   */
-  def find(userID: UUID): Future[Option[User]]
-
-  /**
    * Saves a user.
    *
    * @param user The user to save.
    * @return The saved user.
    */
-  def save(user: User): Future[User]
+  def save(user: User): Future[Option[User]]
+  
+  
+  /**
+   * Updates a user.
+   *
+   * @param user The updated user to save.
+   * @return True if it was successfully updated, false otherwise.
+   */
+  def update(user: User): Future[Boolean]
 }
