@@ -13,7 +13,8 @@ import play.api.Play
 import play.api.Play.current
 
 object Tribunal {
-  var QUEUE_ADDR = Play.configuration.getString("messagequeue.url").getOrElse("localhost:5672")
+  var QUEUE_ADDR = Play.configuration.getString("messagequeue.addr").getOrElse("localhost")
+  var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
   def askGameLaunch(plmActor:PLMActor, gitGest:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
     // Parameters 
     var QUEUE_NAME_REQUEST : String = "worker_in"
@@ -26,6 +27,7 @@ object Tribunal {
 // Connection
     var factory : ConnectionFactory = new ConnectionFactory()
     factory.setHost(QUEUE_ADDR)
+    factory.setPort(QUEUE_PORT.toInt)
     var connection : Connection  = factory.newConnection()
     var channelOut : Channel = connection.createChannel()
     var channelIn : Channel = connection.createChannel()
