@@ -60,7 +60,7 @@
 		});
         
         it('should not change buggle.direction when applied then reversed', function () {
-            buggle = new _Buggle({direction: newDirection});
+            buggle.direction = oldDirection;
             var current = buggle.direction;
             changeBuggleDirection.apply(currentWorld);
             changeBuggleDirection.reverse(currentWorld);
@@ -68,7 +68,7 @@
         });
         
         it('should not change buggle.direction when reversed then applied', function () {
-            buggle = new _Buggle({direction: oldDirection});
+            buggle.direction = newDirection;
             var current = buggle.direction;
             changeBuggleDirection.reverse(currentWorld);
             changeBuggleDirection.apply(currentWorld);

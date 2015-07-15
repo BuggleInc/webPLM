@@ -70,7 +70,8 @@
 		});
         
         it('should not change buggle.x and buggle.y when applied then reversed', function () {
-            buggle = new _Buggle({x: oldX, y: oldY});
+            buggle.x = oldX;
+            buggle.y = oldY;
             var currentX = buggle.x;
             var currentY = buggle.y;
             moveBuggleOperation.apply(currentWorld);
@@ -80,7 +81,8 @@
         });
         
         it('should not change buggle.x and buggle.y when reversed then applied', function () {
-            buggle = new _Buggle({x: newX, y: newY});
+            buggle.x = newX;
+            buggle.y = newY;
             var currentX = buggle.x;
             var currentY = buggle.y;
             moveBuggleOperation.reverse(currentWorld);

@@ -64,7 +64,7 @@
 		});
 		
 		it('should not change buggle.brush when applied then reversed', function () {
-            buggle = new _Buggle({brushDown: oldBrushDown});
+            buggle.brushDown = oldBrushDown;
 			var current = buggle.brushDown;
 			changeBuggleBrushDown.apply(currentWorld);
 			changeBuggleBrushDown.reverse(currentWorld);
@@ -72,7 +72,7 @@
 		});
         
         it('should not change buggle.brush when reversed then applied', function () {
-			buggle = new _Buggle({brushDown: newBrushDown});
+			buggle.brushDown = newBrushDown;
 			var current = buggle.brushDown;
 			changeBuggleBrushDown.reverse(currentWorld);
 			changeBuggleBrushDown.apply(currentWorld);

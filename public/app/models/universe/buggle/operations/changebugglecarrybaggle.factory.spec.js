@@ -60,7 +60,7 @@
 		});
         
         it('should not change buggle.carryBaggle when applied then reversed', function () {
-            buggle = new _Buggle({carryBaggle: oldCarryBaggle});
+            buggle.carryBaggle = oldCarryBaggle;
             var current = buggle.carryBaggle;
             changeBuggleCarryBaggle.apply(currentWorld);
             changeBuggleCarryBaggle.reverse(currentWorld);
@@ -68,7 +68,7 @@
         });
         
         it('should not change buggle.carryBaggle when reversed then applied', function () {
-            buggle = new _Buggle({carryBaggle: newCarryBaggle});
+            buggle.carryBaggle = newCarryBaggle;
             var current = buggle.carryBaggle;
             changeBuggleCarryBaggle.reverse(currentWorld);
             changeBuggleCarryBaggle.apply(currentWorld);
