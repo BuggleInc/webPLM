@@ -179,7 +179,9 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        handleOperations(args.worldID, 'current', args.operations);
+	      args.forEach( function(args_in) {
+		handleOperations(args_in.worldID, 'current', args_in.operations);
+	      })
         break;
       case 'demoOperations':
         handleOperations(args.worldID, 'answer', args.operations);
