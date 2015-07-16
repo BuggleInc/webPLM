@@ -187,6 +187,12 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               )
               UserDAORestImpl.update(currentUser)
               sendMessage("userUpdated", Json.obj())
+             (optTrackUser.getOrElse(None)) match {
+                case trackUser: Boolean =>
+                  plm.setTrackUser(currentTrackUser)
+                case _ =>
+                  Logger.debug("setTrackUser: non-correct JSON")
+              }
             case _ =>
               Logger.debug("updateUser: non-correct JSON")
           }
