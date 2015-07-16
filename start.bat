@@ -1,0 +1,2 @@
+@title WebPLM
+@activator run

@@ -15,17 +15,18 @@ import plm.core.model.tracking.ProgressSpyListener
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
-import play.api.libs.json._
 import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
+import actors.PLMActor
 import java.util.Locale
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], plmActor: PLMActor, trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
+  var gitGest = new Git(game, userUUID)
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -55,7 +56,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
+    //addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
@@ -95,15 +96,19 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    game.startExerciseExecution()
+    //game.startExerciseExecution()
+    Tribunal.askGameLaunch(plmActor, gitGest, game, lessonID, exerciseID, code);
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
     game.startExerciseDemoExecution()
   }
   
+  
+  
   def stopExecution() {
-    game.stopExerciseExecution()
+    //game.stopExerciseExecution()
+    // NO OP ?
   }
   
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
