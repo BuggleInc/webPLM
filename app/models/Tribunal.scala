@@ -12,9 +12,11 @@ import play.api.libs.json._
 import play.api.Play
 import play.api.Play.current
 
-object Tribunal {
+class Tribunal {
   var QUEUE_ADDR = Play.configuration.getString("messagequeue.addr").getOrElse("localhost")
   var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
+  var timeout : Long = 0
+  
   def askGameLaunch(plmActor:PLMActor, gitGest:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
     // Parameters 
     var QUEUE_NAME_REQUEST : String = "worker_in"
@@ -48,7 +50,7 @@ object Tribunal {
     var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
     channelIn.basicConsume(QUEUE_NAME_REPLY, false, consumer)
     var state: Boolean = true
-    var timeout = System.currentTimeMillis + 5000
+    timeout = System.currentTimeMillis + 5000
     while(state) {
       var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
       if(System.currentTimeMillis > timeout) {
@@ -56,10 +58,10 @@ object Tribunal {
         plmActor.sendMessage("executionResult", Json.obj(
             "outcome" -> "UNKNOWN",
             "msgType" -> "0",
-            "msg" -> "The compiler crashed unexpectedly."))
+            "msg" -> "The compiler timed out."))
         state = false;
       }
-      if (delivery != null) {
+      else if (delivery != null) {
 		if (delivery.getProperties().getCorrelationId().equals(corrId)) {
           channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
           var message : String = new String(delivery.getBody(), "UTF-8");
@@ -84,5 +86,9 @@ object Tribunal {
     channelOut.close();
     channelIn.close();
     connection.close();
+  }
+  
+  def free() {
+	  timeout = 0;
   }
 }

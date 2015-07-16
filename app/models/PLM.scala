@@ -27,6 +27,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   var _currentLang: Lang = _
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   var gitGest = new Git(game, userUUID)
+  var tribunal : Tribunal = _
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -56,7 +57,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    //addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
@@ -96,8 +96,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    //game.startExerciseExecution()
-    Tribunal.askGameLaunch(plmActor, gitGest, game, lessonID, exerciseID, code);
+    tribunal.askGameLaunch(plmActor, gitGest, game, lessonID, exerciseID, code);
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
@@ -107,8 +106,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   
   def stopExecution() {
-    //game.stopExerciseExecution()
-    // NO OP ?
+    tribunal.free()
   }
   
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
