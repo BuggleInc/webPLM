@@ -47,10 +47,11 @@ object Tribunal {
     Logger.debug("waiting for logs as " + corrId)
     var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
     channelIn.basicConsume(QUEUE_NAME_REPLY, false, consumer)
-    var state: Boolean = true;
+    var state: Boolean = true
+    var timeout = System.currentTimeMillis + 5000
     while(state) {
       var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-      if(delivery == null) {
+      if(System.currentTimeMillis > timeout) {
         Logger.debug("Execution timeout : sending data about it.")
         plmActor.sendMessage("executionResult", Json.obj(
             "outcome" -> "UNKNOWN",
@@ -58,8 +59,8 @@ object Tribunal {
             "msg" -> "The compiler crashed unexpectedly."))
         state = false;
       }
-      else {
-        if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+      if (delivery != null) {
+		if (delivery.getProperties().getCorrelationId().equals(corrId)) {
           channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
           var message : String = new String(delivery.getBody(), "UTF-8");
           var replyJSON = Json.parse(message)
@@ -73,10 +74,12 @@ object Tribunal {
               Logger.debug("The world moved!")
               plmActor.sendMessage("operations", Json.parse(message))
           }
+          timeout = System.currentTimeMillis + 1000
         }
-        else
-          channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
-      }
+		else {
+			channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
+		} 
+	  }
     }
     channelOut.close();
     channelIn.close();
