@@ -30,6 +30,12 @@ object UserToJson {
       case _ =>
         // Do nothing
     }
+	user.trackUser.getOrElse(None) match {
+      case trackUser: Boolean =>
+        json = json.+("trackUser" -> Json.toJson(trackUser))
+      case _ =>
+        // Do nothing
+    }
     Logger.debug("On envoie: "+json.toString)
     json
   }
@@ -62,7 +68,7 @@ object UserToJson {
       preferredLang = preferredLang,
       avatarURL = (json \ "avatarURL").asOpt[String],
       lastProgLang = None,
-      trackUser = None
+      trackUser = (json \ "trackUser").asOpt[Boolean]
     )
   }
 }
