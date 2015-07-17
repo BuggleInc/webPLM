@@ -147,7 +147,7 @@
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
       exercise.editor.on('change', resetIdleLoop);
-      //resizeCodeMirror();
+      resizeCodeMirror();
     };
 
     function getExercise() {
@@ -415,7 +415,7 @@
 
         setCurrentWorld(exercise.currentWorldID, 'current');
 
-        //window.addEventListener('resize', resizeCodeMirror, false);
+        window.addEventListener('resize', resizeCodeMirror, false);
 
         progLangs.setProgLangs(data.programmingLanguages);
         var progLang = data.programmingLanguages[0];
@@ -640,7 +640,7 @@
       exercise.result = null;
       exercise.logs = null;
       window.removeEventListener('resize', resizeCanvas, false);
-      //window.removeEventListener('resize', resizeCodeMirror, false);
+      window.removeEventListener('resize', resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -684,10 +684,9 @@
 
     function resizeCodeMirror() {
       // Want to keep the IDE's height equals to the draw surface's one
-      var drawingAreaHeight = $('#' + exercise.drawingArea).parent().width();
+      var drawingAreaHeight = $('ui-codemirror').parent().parent().height() * 0.8;
       exercise.editor.setSize(null, drawingAreaHeight);
       exercise.editor.refresh();
-      $(document).foundation('equalizer', 'reflow');
     }
 
     function switchToTab(tab) {
