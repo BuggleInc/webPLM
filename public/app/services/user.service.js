@@ -86,6 +86,7 @@
     function updateUser(newUser) {
       user.firstName = newUser.firstName;
       user.lastName = newUser.lastName;
+      user.fullName = user.firstName + ' ' + newUser.lastName;
       user.trackUser = newUser.trackUser;
       connection.sendMessage('updateUser', {
         firstName: user.firstName,
