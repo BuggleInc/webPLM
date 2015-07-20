@@ -8,7 +8,7 @@
 	connection.$inject = ['$rootScope', 'toasterUtils', 'gettextCatalog'];
 	
 	function connection ($rootScope, toasterUtils, gettextCatalog) {
-		var url = 'ws://'+document.location.host+'/websocket';
+		var url = 'wss://'+document.location.host+ ':' + (parseInt(document.location.port) + 443) '/websocket';
 		if(localStorage['satellizer_token'] !== undefined) {
 			url+= '?token='+localStorage['satellizer_token'];
 		}

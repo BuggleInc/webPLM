@@ -4,6 +4,7 @@ plm:
     - "~/.plm:/.plm"
   ports:
     - "80:9000"
+    - "443:9443"
   environment: 
     GITHUB_CLIENT_SECRET:
     GOOGLE_CLIENT_SECRET:

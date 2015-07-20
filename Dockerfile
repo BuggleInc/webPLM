@@ -23,9 +23,9 @@ ENV PATH $PATH:$SCALA_HOME/bin
 RUN mkdir /app
 
 WORKDIR /app
-EXPOSE 9000
+EXPOSE 9000 9443
 
 ADD ["target/universal/stage", "/app/webplm-dist"]
 
 WORKDIR /app/webplm-dist
-CMD ["bin/web-plm"]
+CMD ["bin/web-plm -Dhttps.port=9443"]
