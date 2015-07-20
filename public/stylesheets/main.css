@@ -110,7 +110,6 @@ html {
 .provider > img {
   width: 64px;
   height: 64px;
-<<<<<<< HEAD
 }
 
 .facebook {
@@ -145,30 +144,6 @@ html {
   opacity: 0.9;
 }
 
-=======
-}
-
-.facebook {
-  background: #3B5998;
-}
-
-.google {
-  background: #DF4A32;
-}
-
-.google:hover {
-  background: #E94A2F;
-}
-
-.google:active {
-  background: #C03D28;
-}
-
-.github {
-  opacity: 0.9;
-}
-
->>>>>>> master
 .github:hover {
   opacity: 0.8;
 }
@@ -314,17 +289,10 @@ html {
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-bottom-left-radius: 20px;
-<<<<<<< HEAD
 }
 
 div[ui-view] {
   padding-top: 25px;
-}
-
-.row {
-  max-width: 90%;
-=======
->>>>>>> master
 }
 
 .with-newlines {
