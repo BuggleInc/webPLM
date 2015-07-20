@@ -27,7 +27,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   var _currentLang: Lang = _
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   var gitGest = new Git(game, userUUID)
-  var tribunal : Tribunal = _
+  var tribunal : Tribunal = new Tribunal
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
@@ -96,14 +96,12 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    tribunal.askGameLaunch(plmActor, gitGest, game, lessonID, exerciseID, code);
+    tribunal.start(plmActor, gitGest, game, lessonID, exerciseID, code)
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
     game.startExerciseDemoExecution()
   }
-  
-  
   
   def stopExecution() {
     tribunal.free()
