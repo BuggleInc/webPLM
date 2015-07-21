@@ -1,9 +1,12 @@
+nginx:
+  image: nginx
+  ports:
+    - "80:80"
 plm:
   image: webplm
   volumes:
     - "~/.plm:/.plm"
   ports:
-    - "80:9000"
     - "443:9443"
   environment: 
     GITHUB_CLIENT_SECRET:

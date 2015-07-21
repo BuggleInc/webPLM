@@ -12,7 +12,7 @@
     if(document.location.protocol === 'https:') {
       protocol = 'wss:';
     }
-    var url = protocol + '//'+document.location.hostname + '/websocket';
+    var url = protocol + '//'+document.location.host + '/websocket';
 		if(localStorage['satellizer_token'] !== undefined) {
 			url+= '?token='+localStorage['satellizer_token'];
 		}
