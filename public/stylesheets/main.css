@@ -42,6 +42,11 @@
   font-size: 72px;
 }
 
+menu {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
 .top-row {
   position: absolute;
   width: 90%;
@@ -165,6 +170,7 @@ html {
 }
 
 .row {
+  max-width: 90%;
   position: relative;
 }
 
