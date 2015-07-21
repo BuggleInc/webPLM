@@ -57,5 +57,25 @@
 			expect(currentWorld.readCount).toEqual(oldRead);
             expect(currentWorld.writeCount).toEqual(oldWrite);
 		});
+        
+        it('should not change currentWorld when applied then reversed', function () {
+			var current = {
+                readCount: oldRead,
+                writeCount: oldWrite
+            };
+			countOperation.apply(currentWorld);
+			countOperation.reverse(currentWorld);
+			expect(currentWorld).toEqual(current);
+		});
+        
+        it('should not change currentWorld when reversed then applied', function () {
+			var current = {
+                readCount: read,
+                writeCount: write
+            };
+			countOperation.reverse(currentWorld);
+			countOperation.apply(currentWorld);
+			expect(currentWorld).toEqual(current);
+		});
 	});
 })();

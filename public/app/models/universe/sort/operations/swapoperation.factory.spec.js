@@ -28,8 +28,8 @@
             }
             
             memory = [];
-            memory.push(values);
-            memory.push(values);
+            memory.push(values.slice());
+            memory.push(values.slice());
             
             destination = getRandomInt(nbValue);
             source = getRandomInt(nbValue);
@@ -64,6 +64,9 @@
 		});
 
 		it('should swap values[src] with values[dest] and clean memory when reversed', function () {
+            var tmp = currentWorld.values[source];
+			currentWorld.values[source] = currentWorld.values[destination];
+			currentWorld.values[destination] = tmp ;
             var memLen = currentWorld.memory.length;
             var tmp1 = currentWorld.values[destination];
             var tmp2 = currentWorld.values[source];
@@ -72,6 +75,26 @@
 			expect(currentWorld.values[source]).toEqual(tmp1);
             expect(currentWorld.memory[currentWorld.memory.length-1]).toEqual(currentWorld.values);
             expect(currentWorld.memory.length).toEqual(memLen-1);
+		});
+        
+        it('should not change currentWorld when applied then reversed', function () {
+			var current = {
+                values: currentWorld.values.slice(),
+                memory: currentWorld.memory.map(function(t){return t.slice()})
+            };
+			swapOperation.apply(currentWorld);
+			swapOperation.reverse(currentWorld);
+			expect(currentWorld).toEqual(current);
+		});
+        
+        it('should not change currentWorld when reversed then applied', function () {
+			var current = {
+                values: currentWorld.values.slice(),
+                memory: currentWorld.memory.map(function(t){return t.slice()})
+            };
+			swapOperation.reverse(currentWorld);
+			swapOperation.apply(currentWorld);
+			expect(currentWorld).toEqual(current);
 		});
 	});
 })();

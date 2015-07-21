@@ -29,8 +29,8 @@
             }
             
             memory = [];
-            memory.push(values);
-            memory.push(values);
+            memory.push(values.slice());
+            memory.push(values.slice());
             
             value = getRandomInt(100);
             position = getRandomInt(nbValue);
@@ -70,6 +70,28 @@
 			expect(currentWorld.values[position]).toEqual(oldValue);
             expect(currentWorld.memory[currentWorld.memory.length-1]).toEqual(currentWorld.values);
             expect(currentWorld.memory.length).toEqual(memLen-1);
+		});
+        
+        it('should not change currentWorld when applied then reversed', function () {
+			var current = {
+                values: currentWorld.values.slice(),
+                memory: currentWorld.memory.map(function(t){return t.slice()})
+            };
+			setValOperation.apply(currentWorld);
+			setValOperation.reverse(currentWorld);
+			expect(currentWorld).toEqual(current);
+		});
+        
+        it('should not change currentWorld when reversed then applied', function () {
+            currentWorld.values[position] = value;
+            currentWorld.memory[currentWorld.memory.length-1][position] = value;
+			var current = {
+                values: currentWorld.values.slice(),
+                memory: currentWorld.memory.map(function(t){return t.slice()})
+            }
+			setValOperation.reverse(currentWorld);
+			setValOperation.apply(currentWorld);
+			expect(currentWorld).toEqual(current);
 		});
 	});
 })();
