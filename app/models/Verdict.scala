@@ -30,7 +30,7 @@ object Verdict {
 			case "stream" =>
 				parent.setState("stream")
 				return new Verdict_stream(parent, msgJson, plmActor)
-			case "reply" => 
+			case "result" => 
 				parent.setState("reply")
 				return new Verdict_reply(parent, msgJson, plmActor)
 			case _ =>
