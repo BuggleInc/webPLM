@@ -24,7 +24,7 @@
 			var dataOperation;
 			var dataBuggle;
 			
-			dataBuggle = {brushDown:oldBrushDown};
+			dataBuggle = {};
 			buggle = new _Buggle(dataBuggle);
 			
 			getEntity = sinon.stub();
