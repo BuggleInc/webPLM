@@ -12,6 +12,7 @@ import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
+import plm.core.model.tracking.GitUtils
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
@@ -25,8 +26,9 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var gitGest = new Git(userUUID)
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitGest.gitUtils, trackUser)
+  var gitUtils = new GitUtils()
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser)
+  var gitGest = new Git(userUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())

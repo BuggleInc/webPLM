@@ -30,11 +30,11 @@ import org.eclipse.jgit.lib.NullProgressMonitor
 import org.eclipse.jgit.api.errors.GitAPIException
 
 
-class Git(userUUID : String) {
-  var gitUtils = new GitUtils()
+class Git(userUUID : String, gitUtils : GitUtils) {
   var repoDir : File = getRepoDir(Game.getSavingLocation())
   
   def gitEndExecutionPush(reply : JsValue, exoCode : String) {
+	var game = gitUtils.getGame();
     var exo : Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
     try {
       reloadFiles(reply, exoCode, exo)
@@ -57,6 +57,7 @@ class Git(userUUID : String) {
     //gitUtils.checkoutUserBranch(game.getUsers().getCurrentUser(), progress);
     
     // Change the files locally
+    var game = gitUtils.getGame();
     var exoError : String = (reply \ "gitLogs" \ "compilError").asOpt[String].getOrElse(null) // retrieve the compilation error
     if (exoError == null) 
       exoError = (reply \ "gitLogs" \ "execError").asOpt[String].getOrElse(null)
@@ -119,6 +120,7 @@ class Git(userUUID : String) {
   def getRepoDir(savingLoc : String) : File = {
     var userBranch : String = "PLM"+GitUtils.sha1(userUUID)
     var repoDir : File = null
+    var game = gitUtils.getGame()
     
     System.out.println("Test 1")
     
@@ -164,6 +166,7 @@ class Git(userUUID : String) {
   }
   
   def writePLMStartedOrLeavedCommitMessage(kind : String) : String =  {
+	var game = gitUtils.getGame();
     var jsonObject : JsValue = Json.obj(
         "java" -> (System.getProperty("java.version") + " (VM: " + System.getProperty("java.vm.name") + "; version: " + System.getProperty("java.vm.version") + ")"),
         "os" -> (System.getProperty("os.name") + " (version: " + System.getProperty("os.version") + "; arch: " + System.getProperty("os.arch") + ")"),
