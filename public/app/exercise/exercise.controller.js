@@ -78,11 +78,11 @@
     exercise.lastStateDrawn = -1;
 
     locker.bind($scope, 'showInstructions', true);
-    exercise.showInstructions = locker.get('showInstructions');
+    $scope.showInstructions = locker.get('showInstructions');
     locker.bind($scope, 'showCodeEditor', true);
-    exercise.showCodeEditor = locker.get('showCodeEditor');
+    $scope.showCodeEditor = locker.get('showCodeEditor');
     locker.bind($scope, 'showAPI', false);
-    exercise.showAPI = locker.get('showAPI');
+    $scope.showAPI = locker.get('showAPI');
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
@@ -113,6 +113,7 @@
     exercise.setWorldState = setWorldState;
     exercise.setCurrentWorld = setCurrentWorld;
     exercise.switchToTab = switchToTab;
+    exercise.toggleAPI = toggleAPI;
 
     exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
@@ -756,6 +757,14 @@
       }
     }
 
+    function toggleAPI() {
+      $scope.showAPI = !$scope.showAPI;
+      $scope.showInstructions = !$scope.showInstructions;
+      if($scope.showInstructions) {
+        $timeout(exercise.resizeCanvas, 0);
+      }
+    }
+    
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
         if (pl.lang === 'Blockly') {

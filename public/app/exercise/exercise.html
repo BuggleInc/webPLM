@@ -6,10 +6,7 @@
     </div>
     <div class="flex-block" style="margin-left: 2.5%;">
       <h4 class="left" translate>Code editor: </h4>
-      <button class="right small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions">
-        <strong ng-show="!showAPI" translate>API</strong>
-        <strong ng-show="!showInstructions" translate>Instructions</strong>
-      </button>
+      <toggle-api class="right"></toggle-api>
       <br>
       <br>
       <ide></ide>
