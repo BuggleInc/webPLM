@@ -30,8 +30,8 @@ import org.eclipse.jgit.lib.NullProgressMonitor
 import org.eclipse.jgit.api.errors.GitAPIException
 
 
-class Git(game : Game, userUUID : String) {
-  var gitUtils = new GitUtils(game)
+class Git(userUUID : String) {
+  var gitUtils = new GitUtils()
   var repoDir : File = getRepoDir(Game.getSavingLocation())
   
   def gitEndExecutionPush(reply : JsValue, exoCode : String) {
