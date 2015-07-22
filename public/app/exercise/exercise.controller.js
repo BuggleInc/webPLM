@@ -188,7 +188,7 @@
         exercise.logs += args.msg;
         break;
       case 'newProgLang':
-        updateUI(args.newProgLang, args.instructions, null, args.code);
+        updateUI(args.newProgLang, args.instructions, args.api, args.code);
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);

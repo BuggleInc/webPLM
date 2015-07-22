@@ -13,7 +13,8 @@ class ProgLangListener(plmActor: PLMActor, plm: PLM) extends ProgLangChangesList
     var mapArgs: JsValue = Json.obj(
       "newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(newLang),
       "instructions" -> plm.getMission(newLang),
-      "code" -> plm.getStudentCode
+      "code" -> plm.getStudentCode,
+      "api" -> plm.getAPI
     )
     plmActor.sendMessage("newProgLang", mapArgs)
   }
