@@ -140,7 +140,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
         	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
-        		  plm.runExercise(lessonID, exerciseID, code, workspace)
+        		  plm.runExercise(this, lessonID, exerciseID, code, workspace)
             case (lessonID:String, exerciseID: String, code: String, _) =>
               plm.runExercise(this, lessonID, exerciseID, code, null)
             case (_, _, _, _) =>

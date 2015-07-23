@@ -181,7 +181,10 @@
         break;
       case 'operations':
 	      args.forEach( function(args_in) {
-			handleOperations(args_in.worldID, 'current', args_in.operations);
+			if(args_in.worldID)
+				handleOperations(args_in.worldID, 'current', args_in.operations);
+			else if(args_in.type)
+				handleOut(args_in.msg);
 	      })
         break;
       case 'demoOperations':
@@ -479,7 +482,8 @@
 
     function runCode(worldID) {
       var args;
-
+      exercise.result = '';
+      exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       exercise.worldIDs.map(function (key) {
@@ -520,7 +524,7 @@
 
     function displayResult(msgType, msg) {
       console.log(msgType, ' - ', msg);
-      exercise.result = msg;
+      exercise.result += msg;
       if (msgType === 1) {
         $('#successModal').foundation('reveal', 'open');
       }
@@ -571,6 +575,10 @@
         startUpdateViewLoop();
       }
     }
+
+	function handleOut(msg) {
+      exercise.result += msg;
+	}
 
     function startUpdateModelLoop() {
       exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
