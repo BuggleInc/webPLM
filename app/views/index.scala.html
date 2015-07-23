@@ -2,179 +2,224 @@
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>WebPLM</title>
-		<link rel="stylesheet" href="/assets/stylesheets/normalize.css">
-		<link rel="stylesheet" href="/assets/stylesheets/foundation.min.css">
-		<link rel="stylesheet" href="/assets/stylesheets/main.css">
-		<link rel="stylesheet" href="/assets/stylesheets/animate.css">
-        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/blockly.css">
-        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/toaster.css"></link>
-		<link rel="stylesheet" type="text/css" href="/assets/javascripts/codemirror/lib/codemirror.css">
-		<link rel="stylesheet" type="text/css" href="/assets/stylesheets/foundation-icons.css"></link>
-		<link href="/assets/images/foundation-icons.svg"></link>
 
-		<script type="text/javascript" src="/assets/javascripts/vendor/modernizr.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/codemirror/lib/codemirror.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/codemirror/addon/edit/closebrackets.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/codemirror/mode/clike/clike.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/codemirror/mode/python/python.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/jquery-2.1.3.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-animate.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-cookies.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-ui-router.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-gettext/dist/angular-gettext.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/translations.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/angular-locker.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/satellizer.js"></script>
-        <script type="text/javascript" src="/assets/javascripts/toaster.js"></script>
-	</head> 
-	<body ng-app="PLMApp">
-	
-		<application-header></application-header>
-		
-		<div ui-view></div>
-		
-        <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLM</title>
+  <link rel="stylesheet" href="/assets/stylesheets/normalize.css">
+  <link rel="stylesheet" href="/assets/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="/assets/stylesheets/animate.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/blockly.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/toaster.css"></link>
+  <link rel="stylesheet" type="text/css" href="/assets/javascripts/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/foundation-icons.css"></link>
+  <link rel="stylesheet" href="//cdn.materialdesignicons.com/1.1.34/css/materialdesignicons.min.css">
+  <link href="/assets/images/foundation-icons.svg"></link>
+
+  <script type="text/javascript" src="/assets/javascripts/vendor/modernizr.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/codemirror/lib/codemirror.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/codemirror/addon/edit/closebrackets.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/codemirror/mode/clike/clike.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/codemirror/mode/python/python.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/jquery-2.1.3.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-animate.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-cookies.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-ui-router.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-gettext/dist/angular-gettext.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/translations.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-locker.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/satellizer.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/toaster.js"></script>
+</head>
+
+<body ng-app="PLMApp">
+
+  <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="top-bar tab-bar">
+        <section class="left-small">
+          <a class="left-off-canvas-toggle menu-icon"><span></span></a>
+        </section>
+
+        <section class="middle tab-bar-section">
+          <span ui-sref="home" class="left hover">
+            <strong>PLM</strong>
+          </span>
+          <span>
+            <strong class="title">{{navigation.getCurrentPageTitle()}}</strong>
+          </span>
+        </section>
         
-		<footer class="row">
-			<hr>
-			<p>&copy;PLM</p>
-		</footer>
-	
-	  <track-user-modal></track-user-modal>
-	
-	</body>
-	
-	<script type="text/javascript" src="/assets/javascripts/vendor/fastclick.js"></script>
-	<script type="text/javascript" src="/assets/javascripts/foundation.min.js"></script>
-	<script type="text/javascript" src="/assets/javascripts/foundation/foundation.slider.js"></script>
-	<script type="text/javascript" src="/assets/javascripts/foundation/foundation.alert.js"></script>
-	<script type="text/javascript" src="/assets/javascripts/foundation/foundation.tooltip.js"></script>
-	<script>
-		$(document).foundation();
-	</script>
+        <section class="top-bar-section show-for-medium-up">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <profile-top-bar></profile-top-bar>
+            <programming-languages></programming-languages>
+            <human-languages></human-languages>
+          </ul>
+        </section>
+      </nav>
 
-    <!-- Application's Blockly adds -->
-    <script type="text/javascript" src="/assets/javascripts/blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/brush.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/buggle.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/colour.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/move.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/constant.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/new.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/blocks/world.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/python_compressed.js"></script>
+      <menu></menu>
 
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/brush.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/buggle.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/move.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/world.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/constant.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/blockly/generators/python/new.js"></script>
+      <section class="main-section">
+        <div class="page" ui-view></div>
+      </section>
 
-	<!-- AngularJS application's files -->
-	<script src="/assets/app/app.js"></script>
-	<script src="/assets/app/app.routes.js"></script>
-	<script src="/assets/app/app.auth.js"></script>
+      <a class="exit-off-canvas"></a>
 
-	<!-- Application's services -->
-    <script type="text/javascript" src="/assets/app/services/blockly.service.js"></script>
-    <script type="text/javascript" src="/assets/app/services/blocklymsg.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/langs.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
-    <script type="text/javascript" src="/assets/app/services/toasterutils.service.js"></script>
-	<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
-	
-	<!-- Application's components -->
-	<script type="text/javascript" src="/assets/app/components/animation-player.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/application-header.directive.js"></script>
-    <script type="text/javascript" src="/assets/app/components/blockly.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/lesson-gallery.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/lesson-overview.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/ide.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/instructions.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/reset-exercise.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/results.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/select-lang.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/select-programming-language.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/sign-in-form.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/sign-up-form.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/social-buttons.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/switch-exercise.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/success-modal.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/tabs-current-world.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/track-user-modal.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/world-non-implemented.directive.js"></script>
-	<script type="text/javascript" src="/assets/app/components/worlds-view.directive.js"></script>
+    </div>
+  </div>
+  <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+  <track-user-modal></track-user-modal>
+</body>
 
-	<!-- Application's data models -->
-	<script type="text/javascript" src="/assets/app/models/defaultcolors.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/direction.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/outcomekind.factory.js"></script>
-	
-	<!-- BuggleWorld's data models -->
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebugglebrushdown.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/cellalreadyhavebaggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggleinouterspace.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/nobaggleunderbuggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggledonthavebaggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/bugglealreadyhavebaggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggleencounterwall.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebugglecarrybaggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebuggledirection.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcolor.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhasbaggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcontent.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhascontent.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/movebuggleoperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggle.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldcell.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/bat/batworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/bat/batworldview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworldview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworldsecondview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagsecondview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/pancake/pancakeworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/pancake/pancakeview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/operations/setvaloperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/operations/copyoperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/operations/swapoperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/operations/countoperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/sort/operations/getvalueoperation.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/operations/dutchflagswap.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/pancake/operations/flipoperation.factory.js"></script>
- 	<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballworld.factory.js"></script>
- 	<script type="text/javascript" src="/assets/app/models/universe/baseball/operations/moveoperation.factory.js"></script>
- 	<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballview.factory.js"></script>
- 	<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballsecondview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/hanoi/hanoiview.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/hanoi/hanoiworld.factory.js"></script>
-	<script type="text/javascript" src="/assets/app/models/universe/hanoi/operations/hanoimove.factory.js"></script>
-	<!-- Application's controllers -->
-	<script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
-	<script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
-	<script type="text/javascript" src="/assets/app/sign-in/sign-in.controller.js"></script>
-	<script type="text/javascript" src="/assets/app/sign-up/sign-up.controller.js"></script>
-	<script type="text/javascript" src="/assets/app/profile/profile.controller.js"></script>
+<script type="text/javascript" src="/assets/javascripts/vendor/fastclick.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation.min.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation/foundation.accordion.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation/foundation.offcanvas.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation/foundation.slider.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation/foundation.alert.js"></script>
+<script type="text/javascript" src="/assets/javascripts/foundation/foundation.tooltip.js"></script>
+<script>
+  $(document).foundation();
+</script>
+
+<!-- Application's Blockly adds -->
+<script type="text/javascript" src="/assets/javascripts/blockly/blockly_uncompressed.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/brush.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/buggle.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/colour.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/lists.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/logic.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/loops.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/math.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/move.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/constant.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/new.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/procedures.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/text.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/variables.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/blocks/world.js"></script>
+<script type="text/javascript" src="/assets/javascripts/python_compressed.js"></script>
+
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/brush.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/buggle.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/move.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/world.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/constant.js"></script>
+<script type="text/javascript" src="/assets/javascripts/blockly/generators/python/new.js"></script>
+
+<!-- AngularJS application's files -->
+<script src="/assets/app/app.js"></script>
+<script src="/assets/app/app.routes.js"></script>
+<script src="/assets/app/app.auth.js"></script>
+
+<!-- Application's services -->
+<script type="text/javascript" src="/assets/app/services/blockly.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/blocklymsg.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/langs.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/listenershandler.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/navigation.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/proglangs.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/toasterutils.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/user.service.js"></script>
+
+<!-- Application's components -->
+<script type="text/javascript" src="/assets/app/components/human-languages.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/profile-top-bar.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/programming-languages.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/success-modal.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/track-user-modal.directive.js"></script>
+<!-- Exercise's components -->
+<script type="text/javascript" src="/assets/app/components/exercise/animation-player.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/blockly.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/ide.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/instructions.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/reset-exercise.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/results.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/tabs-current-world.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/test-cases.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/toggle-api.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/world-non-implemented.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/worlds-view.directive.js"></script>
+<!-- Home's components -->
+<script type="text/javascript" src="/assets/app/components/home/lesson-gallery.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/home/lesson-overview.directive.js"></script>
+<!-- Menu's components -->
+<script type="text/javascript" src="/assets/app/components/menu/menu.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/menu/profile.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/menu/switch-exercise.directive.js"></script>
+<!-- Sign-in's components -->
+<script type="text/javascript" src="/assets/app/components/sign-in/sign-in-form.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/sign-in/social-buttons.directive.js"></script>
+
+<!-- Application's data models -->
+<script type="text/javascript" src="/assets/app/models/defaultcolors.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/direction.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/outcomekind.factory.js"></script>
+
+<!-- BuggleWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebugglebrushdown.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/cellalreadyhavebaggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggleinouterspace.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/nobaggleunderbuggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggledonthavebaggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/bugglealreadyhavebaggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/buggleencounterwall.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebugglecarrybaggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changebuggledirection.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcolor.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhasbaggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellcontent.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/changecellhascontent.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/operations/movebuggleoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/buggle.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldcell.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworld.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/buggle/buggleworldview.factory.js"></script>
+<!-- BaseBallWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/baseball/operations/moveoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballworld.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballview.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/baseball/baseballsecondview.factory.js"></script>
+<!-- BatWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/bat/batworld.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/bat/batworldview.factory.js"></script>
+<!-- DutchFlagWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/operations/dutchflagswap.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagworld.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagview.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/dutchFlag/dutchflagsecondview.factory.js"></script>
+<!-- HanoiWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/hanoi/operations/hanoimove.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/hanoi/hanoiview.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/hanoi/hanoiworld.factory.js"></script>
+<!-- PancakeWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/pancake/operations/flipoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/pancake/pancakeworld.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/pancake/pancakeview.factory.js"></script>
+<!-- SortWorld's data models -->
+<script type="text/javascript" src="/assets/app/models/universe/sort/operations/setvaloperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/operations/copyoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/operations/swapoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/operations/countoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/operations/getvalueoperation.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworldview.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworldsecondview.factory.js"></script>
+<script type="text/javascript" src="/assets/app/models/universe/sort/sortingworld.factory.js"></script>
+
+<!-- Application's controllers -->
+<script type="text/javascript" src="/assets/app/home/home.controller.js"></script>
+<script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
+<script type="text/javascript" src="/assets/app/profile/profile.controller.js"></script>
+<script type="text/javascript" src="/assets/app/sign-in/sign-in.controller.js"></script>
 </html>

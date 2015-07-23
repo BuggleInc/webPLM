@@ -1,0 +1,10 @@
+<li class="has-dropdown">
+  <a data-dropdown="dropLangs">
+    {{ langs.getSelectedLang().name }}
+  </a>
+  <ul id="dropLangs" class="f-dropdown" data-dropdown-content=true>
+    <li ng-repeat="lang in langs.getAvailableLangs()" ng-class="{ 'active': lang.code === langs.getSelectedLang().code }" ng-click="langs.setRemotelySelectedLang(lang);" style="width: 100%;">
+        <a>{{lang.name}}</a>
+    </li>
+  </ul>
+</li>

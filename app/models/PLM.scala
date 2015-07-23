@@ -90,6 +90,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
+  def getAPI(): String = {
+    var api: String = ""
+    if(getInitialWorlds != null) {
+      api = getInitialWorlds.head.getAbout
+    }
+    return api
+  }
   
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)

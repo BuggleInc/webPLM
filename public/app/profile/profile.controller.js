@@ -5,11 +5,13 @@
 		.module('PLMApp')
 		.controller('Profile', Profile);
 
-	Profile.$inject = ['$scope', 'userService'];
+	Profile.$inject = ['$scope', 'userService', 'gettextCatalog', 'navigation'];
 
-	function Profile($scope, userService) {
+	function Profile($scope, userService, gettextCatalog, navigation) {
 		var profile = this;
 
+        navigation.setCurrentPageTitle(gettextCatalog.getString('Profile'));
+    
 		$scope.$on('$destroy', $scope.$watch('userService.getUser()', setUser));
 
 		profile.mode = 'view';

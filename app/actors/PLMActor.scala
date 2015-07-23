@@ -24,7 +24,7 @@ import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
-import models.daos.UserDAOMongoImpl
+import models.daos.UserDAORestImpl
 import codes.reactive.scalatime._
 import Scalatime._
 
@@ -185,8 +185,14 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
                   lastName = optLastName,
                   trackUser = optTrackUser
               )
-              UserDAOMongoImpl.save(currentUser)
+              UserDAORestImpl.update(currentUser)
               sendMessage("userUpdated", Json.obj())
+             (optTrackUser.getOrElse(None)) match {
+                case trackUser: Boolean =>
+                  plm.setTrackUser(currentTrackUser)
+                case _ =>
+                  Logger.debug("setTrackUser: non-correct JSON")
+              }
             case _ =>
               Logger.debug("updateUser: non-correct JSON")
           }
@@ -278,7 +284,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           lastProgLang = Some(programmingLanguage)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   
@@ -287,7 +293,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           preferredLang = Some(currentPreferredLang)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   
@@ -318,7 +324,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           trackUser = Some(trackUser)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   

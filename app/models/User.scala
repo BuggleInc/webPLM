@@ -24,8 +24,7 @@ import plm.core.lang.ProgrammingLanguage
  * @param avatarURL Maybe the avatar URL of the authenticated provider.
  */
 case class User(
-  userID: UUID,
-  gitID: UUID,
+  gitID: String,
   loginInfo: LoginInfo,
   firstName: Option[String],
   lastName: Option[String],

@@ -5,7 +5,7 @@
   <p translate>Do you want to try the next one?</p>
   <span class="center">
   	<button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');" translate>Not yet</button>
-  	<button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercise.lessonID, exerciseID: exercise.defaultNextExercise})" translate>Yes, sure</button>
+  	<button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID()})" translate>Yes, sure</button>
   </span>
   <a class="close-reveal-modal">&#215;</a>
 </div>

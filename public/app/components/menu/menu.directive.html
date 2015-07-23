@@ -1,0 +1,20 @@
+<aside class="left-off-canvas-menu">
+  <profile></profile>
+  <ul class="off-canvas-list">
+    <li>
+      <a ui-sref="home" translate>Switch lesson</a>
+    </li>
+  </ul>
+  <switch-exercise ng-if="navigation.isInLesson()"></switch-exercise>
+  <ul class="off-canvas-list">
+    <li>
+      <label translate>Other links</label>
+    </li>
+    <li>
+      <a translate>Report a bug</a>
+    </li>
+    <li>
+      <a translate>Contact us</a>
+    </li>
+  </ul>
+</aside>

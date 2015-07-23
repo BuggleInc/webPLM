@@ -1,0 +1,8 @@
+<li ng-if="progLangs.areAvailable()" class="has-dropdown">
+  <a data-dropdown="dropProgLangs">{{progLangs.getCurrentProglang().lang}}</a>
+  <ul id="dropProgLangs" class="f-dropdown" data-dropdown-content=true>
+    <li ng-repeat="pl in progLangs.getProgLangs()" ng-class="{ active: pl.lang === progLangs.getCurrentProglang().lang }" ng-click="progLangs.setCurrentProglang(pl)" style="width: 100%;">
+      <a>{{ pl.lang }}</a>
+    </li>
+  </ul>
+</li>
