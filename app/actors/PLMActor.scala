@@ -51,7 +51,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentTrackUser: Boolean = trackUser.getOrElse(false)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, this, currentTrackUser)
+  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -142,7 +142,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
         	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
         		  plm.runExercise(lessonID, exerciseID, code, workspace)
             case (lessonID:String, exerciseID: String, code: String, _) =>
-              plm.runExercise(lessonID, exerciseID, code, null)
+              plm.runExercise(this, lessonID, exerciseID, code, null)
             case (_, _, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }

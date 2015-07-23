@@ -190,7 +190,7 @@
         break;
       case 'operations':
 	      args.forEach( function(args_in) {
-		handleOperations(args_in.worldID, 'current', args_in.operations);
+			handleOperations(args_in.worldID, 'current', args_in.operations);
 	      })
         break;
       case 'demoOperations':

@@ -22,7 +22,7 @@ import log.PLMLogger
 import actors.PLMActor
 import java.util.Locale
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], plmActor: PLMActor, trackUser: Boolean) {
+class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
@@ -91,7 +91,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   
-  def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
+  def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     if(workspace != null){
