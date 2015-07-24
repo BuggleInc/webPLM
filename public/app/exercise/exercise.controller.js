@@ -549,6 +549,7 @@
 
       exercise.lastStateDrawn = -1;
 
+      $timeout.cancel(exercise.updateModelLoop);
       $timeout.cancel(exercise.updateViewLoop);
       exercise.isPlaying = false;
     }
