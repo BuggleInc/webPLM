@@ -4,6 +4,7 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import json._
+import models.GitHubIssueManager
 import models.PLM
 import models.User
 import log.PLMLogger
@@ -34,6 +35,8 @@ object PLMActor {
 }
 
 class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+  var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
+  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -209,6 +212,29 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setTrackUser(currentTrackUser)              
             case _ =>
               Logger.debug("setTrackUser: non-correct JSON")
+          }
+        case "submitBugReport" =>
+          var optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
+          var optBody: Option[String] = (msg \ "args" \ "body").asOpt[String]
+          (optTitle.getOrElse(None), optBody.getOrElse(None)) match {
+            case (title: String, body: String) =>
+              gitHubIssueManager.isCorrect(title, body).getOrElse(None) match {
+                case errorMsg: String =>
+                  Logger.debug("Try to post incorrect issue...")
+                  Logger.debug("Title: "+title+", body: "+body)
+                  sendMessage("incorrectIssue", Json.obj("msg" -> errorMsg))
+                case None =>
+                  gitHubIssueManager.postIssue(title, body).getOrElse(None) match {
+                    case issueUrl: String =>
+                      Logger.debug("Issue created at: "+ issueUrl)
+                      sendMessage("issueCreated", Json.obj("url" -> issueUrl))
+                    case None =>
+                      Logger.debug("Error while uploading issue...")
+                      sendMessage("issueErrored", Json.obj())
+                  }
+              }
+            case (_, _) =>
+              Logger.debug("submitBugReport: non-correct JSON")
           }
         case _ =>
           Logger.debug("cmd: non-correct JSON")
