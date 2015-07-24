@@ -64,5 +64,21 @@
 			changeCellHasBaggle.reverse(currentWorld);
 			expect(cell.hasBaggle).toEqual(oldHasBaggle);
 		});
+        
+        it('should not change cell.hasBaggle when applied then reversed', function () {
+            cell.hasBaggle = oldHasBaggle;
+            var current = cell.hasBaggle;
+            changeCellHasBaggle.apply(currentWorld);
+            changeCellHasBaggle.reverse(currentWorld);
+            expect(cell.hasBaggle).toEqual(current);
+        });
+        
+        it('should not change cell.hasBaggle when reversed then applied', function () {
+            cell.hasBaggle = newHasBaggle;
+            var current = cell.hasBaggle;
+            changeCellHasBaggle.reverse(currentWorld);
+            changeCellHasBaggle.apply(currentWorld);
+            expect(cell.hasBaggle).toEqual(current);
+        });
 	});
 })();
