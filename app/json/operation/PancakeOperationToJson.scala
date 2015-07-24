@@ -25,6 +25,7 @@ object PancakeOperationToJson {
   {
     Json.obj(
         "number" -> flipOperation.getNumber
+        "oldNumber" -> flipOperation.getOldNumber
     )
   }
 
