@@ -27,6 +27,7 @@
   <script type="text/javascript" src="/assets/javascripts/angular.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-animate.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-cookies.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-sanitize.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-ui-router.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-gettext/dist/angular-gettext.js"></script>
   <script type="text/javascript" src="/assets/javascripts/translations.js"></script>
@@ -75,6 +76,7 @@
     </div>
   </div>
   <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+  <bug-report-modal></bug-report-modal>
   <track-user-modal></track-user-modal>
 </body>
 
@@ -122,6 +124,7 @@
 <!-- Application's services -->
 <script type="text/javascript" src="/assets/app/services/blockly.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/blocklymsg.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/bugreport.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
@@ -134,6 +137,7 @@
 <script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 
 <!-- Application's components -->
+<script type="text/javascript" src="/assets/app/components/bug-report-modal.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/human-languages.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/profile-top-bar.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/programming-languages.directive.js"></script>
