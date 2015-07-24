@@ -30,11 +30,11 @@ import codes.reactive.scalatime._
 import Scalatime._
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
+  def props(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
+  def propsWithUser(userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
   
   var availableLangs: Seq[Lang] = Lang.availables
@@ -54,7 +54,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentTrackUser: Boolean = trackUser.getOrElse(false)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  var plm: PLM = new PLM(userAgent, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -63,8 +63,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   initSpies
   registerActor
   
-  def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+  def this(userAgent: String, actorUUID: String, user: User, out: ActorRef) {
+    this(userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
   
