@@ -13,8 +13,6 @@
 		var PancakeWorld = function(world)
 		{
 			this.type = world.type;
-			this.width = world.width;
-			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
 			this.pancakeStack = [];
@@ -77,11 +75,6 @@
 				}
 				this.currentState = state;
 			}
-		};
-
-		PancakeWorld.prototype.getEntity = function(entityID)
-		{
-			return this.entities[entityID];
 		};
 
 		return PancakeWorld;
