@@ -11,6 +11,7 @@
 		var FlipOperation = function(data)
 		{
 			this.number = data.number;
+            this.oldNumber = data.oldNumber;
 		};
 		
 		FlipOperation.prototype.apply = function(currentWorld)
@@ -39,7 +40,6 @@
 			}
 
 			currentWorld.moveCount++;
-			currentWorld.oldNumber = currentWorld.numberFlip;
 			currentWorld.numberFlip = this.number;
 			
 		};
@@ -54,6 +54,8 @@
 			}
 
 			var j = 1;
+            if(this.number === 1)
+				currentWorld.pancakeStack[length-1].upsideDown = !currentWorld.pancakeStack[length-1].upsideDown;
 			for(var i=this.number;i>1 && j<=i;i--)
 			{
 				currentWorld.pancakeStack[length-i] = clone[length-j];
@@ -66,8 +68,7 @@
 			}
 
 			currentWorld.moveCount--;
-			currentWorld.numberFlip = currentWorld.oldNumber;
-			currentWorld.oldNumber = this.number;
+			currentWorld.numberFlip = this.oldNumber;
 		};
 
 		return FlipOperation;
