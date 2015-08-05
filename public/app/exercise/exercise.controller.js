@@ -147,6 +147,7 @@
 
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
+      window.editor = _editor; // To allow tests to interact with the editor
       exercise.editor.on('change', resetIdleLoop);
       resizeCodeMirror();
     };
