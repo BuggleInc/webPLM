@@ -51,7 +51,10 @@
             <strong>PLM</strong>
           </span>
           <span>
-            <strong class="title" ng-cloak>{{navigation.getCurrentPageTitle()}}</strong>
+            <strong class="title">
+              <span ng-cloak>{{ navigation.getCurrentPageTitle() }}</span>
+              <span ng-if="!navigation.getCurrentPageTitle()" translate>Loading...</span>
+            </strong>
           </span>
         </section>
         

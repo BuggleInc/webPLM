@@ -49,8 +49,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', ['jasmine']);
-  grunt.registerTask('i18n-extract', ['nggettext_extract']);
-  grunt.registerTask('i18n-update', ['nggettext_compile']);
+  grunt.registerTask('gettext-extract', ['nggettext_extract']);
+  grunt.registerTask('gettext-update', ['nggettext_compile']);
 
   grunt.loadNpmTasks('grunt-angular-gettext');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
