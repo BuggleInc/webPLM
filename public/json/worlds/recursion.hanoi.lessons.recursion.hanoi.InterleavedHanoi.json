@@ -1,0 +1,1 @@
+{"solve(0,1,2,3)":{"type":"HanoiWorld","moveCount":0,"slotVal":[[7,6,5,4,3,2,1],[7,6,5,4,3,2,1],[],[]]},"slove(0,2,3,1)":{"type":"HanoiWorld","moveCount":0,"slotVal":[[6,5,4,3,2,1],[],[6,5,4,3,2,1],[]]},"solve(0,3,1,2)":{"type":"HanoiWorld","moveCount":0,"slotVal":[[5,4,3,2,1],[],[],[5,4,3,2,1]]}}

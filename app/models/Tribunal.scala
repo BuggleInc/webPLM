@@ -15,9 +15,9 @@ import play.api.Play.current
  * The interface between PLM and the judges
  * @author Tanguy Gloaguen
  */
-class Tribunal {
+class Tribunal extends Runnable {
 	// Config options
-	val defaultTimeout : Long = 30000
+	val defaultTimeout : Long = 2000
 	val QUEUE_NAME_REQUEST : String = "worker_in"
 	val QUEUE_NAME_REPLY : String = "worker_out"
 
@@ -49,9 +49,9 @@ class Tribunal {
 	* @param exerciseID the loaded exercise
 	* @param code the code to execute
 	*/
-	def start(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
+	def startTribunal(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
 		setData(plmActor, git, game, lessonID, exerciseID, code)
-		askGameLaunch()
+		(new Thread(this)).start()
 	}
 	private def setData(newActor:PLMActor, newGit:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
 		git = newGit
@@ -66,7 +66,7 @@ class Tribunal {
 		state = Off
 	}
 
-	private def askGameLaunch() {
+	override def run() {
 		// Parameters
 		var corrId : String = java.util.UUID.randomUUID().toString();
 		// This part handles compilation with workers.
@@ -111,7 +111,10 @@ class Tribunal {
 		while(state != Replied && state != Off) {
 			var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
 			if(System.currentTimeMillis > timeout) {
-				signalExecutionEnd("The compiler timed out.")
+        if(state == Replied)
+          signalExecutionEnd("You interrupted the execution.")
+        else
+				  signalExecutionEnd("The compiler timed out.")
 				state = Off
 			}
 			// The delivery will be "null" if nextDelivery timed out.
@@ -120,6 +123,7 @@ class Tribunal {
 				if (delivery.getProperties().getCorrelationId().equals(corrId)) {
 					channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
 					Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
+          timeout = System.currentTimeMillis + defaultTimeout
 				}
 				else
 					channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
@@ -170,6 +174,7 @@ class Tribunal {
 	* Explicitly asks for PLM to stop waiting for replies.
 	*/
 	def free() {
+    setState("reply");
 		timeout = 0;
 	}
 }

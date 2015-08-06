@@ -38,7 +38,6 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
   def worldHasMoved() {
     world.getEntities.toArray(Array[Entity]()).foreach { entity => 
       if(entity.isReadyToSend) {
-        Logger.debug("The world moved!")
         
         var mapArgs: JsValue = Json.obj(
           "worldID" -> world.getName,
@@ -46,7 +45,8 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         )
         entity.getOperations.clear
         entity.setReadyToSend(false)
-        plmActor.sendMessage(messageID, mapArgs)
+        Logger.debug("The world moved! (" + messageID + ")")
+        plmActor.sendOperation(messageID, mapArgs)
     
       }
     }

@@ -32,8 +32,56 @@ import org.eclipse.jgit.api.errors.GitAPIException
 
 class Git(userUUID : String, gitUtils : GitUtils) {
   var repoDir : File = getRepoDir(Game.getSavingLocation())
+  /**
+   * Called when the exercise is switched
+   * @param newExerciseID the exercise the user is switching to.
+   * @param user the user data.
+   */
+  def gitSwitchedPush(newExerciseID : String, user : UserData) {
+	  
+  }
+  
+  /**
+   * 
+   */
+  def gitRevertedPush(user : UserData) {
+	  
+  }
+  
+  def gitStartedPush(user : UserData) {
+	  
+  }
+  
+  /**
+   * Called when user leaves the PLM
+   */
+  def gitLeavedPush() {
+	  
+  }
+  
+  /**
+   * Called when user reads the tip.
+   */
+  def gitTipPush() {
+	   
+  }
+  
+  def gitHelpCallPush() {
+  
+  }
+  def gitHelpCancelPush() {
+	  
+  }
+  
+  /**
+   * 
+   */
+  def gitIdlePush(start : String, end : String, duration : String) {
+	  
+  }
   
   def gitEndExecutionPush(reply : JsValue, exoCode : String) {
+	// TODO : change these two lines used to get current exercise status.
 	var game = gitUtils.getGame();
     var exo : Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
     try {

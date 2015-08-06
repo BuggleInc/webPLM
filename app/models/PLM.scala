@@ -105,7 +105,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    tribunal.start(plmActor, gitGest, game, lessonID, exerciseID, code)
+    tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
   }
   
   def runDemo(lessonID: String, exerciseID: String) {

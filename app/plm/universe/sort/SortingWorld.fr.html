@@ -1,0 +1,69 @@
+
+<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->
+<h1>Monde des tris </h1>
+Ce monde vous donne les outils pour expérimenter les algorithmes de tris. On
+peut l'utiliser de deux manières différentes : la première est bien sûr
+d'écrire les algorithmes de tri demandés. Mais on peut aussi se contenter
+dans un premier temps de lancer la démo de chaque exercice et observer les
+algorithmes de tri fonctionner. Cela permet de mieux se rendre compte des
+différences d'efficacité entre eux.
+
+<h2>Méthodes disponibles pour les algorithmes de tri</h2>
+<table border=1>
+<tr><td><b>Méthode</b></td><td><b>Action</b></td><td><b>Coût</b></td></tr>
+<tr><td>[!java|c]int [/!]getNombreValeurs() [!scala]:Int[/!]</td>
+    <td>Retourne le nombre de valeurs dans le tableau</td><td>aucun</td></tr>
+
+<tr><td>[!java]boolean [/!][!c]int [/!]plusPetit([!java|c]int [/!]i[!scala]:Int[/!],
+[!java|c]int [/!]j[!scala]:Int[/!]) [!scala]:Boolean[/!]</td>
+    <td>Retourne vrai si le contenu de la case i est strictement inférieur à celui
+de la case j</td><td>deux lectures</td></tr>
+<tr><td>[!java]boolean [/!][!c]int [/!]plusPetitQue([!java|c]int
+[/!]i[!scala]:Int[/!], [!java|c]int [/!]value[!scala]:Int[/!])[!scala]
+:Boolean[/!]</td>
+    <td>Retourne vrai si le contenu de la case i est strictement inférieur à la
+valeur <code>value</code></td><td>une lecture</td></tr>
+
+<tr><td>[!java|c]void [/!]echange([!java|c]int [/!]i[!scala]:Int[/!], [!java|c]int
+[/!]j[!scala]:Int[/!])</td>
+     <td>Échange le contenu de la case i avec celui de la case j</td><td>deux lectures, deux écritures</td></tr>
+<tr><td>[!java|c]void [/!]copie([!java|c]int [/!]depuis[!scala]:Int[/!],
+[!java|c]int [/!]vers[!scala]:Int[/!])</td>
+    <td>Copie le contenu de la case 'depuis' dans la case 'vers'</td><td>une lecture, une écriture</td></tr>
+
+<tr><td>[!java|c]int [/!]getValeur([!java|c]int [/!]idx[!scala]:Int[/!])</td>
+    <td>Retourne la valeur de la case idx</td><td>une lecture</td></tr>
+<tr><td>[!java|c]void [/!]setValeur([!java|c]int [/!]idx[!scala]:Int[/!],
+[!java|c]int [/!]valeur[!scala]:Int[/!])</td>
+    <td>Affecte la valeur '<code>valeur</code>' à la case 'idx' </td><td>une écriture</td></tr>
+
+<tr><td>[!java]boolean [/!][!c]int [/!]estSelectionne() [!scala]:Boolean[/!]</td>
+    <td>Renvoi si le monde actuel est sélectionné dans l'interface graphique.</td><td>aucun</td></tr>
+
+</table>
+
+<h2>Vue de l'historique du monde</h2>
+<p>Il ne suffit pas de trier le tableau pour passer les exercices. Votre
+solution doit suivre scrupuleusement le comportement attendu de chaque
+exercice. Ceci est vérifié en comptant le nombre d'opérations de lecture et
+d'écriture sur le tableau effectuées lors de ce tri. En cas de problème, il
+est souvent assez difficile de comprendre la différence entre le
+comportement attendu et le comportement effectif.</p>
+
+<p>Pour cela, il est possible d'explorer graphiquement l'historique de
+n'importe quel monde de tri. Passez par exemple au monde Objectif et
+utilisez son menu contextuel (clic droit) pour choisir entre la vue de
+l'état courant du monde et la vue de son histoire.</p>
+
+<p>La vue de l'historique n'est pas aussi complexe qu'elle en a l'air à
+première vue. Le temps s'écoule de gauche à droite, et les cases du tableau
+sont représentée de haut en bas. Les lignes de différentes couleurs qui
+serpentent représentent les différentes valeurs contenues dans le
+tableau. Quand deux lignes se croisent, cela signifie que les valeurs du
+tableau ont été échangées à ce moment de l'historique; un embranchement
+signifie que la valeur a été copiée; une valeur en violet suivie d'un point
+d'interrogation a été lue avec getValeur() et une valeur en rouge suivie
+d'un point d'exclamation a été écrite avec setValeur().</p>
+
+<p>Cette vue, inspirée d'Aldo Cortesi, est très pratique pour comprendre le
+comportement des algorithmes de tri.</p> 

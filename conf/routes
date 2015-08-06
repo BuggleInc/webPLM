@@ -11,8 +11,6 @@ GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Applicat
 GET     /specRunner                                         controllers.Application.specRunner()
 
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
-GET     /img/*file                                          controllers.Assets.at(path="/img", file)
-GET     /lessons/*file                                      controllers.Assets.at(path="/lessons", file)
 
 GET     /user/:actorUUID                                    @controllers.ApplicationController.user(actorUUID: String)
 GET     /signOut                                            @controllers.ApplicationController.signOut

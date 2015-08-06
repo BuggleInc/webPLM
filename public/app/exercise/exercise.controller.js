@@ -466,13 +466,20 @@
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       if (!exercise.playedDemo) {
-        var args = {
+        /*var args = {
           lessonID: exercise.lessonID,
           exerciseID: exercise.id,
         };
         connection.sendMessage('runDemo', args);
         exercise.playedDemo = true;
-        exercise.isRunning = true;
+        exercise.isRunning = true;*/
+        var exoID = exercise.id;
+        $http.get("assets/json/demos/" + exoID + ".json").success(function(data){
+				data.forEach(function(args) {
+					handleOperations(args.worldID, 'answer', args.operations);
+				});
+			});
+        exercise.playedDemo = true;
       } else {
         // We don't need to query the server again
         // Just to replay the animation

@@ -17,7 +17,7 @@ object LessonToJson {
     Json.obj(
       "id" -> lesson.getId,
       "description" -> lesson.getDescription,
-      "imgUrl" -> lesson.getImgPath
+      "imgUrl" -> ("assets/images/lessonIcons/" + lesson.getId + "-icon.png")
     )
   }
 }

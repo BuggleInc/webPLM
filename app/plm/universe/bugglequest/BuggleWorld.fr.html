@@ -1,0 +1,107 @@
+
+<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->
+<h1>Le monde des Buggles</h1>
+Ce monde a été inventé par Lyn Turbak, du Wellesley College. Il est peuplé
+de Buggles, petites bêtes qui comprennent des ordres simples, et offre de
+nombreuses possibilités d'interaction avec le monde : prendre ou poser des
+objets, colorier le sol, se cogner à des murs, etc.
+
+<h2>Méthodes comprises par les buggles</h2>
+<table border=1>
+<tr><td colspan=2 align=center><b>Bouger</b><br/> (voir aussi la note sur les exceptions, plus bas)</td></tr>
+  <tr><td><b>Tourner à gauche<br/>Tourner à droite<br/>Se retourner<br/>Avancer<br/>Reculer</b></td>
+      <td>[!java|c]void [/!]gauche()<br/>
+          [!java|c]void [/!]droite()<br/>
+          [!java|c]void [/!]retourne()<br/>
+          [!java|c]void [/!][!python|java|scala]avance()[/!][!c]avancePas()[/!] or
+[!java|c]void [/!]avance([!java|c]int [/!]nbPas[!scala]:Int[/!])<br/>
+          [!java|c]void [/!][!python|java|scala]recule()[/!][!c]reculePas()[/!] or
+[!java]void [/!]recule([!java|c]int [/!]nbPas[!scala]:Int[/!])<br/></td></tr>
+  <tr><td><b>Obtenir l'abscisse<br/>Obtenir l'ordonnée<br/>Changer l'abscisse<br/>Changer l'ordonnée<br/>Changer la position</b></td>
+      <td>[!java|c]int [/!]getX()[!scala]:Int[/!]<br/>
+          [!java|c]int [/!]getY()[!scala]:Int[/!]<br/>
+          [!java|c]void [/!]setX([!java|c]int [/!]x[!scala]:Int[/!])<br/>
+          [!java|c]void [/!]setY([!java|c]int [/!]y[!scala]:Int[/!])<br/>
+          [!java|c]void [/!]setPos([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int
+[/!]y[!scala]:Int[/!])</td></tr>
+<tr><td colspan=2>L'origine (0, 0) est dans le coin en haut à gauche, comme c'est souvent le
+cas en informatique.</td></tr>
+
+<tr><td colspan=2 align=center><b>Informations sur la buggle</b></td></tr>
+  <tr><td><b>Obtenir la couleur de la buggle</b><br/>Changer la couleur de la buggle</b></td>
+      <td>[!java|c]Color [/!]getCouleurCorps()[!scala]:Color[/!]<br/>
+          [!java|c]void [/!]setCouleurCorps([!java|c]Color [/!]c[!scala]:Color[/!])</td></tr>				
+  <tr><td><b>Chercher un mur devant<br/>Chercher un mur derrière</b></td>
+      <td>[!java]boolean [/!][!c]int [/!]estFaceMur()[!scala]:Boolean[/!]<br/>
+          [!java]boolean [/!][!c]int [/!]estDosMur()[!scala]:Boolean[/!]</td></tr>				
+  <tr><td><b>Obtenir la direction<br/>Changer la direction</b><br/>Les directions valides sont :</td>
+      <td>[!java|c]Direction [/!]getDirection()[!scala]:Direction[/!]<br/>
+          [!java|c]void [/!]setDirection([!java|c]Direction
+[/!]dir[!scala]:Direction[/!])<br/>
+          [!scala|java|python]Direction.[/!]NORTH (nord),
+[!scala|java|python]Direction.[/!]EAST (est),
+[!scala|java|python]Direction.[/!]SOUTH (sud) et
+[!scala|java|python]Direction.[/!]WEST (ouest)</td></tr>
+  <tr><td>Renvoi si la buggle est actuellement <b>sélectionnée dans l'interface</b></td>
+      <td>[!java]boolean [/!][!c]int [/!]estChoisie()[!scala]:Boolean[/!]</td></tr>
+ 
+<tr><td colspan=2 align=center><b>À propos de la brosse</b></td></tr>
+  <tr><td><b>Baisser la brosse<br/>Lever la brosse<br/>Obtenir la position de la brosse</b></td>
+      <td>[!java|c]void [/!]leveBrosse()<br/>
+          [!java|c]void [/!]baisseBrosse()<br/>
+          [!java]boolean [/!][!c]int [/!]estBrosseBaissee()[!scala]:Boolean[/!]</td></tr>
+  <tr><td><b>Modifier la couleur de la brosse<br/>Obtenir la couleur de la brosse</b></td>
+      <td>[!java|c]void [/!]setCouleurBrosse([!java|c]Color [/!]c[!scala]:Color[/!])<br/>
+          [!java|c]Color [/!]getCouleurBrosse()[!scala]:Color[/!]</td></tr>
+
+<tr><td colspan=2 align=center><b>Interagir avec le monde</b></td></tr>
+  <tr><td><b>Obtenir la couleur du sol</b></td>
+      <td>[!java|c]Color [/!]getCouleurSol()[!scala]:Color[/!]</td></tr>
+
+  <tr><td><b>Vrai si biscuit par terre<br/>Vrai si on porte un biscuit<br/>Ramasse un biscuit<br/>Poser un biscuit</b><br/>
+      (voir la note sur les exceptions)</td>
+      <td>[!java]boolean [/!][!c]int [/!]estSurBiscuit()[!scala]:Boolean[/!]<br/>
+          [!java]boolean [/!][!c]int [/!]porteBiscuit()[!scala]:Boolean[/!]<br/>
+          [!java]void [/!]prendBiscuit()<br/>
+          [!java]void [/!]poseBiscuit()<br/>
+          &nbsp;</td></tr>
+
+  <tr><td><b>Chercher un message<br/>Ajouter un message<br/>Lire le message<br/>Effacer le message</b></td>
+      <td>[!java]boolean [/!][!c]int [/!]estSurMessage()[!scala]:Boolean[/!]<br/>
+          [!java]void [/!]ecritMessage([!java]String [/!][!c]char*
+[/!]msg[!scala]:String[/!])<br/>
+          [!java]String [/!][!c]char* [/!]litMessage()[!scala]:String[/!]<br/>
+          [!java]void [/!]effaceMessage()</td></tr>
+</table>
+
+<h2>Couleurs valides</h2>
+<table border=1>
+<tr><td>Nom</td><td>Couleur</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR="#000000">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR="#0000FF">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR="#00FFFF">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR="#404040">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR="#808080">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR="#00FF00">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR="#C0C0C0">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR="#FF00FF">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR="#FFC800">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR="#FFAFAF">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR="#FF0000">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR="#FFFFFF">&nbsp;</td></tr>
+<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR="#FFFF00">&nbsp;</td></tr>
+</table>
+
+<h2>Note sur les exceptions</h2>
+Les buggles normales lèvent une exception BuggleWallException si on cherche
+à leur faire traverser un mur.
+Elles lèvent une exception NoBaggleUnderBuggleException si vous cherchez à
+prendre un biscuit dans une case qui n'en contient pas, ou une exception
+AlreadyHaveBaggleException si vous portez déjà un biscuit.
+Tenter de déposer un biscuit sur une case qui en contient déjà lève une
+exception AlreadyHaveBaggleException.
+Tenter de poser un biscuit alors qu'on n'en a pas lève une exception
+DontHaveBaggleException.
+<p>Les "SimpleBuggles" (c.-à-d., celles utilisées dans les premiers exercices)
+affichent un message d'erreur sans que vous ayez à vous soucier de ce qu'est
+une exception.</p>
