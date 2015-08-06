@@ -16,8 +16,6 @@ plm:
   links:
     - accounts
     - profiles
-  volumes:
-    - "~/webPLM/logs/:/app/webplm-dist/logs"
 accounts:
   image: plm-accounts
   ports:
