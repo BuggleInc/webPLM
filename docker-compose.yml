@@ -5,7 +5,8 @@ nginx:
 plm:
   image: webplm
   volumes:
-    - "~/.plm:/.plm"
+    - "~/.plm:/root/.plm"
+    - "~/webPLM/logs/:/app/webplm-dist/logs"
   ports:
     - "443:9443"
   environment: 
