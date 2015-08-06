@@ -632,11 +632,13 @@
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
-      exercise.initialWorlds = {};
-      exercise.answerWorlds = {};
-      exercise.currentWorlds = {};
-      exercise.currentWorld = null;
-      exercise.drawService.setWorld(null);
+      if(!exercise.nonImplementedWorldException) {
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.drawService.setWorld(null);
+      }
       exercise.instructions = null;
       exercise.api = null;
       exercise.resultType = null;
