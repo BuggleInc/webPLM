@@ -1,6 +1,7 @@
 <div style="margin-left: 5%; margin-right: 5%;">
   <div class="top-row" style="display: flex; justify-content: space-between;">
     <div ng-show="showInstructions" class="flex-block">
+      <world-non-implemented ng-if="exercise.nonImplementedWorldException"></world-non-implemented>
       <instructions></instructions>
       <worlds-view></worlds-view>
     </div>
