@@ -46,6 +46,10 @@
   width: 100%
 }
 
+.rotate180 {
+  transform: rotate(180deg);
+}
+
 menu {
   margin-bottom: 0px;
   margin-top: 0px;
