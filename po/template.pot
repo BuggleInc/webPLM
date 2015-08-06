@@ -141,6 +141,10 @@ msgstr ""
 msgid "and"
 msgstr ""
 
+#: public/app/components/exercise/animation-speed.directive.html:3
+msgid "Animation speed:"
+msgstr ""
+
 #: public/app/components/exercise/toggle-api.directive.html:2
 msgid "API"
 msgstr ""
@@ -289,7 +293,7 @@ msgstr ""
 msgid "clearMessage"
 msgstr ""
 
-#: public/app/exercise/exercise.html:8
+#: public/app/exercise/exercise.html:9
 msgid "Code editor:"
 msgstr ""
 
@@ -533,7 +537,7 @@ msgstr ""
 msgid "Error during update"
 msgstr ""
 
-#: public/app/exercise/exercise.html:21
+#: public/app/exercise/exercise.html:22
 msgid "Execution results:"
 msgstr ""
 
@@ -1892,7 +1896,7 @@ msgstr ""
 msgid "test"
 msgstr ""
 
-#: public/app/exercise/exercise.html:25
+#: public/app/exercise/exercise.html:26
 msgid "Test cases:"
 msgstr ""
 

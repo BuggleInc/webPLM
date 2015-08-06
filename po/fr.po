@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-08-04 14:37+0100\n"
+"PO-Revision-Date: 2015-08-06 16:59+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -165,6 +165,10 @@ msgstr ""
 msgid "and"
 msgstr "et"
 
+#: public/app/components/exercise/animation-speed.directive.html:3
+msgid "Animation speed:"
+msgstr "Vitesse d'animation:"
+
 #: public/app/components/exercise/toggle-api.directive.html:2
 msgid "API"
 msgstr "API"
@@ -323,7 +327,7 @@ msgstr "Choisir une couleur dans la palette"
 msgid "clearMessage"
 msgstr "effaceMessage"
 
-#: public/app/exercise/exercise.html:8
+#: public/app/exercise/exercise.html:9
 msgid "Code editor:"
 msgstr "Éditeur de code:"
 
@@ -576,7 +580,7 @@ msgstr "Effacer le message."
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
-#: public/app/exercise/exercise.html:21
+#: public/app/exercise/exercise.html:22
 msgid "Execution results:"
 msgstr "Résultats de l'exécution:"
 
@@ -1370,14 +1374,13 @@ msgid "Password:"
 msgstr "Mot de passe:"
 
 #: public/app/components/home/lesson-overview.directive.html:6
-#, fuzzy
 msgid ""
 "Pick a lesson on the left, and start coding! If unsure, take\n"
 "      the \"welcome\" one: it will guide you through the basics."
 msgstr ""
-"Choisissez une leçon sur la gauche, et commencez à coder! Si vous débuter, "
-"choisissez\n"
-"      la leçon \"welcome\": vous y apprendrez les bases de la programmation."
+"Choisissez une leçon sur la gauche, et commencez à coder! Si vous débutez, "
+"sélectionnez celle intitulée \"welcome\": vous y apprendrez les bases de la "
+"programmation."
 
 #: public/app/services/blocklymsg.service.js:466
 msgid "Pickup a baggle."
@@ -2037,7 +2040,7 @@ msgstr "tan"
 msgid "test"
 msgstr "test"
 
-#: public/app/exercise/exercise.html:25
+#: public/app/exercise/exercise.html:26
 msgid "Test cases:"
 msgstr "Cas de tests:"
 
