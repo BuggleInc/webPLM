@@ -24,14 +24,10 @@ import log.PLMLogger
 import java.util.Locale
 import java.util.Properties
 
-class PLM(userAgent: String, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  
-  var properties = new Properties
-  properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
-  properties.setProperty("webplm.user-agent", userAgent)
   
   var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser, properties)
 
