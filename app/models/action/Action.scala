@@ -8,6 +8,15 @@ trait IAction {
 	def run() 
 }
 
+private[action] abstract class Action(actor : PLMActor, msg : JsValue) extends IAction {
+}
+
+private[action] class UnhandledAction(actor : PLMActor, msg : JsValue) extends Action(actor, msg) {
+	override def run() {
+          Logger.debug("cmd: non-correct JSON")
+	}
+}
+
 object Action {
 	/**
 	 * 
@@ -38,14 +47,5 @@ object Action {
 			// Default
 				case _ => new UnhandledAction(actor, msg)
 			}
-	}
-}
-
-private[action] abstract class Action(actor : PLMActor, msg : JsValue) extends IAction {
-}
-
-private[action] class UnhandledAction(actor : PLMActor, msg : JsValue) extends Action(actor, msg) {
-	override def run() {
-          Logger.debug("cmd: non-correct JSON")
 	}
 }

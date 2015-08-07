@@ -17,7 +17,7 @@ import play.api.Play.current
  */
 class Tribunal extends Runnable {
 	// Config options
-	val defaultTimeout : Long = 2000
+	val defaultTimeout : Long = 5000
 	val QUEUE_NAME_REQUEST : String = "worker_in"
 	val QUEUE_NAME_REPLY : String = "worker_out"
 
@@ -71,7 +71,7 @@ class Tribunal extends Runnable {
 		var corrId : String = java.util.UUID.randomUUID().toString();
 		// This part handles compilation with workers.
 	// Properties
-		var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).replyTo(QUEUE_NAME_REPLY).build()
+		var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).expiration(""+defaultTimeout).replyTo(QUEUE_NAME_REPLY).build()
 	// Connection
 		var factory : ConnectionFactory = new ConnectionFactory()
 		factory.setHost(QUEUE_ADDR)
@@ -123,7 +123,6 @@ class Tribunal extends Runnable {
 				if (delivery.getProperties().getCorrelationId().equals(corrId)) {
 					channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
 					Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
-          timeout = System.currentTimeMillis + defaultTimeout
 				}
 				else
 					channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
