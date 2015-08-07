@@ -3,7 +3,7 @@ language: scala
 scala:
   - 2.11.4
 jdk:
-  - openjdk8
+  - oraclejdk8
 install:
   - npm install
 cache:
