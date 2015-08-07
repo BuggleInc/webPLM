@@ -1,0 +1,53 @@
+<div id="bugReportModal" class="reveal-modal" data-reveal=true>
+  <h2 translate>Report an issue:</h2>
+  <hr>
+  <form>
+    <div class="row">
+      <div data-alert class="alert-box info radius full-width">
+        <span translate> Please write your suggestion below, with all necessary details (if possible in English or French).</span>
+        <span translate>When you find a typo or a sentence that is hard to understand, it really helps to suggest a new wording.</span>
+        <span translate>If you encounter a technical bug, please tell us what you did,	which outcome you were expecting and what happened instead.</span>
+        <div class="row text-center">
+          <strong translate>But DO NEVER DISCLOSE A PASSWORD to a bug tracker. Never.</strong>
+        </div>
+      </div>
+      <div ng-show="bugReport.error === bugReport.INCORRECT_ISSUE" data-alert class="alert-box warning radius full-width">
+        <p class="lead">Incorrect issue</p>
+        <p>
+          <span translate>Your feedback needs some little changes before being send, please fix the following issue(s):</span>
+          <br>
+          <span class="with-newlines">{{ bugReport.errorMsg}}</span>
+        </p>
+      </div>
+      <div ng-show="bugReport.error === bugReport.ERRORED_ISSUE" data-alert class="alert-box warning radius full-width">
+        <p class="lead">Error while uploading issue...</p>
+        <p>
+          <span class="translate">An error occured while uploading your issue, could you please post directly on the project webpage</span>&nbsp;<a ng-href="{{ bugReport.issuesUrl}}" target="_blank">{{bugReport.issuesUrl}}</a>&nbsp;<span translate>or try again later?</span>
+          <br>
+          <span translate>Thanks for your feedback!</span>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-2 columns">
+        <label for="bugReportTitle" class="inline"><strong translate>Title:</strong></label>
+      </div>
+      <div class="small-10 columns">
+        <input id="bugReportTitle" type="text" placeholder="{{ 'Please name the problem' | translate}}" ng-model="bugReport.title">
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-2 columns">
+        <label for="bugReportText" class="inline"><strong translate>Description:</strong></label>
+      </div>
+      <div class="small-10 columns">
+        <textarea rows="6" id="bugReportText" placeholder="{{ 'Description of the issue' | translate }}" ng-model="bugReport.body"></textarea>
+      </div>
+    </div>
+  </form>
+  <span class="center">
+  	<button class="secondary" onclick="$('#bugReportModal').foundation('reveal', 'close');" translate>Cancel</button>
+  	<button class="center right" ng-click="bugReport.submit()" translate>Submit</button>
+  </span>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

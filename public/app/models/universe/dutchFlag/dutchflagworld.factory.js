@@ -13,8 +13,6 @@
 		var DutchFlagWorld = function(world)
 		{
 			this.type = world.type;
-			this.width = world.width;
-			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
 
@@ -83,11 +81,6 @@
 				}
 				this.currentState = state;
 			}
-		};
-
-		DutchFlagWorld.prototype.getEntity = function(entityID)
-		{
-			return this.entities[entityID];
 		};
 
 		return DutchFlagWorld;

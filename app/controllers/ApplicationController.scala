@@ -36,6 +36,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
     var token = optToken.getOrElse("")
+    var userAgent: String = request.headers.get("User-Agent").getOrElse("")
     var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)
     var actorUUID: String = UUID.randomUUID.toString
     implicit val req = Request(requestWithToken, AnyContentAsEmpty)
@@ -43,7 +44,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) => 
-        Right(PLMActor.propsWithUser(actorUUID,  user) _)
+        Right(PLMActor.propsWithUser(userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
         var newUser: Boolean = false;
@@ -52,7 +53,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
+        Right(PLMActor.props(userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
     }
   }
   

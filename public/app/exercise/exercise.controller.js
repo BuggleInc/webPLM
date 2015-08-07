@@ -78,11 +78,11 @@
     exercise.lastStateDrawn = -1;
 
     locker.bind($scope, 'showInstructions', true);
-    exercise.showInstructions = locker.get('showInstructions');
+    $scope.showInstructions = locker.get('showInstructions');
     locker.bind($scope, 'showCodeEditor', true);
-    exercise.showCodeEditor = locker.get('showCodeEditor');
+    $scope.showCodeEditor = locker.get('showCodeEditor');
     locker.bind($scope, 'showAPI', false);
-    exercise.showAPI = locker.get('showAPI');
+    $scope.showAPI = locker.get('showAPI');
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
@@ -113,6 +113,7 @@
     exercise.setWorldState = setWorldState;
     exercise.setCurrentWorld = setCurrentWorld;
     exercise.switchToTab = switchToTab;
+    exercise.toggleAPI = toggleAPI;
 
     exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
@@ -146,6 +147,7 @@
 
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
+      window.editor = _editor; // To allow tests to interact with the editor
       exercise.editor.on('change', resetIdleLoop);
       resizeCodeMirror();
     };
@@ -188,7 +190,7 @@
         exercise.logs += args.msg;
         break;
       case 'newProgLang':
-        updateUI(args.newProgLang, args.instructions, null, args.code);
+        updateUI(args.newProgLang, args.instructions, args.api, args.code);
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
@@ -548,6 +550,7 @@
 
       exercise.lastStateDrawn = -1;
 
+      $timeout.cancel(exercise.updateModelLoop);
       $timeout.cancel(exercise.updateViewLoop);
       exercise.isPlaying = false;
     }
@@ -629,11 +632,13 @@
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
-      exercise.initialWorlds = {};
-      exercise.answerWorlds = {};
-      exercise.currentWorlds = {};
-      exercise.currentWorld = null;
-      exercise.drawService.setWorld(null);
+      if(!exercise.nonImplementedWorldException) {
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.drawService.setWorld(null);
+      }
       exercise.instructions = null;
       exercise.api = null;
       exercise.resultType = null;
@@ -756,6 +761,14 @@
       }
     }
 
+    function toggleAPI() {
+      $scope.showAPI = !$scope.showAPI;
+      $scope.showInstructions = !$scope.showInstructions;
+      if($scope.showInstructions) {
+        $timeout(exercise.resizeCanvas, 0);
+      }
+    }
+    
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
         if (pl.lang === 'Blockly') {

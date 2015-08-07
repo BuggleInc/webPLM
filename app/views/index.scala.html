@@ -27,6 +27,7 @@
   <script type="text/javascript" src="/assets/javascripts/angular.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-animate.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-cookies.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-sanitize.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-ui-router.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-gettext/dist/angular-gettext.js"></script>
   <script type="text/javascript" src="/assets/javascripts/translations.js"></script>
@@ -46,8 +47,14 @@
         </section>
 
         <section class="middle tab-bar-section">
+          <span ui-sref="home" class="left hover">
+            <strong>PLM</strong>
+          </span>
           <span>
-            <strong class="title">{{navigation.getCurrentPageTitle()}}</strong>
+            <strong class="title">
+              <span ng-cloak>{{ navigation.getCurrentPageTitle() }}</span>
+              <span ng-if="!navigation.getCurrentPageTitle()" translate>Loading...</span>
+            </strong>
           </span>
         </section>
         
@@ -72,6 +79,7 @@
     </div>
   </div>
   <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+  <bug-report-modal></bug-report-modal>
   <track-user-modal></track-user-modal>
 </body>
 
@@ -119,6 +127,7 @@
 <!-- Application's services -->
 <script type="text/javascript" src="/assets/app/services/blockly.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/blocklymsg.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/bugreport.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
@@ -131,6 +140,7 @@
 <script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 
 <!-- Application's components -->
+<script type="text/javascript" src="/assets/app/components/bug-report-modal.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/human-languages.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/profile-top-bar.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/programming-languages.directive.js"></script>
@@ -138,6 +148,7 @@
 <script type="text/javascript" src="/assets/app/components/track-user-modal.directive.js"></script>
 <!-- Exercise's components -->
 <script type="text/javascript" src="/assets/app/components/exercise/animation-player.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/animation-speed.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/blockly.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/ide.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/instructions.directive.js"></script>
@@ -145,6 +156,7 @@
 <script type="text/javascript" src="/assets/app/components/exercise/results.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/tabs-current-world.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/test-cases.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/toggle-api.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/world-non-implemented.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/worlds-view.directive.js"></script>
 <!-- Home's components -->

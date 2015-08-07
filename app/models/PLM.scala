@@ -16,17 +16,21 @@ import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 import play.api.libs.json._
+import play.api.Play
+import play.api.Play.current
 import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
 import java.util.Locale
+import java.util.Properties
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser, properties)
+
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
@@ -87,6 +91,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
+  def getAPI(): String = {
+    var api: String = ""
+    if(getInitialWorlds != null) {
+      api = getInitialWorlds.head.getAbout
+    }
+    return api
+  }
   
   def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
