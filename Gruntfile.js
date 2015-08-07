@@ -29,6 +29,7 @@ module.exports = function(grunt) {
             'public/javascripts/angular.js',
             'public/javascripts/angular-animate.js',
             'public/javascripts/angular-cookies.js',
+            'public/javascripts/angular-sanitize.js',
             'public/javascripts/angular-ui-router.js',
             'public/javascripts/angular-ui-codemirror/ui-codemirror.js',
             'public/javascripts/angular-locker.js',
