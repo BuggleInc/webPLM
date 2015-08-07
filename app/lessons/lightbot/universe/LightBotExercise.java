@@ -7,6 +7,8 @@ import plm.core.model.lesson.ExecutionProgress;
 import plm.core.model.lesson.ExerciseTemplated;
 import plm.core.model.lesson.Lesson;
 import plm.universe.World;
+import plm.core.model.lesson.Exercise.WorldKind;
+import plm.core.model.lesson.Exercise.StudentOrCorrection;
 
 public class LightBotExercise extends ExerciseTemplated {
 	public LightBotExercise(Game game, Lesson lesson) {

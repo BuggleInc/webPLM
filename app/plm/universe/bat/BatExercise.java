@@ -8,6 +8,8 @@ import plm.core.model.Game;
 import plm.core.model.lesson.ExerciseTemplatingEntity;
 import plm.core.model.lesson.Lesson;
 import plm.universe.World;
+import plm.core.model.lesson.Exercise.WorldKind;
+import plm.core.model.lesson.Exercise.StudentOrCorrection;
 
 public abstract class BatExercise extends ExerciseTemplatingEntity {
 	public static final boolean INVISIBLE = false;
