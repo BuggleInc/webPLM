@@ -37,18 +37,18 @@ class Git(userUUID : String, gitUtils : GitUtils) {
    * @param newExerciseID the exercise the user is switching to.
    * @param user the user data.
    */
-  def gitSwitchedPush(newExerciseID : String, user : UserData) {
+  def gitSwitchedPush(newExerciseID : String, user : User) {
 	  
   }
   
   /**
    * 
    */
-  def gitRevertedPush(user : UserData) {
+  def gitRevertedPush(user : User) {
 	  
   }
   
-  def gitStartedPush(user : UserData) {
+  def gitStartedPush(user : User) {
 	  
   }
   
