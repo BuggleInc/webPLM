@@ -104,7 +104,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
-    game.startExerciseDemoExecution()
   }
   
   def stopExecution() {
