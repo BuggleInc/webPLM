@@ -32,14 +32,6 @@ private[action] class RunExerciseAction(actor : PLMActor, msg : JsValue) extends
 private[action] class RunDemoAction(actor : PLMActor, msg : JsValue) extends ControlAction(actor, msg) {
 	override def run() {
 		Logger.warn("You should not use the runDemo action anymore. You can access the generated demo file at : /assets/json/demos/<<exercise>>.json");
-		var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
-		var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
-		(optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
-			case (lessonID:String, exerciseID: String) =>
-				actor.plm.runDemo(lessonID, exerciseID)
-			case (_, _) =>
-				Logger.debug("runDemo: non-correctJSON")
-		}
 	}
 }
 
@@ -58,8 +50,7 @@ private[action] class RevertExerciseAction(actor : PLMActor, msg : JsValue) exte
 				lecture,
 				actor.plm.programmingLanguage,
 				actor.plm.getStudentCode,
-				actor.plm.getInitialWorlds,
-				actor.plm.getSelectedWorldID)
+				actor.plm.getInitialWorlds)
 			))
 	}
 }

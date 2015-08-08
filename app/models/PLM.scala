@@ -75,10 +75,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     game.revertExo
     return _currentExercise
   }
-
-  def getSelectedWorldID(): String = {
-    return game.getSelectedWorld.getName
-  }
   
   def addExecutionSpy(exo: Exercise, spy: ExecutionSpy, kind: WorldKind) {
     // Adding the executionSpy to the current worlds
@@ -103,9 +99,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
     tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
-  }
-  
-  def runDemo(lessonID: String, exerciseID: String) {
   }
   
   def stopExecution() {

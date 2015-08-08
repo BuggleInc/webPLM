@@ -60,8 +60,7 @@ private[action] class GetExerciseAction(actor : PLMActor, msg : JsValue) extends
 							lecture,
 							actor.plm.programmingLanguage,
 							actor.plm.getStudentCode,
-							actor.plm.getInitialWorlds,
-							actor.plm.getSelectedWorldID
+							actor.plm.getInitialWorlds
 						)
 				)
 			actor.sendMessage("exercise", j)
