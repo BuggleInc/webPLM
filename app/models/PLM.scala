@@ -22,6 +22,8 @@ import log.PLMLogger
 import actors.PLMActor
 import java.util.Locale
 
+import plm.core.ui.PlmHtmlEditorKit
+
 class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
@@ -138,7 +140,9 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def currentExercise: Exercise = _currentExercise
   
   def getMission(progLang: ProgrammingLanguage): String = {
-    if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
+	var missionLoader = new MissionLoader
+	missionLoader.loadHTMLMission(_currentExercise.getName(), _currentLang.toLocale, game.i18n)
+	if(_currentExercise != null) PlmHtmlEditorKit.filterHTML(missionLoader.mission, game.isDebugEnabled(), progLang) else ""
   }
   
   def setUserUUID(userUUID: String) {
