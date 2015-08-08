@@ -49,18 +49,18 @@ class Tribunal extends Runnable {
 	* @param exerciseID the loaded exercise
 	* @param code the code to execute
 	*/
-	def startTribunal(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
-		setData(plmActor, git, game, lessonID, exerciseID, code)
+	def startTribunal(plmActor:PLMActor, git:Git, language : String, progLanguage : String, lessonID:String, exerciseID:String, code:String) {
+		setData(plmActor, git, language, progLanguage, lessonID, exerciseID, code)
 		(new Thread(this)).start()
 	}
-	private def setData(newActor:PLMActor, newGit:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
+	private def setData(newActor:PLMActor, newGit:Git, language : String, progLanguage : String, lessonID:String, exerciseID:String, code:String) {
 		git = newGit
 		actor = newActor
 		parameters = Json.obj(
 				"lesson" -> ("lessons." + lessonID),
 				"exercise" -> exerciseID,
-				"localization" -> game.getLocale.getLanguage,
-				"language" -> game.getProgrammingLanguage.getLang,
+				"localization" -> language,
+				"language" -> progLanguage,
 				"code" -> code
 			)
 		state = Off

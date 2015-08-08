@@ -27,9 +27,10 @@ import plm.core.ui.PlmHtmlEditorKit
 class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
-  var _currentLang: Lang = _
+  var _currentLang: Lang = Lang(locale.toString)
+  var _currentProgLang = lastProgLang.getOrElse("Java")
   var gitUtils = new GitUtils()
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser)
+  var game = new Game(userUUID, plmLogger, locale, _currentProgLang, gitUtils, trackUser)
   var gitGest = new Git(userUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
   
@@ -97,8 +98,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
-    Logger.debug("Code:\n"+code)
-    tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
+    tribunal.startTribunal(plmActor, gitGest, _currentLang.toLocale.toString, _currentProgLang, lessonID, exerciseID, code)
   }
   
   def stopExecution() {
@@ -108,7 +108,8 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
   
   def setProgrammingLanguage(lang: String) {
-    game.setProgrammingLanguage(lang)
+	_currentProgLang = lang
+    game.setProgrammingLanguage(_currentProgLang)
   }
   
   def getStudentCode: String = {
