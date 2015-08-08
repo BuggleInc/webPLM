@@ -22,7 +22,9 @@ class MissionLoader {
 	var name : String = _;
 	 
 	def loadHTMLMission(missionName : String, locale : Locale, i18n : I18n) {
-		var filename : String = missionName.replace('.',File.separatorChar)
+		// Ensures we get only the string beginning by "lessons."
+		var lessonPos = missionName.indexOf("lessons.", 0);
+		var filename : String = missionName.substring(lessonPos).replace('.',File.separatorChar)
 
 		var sb : StringBuffer = null
 		try {

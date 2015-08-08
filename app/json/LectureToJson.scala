@@ -8,15 +8,16 @@ import plm.core.model.lesson.Lecture
 import plm.core.lang.ProgrammingLanguage
 import plm.universe.World
 import json.world.WorldToJson
+import models.PLM
 
 object LectureToJson {
   
-  def lectureWrites(lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], selectedWorldID: String): JsValue = {
+  def lectureWrites(plm : PLM, lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], selectedWorldID: String): JsValue = {
     var progLangArray = lecture.asInstanceOf[Exercise].getProgLanguages.toArray(Array[ProgrammingLanguage]())
     
     var json = Json.obj(
       "id" -> lecture.getId,
-      "instructions" -> lecture.getMission(progLang),
+      "instructions" -> plm.getMission(progLang),
       "code" -> code,
       "selectedWorldID" -> selectedWorldID,
       "api" -> initialWorlds.head.getAbout,

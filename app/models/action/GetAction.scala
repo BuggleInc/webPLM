@@ -56,6 +56,7 @@ private[action] class GetExerciseAction(actor : PLMActor, msg : JsValue) extends
 		if(lecture != null) {
 			var j : JsValue = Json.obj(
 					"exercise" -> LectureToJson.lectureWrites(
+							actor.plm,
 							lecture,
 							actor.plm.programmingLanguage,
 							actor.plm.getStudentCode,

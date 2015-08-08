@@ -54,6 +54,7 @@ private[action] class RevertExerciseAction(actor : PLMActor, msg : JsValue) exte
 		var lecture = actor.plm.revertExercise
 		actor.sendMessage("exercise", Json.obj(
 			"exercise" -> LectureToJson.lectureWrites(
+				actor.plm,
 				lecture,
 				actor.plm.programmingLanguage,
 				actor.plm.getStudentCode,

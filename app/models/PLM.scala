@@ -141,7 +141,10 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   def getMission(progLang: ProgrammingLanguage): String = {
 	var missionLoader = new MissionLoader
-	missionLoader.loadHTMLMission(_currentExercise.getName(), _currentLang.toLocale, game.i18n)
+	missionLoader.loadHTMLMission(
+			_currentExercise.getId(),
+			game.getLocale,
+			game.i18n)
 	if(_currentExercise != null) PlmHtmlEditorKit.filterHTML(missionLoader.mission, game.isDebugEnabled(), progLang) else ""
   }
   
