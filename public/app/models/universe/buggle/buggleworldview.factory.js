@@ -85,6 +85,13 @@
 
 			cellWidth = canvasWidth/buggleWorld.width;
 			cellHeight = canvasHeight/buggleWorld.height;
+            if(cellHeight<cellWidth) {
+                cellWidth=cellHeight;
+            } else {
+                cellHeight=cellWidth;
+            }
+            canvas.width = cellWidth*buggleWorld.width;
+            canvas.height = cellHeight*buggleWorld.height;
 		}
 
 		function draw(canvas, buggleWorld) {
