@@ -20,7 +20,7 @@ object LectureToJson {
       "instructions" -> plm.getMission(progLang),
       "code" -> code,
       "selectedWorldID" -> initialWorlds(0).getName,
-      "api" -> initialWorlds.head.getAbout,
+      "api" -> plm.getAPI(),
       "programmingLanguages" -> ProgrammingLanguageToJson.programmingLanguagesWrite(progLangArray),
       "currentProgrammingLanguage" -> progLang.getLang,
       "toolbox" -> lecture.getToolbox
@@ -41,10 +41,10 @@ object LectureToJson {
     return json
   }
 
-  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {    
+  def instructionsWrite(plm : PLM, lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {    
     return Json.obj(
       "instructions" -> lecture.getMission(progLang),
-      "api" -> initialWorlds.head.getAbout
+      "api" -> plm.getAPI()
     )
   }
 }

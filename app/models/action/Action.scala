@@ -5,6 +5,9 @@ import play.api.libs.json._
 import play.api.Logger
 
 trait IAction {
+	/**
+	 * Runs the action.
+	 */
 	def run() 
 }
 
@@ -19,9 +22,13 @@ private[action] class UnhandledAction(actor : PLMActor, msg : JsValue) extends A
 
 object Action {
 	/**
-	 * 
+	 * Generates an action from a JSON message.
+	 * @param actor the relevant PLMActor.
+	 * @param msg the JSON message
+	 * @return the relevant {@link IAction}.
 	 */
-	def apply(cmd : String, actor : PLMActor, msg : JsValue) : IAction = {
+	def apply(actor : PLMActor, msg : JsValue) : IAction = {
+			var cmd : String = (msg \ "cmd").asOpt[String].getOrElse("")
 			return cmd match {
 			// LoginAction
 				case "signIn" | "signUp" => new SignInAction(actor, msg)

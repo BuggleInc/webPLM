@@ -14,7 +14,7 @@ class ProgLangListener(plmActor: PLMActor, plm: PLM) extends ProgLangChangesList
       "newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(newLang),
       "instructions" -> plm.getMission(newLang),
       "code" -> plm.getStudentCode,
-      "api" -> plm.getAPI
+      "api" -> plm.getAPI()
     )
     plmActor.sendMessage("newProgLang", mapArgs)
   }

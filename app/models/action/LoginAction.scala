@@ -12,7 +12,6 @@ private[action] abstract class LoginAction(actor : PLMActor, msg : JsValue) exte
 private[action] class SignInAction(actor : PLMActor, msg : JsValue) extends LoginAction(actor, msg) {
 	override def run() {
 		actor.setCurrentUser((msg \ "user").asOpt[User].get)
-		actor.registeredSpies.foreach { spy => spy.unregister }
 		actor.plm.setUserUUID(actor.currentGitID)
 		actor.currentTrackUser = actor.currentUser.trackUser.getOrElse(false)
 		actor.plm.setTrackUser(actor.currentTrackUser)
@@ -30,7 +29,6 @@ private[action] class SignInAction(actor : PLMActor, msg : JsValue) extends Logi
 private[action] class SignOutAction(actor : PLMActor, msg : JsValue) extends LoginAction(actor, msg) {
 	override def run() {
 		actor.clearCurrentUser()
-		actor.registeredSpies.foreach { spy => spy.unregister }
 		actor.plm.setUserUUID(actor.currentGitID)
 		actor.currentTrackUser = false
 		actor.plm.setTrackUser(actor.currentTrackUser)

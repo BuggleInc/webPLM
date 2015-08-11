@@ -14,6 +14,7 @@ import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
 import plm.core.model.tracking.GitUtils
 import plm.universe.World
+import plm.core.utils.FileUtils
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 import play.api.Logger
@@ -21,12 +22,16 @@ import play.api.i18n.Lang
 import log.PLMLogger
 import actors.PLMActor
 import java.util.Locale
+import java.io.File
+import java.io.IOException
 
 import plm.core.ui.PlmHtmlEditorKit
 
 class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
+  var _currentExerciseName: String = _
+  var _currentLessonName: String = _
   var _currentLang: Lang = Lang(locale.toString)
   var _currentProgLang = lastProgLang.getOrElse("Java")
   var gitUtils = new GitUtils()
@@ -36,15 +41,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
-  def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;
+    _currentLessonName = key
     game.switchLesson(key, true)
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
-    
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
     
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
@@ -54,7 +57,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     return lect
   }
   
-  def switchExercise(lessonID: String, exerciseID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchExercise(lessonID: String, exerciseID: String): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     game.switchExercise(exerciseID)
@@ -62,7 +65,6 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
@@ -77,23 +79,26 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     return _currentExercise
   }
   
-  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy, kind: WorldKind) {
-    // Adding the executionSpy to the current worlds
-    exo.getWorlds(kind).toArray(Array[World]()).foreach { world =>
-      var worldSpy: ExecutionSpy = spy.clone()
-      worldSpy.setWorld(world)
-    }
-  }
-  
   def getInitialWorlds(): Array[World] = {
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
   def getAPI(): String = {
+    var filename: String = _currentExercise.getWorlds(WorldKind.CURRENT).firstElement.getClass.getCanonicalName.replace('.', File.separatorChar);
     var api: String = ""
-    if(getInitialWorlds != null) {
-      api = getInitialWorlds.head.getAbout
+    var api_nonformatted : String = null
+    if (api_nonformatted == null) {
+      var sb : StringBuffer = null
+      try {
+        sb = FileUtils.readContentAsText(filename, game.getLocale(), "html", true)
+      } catch {
+        case ex : IOException => api_nonformatted = "File "+filename+".html not found."
+        return api_nonformatted
+      }
+      /* read it */
+      api_nonformatted = sb.toString();
     }
+    api = PlmHtmlEditorKit.filterHTML(api_nonformatted, game.isDebugEnabled(), game.getProgrammingLanguage());
     return api
   }
   

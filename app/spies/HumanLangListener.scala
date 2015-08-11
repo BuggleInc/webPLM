@@ -18,7 +18,7 @@ class HumanLangListener(plmActor: PLMActor, plm: PLM) extends HumanLangChangesLi
       "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
     )
     if(plm.currentExercise != null)
-      mapArgs = mapArgs ++ LectureToJson.instructionsWrite(plm.currentExercise, plm.programmingLanguage, plm.getInitialWorlds).as[JsObject]
+      mapArgs = mapArgs ++ LectureToJson.instructionsWrite(plm, plm.currentExercise, plm.programmingLanguage, plm.getInitialWorlds).as[JsObject]
     plmActor.sendMessage("newHumanLang", mapArgs)
   }
 }

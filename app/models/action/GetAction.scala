@@ -5,7 +5,6 @@ import play.api.libs.json._
 import play.api.Logger
 import json._
 import plm.core.model.lesson.Lecture
-import spies.ExecutionSpy
 
 private[action] abstract class GetAction(actor : PLMActor, msg : JsValue) extends Action(actor, msg) {
 }
@@ -43,13 +42,11 @@ private[action] class GetExerciseAction(actor : PLMActor, msg : JsValue) extends
 		var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
 		var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
 		var lecture: Lecture = null;
-		var executionSpy: ExecutionSpy = new ExecutionSpy(actor, "operations")
-		var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(actor, "demoOperations")
 		(optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
 			case (lessonID:String, exerciseID: String) =>
-				lecture = actor.plm.switchExercise(lessonID, exerciseID, executionSpy, demoExecutionSpy)
+				lecture = actor.plm.switchExercise(lessonID, exerciseID)
 			case (lessonID:String, _) =>
-				lecture = actor.plm.switchLesson(lessonID, executionSpy, demoExecutionSpy)
+				lecture = actor.plm.switchLesson(lessonID)
 			case (_, _) =>
 				Logger.debug("getExercise: non-correct JSON")
 		}

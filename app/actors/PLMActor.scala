@@ -41,10 +41,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
-  var resultSpy: ExecutionResultListener = null
   var progLangSpy: ProgLangListener  = null
   var humanLangSpy: HumanLangListener = null
-  var registeredSpies: List[ExecutionSpy] = null
   
   var currentUser: User = null
   
@@ -73,7 +71,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
     case msg: JsValue =>
       Logger.debug("Received a message")
       Logger.debug(msg.toString())
-      Action((msg \ "cmd").asOpt[String].getOrElse(""), this, msg).run()
+      Action(this, msg).run()
   }
   
   def createMessage(cmdName: String, mapArgs: JsValue): JsValue = {
@@ -134,16 +132,11 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   }
   
   def initSpies() {
-    resultSpy = new ExecutionResultListener(this, plm.game)
-    plm.game.addGameStateListener(resultSpy)
-    
     progLangSpy = new ProgLangListener(this, plm)
     plm.game.addProgLangListener(progLangSpy, true)
     
     humanLangSpy = new HumanLangListener(this, plm)
     plm.game.addHumanLangListener(humanLangSpy, true)
-    
-    registeredSpies = List()
   }
   
   def registerActor() {
@@ -152,10 +145,6 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
         "actorUUID" -> actorUUID  
       )
     )
-  }
-  
-  def registerSpy(spy: ExecutionSpy) {
-    registeredSpies = registeredSpies ::: List(spy)
   }
   
   def savePreferredLang() {
@@ -198,9 +187,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       clearUserIdle
     }
     ActorsMap.remove(actorUUID)
-    plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
-    registeredSpies.foreach { spy => spy.unregister }
     plm.game.quit
   }
 }
