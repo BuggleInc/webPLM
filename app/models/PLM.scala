@@ -31,11 +31,9 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   var gitUtils = new GitUtils()
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser)
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
   var gitGest = new Git(userUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
-  
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser, properties)
 
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 

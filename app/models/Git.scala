@@ -32,6 +32,7 @@ import org.eclipse.jgit.api.errors.GitAPIException
 
 class Git(userUUID : String, gitUtils : GitUtils) {
   var repoDir : File = getRepoDir(Game.getSavingLocation())
+  var repoUrl : String = Game.getProperty("plm.git.server.url")
   
   def gitEndExecutionPush(reply : JsValue, exoCode : String) {
 	var game = gitUtils.getGame();
@@ -109,7 +110,7 @@ class Git(userUUID : String, gitUtils : GitUtils) {
         bwExo.close()
       } catch {
         case ex : IOException =>
-           game.getLogger().log("Failed to write on disk that the exercise is passed: "+ex.getLocalizedMessage())
+           Logger.warn("Failed to write on disk that the exercise is passed: "+ex.getLocalizedMessage())
       }
     } else {
       if (doneFile.exists())
@@ -122,42 +123,40 @@ class Git(userUUID : String, gitUtils : GitUtils) {
     var repoDir : File = null
     var game = gitUtils.getGame()
     
-    System.out.println("Test 1")
-    
     try {
-      repoDir = new File(savingLoc + System.getProperty("file.separator") + userUUID);
+		repoDir = new File(Game.SAVE_DIR.getAbsolutePath + System.getProperty("file.separator") + userUUID);
 
-      if (!repoDir.exists()) {
-        gitUtils.initLocalRepository(repoDir);
-        gitUtils.setUpRepoConfig(Game.getProperty("plm.git.server.url"), userBranch);
-        // We must create an initial commit before creating a specific branch for the user
-        gitUtils.createInitialCommit()
-      }
-      
-      gitUtils.openRepo(repoDir)
-      if (gitUtils.getRepoRef(userBranch) != null) {
-        gitUtils.checkoutUserBranch(userBranch)
-      }
-      else {
-        gitUtils.createLocalUserBranch(userBranch)
-      }
-      
-      // try to get the branch as stored remotely
-      if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
-        gitUtils.mergeRemoteIntoLocalBranch(userBranch)
-        game.getLogger().log(game.i18n.tr("Your session {0} was automatically retrieved from the servers.",userBranch))
-      }
-      else {
-        // If no branch can be found remotely, create a new one.
-        //getGame().getLogger().log(getGame().i18n.tr("Creating a new session locally, as no corresponding session could be retrieved from the servers.",userBranch));
-        game.getLogger().log(game.i18n.tr("Couldn't retrieve a corresponding session from the servers..."))
-      }
+		if (!repoDir.exists()) {
+			gitUtils.initLocalRepository(repoDir);
+			gitUtils.setUpRepoConfig(repoUrl, userBranch);
+			// We must create an initial commit before creating a specific branch for the user
+			gitUtils.createInitialCommit();
+		}
 
-      // Log into the git that the PLM just started
-      gitUtils.commit(writePLMStartedOrLeavedCommitMessage("started"))
-      
-      // and push to ensure that everything remains in sync
-      gitUtils.maybePushToUserBranch(userBranch, NullProgressMonitor.INSTANCE)
+		gitUtils.openRepo(repoDir);
+		if (gitUtils.getRepoRef(userBranch) != null) {
+			gitUtils.checkoutUserBranch(userBranch);
+		}
+		else {
+			gitUtils.createLocalUserBranch(userBranch);
+		}
+
+		// try to get the branch as stored remotely
+		Logger.debug(userBranch)
+		if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
+			gitUtils.mergeRemoteIntoLocalBranch(userBranch);
+			Logger.debug(game.i18n.tr("Your session {0} was automatically retrieved from the servers.",userBranch));
+		}
+		else {
+			// If no branch can be found remotely, create a new one.
+			//getGame().getLogger().log(getGame().i18n.tr("Creating a new session locally, as no corresponding session could be retrieved from the servers.",userBranch));
+			Logger.debug(game.i18n.tr("Couldn't retrieve a corresponding session from the servers..."));
+		}
+		// Log into the git that the PLM just started
+		gitUtils.commit(writePLMStartedOrLeavedCommitMessage("started"));
+
+		// and push to ensure that everything remains in sync
+		gitUtils.maybePushToUserBranch(userBranch, NullProgressMonitor.INSTANCE); 
     } catch {
       case e : Exception => System.err.println(game.i18n.tr("You found a bug in the PLM. Please report it with all possible details (including the stacktrace below)."))
       e.printStackTrace()
