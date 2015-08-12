@@ -8,13 +8,12 @@ object ProgrammingLanguageToJson {
   def programmingLanguagesWrite(programmingLanguages: Array[ProgrammingLanguage]): JsValue = {
     var array = new JsArray()
     programmingLanguages.foreach { operation =>
-      array = array :+ programmingLanguageWrite(operation)
+      array = array :+ programmingLanguageWrite(operation.getLang)
     }
     return array
   }
   
-  def programmingLanguageWrite(programmingLanguage: ProgrammingLanguage): JsValue = {
-    var lang: String = programmingLanguage.getLang
+  def programmingLanguageWrite(lang : String): JsValue = {
     var link: String = "/img/lang_"+ lang.toLowerCase +".png"
     Json.obj(
         "lang" -> lang,

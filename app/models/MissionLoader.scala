@@ -15,7 +15,7 @@ import scala.collection.mutable.{Map, HashMap}
 import plm.core.utils.FileUtils
 import play.api.Logger
 
-class MissionLoader {
+class DataLoader {
 	protected var tips : Map[String, String] = new HashMap[String, String]();
 	
 	var mission : String = _;

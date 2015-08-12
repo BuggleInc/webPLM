@@ -33,9 +33,9 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   var _currentExerciseName: String = _
   var _currentLessonName: String = _
   var _currentLang: Lang = Lang(locale.toString)
-  var _currentProgLang = lastProgLang.getOrElse("Java")
+  var _currentProgLangName = lastProgLang.getOrElse("Java")
   var gitUtils = new GitUtils()
-  var game = new Game(userUUID, plmLogger, locale, _currentProgLang, gitUtils, trackUser)
+  var game = new Game(userUUID, plmLogger, locale, _currentProgLangName, gitUtils, trackUser)
   var gitGest = new Git(userUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
   
@@ -49,6 +49,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     _currentExercise = exo;
+    _currentExerciseName = _currentExercise.getId
     
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
       initialWorld.setDelay(0)
@@ -66,6 +67,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
     _currentExercise = exo;
+    _currentExerciseName = _currentExercise.getId
 
     exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
       initialWorld.setDelay(0)
@@ -103,7 +105,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   }
   
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
-    tribunal.startTribunal(plmActor, gitGest, _currentLang.toLocale.toString, _currentProgLang, lessonID, exerciseID, code)
+    tribunal.startTribunal(plmActor, gitGest, _currentLang.toLocale.toString, _currentProgLangName, lessonID, exerciseID, code)
   }
   
   def stopExecution() {
@@ -113,8 +115,8 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
   
   def setProgrammingLanguage(lang: String) {
-	_currentProgLang = lang
-    game.setProgrammingLanguage(_currentProgLang)
+	_currentProgLangName = lang
+    game.setProgrammingLanguage(_currentProgLangName)
   }
   
   def getStudentCode: String = {
@@ -139,12 +141,12 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def currentExercise: Exercise = _currentExercise
   
   def getMission(progLang: ProgrammingLanguage): String = {
-	var missionLoader = new MissionLoader
-	missionLoader.loadHTMLMission(
-			_currentExercise.getId(),
-			game.getLocale,
-			game.i18n)
-	if(_currentExercise != null) PlmHtmlEditorKit.filterHTML(missionLoader.mission, game.isDebugEnabled(), progLang) else ""
+  	var missionLoader = new DataLoader
+  	missionLoader.loadHTMLMission(
+  			_currentExerciseName,
+  			_currentLang.toLocale,
+  			game.i18n)
+  	if(_currentExercise != null) PlmHtmlEditorKit.filterHTML(missionLoader.mission, game.isDebugEnabled(), progLang) else ""
   }
   
   def setUserUUID(userUUID: String) {
