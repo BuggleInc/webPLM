@@ -174,7 +174,7 @@
         setExercise(args.exercise);
         break;
       case 'executionResult':
-        displayResult(args.msgType, args.msg);
+        handleResult(args);
         break;
       case 'demoEnded':
         console.log('The demo ended!');
@@ -517,7 +517,9 @@
       connection.sendMessage('stopExecution', null);
     }
 
-    function displayResult(msgType, msg) {
+    function handleResult(data) {
+      var msgType = data.msgType;
+      var msg = data.msg;
       console.log(msgType, ' - ', msg);
       exercise.result = msg;
       if (msgType === 1) {
