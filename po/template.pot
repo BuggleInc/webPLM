@@ -445,6 +445,14 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
+#: public/app/components/exercise/error-feedback.directive.html:16
+msgid "Did this hint helped you?"
+msgstr ""
+
+#: public/app/components/exercise/error-feedback.directive.html:5
+msgid "Did we detect correctly your error?"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:122
 msgid "Direction."
 msgstr ""
@@ -537,8 +545,8 @@ msgstr ""
 msgid "Error during update"
 msgstr ""
 
-#: public/app/exercise/exercise.html:22
-msgid "Execution results:"
+#: public/app/components/exercise/execution-results.directive.html:2
+msgid "Execution results"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:469
@@ -1876,6 +1884,10 @@ msgstr ""
 msgid "Success \\o/"
 msgstr ""
 
+#: public/app/components/exercise/execution-results.directive.html:3
+msgid "Suggestion"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:272
 msgid "sum of list"
 msgstr ""
@@ -1896,7 +1908,7 @@ msgstr ""
 msgid "test"
 msgstr ""
 
-#: public/app/exercise/exercise.html:26
+#: public/app/exercise/exercise.html:25
 msgid "Test cases:"
 msgstr ""
 

@@ -1,5 +1,5 @@
-<div style="display: flex; flex-wrap: wrap;">
-  <ul class="button-group" ng-repeat="world in exercise.initialWorlds" style="flex: 1;">
+<div style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+  <ul class="button-group" ng-repeat="world in exercise.initialWorlds" style="margin: 5px;">
     <li ng-click="exercise.setCurrentWorld(world.id, exercise.worldKind);">
       <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button">{{ world.id }}</a>
     </li>

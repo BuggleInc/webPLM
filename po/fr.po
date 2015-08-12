@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-08-06 16:59+0100\n"
+"PO-Revision-Date: 2015-08-12 14:29+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -488,6 +488,14 @@ msgstr "Description du problème"
 msgid "Description:"
 msgstr "Description:"
 
+#: public/app/components/exercise/error-feedback.directive.html:16
+msgid "Did this hint helped you?"
+msgstr ""
+
+#: public/app/components/exercise/error-feedback.directive.html:5
+msgid "Did we detect correctly your error?"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:122
 msgid "Direction."
 msgstr "Direction."
@@ -580,9 +588,9 @@ msgstr "Effacer le message."
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
-#: public/app/exercise/exercise.html:22
-msgid "Execution results:"
-msgstr "Résultats de l'exécution:"
+#: public/app/components/exercise/execution-results.directive.html:2
+msgid "Execution results"
+msgstr "Résultats de l'exécution"
 
 #: public/app/services/blocklymsg.service.js:469
 msgid "exitReached"
@@ -2020,6 +2028,10 @@ msgstr "Soumettre"
 msgid "Success \\o/"
 msgstr "Exercice réussi \\o/"
 
+#: public/app/components/exercise/execution-results.directive.html:3
+msgid "Suggestion"
+msgstr "Suggestion"
+
 #: public/app/services/blocklymsg.service.js:272
 msgid "sum of list"
 msgstr "somme de la liste"
@@ -2040,7 +2052,7 @@ msgstr "tan"
 msgid "test"
 msgstr "test"
 
-#: public/app/exercise/exercise.html:26
+#: public/app/exercise/exercise.html:25
 msgid "Test cases:"
 msgstr "Cas de tests:"
 
