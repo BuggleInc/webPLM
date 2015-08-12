@@ -1,7 +1,8 @@
 plm:
   image: webplm
   volumes:
-    - "~/.plm:/.plm"
+    - "~/.plm:/root/.plm"
+    - "~/webPLM/logs/:/app/webplm-dist/logs"
   ports:
     - "80:9000"
   environment: 

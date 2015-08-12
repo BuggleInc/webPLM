@@ -147,6 +147,7 @@
 
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
+      window.editor = _editor; // To allow tests to interact with the editor
       exercise.editor.on('change', resetIdleLoop);
       resizeCodeMirror();
     };
@@ -555,6 +556,7 @@
 
       exercise.lastStateDrawn = -1;
 
+      $timeout.cancel(exercise.updateModelLoop);
       $timeout.cancel(exercise.updateViewLoop);
       exercise.isPlaying = false;
     }
@@ -640,11 +642,13 @@
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
-      exercise.initialWorlds = {};
-      exercise.answerWorlds = {};
-      exercise.currentWorlds = {};
-      exercise.currentWorld = null;
-      exercise.drawService.setWorld(null);
+      if(!exercise.nonImplementedWorldException) {
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.drawService.setWorld(null);
+      }
       exercise.instructions = null;
       exercise.api = null;
       exercise.resultType = null;
