@@ -39,13 +39,15 @@
     }
     
     function submitFeedback(commonErrorID) {
-      console.log('commonErrorID: ', commonErrorID);
       connection.sendMessage('commonErrorFeedback', {
         commonErrorID: commonErrorID,
         accuracy: service.accuracy,
         help: service.help,
         comment: service.comment
       });
+      service.accuracy = 3;
+      service.help = 3;
+      service.comment = '';
     }
 	}
 })();

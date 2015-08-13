@@ -12,8 +12,8 @@
 			restrict: 'E',
 			templateUrl: '/assets/app/components/exercise/form-common-error-feedback.directive.html',
       link: function (scope, element, attrs) {
-        console.log('scope: ', scope);
         scope.commonErrorsFeedback = commonErrorsFeedback;
+        $(document).foundation('alert', 'reflow');
 			}
 		};
 	}
