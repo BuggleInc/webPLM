@@ -14,7 +14,11 @@ import json.operation.OperationToJson
 
 class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {  
   var world: World = _
-    
+  
+  var acc: JsArray = new JsArray
+  var lastTime: Long = System.currentTimeMillis()
+  var delay: Int = 1000
+  
   def getPLMActor = plmActor
   def getMessageID = messageID
  
@@ -44,8 +48,10 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         )
         entity.getOperations.clear
         entity.setReadyToSend(false)
-        plmActor.sendMessage(messageID, mapArgs)
-    
+        acc = acc.append(mapArgs)
+        if(lastTime+delay <= System.currentTimeMillis) {
+          sendOperations
+        }
       }
     }
   }
@@ -55,6 +61,12 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
    */
   def worldHasChanged() {
     // Do not care?
+  }
+  
+  def sendOperations() {
+    lastTime = System.currentTimeMillis
+    plmActor.sendMessage(messageID, Json.obj("acc" -> acc))
+    acc = new JsArray
   }
   
   override def equals(o: Any) = {

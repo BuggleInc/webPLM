@@ -361,6 +361,10 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
     }
   }
   
+  def signalEndOfExec() {
+    registeredSpies.foreach { spy => spy.sendOperations }
+  }
+  
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
     if(userIdle) {
@@ -369,6 +373,7 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
     ActorsMap.remove(actorUUID)
     plm.game.removeGameStateListener(resultSpy)
     plm.game.removeProgLangListener(progLangSpy)
+    plm.game.removeHumanLangListener(humanLangSpy)
     registeredSpies.foreach { spy => spy.unregister }
     plm.game.quit
   }
