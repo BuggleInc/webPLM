@@ -18,6 +18,7 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
     gameState match {
       case GameState.DEMO_ENDED =>
         Logger.debug("Demo Executed - Now sending the signal")
+        plmActor.signalEndOfExec()
         plmActor.sendMessage("demoEnded", Json.obj())
       case GameState.EXECUTION_ENDED =>
         Logger.debug("Executed - Now sending the exercise's result")
@@ -37,6 +38,7 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
           "commonErrorText" -> commonErrorText
         )
         
+        plmActor.signalEndOfExec()
         plmActor.sendMessage("executionResult", mapArgs)
       case _ =>
         

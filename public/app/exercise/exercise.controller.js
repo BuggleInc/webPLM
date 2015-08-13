@@ -181,10 +181,14 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        handleOperations(args.worldID, 'current', args.operations);
+        for(var item of args.acc) {
+          handleOperations(item.worldID, 'current', item.operations);
+        }
         break;
       case 'demoOperations':
-        handleOperations(args.worldID, 'answer', args.operations);
+        for(var item of args.acc) {
+          handleOperations(item.worldID, 'answer', item.operations);
+        }
         break;
       case 'log':
         exercise.logs += args.msg;

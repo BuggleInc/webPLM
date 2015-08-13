@@ -1,0 +1,35 @@
+<div data-alert class="row alert-box info radius">
+  <form>
+    <div class="row">
+      <div class="small-6 columns">
+        <label><strong translate>Did we detect precisely your error?</strong></label>
+        <div class="row">
+          <div class="small-8 small-centered columns">
+            <input type="range" ng-model="commonErrorsFeedback.accuracy" min="1" max="5">
+            <br>
+            {{ commonErrorsFeedback.getSatisfactionLabel(commonErrorsFeedback.accuracy) }}
+          </div>
+        </div>
+      </div>
+      <div class="small-6 columns">
+        <label><strong translate>Did this suggestion helped you?</strong></label>
+        <div class="row">
+          <div class="small-8 small-centered columns">
+            <input type="range" ng-model="commonErrorsFeedback.help" min="1" max="5">
+            <br>
+            {{ commonErrorsFeedback.getSatisfactionLabel(commonErrorsFeedback.help) }}
+          </div>
+        </div>
+      </div>
+      <div class="small-12 columns">
+        <br>
+        <input type="text" placeholder="Leave a comment if necessary" ng-model="commonErrorsFeedback.comment">
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-4 small-centered columns">
+        <button ng-click="commonErrorsFeedback.submitFeedback(commonError.commonErrorID)">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
