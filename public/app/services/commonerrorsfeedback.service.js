@@ -41,8 +41,8 @@
     function submitFeedback(commonErrorID) {
       connection.sendMessage('commonErrorFeedback', {
         commonErrorID: commonErrorID,
-        accuracy: service.accuracy,
-        help: service.help,
+        accuracy: parseInt(service.accuracy),
+        help: parseInt(service.help),
         comment: service.comment
       });
       service.accuracy = 3;
