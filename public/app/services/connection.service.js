@@ -5,9 +5,9 @@
     .module('PLMApp')
     .factory('connection', connection);
 
-  connection.$inject = ['$rootScope', 'toasterUtils', 'gettextCatalog'];
+  connection.$inject = ['$rootScope', '$interval', 'toasterUtils', 'gettextCatalog'];
 
-  function connection($rootScope, toasterUtils, gettextCatalog) {
+  function connection($rootScope, $interval, toasterUtils, gettextCatalog) {
     var url = 'ws://' + document.location.host + '/websocket';
     if (localStorage['satellizer_token'] !== undefined) {
       url += '?token=' + localStorage['satellizer_token'];
@@ -27,7 +27,7 @@
       $rootScope.$emit('onopen', event);
       if (isUsingEdgeOrIE()) {
         console.log('Must send ping...');
-        setInterval(sendPing, 45000);
+        $interval(sendPing, 15000);
       }
     };
 
