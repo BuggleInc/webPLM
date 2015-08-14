@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-08-12 14:29+0100\n"
+"PO-Revision-Date: 2015-08-14 11:36+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -488,13 +488,13 @@ msgstr "Description du problème"
 msgid "Description:"
 msgstr "Description:"
 
-#: public/app/components/exercise/error-feedback.directive.html:16
-msgid "Did this hint helped you?"
-msgstr ""
+#: public/app/components/exercise/form-common-error-feedback.directive.html:15
+msgid "Did this suggestion helped you?"
+msgstr "Est-ce que cette suggestion vous a aidé?"
 
-#: public/app/components/exercise/error-feedback.directive.html:5
-msgid "Did we detect correctly your error?"
-msgstr ""
+#: public/app/components/exercise/form-common-error-feedback.directive.html:5
+msgid "Did we detect precisely your error?"
+msgstr "Est-ce que nous avons correctement détecté votre problème?"
 
 #: public/app/services/blocklymsg.service.js:122
 msgid "Direction."
@@ -588,7 +588,7 @@ msgstr "Effacer le message."
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
-#: public/app/components/exercise/execution-results.directive.html:2
+#: public/app/components/exercise/execution-results.directive.html:3
 msgid "Execution results"
 msgstr "Résultats de l'exécution"
 
@@ -2028,7 +2028,7 @@ msgstr "Soumettre"
 msgid "Success \\o/"
 msgstr "Exercice réussi \\o/"
 
-#: public/app/components/exercise/execution-results.directive.html:3
+#: public/app/components/exercise/execution-results.directive.html:7
 msgid "Suggestion"
 msgstr "Suggestion"
 
@@ -2273,8 +2273,8 @@ msgid ""
 "When you find a typo or a sentence that is hard to understand, it really "
 "helps to suggest a new wording."
 msgstr ""
-"Quand vous trouvez une typo ou une phrase difficile à comprendre, cela nous "
-"aide beaucoup si vous suggérer une correction."
+"Quand vous trouvez une typo ou une phrase difficile à comprendre, vous nous "
+"aideriez beaucoup en suggérant une correction."
 
 #: public/app/services/blocklymsg.service.js:114
 msgid "While a value is false, then do some statements."
