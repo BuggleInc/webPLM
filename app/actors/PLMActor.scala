@@ -254,6 +254,8 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
             case _ =>
               Logger.debug("commonErrorFeedback: non-correct JSON")
           }
+        case "ping" =>
+          // Do nothing
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }
