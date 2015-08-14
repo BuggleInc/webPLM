@@ -160,4 +160,8 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   def setTrackUser(trackUser: Boolean) {
     game.setTrackUser(trackUser)
   }
+  
+  def signalCommonErrorFeedback(commonErrorID: Int, accuracy: Int, help: Int, comment: String) {
+    game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
+  }
 }

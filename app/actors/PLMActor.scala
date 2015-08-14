@@ -243,6 +243,19 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
             case (_, _) =>
               Logger.debug("submitBugReport: non-correct JSON")
           }
+        case "commonErrorFeedback" =>
+          var optCommonErrorID: Option[Int] = (msg \ "args" \ "commonErrorID").asOpt[Int]
+          var optAccuracy: Option[Int] = (msg \ "args" \ "accuracy").asOpt[Int]
+          var optHelp: Option[Int] = (msg \ "args" \ "help").asOpt[Int]
+          var optComment: Option[String] = (msg \ "args" \ "comment").asOpt[String]
+          (optCommonErrorID.getOrElse(None), optAccuracy.getOrElse(None), optHelp.getOrElse(None), optComment.getOrElse(None)) match  {
+            case (commonErrorID: Int, accuracy: Int, help: Int, comment: String) =>
+              plm.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
+            case _ =>
+              Logger.debug("commonErrorFeedback: non-correct JSON")
+          }
+        case "ping" =>
+          // Do nothing
         case _ =>
           Logger.debug("cmd: non-correct JSON")
       }

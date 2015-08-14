@@ -445,12 +445,12 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
-#: public/app/components/exercise/error-feedback.directive.html:16
-msgid "Did this hint helped you?"
+#: public/app/components/exercise/form-common-error-feedback.directive.html:15
+msgid "Did this suggestion helped you?"
 msgstr ""
 
-#: public/app/components/exercise/error-feedback.directive.html:5
-msgid "Did we detect correctly your error?"
+#: public/app/components/exercise/form-common-error-feedback.directive.html:5
+msgid "Did we detect precisely your error?"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:122
@@ -545,7 +545,7 @@ msgstr ""
 msgid "Error during update"
 msgstr ""
 
-#: public/app/components/exercise/execution-results.directive.html:2
+#: public/app/components/exercise/execution-results.directive.html:3
 msgid "Execution results"
 msgstr ""
 
@@ -1884,7 +1884,7 @@ msgstr ""
 msgid "Success \\o/"
 msgstr ""
 
-#: public/app/components/exercise/execution-results.directive.html:3
+#: public/app/components/exercise/execution-results.directive.html:7
 msgid "Suggestion"
 msgstr ""
 
