@@ -24,7 +24,10 @@ class DataLoader {
 	def loadHTMLMission(missionName : String, locale : Locale, i18n : I18n) {
 		// Ensures we get only the string beginning by "lessons."
 		var lessonPos = missionName.indexOf("lessons.", 0);
-		var filename : String = missionName.substring(lessonPos).replace('.',File.separatorChar)
+		var filename : String = missionName
+    if(lessonPos > -1)
+      filename = filename.substring(lessonPos)
+    filename = filename.replace('.',File.separatorChar)
 
 		var sb : StringBuffer = null
 		try {

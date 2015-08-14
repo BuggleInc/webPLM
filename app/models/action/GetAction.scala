@@ -12,7 +12,7 @@ private[action] abstract class GetAction(actor : PLMActor, msg : JsValue) extend
 private[action] class GetLessonsAction(actor : PLMActor, msg : JsValue) extends GetAction(actor, msg) {
 	override def run() {
 		actor.sendMessage("lessons", Json.obj(
-				"lessons" -> LessonToJson.lessonsWrite(actor.plm.lessons)
+				"lessons" -> LessonToJson.lessonsWrite(actor.plm.lessons, actor.plm._currentLang.toLocale, actor.plm.game.i18n)
 			))
 	}
 }

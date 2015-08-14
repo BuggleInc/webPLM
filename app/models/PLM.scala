@@ -39,7 +39,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   var gitGest = new Git(userUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
   
-  def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
+  def lessons: Seq[models.data.Lesson] = models.data.Lesson.getLessonsList()
 
   def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;

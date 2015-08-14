@@ -15,7 +15,7 @@ class HumanLangListener(plmActor: PLMActor, plm: PLM) extends HumanLangChangesLi
   def currentHumanLanguageHasChanged(newLang: Locale) {
     var mapArgs: JsObject = Json.obj(
       "newHumanLang" -> LangToJson.langWrite(plm._currentLang),
-      "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
+      "lessons" -> LessonToJson.lessonsWrite(plm.lessons, plm._currentLang.toLocale, plm.game.i18n)
     )
     if(plm.currentExercise != null)
       mapArgs = mapArgs ++ LectureToJson.instructionsWrite(plm, plm.currentExercise, plm.programmingLanguage, plm.getInitialWorlds).as[JsObject]

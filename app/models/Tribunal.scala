@@ -122,7 +122,7 @@ class Tribunal extends Runnable {
 				// Is the message for us ?
 				if (delivery.getProperties().getCorrelationId().equals(corrId)) {
 					channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
-					Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
+					Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action().delete()
 				}
 				else
 					channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
