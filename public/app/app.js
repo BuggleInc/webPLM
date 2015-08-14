@@ -2,5 +2,5 @@
 	'use strict';
 	
 	angular
-		.module('PLMApp', ['ngAnimate', 'gettext', 'ngCookies', 'ui.router', 'ui.codemirror', 'angular-locker', 'satellizer', 'toaster']);
+		.module('PLMApp', ['ngAnimate', 'ngSanitize', 'gettext', 'ngCookies', 'ui.router', 'ui.codemirror', 'angular-locker', 'satellizer', 'toaster']);
 })();

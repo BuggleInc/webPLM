@@ -4,6 +4,7 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import json._
+import models.GitHubIssueManager
 import models.PLM
 import models.User
 import log.PLMLogger
@@ -24,16 +25,21 @@ import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.Logger
 import java.util.UUID
-import models.daos.UserDAOMongoImpl
+import models.daos.UserDAORestImpl
 import codes.reactive.scalatime._
 import Scalatime._
+import java.util.Properties
+import play.api.Play
+import play.api.Play.current
 
 object PLMActor {
-  def props(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(actorUUID, user, out))
+  def props(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
+  def propsWithUser(userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, user, out))
 }
 
-class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+  var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
+  
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
@@ -51,7 +57,11 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   
   var currentTrackUser: Boolean = trackUser.getOrElse(false)
   
-  var plm: PLM = new PLM(currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, this, currentTrackUser)
+  var properties: Properties = new Properties
+  properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
+  properties.setProperty("webplm.user-agent", userAgent)
+  
+  var plm: PLM = new PLM(properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -60,8 +70,8 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
   initSpies
   registerActor
   
-  def this(actorUUID: String, user: User, out: ActorRef) {
-    this(actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+  def this(userAgent: String, actorUUID: String, user: User, out: ActorRef) {
+    this(userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
   
@@ -140,9 +150,9 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
           var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
         	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
-        		  plm.runExercise(lessonID, exerciseID, code, workspace)
+        		  plm.runExercise(this, lessonID, exerciseID, code, workspace)
             case (lessonID:String, exerciseID: String, code: String, _) =>
-              plm.runExercise(lessonID, exerciseID, code, null)
+              plm.runExercise(this, lessonID, exerciseID, code, null)
             case (_, _, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }
@@ -185,8 +195,14 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
                   lastName = optLastName,
                   trackUser = optTrackUser
               )
-              UserDAOMongoImpl.save(currentUser)
+              UserDAORestImpl.update(currentUser)
               sendMessage("userUpdated", Json.obj())
+             (optTrackUser.getOrElse(None)) match {
+                case trackUser: Boolean =>
+                  plm.setTrackUser(currentTrackUser)
+                case _ =>
+                  Logger.debug("setTrackUser: non-correct JSON")
+              }
             case _ =>
               Logger.debug("updateUser: non-correct JSON")
           }
@@ -203,6 +219,29 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
               plm.setTrackUser(currentTrackUser)              
             case _ =>
               Logger.debug("setTrackUser: non-correct JSON")
+          }
+        case "submitBugReport" =>
+          var optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
+          var optBody: Option[String] = (msg \ "args" \ "body").asOpt[String]
+          (optTitle.getOrElse(None), optBody.getOrElse(None)) match {
+            case (title: String, body: String) =>
+              gitHubIssueManager.isCorrect(title, body).getOrElse(None) match {
+                case errorMsg: String =>
+                  Logger.debug("Try to post incorrect issue...")
+                  Logger.debug("Title: "+title+", body: "+body)
+                  sendMessage("incorrectIssue", Json.obj("msg" -> errorMsg))
+                case None =>
+                  gitHubIssueManager.postIssue(title, body).getOrElse(None) match {
+                    case issueUrl: String =>
+                      Logger.debug("Issue created at: "+ issueUrl)
+                      sendMessage("issueCreated", Json.obj("url" -> issueUrl))
+                    case None =>
+                      Logger.debug("Error while uploading issue...")
+                      sendMessage("issueErrored", Json.obj())
+                  }
+              }
+            case (_, _) =>
+              Logger.debug("submitBugReport: non-correct JSON")
           }
         case _ =>
           Logger.debug("cmd: non-correct JSON")
@@ -278,7 +317,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           lastProgLang = Some(programmingLanguage)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   
@@ -287,7 +326,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           preferredLang = Some(currentPreferredLang)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   
@@ -318,7 +357,7 @@ class PLMActor(actorUUID: String, gitID: String, newUser: Boolean, preferredLang
       currentUser = currentUser.copy(
           trackUser = Some(trackUser)
       )
-      UserDAOMongoImpl.save(currentUser)
+      UserDAORestImpl.update(currentUser)
     }
   }
   

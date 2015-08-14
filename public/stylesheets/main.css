@@ -42,6 +42,19 @@
   font-size: 72px;
 }
 
+.full-width {
+  width: 100%
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+menu {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
 .top-row {
   position: absolute;
   width: 90%;
@@ -128,6 +141,18 @@ html {
   background: #C03D28;
 }
 
+.plmAccounts {
+  opacity: 0.9;
+}
+
+.plmAccounts:hover {
+  opacity: 0.8;
+}
+
+.plmAccounts:active {
+  opacity: 1;
+}
+
 .github {
   opacity: 0.9;
 }
@@ -153,6 +178,7 @@ html {
 }
 
 .row {
+  max-width: 90%;
   position: relative;
 }
 
@@ -277,6 +303,10 @@ html {
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-bottom-left-radius: 20px;
+}
+
+div[ui-view] {
+  padding-top: 25px;
 }
 
 .with-newlines {

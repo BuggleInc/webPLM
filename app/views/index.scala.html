@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebPLM</title>
+  <title>PLM</title>
   <link rel="stylesheet" href="/assets/stylesheets/normalize.css">
   <link rel="stylesheet" href="/assets/stylesheets/foundation.min.css">
   <link rel="stylesheet" href="/assets/stylesheets/main.css">
@@ -27,6 +27,7 @@
   <script type="text/javascript" src="/assets/javascripts/angular.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-animate.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-cookies.js"></script>
+  <script type="text/javascript" src="/assets/javascripts/angular-sanitize.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-ui-router.js"></script>
   <script type="text/javascript" src="/assets/javascripts/angular-gettext/dist/angular-gettext.js"></script>
   <script type="text/javascript" src="/assets/javascripts/translations.js"></script>
@@ -37,6 +38,7 @@
 </head>
 
 <body ng-app="PLMApp">
+
   <div class="off-canvas-wrap" data-offcanvas>
     <div class="inner-wrap">
       <nav class="top-bar tab-bar">
@@ -45,8 +47,14 @@
         </section>
 
         <section class="middle tab-bar-section">
+          <span ui-sref="home" class="left hover">
+            <strong>PLM</strong>
+          </span>
           <span>
-            <strong class="title">{{navigation.getCurrentPageTitle()}}</strong>
+            <strong class="title">
+              <span ng-cloak>{{ navigation.getCurrentPageTitle() }}</span>
+              <span ng-if="!navigation.getCurrentPageTitle()" translate>Loading...</span>
+            </strong>
           </span>
         </section>
         
@@ -63,7 +71,6 @@
       <menu></menu>
 
       <section class="main-section">
-        <br>
         <div class="page" ui-view></div>
       </section>
 
@@ -72,6 +79,7 @@
     </div>
   </div>
   <toaster-container toaster-options="{ 'close-button': true }"></toaster-container>
+  <bug-report-modal></bug-report-modal>
   <track-user-modal></track-user-modal>
 </body>
 
@@ -119,7 +127,9 @@
 <!-- Application's services -->
 <script type="text/javascript" src="/assets/app/services/blockly.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/blocklymsg.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/bugreport.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/canvas.service.js"></script>
+<script type="text/javascript" src="/assets/app/services/commonerrors.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/connection.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/drawwithdom.service.js"></script>
 <script type="text/javascript" src="/assets/app/services/exerciseslist.service.js"></script>
@@ -131,6 +141,7 @@
 <script type="text/javascript" src="/assets/app/services/user.service.js"></script>
 
 <!-- Application's components -->
+<script type="text/javascript" src="/assets/app/components/bug-report-modal.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/human-languages.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/profile-top-bar.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/programming-languages.directive.js"></script>
@@ -138,13 +149,16 @@
 <script type="text/javascript" src="/assets/app/components/track-user-modal.directive.js"></script>
 <!-- Exercise's components -->
 <script type="text/javascript" src="/assets/app/components/exercise/animation-player.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/animation-speed.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/blockly.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/execution-results.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/ide.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/instructions.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/reset-exercise.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/results.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/tabs-current-world.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/test-cases.directive.js"></script>
+<script type="text/javascript" src="/assets/app/components/exercise/toggle-api.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/world-non-implemented.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/exercise/worlds-view.directive.js"></script>
 <!-- Home's components -->
@@ -157,8 +171,6 @@
 <!-- Sign-in's components -->
 <script type="text/javascript" src="/assets/app/components/sign-in/sign-in-form.directive.js"></script>
 <script type="text/javascript" src="/assets/app/components/sign-in/social-buttons.directive.js"></script>
-<!-- Sign-up's components -->
-<script type="text/javascript" src="/assets/app/components/sign-up/sign-up-form.directive.js"></script>
 
 <!-- Application's data models -->
 <script type="text/javascript" src="/assets/app/models/defaultcolors.factory.js"></script>
@@ -220,6 +232,4 @@
 <script type="text/javascript" src="/assets/app/exercise/exercise.controller.js"></script>
 <script type="text/javascript" src="/assets/app/profile/profile.controller.js"></script>
 <script type="text/javascript" src="/assets/app/sign-in/sign-in.controller.js"></script>
-<script type="text/javascript" src="/assets/app/sign-up/sign-up.controller.js"></script>
-
 </html>

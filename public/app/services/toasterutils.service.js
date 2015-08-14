@@ -5,9 +5,9 @@
 		.module('PLMApp')
 		.factory('toasterUtils', toasterUtils);
 	
-	toasterUtils.$inject = ['toaster', '$timeout'];
+	toasterUtils.$inject = ['toaster', '$timeout', '$window'];
 	
-	function toasterUtils(toaster, $timeout) {
+	function toasterUtils(toaster, $timeout, $window) {
 		
 		var service = {
                 info: info,
@@ -19,7 +19,7 @@
         
         function pop(type, title, message, duration) {
             $timeout(function () {
-                toaster.pop(type, title, message, duration);
+                toaster.pop(type, title, message, duration, 'trustedHtml', goToLink);
             }, 0);
         }
         
@@ -42,5 +42,11 @@
             var duration = optDuration || -1;
             pop('error', title, message, duration);
 		}
+    
+		function goToLink(toaster) {
+		  var match = toaster.body.match(/http[s]?:\/\/[^\s]+/);
+		  if (match) $window.open(match[0]);
+		  return true;
+		};
 	}
 })();

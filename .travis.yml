@@ -1,10 +1,15 @@
+sudo: false
 language: scala
 scala:
   - 2.11.4
 jdk:
-  - openjdk7
+  - oraclejdk8
 install:
   - npm install
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
 script:
   - sbt "test-only *Spec"
   - grunt test

@@ -12,23 +12,29 @@ import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
+import plm.core.model.tracking.GitUtils
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
+import play.api.libs.json._
+import play.api.Play
+import play.api.Play.current
 import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
 import actors.PLMActor
 import java.util.Locale
+import java.util.Properties
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], plmActor: PLMActor, trackUser: Boolean) {
+class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
-  var gitGest = new Git(game, userUUID)
-  var tribunal : Tribunal = _
-  
+  var gitUtils = new GitUtils()
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
+  var gitGest = new Git(userUUID, gitUtils)
+  var tribunal : Tribunal = new Tribunal
+
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
@@ -88,22 +94,27 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
+  def getAPI(): String = {
+    var api: String = ""
+    if(getInitialWorlds != null) {
+      api = getInitialWorlds.head.getAbout
+    }
+    return api
+  }
   
-  def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
+  def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     if(workspace != null){
       Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    tribunal.askGameLaunch(plmActor, gitGest, game, lessonID, exerciseID, code);
+    tribunal.start(plmActor, gitGest, game, lessonID, exerciseID, code)
   }
   
   def runDemo(lessonID: String, exerciseID: String) {
     game.startExerciseDemoExecution()
   }
-  
-  
   
   def stopExecution() {
     tribunal.free()

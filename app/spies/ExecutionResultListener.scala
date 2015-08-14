@@ -23,6 +23,8 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
         Logger.debug("Executed - Now sending the exercise's result")
         var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
         var msgType: Int = 0;
+        var commonErrorID: Int = exo.lastResult.commonErrorID;
+        var commonErrorText: String = exo.lastResult.commonErrorText;
         if(exo.lastResult.outcome == ExecutionProgress.outcomeKind.PASS) {
           msgType = 1;
         }
@@ -30,7 +32,9 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
         
         var mapArgs: JsValue = Json.obj(
           "msgType" -> msgType,
-          "msg" -> msg
+          "msg" -> msg, 
+          "commonErrorID" -> commonErrorID, 
+          "commonErrorText" -> commonErrorText
         )
         
         plmActor.sendMessage("executionResult", mapArgs)

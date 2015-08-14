@@ -1,20 +1,12 @@
 <div class="small-6 small-centered columns">
-	<div class="row text-center">
-		<h2 translate>Sign in with your credentials</h2>
-	</div>
-	<hr/>
-	<div ng-show="signIn.showErrorMsg" class="row"> <!-- error-message -->
+  <div class="row text-center">
+    <h4 translate>Use your existing account on one of the following services to sign in:</h4>
+    <div ng-show="signIn.showErrorMsg" class="row"> <!-- error-message -->
         <div data-alert class="alert-box warning radius">
             {{signIn.errorMsg}}
             <a class="close" ng-click="signIn.hideErrorMsg()">&times;</a>
         </div>
     </div> <!-- /error-message -->
-	<sign-in-form></sign-in-form>
-	<div class="row text-center">
-		<span translate>Not a member?</span>&nbsp;<a ui-sref="signUp" translate>Sign up now</a>
-	</div>
-	<div class="row text-center">
-		<span translate>Or use your existing account on one of the following services to sign in:</span>
-	</div>
-	<social-buttons></social-buttons>
+  </div>
+  <social-buttons></social-buttons>
 </div>

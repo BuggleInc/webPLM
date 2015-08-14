@@ -78,11 +78,11 @@
     exercise.lastStateDrawn = -1;
 
     locker.bind($scope, 'showInstructions', true);
-    exercise.showInstructions = locker.get('showInstructions');
+    $scope.showInstructions = locker.get('showInstructions');
     locker.bind($scope, 'showCodeEditor', true);
-    exercise.showCodeEditor = locker.get('showCodeEditor');
+    $scope.showCodeEditor = locker.get('showCodeEditor');
     locker.bind($scope, 'showAPI', false);
-    exercise.showAPI = locker.get('showAPI');
+    $scope.showAPI = locker.get('showAPI');
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
@@ -113,6 +113,7 @@
     exercise.setWorldState = setWorldState;
     exercise.setCurrentWorld = setCurrentWorld;
     exercise.switchToTab = switchToTab;
+    exercise.toggleAPI = toggleAPI;
 
     exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
@@ -146,8 +147,9 @@
 
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
+      window.editor = _editor; // To allow tests to interact with the editor
       exercise.editor.on('change', resetIdleLoop);
-      //resizeCodeMirror();
+      resizeCodeMirror();
     };
 
     function getExercise() {
@@ -172,7 +174,7 @@
         setExercise(args.exercise);
         break;
       case 'executionResult':
-        displayResult(args.msgType, args.msg);
+        handleResult(args);
         break;
       case 'demoEnded':
         console.log('The demo ended!');
@@ -180,7 +182,10 @@
         break;
       case 'operations':
 	      args.forEach( function(args_in) {
-		handleOperations(args_in.worldID, 'current', args_in.operations);
+			if(args_in.worldID)
+				handleOperations(args_in.worldID, 'current', args_in.operations);
+			else if(args_in.type)
+				handleOut(args_in.msg);
 	      })
         break;
       case 'demoOperations':
@@ -190,7 +195,7 @@
         exercise.logs += args.msg;
         break;
       case 'newProgLang':
-        updateUI(args.newProgLang, args.instructions, null, args.code);
+        updateUI(args.newProgLang, args.instructions, args.api, args.code);
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
@@ -417,7 +422,7 @@
 
         setCurrentWorld(exercise.currentWorldID, 'current');
 
-        //window.addEventListener('resize', resizeCodeMirror, false);
+        window.addEventListener('resize', resizeCodeMirror, false);
 
         progLangs.setProgLangs(data.programmingLanguages);
         var progLang = data.programmingLanguages[0];
@@ -478,7 +483,8 @@
 
     function runCode(worldID) {
       var args;
-
+      exercise.result = '';
+      exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       exercise.worldIDs.map(function (key) {
@@ -517,9 +523,11 @@
       connection.sendMessage('stopExecution', null);
     }
 
-    function displayResult(msgType, msg) {
+    function handleResult(data) {
+      var msgType = data.msgType;
+      var msg = data.msg;
       console.log(msgType, ' - ', msg);
-      exercise.result = msg;
+      exercise.result += msg;
       if (msgType === 1) {
         $('#successModal').foundation('reveal', 'open');
       }
@@ -550,6 +558,7 @@
 
       exercise.lastStateDrawn = -1;
 
+      $timeout.cancel(exercise.updateModelLoop);
       $timeout.cancel(exercise.updateViewLoop);
       exercise.isPlaying = false;
     }
@@ -570,6 +579,10 @@
         startUpdateViewLoop();
       }
     }
+
+	function handleOut(msg) {
+      exercise.result += msg;
+	}
 
     function startUpdateModelLoop() {
       exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
@@ -631,18 +644,20 @@
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
-      exercise.initialWorlds = {};
-      exercise.answerWorlds = {};
-      exercise.currentWorlds = {};
-      exercise.currentWorld = null;
-      exercise.drawService.setWorld(null);
+      if(!exercise.nonImplementedWorldException) {
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.drawService.setWorld(null);
+      }
       exercise.instructions = null;
       exercise.api = null;
       exercise.resultType = null;
       exercise.result = null;
       exercise.logs = null;
       window.removeEventListener('resize', resizeCanvas, false);
-      //window.removeEventListener('resize', resizeCodeMirror, false);
+      window.removeEventListener('resize', resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -686,10 +701,9 @@
 
     function resizeCodeMirror() {
       // Want to keep the IDE's height equals to the draw surface's one
-      var drawingAreaHeight = $('#' + exercise.drawingArea).parent().width();
+      var drawingAreaHeight = $('ui-codemirror').parent().parent().height() * 0.8;
       exercise.editor.setSize(null, drawingAreaHeight);
       exercise.editor.refresh();
-      $(document).foundation('equalizer', 'reflow');
     }
 
     function switchToTab(tab) {
@@ -759,6 +773,14 @@
       }
     }
 
+    function toggleAPI() {
+      $scope.showAPI = !$scope.showAPI;
+      $scope.showInstructions = !$scope.showInstructions;
+      if($scope.showInstructions) {
+        $timeout(exercise.resizeCanvas, 0);
+      }
+    }
+    
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
         if (pl.lang === 'Blockly') {

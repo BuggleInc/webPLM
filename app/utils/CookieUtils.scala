@@ -12,7 +12,7 @@ object CookieUtils {
       case cookie: Cookie =>
         return cookie.value
       case _ =>
-        return ""
+        return defaultValue
      }
   }
 }

@@ -2,10 +2,16 @@
 <div id="successModal" class="reveal-modal" data-reveal=true>
   <h2 translate>Success \o/</h2>
   <p class="lead"><img src="/img/trophy.png"/ translate>Congratulations, you pass this exercise!</p>
-  <p translate>Do you want to try the next one?</p>
-  <span class="center">
-  	<button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');" translate>Not yet</button>
-  	<button class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID()})" translate>Yes, sure</button>
+  <span ng-if="exercisesList.getNextExerciseID() !== ''">
+    <p translate>Do you want to try the next one?</p>
   </span>
+  <span ng-if="exercisesList.getNextExerciseID() === ''">
+    <p translate>You have cleared this lesson! Do you want to go back to the home page?</p>
+  </span>
+  <span class="center">
+    <button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');" translate>Not yet</button>
+    <button ng-if="exercisesList.getNextExerciseID() !== ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID() })" translate>Yes, sure</button>
+    <button ng-if="exercisesList.getNextExerciseID() === ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="home" translate>Yes, sure</button>
+    </span>
   <a class="close-reveal-modal">&#215;</a>
 </div>
