@@ -181,12 +181,18 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        for(var item of args.acc) {
+        var item;
+        var i;
+        for(i=0; i < args.acc.length; i++) {
+          item = args.acc[i];
           handleOperations(item.worldID, 'current', item.operations);
         }
         break;
       case 'demoOperations':
-        for(var item of args.acc) {
+        var item;
+        var i;
+        for(i=0; i < args.acc.length; i++) {
+          item = args.acc[i];
           handleOperations(item.worldID, 'answer', item.operations);
         }
         break;
