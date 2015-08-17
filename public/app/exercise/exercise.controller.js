@@ -72,7 +72,7 @@
     exercise.updateViewLoop = null;
 
     locker.bind($scope, 'timer', 1000);
-    exercise.timer = locker.get('timer');
+    $scope.timer = locker.get('timer');
 
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
@@ -181,20 +181,24 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        var item;
-        var i;
-        for(i=0; i < args.acc.length; i++) {
-          item = args.acc[i];
-          handleOperations(item.worldID, 'current', item.operations);
-        }
+        args.forEach( function(item) {
+          if(item.worldID) {
+            handleOperations(item.worldID, 'current', item.operations);
+          }
+          else if(item.type) {
+            handleOut(item.msg);
+          }
+        });
         break;
       case 'demoOperations':
-        var item;
-        var i;
-        for(i=0; i < args.acc.length; i++) {
-          item = args.acc[i];
-          handleOperations(item.worldID, 'answer', item.operations);
-        }
+        args.forEach( function(item) {
+          if(item.worldID) {
+            handleOperations(item.worldID, 'answer', item.operations);
+          }
+          else if(item.type) {
+            handleOut(item.msg);
+          }
+        });
         break;
       case 'log':
         exercise.logs += args.msg;
@@ -488,7 +492,8 @@
 
     function runCode(worldID) {
       var args;
-
+      exercise.result = '';
+      exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       exercise.worldIDs.map(function (key) {
@@ -531,7 +536,7 @@
       var msgType = data.msgType;
       var msg = data.msg;
       console.log(msgType, ' - ', msg);
-      exercise.result = msg;
+      exercise.result += msg;
       if (msgType === 1) {
         $('#successModal').foundation('reveal', 'open');
       }
@@ -583,6 +588,10 @@
         startUpdateViewLoop();
       }
     }
+
+	function handleOut(msg) {
+      exercise.result += msg;
+	}
 
     function startUpdateModelLoop() {
       exercise.updateModelLoop = $timeout(updateModel, exercise.timer);

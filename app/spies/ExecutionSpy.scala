@@ -66,7 +66,7 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
   def sendOperations() {
     if(acc.value.length > 0) {
       lastTime = System.currentTimeMillis
-      plmActor.sendMessage(messageID, Json.obj("acc" -> acc))
+      plmActor.sendMessage(messageID, acc)
       acc = new JsArray
     }
   }
