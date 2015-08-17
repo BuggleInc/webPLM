@@ -72,7 +72,7 @@
     exercise.updateViewLoop = null;
 
     locker.bind($scope, 'timer', 1000);
-    exercise.timer = locker.get('timer');
+    $scope.timer = locker.get('timer');
 
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
@@ -115,7 +115,6 @@
     exercise.switchToTab = switchToTab;
     exercise.toggleAPI = toggleAPI;
 
-    exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
     exercise.resizeInstructions = resizeInstructions;
     exercise.resizeCanvas = resizeCanvas;
@@ -585,7 +584,7 @@
     }
 
     function startUpdateModelLoop() {
-      exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+      exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
     }
 
     function updateModel() {
@@ -600,7 +599,7 @@
         exercise.updateModelLoop = null;
         exercise.isPlaying = false;
       } else {
-        exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+        exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
       }
     }
 
@@ -633,10 +632,6 @@
     function resetExercise() {
       $('#resetExerciseModal').foundation('reveal', 'close');
       connection.sendMessage('revertExercise', {});
-    }
-
-    function updateSpeed() {
-      $scope.timer = $('#executionSpeed').val();
     }
 
     $scope.$on('$destroy', function () {
