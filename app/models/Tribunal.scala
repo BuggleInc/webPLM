@@ -17,7 +17,7 @@ import play.api.Play.current
  */
 class Tribunal {
 	// Config options
-	val defaultTimeout : Long = 30000
+	val defaultTimeout : Long = 10000
 	val QUEUE_NAME_REQUEST : String = "worker_in"
 	val QUEUE_NAME_REPLY : String = "worker_out"
 
