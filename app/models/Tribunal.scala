@@ -131,7 +131,7 @@ class Tribunal {
 		Logger.debug("[judge] " + endMessage)
 		actor.sendMessage("executionResult", Json.obj(
 				"outcome" -> "UNKNOWN",
-				"msgType" -> "0",
+				"msgType" -> 0,
 				"msg" -> endMessage)
 			)
 	}
