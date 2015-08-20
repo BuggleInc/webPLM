@@ -11,6 +11,27 @@ import actors.PLMActor
 import play.api.libs.json._
 import play.api.Play
 import play.api.Play.current
+
+object Tribunal {
+  val QUEUE_NAME_REQUEST : String = "worker_in"
+  val QUEUE_NAME_REPLY : String = "worker_out"
+
+  var QUEUE_ADDR = Play.configuration.getString("messagequeue.addr").getOrElse("localhost")
+  var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
+  
+  // Connection
+    var factory : ConnectionFactory = new ConnectionFactory()
+    factory.setHost(QUEUE_ADDR)
+    factory.setPort(QUEUE_PORT.toInt)
+    var connection : Connection = null
+    try {
+      connection = factory.newConnection()
+    } catch {
+      case _ : Exception =>
+        Logger.error("[judge] ERROR : no connection with message queue")
+    }
+}
+
 /**
  * The interface between PLM and the judges
  * @author Tanguy Gloaguen
@@ -18,11 +39,6 @@ import play.api.Play.current
 class Tribunal {
 	// Config options
 	val defaultTimeout : Long = 10000
-	val QUEUE_NAME_REQUEST : String = "worker_in"
-	val QUEUE_NAME_REPLY : String = "worker_out"
-
-	var QUEUE_ADDR = Play.configuration.getString("messagequeue.addr").getOrElse("localhost")
-	var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
 	var timeout : Long = 0
 	// Game launch data
 	var actor : PLMActor = _
@@ -70,42 +86,27 @@ class Tribunal {
 		// Parameters
 		var corrId : String = java.util.UUID.randomUUID().toString();
 		// This part handles compilation with workers.
-	// Properties
-		var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).replyTo(QUEUE_NAME_REPLY).build()
-	// Connection
-		var factory : ConnectionFactory = new ConnectionFactory()
-		factory.setHost(QUEUE_ADDR)
-		factory.setPort(QUEUE_PORT.toInt)
-		var connection : Connection = null
-		try {
-			connection = factory.newConnection()
-		} catch {
-			case _ : Exception =>
-				Logger.error("[judge] ERROR : no connection with message queue")
-				signalExecutionEnd("The server encountered an unexpected error. Try again later")
-				return
-		}
-	// Request channel opening.
-		var channelOut : Channel = connection.createChannel()
-		channelOut.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, null)
-	// Request
-		channelOut.basicPublish("", QUEUE_NAME_REQUEST, props,
+		// Properties
+		var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).replyTo(Tribunal.QUEUE_NAME_REPLY).build()
+		// Request channel opening.
+		var channelOut : Channel = Tribunal.connection.createChannel()
+		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, null)
+		// Request
+		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, props,
 		parameters.toString.getBytes("UTF-8"))
 		channelOut.close()
-	// Reply channel opening
-		var channelIn : Channel = connection.createChannel()
-		channelIn.queueDeclare(QUEUE_NAME_REPLY, false, false, false, null)
-	// Reply
+		// Reply channel opening
+		var channelIn : Channel = Tribunal.connection.createChannel()
+		channelIn.queueDeclare(Tribunal.QUEUE_NAME_REPLY, false, false, false, null)
+		// Reply
 		Logger.debug("[judge] waiting as " + corrId)
 		replyLoop(channelIn, corrId)
 		channelIn.close()
-	// Close connection
-		connection.close()
 	}
 
 	private def replyLoop(channelIn : Channel, corrId : String) {
 		var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-		channelIn.basicConsume(QUEUE_NAME_REPLY, false, consumer)
+		channelIn.basicConsume(Tribunal.QUEUE_NAME_REPLY, false, consumer)
 		timeout = System.currentTimeMillis + defaultTimeout
 		state = Waiting
 		while(state != Replied && state != Off) {
