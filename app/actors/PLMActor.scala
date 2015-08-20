@@ -37,7 +37,7 @@ object PLMActor {
   def propsWithUser(userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, user, out))
 }
 
-class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], var out: ActorRef) extends Actor {  
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
   
   var availableLangs: Seq[Lang] = Lang.availables
@@ -257,6 +257,10 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   
   def sendMessage(cmdName: String, mapArgs: JsValue) {
     out ! createMessage(cmdName, mapArgs)
+  }
+  
+  def tell(msg : String) {
+    out ! Json.parse(msg)
   }
   
   def setCurrentUser(newUser: User) {
