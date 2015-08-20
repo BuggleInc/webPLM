@@ -26,7 +26,7 @@ private[action] class RunExerciseAction(actor : PLMActor, msg : JsValue) extends
 }
 
 /**
- * @deprecated You should not use the "runDemo" action anymore. You can already acces the generated demo file at : /assets/json/demos/<<exercise>>.json
+ * @deprecated You should not use the "runDemo" action anymore. You can already access the generated demo file at : /assets/json/demos/<<exercise>>.json
  */
 @Deprecated
 private[action] class RunDemoAction(actor : PLMActor, msg : JsValue) extends ControlAction(actor, msg) {

@@ -31,19 +31,28 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   var _currentExercise: Exercise = _
   var _currentExerciseName: String = _
+  var _currentLesson: models.data.Lesson = _
   var _currentLessonName: String = _
   var _currentLang: Lang = Lang(locale.toString)
   var _currentProgLangName = lastProgLang.getOrElse("Java")
   var gitUtils = new GitUtils()
   var game = new Game(userUUID, plmLogger, locale, _currentProgLangName, gitUtils, trackUser)
   var gitGest = new Git(userUUID, gitUtils)
+  var i18n = Global.getI18n(_currentLang)
   var tribunal : Tribunal = new Tribunal
   
-  def lessons: Seq[models.data.Lesson] = models.data.Lesson.getLessonsList()
+  var lessonsFirst : Seq[String] = Global.lessonsList.map{lesson => lesson.getFirstExercise.id}
 
   def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;
     _currentLessonName = key
+    var less : models.data.Lesson = Global.getLessonById(lessonID).getOrElse(null);
+    if(less != null) {
+      Logger.debug("[Lesson] " + less.id)
+      _currentLesson = less
+    }
+    else
+      Logger.debug("[Lesson] Not found.")
     game.switchLesson(key, true)
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
@@ -60,6 +69,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   def switchExercise(lessonID: String, exerciseID: String): Lecture = {
     var key = "lessons." + lessonID;
+    var less : models.data.Lesson = Global.getLessonById(lessonID).getOrElse(null);
+    if(less != null) {
+      Logger.debug("[Lesson] " + less.id)
+      _currentLesson = less
+    }
+    else
+      Logger.debug("[Lesson] Not found.")
     game.switchLesson(key, true)
     game.switchExercise(exerciseID)
 
@@ -134,6 +150,7 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   def setLang(lang: Lang) {
   	if(_currentLang != lang) {
   		_currentLang = lang
+      i18n = Global.getI18n(_currentLang)
   		game.setLocale(_currentLang.toLocale)
   	}
   }

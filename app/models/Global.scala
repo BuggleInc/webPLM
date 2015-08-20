@@ -36,4 +36,12 @@ object Global {
   }
 // data structures. They are loaded at PLM launch and only used when asked.
   var lessonsList : Seq[Lesson] = Lesson.getLessonsList()
+  /**
+   * Retrieves the lesson object by its ID.
+   * @param id the lesson ID
+   * @return the related lesson.
+   */
+  def getLessonById(id : String) : Option[Lesson] = {
+    lessonsList.find { lesson => lesson.id == id }
+  }
 }

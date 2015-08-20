@@ -49,4 +49,8 @@ object Lesson {
 }
 class Lesson(var imgUrl : String, var id : String) {
   var exerciseList : Seq[Exercise] = Exercise.getExercisesList(this)
+  def getExerciseById(id : String) : Option[Exercise] = {
+    exerciseList.find { exercise => exercise.id == id }
+  }
+  def getFirstExercise = exerciseList.head;
 }

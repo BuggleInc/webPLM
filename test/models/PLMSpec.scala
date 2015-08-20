@@ -6,7 +6,6 @@ import org.scalatestplus.play._
 import org.mockito.Mockito._
 import java.util.Vector
 import actors.PLMActor
-import spies.ExecutionSpy
 import plm.core.model.lesson.Exercise
 import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
@@ -20,9 +19,6 @@ class PLMSpec extends PlaySpec with MockitoSugar {
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {
-      val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
-      
       val expectedLessonID = "welcome"
       plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
       val actualLectID = plm.game.getCurrentLesson.getId

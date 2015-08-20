@@ -5,6 +5,7 @@ import play.api.libs.json._
 import play.api.Logger
 import json._
 import plm.core.model.lesson.Lecture
+import models.Global
 
 private[action] abstract class GetAction(actor : PLMActor, msg : JsValue) extends Action(actor, msg) {
 }
@@ -12,7 +13,7 @@ private[action] abstract class GetAction(actor : PLMActor, msg : JsValue) extend
 private[action] class GetLessonsAction(actor : PLMActor, msg : JsValue) extends GetAction(actor, msg) {
 	override def run() {
 		actor.sendMessage("lessons", Json.obj(
-				"lessons" -> LessonToJson.lessonsWrite(actor.plm.lessons, actor.plm._currentLang.toLocale, actor.plm.game.i18n)
+				"lessons" -> LessonToJson.lessonsWrite(Global.lessonsList, actor.plm._currentLang.toLocale, actor.plm.i18n)
 			))
 	}
 }
