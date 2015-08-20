@@ -260,7 +260,9 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   }
   
   def tell(msg : String) {
-    out ! Json.parse(msg)
+    out ! Json.obj(
+        "cmd" -> "operations",
+        "args" -> msg)
   }
   
   def setCurrentUser(newUser: User) {

@@ -13,7 +13,7 @@ object Verdict {
 	val launchTimeout : Long = 10000;
 	val streamTimeout : Long = 10000;
   
-  val streamRx = """\{\s*"type"\s*:\s*"stream"\s*,\s*"content":\s*(.+?)\s*}""".r
+  val streamRx = """{"type":"stream","content":"""
 	/**
 	 * Creates a Verdict message implementation from the given message + parameters.
 	 * @param parent the parent tribunal.
@@ -21,11 +21,11 @@ object Verdict {
 	 * @param plmActor the actor linked to the client.
 	 */
 	def build(parent : Tribunal, message: String, plmActor : PLMActor) : Verdict_msg = {
-		message match {
-      case streamRx(content) =>
+    if(message.startsWith(streamRx)) {
         parent.setState("stream")
-        return new Verdict_stream(parent, content, plmActor)
-      case _ => 
+        return new Verdict_stream(parent, message.substring(streamRx.length, message.length - 1), plmActor)
+    }
+    else {
         var JsMessage = Json.parse(message)
         var typeStr = (JsMessage \ "type").asOpt[String].getOrElse(None)
         typeStr match {
@@ -75,8 +75,7 @@ object Verdict {
 	private class Verdict_stream(parent : Tribunal, msg : String, actor : PLMActor) extends Verdict_msg {
 		def action() {
       Logger.debug("[judge] Stream")
-      var msgComp = ("""{"cmd":"operations","args":"""+msg+"}")
-      actor.tell(msgComp)
+      actor.tell(msg)
 			parent.setTimeout(streamTimeout)
 		}
 	}
