@@ -28,4 +28,4 @@ EXPOSE 9000 9443
 ADD ["target/universal/stage", "/app/webplm-dist"]
 
 WORKDIR /app/webplm-dist
-CMD ["bin/web-plm", "-Dhttps.port=9443"]
+CMD ["bin/web-plm", "-Dhttps.port=9443", "-mem", "4096", "-J-server"]
