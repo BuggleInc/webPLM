@@ -167,4 +167,11 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   def signalCommonErrorFeedback(commonErrorID: Int, accuracy: Int, help: Int, comment: String) {
     game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
   }
+  
+  def quit(resultSpy: ExecutionResultListener, progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
+    game.removeGameStateListener(resultSpy)
+    game.removeProgLangListener(progLangSpy)
+    game.removeHumanLangListener(humanLangSpy)
+    game.quit
+  }
 }
