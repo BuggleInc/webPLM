@@ -9,6 +9,7 @@ judge:
   restart: always
   links:
     - messagequeue:messageq
+  cpuset: 0-3
 plm:
   image: webplm
   volumes:
