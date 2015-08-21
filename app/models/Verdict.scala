@@ -75,7 +75,7 @@ object Verdict {
 	private class Verdict_stream(parent : Tribunal, msg : String, actor : PLMActor) extends Verdict_msg {
 		def action() {
       Logger.debug("[judge] Stream")
-      actor.tell(msg)
+      actor.sendMessage("operations", Json.obj("buffer" -> msg))
 			parent.setTimeout(streamTimeout)
 		}
 	}

@@ -272,12 +272,6 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
     out ! createMessage(cmdName, mapArgs)
   }
   
-  def tell(msg : String) {
-    out ! Json.obj(
-        "cmd" -> "operations",
-        "args" -> msg)
-  }
-  
   def setCurrentUser(newUser: User) {
     currentUser = newUser
     sendMessage("user", Json.obj(
