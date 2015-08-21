@@ -384,10 +384,7 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
       clearUserIdle
     }
     ActorsMap.remove(actorUUID)
-    plm.game.removeGameStateListener(resultSpy)
-    plm.game.removeProgLangListener(progLangSpy)
-    plm.game.removeHumanLangListener(humanLangSpy)
     registeredSpies.foreach { spy => spy.unregister }
-    plm.game.quit
+    plm.quit(resultSpy, progLangSpy, humanLangSpy)
   }
 }
