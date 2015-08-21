@@ -181,7 +181,8 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-	      args.forEach( function(args_in) {
+		  var args2 = JSON.parse(args);
+	      args2.forEach( function(args_in) {
 			if(args_in.worldID)
 				handleOperations(args_in.worldID, 'current', args_in.operations);
 			else if(args_in.type)
