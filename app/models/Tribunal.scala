@@ -44,7 +44,7 @@ class Tribunal {
 	var actor : PLMActor = _
 	var git : Git = _
 	// Launch parameters
-	var parameters : JsValue = _
+	var parameters : JsObject = _
 
 	/**
 	* Tribunal state
@@ -84,29 +84,27 @@ class Tribunal {
 
 	private def askGameLaunch() {
 		// Parameters
-		var corrId : String = java.util.UUID.randomUUID().toString();
+    	var replyQueue: String = java.util.UUID.randomUUID.toString
+    	var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
 		// This part handles compilation with workers.
-		// Properties
-		var props : BasicProperties = new BasicProperties.Builder().correlationId(corrId).replyTo(Tribunal.QUEUE_NAME_REPLY).build()
 		// Request channel opening.
 		var channelOut : Channel = Tribunal.connection.createChannel()
 		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, null)
 		// Request
-		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, props,
-		parameters.toString.getBytes("UTF-8"))
+		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
 		channelOut.close()
 		// Reply channel opening
 		var channelIn : Channel = Tribunal.connection.createChannel()
-		channelIn.queueDeclare(Tribunal.QUEUE_NAME_REPLY, false, false, false, null)
+		channelIn.queueDeclare(replyQueue, false, false, false, null)
 		// Reply
-		Logger.debug("[judge] waiting as " + corrId)
-		replyLoop(channelIn, corrId)
+		Logger.debug("[judge] waiting as " + replyQueue)
+		replyLoop(channelIn, replyQueue)
 		channelIn.close()
 	}
 
-	private def replyLoop(channelIn : Channel, corrId : String) {
+	private def replyLoop(channelIn : Channel, replyQueue: String) {
 		var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-		channelIn.basicConsume(Tribunal.QUEUE_NAME_REPLY, false, consumer)
+		channelIn.basicConsume(replyQueue, false, consumer)
 		timeout = System.currentTimeMillis + defaultTimeout
 		state = Waiting
 		while(state != Replied && state != Off) {
@@ -117,13 +115,7 @@ class Tribunal {
 			}
 			// The delivery will be "null" if nextDelivery timed out.
 			else if (delivery != null) {
-				// Is the message for us ?
-				if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-					channelIn.basicAck(delivery.getEnvelope().getDeliveryTag(), false)
-					Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
-				}
-				else
-					channelIn.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true)
+				Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
 			}
 		}
 	}
