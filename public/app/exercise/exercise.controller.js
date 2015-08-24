@@ -190,16 +190,6 @@
           }
         });
         break;
-      case 'demoOperations':
-        args.forEach( function(item) {
-          if(item.worldID) {
-            handleOperations(item.worldID, 'answer', item.operations);
-          }
-          else if(item.type) {
-            handleOut(item.msg);
-          }
-        });
-        break;
       case 'log':
         exercise.logs += args.msg;
         break;
@@ -476,13 +466,13 @@
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       if (!exercise.playedDemo) {
-        var args = {
-          lessonID: exercise.lessonID,
-          exerciseID: exercise.id,
-        };
-        connection.sendMessage('runDemo', args);
-        exercise.playedDemo = true;
-        exercise.isRunning = true;
+        $http.get("assets/json/demos/" + exercise.id + ".json").success(function(data){
+          console.log('data: ', data);
+          data.forEach(function(args) {
+            handleOperations(args.worldID, 'answer', args.operations);
+          });
+          exercise.playedDemo = true;
+        });
       } else {
         // We don't need to query the server again
         // Just to replay the animation
