@@ -37,25 +37,19 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
 
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
 
-  def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
-    
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
-    }
     
     return lect
   }
   
-  def switchExercise(lessonID: String, exerciseID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchExercise(lessonID: String, exerciseID: String): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     game.switchExercise(exerciseID)
@@ -63,13 +57,8 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
     
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
-    }
-    
     return lect
   }
   
@@ -80,14 +69,6 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
 
   def getSelectedWorldID(): String = {
     return game.getSelectedWorld.getName
-  }
-  
-  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy, kind: WorldKind) {
-    // Adding the executionSpy to the current worlds
-    exo.getWorlds(kind).toArray(Array[World]()).foreach { world =>
-      var worldSpy: ExecutionSpy = spy.clone()
-      worldSpy.setWorld(world)
-    }
   }
   
   def getInitialWorlds(): Array[World] = {
@@ -103,17 +84,11 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   }
   
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
-    Logger.debug("Code:\n"+code)
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     if(workspace != null){
-      Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
     tribunal.start(plmActor, gitGest, game, lessonID, exerciseID, code)
-  }
-  
-  def runDemo(lessonID: String, exerciseID: String) {
-    game.startExerciseDemoExecution()
   }
   
   def stopExecution() {
@@ -168,8 +143,7 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
   }
   
-  def quit(resultSpy: ExecutionResultListener, progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
-    game.removeGameStateListener(resultSpy)
+  def quit(progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
     game.removeProgLangListener(progLangSpy)
     game.removeHumanLangListener(humanLangSpy)
     game.quit
