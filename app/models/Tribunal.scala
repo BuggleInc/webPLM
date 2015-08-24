@@ -84,18 +84,18 @@ class Tribunal {
 
 	private def askGameLaunch() {
 		// Parameters
-    	var replyQueue: String = java.util.UUID.randomUUID.toString
+    	var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
     	var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
 		// This part handles compilation with workers.
 		// Request channel opening.
 		var channelOut : Channel = Tribunal.connection.createChannel()
 		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, null)
 		// Request
-		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
+		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, finalParameters.toString.getBytes("UTF-8"))
 		channelOut.close()
 		// Reply channel opening
 		var channelIn : Channel = Tribunal.connection.createChannel()
-		channelIn.queueDeclare(replyQueue, false, false, false, null)
+		channelIn.queueDeclare(replyQueue, false, false, true, null)
 		// Reply
 		Logger.debug("[judge] waiting as " + replyQueue)
 		replyLoop(channelIn, replyQueue)
