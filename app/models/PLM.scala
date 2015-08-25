@@ -88,7 +88,7 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     if(workspace != null){
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
-    tribunal.start(plmActor, gitGest, game, lessonID, exerciseID, code)
+    tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
   }
   
   def stopExecution() {

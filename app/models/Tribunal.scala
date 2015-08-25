@@ -20,26 +20,27 @@ object Tribunal {
   var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
   
   // Connection
-    var factory : ConnectionFactory = new ConnectionFactory()
-    factory.setHost(QUEUE_ADDR)
-    factory.setPort(QUEUE_PORT.toInt)
-    var connection : Connection = null
-    try {
-      connection = factory.newConnection()
-    } catch {
-      case _ : Exception =>
-        Logger.error("[judge] ERROR : no connection with message queue")
-    }
+  var factory : ConnectionFactory = new ConnectionFactory()
+  factory.setHost(QUEUE_ADDR)
+  factory.setPort(QUEUE_PORT.toInt)
+  var connection : Connection = null
+  try {
+    connection = factory.newConnection()
+  } catch {
+    case _ : Exception =>
+      Logger.error("[judge] ERROR : no connection with message queue")
+  }
 }
 
 /**
  * The interface between PLM and the judges
  * @author Tanguy Gloaguen
  */
-class Tribunal {
+class Tribunal extends Runnable {
 	// Config options
 	val defaultTimeout : Long = 10000
 	var timeout : Long = 0
+  var stopExecution: Boolean = false
 	// Game launch data
 	var actor : PLMActor = _
 	var git : Git = _
@@ -65,10 +66,11 @@ class Tribunal {
 	* @param exerciseID the loaded exercise
 	* @param code the code to execute
 	*/
-	def start(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
+	def startTribunal(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
 		setData(plmActor, git, game, lessonID, exerciseID, code)
-		askGameLaunch()
+		(new Thread(this)).start
 	}
+  
 	private def setData(newActor:PLMActor, newGit:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
 		git = newGit
 		actor = newActor
@@ -80,12 +82,13 @@ class Tribunal {
 				"code" -> code
 			)
 		state = Off
+    stopExecution = false
 	}
 
-	private def askGameLaunch() {
+	override def run() {
 		// Parameters
-    	var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
-    	var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
+    var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
+    var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
 		// This part handles compilation with workers.
 		// Request channel opening.
 		var channelOut : Channel = Tribunal.connection.createChannel()
@@ -98,7 +101,7 @@ class Tribunal {
 		channelIn.queueDeclare(replyQueue, false, false, true, null)
 		// Reply
 		Logger.debug("[judge] waiting as " + replyQueue)
-		replyLoop(channelIn, replyQueue)
+    replyLoop(channelIn, replyQueue)
 		channelIn.close()
 	}
 
@@ -109,8 +112,12 @@ class Tribunal {
 		state = Waiting
 		while(state != Replied && state != Off) {
 			var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-			if(System.currentTimeMillis > timeout) {
-				signalExecutionEnd("The compiler timed out.")
+			if (stopExecution) {
+        signalExecutionStop
+        state = Off
+      }
+      else if (System.currentTimeMillis > timeout) {
+				signalExecutionTimeout
 				state = Off
 			}
 			// The delivery will be "null" if nextDelivery timed out.
@@ -120,13 +127,35 @@ class Tribunal {
 		}
 	}
 
-	private def signalExecutionEnd(endMessage : String) {
-		Logger.debug("[judge] " + endMessage)
+  private def signalExecutionStop() {
+    var message: String = "The execution has been stopped."
+    Logger.debug("[judge] " + message)
+    actor.sendMessage("executionResult", Json.obj(
+        "outcome" -> "stop",
+        "msgType" -> 0,
+        "msg" -> message
+        )
+      )
+    var code: String = (parameters \ "code").asOpt[String].getOrElse("")
+    var error: String = ""
+    var outcome: String = "stop"
+    git.commitExecutionResult(code, error, outcome, None, None)    
+  }
+  
+  
+	private def signalExecutionTimeout() {
+    var message: String = "The compiler timed out."
+		Logger.debug("[judge] " + message)
 		actor.sendMessage("executionResult", Json.obj(
-				"outcome" -> "UNKNOWN",
+				"outcome" -> "timeout",
 				"msgType" -> 0,
-				"msg" -> endMessage)
-			)
+				"msg" -> message
+        )
+      )
+    var code: String = (parameters \ "code").asOpt[String].getOrElse("")
+    var error: String = ""
+    var outcome: String = "timeout"
+    git.commitExecutionResult(code, error, outcome, None, None)
 	}
 
 	/**
@@ -156,13 +185,18 @@ class Tribunal {
 	* @param msg the Judge's JSON message.
 	*/
 	def endExecution(msg : JsValue) {
-		git.gitEndExecutionPush(msg, (parameters \ "code").asOpt[String].getOrElse(""));
+    var code: String = (parameters \ "code").asOpt[String].getOrElse("")
+    var error: String = (msg \ "msg").asOpt[String].getOrElse("")
+    var outcome: String = (msg \ "outcome").asOpt[String].getOrElse("")
+    var optTotalTests: Option[String] = (msg \ "totaltests").asOpt[String]
+    var optPassedTests: Option[String] = (msg \ "passedtests").asOpt[String]
+    git.commitExecutionResult(code, error, outcome, optTotalTests, optPassedTests)
 	}
 
 	/**
 	* Explicitly asks for PLM to stop waiting for replies.
 	*/
 	def free() {
-		timeout = 0;
+		stopExecution = true
 	}
 }

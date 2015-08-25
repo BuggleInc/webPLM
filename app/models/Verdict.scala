@@ -26,8 +26,8 @@ object Verdict {
         return new Verdict_stream(parent, message.substring(streamRx.length, message.length - 1), plmActor)
     }
     else {
-        var JsMessage = Json.parse(message)
-        var typeStr = (JsMessage \ "type").asOpt[String].getOrElse(None)
+        var jsMessage = Json.parse(message)
+        var typeStr = (jsMessage \ "type").asOpt[String].getOrElse(None)
         typeStr match {
     			case "ack" =>
     				parent.setState("ack")
@@ -37,7 +37,7 @@ object Verdict {
     				return new Verdict_launch(parent)
     			case "result" => 
     				parent.setState("reply")
-    				return new Verdict_reply(parent, JsMessage, plmActor)
+    				return new Verdict_reply(parent, jsMessage, plmActor)
           case _ =>
             return new Verdict_dummy(message);
         }
@@ -82,7 +82,11 @@ object Verdict {
 	private class Verdict_reply(parent : Tribunal, msg : JsValue, actor : PLMActor) extends Verdict_msg {
 		def action() {
         Logger.debug("[judge] Reply")
-        actor.sendMessage("executionResult", msg)
+        var args: JsObject = Json.obj(
+          "msgType" -> (msg \ "msgType"),
+          "msg" -> (msg \ "msg")
+        )
+        actor.sendMessage("executionResult", args)
 			  parent.endExecution(msg)
 		}
 	}
