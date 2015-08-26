@@ -20,10 +20,10 @@ object Verdict {
 	 * @param message the current message.
 	 * @param plmActor the actor linked to the client.
 	 */
-	def build(parent : Tribunal, message: String, plmActor : PLMActor) : Verdict_msg = {
+	def handleMessage(parent : Tribunal, message: String, plmActor : PLMActor) {
     if(message.startsWith(streamRx)) {
         parent.setState("stream")
-        return new Verdict_stream(parent, message.substring(streamRx.length, message.length - 1), plmActor)
+        stream(parent, message.substring(streamRx.length, message.length - 1), plmActor)
     }
     else {
         var jsMessage = Json.parse(message)
@@ -31,63 +31,47 @@ object Verdict {
         typeStr match {
     			case "ack" =>
     				parent.setState("ack")
-    				return new Verdict_ack(parent)
+    				ack(parent)
     			case "launch" =>
     				parent.setState("launch")
-    				return new Verdict_launch(parent)
+    				launch(parent)
     			case "result" => 
     				parent.setState("reply")
-    				return new Verdict_reply(parent, jsMessage, plmActor)
+    				reply(parent, jsMessage, plmActor)
           case _ =>
-            return new Verdict_dummy(message);
+            dummy(message);
         }
 		}
 	}
 	
-	trait Verdict_msg {
-		/**
-		 * Executes the given Verdict's action.
-		 */
-		def action()
+	def dummy(msg : String) {
+		Logger.warn("[judge] Wrong message format.");
+		Logger.warn(msg);
 	}
 	
-	private class Verdict_dummy(msg : String) extends Verdict_msg {
-		def action() {
-			Logger.warn("[judge] Wrong message format.");
-			Logger.warn(msg);
-		}
+	def ack(parent : Tribunal) {
+    Logger.debug("[judge] Acknowledge")
+		parent.setTimeout(ackTimeout)
 	}
 	
-	private class Verdict_ack(parent : Tribunal) extends Verdict_msg {
-		def action() {
-      Logger.debug("[judge] Acknowledge")
-			parent.setTimeout(ackTimeout)
-		}
+	def launch(parent : Tribunal) {
+    Logger.debug("[judge] Launched")
+		parent.setTimeout(launchTimeout)
 	}
 	
-	private class Verdict_launch(parent : Tribunal) extends Verdict_msg {
-		def action() {
-      Logger.debug("[judge] Launched")
-			parent.setTimeout(launchTimeout)
-		}
+	def stream(parent : Tribunal, msg : String, actor : PLMActor) {
+    Logger.debug("[judge] Stream")
+    actor.sendMessage("operations", Json.obj("buffer" -> msg))
+		parent.setTimeout(streamTimeout)
 	}
-	
-	private class Verdict_stream(parent : Tribunal, msg : String, actor : PLMActor) extends Verdict_msg {
-		def action() {
-      Logger.debug("[judge] Stream")
-      actor.sendMessage("operations", Json.obj("buffer" -> msg))
-			parent.setTimeout(streamTimeout)
-		}
-	}
-	private class Verdict_reply(parent : Tribunal, msg : JsValue, actor : PLMActor) extends Verdict_msg {
-		def action() {
-        Logger.debug("[judge] Reply")
-        var args: JsObject = Json.obj(
-          "msgType" -> (msg \ "msgType"),
-          "msg" -> (msg \ "msg")
-        )
-        actor.sendMessage("executionResult", args)
-			  parent.endExecution(msg)
-		}
+  
+	def reply(parent : Tribunal, msg : JsValue, actor : PLMActor) {
+    Logger.debug("[judge] Reply")
+    var args: JsObject = Json.obj(
+      "msgType" -> (msg \ "msgType"),
+      "msg" -> (msg \ "msg")
+    )
+    actor.sendMessage("executionResult", args)
+	  parent.endExecution(msg)
 	}
 }

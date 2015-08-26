@@ -122,7 +122,7 @@ class Tribunal extends Runnable {
 			}
 			// The delivery will be "null" if nextDelivery timed out.
 			else if (delivery != null) {
-				Verdict.build(this, new String(delivery.getBody(), "UTF-8"), actor).action()
+				Verdict.handleMessage(this, new String(delivery.getBody(), "UTF-8"), actor)
 			}
 		}
 	}
