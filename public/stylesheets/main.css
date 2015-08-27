@@ -46,6 +46,12 @@
   width: 100%
 }
 
+.code-container {
+  display: block;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 .rotate180 {
   transform: rotate(180deg);
 }

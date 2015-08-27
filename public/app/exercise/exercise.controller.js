@@ -41,6 +41,9 @@
     var panelID = 'panel';
     var canvasID = 'canvas';
 
+    exercise.connection = connection;
+    exercise.langs = langs;
+    
     exercise.tabs = [];
     exercise.currentTab = 0;
     exercise.drawFnct = null;
@@ -119,6 +122,8 @@
     exercise.resizeInstructions = resizeInstructions;
     exercise.resizeCanvas = resizeCanvas;
 
+    exercise.readTip = readTip;
+    
     exercise.idle = false;
 
     startIdleLoop();
@@ -810,5 +815,9 @@
       }
       updateInstructions(instructions, api);
     }
+  }
+  
+  function readTip(tipID) {
+    this.connection.sendMessage('readTip', { tipID: tipID+'' });
   }
 })();
