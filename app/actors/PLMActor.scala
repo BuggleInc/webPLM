@@ -239,6 +239,14 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
             case _ =>
               Logger.debug("commonErrorFeedback: non-correct JSON")
           }
+        case "readTip" =>
+          var optTipID: Option[String] = (msg \ "args" \ "tipID").asOpt[String]
+         optTipID.getOrElse(None) match {
+            case tipID: String =>
+              plm.signalReadTip(tipID)
+            case _ =>
+              Logger.debug("readTip: non-correct JSON")
+          } 
         case "ping" =>
           // Do nothing
         case _ =>

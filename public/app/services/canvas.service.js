@@ -10,6 +10,9 @@
 		var ctx;
 		var currentWorld;
 		
+    var defaultHeight;
+    var defaultWidth;
+    
 		var draw;
 
 		var service = {
@@ -30,15 +33,22 @@
 			canvas = canvasElt;
 			ctx = canvas.getContext('2d');
       setSize(canvasWidth, canvasHeight);
+      setDefaultSize(canvas.width, canvas.height);
 			draw = fnctDraw;
 		}
 		
 		function resize(canvasWidth, canvasHeight) {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 			setSize(canvasWidth, canvasHeight);
+      setDefaultSize(canvas.width, canvas.height);
 			update();
 		}
 
+    function setDefaultSize(width, height) {
+      defaultWidth = width;
+      defaultHeight = height;
+    }
+    
     function setSize(canvasWidth, canvasHeight) {
       canvas.width = Math.min(canvasWidth, 400);
 			canvas.height = Math.min(canvasHeight, 400);
@@ -57,6 +67,7 @@
 
 		function update() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+      setSize(defaultWidth, defaultHeight);
 			draw(canvas, currentWorld);
 		}
 

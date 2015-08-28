@@ -1,7 +1,7 @@
 <div class="row">
 	<dl class="tabs" data-tab=true>
-		<dd ng-repeat="tab in exercise.tabs" ng-class="{active: exercise.currentTab === tab.tabNumber}" ng-click="exercise.switchToTab(tab)">
-			<a>{{tab.name}}</a>
+		<dd class="tab-title" ng-repeat="tab in exercise.tabs" ng-class="{active: exercise.currentTab === tab.tabNumber}" ng-click="exercise.switchToTab(tab)">
+			<a href="">{{tab.name}}</a>
 		</dd>
 	</dl>
 </div>

@@ -142,6 +142,10 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   def signalCommonErrorFeedback(commonErrorID: Int, accuracy: Int, help: Int, comment: String) {
     game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
   }
+   
+  def signalReadTip(tipID: String) {
+    game.signalReadTip(tipID)
+  }
   
   def quit(progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
     game.removeProgLangListener(progLangSpy)
