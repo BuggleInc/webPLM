@@ -92,7 +92,9 @@ class Tribunal extends Runnable {
 		// This part handles compilation with workers.
 		// Request channel opening.
 		var channelOut : Channel = Tribunal.connection.createChannel()
-		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, null)
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("x-message-ttl", defaultTimeout);
+		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, args)
 		// Request
 		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, finalParameters.toString.getBytes("UTF-8"))
 		channelOut.close()
