@@ -69,7 +69,9 @@ object Verdict {
     Logger.debug("[judge] Reply")
     var args: JsObject = Json.obj(
       "msgType" -> (msg \ "msgType"),
-      "msg" -> (msg \ "msg")
+      "msg" -> (msg \ "msg"),
+      "commonErrorID" -> (msg \ "commonErrorID"),
+      "commonErrorText" -> (msg \ "commonErrorText")
     )
     actor.sendMessage("executionResult", args)
 	  parent.endExecution(msg)
