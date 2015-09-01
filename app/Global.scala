@@ -5,6 +5,9 @@ import com.mohiva.play.silhouette.api.{ Logger, SecuredSettings }
 import play.api.GlobalSettings
 import utils.di.SilhouetteModule
 
+import java.awt.Desktop
+import java.net.URI
+
 /**
  * The global configuration.
  */
@@ -24,4 +27,9 @@ object Global extends GlobalSettings with SecuredSettings with Logger {
    * @throws Exception if the controller couldn't be instantiated.
    */
   override def getControllerInstance[A](controllerClass: Class[A]) = injector.getInstance(controllerClass)
+    
+  if(Desktop.isDesktopSupported())
+  {
+    Desktop.getDesktop().browse(new URI("http://localhost:9000"))
+  }
 }
