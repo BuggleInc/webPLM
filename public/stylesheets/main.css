@@ -132,7 +132,15 @@ html {
 }
 
 .facebook {
-  background: #3B5998;
+  opacity: 0.9;
+}
+
+.facebook:hover {
+  opacity: 0.8;
+}
+
+.facebook:active {
+  opacity: 1;
 }
 
 .google {
