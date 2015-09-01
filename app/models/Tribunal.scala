@@ -11,6 +11,8 @@ import actors.PLMActor
 import play.api.libs.json._
 import play.api.Play
 import play.api.Play.current
+import java.util.Map
+import java.util.HashMap
 
 object Tribunal {
   val QUEUE_NAME_REQUEST : String = "worker_in"
@@ -92,15 +94,17 @@ class Tribunal extends Runnable {
 		// This part handles compilation with workers.
 		// Request channel opening.
 		var channelOut : Channel = Tribunal.connection.createChannel()
-        Map<String, Object> args = new HashMap<String, Object>();
-        args.put("x-message-ttl", defaultTimeout);
-		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, args)
+    var argsOut: Map[String, Object]  = new HashMap[String, Object]();
+    argsOut.put("x-message-ttl", defaultTimeout.asInstanceOf[Object]);
+		channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, argsOut)
 		// Request
 		channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, finalParameters.toString.getBytes("UTF-8"))
 		channelOut.close()
 		// Reply channel opening
 		var channelIn : Channel = Tribunal.connection.createChannel()
-		channelIn.queueDeclare(replyQueue, false, false, true, null)
+    var argsIn: Map[String, Object]  = new HashMap[String, Object]();
+    argsIn.put("x-message-ttl", 5000.asInstanceOf[Object]);
+		channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
 		// Reply
 		Logger.debug("[judge] waiting as " + replyQueue)
     replyLoop(channelIn, replyQueue)
