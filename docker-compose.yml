@@ -4,12 +4,8 @@ nginx:
     - "80:80"
 messagequeue:
   image: rabbitmq
-judge:
-  image: plm-judge
-  restart: always
-  links:
-    - messagequeue:messageq
-  cpuset: 0-3
+  ports:
+    - "5672:5672"
 plm:
   image: webplm
   volumes:
