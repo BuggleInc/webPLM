@@ -4,7 +4,7 @@
       <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button">{{ world.id }}</a>
     </li>
     <li ng-click="exercise.runCode(world.id)" ng-if="!exercise.isRunning">
-      <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button button-with-icon"><i class="mdi mdi-play"></i></a>
+      <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button button-with-icon"><i class="fi-play"></i></a>
     </li>
     <li ng-click="exercise.stopExecution()" ng-if="exercise.isRunning" >
       <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button button-with-icon"><i class="mdi mdi-stop"></i></a>
