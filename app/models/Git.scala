@@ -44,7 +44,7 @@ class Git(userUUID : String, gitUtils : GitUtils) {
     var exoID: String = exo.getId
     var pl: ProgrammingLanguage = game.getProgrammingLanguage
     var commitMsg: String = writeExecutionResultCommitMessage(courseID, exoID, pl, outcome, optTotalTests, optPassedTests)
-    commitMsg = "{\"kind\" : \"" + kindMes +"\"" + commitMsg.drop(1)
+    commitMsg = "{\"kind\" : \"" + kindMes +"\"," + commitMsg.drop(1)
     var userBranch: String = "PLM"+GitUtils.sha1(userUUID)
     
     var pass: Boolean = outcome == "pass"
