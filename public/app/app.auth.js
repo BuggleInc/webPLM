@@ -63,7 +63,7 @@
 
     // Facebook
     $authProvider.facebook({
-      clientId: '1632231700381300',
+      clientId: '1067831246562575',
       url: '/authenticate/facebook',
       authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
