@@ -26,13 +26,13 @@ import actors.PLMActor
 import java.util.Locale
 import java.util.Properties
 
-class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   var gitUtils = new GitUtils()
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
-  var gitGest = new Git(userUUID, gitUtils)
+  var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
+  var gitGest = new Git(initUserUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
 
   def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
@@ -129,6 +129,7 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   def setUserUUID(userUUID: String) {
     _currentExercise = null
     game.setUserUUID(userUUID)
+    gitGest.setUserUUID(userUUID)
   }
   
   def signalIdle(start: String, end: String, duration: String) {

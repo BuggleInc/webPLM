@@ -13,7 +13,7 @@ plm:
     - "~/webPLM/logs/:/app/webplm-dist/logs"
   ports:
     - "443:9443"
-  environment: 
+  environment:
     GITHUB_CLIENT_SECRET:
     GOOGLE_CLIENT_SECRET:
     PLMACCOUNTS_CLIENT_SECRET:

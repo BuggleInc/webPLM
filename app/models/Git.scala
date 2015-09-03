@@ -30,9 +30,13 @@ import org.eclipse.jgit.lib.NullProgressMonitor
 import org.eclipse.jgit.api.errors.GitAPIException
 
 
-class Git(userUUID : String, gitUtils : GitUtils) {
-  var repoDir : File = getRepoDir(Game.getSavingLocation())
+class Git(initUserUUID : String, gitUtils : GitUtils) {
+  var userUUID: String = initUserUUID
   var repoUrl : String = Game.getProperty("plm.git.server.url")
+  
+  def setUserUUID(newUserUUID: String) {
+    userUUID = newUserUUID
+  }
   
   def commitExecutionResult(code: String, error: String, outcome: String, optTotalTests: Option[String], optPassedTests: Option[String]) {
     var game: Game = gitUtils.getGame();
@@ -76,10 +80,10 @@ class Git(userUUID : String, gitUtils : GitUtils) {
     var ext = "." + pl.getExt
 
     // create the different files
-    var exoFile = new File(repoDir, exo.getId() + ext + ".code")
-    var errorFile = new File(repoDir, exo.getId() + ext + ".error")
-    var correctionFile = new File(repoDir, exo.getId() + ext + ".correction")
-    var missionFile = new File(repoDir, exo.getId() + ext + ".mission")
+    var exoFile = new File(getRepoDir, exo.getId() + ext + ".code")
+    var errorFile = new File(getRepoDir, exo.getId() + ext + ".error")
+    var correctionFile = new File(getRepoDir, exo.getId() + ext + ".correction")
+    var missionFile = new File(getRepoDir, exo.getId() + ext + ".mission")
     
     try {
       // write the code of the exercise into the file
@@ -109,7 +113,7 @@ class Git(userUUID : String, gitUtils : GitUtils) {
       case  e : IOException => e.printStackTrace()
     }
     // if exercise is done correctly
-    var doneFile = new File(repoDir, exo.getId() + ext + ".DONE")
+    var doneFile = new File(getRepoDir, exo.getId() + ext + ".DONE")
     if (pass) {
       try {
         var fwExo = new FileWriter(doneFile.getAbsoluteFile())
@@ -126,50 +130,8 @@ class Git(userUUID : String, gitUtils : GitUtils) {
     }
   }
 
-  def getRepoDir(savingLoc : String) : File = {
-    var userBranch : String = "PLM"+GitUtils.sha1(userUUID)
-    var repoDir : File = null
-    var game = gitUtils.getGame()
-    
-    try {
-		repoDir = new File(Game.SAVE_DIR.getAbsolutePath + System.getProperty("file.separator") + userUUID);
-
-		if (!repoDir.exists()) {
-			gitUtils.initLocalRepository(repoDir);
-			gitUtils.setUpRepoConfig(repoUrl, userBranch);
-			// We must create an initial commit before creating a specific branch for the user
-			gitUtils.createInitialCommit();
-		}
-
-		gitUtils.openRepo(repoDir);
-		if (gitUtils.getRepoRef(userBranch) != null) {
-			gitUtils.checkoutUserBranch(userBranch);
-		}
-		else {
-			gitUtils.createLocalUserBranch(userBranch);
-		}
-
-		// try to get the branch as stored remotely
-		Logger.debug(userBranch)
-		if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
-			gitUtils.mergeRemoteIntoLocalBranch(userBranch);
-			Logger.debug(game.i18n.tr("Your session {0} was automatically retrieved from the servers.",userBranch));
-		}
-		else {
-			// If no branch can be found remotely, create a new one.
-			//getGame().getLogger().log(getGame().i18n.tr("Creating a new session locally, as no corresponding session could be retrieved from the servers.",userBranch));
-			Logger.debug(game.i18n.tr("Couldn't retrieve a corresponding session from the servers..."));
-		}
-		// Log into the git that the PLM just started
-		gitUtils.commit(writePLMStartedOrLeavedCommitMessage("started"));
-
-		// and push to ensure that everything remains in sync
-		gitUtils.maybePushToUserBranch(userBranch, NullProgressMonitor.INSTANCE); 
-    } catch {
-      case e : Exception => System.err.println(game.i18n.tr("You found a bug in the PLM. Please report it with all possible details (including the stacktrace below)."))
-      e.printStackTrace()
-    }
-    return repoDir
+  def getRepoDir() : File = {
+    gitUtils.getRepoDir
   }
   
   def writePLMStartedOrLeavedCommitMessage(kind : String) : String =  {
