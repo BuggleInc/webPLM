@@ -12,7 +12,7 @@ import play.api.libs.json.JsObject
 
 object UserToJson {
   def userWrite(user: User): JsValue = {
-    var json = Json.obj(
+    var json: JsObject = Json.obj(
       "firstName" -> user.firstName,
       "lastName" -> user.lastName,
       "fullName" -> user.fullName,
@@ -23,7 +23,12 @@ object UserToJson {
         "providerKey" -> user.loginInfo.providerKey
       )
     )
-    
+    user.lastProgLang.getOrElse(None) match {
+      case lastProgLang: String =>
+        json = json.+("lastProgLang" -> Json.toJson(lastProgLang))
+      case _ =>
+        // Do nothing
+    }
     user.preferredLang.getOrElse(None) match {
       case lang: Lang =>
         json = json.+("preferredLang" -> Json.obj( "code" -> lang.code))
@@ -67,7 +72,7 @@ object UserToJson {
         ),
       preferredLang = preferredLang,
       avatarURL = (json \ "avatarURL").asOpt[String],
-      lastProgLang = None,
+      lastProgLang = (json \ "lastProgLang").asOpt[String],
       trackUser = (json \ "trackUser").asOpt[Boolean]
     )
   }
