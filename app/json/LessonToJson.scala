@@ -2,12 +2,15 @@ package json
 
 import play.api.libs.json._
 import plm.core.model.lesson.Lesson
+import java.util.Map
+import plm.core.model.Game
 
 object LessonToJson {
   
-  def lessonsWrite(lessons: Array[Lesson]): JsValue = {
+  def lessonsWrite(lessons: Map[String, Lesson]): JsValue = {
     var array = new JsArray()
-    lessons.foreach { lesson =>
+    Game.lessonsName.foreach { lessonName =>
+      var lesson: Lesson = lessons.get(lessonName)
       array = array :+ lessonWrite(lesson)
     }
     return array
