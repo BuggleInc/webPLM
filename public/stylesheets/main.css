@@ -42,6 +42,14 @@
   font-size: 72px;
 }
 
+.CodeMirror-matchingbracket {
+  color: #1A9C00 !important;
+}
+
+.CodeMirror-nonmatchingbracket {
+  color: #D10808 !important;
+}
+
 .full-width {
   width: 100%
 }
