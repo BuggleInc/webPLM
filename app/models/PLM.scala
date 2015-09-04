@@ -15,7 +15,6 @@ import plm.core.model.tracking.ProgressSpyListener
 import plm.core.model.tracking.GitUtils
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
-import scala.collection.immutable.HashMap
 import play.api.libs.json._
 import play.api.Play
 import play.api.Play.current
@@ -23,6 +22,7 @@ import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
 import actors.PLMActor
+import java.util.Map
 import java.util.Locale
 import java.util.Properties
 
@@ -35,7 +35,7 @@ class PLM(properties: Properties, initUserUUID: String, plmLogger: PLMLogger, lo
   var gitGest = new Git(initUserUUID, gitUtils)
   var tribunal : Tribunal = new Tribunal
 
-  def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
+  def lessons: Map[String, Lesson] = game.getMapLessons
 
   def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;
