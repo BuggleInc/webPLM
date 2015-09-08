@@ -71,7 +71,7 @@ class Tribunal {
 	*/
 	object TribunalState extends scala.Enumeration {
 		type TribunalState = Value
-		val Off, Waiting, Ack, Launched, Streaming, Replied = Value
+		val Off, Waiting, Ack, Launched, Streaming, Replied, Purging = Value
 	}
 	import TribunalState._
 	var state : TribunalState = Off
@@ -95,16 +95,16 @@ class Tribunal {
         while(state != Replied && state != Off) {
           Logger.debug("On boucle!")
           var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-          if (stopExecution) {
+          if (stopExecution && state != Purging) {
             signalExecutionStop
-            state = Off
+            state = Purging
           }
           else if (System.currentTimeMillis > timeout) {
             signalExecutionTimeout
             state = Off
           }
           // The delivery will be "null" if nextDelivery timed out.
-          else if (delivery != null) {
+          else if (state != Purging && delivery != null) {
             Logger.debug("Get delivery: "+new String(delivery.getBody()))
             Verdict.handleMessage(self, new String(delivery.getBody(), "UTF-8"), actor)
           }
