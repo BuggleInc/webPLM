@@ -3,7 +3,7 @@ nginx:
   ports:
     - "80:80"
 messagequeue:
-  image: rabbitmq
+  image: rabbitmq:3-management
   ports:
     - "5672:5672"
     - "15672:15672"
