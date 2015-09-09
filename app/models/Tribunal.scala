@@ -51,8 +51,6 @@ class Tribunal {
 	var parameters : JsObject = _
 
   // Parameters
-  var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
-  
   var argsOut: Map[String, Object]  = new HashMap[String, Object]
   argsOut.put("x-message-ttl", defaultTimeout.asInstanceOf[Object])
   var argsIn: Map[String, Object]  = new HashMap[String, Object]
@@ -60,18 +58,13 @@ class Tribunal {
   
   var channelOut : Channel = Tribunal.connection.createChannel
   channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, argsOut)
-  var channelIn : Channel = Tribunal.connection.createChannel
-  channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
-  
-  var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-  channelIn.basicConsume(replyQueue, true, consumer)
   
 	/**
 	* Tribunal state
 	*/
 	object TribunalState extends scala.Enumeration {
 		type TribunalState = Value
-		val Off, Waiting, Ack, Launched, Streaming, Replied, Purging = Value
+		val Off, Waiting, Ack, Launched, Streaming, Replied = Value
 	}
 	import TribunalState._
 	var state : TribunalState = Off
@@ -89,26 +82,34 @@ class Tribunal {
 		setData(plmActor, git, game, lessonID, exerciseID, code)
     new Thread(new Runnable() {
       override def run() {
-        channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
+        var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
+        var channelIn : Channel = Tribunal.connection.createChannel
+        channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
+        
+        var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
+        channelIn.basicConsume(replyQueue, true, consumer)
+        
+        var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
+        
+        channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, finalParameters.toString.getBytes("UTF-8"))
         timeout = System.currentTimeMillis + defaultTimeout
         state = Waiting
         while(state != Replied && state != Off) {
-          Logger.debug("On boucle!")
           var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-          if (stopExecution && state != Purging) {
+          if (stopExecution) {
             signalExecutionStop
-            state = Purging
+            state = Off
           }
           else if (System.currentTimeMillis > timeout) {
             signalExecutionTimeout
             state = Off
           }
           // The delivery will be "null" if nextDelivery timed out.
-          else if (state != Purging && delivery != null) {
-            Logger.debug("Get delivery: "+new String(delivery.getBody()))
+          else if (delivery != null) {
             Verdict.handleMessage(self, new String(delivery.getBody(), "UTF-8"), actor)
           }
         }
+        channelIn.close
       }
     }).start();
 	}
@@ -121,8 +122,7 @@ class Tribunal {
 				"exercise" -> exerciseID,
 				"localization" -> game.getLocale.getLanguage,
 				"language" -> game.getProgrammingLanguage.getLang,
-				"code" -> code,
-        "replyQueue" -> replyQueue
+				"code" -> code
 			)
 		state = Off
     stopExecution = false
