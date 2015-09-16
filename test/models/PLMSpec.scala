@@ -6,7 +6,6 @@ import org.scalatestplus.play._
 import org.mockito.Mockito._
 import java.util.Vector
 import actors.PLMActor
-import spies.ExecutionSpy
 import plm.core.model.lesson.Exercise
 import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
@@ -14,85 +13,40 @@ import log.PLMLogger
 import java.util.Locale
 import java.util.UUID
 import java.util.Properties
+import play.api.test.WithApplication
 
 class PLMSpec extends PlaySpec with MockitoSugar {
   var userUUID: String = UUID.randomUUID.toString
-  var plm = new PLM(new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
   
-  "PLM#switchLesson" should {
-    "set the selected lesson as the current one" in {
-      val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+  "PLM#switchLesson" should  {
+    "set the selected lesson as the current one" in new WithApplication {
+      
+      var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
       
       val expectedLessonID = "welcome"
-      plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
+      plm.switchLesson(expectedLessonID)
       val actualLectID = plm.game.getCurrentLesson.getId
       actualLectID mustBe expectedLessonID
     }
     
-    "set the first exercise as the current one" in {
-      val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+    "set the first exercise as the current one" in new WithApplication {
+      
+      var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
       
       val lessonID = "welcome"
       val expectedExerciseID = "welcome.lessons.welcome.environment.Environment"
-      plm.switchLesson(lessonID, mockSpy, mockSpy)
+      plm.switchLesson(lessonID)
       val actualExerciseID = plm.game.getCurrentLesson.getCurrentExercise.getId
       actualExerciseID mustBe expectedExerciseID
     }
     
-    "return the current exercise" in {
-      val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+    "return the current exercise" in new WithApplication {
       
-      val actualLecture = plm.switchLesson("welcome", mockSpy, mockSpy)
+      var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
+
+      val actualLecture = plm.switchLesson("welcome")
       val expectedLecture = plm.game.getCurrentLesson.getCurrentExercise
       actualLecture mustBe expectedLecture
     }
   }
-  
-  "PLM#addExecutionSpy" should {
-    "add a spy's clone to each world" in {
-      val mockPLMActor = mock[PLMActor]
-      val executionSpy = new ExecutionSpy(mockPLMActor, "testOperation")
-      
-      val worlds = new Vector[World]()   
-      var mockFirstWorld = mock[World]
-      var mockSecondWorld = mock[World]
-      var mockThirdWorld = mock[World]
-      
-      worlds.add(mockFirstWorld)
-      worlds.add(mockSecondWorld)
-      worlds.add(mockThirdWorld)
-      
-      val exo = mock[Exercise]
-      when(exo.getWorlds(WorldKind.CURRENT)) thenReturn worlds
-      plm.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-      verify(mockFirstWorld, times(1)).addWorldUpdatesListener(executionSpy)
-      verify(mockSecondWorld, times(1)).addWorldUpdatesListener(executionSpy)
-      verify(mockThirdWorld, times(1)).addWorldUpdatesListener(executionSpy)
-    }
-    
-    "register each clone in PLMActor" in {
-      val mockPLMActor = mock[PLMActor]
-      val executionSpy = new ExecutionSpy(mockPLMActor, "testOperation")
-      
-      val worlds = new Vector[World]()   
-      var mockFirstWorld = mock[World]
-      var mockSecondWorld = mock[World]
-      var mockThirdWorld = mock[World]
-      
-      worlds.add(mockFirstWorld)
-      worlds.add(mockSecondWorld)
-      worlds.add(mockThirdWorld)
-      
-      val exo = mock[Exercise]
-      when(exo.getWorlds(WorldKind.CURRENT)) thenReturn worlds
-      plm.addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-      verify(mockPLMActor, times(3)).registerSpy(executionSpy)
-    }
-    
-    
-  }
-  
 }
