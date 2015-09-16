@@ -28,6 +28,7 @@ module.exports = function(grunt) {
             'public/javascripts/sinon-1.12.2.js',
             'public/javascripts/angular.js',
             'public/javascripts/angular-animate.js',
+            'public/javascripts/angular-bind-html-compile.js',
             'public/javascripts/angular-cookies.js',
             'public/javascripts/angular-sanitize.js',
             'public/javascripts/angular-ui-router.js',

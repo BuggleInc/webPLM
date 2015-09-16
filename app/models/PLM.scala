@@ -30,7 +30,7 @@ class PLM(tribunal: Tribunal, properties: Properties, initUserUUID: String, plmL
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var gitUtils = new GitUtils(Play.configuration.getString("plm.github.oauth").get)
+  var gitUtils = new GitUtils(Play.configuration.getString("plm.github.oauth").getOrElse("dummy-username"))
   var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
   var gitGest = new Git(initUserUUID, gitUtils)
 
