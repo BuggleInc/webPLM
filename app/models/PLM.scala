@@ -26,14 +26,13 @@ import java.util.Map
 import java.util.Locale
 import java.util.Properties
 
-class PLM(properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(tribunal: Tribunal, properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   var gitUtils = new GitUtils(Play.configuration.getString("plm.github.oauth").get)
   var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
   var gitGest = new Git(initUserUUID, gitUtils)
-  var tribunal : Tribunal = new Tribunal
 
   def lessons: Map[String, Lesson] = game.getMapLessons
 

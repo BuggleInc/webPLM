@@ -31,6 +31,7 @@ import Scalatime._
 import java.util.Properties
 import play.api.Play
 import play.api.Play.current
+import models.Tribunal
 
 object PLMActor {
   def props(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -59,7 +60,8 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
   properties.setProperty("webplm.user-agent", userAgent)
   
-  var plm: PLM = new PLM(properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  var tribunal: Tribunal = new Tribunal
+  var plm: PLM = new PLM(tribunal, properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
