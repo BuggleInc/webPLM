@@ -1,12 +1,12 @@
 package json.operation
 
 import play.api.libs.json._
-
 import plm.universe.bugglequest.BuggleOperation
 import plm.universe.bugglequest.MoveBuggleOperation
 import plm.universe.bugglequest.ChangeBuggleDirection
 import plm.universe.bugglequest.ChangeBuggleCarryBaggle
 import plm.universe.bugglequest.ChangeBuggleBrushDown
+import plm.universe.bugglequest.ChangeBuggleBodyColor
 
 object BuggleOperationToJson {
 
@@ -20,7 +20,9 @@ object BuggleOperationToJson {
       case changeBuggleCarryBaggle: ChangeBuggleCarryBaggle =>
         json = changeBuggleCarryBaggleWrite(changeBuggleCarryBaggle)
       case changeBuggleBrushDown: ChangeBuggleBrushDown =>
-        json = changeBuggleBrushDownWrite(changeBuggleBrushDown)  
+        json = changeBuggleBrushDownWrite(changeBuggleBrushDown)
+      case changeBuggleBodyColor: ChangeBuggleBodyColor =>
+        json = changeBuggleBodyColorWrite(changeBuggleBodyColor)
       case _ =>
         json = Json.obj()
     }
@@ -59,4 +61,14 @@ object BuggleOperationToJson {
       "newDirection" -> changeBuggleDirection.getNewDirection.intValue()
     )
   }
+  
+  def changeBuggleBodyColorWrite(changeBuggleBodyColor: ChangeBuggleBodyColor): JsValue = {
+    var oldColor = changeBuggleBodyColor.getOldBodyColor
+    var newColor = changeBuggleBodyColor.getNewBodyColor
+    Json.obj(
+      "oldColor" -> List[Int](oldColor.getRed, oldColor.getGreen, oldColor.getBlue, oldColor.getAlpha),
+      "newColor" -> List[Int](newColor.getRed, newColor.getGreen, newColor.getBlue, newColor.getAlpha)
+    )
+  }
+  
 }
