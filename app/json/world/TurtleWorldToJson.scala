@@ -30,7 +30,8 @@ object TurtleWorldToJson {
       shape = shapes.next
       shape match {
         case line: Line =>
-          jsArray.append(Json.obj(
+          jsArray = jsArray.append(Json.obj(
+            "type" -> "line",
             "x1" -> line.x1,
             "y1" -> line.y1,
             "x2" -> line.x2,
@@ -38,7 +39,8 @@ object TurtleWorldToJson {
             "color" -> Utils.colorToWrapper(line.color)
           ))
         case circle: Circle =>
-          jsArray.append(Json.obj(
+          jsArray = jsArray.append(Json.obj(
+            "type" -> "circle",
             "x" -> circle.x,
             "y" -> circle.y,
             "radius" -> circle.radius,

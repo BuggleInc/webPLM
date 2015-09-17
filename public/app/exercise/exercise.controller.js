@@ -14,7 +14,7 @@
   'locker',
   'BuggleWorld', 'BuggleWorldView',
   'BatWorld', 'BatWorldView',
-  'TurtleWorld',
+  'TurtleWorld', 'TurtleWorldView',
   'SortingWorld', 'SortingWorldView',
   'SortingWorldSecondView',
   'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
@@ -31,7 +31,7 @@
     locker,
     BuggleWorld, BuggleWorldView,
     BatWorld, BatWorldView,
-    TurtleWorld,
+    TurtleWorld, TurtleWorldView,
     SortingWorld, SortingWorldView, SortingWorldSecondView,
     DutchFlagWorld, DutchFlagView, DutchFlagSecondView,
     PancakeWorld, PancakeView,
@@ -283,11 +283,11 @@
                   name: 'World',
                   worldKind: 'current',
                   tabNumber: 0,
-                  drawFnct: function () {}
+                  drawFnct: TurtleWorldView.draw
           }
         ];
                 world = new TurtleWorld(initialWorld);
-                exercise.drawFnct = function () {};
+                exercise.drawFnct = TurtleWorldView.draw;
                 initCanvas(exercise.drawFnct);
                 break;
             case 'SortingWorld':

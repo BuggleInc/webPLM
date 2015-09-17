@@ -14,6 +14,8 @@
                         SizeHint) {
 
 		var TurtleWorld = function (world) {
+      var turtleID, turtle;
+      
 			this.type = world.type;
 			this.width = world.width;
 			this.height = world.height;
@@ -22,14 +24,15 @@
 			this.steps = [];
 
       this.shapes = [];
-      world.shapes.forEach(this.addShape);
+      this.addShapes(world.shapes);
+
       this.sizeHints = [];
-      world.sizeHints.forEach(this.addSizeHint);
+      this.addSizeHints(world.sizeHints);
 
       this.entities = {};
-			for(var turtleID in world.entities) {
-				if(world.entities.hasOwnProperty(turtleID)) {
-					var turtle = world.entities[turtleID];
+			for (turtleID in world.entities) {
+				if (world.entities.hasOwnProperty(turtleID)) {
+					turtle = world.entities[turtleID];
 					this.entities[turtleID] = new Turtle(turtle);
 				}
 			}
@@ -80,21 +83,27 @@
 			}
 		};
 
-    TurtleWorld.prototype.addShape = function (shape) {
-      switch (shape.type) {
-      case 'line':
-        this.shapes.add(new Line(shape));
-        break;
-      case 'circle':
-        this.shapes.add(new Circle(shape));
-        break;
-      default:
-        console.log('Shape not supported yet: ', shape);
-      }
+    TurtleWorld.prototype.addShapes = function (shapes) {
+      var self = this;
+      shapes.forEach(function (shape) {
+        switch (shape.type) {
+        case 'line':
+          self.shapes.push(new Line(shape));
+          break;
+        case 'circle':
+          self.shapes.push(new Circle(shape));
+          break;
+        default:
+          console.log('Shape not supported yet: ', shape);
+        }
+      });
     };
     
-    TurtleWorld.prototype.addSizeHint = function (sizeHint) {
-      this.sizeHints.add(new SizeHint(sizeHint));
+    TurtleWorld.prototype.addSizeHints = function (sizeHints) {
+      var self = this;
+      sizeHints.forEach(function (sizeHint) {
+        self.sizeHints.push(new SizeHint(sizeHint));
+      });
     };
     
 		return TurtleWorld;
