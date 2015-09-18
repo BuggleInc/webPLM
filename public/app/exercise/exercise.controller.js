@@ -284,8 +284,15 @@
                   worldKind: 'current',
                   tabNumber: 0,
                   drawFnct: TurtleWorldView.draw
+          },
+                {
+                  name: 'Objective',
+                  worldKind: 'answer',
+                  tabNumber: 1,
+                  drawFnct: TurtleWorldView.draw
           }
         ];
+                exercise.objectiveViewNeeded = true;
                 exercise.animationPlayerNeeded = true;
                 world = new TurtleWorld(initialWorld);
                 exercise.drawFnct = TurtleWorldView.draw;
