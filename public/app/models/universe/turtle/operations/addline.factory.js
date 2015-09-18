@@ -10,7 +10,6 @@
 	function AddLine(Line) {
 		
 		var AddLine = function (data) {
-      console.log('new Line: ', data);
       this.line = new Line(data);
 		};
 		

@@ -10,7 +10,6 @@
 	function AddCircle(Circle) {
 		
 		var AddCircle = function (data) {
-      console.log('new Circle: ', data);
       this.circle = new Circle(data);
 		};
 		

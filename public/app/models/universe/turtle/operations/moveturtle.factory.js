@@ -1,11 +1,11 @@
-(function(){
+(function () {
 	'use strict';
 	
 	angular
 		.module('PLMApp')
 		.factory('MoveTurtle', MoveTurtle);
 	
-	function MoveTurtle () {
+	function MoveTurtle() {
 		
 		var MoveTurtle = function (data) {
 			this.turtleID = data.turtleID;
@@ -29,4 +29,4 @@
 	
 		return MoveTurtle;
 	}
-})();
+}());

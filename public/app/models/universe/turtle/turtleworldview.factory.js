@@ -93,10 +93,6 @@
       ctx.save();
       ctx.translate(turtle.x, turtle.y);
 
-      // now move across and down half the 
-      // width and height of the image (which is 32 x 32)
-      //ctx.translate(16, 16);
-
       // rotate around this point
       ctx.rotate(degreeToRadian(turtle.direction));
 
