@@ -286,6 +286,7 @@
                   drawFnct: TurtleWorldView.draw
           }
         ];
+                exercise.animationPlayerNeeded = true;
                 world = new TurtleWorld(initialWorld);
                 exercise.drawFnct = TurtleWorldView.draw;
                 initCanvas(exercise.drawFnct);

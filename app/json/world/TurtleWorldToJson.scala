@@ -58,7 +58,7 @@ object TurtleWorldToJson {
     var sizeHint: SizeHint = null
     while(sizeHints.hasNext) {
       sizeHint = sizeHints.next
-      jsArray.append(Json.obj(
+      jsArray = jsArray.append(Json.obj(
           "x1" -> sizeHint.x1,
           "y1" -> sizeHint.y1,
           "x2" -> sizeHint.x2,

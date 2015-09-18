@@ -7,11 +7,14 @@
 
 	TurtleWorld.$inject = ['Turtle',
                         'Line', 'Circle',
-                        'SizeHint'];
+                        'SizeHint',
+                        'MoveTurtle', 'AddLine', 'AddCircle'];
 
 	function TurtleWorld(Turtle,
                         Line, Circle,
-                        SizeHint) {
+                        SizeHint,
+                        MoveTurtle, AddLine, AddCircle
+                       ) {
 
 		var TurtleWorld = function (world) {
       var turtleID, turtle;
@@ -38,6 +41,10 @@
 			}
 		};
 
+    TurtleWorld.prototype.getEntity = function (entityID) {
+			return this.entities[entityID];
+		};
+    
 		TurtleWorld.prototype.clone = function () {
 			return new TurtleWorld(this);
 		};
@@ -76,8 +83,12 @@
 
 		TurtleWorld.prototype.generateOperation = function (operation) {
 			switch (operation.type) {
-      case 0:
-        break;
+      case 'moveTurtle':
+        return new MoveTurtle(operation);
+      case 'addLine':
+        return new AddLine(operation);
+      case 'addCircle':
+        return new AddCircle(operation);
       default:
         console.log('Operation not supported yet: ', operation);
 			}
