@@ -9,13 +9,13 @@
                         'Line', 'Circle',
                         'SizeHint',
                         'MoveTurtle', 'RotateTurtle', 'ChangeTurtleVisible',
-                         'AddLine', 'AddCircle'];
+                         'AddLine', 'AddCircle', 'ClearCanvas'];
 
 	function TurtleWorld(Turtle,
                         Line, Circle,
                         SizeHint,
                         MoveTurtle, RotateTurtle, ChangeTurtleVisible,
-                        AddLine, AddCircle) {
+                        AddLine, AddCircle, ClearCanvas) {
 
 		var TurtleWorld = function (world) {
       var turtleID, turtle;
@@ -94,6 +94,8 @@
         return new AddLine(operation);
       case 'addCircle':
         return new AddCircle(operation);
+      case 'clearCanvas':
+        return new ClearCanvas(operation);  
       default:
         console.log('Operation not supported yet: ', operation);
 			}

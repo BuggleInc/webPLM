@@ -23,6 +23,8 @@ object TurtleOperationToJson {
         json = addLineWrite(addLine)
       case addCircle: AddCircle =>
         json = addCircleWrite(addCircle)
+      case clearCanvas: ClearCanvas =>
+        json = clearCanvasWrite(clearCanvas)
       case _ =>
         json = Json.obj()
     }
@@ -72,5 +74,9 @@ object TurtleOperationToJson {
       "radius" -> addCircle.getRadius,
       "color" -> Utils.colorToWrapper(addCircle.getColor)
     )
+  }
+  
+  def clearCanvasWrite(clearCanvas: ClearCanvas): JsObject = {
+    Json.obj()
   }
 }
