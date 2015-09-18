@@ -8,13 +8,14 @@
 	TurtleWorld.$inject = ['Turtle',
                         'Line', 'Circle',
                         'SizeHint',
-                        'MoveTurtle', 'AddLine', 'AddCircle'];
+                        'MoveTurtle', 'RotateTurtle',
+                         'AddLine', 'AddCircle'];
 
 	function TurtleWorld(Turtle,
                         Line, Circle,
                         SizeHint,
-                        MoveTurtle, AddLine, AddCircle
-                       ) {
+                        MoveTurtle, RotateTurtle,
+                        AddLine, AddCircle) {
 
 		var TurtleWorld = function (world) {
       var turtleID, turtle;
@@ -85,6 +86,8 @@
 			switch (operation.type) {
       case 'moveTurtle':
         return new MoveTurtle(operation);
+      case 'rotateTurtle':
+        return new RotateTurtle(operation);
       case 'addLine':
         return new AddLine(operation);
       case 'addCircle':
