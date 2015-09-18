@@ -11,6 +11,7 @@
 			this.x = turtle.x;
 			this.y = turtle.y;
 			this.direction = turtle.direction;
+      this.visible = true;
 		};
 		
 		return Turtle;

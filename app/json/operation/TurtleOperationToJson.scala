@@ -17,6 +17,8 @@ object TurtleOperationToJson {
         json = moveTurtleWrite(moveTurtle)
       case rotateTurtle: RotateTurtle =>
         json = rotateTurtleWrite(rotateTurtle)
+      case changeTurtleVisible: ChangeTurtleVisible =>
+        json = changeTurtleVisibleWrite(changeTurtleVisible)
       case addLine: AddLine =>
         json = addLineWrite(addLine)
       case addCircle: AddCircle =>
@@ -43,6 +45,13 @@ object TurtleOperationToJson {
     Json.obj(
       "oldHeading" -> rotateTurtle.getOldHeading,
       "newHeading" -> rotateTurtle.getNewHeading
+    )
+  }
+  
+  def changeTurtleVisibleWrite(changeTurtleVisible: ChangeTurtleVisible): JsObject = {
+    Json.obj(
+      "oldVisible" -> changeTurtleVisible.getOldVisible,
+      "newVisible" -> changeTurtleVisible.getNewVisible
     )
   }
   

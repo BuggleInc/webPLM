@@ -9,7 +9,7 @@
 
   function TurtleWorldView() {
 
-    var ctx, canvasWidth, canvasHeight, ratio, turtleImg;
+    var ctx, canvasWidth, canvasHeight, turtleImg;
 
     turtleImg = new Image();
     turtleImg.src = '/assets/images/world_turtle.png';
@@ -22,7 +22,6 @@
       ctx = canvas.getContext('2d');
       canvasWidth = canvas.width;
       canvasHeight = canvas.height;
-      ratio = Math.min(canvas.width / turtleWorld.width, canvas.height / turtleWorld.height);
     }
 
     function draw(canvas, turtleWorld) {
@@ -36,7 +35,9 @@
       for (turtleID in turtleWorld.entities) {
         if (turtleWorld.entities.hasOwnProperty(turtleID)) {
           turtle = turtleWorld.entities[turtleID];
-          drawTurtle(turtle);
+          if(turtle.visible) {
+            drawTurtle(turtle);
+          }
         }
       }
     }
