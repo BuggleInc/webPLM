@@ -25,6 +25,8 @@ object TurtleOperationToJson {
         json = addCircleWrite(addCircle)
       case clearCanvas: ClearCanvas =>
         json = clearCanvasWrite(clearCanvas)
+      case addSizeHint: AddSizeHint =>
+        json = addSizeHintWrite(addSizeHint)
       case _ =>
         json = Json.obj()
     }
@@ -78,5 +80,15 @@ object TurtleOperationToJson {
   
   def clearCanvasWrite(clearCanvas: ClearCanvas): JsObject = {
     Json.obj()
+  }
+  
+  def addSizeHintWrite(addSizeHint: AddSizeHint): JsObject = {
+    Json.obj(
+      "x1" -> addSizeHint.getX1,
+      "y1" -> addSizeHint.getY1,
+      "x2" -> addSizeHint.getX2,
+      "y2" -> addSizeHint.getY2,
+      "text" -> addSizeHint.getText
+    )
   }
 }

@@ -9,13 +9,15 @@
                         'Line', 'Circle',
                         'SizeHint',
                         'MoveTurtle', 'RotateTurtle', 'ChangeTurtleVisible',
-                         'AddLine', 'AddCircle', 'ClearCanvas'];
+                        'AddLine', 'AddCircle', 'ClearCanvas',
+                        'AddSizeHint'];
 
 	function TurtleWorld(Turtle,
                         Line, Circle,
                         SizeHint,
                         MoveTurtle, RotateTurtle, ChangeTurtleVisible,
-                        AddLine, AddCircle, ClearCanvas) {
+                        AddLine, AddCircle, ClearCanvas,
+                        AddSizeHint) {
 
 		var TurtleWorld = function (world) {
       var turtleID, turtle;
@@ -95,7 +97,9 @@
       case 'addCircle':
         return new AddCircle(operation);
       case 'clearCanvas':
-        return new ClearCanvas(operation);  
+        return new ClearCanvas(operation);
+      case 'addSizeHint':
+        return new AddSizeHint(operation);
       default:
         console.log('Operation not supported yet: ', operation);
 			}

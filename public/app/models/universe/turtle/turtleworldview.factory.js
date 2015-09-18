@@ -74,20 +74,28 @@
     }
     
     function drawSizeHint(sizeHint) {
-      var middleX, middleY;
-      
-      middleX = (sizeHint.x1 + sizeHint.x2) / 2;
-      middleY = (sizeHint.y1 + sizeHint.y2) / 2;
+      var middleX, middleY, hyp, theta, offset;
       
       // draw line
       sizeHint.color = [255, 165, 0, 255]; // #E69400
       drawLine(sizeHint);
       
       // add text
+      middleX = (sizeHint.x1 + sizeHint.x2) / 2;
+      middleY = (sizeHint.y1 + sizeHint.y2) / 2;
+      hyp = Math.sqrt((sizeHint.x1 - sizeHint.x2) * (sizeHint.x1 - sizeHint.x2) + (sizeHint.y1 - sizeHint.y2) * (sizeHint.y1 - sizeHint.y2));
+		  theta = Math.acos((sizeHint.y2 - sizeHint.y1) / hyp) - Math.PI / 2;
+        
+      offset = ctx.measureText(sizeHint.text).width / 2;
+      
+      ctx.save();
+      ctx.translate(middleX, middleY);
+      ctx.rotate(theta);
       ctx.font = '16px Arial';
       ctx.fillStyle = '#E69400';
       ctx.textBaseline = 'middle';
-      ctx.fillText(sizeHint.text, middleX, middleY);
+      ctx.fillText(sizeHint.text, -offset, 0);
+      ctx.restore();
     }
     
     function drawTurtle(turtle) {
