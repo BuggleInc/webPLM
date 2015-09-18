@@ -9,7 +9,10 @@
 
   function TurtleWorldView() {
 
-    var ctx, canvasWidth, canvasHeight, ratio;
+    var ctx, canvasWidth, canvasHeight, ratio, turtleImg;
+
+    turtleImg = new Image();
+    turtleImg.src = '/assets/images/world_turtle.png';
     
     var service = {
       draw: draw
@@ -70,28 +73,40 @@
     }
     
     function drawSizeHint(sizeHint) {
+      var middleX, middleY;
       
+      middleX = (sizeHint.x1 + sizeHint.x2) / 2;
+      middleY = (sizeHint.y1 + sizeHint.y2) / 2;
+      
+      // draw line
+      sizeHint.color = [255, 165, 0, 255]; // #E69400
+      drawLine(sizeHint);
+      
+      // add text
+      ctx.font = '16px Arial';
+      ctx.fillStyle = '#E69400';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(sizeHint.text, middleX, middleY);
     }
     
     function drawTurtle(turtle) {
-      var imageObj = new Image();
+      ctx.save();
+      ctx.translate(turtle.x, turtle.y);
 
-      imageObj.onload = function () {
-        ctx.save();
-        ctx.translate(turtle.x, turtle.y);
+      // now move across and down half the 
+      // width and height of the image (which is 32 x 32)
+      //ctx.translate(16, 16);
 
-        // now move across and down half the 
-        // width and height of the image (which is 32 x 32)
-        ctx.translate(16, 16);
+      // rotate around this point
+      ctx.rotate(degreeToRadian(turtle.direction));
 
-        // rotate around this point
-        ctx.rotate(turtle.heading);
-
-        // then draw the image back and up
-        ctx.drawImage(imageObj, -16, -16);
-        ctx.restore();
-      };
-      imageObj.src = '/assets/images/world_turtle.png';
+      // then draw the image back and up
+      ctx.drawImage(turtleImg, -16, -16);
+      ctx.restore();
+    }
+    
+    function degreeToRadian(angle) {
+      return angle * Math.PI / 180;
     }
     
     function getColorToRGBA(color) {
