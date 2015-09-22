@@ -8,7 +8,7 @@
 	BuggleWorld.$inject = [
 		'BuggleWorldCell', 'Buggle', 
 		'ChangeCellHasBaggle', 'ChangeCellColor', 
-		'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
+		'ChangeBuggleBodyColor', 'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
 		'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown',
 		'NoBaggleUnderBuggle', 'BuggleAlreadyHaveBaggle', 'BuggleDontHaveBaggle', 
 		'CellAlreadyHaveBaggle', 'BuggleInOuterSpace'
@@ -16,7 +16,7 @@
 	
 	function BuggleWorld (BuggleWorldCell, Buggle,
 			ChangeCellHasBaggle, ChangeCellColor,
-			ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
+			ChangeBuggleBodyColor, ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
 			ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown,
 			NoBaggleUnderBuggle, BuggleAlreadyHaveBaggle, BuggleDontHaveBaggle, 
 			CellAlreadyHaveBaggle, BuggleInOuterSpace) {
@@ -118,6 +118,8 @@
 			switch(operation.type) {
 				case 'moveBuggleOperation':
 					return new MoveBuggleOperation(operation);
+        case 'changeBuggleBodyColor':
+          return new ChangeBuggleBodyColor(operation);
 				case 'changeBuggleDirection':
 					return new ChangeBuggleDirection(operation);
 				case 'changeBuggleCarryBaggle':

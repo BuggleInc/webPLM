@@ -14,6 +14,7 @@
   'locker',
   'BuggleWorld', 'BuggleWorldView',
   'BatWorld', 'BatWorldView',
+  'TurtleWorld', 'TurtleWorldView',
   'SortingWorld', 'SortingWorldView',
   'SortingWorldSecondView',
   'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
@@ -30,6 +31,7 @@
     locker,
     BuggleWorld, BuggleWorldView,
     BatWorld, BatWorldView,
+    TurtleWorld, TurtleWorldView,
     SortingWorld, SortingWorldView, SortingWorldSecondView,
     DutchFlagWorld, DutchFlagView, DutchFlagSecondView,
     PancakeWorld, PancakeView,
@@ -275,6 +277,27 @@
               BatWorldView.setScope($scope);
               initDrawWithDOM(BatWorldView.draw);
               break;
+            case 'TurtleWorld':
+              exercise.tabs = [
+                {
+                  name: 'World',
+                  worldKind: 'current',
+                  tabNumber: 0,
+                  drawFnct: TurtleWorldView.draw
+          },
+                {
+                  name: 'Objective',
+                  worldKind: 'answer',
+                  tabNumber: 1,
+                  drawFnct: TurtleWorldView.draw
+          }
+        ];
+                exercise.objectiveViewNeeded = true;
+                exercise.animationPlayerNeeded = true;
+                world = new TurtleWorld(initialWorld);
+                exercise.drawFnct = TurtleWorldView.draw;
+                initCanvas(exercise.drawFnct);
+                break;
             case 'SortingWorld':
               exercise.tabs = [
                 {
