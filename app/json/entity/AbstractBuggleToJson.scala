@@ -3,6 +3,7 @@ package json.entity
 import play.api.libs.json._
 import plm.universe.bugglequest.AbstractBuggle
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import json.Utils
 
 object AbstractBuggleToJson {
   
@@ -10,7 +11,7 @@ object AbstractBuggleToJson {
     Json.obj(
       "x" -> abstractBuggle.getX,
       "y" -> abstractBuggle.getY,
-      "color" -> List[Int](abstractBuggle.getCouleurCorps.getRed, abstractBuggle.getCouleurCorps.getGreen, abstractBuggle.getCouleurCorps.getBlue, abstractBuggle.getCouleurCorps.getAlpha),
+      "color" -> Utils.colorToWrapper(abstractBuggle.getCouleurCorps),
       "direction" -> abstractBuggle.getDirection.intValue,
       "carryBaggle" -> abstractBuggle.isCarryingBaggle()
     )

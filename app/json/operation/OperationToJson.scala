@@ -6,6 +6,7 @@ import plm.universe.Operation
 import plm.universe.GridWorldCellOperation
 import plm.universe.bat.BatOperation
 import plm.universe.bugglequest.BuggleOperation
+import plm.universe.turtles.operations.TurtleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
 import lessons.sort.dutchflag.operations.DutchFlagOperation
@@ -41,6 +42,8 @@ object OperationToJson {
         json = BaseballOperationToJson.baseballOperationWrite(baseballOperation)
       case hanoiOperation: HanoiOperation =>
         json = HanoiOperationToJson.hanoiOperationWrite(hanoiOperation)
+      case turtleOperation: TurtleOperation =>
+        json = TurtleOperationToJson.turtleOperationWrite(turtleOperation)
       case _ =>
         Json.obj(
           "operation" -> "arf"    

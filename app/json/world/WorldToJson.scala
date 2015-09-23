@@ -4,6 +4,7 @@ import exceptions.NonImplementedWorldException
 import play.api.libs.json._
 import plm.universe.World
 import plm.universe.GridWorld
+import plm.universe.turtles.TurtleWorld
 import plm.universe.bat.BatWorld
 import plm.universe.Entity
 import json.entity.EntityToJson
@@ -46,7 +47,13 @@ object WorldToJson {
       case baseballWorld: BaseballWorld =>
         json = BaseballWorldToJson.baseballWorldWrite(baseballWorld)
       case hanoiWorld: HanoiWorld =>
-        json = HanoiWorldToJson.hanoiWorldWrite(hanoiWorld)          
+        json = HanoiWorldToJson.hanoiWorldWrite(hanoiWorld)
+      case turtleWorld: TurtleWorld =>
+        json = TurtleWorldToJson.turtleWorldWrite(turtleWorld)
+        var entities = world.getEntities.toArray(Array[Entity]())
+        json = json.as[JsObject] ++ Json.obj(
+            "entities" -> EntityToJson.entitiesWrite(entities)
+        )
       case _ =>
         throw NonImplementedWorldException.create;
     }
