@@ -39,4 +39,8 @@ object Application extends Controller {
   def specRunner() = Action { implicit request =>
     Ok(views.html.specRunner())
   }
+  
+  def getGitHubAccessToken() = Action {
+    Ok(Json.obj("accessToken" -> Play.configuration.getString("plm.github.oauth").get))
+  }
 }

@@ -9,6 +9,7 @@ GET     /ui/lessons                                         controllers.Applicat
 GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
 GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
 GET     /specRunner                                         controllers.Application.specRunner()
+GET     /getGitHubAccessToken                               controllers.Application.getGitHubAccessToken
 
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
