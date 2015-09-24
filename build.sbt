@@ -9,7 +9,7 @@ import scalariform.formatter.preferences._
 
 name := "web-PLM"
 
-version := "1.2.0"
+version := "1.2.1"
 
 scalaVersion := "2.11.4"
 
