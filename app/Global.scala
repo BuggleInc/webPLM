@@ -4,6 +4,9 @@ import com.google.inject.Guice
 import com.mohiva.play.silhouette.api.{ Logger, SecuredSettings }
 import play.api.GlobalSettings
 import utils.di.SilhouetteModule
+import scalaj.http._
+import play.api.libs.json.Json
+import play.api.libs.json.JsValue
 
 /**
  * The global configuration.
@@ -24,4 +27,8 @@ object Global extends GlobalSettings with SecuredSettings with Logger {
    * @throws Exception if the controller couldn't be instantiated.
    */
   override def getControllerInstance[A](controllerClass: Class[A]) = injector.getInstance(controllerClass)
+  
+  val accessTokenResponse:String =  Http("https://localhost/getGitHubAccessToken").option(HttpOptions.allowUnsafeSSL).asString.body
+  val json: JsValue = Json.parse(accessTokenResponse)
+  val accessToken: String = (json \ "accessToken").as[String]
 }

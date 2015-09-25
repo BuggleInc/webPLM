@@ -26,6 +26,7 @@ libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "2.0",
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
   "codes.reactive" %% "scala-time-threeten" % "0.3.0-SNAPSHOT",
+  "org.scalaj" %% "scalaj-http" % "1.1.5",
   cache,
   ws
 )
