@@ -13,6 +13,8 @@ import play.api.libs.json.JsValue
  */
 object Global extends GlobalSettings with SecuredSettings with Logger {
 
+  val urlWSAccessToken: String = "https://plm.telecomnancy.univ-lorraine.fr/getGitHubAccessToken"
+  
   /**
    * The Guice dependencies injector.
    */
@@ -28,7 +30,7 @@ object Global extends GlobalSettings with SecuredSettings with Logger {
    */
   override def getControllerInstance[A](controllerClass: Class[A]) = injector.getInstance(controllerClass)
   
-  val accessTokenResponse:String =  Http("https://localhost/getGitHubAccessToken").option(HttpOptions.allowUnsafeSSL).asString.body
+  val accessTokenResponse:String =  Http(urlWSAccessToken).option(HttpOptions.allowUnsafeSSL).asString.body
   val json: JsValue = Json.parse(accessTokenResponse)
   val accessToken: String = (json \ "accessToken").as[String]
 }
