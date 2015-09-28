@@ -23,13 +23,14 @@ import log.PLMLogger
 import java.util.Map
 import java.util.Locale
 import java.util.Properties
+import app.Global
 
 class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
   
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser, properties)
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), Global.accessToken, trackUser, properties)
 
   def lessons: Map[String, Lesson] = game.getMapLessons
 

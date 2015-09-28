@@ -8,9 +8,10 @@ import play.api.Play
 import play.api.Play.current
 import play.api.Logger
 import java.io.IOException
+import app.Global
 
 object GitHubIssueManager {
-  private val oAuth2Token: String = Play.configuration.getString("plm.github.oauth").get
+  private val oAuth2Token: String = Global.accessToken
   private val repository: String = Play.configuration.getString("plm.github.repo").get
   private val owner: String = Play.configuration.getString("plm.github.owner").get
 }
