@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-08-14 11:36+0100\n"
+"PO-Revision-Date: 2015-09-29 16:54+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -359,7 +359,7 @@ msgstr "colorer avec"
 msgid "Confirm changes"
 msgstr "Confirmer les modifications"
 
-#: public/app/services/connection.service.js:41
+#: public/app/services/connection.service.js:45
 msgid "Connexion lost"
 msgstr "Déconnecté"
 
@@ -1593,7 +1593,7 @@ msgstr "Signaler un problème:"
 
 #: public/app/components/exercise/reset-exercise.directive.html:1
 msgid "Reset"
-msgstr "Reset"
+msgstr "Réinitialiser"
 
 #: public/app/components/exercise/results.directive.html:3
 msgid "Result"
@@ -1871,7 +1871,7 @@ msgid ""
 "Reverting this exercise will erase all your work and cannot be undone. Are "
 "you sure that you want to proceed?"
 msgstr ""
-"Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
+"Réinitialiser cet exercice effacera tout votre travail et  le rendra "
 "irrécupérable. Êtes-vous sûr de vouloir continuer?"
 
 #: public/app/services/blocklymsg.service.js:446
@@ -1903,7 +1903,7 @@ msgstr ""
 msgid "Run the user-defined function '%1'."
 msgstr "Exécuter la fonction '%1' définie par l’utilisateur."
 
-#: public/app/services/connection.service.js:46
+#: public/app/services/connection.service.js:50
 msgid "Session closed"
 msgstr "Session fermée"
 
@@ -1994,7 +1994,7 @@ msgid "Sign In"
 msgstr "Se connecter"
 
 #: public/app/components/application-header.directive.html:20
-#: public/app/components/menu/profile.directive.html:19
+#: public/app/components/menu/profile.directive.html:21
 #: public/app/components/profile-top-bar.directive.html:12
 msgid "Sign Out"
 msgstr "Se déconnecter"
@@ -2052,7 +2052,7 @@ msgstr "tan"
 msgid "test"
 msgstr "test"
 
-#: public/app/exercise/exercise.html:25
+#: public/app/exercise/exercise.html:28
 msgid "Test cases:"
 msgstr "Cas de tests:"
 
@@ -2320,7 +2320,7 @@ msgstr ""
 "Vous pouvez changer vos préférences à tout instant depuis votre page de "
 "profil."
 
-#: public/app/services/connection.service.js:42
+#: public/app/services/connection.service.js:46
 msgid ""
 "You have been brutally disconnected from the server, probably due to a "
 "crash. You should copy your current work before refreshing the page. Please "
@@ -2330,7 +2330,7 @@ msgstr ""
 "crash. Vous devriez copier votre travail actuel avant de rafraîchir la page. "
 "Veuillez nous excuser de ce désagrément."
 
-#: public/app/services/connection.service.js:47
+#: public/app/services/connection.service.js:51
 msgid ""
 "You have been disconnected from the server. If it was not wanted, don't "
 "forget to copy your current work before refreshing the page."

@@ -325,7 +325,7 @@ msgstr ""
 msgid "Confirm changes"
 msgstr ""
 
-#: public/app/services/connection.service.js:41
+#: public/app/services/connection.service.js:45
 msgid "Connexion lost"
 msgstr ""
 
@@ -1766,7 +1766,7 @@ msgstr ""
 msgid "Run the user-defined function '%1'."
 msgstr ""
 
-#: public/app/services/connection.service.js:46
+#: public/app/services/connection.service.js:50
 msgid "Session closed"
 msgstr ""
 
@@ -1851,7 +1851,7 @@ msgid "Sign In"
 msgstr ""
 
 #: public/app/components/application-header.directive.html:20
-#: public/app/components/menu/profile.directive.html:19
+#: public/app/components/menu/profile.directive.html:21
 #: public/app/components/profile-top-bar.directive.html:12
 msgid "Sign Out"
 msgstr ""
@@ -1908,7 +1908,7 @@ msgstr ""
 msgid "test"
 msgstr ""
 
-#: public/app/exercise/exercise.html:25
+#: public/app/exercise/exercise.html:28
 msgid "Test cases:"
 msgstr ""
 
@@ -2136,11 +2136,11 @@ msgstr ""
 msgid "You can later update your preference from your profile's page."
 msgstr ""
 
-#: public/app/services/connection.service.js:42
+#: public/app/services/connection.service.js:46
 msgid "You have been brutally disconnected from the server, probably due to a crash. You should copy your current work before refreshing the page. Please excuse us for the inconvenience."
 msgstr ""
 
-#: public/app/services/connection.service.js:47
+#: public/app/services/connection.service.js:51
 msgid "You have been disconnected from the server. If it was not wanted, don't forget to copy your current work before refreshing the page."
 msgstr ""
 
