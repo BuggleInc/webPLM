@@ -51,8 +51,8 @@ trait BasePLMAccountsProvider extends OAuth2Provider {
       val json = response.json
       (json \ "error").asOpt[JsObject] match {
         case Some(error) =>
-          val errorCode = (error \ "code").as[Int]
-          val errorMsg = (error \ "message").as[String]
+          val errorCode: Int = (error \ "code").as[Int]
+          val errorMsg: String = (error \ "message").as[String]
 
           throw new ProfileRetrievalException(SpecifiedProfileError.format(id, errorCode, errorMsg))
         case _ => profileParser.parse(json)

@@ -1,7 +1,8 @@
 package models.services
 
+import com.google.inject._
+
 import java.util.UUID
-import javax.inject.Inject
 import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import models.User

@@ -7,14 +7,13 @@ import actors.ActorsMap
 import actors.PLMActor
 import models.User
 import play.api.Logger
-import play.api.i18n.Lang
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{Json, JsValue}
 import utils._
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import play.api.i18n.MessagesApi
+import play.api.i18n.{ Lang, MessagesApi, Messages }
 import play.api.mvc._
 import play.api.Play.current
 
