@@ -7,8 +7,8 @@ import play.api.libs.json._
 import play.api.i18n.Lang
 import play.api.Play
 import play.api.Play.current
+import play.api.mvc._
 import play.api.libs.ws._
-import play.api.libs.ws.ning.NingAsyncHttpClientConfigBuilder
 import scala.concurrent.Future
 import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -43,7 +43,7 @@ object UserDAORestImpl {
         Logger.debug("Response: "+response.json.toString)
         if(response.status == 200) {
           Logger.debug("On passe pas ici")
-          Some(UserToJson.userRead(response.json \ "profile"))
+          Some(UserToJson.userRead((response.json \ "profile").get))
         }
         else {
           None
@@ -64,7 +64,7 @@ object UserDAORestImpl {
       response =>
         if(response.status == 200) {
           Logger.debug("On a bien reçu une rep: "+ response.json.toString)
-          Some(UserToJson.userRead(response.json \ "profile"))
+          Some(UserToJson.userRead((response.json \ "profile").get))
         }
         else {
           None

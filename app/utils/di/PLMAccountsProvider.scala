@@ -5,17 +5,13 @@ import com.mohiva.play.silhouette.api.util.HTTPLayer
 import com.mohiva.play.silhouette.impl.exceptions.ProfileRetrievalException
 import com.mohiva.play.silhouette.impl.providers._
 import PLMAccountsProvider._
-import play.api.Play
-import play.api.Play.current
 import play.api.http.HeaderNames
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json.JsValue
+import play.api.libs.json.{ JsObject, JsValue }
 import play.api.Logger
 
 import scala.concurrent.Future
 
-abstract class PLMAccountsProvider(httpLayer: HTTPLayer, stateProvider: OAuth2StateProvider, settings: OAuth2Settings)
-  extends OAuth2Provider(httpLayer, stateProvider, settings) {
+trait BasePLMAccountsProvider extends OAuth2Provider {
 
   /**
    * The content type to parse a profile from.
@@ -50,14 +46,15 @@ abstract class PLMAccountsProvider(httpLayer: HTTPLayer, stateProvider: OAuth2St
    * @param authInfo The auth info received from the provider.
    * @return On success the build social profile, otherwise a failure.
    */
-  protected def buildProfile(authInfo: OAuth2Info): Future[Profile] = {
+  override protected def buildProfile(authInfo: OAuth2Info): Future[Profile] = {
     httpLayer.url(urls("api").format(authInfo.accessToken)).get().flatMap { response =>
       val json = response.json
-      (json \ "message").asOpt[String] match {
-        case Some(msg) =>
-          val docURL = (json \ "documentation_url").asOpt[String]
+      (json \ "error").asOpt[JsObject] match {
+        case Some(error) =>
+          val errorCode = (error \ "code").as[Int]
+          val errorMsg = (error \ "message").as[String]
 
-          throw new ProfileRetrievalException(SpecifiedProfileError.format(id, msg, docURL))
+          throw new ProfileRetrievalException(SpecifiedProfileError.format(id, errorCode, errorMsg))
         case _ => profileParser.parse(json)
       }
     }
@@ -67,7 +64,7 @@ abstract class PLMAccountsProvider(httpLayer: HTTPLayer, stateProvider: OAuth2St
 /**
  * The profile parser for the common social profile.
  */
-class PLMAccountsProfileParser extends SocialProfileParser[JsValue, CommonSocialProfile] {
+class PLMAccountsParser extends SocialProfileParser[JsValue, CommonSocialProfile] {
 
   /**
    * Parses the social profile.
@@ -99,15 +96,35 @@ class PLMAccountsProfileParser extends SocialProfileParser[JsValue, CommonSocial
 }
 
 /**
- * The profile builder for the common social profile.
+ * The PLMAccounts OAuth2 Provider.
+ *
+ * @param httpLayer The HTTP layer implementation.
+ * @param stateProvider The state provider implementation.
+ * @param settings The provider settings.
  */
-trait PLMAccountsProfileBuilder extends CommonSocialProfileBuilder {
-  self: PLMAccountsProvider =>
+class PLMAccountsProvider(
+  protected val httpLayer: HTTPLayer,
+  protected val stateProvider: OAuth2StateProvider,
+  val settings: OAuth2Settings)
+  extends BasePLMAccountsProvider with CommonSocialProfileBuilder {
+
+  /**
+   * The type of this class.
+   */
+  type Self = PLMAccountsProvider
 
   /**
    * The profile parser implementation.
    */
-  val profileParser = new PLMAccountsProfileParser
+  val profileParser = new PLMAccountsParser
+
+  /**
+   * Gets a provider initialized with a new settings object.
+   *
+   * @param f A function which gets the settings passed and returns different settings.
+   * @return An instance of the provider initialized with new settings.
+   */
+  def withSettings(f: (Settings) => Settings) = new PLMAccountsProvider(httpLayer, stateProvider, f(settings))
 }
 
 /**
@@ -124,16 +141,5 @@ object PLMAccountsProvider {
    * The Custom constants.
    */
   val ID = "plmAccounts"
-  val API = Play.configuration.getString("silhouette.plmaccounts.apiURL").get
-  /**
-   * Creates an instance of the provider.
-   *
-   * @param httpLayer The HTTP layer implementation.
-   * @param stateProvider The state provider implementation.
-   * @param settings The provider settings.
-   * @return An instance of this provider.
-   */
-  def apply(httpLayer: HTTPLayer, stateProvider: OAuth2StateProvider, settings: OAuth2Settings) = {
-    new PLMAccountsProvider(httpLayer, stateProvider, settings) with PLMAccountsProfileBuilder
-  }
+  val API = "toto" //Play.configuration.getString("silhouette.plmaccounts.apiURL").get
 }

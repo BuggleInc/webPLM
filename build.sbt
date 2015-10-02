@@ -1,6 +1,4 @@
 import com.typesafe.sbt.SbtScalariform._
-import play.PlayScala
-
 import scalariform.formatter.preferences._
 
 //********************************************************
@@ -23,7 +21,9 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % "2.11.4",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.scalatestplus" %% "play" % "1.2.0" % "test",
-  "com.mohiva" %% "play-silhouette" % "2.0",
+  "net.ceedubs" %% "ficus" % "1.1.2",
+  "com.mohiva" %% "play-silhouette" % "3.0.4",
+  "com.mohiva" %% "play-silhouette-testkit" % "3.0.4" % "test",
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
   "codes.reactive" %% "scala-time-threeten" % "0.3.0-SNAPSHOT",
   "org.scalaj" %% "scalaj-http" % "1.1.5",

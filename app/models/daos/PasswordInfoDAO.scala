@@ -1,20 +1,21 @@
 package models.daos
 
 import com.mohiva.play.silhouette.api.LoginInfo
+import com.mohiva.play.silhouette.api.util.PasswordInfo
 import com.mohiva.play.silhouette.impl.daos.DelegableAuthInfoDAO
-import com.mohiva.play.silhouette.impl.providers.OAuth2Info
-import models.daos.OAuth2InfoDAO._
+import models.daos.PasswordInfoDAO._
 import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.collection.mutable
 import scala.concurrent.Future
 
 /**
- * The DAO to store the OAuth2 information.
- *
- * Note: Not thread safe, demo only.
+ * @author matthieu
  */
-class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
+/**
+ * The DAO to store the password information.
+ */
+class PasswordInfoDAO extends DelegableAuthInfoDAO[PasswordInfo] {
 
   /**
    * Finds the auth info which is linked with the specified login info.
@@ -22,7 +23,7 @@ class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
    * @param loginInfo The linked login info.
    * @return The retrieved auth info or None if no auth info could be retrieved for the given login info.
    */
-  def find(loginInfo: LoginInfo): Future[Option[OAuth2Info]] = {
+  def find(loginInfo: LoginInfo): Future[Option[PasswordInfo]] = {
     Future.successful(data.get(loginInfo))
   }
 
@@ -33,7 +34,7 @@ class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
    * @param authInfo The auth info to add.
    * @return The added auth info.
    */
-  def add(loginInfo: LoginInfo, authInfo: OAuth2Info): Future[OAuth2Info] = {
+  def add(loginInfo: LoginInfo, authInfo: PasswordInfo): Future[PasswordInfo] = {
     data += (loginInfo -> authInfo)
     Future.successful(authInfo)
   }
@@ -45,7 +46,7 @@ class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
    * @param authInfo The auth info to update.
    * @return The updated auth info.
    */
-  def update(loginInfo: LoginInfo, authInfo: OAuth2Info): Future[OAuth2Info] = {
+  def update(loginInfo: LoginInfo, authInfo: PasswordInfo): Future[PasswordInfo] = {
     data += (loginInfo -> authInfo)
     Future.successful(authInfo)
   }
@@ -60,7 +61,7 @@ class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
    * @param authInfo The auth info to save.
    * @return The saved auth info.
    */
-  def save(loginInfo: LoginInfo, authInfo: OAuth2Info): Future[OAuth2Info] = {
+  def save(loginInfo: LoginInfo, authInfo: PasswordInfo): Future[PasswordInfo] = {
     find(loginInfo).flatMap {
       case Some(_) => update(loginInfo, authInfo)
       case None => add(loginInfo, authInfo)
@@ -82,10 +83,10 @@ class OAuth2InfoDAO extends DelegableAuthInfoDAO[OAuth2Info] {
 /**
  * The companion object.
  */
-object OAuth2InfoDAO {
+object PasswordInfoDAO {
 
   /**
-   * The data store for the OAuth2 info.
+   * The data store for the password info.
    */
-  var data: mutable.HashMap[LoginInfo, OAuth2Info] = mutable.HashMap()
+  var data: mutable.HashMap[LoginInfo, PasswordInfo] = mutable.HashMap()
 }

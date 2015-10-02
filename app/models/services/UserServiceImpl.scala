@@ -3,7 +3,6 @@ package models.services
 import java.util.UUID
 import javax.inject.Inject
 import com.mohiva.play.silhouette.api.LoginInfo
-import com.mohiva.play.silhouette.api.services.AuthInfo
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import models.User
 import models.daos.UserDAO
@@ -42,7 +41,7 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
    * @param profile The social profile to save.
    * @return The user for whom the profile was saved.
    */
-  def save[A <: AuthInfo](profile: CommonSocialProfile, trackUser: Option[Boolean], preferredLang: Option[Lang]) = {
+  def save(profile: CommonSocialProfile, trackUser: Option[Boolean], preferredLang: Option[Lang]) = {
     userDAO.find(profile.loginInfo).flatMap {
       case Some(user: User) =>
         Future.successful(user)
