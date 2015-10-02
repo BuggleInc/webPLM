@@ -22,7 +22,8 @@ class PLMSpec extends PlaySpec with MockitoSugar {
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {
       val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+      val returnedMockSpy = mock[ExecutionSpy]
+      when(mockSpy.clone) thenReturn returnedMockSpy
       
       val expectedLessonID = "welcome"
       plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
@@ -32,7 +33,8 @@ class PLMSpec extends PlaySpec with MockitoSugar {
     
     "set the first exercise as the current one" in {
       val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+      val returnedMockSpy = mock[ExecutionSpy]
+      when(mockSpy.clone) thenReturn returnedMockSpy
       
       val lessonID = "welcome"
       val expectedExerciseID = "welcome.lessons.welcome.environment.Environment"
@@ -43,7 +45,8 @@ class PLMSpec extends PlaySpec with MockitoSugar {
     
     "return the current exercise" in {
       val mockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn mock[ExecutionSpy]
+      val returnedMockSpy = mock[ExecutionSpy]
+      when(mockSpy.clone) thenReturn returnedMockSpy
       
       val actualLecture = plm.switchLesson("welcome", mockSpy, mockSpy)
       val expectedLecture = plm.game.getCurrentLesson.getCurrentExercise
