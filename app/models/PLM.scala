@@ -12,6 +12,7 @@ import plm.core.model.lesson.ExecutionProgress._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
+import plm.core.model.tracking.GitUtils
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
 import play.api.libs.json._
@@ -20,16 +21,19 @@ import play.api.Play.current
 import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
+import actors.PLMActor
 import java.util.Map
 import java.util.Locale
 import java.util.Properties
 
-class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(tribunal: Tribunal, properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), "toto", trackUser, properties)
+
+  var gitUtils = new GitUtils(Play.configuration.getString("plm.github.oauth").getOrElse("dummy-username"))
+  var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
+  var gitGest = new Git(initUserUUID, gitUtils)
 
   def lessons: Map[String, Lesson] = game.getMapLessons
 
@@ -43,10 +47,6 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
-    
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
-    }
     
     return lect
   }
@@ -63,10 +63,6 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
     _currentExercise = exo;
 
-    exo.getWorlds(WorldKind.INITIAL).toArray(Array[World]()).foreach { initialWorld: World => 
-      initialWorld.setDelay(0)
-    }
-    
     return lect
   }
   
@@ -99,22 +95,17 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     return api
   }
   
-  def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
-    Logger.debug("Code:\n"+code)
+  def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
     _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
     if(workspace != null){
-      Logger.debug("Workspace:\n"+workspace)
       _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
     }
     game.startExerciseExecution()
-  }
-  
-  def runDemo(lessonID: String, exerciseID: String) {
-    game.startExerciseDemoExecution()
+    //tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
   }
   
   def stopExecution() {
-    game.stopExerciseExecution()
+    tribunal.free()
   }
   
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
@@ -151,6 +142,7 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
   def setUserUUID(userUUID: String) {
     _currentExercise = null
     game.setUserUUID(userUUID)
+    gitGest.setUserUUID(userUUID)
   }
   
   def signalIdle(start: String, end: String, duration: String) {
@@ -169,8 +161,7 @@ class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale
     game.signalReadTip(tipID)
   }
   
-  def quit(resultSpy: ExecutionResultListener, progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
-    game.removeGameStateListener(resultSpy)
+  def quit(progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
     game.removeProgLangListener(progLangSpy)
     game.removeHumanLangListener(humanLangSpy)
     game.quit

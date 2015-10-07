@@ -40,7 +40,6 @@ object UserDAORestImpl {
       response =>
         Logger.debug("On a eu une réponse!")
         Logger.debug("Response status: " + response.status)
-        Logger.debug("Response: "+response.json.toString)
         if(response.status == 200) {
           Logger.debug("On passe pas ici")
           Some(UserToJson.userRead((response.json \ "profile").get))

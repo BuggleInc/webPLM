@@ -31,6 +31,7 @@ import Scalatime._
 import java.util.Properties
 import play.api.Play
 import play.api.Play.current
+import models.Tribunal
 
 object PLMActor {
   def props(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -61,7 +62,8 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
   properties.setProperty("webplm.user-agent", userAgent)
   
-  var plm: PLM = new PLM(properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  var tribunal: Tribunal = null //new Tribunal
+  var plm: PLM = new PLM(tribunal, properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -83,7 +85,6 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
           setCurrentUser((msg \ "user").asOpt[User].get)
-          registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
           currentTrackUser = currentUser.trackUser.getOrElse(false)
           plm.setTrackUser(currentTrackUser)
@@ -97,7 +98,6 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
           plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
         case "signOut" =>
           clearCurrentUser()
-          registeredSpies.foreach { spy => spy.unregister }
           plm.setUserUUID(currentGitID)
           currentTrackUser = false
           plm.setTrackUser(currentTrackUser)
@@ -150,20 +150,11 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
           var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
         	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
-        		  plm.runExercise(lessonID, exerciseID, code, workspace)
+        		  plm.runExercise(this, lessonID, exerciseID, code, workspace)
             case (lessonID:String, exerciseID: String, code: String, _) =>
-              plm.runExercise(lessonID, exerciseID, code, null)
+              plm.runExercise(this, lessonID, exerciseID, code, null)
             case (_, _, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
-          }
-        case "runDemo" =>
-          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
-          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
-          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
-            case (lessonID:String, exerciseID: String) =>
-              plm.runDemo(lessonID, exerciseID)
-            case (_, _) =>
-              Logger.debug("runDemo: non-correctJSON")
           }
         case "stopExecution" =>
           plm.stopExecution
@@ -332,7 +323,7 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   def registerSpy(spy: ExecutionSpy) {
     registeredSpies = registeredSpies ::: List(spy)
   }
-  
+
   def saveLastProgLang(programmingLanguage: String) {
     if(currentUser != null) {
       currentUser = currentUser.copy(
@@ -393,6 +384,6 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
     }
     ActorsMap.remove(actorUUID)
     registeredSpies.foreach { spy => spy.unregister }
-    plm.quit(resultSpy, progLangSpy, humanLangSpy)
+    plm.quit(progLangSpy, humanLangSpy)
   }
 }

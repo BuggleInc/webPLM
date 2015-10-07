@@ -1,4 +1,4 @@
-@(title: String)
+@(githubClientID: String)
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -100,6 +100,8 @@
 <script type="text/javascript" src="/assets/javascripts/foundation/foundation.alert.js"></script>
 <script type="text/javascript" src="/assets/javascripts/foundation/foundation.tooltip.js"></script>
 <script>
+  var githubClientID = "@githubClientID";
+  console.log('githubClientID: ', githubClientID);
   $(document).foundation();
 </script>
 

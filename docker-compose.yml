@@ -1,17 +1,28 @@
+nginx:
+  image: nginx
+  ports:
+    - "80:80"
+messagequeue:
+  image: rabbitmq:3-management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
 plm:
   image: webplm
   volumes:
     - "~/.plm:/root/.plm"
     - "~/webPLM/logs/:/app/webplm-dist/logs"
   ports:
-    - "80:9000"
-  environment: 
+    - "443:9443"
+  environment:
     GITHUB_CLIENT_SECRET:
     GOOGLE_CLIENT_SECRET:
     PLMACCOUNTS_CLIENT_SECRET:
+    GITHUB_ACCESS_TOKEN:
   links:
     - accounts
     - profiles
+    - messagequeue:messageq
 accounts:
   image: plm-accounts
   ports:
@@ -21,7 +32,7 @@ accounts:
 profiles:
   image: plm-profiles
   ports:
-    - "3001:3000"
+    - "8080:3000"
   links:
     - db
 db:

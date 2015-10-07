@@ -17,7 +17,6 @@
 
           return request;
         },
-
         responseError: function (rejection) {
           var $auth = $injector.get('$auth');
           if (rejection.status === 401) {
@@ -46,7 +45,7 @@
     
     // PLMAccounts
     $authProvider.plmAccounts({
-      clientId: 'mwdEx2qB5U9z44Cj63BB',
+      clientId: 'I8mYYmI9NRC5guz8aoXe',
       url: '/authenticate/plmAccounts',
       authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr:9000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
@@ -79,35 +78,32 @@
     });
 
     // GitHub
-    $authProvider.github({
-      clientId: '5b641498750c99087bb2',
-      url: '/authenticate/github',
-      authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
-      scope: 'user',
-      scopeDelimiter: ',',
-      display: 'popup',
-      type: '2.0',
-    });
+		$authProvider.github({
+			clientId: githubClientID,
+			url: '/authenticate/github',
+			authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
+			scope: 'user:email',
+			scopeDelimiter: ',',
+			display: 'popup',
+			type: '2.0'
+		});
 
-    // Google
-    $authProvider.google({
-      clientId: '679471441613-89ae7g7r16fein49ogk8pb5abq0qa5tk.apps.googleusercontent.com',
-      url: '/authenticate/google',
-      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
-      scope: ['profile', 'email'],
-      scopePrefix: 'openid',
-      scopeDelimiter: ' ',
-      requiredUrlParams: ['scope'],
-      optionalUrlParams: ['display'],
-      display: 'popup',
-      type: '2.0',
-      popupOptions: {
-        width: 580,
-        height: 400
-      }
-    });
+		// Google
+		$authProvider.google({
+			clientId: '440881557579-gk8rs3j0tm0oko7mo45fouodg02q6r8l.apps.googleusercontent.com',
+			url: '/authenticate/google',
+			authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
+			scope: ['profile', 'email'],
+			scopePrefix: 'openid',
+			scopeDelimiter: ' ',
+			requiredUrlParams: ['scope'],
+			optionalUrlParams: ['display'],
+			display: 'popup',
+			type: '2.0',
+			popupOptions: { width: 580, height: 400 }
+		});
 
     // Twitter
     $authProvider.twitter({
@@ -119,4 +115,4 @@
       }
     });
   }
-})();
+}());

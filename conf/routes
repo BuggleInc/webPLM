@@ -3,12 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                                                   controllers.Application.index
-GET     /ui                                                 controllers.Application.index
-GET     /ui/lessons                                         controllers.Application.indexLessons
-GET     /ui/lessons/:lessonID                               controllers.Application.lesson(lessonID: String)
-GET     /ui/lessons/:lessonID/*exerciseID                   controllers.Application.exercise(lessonID: String, exerciseID: String)
-GET     /specRunner                                         controllers.Application.specRunner()
+GET     /                                                   @controllers.Application.index
+GET     /ui                                                 @controllers.Application.index
+GET     /ui/lessons                                         @controllers.Application.indexLessons
+GET     /ui/lessons/:lessonID                               @controllers.Application.lesson(lessonID: String)
+GET     /ui/lessons/:lessonID/*exerciseID                   @controllers.Application.exercise(lessonID: String, exerciseID: String)
+GET     /specRunner                                         @controllers.Application.specRunner()
 
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
