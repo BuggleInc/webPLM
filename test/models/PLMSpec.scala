@@ -1,22 +1,22 @@
 package models
 
 import org.scalatest._
-import org.scalatest.mock.MockitoSugar
+import play.api.test._
+import play.api.test.Helpers._
 import org.scalatestplus.play._
+import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
 import java.util.Vector
 import actors.PLMActor
 import plm.core.model.lesson.Exercise
-import plm.universe.World
 import plm.core.model.lesson.Exercise.WorldKind
+import plm.universe.World
 import log.PLMLogger
-import java.util.Locale
-import java.util.UUID
-import java.util.Properties
-import play.api.test.WithApplication
+import java.util.{ Locale, Properties, UUID }
 import spies.ExecutionSpy
 
-class PLMSpec extends PlaySpec with MockitoSugar {
+class PLMSpec extends PlaySpec with MockitoSugar with OneAppPerSuite {
+
   var userUUID: String = UUID.randomUUID.toString
   
   "PLM#switchLesson" should {
@@ -27,7 +27,7 @@ class PLMSpec extends PlaySpec with MockitoSugar {
 
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)      
       val expectedLessonID = "welcome"
-      plm.switchLesson(expectedLessonID)
+      plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
       val actualLectID = plm.game.getCurrentLesson.getId
       actualLectID mustBe expectedLessonID
     }
@@ -40,7 +40,7 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
       val lessonID = "welcome"
       val expectedExerciseID = "welcome.lessons.welcome.environment.Environment"
-      plm.switchLesson(lessonID)
+      plm.switchLesson(lessonID, mockSpy, mockSpy)
       val actualExerciseID = plm.game.getCurrentLesson.getCurrentExercise.getId
       actualExerciseID mustBe expectedExerciseID
     }
@@ -51,7 +51,7 @@ class PLMSpec extends PlaySpec with MockitoSugar {
       when(mockSpy.clone) thenReturn returnedMockSpy
       
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
-      val actualLecture = plm.switchLesson("welcome")
+      val actualLecture = plm.switchLesson("welcome", mockSpy, mockSpy)
       val expectedLecture = plm.game.getCurrentLesson.getCurrentExercise
       actualLecture mustBe expectedLecture
     }
