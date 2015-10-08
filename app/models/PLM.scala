@@ -25,8 +25,9 @@ import actors.PLMActor
 import java.util.Map
 import java.util.Locale
 import java.util.Properties
+import models.execution.ExecutionManager
 
-class PLM(tribunal: Tribunal, properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(executionManager: ExecutionManager, properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
@@ -96,16 +97,11 @@ class PLM(tribunal: Tribunal, properties: Properties, initUserUUID: String, plmL
   }
   
   def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
-    _currentExercise.getSourceFile(programmingLanguage, 0).setBody(code)
-    if(workspace != null){
-      _currentExercise.getSourceFile(programmingLanguage, 1).setBody(workspace)
-    }
-    game.startExerciseExecution()
-    //tribunal.startTribunal(plmActor, gitGest, game, lessonID, exerciseID, code)
+    executionManager.startExecution(plmActor, gitGest, game, lessonID, exerciseID, code, workspace)
   }
   
   def stopExecution() {
-    tribunal.free()
+    executionManager.stopExecution()
   }
   
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage

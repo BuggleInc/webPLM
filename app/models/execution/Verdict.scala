@@ -1,8 +1,10 @@
-package models
+package models.execution
 
 import play.api.Logger
 import actors.PLMActor
 import play.api.libs.json._
+import play.api.libs.json.JsValue.jsValueToJsLookup
+import play.api.libs.json.Json.toJsFieldJsValueWrapper
 
 /**
  * The Judge result generator & analyzer.

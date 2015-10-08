@@ -1,10 +1,9 @@
-package models
+package models.execution
 
 import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
-import com.rabbitmq.client.AMQP.BasicProperties
 import plm.core.model.Game
 import play.api.Logger
 import actors.PLMActor
@@ -13,6 +12,9 @@ import play.api.Play
 import play.api.Play.current
 import java.util.Map
 import java.util.HashMap
+import models.Git
+import play.api.libs.json.JsValue.jsValueToJsLookup
+import play.api.libs.json.Json.toJsFieldJsValueWrapper
 
 object Tribunal {
   val QUEUE_NAME_REQUEST : String = "worker_in"
@@ -38,11 +40,11 @@ object Tribunal {
  * The interface between PLM and the judges
  * @author Tanguy Gloaguen
  */
-class Tribunal {
+class Tribunal extends ExecutionManager {
 	// Config options
 	val defaultTimeout : Long = 10000
 	var timeout : Long = 0
-  var stopExecution: Boolean = false
+  var executionStopped: Boolean = false
 	// Game launch data
   var self: Tribunal = this
 	var actor : PLMActor = _
@@ -78,7 +80,7 @@ class Tribunal {
 	* @param exerciseID the loaded exercise
 	* @param code the code to execute
 	*/
-	def startTribunal(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
+	def startExecution(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String, workspace: String) {
 		setData(plmActor, git, game, lessonID, exerciseID, code)
     new Thread(new Runnable() {
       override def run() {
@@ -96,7 +98,7 @@ class Tribunal {
         state = Waiting
         while(state != Replied && state != Off) {
           var delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-          if (stopExecution) {
+          if (executionStopped) {
             signalExecutionStop
             state = Off
           }
@@ -125,7 +127,7 @@ class Tribunal {
 				"code" -> code
 			)
 		state = Off
-    stopExecution = false
+    executionStopped = false
 	}
 
   private def signalExecutionStop() {
@@ -197,7 +199,7 @@ class Tribunal {
 	/**
 	* Explicitly asks for PLM to stop waiting for replies.
 	*/
-	def free() {
-		stopExecution = true
+	def stopExecution() {
+		executionStopped = true
 	}
 }

@@ -5,7 +5,8 @@ import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import json._
 import models.GitHubIssueManager
-import models.PLM
+import models.{ PLM, User }
+import models.execution.ExecutionManager
 import models.User
 import log.PLMLogger
 import spies._
@@ -31,14 +32,24 @@ import Scalatime._
 import java.util.Properties
 import play.api.Play
 import play.api.Play.current
-import models.Tribunal
 
 object PLMActor {
-  def props(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(userAgent, actorUUID, user, out))
+  def props(executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
+  def propsWithUser(executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = props(executionManager, userAgent, actorUUID, user.gitID, false, user.preferredLang, user.lastProgLang, user.trackUser)(out)
 }
 
-class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean], out: ActorRef) extends Actor {  
+class PLMActor (
+    executionManager: ExecutionManager, 
+    userAgent: String, 
+    actorUUID: String, 
+    gitID: String, 
+    newUser: Boolean, 
+    preferredLang: Option[Lang], 
+    lastProgLang: Option[String], 
+    trackUser: Option[Boolean], 
+    out: ActorRef)
+  extends Actor {
+  
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
   
   var availableLangs: Seq[Lang] = Lang.availables
@@ -62,8 +73,7 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
   properties.setProperty("webplm.user-agent", userAgent)
   
-  var tribunal: Tribunal = null //new Tribunal
-  var plm: PLM = new PLM(tribunal, properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
+  var plm: PLM = new PLM(executionManager, properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
   
   var userIdle: Boolean = false;
   var idleStart: Instant = null
@@ -71,11 +81,6 @@ class PLMActor(userAgent: String, actorUUID: String, gitID: String, newUser: Boo
   
   initSpies
   registerActor
-  
-  def this(userAgent: String, actorUUID: String, user: User, out: ActorRef) {
-    this(userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
-    setCurrentUser(user)
-  }
   
   def receive = {
     case msg: JsValue =>

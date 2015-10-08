@@ -14,6 +14,7 @@ import plm.universe.World
 import log.PLMLogger
 import java.util.{ Locale, Properties, UUID }
 import spies.ExecutionSpy
+import models.execution.Tribunal
 
 class PLMSpec extends PlaySpec with MockitoSugar with OneAppPerSuite {
 
