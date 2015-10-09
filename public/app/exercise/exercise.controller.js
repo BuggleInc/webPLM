@@ -160,7 +160,7 @@
 
     function getExercise() {
       var args = {
-        lessonID: exercise.lessonID,
+        lessonID: exercise.lessonID
       };
       if (exercise.id !== '') {
         args.exerciseID = exercise.id;
@@ -187,12 +187,11 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        var buffer = args.buffer;
-        buffer.forEach( function(item) {
-          if(item.worldID) {
+        var buffer = getOperationsBuffer(args.buffer);
+        buffer.forEach(function (item) {
+          if (item.worldID) {
             handleOperations(item.worldID, 'current', item.operations);
-          }
-          else if(item.type) {
+          } else if (item.type) {
             handleOut(item.msg);
           }
         });
@@ -841,5 +840,12 @@
   }
   function readTip(tipID) {
     this.connection.sendMessage('readTip', { tipID: tipID+'' });
+  }
+  
+  function getOperationsBuffer(buffer) {
+    if (buffer.constructor !== Array) {
+      return JSON.parse(buffer);
+    }
+    return buffer;
   }
 })();
