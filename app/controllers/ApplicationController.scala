@@ -26,11 +26,11 @@ import models.execution.{ LocalExecution, ExecutionManager }
 class ApplicationController @Inject() (
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
-    socialProviderRegistry: SocialProviderRegistry)
+    socialProviderRegistry: SocialProviderRegistry,
+    executionManager: ExecutionManager)
   extends Silhouette[User, JWTAuthenticator] {
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
-    var executionManager: ExecutionManager = new LocalExecution
     var token = optToken.getOrElse("")
     var userAgent: String = request.headers.get("User-Agent").getOrElse("")
     var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)

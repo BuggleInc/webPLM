@@ -28,6 +28,7 @@ import play.api.Configuration
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.openid.OpenIdClient
 import play.api.libs.ws.WSClient
+import models.execution.{ ExecutionManager, LocalExecution, Tribunal }
 
 /**
  * The Guice module which wires all Silhouette dependencies.
@@ -206,4 +207,15 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
 
     new GoogleProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.google"))
   }
+  
+   @Provides
+   def provideExecutionManager(configuration: Configuration): ExecutionManager = {
+     val executionMode: String = configuration.getString("plm.execution.mode", Some(Set("LOCAL", "TRIBUNAL"))).get
+     executionMode match {
+       case "TRIBUNAL" =>
+         return new Tribunal
+       case _ =>
+         return new LocalExecution
+     }
+   }
 }
