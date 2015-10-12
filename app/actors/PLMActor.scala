@@ -1,37 +1,30 @@
 package actors
 
+import java.util.{ Properties, UUID }
+import scala.concurrent.Future
 import akka.actor._
-import play.api.libs.json._
-import play.api.mvc.RequestHeader
+import akka.pattern.{ ask, pipe }
+import akka.util.Timeout
+import scala.concurrent.duration._
+import codes.reactive.scalatime.{ Duration, Instant }
 import json._
-import models.GitHubIssueManager
-import models.{ PLM, User }
-import models.execution.ExecutionManager
-import models.User
 import log.PLMLogger
-import spies._
-import plm.core.model.lesson.Exercise
-import plm.core.model.lesson.Lesson
-import plm.core.model.lesson.Lecture
-import plm.core.lang.ProgrammingLanguage
-import plm.universe.Entity
-import plm.universe.World
-import plm.universe.IWorldView
-import plm.universe.GridWorld
-import plm.universe.GridWorldCell
-import plm.universe.bugglequest.BuggleWorld
-import plm.universe.bugglequest.AbstractBuggle
-import plm.universe.bugglequest.BuggleWorldCell
-import play.api.Play.current
-import play.api.i18n.Lang
-import play.api.Logger
-import java.util.UUID
+import models.GitHubIssueManager
+import models.{ PLM, User}
 import models.daos.UserDAORestImpl
-import codes.reactive.scalatime._
-import Scalatime._
-import java.util.Properties
+import models.execution.ExecutionManager
+import play.api.Logger
 import play.api.Play
 import play.api.Play.current
+import play.api.i18n.Lang
+import play.api.libs.json._
+import plm.core.lang.ProgrammingLanguage
+import plm.core.model.lesson.{ Exercise, Lecture }
+import spies._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.language.postfixOps
+import LessonsActor._
+import models.lesson.Lesson
 
 object PLMActor {
   def props(executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -39,53 +32,56 @@ object PLMActor {
 }
 
 class PLMActor (
-    executionManager: ExecutionManager, 
-    userAgent: String, 
-    actorUUID: String, 
-    gitID: String, 
-    newUser: Boolean, 
-    preferredLang: Option[Lang], 
-    lastProgLang: Option[String], 
-    trackUser: Option[Boolean], 
+    executionManager: ExecutionManager,
+    userAgent: String,
+    actorUUID: String,
+    gitID: String,
+    newUser: Boolean,
+    preferredLang: Option[Lang],
+    lastProgLang: Option[String],
+    trackUser: Option[Boolean],
     out: ActorRef)
   extends Actor {
-  
+
   def this(executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
     this(executionManager, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
-  
+
+  implicit val timeout = Timeout(5 seconds)
+
+  var lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
-  
+
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
-  
+
   var progLangSpy: ProgLangListener  = null
   var humanLangSpy: HumanLangListener = null
-  
+
   var currentUser: User = null
-  
+
   var currentPreferredLang: Lang = preferredLang.getOrElse(Lang("en"))
-  
+
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
-  
+
   var currentTrackUser: Boolean = trackUser.getOrElse(false)
-  
+
   var properties: Properties = new Properties
   properties.setProperty("webplm.version", Play.configuration.getString("application.version").get)
   properties.setProperty("webplm.user-agent", userAgent)
-  
+
   var plm: PLM = new PLM(executionManager, properties, currentGitID, plmLogger, currentPreferredLang.toLocale, lastProgLang, currentTrackUser)
-  
+
   var userIdle: Boolean = false;
   var idleStart: Instant = null
   var idleEnd: Instant = null
-  
+
   initExecutionManager
   initSpies
   registerActor
-  
+
   def receive = {
     case msg: JsValue =>
       Logger.debug("Message received:")
@@ -111,9 +107,14 @@ class PLMActor (
           currentTrackUser = false
           plm.setTrackUser(currentTrackUser)
         case "getLessons" =>
-          sendMessage("lessons", Json.obj(
-            "lessons" -> LessonToJson.lessonsWrite(plm.lessons)
-          ))
+          (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
+            import models.lesson.Lesson.lessonWrites
+
+            Logger.error("Get answer from lessonsActor")
+            sendMessage("lessons", Json.obj(
+              "lessons" -> lessons
+            ))
+          }
         case "setProgrammingLanguage" =>
           var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
           (optProgrammingLanguage.getOrElse(None)) match {
@@ -174,7 +175,7 @@ class PLMActor (
           if(plm.currentExercise != null) {
             var lectures = plm.game.getCurrentLesson.getRootLectures.toArray(Array[Lecture]())
             sendMessage("exercises", Json.obj(
-              "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
+              "exercises" -> ExerciseToJson.exercisesWrite(lectures)
             ))
           }
         case "getLangs" =>
@@ -214,7 +215,7 @@ class PLMActor (
             case trackUser: Boolean =>
               currentTrackUser = trackUser
               saveTrackUser(currentTrackUser)
-              plm.setTrackUser(currentTrackUser)              
+              plm.setTrackUser(currentTrackUser)
             case _ =>
               logNonValidJSON("setTrackUser: non-correct JSON", msg)
           }
@@ -256,62 +257,62 @@ class PLMActor (
               plm.signalReadTip(tipID)
             case _ =>
               logNonValidJSON("readTip: non-correct JSON", msg)
-          } 
+          }
         case "ping" =>
           // Do nothing
         case _ =>
           logNonValidJSON("cmd: non-correct JSON", msg)
       }
   }
-  
+
   def createMessage(cmdName: String, mapArgs: JsValue): JsValue = {
     return Json.obj(
       "cmd" -> cmdName,
       "args" -> mapArgs
     )
   }
-  
+
   def sendMessage(cmdName: String, mapArgs: JsValue) {
     out ! createMessage(cmdName, mapArgs)
   }
-  
+
   def setCurrentUser(newUser: User) {
     currentUser = newUser
     sendMessage("user", Json.obj(
         "user" -> currentUser
       )
     )
-    
+
     setCurrentGitID(currentUser.gitID.toString, false)
   }
-  
+
   def clearCurrentUser() {
     currentUser = null
     sendMessage("user", Json.obj())
-    
+
     currentGitID = UUID.randomUUID.toString
     setCurrentGitID(currentGitID, true)
   }
-  
+
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
     currentGitID = newGitID;
     if(toSend) {
       sendMessage("gitID", Json.obj(
-          "gitID" -> currentGitID  
+          "gitID" -> currentGitID
         )
       )
     }
-  } 
-  
+  }
+
   def initExecutionManager() {
     executionManager.setPLMActor(this)
     executionManager.setGame(plm.game)
   }
-  
+
   def initSpies() {
     progLangSpy = new ProgLangListener(this, plm)
     plm.game.addProgLangListener(progLangSpy, true)
-    
+
     humanLangSpy = new HumanLangListener(this, plm)
     plm.game.addHumanLangListener(humanLangSpy, true)
   }
@@ -319,7 +320,7 @@ class PLMActor (
   def registerActor() {
     ActorsMap.add(actorUUID, self)
     sendMessage("actorUUID", Json.obj(
-        "actorUUID" -> actorUUID  
+        "actorUUID" -> actorUUID
       )
     )
   }
@@ -369,7 +370,7 @@ class PLMActor (
       UserDAORestImpl.update(currentUser)
     }
   }
-  
+
   def logNonValidJSON(label: String, msg: JsValue) {
     Logger.error(label)
     Logger.error(msg.toString)

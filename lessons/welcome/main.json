@@ -1,0 +1,14 @@
+{
+  "id": "welcome",
+  "name": "Welcome",
+  "description": "This is a description",
+  "about": "This is a about",
+  "imgUrl": "/lessons/welcome/icon.png",
+  "exercises": [
+    {
+      "id": "environment",
+      "name": "Environment",
+      "mission": "This is a mission"
+    }
+  ]
+}
