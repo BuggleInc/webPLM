@@ -47,7 +47,6 @@ class Tribunal extends ExecutionManager {
   var executionStopped: Boolean = false
 	// Game launch data
   var self: Tribunal = this
-	var actor : PLMActor = _
 	var git : Git = _
 	// Launch parameters
 	var parameters : JsObject = _
@@ -73,15 +72,13 @@ class Tribunal extends ExecutionManager {
 
 	/**
 	* Start a tribunal
-	* @param newActor the PLMActor handling communications with the client
-	* @param newGit the Git interface linked to the urrent user.
-	* @param game the current game instance
+	* @param newGit the Git interface linked to the current user.
 	* @param lessonID the loaded lesson
 	* @param exerciseID the loaded exercise
 	* @param code the code to execute
 	*/
-	def startExecution(plmActor:PLMActor, git:Git, game:Game, lessonID:String, exerciseID:String, code:String, workspace: String) {
-		setData(plmActor, git, game, lessonID, exerciseID, code)
+	def startExecution(git:Git, lessonID:String, exerciseID:String, code:String, workspace: String) {
+		setData(git, lessonID, exerciseID, code)
     new Thread(new Runnable() {
       override def run() {
         var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
@@ -108,7 +105,7 @@ class Tribunal extends ExecutionManager {
           }
           // The delivery will be "null" if nextDelivery timed out.
           else if (delivery != null) {
-            Verdict.handleMessage(self, new String(delivery.getBody(), "UTF-8"), actor)
+            Verdict.handleMessage(self, new String(delivery.getBody(), "UTF-8"), plmActor)
           }
         }
         channelIn.close
@@ -116,9 +113,8 @@ class Tribunal extends ExecutionManager {
     }).start();
 	}
   
-	private def setData(newActor:PLMActor, newGit:Git, game:Game, lessonID:String, exerciseID:String, code:String) {
+	private def setData(newGit:Git, lessonID:String, exerciseID:String, code:String) {
 		git = newGit
-		actor = newActor
 		parameters = Json.obj(
 				"lesson" -> ("lessons." + lessonID),
 				"exercise" -> exerciseID,
@@ -133,7 +129,7 @@ class Tribunal extends ExecutionManager {
   private def signalExecutionStop() {
     var message: String = "The execution has been stopped."
     Logger.debug("[judge] " + message)
-    actor.sendMessage("executionResult", Json.obj(
+    plmActor.sendMessage("executionResult", Json.obj(
         "outcome" -> "stop",
         "msgType" -> 0,
         "msg" -> message
@@ -149,7 +145,7 @@ class Tribunal extends ExecutionManager {
 	private def signalExecutionTimeout() {
     var message: String = "The compiler timed out."
 		Logger.debug("[judge] " + message)
-		actor.sendMessage("executionResult", Json.obj(
+		plmActor.sendMessage("executionResult", Json.obj(
 				"outcome" -> "timeout",
 				"msgType" -> 0,
 				"msg" -> message

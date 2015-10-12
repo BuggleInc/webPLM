@@ -29,7 +29,6 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
   def setWorld(w: World) {
     world = w
     world.addWorldUpdatesListener(this)
-    plmActor.registerSpy(this)
   }
   
   def unregister() {

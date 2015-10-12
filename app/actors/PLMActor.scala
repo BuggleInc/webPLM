@@ -55,10 +55,8 @@ class PLMActor (
   var availableLangs: Seq[Lang] = Lang.availables
   var plmLogger: PLMLogger = new PLMLogger(this)
   
-  var resultSpy: ExecutionResultListener = null
   var progLangSpy: ProgLangListener  = null
   var humanLangSpy: HumanLangListener = null
-  var registeredSpies: List[ExecutionSpy] = null
   
   var currentUser: User = null
   
@@ -79,6 +77,7 @@ class PLMActor (
   var idleStart: Instant = null
   var idleEnd: Instant = null
   
+  initExecutionManager
   initSpies
   registerActor
   
@@ -133,13 +132,11 @@ class PLMActor (
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
           var lecture: Lecture = null;
-          var executionSpy: ExecutionSpy = new ExecutionSpy(this, "operations")
-          var demoExecutionSpy: ExecutionSpy = new ExecutionSpy(this, "demoOperations")
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
             case (lessonID:String, exerciseID: String) =>
-              lecture = plm.switchExercise(lessonID, exerciseID, executionSpy, demoExecutionSpy)
+              lecture = plm.switchExercise(lessonID, exerciseID)
             case (lessonID:String, _) =>
-              lecture = plm.switchLesson(lessonID, executionSpy, demoExecutionSpy)
+              lecture = plm.switchLesson(lessonID)
             case (_, _) =>
               Logger.debug("getExercise: non-correct JSON")
           }
@@ -155,9 +152,9 @@ class PLMActor (
           var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
           (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
         	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
-        		  plm.runExercise(this, lessonID, exerciseID, code, workspace)
+        		  plm.runExercise(lessonID, exerciseID, code, workspace)
             case (lessonID:String, exerciseID: String, code: String, _) =>
-              plm.runExercise(this, lessonID, exerciseID, code, null)
+              plm.runExercise(lessonID, exerciseID, code, null)
             case (_, _, _, _) =>
               Logger.debug("runExercise: non-correctJSON")
           }
@@ -304,29 +301,25 @@ class PLMActor (
     }
   } 
   
+  def initExecutionManager() {
+    executionManager.setPLMActor(this)
+    executionManager.setGame(plm.game)
+  }
+  
   def initSpies() {
-    resultSpy = new ExecutionResultListener(this, plm.game)
-    plm.game.addGameStateListener(resultSpy)
-    
     progLangSpy = new ProgLangListener(this, plm)
     plm.game.addProgLangListener(progLangSpy, true)
     
     humanLangSpy = new HumanLangListener(this, plm)
     plm.game.addHumanLangListener(humanLangSpy, true)
-    
-    registeredSpies = List()
   }
-  
+
   def registerActor() {
     ActorsMap.add(actorUUID, self)
     sendMessage("actorUUID", Json.obj(
         "actorUUID" -> actorUUID  
       )
     )
-  }
-  
-  def registerSpy(spy: ExecutionSpy) {
-    registeredSpies = registeredSpies ::: List(spy)
   }
 
   def saveLastProgLang(programmingLanguage: String) {
@@ -337,7 +330,7 @@ class PLMActor (
       UserDAORestImpl.update(currentUser)
     }
   }
-  
+
   def savePreferredLang() {
     if(currentUser != null) {
       currentUser = currentUser.copy(
@@ -346,13 +339,13 @@ class PLMActor (
       UserDAORestImpl.update(currentUser)
     }
   }
-  
+
   def setUserIdle() {
     userIdle = true
     idleStart = Instant.apply
     Logger.debug("start idling at: "+ idleStart)      
   }
-  
+
   def clearUserIdle() {
     userIdle = false
     idleEnd = Instant.apply
@@ -368,7 +361,7 @@ class PLMActor (
     idleStart = null
     idleEnd = null
   }
-  
+
   def saveTrackUser(trackUser: Boolean) {
     if(currentUser != null) {
       currentUser = currentUser.copy(
@@ -377,18 +370,13 @@ class PLMActor (
       UserDAORestImpl.update(currentUser)
     }
   }
-  
-  def signalEndOfExec() {
-    registeredSpies.foreach { spy => spy.sendOperations }
-  }
-  
+
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
     if(userIdle) {
       clearUserIdle
     }
     ActorsMap.remove(actorUUID)
-    registeredSpies.foreach { spy => spy.unregister }
     plm.quit(progLangSpy, humanLangSpy)
   }
 }

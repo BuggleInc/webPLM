@@ -27,7 +27,14 @@ import java.util.Locale
 import java.util.Properties
 import models.execution.ExecutionManager
 
-class PLM(executionManager: ExecutionManager, properties: Properties, initUserUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(
+    executionManager: ExecutionManager,
+    properties: Properties,
+    initUserUUID: String,
+    plmLogger: PLMLogger,
+    locale: Locale,
+    lastProgLang: Option[String],
+    trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
@@ -38,35 +45,31 @@ class PLM(executionManager: ExecutionManager, properties: Properties, initUserUU
 
   def lessons: Map[String, Lesson] = game.getMapLessons
 
-  def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+  def switchLesson(lessonID: String): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
-    
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
+
     _currentExercise = exo;
     
     return lect
   }
-  
-  def switchExercise(lessonID: String, exerciseID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
+
+  def switchExercise(lessonID: String, exerciseID: String): Lecture = {
     var key = "lessons." + lessonID;
     game.switchLesson(key, true)
     game.switchExercise(exerciseID)
 
     var lect: Lecture = game.getCurrentLesson.getCurrentExercise
     var exo: Exercise = lect.asInstanceOf[Exercise]
-    
-    addExecutionSpy(exo, executionSpy, WorldKind.CURRENT)
-    addExecutionSpy(exo, demoExecutionSpy, WorldKind.ANSWER)
+
     _currentExercise = exo;
 
     return lect
   }
-  
+
   def revertExercise(): Lecture = {
     game.revertExo
     return _currentExercise
@@ -75,19 +78,11 @@ class PLM(executionManager: ExecutionManager, properties: Properties, initUserUU
   def getSelectedWorldID(): String = {
     return game.getSelectedWorld.getName
   }
-  
-  def addExecutionSpy(exo: Exercise, spy: ExecutionSpy, kind: WorldKind) {
-    // Adding the executionSpy to the current worlds
-    exo.getWorlds(kind).toArray(Array[World]()).foreach { world =>
-      var worldSpy: ExecutionSpy = spy.clone()
-      worldSpy.setWorld(world)
-    }
-  }
-  
+
   def getInitialWorlds(): Array[World] = {
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
-  
+
   def getAPI(): String = {
     var api: String = ""
     if(getInitialWorlds != null) {
@@ -95,31 +90,23 @@ class PLM(executionManager: ExecutionManager, properties: Properties, initUserUU
     }
     return api
   }
-  
-  def runExercise(plmActor : PLMActor, lessonID: String, exerciseID: String, code: String, workspace: String) {
-    executionManager.startExecution(plmActor, gitGest, game, lessonID, exerciseID, code, workspace)
+
+  def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
+    executionManager.startExecution(gitGest, lessonID, exerciseID, code, workspace)
   }
-  
+
   def stopExecution() {
     executionManager.stopExecution()
   }
-  
+
   def programmingLanguage: ProgrammingLanguage = game.getProgrammingLanguage
-  
+
   def setProgrammingLanguage(lang: String) {
     game.setProgrammingLanguage(lang)
   }
-  
+
   def getStudentCode: String = {
     if(_currentExercise != null && _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()) != null) _currentExercise.getSourceFile(programmingLanguage, programmingLanguage.getVisualIndex()).getBody else ""
-  }
-  
-  def addProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-    game.addProgressSpyListener(progressSpyListener)  
-  }
-  
-  def removeProgressSpyListener(progressSpyListener: ProgressSpyListener) {
-    game.removeProgressSpyListener(progressSpyListener)  
   }
 
   def setLang(lang: Lang) {
@@ -130,33 +117,33 @@ class PLM(executionManager: ExecutionManager, properties: Properties, initUserUU
   }
 
   def currentExercise: Exercise = _currentExercise
-  
+
   def getMission(progLang: ProgrammingLanguage): String = {
     if(_currentExercise != null) _currentExercise.getMission(progLang) else ""
   }
-  
+
   def setUserUUID(userUUID: String) {
     _currentExercise = null
     game.setUserUUID(userUUID)
     gitGest.setUserUUID(userUUID)
   }
-  
+
   def signalIdle(start: String, end: String, duration: String) {
     game.signalIdle(start, end, duration)
   }
-  
+
   def setTrackUser(trackUser: Boolean) {
     game.setTrackUser(trackUser)
   }
-  
+
   def signalCommonErrorFeedback(commonErrorID: Int, accuracy: Int, help: Int, comment: String) {
     game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
   }
-   
+
   def signalReadTip(tipID: String) {
     game.signalReadTip(tipID)
   }
-  
+
   def quit(progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
     game.removeProgLangListener(progLangSpy)
     game.removeHumanLangListener(humanLangSpy)
