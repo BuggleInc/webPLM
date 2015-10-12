@@ -22,37 +22,25 @@ class PLMSpec extends PlaySpec with MockitoSugar with OneAppPerSuite {
   
   "PLM#switchLesson" should {
     "set the selected lesson as the current one" in {
-      val mockSpy = mock[ExecutionSpy]
-      val returnedMockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn returnedMockSpy
-
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)      
       val expectedLessonID = "welcome"
-      plm.switchLesson(expectedLessonID, mockSpy, mockSpy)
+      plm.switchLesson(expectedLessonID)
       val actualLectID = plm.game.getCurrentLesson.getId
       actualLectID mustBe expectedLessonID
     }
     
     "set the first exercise as the current one" in {
-      val mockSpy = mock[ExecutionSpy]
-      val returnedMockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn returnedMockSpy
-      
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
       val lessonID = "welcome"
       val expectedExerciseID = "welcome.lessons.welcome.environment.Environment"
-      plm.switchLesson(lessonID, mockSpy, mockSpy)
+      plm.switchLesson(lessonID)
       val actualExerciseID = plm.game.getCurrentLesson.getCurrentExercise.getId
       actualExerciseID mustBe expectedExerciseID
     }
     
     "return the current exercise" in {
-      val mockSpy = mock[ExecutionSpy]
-      val returnedMockSpy = mock[ExecutionSpy]
-      when(mockSpy.clone) thenReturn returnedMockSpy
-      
       var plm = new PLM(mock[Tribunal], new Properties, userUUID, mock[PLMLogger], new Locale("en"), None, false)
-      val actualLecture = plm.switchLesson("welcome", mockSpy, mockSpy)
+      val actualLecture = plm.switchLesson("welcome")
       val expectedLecture = plm.game.getCurrentLesson.getCurrentExercise
       actualLecture mustBe expectedLecture
     }
