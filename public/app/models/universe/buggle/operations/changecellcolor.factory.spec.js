@@ -64,5 +64,21 @@
 			changeCellColor.reverse(currentWorld);
 			expect(cell.color).toEqual(oldColor);
 		});
+        
+        it('should not change cell.color when applied then reversed', function () {
+            cell.color = oldColor;
+            var current = cell.color;
+            changeCellColor.apply(currentWorld);
+            changeCellColor.reverse(currentWorld);
+            expect(cell.color).toEqual(current);
+        });
+        
+        it('should not change cell.color when reversed then applied', function () {
+            cell.color = newColor;
+            var current = cell.color;
+            changeCellColor.reverse(currentWorld);
+            changeCellColor.apply(currentWorld);
+            expect(cell.color).toEqual(current);
+        });
 	});
 })();

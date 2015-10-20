@@ -1,18 +1,23 @@
 package controllers
 
-import javax.inject.Inject
+import com.google.inject.Inject
+
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.services.AuthInfoService
+import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers._
 import models.User
 import models.services.UserService
-import play.api.i18n.Messages
+import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
-import play.api.mvc.Action
+import play.api.mvc.{AnyContent, Result, Request, Action}
+
 import scala.concurrent.Future
+import scala.concurrent.duration._
+import scala.language.postfixOps
+
 import akka.actor.ActorSystem
 import actors.ActorsMap
 import play.api.Logger
@@ -27,9 +32,11 @@ import play.api.i18n.Lang
  * @param env The Silhouette environment.
  */
 class SocialAuthController @Inject() (
+  val messagesApi: MessagesApi,
   val env: Environment[User, JWTAuthenticator],
-  val userService: UserService,
-  val authInfoService: AuthInfoService)
+  authInfoRepository: AuthInfoRepository,
+  socialProviderRegistry: SocialProviderRegistry,
+  val userService: UserService)
   extends Silhouette[User, JWTAuthenticator] {
 
   /**
@@ -41,22 +48,21 @@ class SocialAuthController @Inject() (
   def authenticate(provider: String) = Action.async { implicit request =>
     var actorUUID: String = CookieUtils.getCookieValue(request, "actorUUID")
     if(actorUUID.isEmpty) {
-      Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+      Unauthorized(Json.obj("message" -> "Missing actor's UUID"))
     }
-    (env.providers.get(provider) match {
+    (socialProviderRegistry.get[SocialProvider](provider) match {
       case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
         p.authenticate().flatMap {
           case Left(result) => Future.successful(result)
           case Right(authInfo) => 
             var preferredLang: Lang = LangUtils.getPreferredLang(request)
-            var gitID: String = CookieUtils.getOrElseCookieValue(request, "gitID", UUID.randomUUID.toString)
             for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile, UUID.fromString(gitID), None, Some(preferredLang))
-            authInfo <- authInfoService.save(profile.loginInfo, authInfo)
+            user <- userService.save(profile, None, Some(preferredLang))
             authenticator <- env.authenticatorService.create(user.loginInfo)
             token <- env.authenticatorService.init(authenticator)
             } yield {
+            if(!userService.error) {
               ActorsMap.get(actorUUID) match {
                 case Some(actor) =>
                   actor ! Json.obj(
@@ -65,16 +71,21 @@ class SocialAuthController @Inject() (
                   )
                 case _ =>
                   Logger.debug("Actor not found... Weird isn't it?")
+              }
+              env.eventBus.publish(LoginEvent(user, request, request2Messages))
+              Ok(Json.obj("token" -> token))
             }
-            env.eventBus.publish(LoginEvent(user, request, request2lang))
-            Ok(Json.obj("token" -> token))
+            else {
+              userService.setError(false)
+              InternalServerError(Json.obj("error" -> "An error occurred while saving the user"))
+            }
           }
         }
       case _ => Future.failed(new ProviderException(s"Cannot authenticate with unexpected social provider $provider"))
     }).recover {
       case e: ProviderException =>
         logger.error("Unexpected provider error", e)
-        Unauthorized(Json.obj("message" -> Messages("could.not.authenticate")))
+        Unauthorized(Json.obj("message" -> "Could not authenticate the user"))
     }
   }
 }

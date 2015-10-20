@@ -18,11 +18,14 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
     gameState match {
       case GameState.DEMO_ENDED =>
         Logger.debug("Demo Executed - Now sending the signal")
+        plmActor.signalEndOfExec()
         plmActor.sendMessage("demoEnded", Json.obj())
       case GameState.EXECUTION_ENDED =>
         Logger.debug("Executed - Now sending the exercise's result")
         var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
         var msgType: Int = 0;
+        var commonErrorID: Int = exo.lastResult.commonErrorID;
+        var commonErrorText: String = exo.lastResult.commonErrorText;
         if(exo.lastResult.outcome == ExecutionProgress.outcomeKind.PASS) {
           msgType = 1;
         }
@@ -30,9 +33,12 @@ class ExecutionResultListener(plmActor: PLMActor, game: Game) extends GameStateL
         
         var mapArgs: JsValue = Json.obj(
           "msgType" -> msgType,
-          "msg" -> msg
+          "msg" -> msg, 
+          "commonErrorID" -> commonErrorID, 
+          "commonErrorText" -> commonErrorText
         )
         
+        plmActor.signalEndOfExec()
         plmActor.sendMessage("executionResult", mapArgs)
       case _ =>
         

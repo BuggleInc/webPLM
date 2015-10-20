@@ -1,0 +1,32 @@
+plm:
+  image: webplm
+  volumes:
+    - "~/.plm:/root/.plm"
+    - "~/webPLM/logs/:/app/webplm-dist/logs"
+  ports:
+    - "80:9000"
+  environment: 
+    GITHUB_CLIENT_SECRET:
+    GOOGLE_CLIENT_SECRET:
+    PLMACCOUNTS_CLIENT_SECRET:
+  links:
+    - accounts
+    - profiles
+accounts:
+  image: plm-accounts
+  ports:
+    - "9000:3000"
+  links:
+    - db
+profiles:
+  image: plm-profiles
+  ports:
+    - "3001:3000"
+  links:
+    - db
+db:
+  image: mongo
+  volumes:
+    - "~/mongodb/data:/data/db"
+  ports: 
+    - "27017:27017"

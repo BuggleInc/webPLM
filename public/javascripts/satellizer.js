@@ -23,6 +23,15 @@
       unlinkUrl: '/auth/unlink/',
       authHeader: 'Authorization',
       providers: {
+        plmAccounts: {
+          url: '/auth/plmAccounts',
+          authorizationEndpoint: 'http://localhost:3000/dialog/authorize',
+          redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
+          scope: [],
+          scopeDelimiter: ' ',
+          type: '2.0',
+          popupOptions: { width: 1020, height: 618 }
+        },
         google: {
           url: '/auth/google',
           authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',

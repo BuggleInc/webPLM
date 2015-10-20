@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-02 13:28+0100\n"
+"PO-Revision-Date: 2015-09-29 16:54+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -67,11 +67,13 @@ msgstr "| x ="
 msgid "| y ="
 msgstr "| y ="
 
-#: public/app/components/home/lesson-overview.directive.html:13
-msgid "A graph representing your progress will be displayed here."
+#: public/app/components/home/lesson-overview.directive.html:15
+msgid ""
+"A graph representing your\n"
+"    progress will be displayed here if you select a lesson."
 msgstr ""
-"Un graphe sera affiché ici pour vous indiquer où vous en étiez dans la leçon "
-"choisie."
+"Un graphe représentant vos\n"
+"    progrès sera affiché ici si vous sélectionnez une leçon."
 
 #: public/app/services/blocklymsg.service.js:424
 msgid "A letter, word, or line of text."
@@ -80,6 +82,10 @@ msgstr "Une lettre, un mot ou une ligne de texte."
 #: public/app/services/blocklymsg.service.js:263
 msgid "A number."
 msgstr "Un nombre."
+
+#: public/app/components/application-header.directive.html:22
+msgid "About"
+msgstr "À propos"
 
 #: public/app/services/blocklymsg.service.js:294
 msgid "absolute"
@@ -146,11 +152,7 @@ msgstr ""
 msgid "allow statements"
 msgstr "autoriser les déclarations"
 
-#: public/app/sign-up/sign-up.html:8
-msgid "Already a member?"
-msgstr "Déjà un compte?"
-
-#: public/app/services/user.service.js:97
+#: public/app/services/user.service.js:98
 msgid ""
 "An error occurred while updating your profile. Please excuse us for the "
 "inconvenience and retry to submit your changes later."
@@ -163,7 +165,11 @@ msgstr ""
 msgid "and"
 msgstr "et"
 
-#: public/app/exercise/exercise.html:10
+#: public/app/components/exercise/animation-speed.directive.html:3
+msgid "Animation speed:"
+msgstr "Vitesse d'animation:"
+
+#: public/app/components/exercise/toggle-api.directive.html:2
 msgid "API"
 msgstr "API"
 
@@ -257,10 +263,17 @@ msgstr "leveBrosse"
 msgid "Buggle"
 msgstr "Buggle"
 
+#: public/app/components/bug-report-modal.directive.html:11
+msgid "But DO NEVER DISCLOSE A PASSWORD to a bug tracker. Never."
+msgstr ""
+"Mais NE COMMUNIQUEZ JAMAIS UN MOT DE PASSE à un outil de suivi de bugs. "
+"Jamais."
+
 #: public/app/services/blocklymsg.service.js:241
 msgid "by"
 msgstr "de"
 
+#: public/app/components/bug-report-modal.directive.html:49
 #: public/app/components/exercise/reset-exercise.directive.html:7
 #: public/app/profile/profile.html:79
 msgid "Cancel"
@@ -314,7 +327,7 @@ msgstr "Choisir une couleur dans la palette"
 msgid "clearMessage"
 msgstr "effaceMessage"
 
-#: public/app/exercise/exercise.html:8
+#: public/app/exercise/exercise.html:9
 msgid "Code editor:"
 msgstr "Éditeur de code:"
 
@@ -346,7 +359,7 @@ msgstr "colorer avec"
 msgid "Confirm changes"
 msgstr "Confirmer les modifications"
 
-#: public/app/services/connection.service.js:41
+#: public/app/services/connection.service.js:45
 msgid "Connexion lost"
 msgstr "Déconnecté"
 
@@ -361,6 +374,10 @@ msgstr "contraindre %1 entre %2 et %3"
 #: public/app/services/blocklymsg.service.js:248
 msgid "Constrain a number to be between the specified limits (inclusive)."
 msgstr "Contraindre un nombre à être entre les limites spécifiées (incluses)."
+
+#: public/app/components/application-header.directive.html:24
+msgid "Contact"
+msgstr "Nous contacter"
 
 #: public/app/components/menu/menu.directive.html:17
 msgid "Contact us"
@@ -463,9 +480,21 @@ msgstr "Supprimer %1 blocs"
 msgid "Delete Block"
 msgstr "Supprimer le bloc"
 
-#: public/app/components/home/lesson-overview.directive.html:4
-msgid "Description of the lesson"
-msgstr "Description de la leçon"
+#: public/app/components/bug-report-modal.directive.html:44
+msgid "Description of the issue"
+msgstr "Description du problème"
+
+#: public/app/components/bug-report-modal.directive.html:41
+msgid "Description:"
+msgstr "Description:"
+
+#: public/app/components/exercise/form-common-error-feedback.directive.html:15
+msgid "Did this suggestion helped you?"
+msgstr "Est-ce que cette suggestion vous a aidé?"
+
+#: public/app/components/exercise/form-common-error-feedback.directive.html:5
+msgid "Did we detect precisely your error?"
+msgstr "Est-ce que nous avons correctement détecté votre problème?"
 
 #: public/app/services/blocklymsg.service.js:122
 msgid "Direction."
@@ -500,7 +529,7 @@ msgstr "Est-ce que vous acceptez de rendre public vos traces d'utilisations?"
 msgid "Do you want to share your data?"
 msgstr "Est-ce que vous souhaitez partager vos données?"
 
-#: public/app/components/success-modal.directive.html:5
+#: public/app/components/success-modal.directive.html:6
 msgid "Do you want to try the next one?"
 msgstr "Voulez-vous tenter l'exercice suivant?"
 
@@ -539,12 +568,10 @@ msgid "else if"
 msgstr "sinon si"
 
 #: public/app/components/sign-in/sign-in-form.directive.html:7
-#: public/app/components/sign-up/sign-up-form.directive.html:25
 msgid "Email"
 msgstr "Email"
 
 #: public/app/components/sign-in/sign-in-form.directive.html:4
-#: public/app/components/sign-up/sign-up-form.directive.html:22
 #: public/app/profile/profile.html:15
 msgid "Email:"
 msgstr "Email:"
@@ -557,13 +584,13 @@ msgstr "Activer le bloc"
 msgid "Erase the message."
 msgstr "Effacer le message."
 
-#: public/app/services/user.service.js:96
+#: public/app/services/user.service.js:97
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
-#: public/app/exercise/exercise.html:24
-msgid "Execution results:"
-msgstr "Résultats de l'exécution:"
+#: public/app/components/exercise/execution-results.directive.html:3
+msgid "Execution results"
+msgstr "Résultats de l'exécution"
 
 #: public/app/services/blocklymsg.service.js:469
 msgid "exitReached"
@@ -605,11 +632,6 @@ msgstr "trouver la dernière occurrence de la chaîne"
 msgid "first"
 msgstr "premier"
 
-#: public/app/components/sign-up/sign-up-form.directive.html:7
-msgid "First name"
-msgstr "Prénom"
-
-#: public/app/components/sign-up/sign-up-form.directive.html:4
 #: public/app/profile/profile.html:24 public/app/profile/profile.html:56
 msgid "First name:"
 msgstr "Prénom:"
@@ -777,6 +799,7 @@ msgstr "Aide"
 msgid "Highlight function definition"
 msgstr "Surligner la définition de la fonction"
 
+#: public/app/components/application-header.directive.html:33
 #: public/app/home/home.controller.js:22
 msgid "Home"
 msgstr "Accueil"
@@ -901,15 +924,15 @@ msgstr "https://code.google.com/p/blockly/wiki/Variables#Set"
 
 #: public/app/services/blocklymsg.service.js:229
 msgid "https://en.wikipedia.org/wiki/%3F:"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/%3F:"
 
 #: public/app/services/blocklymsg.service.js:234
 msgid "https://en.wikipedia.org/wiki/Arithmetic"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Arithmetic"
 
 #: public/app/services/blocklymsg.service.js:246
 msgid "https://en.wikipedia.org/wiki/Clamping_%28graphics%29"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Clamping_%28graphics%29"
 
 #: public/app/services/blocklymsg.service.js:68
 msgid "https://en.wikipedia.org/wiki/Color"
@@ -917,67 +940,67 @@ msgstr "https://fr.wikipedia.org/wiki/Couleur"
 
 #: public/app/services/blocklymsg.service.js:105
 msgid "https://en.wikipedia.org/wiki/For_loop"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/For_loop"
 
 #: public/app/services/blocklymsg.service.js:210
 msgid "https://en.wikipedia.org/wiki/Inequality_(mathematics)"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Inequality_(mathematics)"
 
 #: public/app/services/blocklymsg.service.js:137
 msgid "https://en.wikipedia.org/wiki/Linked_list#Empty_lists"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Linked_list#Empty_lists"
 
 #: public/app/services/blocklymsg.service.js:244
 msgid "https://en.wikipedia.org/wiki/Mathematical_constant"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Mathematical_constant"
 
 #: public/app/services/blocklymsg.service.js:258
 msgid "https://en.wikipedia.org/wiki/Modulo_operation"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Modulo_operation"
 
 #: public/app/services/blocklymsg.service.js:217
 msgid "https://en.wikipedia.org/wiki/Negation"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Negation"
 
 #: public/app/services/blocklymsg.service.js:221
 msgid "https://en.wikipedia.org/wiki/Nullable_type"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Nullable_type"
 
 #: public/app/services/blocklymsg.service.js:262
 msgid "https://en.wikipedia.org/wiki/Number"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Number"
 
 #: public/app/services/blocklymsg.service.js:334
 #: public/app/services/blocklymsg.service.js:336
 #: public/app/services/blocklymsg.service.js:341
 #: public/app/services/blocklymsg.service.js:345
 msgid "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29"
 
 #: public/app/services/blocklymsg.service.js:240
 msgid "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter"
 
 #: public/app/services/blocklymsg.service.js:282
 #: public/app/services/blocklymsg.service.js:285
 msgid "https://en.wikipedia.org/wiki/Random_number_generation"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Random_number_generation"
 
 #: public/app/services/blocklymsg.service.js:288
 msgid "https://en.wikipedia.org/wiki/Rounding"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Rounding"
 
 #: public/app/services/blocklymsg.service.js:293
 msgid "https://en.wikipedia.org/wiki/Square_root"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Square_root"
 
 #: public/app/services/blocklymsg.service.js:423
 msgid "https://en.wikipedia.org/wiki/String_(computer_science)"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/String_(computer_science)"
 
 #: public/app/services/blocklymsg.service.js:308
 msgid "https://en.wikipedia.org/wiki/Trigonometric_functions"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Trigonometric_functions"
 
 #: public/app/services/blocklymsg.service.js:100
 #: public/app/services/blocklymsg.service.js:511
@@ -1025,6 +1048,14 @@ msgstr ""
 #: public/app/services/blocklymsg.service.js:231
 msgid "if true"
 msgstr "si vrai"
+
+#: public/app/components/bug-report-modal.directive.html:9
+msgid ""
+"If you encounter a technical bug, please tell us what you did,\twhich "
+"outcome you were expecting and what happened instead."
+msgstr ""
+"Si vous avez rencontré un bug, veuillez nous expliquer comment vous l'avez "
+"produit,\tle résultat que vous attendiez et ce qui s'est passé à la place."
 
 #: public/app/services/blocklymsg.service.js:182
 #: public/app/services/blocklymsg.service.js:495
@@ -1079,7 +1110,7 @@ msgstr "Insère l’élément au début d’une liste."
 msgid "Inserts the item randomly in a list."
 msgstr "Insère l’élément au hasard dans une liste."
 
-#: public/app/exercise/exercise.html:11
+#: public/app/components/exercise/toggle-api.directive.html:3
 msgid "Instructions"
 msgstr "Consignes"
 
@@ -1147,6 +1178,10 @@ msgstr "solEstOrange"
 msgid "isSelected"
 msgstr "estChoisie"
 
+#: public/app/services/bugreport.service.js:50
+msgid "Issue created"
+msgstr "Ticket ouvert"
+
 #: public/app/services/blocklymsg.service.js:448
 #: public/app/services/blocklymsg.service.js:498
 #: public/app/services/blocklymsg.service.js:499
@@ -1165,11 +1200,6 @@ msgstr "joindre"
 msgid "last"
 msgstr "dernier"
 
-#: public/app/components/sign-up/sign-up-form.directive.html:16
-msgid "Last name"
-msgstr "Nom"
-
-#: public/app/components/sign-up/sign-up-form.directive.html:13
 #: public/app/profile/profile.html:32 public/app/profile/profile.html:64
 msgid "Last name:"
 msgstr "Nom:"
@@ -1204,10 +1234,6 @@ msgid "Logic"
 msgstr "Logique"
 
 #: public/app/sign-in/sign-in.controller.js:12
-msgid "Login failed; Invalid userID or password"
-msgstr "Échec de la connexion; Identifiant ou mot de passe invalide"
-
-#: public/app/sign-in/sign-in.controller.js:13
 msgid "Login failed; request failed"
 msgstr "Échec de la connexion; échec de la requête"
 
@@ -1258,6 +1284,10 @@ msgstr "Moi"
 #: public/app/services/blocklymsg.service.js:267
 msgid "median of list"
 msgstr "médiane de la liste"
+
+#: public/app/components/application-header.directive.html:9
+msgid "Menu"
+msgstr "Menu"
 
 #: public/app/services/blocklymsg.service.js:268
 msgid "min of list"
@@ -1311,15 +1341,11 @@ msgstr "nord"
 msgid "not %1"
 msgstr "pas %1"
 
-#: public/app/sign-in/sign-in.html:14
-msgid "Not a member?"
-msgstr "Pas encore de compte?"
-
 #: public/app/profile/profile.html:45
 msgid "Not chosen yet"
 msgstr "Pas encore de décision prise"
 
-#: public/app/components/success-modal.directive.html:7
+#: public/app/components/success-modal.directive.html:12
 msgid "Not yet"
 msgstr "Pas encore"
 
@@ -1335,11 +1361,9 @@ msgstr "Ok, partager mes données"
 msgid "or"
 msgstr "ou"
 
-#: public/app/sign-in/sign-in.html:17
-msgid ""
-"Or use your existing account on one of the following services to sign in:"
-msgstr ""
-"Ou utilisez votre compte d'un des services suivant pour vous authentifier:"
+#: public/app/components/bug-report-modal.directive.html:25
+msgid "or try again later?"
+msgstr "ou réessayer plus tard?"
 
 #: public/app/services/blocklymsg.service.js:56
 msgid "orange"
@@ -1350,14 +1374,21 @@ msgid "Other links"
 msgstr "Autres liens"
 
 #: public/app/components/sign-in/sign-in-form.directive.html:16
-#: public/app/components/sign-up/sign-up-form.directive.html:34
 msgid "Password"
 msgstr "Mot de passe"
 
 #: public/app/components/sign-in/sign-in-form.directive.html:13
-#: public/app/components/sign-up/sign-up-form.directive.html:31
 msgid "Password:"
 msgstr "Mot de passe:"
+
+#: public/app/components/home/lesson-overview.directive.html:6
+msgid ""
+"Pick a lesson on the left, and start coding! If unsure, take\n"
+"      the \"welcome\" one: it will guide you through the basics."
+msgstr ""
+"Choisissez une leçon sur la gauche, et commencez à coder! Si vous débutez, "
+"sélectionnez celle intitulée \"welcome\": vous y apprendrez les bases de la "
+"programmation."
 
 #: public/app/services/blocklymsg.service.js:466
 msgid "Pickup a baggle."
@@ -1379,6 +1410,18 @@ msgstr ""
 "Veuillez autoriser cette application à permettre la sauvegarde de votre "
 "travail et à l’autoriser de le partager avec vous."
 
+#: public/app/components/bug-report-modal.directive.html:36
+msgid "Please name the problem"
+msgstr "Veuillez nommer le problème"
+
+#: public/app/components/bug-report-modal.directive.html:7
+msgid ""
+"Please write your suggestion below, with all necessary details (if possible "
+"in English or French)."
+msgstr ""
+"Veuillez présenter votre suggestion ci-dessous, avec tous les détails "
+"nécessaires (en français ou anglais si possible)."
+
 #: public/app/services/blocklymsg.service.js:416
 msgid "print %1"
 msgstr "afficher %1"
@@ -1391,6 +1434,7 @@ msgstr "Afficher le texte, le nombre ou une autre valeur spécifié."
 msgid "Procedures"
 msgstr "Procedures"
 
+#: public/app/components/application-header.directive.html:18
 #: public/app/components/menu/profile.directive.html:3
 #: public/app/profile/profile.controller.js:13
 msgid "Profile"
@@ -1543,15 +1587,19 @@ msgstr "répéter tant que"
 msgid "Report a bug"
 msgstr "Signaler un bug"
 
+#: public/app/components/bug-report-modal.directive.html:2
+msgid "Report an issue:"
+msgstr "Signaler un problème:"
+
 #: public/app/components/exercise/reset-exercise.directive.html:1
 msgid "Reset"
-msgstr "Reset"
+msgstr "Réinitialiser"
 
 #: public/app/components/exercise/results.directive.html:3
 msgid "Result"
 msgstr "Résultat"
 
-#: public/app/components/home/lesson-overview.directive.html:11
+#: public/app/components/home/lesson-overview.directive.html:13
 msgid "Resume"
 msgstr "Reprendre"
 
@@ -1823,7 +1871,7 @@ msgid ""
 "Reverting this exercise will erase all your work and cannot be undone. Are "
 "you sure that you want to proceed?"
 msgstr ""
-"Réinitialiser cet exercice effacera tout votre travail et ne le rendra "
+"Réinitialiser cet exercice effacera tout votre travail et  le rendra "
 "irrécupérable. Êtes-vous sûr de vouloir continuer?"
 
 #: public/app/services/blocklymsg.service.js:446
@@ -1855,7 +1903,7 @@ msgstr ""
 msgid "Run the user-defined function '%1'."
 msgstr "Exécuter la fonction '%1' définie par l’utilisateur."
 
-#: public/app/services/connection.service.js:46
+#: public/app/services/connection.service.js:50
 msgid "Session closed"
 msgstr "Session fermée"
 
@@ -1936,45 +1984,20 @@ msgid "setX"
 msgstr "setX"
 
 #: public/app/components/sign-in/sign-in-form.directive.html:21
-#: public/app/sign-in/sign-in.controller.js:16
 msgid "Sign in"
 msgstr "Se connecter"
 
+#: public/app/components/application-header.directive.html:16
 #: public/app/components/menu/profile.directive.html:7
 #: public/app/components/profile-top-bar.directive.html:3
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: public/app/sign-up/sign-up.html:8
-msgid "Sign in now"
-msgstr "Se connecter maintenant"
-
-#: public/app/sign-in/sign-in.html:3
-msgid "Sign in with your credentials"
-msgstr "Se connecter via vos identifiants"
-
-#: public/app/components/menu/profile.directive.html:22
-#: public/app/components/profile-top-bar.directive.html:15
+#: public/app/components/application-header.directive.html:20
+#: public/app/components/menu/profile.directive.html:21
+#: public/app/components/profile-top-bar.directive.html:12
 msgid "Sign Out"
 msgstr "Se déconnecter"
-
-#: public/app/components/sign-up/sign-up-form.directive.html:39
-#: public/app/sign-up/sign-up.controller.js:13
-msgid "Sign up"
-msgstr "S'inscrire"
-
-#: public/app/components/menu/profile.directive.html:10
-#: public/app/components/profile-top-bar.directive.html:6
-msgid "Sign Up"
-msgstr "S'inscrire"
-
-#: public/app/sign-up/sign-up.html:3
-msgid "Sign up for a new account"
-msgstr "Créer un nouveau compte"
-
-#: public/app/sign-in/sign-in.html:14
-msgid "Sign up now"
-msgstr "S'inscrire maintenant"
 
 #: public/app/services/blocklymsg.service.js:309
 msgid "sin"
@@ -1997,9 +2020,17 @@ msgstr "racine carrée"
 msgid "standard deviation of list"
 msgstr "écart-type de la liste"
 
+#: public/app/components/bug-report-modal.directive.html:50
+msgid "Submit"
+msgstr "Soumettre"
+
 #: public/app/components/success-modal.directive.html:3
 msgid "Success \\o/"
 msgstr "Exercice réussi \\o/"
+
+#: public/app/components/exercise/execution-results.directive.html:7
+msgid "Suggestion"
+msgstr "Suggestion"
 
 #: public/app/services/blocklymsg.service.js:272
 msgid "sum of list"
@@ -2029,10 +2060,17 @@ msgstr "Cas de tests:"
 msgid "Text"
 msgstr "Texte"
 
-#: public/app/components/home/lesson-overview.directive.html:5
-msgid "The description of the selected lesson will be displayed here."
+#: public/app/services/bugreport.service.js:51
+msgid ""
+"Thank you for your remark, we will do our best to integrate it. Follow our "
+"progress at {{url}}"
 msgstr ""
-"C'est ici que s'affichera la description de la leçon que vous aurez choisie."
+"Merci pour votre remarque, nous ferons de notre mieux pour l'implémenter. "
+"Suivez nos progrès à {{url}}"
+
+#: public/app/components/bug-report-modal.directive.html:27
+msgid "Thanks for your feedback!"
+msgstr "Merci de votre retour!"
 
 #: public/app/components/track-user-modal.directive.html:3
 msgid ""
@@ -2043,6 +2081,14 @@ msgstr ""
 "La PLM enregistre actuellement vos données d'utilisation anonyme sur ses "
 "serveurs. Vous pouvez ainsi retrouver votre session depuis n'importe quel "
 "ordinateur."
+
+#: public/app/components/home/lesson-overview.directive.html:4
+msgid ""
+"The PLM will teach you the art of computer\n"
+"      programming through interactive exercises, at your own pace."
+msgstr ""
+"La PLM vous apprendra l'art de la programmation\n"
+"      par le biais d'exercices interactifs réalisables à votre propre rythme."
 
 #: public/app/components/track-user-modal.directive.html:4
 msgid ""
@@ -2060,8 +2106,8 @@ msgid ""
 "This exercise's world view is not yet implemented. If you still want to pass "
 "this exercise, you only have at your disposition the instructions, the API "
 "and the results of your program's execution to understand the problem and "
-"solve it. You can also download and use the previous version of PLM <a href="
-"\"http://webloria.loria.fr/~quinson/Teaching/PLM/\">here</a> to do this "
+"solve it. You can also download and use the previous version of the PLM <a "
+"href=\"http://webloria.loria.fr/~quinson/Teaching/PLM/\">here</a> to do this "
 "exercise.<a class=\"close\">&times;</a>"
 msgstr ""
 "La représentation du monde de cet exercice n'est pas encore implémentée. Si "
@@ -2075,6 +2121,10 @@ msgstr ""
 #: public/app/services/blocklymsg.service.js:109
 msgid "times"
 msgstr "fois"
+
+#: public/app/components/bug-report-modal.directive.html:33
+msgid "Title:"
+msgstr "Titre:"
 
 #: public/app/services/blocklymsg.service.js:343
 #: public/app/services/blocklymsg.service.js:371
@@ -2179,6 +2229,11 @@ msgstr "Tourner à droite."
 msgid "Usage data release:"
 msgstr "Publication des traces d'utilisation:"
 
+#: public/app/sign-in/sign-in.html:3
+msgid "Use your existing account on one of the following services to sign in:"
+msgstr ""
+"Utilisez votre compte d'un des services suivant pour vous authentifier:"
+
 #: public/app/services/blocklymsg.service.js:440
 msgid "Variables"
 msgstr "Variables"
@@ -2206,12 +2261,20 @@ msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
 msgstr "Bienvenue {{ profile.user.firstName }} {{ profile.user.lastName }}"
 
 #: public/app/home/home.html:2
-msgid "Welcome to PLM, <small>the programmer's learning machine</small>"
-msgstr "Bienvenue dans PLM, <small>l'exerciseur du programmeur</small>"
+msgid "Welcome to the PLM, <small>the programmer's learning machine</small>"
+msgstr "Bienvenue dans la PLM, <small>l'exerciseur du programmeur</small>"
 
 #: public/app/services/blocklymsg.service.js:121
 msgid "west"
 msgstr "ouest"
+
+#: public/app/components/bug-report-modal.directive.html:8
+msgid ""
+"When you find a typo or a sentence that is hard to understand, it really "
+"helps to suggest a new wording."
+msgstr ""
+"Quand vous trouvez une typo ou une phrase difficile à comprendre, vous nous "
+"aideriez beaucoup en suggérant une correction."
 
 #: public/app/services/blocklymsg.service.js:114
 msgid "While a value is false, then do some statements."
@@ -2246,7 +2309,8 @@ msgstr "y ="
 msgid "yellow"
 msgstr "jaune"
 
-#: public/app/components/success-modal.directive.html:8
+#: public/app/components/success-modal.directive.html:13
+#: public/app/components/success-modal.directive.html:14
 msgid "Yes, sure"
 msgstr "Bien sûr"
 
@@ -2256,7 +2320,7 @@ msgstr ""
 "Vous pouvez changer vos préférences à tout instant depuis votre page de "
 "profil."
 
-#: public/app/services/connection.service.js:42
+#: public/app/services/connection.service.js:46
 msgid ""
 "You have been brutally disconnected from the server, probably due to a "
 "crash. You should copy your current work before refreshing the page. Please "
@@ -2266,7 +2330,7 @@ msgstr ""
 "crash. Vous devriez copier votre travail actuel avant de rafraîchir la page. "
 "Veuillez nous excuser de ce désagrément."
 
-#: public/app/services/connection.service.js:47
+#: public/app/services/connection.service.js:51
 msgid ""
 "You have been disconnected from the server. If it was not wanted, don't "
 "forget to copy your current work before refreshing the page."
@@ -2278,17 +2342,68 @@ msgstr ""
 msgid "You have been logged out"
 msgstr "Vous avez été déconnecté"
 
-#: public/app/sign-in/sign-in.controller.js:14
+#: public/app/components/success-modal.directive.html:9
+msgid "You have cleared this lesson! Do you want to go back to the home page?"
+msgstr ""
+"Vous avez terminé cette leçon! Voulez-vous revenir à la page d'accueil?"
+
+#: public/app/sign-in/sign-in.controller.js:13
 msgid "You have successfully signed in"
 msgstr "L'authentification s'est bien déroulée"
 
-#: public/app/services/user.service.js:150
+#: public/app/components/bug-report-modal.directive.html:17
+msgid ""
+"Your feedback needs some little changes before being send, please fix the "
+"following issue(s):"
+msgstr ""
+"Votre retour nécessite quelques petites modifications avant d'être envoyé, "
+"veuillez corriger le ou les problèmes suivants:"
+
+#: public/app/services/user.service.js:151
 msgid "Your profile has been successfully updated"
 msgstr "Votre profil a été correctement mis à jour"
 
-#: public/app/components/home/lesson-overview.directive.html:9
+#: public/app/components/home/lesson-overview.directive.html:11
 msgid "Your progress"
 msgstr "Votre progression"
+
+#~ msgid "Already a member?"
+#~ msgstr "Déjà un compte?"
+
+#~ msgid "First name"
+#~ msgstr "Prénom"
+
+#~ msgid "Last name"
+#~ msgstr "Nom"
+
+#~ msgid "Login failed; Invalid userID or password"
+#~ msgstr "Échec de la connexion; Identifiant ou mot de passe invalide"
+
+#~ msgid "Not a member?"
+#~ msgstr "Pas encore de compte?"
+
+#~ msgid "Sign in now"
+#~ msgstr "Se connecter maintenant"
+
+#~ msgid "Sign in with your credentials"
+#~ msgstr "Se connecter via vos identifiants"
+
+#~ msgid "Sign up"
+#~ msgstr "S'inscrire"
+
+#~ msgid "Sign Up"
+#~ msgstr "S'inscrire"
+
+#~ msgid "Sign up for a new account"
+#~ msgstr "Créer un nouveau compte"
+
+#~ msgid "Sign up now"
+#~ msgstr "S'inscrire maintenant"
+
+#~ msgid "The description of the selected lesson will be displayed here."
+#~ msgstr ""
+#~ "C'est ici que s'affichera la description de la leçon que vous aurez "
+#~ "choisie."
 
 #~ msgid "Back"
 #~ msgstr "Retour"
@@ -2298,9 +2413,6 @@ msgstr "Votre progression"
 
 #~ msgid "Programming Language"
 #~ msgstr "Langage de programmation"
-
-#~ msgid "About"
-#~ msgstr "À propos"
 
 #~ msgid "Choose an exercise:"
 #~ msgstr "Choisir un exercice:"
@@ -2313,9 +2425,6 @@ msgstr "Votre progression"
 
 #~ msgid "Exercises"
 #~ msgstr "Exercices"
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
 
 #~ msgid "Mmm, no quite... More information below!"
 #~ msgstr "Mmm, pas exactement... Plus d'information plus bas! "

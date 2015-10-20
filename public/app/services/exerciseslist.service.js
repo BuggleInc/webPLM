@@ -64,6 +64,7 @@
           return exercisesList[i + 1].id;
         }
       }
+      return '';
     }
 
     function setCurrentLessonID(lessonID) {

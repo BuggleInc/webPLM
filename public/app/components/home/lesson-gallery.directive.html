@@ -1,5 +1,5 @@
 <ul class="small-block-grid-3 medium-block-grid-3 large-block-grid-4" ng-show="home.lessons.length">
-	<li ng-repeat="lesson in home.lessons | orderBy: '-id'"> <!-- Order by descending id -->
+	<li ng-repeat="lesson in home.lessons"> <!-- Order by descending id -->
     <div class="lesson-th">
 		  <a ng-dblclick="home.goToLesson()" ng-click="home.setCurrentLesson(lesson)" class="th radius" role="button">
 		    <img ng-src="{{lesson.imgUrl}}"/>

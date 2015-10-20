@@ -4,22 +4,21 @@
   </li>
   <span ng-if="!userService.isAuthenticated()">
     <li>
-      <a ui-sref="signIn" translate>Sign In</a>
-    </li>
-    <li>
-      <a ui-sref="signUp" translate>Sign Up</a>
+      <a ui-sref="signIn"><i class="fi-power">&nbsp;</i><span translate>Sign In</span></a>
     </li>
   </span>
   <span ng-if="userService.isAuthenticated()">
     <li>
       <a style="display: flex; justify-content: space-between" ui-sref="profile">
+        <i class="fi-torso">&nbsp;</i>
         <span style="flex: 1; ">{{ userService.getUser().fullName }}</span>
         <span style="flex: 1; "><img height="50px" width="50px" class="right" ng-src="{{ userService.getUser().avatarURL ? userService.getUser().avatarURL : '/assets/images/buggle-top.svg' }}"></span>
       </a>
     </li>
     <li>
-      <a>
-        <span ng-click="userService.signOut()" translate>Sign Out</span>
+      <a ng-click="userService.signOut()">
+        <i class="fi-power">&nbsp;</i>
+        <span translate>Sign Out</span>
       </a>
     </li>
   </span>

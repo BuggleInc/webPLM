@@ -24,7 +24,8 @@ object PancakeOperationToJson {
   def flipOperationWrite(flipOperation: FlipOperation): JsValue =
   {
     Json.obj(
-        "number" -> flipOperation.getNumber
+        "number" -> flipOperation.getNumber,
+        "oldNumber" -> flipOperation.getOldNumber
     )
   }
 

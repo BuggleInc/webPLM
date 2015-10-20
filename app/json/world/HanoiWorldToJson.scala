@@ -1,22 +1,27 @@
 package json.world
 
 import play.api.libs.json._
+import json.Utils
 import lessons.recursion.hanoi.universe.HanoiWorld
+import lessons.recursion.hanoi.universe.HanoiDisk
 import java.util.Vector
 
 object HanoiWorldToJson {
 
-  def slotWrite(slotVal: Array[Vector[Integer]]): JsValue = {
-    var arraySlot = JsArray()
-    slotVal.foreach { vector =>
-      var arrayVector = JsArray()
-      vector.toArray(Array[Integer]()).foreach { integer => 
-        arrayVector = arrayVector.append(Json.toJson(integer.intValue()))
+  def slotWrite(slots: Array[Vector[HanoiDisk]]): JsValue = {
+    var jsArray = JsArray()
+    slots.foreach { vector =>
+      var slot = JsArray()
+      vector.toArray(Array[HanoiDisk]()).foreach { hanoiDisk => 
+        slot = slot.append(Json.obj(
+          "size" -> hanoiDisk.getSize,
+          "color" -> Utils.colorToWrapper(hanoiDisk.getColor)
+        ))
+      }
+      jsArray = jsArray :+ slot
     }
-    arraySlot = arraySlot :+ arrayVector
+    return jsArray
   }
-  return arraySlot
-}
   /*
   def integerWrite(integer: Integer): JsValue =
   {
@@ -27,6 +32,6 @@ object HanoiWorldToJson {
     Json.obj(
         "type" -> "HanoiWorld",
         "moveCount" -> hanoiWorld.getMoveCount,
-        "slotVal" -> slotWrite(hanoiWorld.getSlot))
+        "slots" -> slotWrite(hanoiWorld.getSlot))
   }
 }

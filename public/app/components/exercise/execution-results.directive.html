@@ -1,0 +1,15 @@
+<ul class="tabs" data-tab>
+  <li ng-class="{ active: currentTab === -1 }" class="tab-title" ng-click="setCurrentTab(-1)">
+    <a href="" translate>Execution results</a>
+  </li>
+  <li ng-class="{ active: currentTab === index }" class="tab-title" ng-repeat="(index, commonError) in commonErrors.getCommonErrors()" ng-click="setCurrentTab(index)">
+    <a href="">
+      <span ng-if="commonErrors.getCommonErrors().length < 2" translate>Suggestion</span>&nbsp;{{ (index+1) }}
+    </a>
+  </li>
+</ul>
+<div ng-show="currentTab === -1" class="with-newlines">{{exercise.result}}</div>
+<div ng-repeat="(index, commonError) in commonErrors.getCommonErrors()" ng-show="currentTab === index">
+  <p>{{ commonError.commonErrorText }}</p>
+  <form-common-error-feedback></form-common-error-feedback>
+</div>

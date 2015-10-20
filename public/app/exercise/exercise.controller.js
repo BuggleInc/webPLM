@@ -14,6 +14,7 @@
   'locker',
   'BuggleWorld', 'BuggleWorldView',
   'BatWorld', 'BatWorldView',
+  'TurtleWorld', 'TurtleWorldView',
   'SortingWorld', 'SortingWorldView',
   'SortingWorldSecondView',
   'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
@@ -30,6 +31,7 @@
     locker,
     BuggleWorld, BuggleWorldView,
     BatWorld, BatWorldView,
+    TurtleWorld, TurtleWorldView,
     SortingWorld, SortingWorldView, SortingWorldSecondView,
     DutchFlagWorld, DutchFlagView, DutchFlagSecondView,
     PancakeWorld, PancakeView,
@@ -41,6 +43,9 @@
     var panelID = 'panel';
     var canvasID = 'canvas';
 
+    exercise.connection = connection;
+    exercise.langs = langs;
+    
     exercise.tabs = [];
     exercise.currentTab = 0;
     exercise.drawFnct = null;
@@ -72,17 +77,17 @@
     exercise.updateViewLoop = null;
 
     locker.bind($scope, 'timer', 1000);
-    exercise.timer = locker.get('timer');
+    $scope.timer = locker.get('timer');
 
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
 
     locker.bind($scope, 'showInstructions', true);
-    exercise.showInstructions = locker.get('showInstructions');
+    $scope.showInstructions = locker.get('showInstructions');
     locker.bind($scope, 'showCodeEditor', true);
-    exercise.showCodeEditor = locker.get('showCodeEditor');
+    $scope.showCodeEditor = locker.get('showCodeEditor');
     locker.bind($scope, 'showAPI', false);
-    exercise.showAPI = locker.get('showAPI');
+    $scope.showAPI = locker.get('showAPI');
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
@@ -113,12 +118,14 @@
     exercise.setWorldState = setWorldState;
     exercise.setCurrentWorld = setCurrentWorld;
     exercise.switchToTab = switchToTab;
+    exercise.toggleAPI = toggleAPI;
 
-    exercise.updateSpeed = updateSpeed;
     exercise.resetExercise = resetExercise;
     exercise.resizeInstructions = resizeInstructions;
     exercise.resizeCanvas = resizeCanvas;
 
+    exercise.readTip = readTip;
+    
     exercise.idle = false;
 
     startIdleLoop();
@@ -146,8 +153,9 @@
 
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
+      window.editor = _editor; // To allow tests to interact with the editor
       exercise.editor.on('change', resetIdleLoop);
-      //resizeCodeMirror();
+      resizeCodeMirror();
     };
 
     function getExercise() {
@@ -172,23 +180,33 @@
         setExercise(args.exercise);
         break;
       case 'executionResult':
-        displayResult(args.msgType, args.msg);
+        handleResult(args);
         break;
       case 'demoEnded':
         console.log('The demo ended!');
         exercise.isRunning = false;
         break;
       case 'operations':
-        handleOperations(args.worldID, 'current', args.operations);
+        var item;
+        var i;
+        for(i=0; i < args.acc.length; i++) {
+          item = args.acc[i];
+          handleOperations(item.worldID, 'current', item.operations);
+        }
         break;
       case 'demoOperations':
-        handleOperations(args.worldID, 'answer', args.operations);
+        var item;
+        var i;
+        for(i=0; i < args.acc.length; i++) {
+          item = args.acc[i];
+          handleOperations(item.worldID, 'answer', item.operations);
+        }
         break;
       case 'log':
         exercise.logs += args.msg;
         break;
       case 'newProgLang':
-        updateUI(args.newProgLang, args.instructions, null, args.code);
+        updateUI(args.newProgLang, args.instructions, args.api, args.code);
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
@@ -259,6 +277,27 @@
               BatWorldView.setScope($scope);
               initDrawWithDOM(BatWorldView.draw);
               break;
+            case 'TurtleWorld':
+              exercise.tabs = [
+                {
+                  name: 'World',
+                  worldKind: 'current',
+                  tabNumber: 0,
+                  drawFnct: TurtleWorldView.draw
+          },
+                {
+                  name: 'Objective',
+                  worldKind: 'answer',
+                  tabNumber: 1,
+                  drawFnct: TurtleWorldView.draw
+          }
+        ];
+                exercise.objectiveViewNeeded = true;
+                exercise.animationPlayerNeeded = true;
+                world = new TurtleWorld(initialWorld);
+                exercise.drawFnct = TurtleWorldView.draw;
+                initCanvas(exercise.drawFnct);
+                break;
             case 'SortingWorld':
               exercise.tabs = [
                 {
@@ -415,7 +454,7 @@
 
         setCurrentWorld(exercise.currentWorldID, 'current');
 
-        //window.addEventListener('resize', resizeCodeMirror, false);
+        window.addEventListener('resize', resizeCodeMirror, false);
 
         progLangs.setProgLangs(data.programmingLanguages);
         var progLang = data.programmingLanguages[0];
@@ -515,7 +554,9 @@
       connection.sendMessage('stopExecution', null);
     }
 
-    function displayResult(msgType, msg) {
+    function handleResult(data) {
+      var msgType = data.msgType;
+      var msg = data.msg;
       console.log(msgType, ' - ', msg);
       exercise.result = msg;
       if (msgType === 1) {
@@ -548,6 +589,7 @@
 
       exercise.lastStateDrawn = -1;
 
+      $timeout.cancel(exercise.updateModelLoop);
       $timeout.cancel(exercise.updateViewLoop);
       exercise.isPlaying = false;
     }
@@ -570,7 +612,7 @@
     }
 
     function startUpdateModelLoop() {
-      exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+      exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
     }
 
     function updateModel() {
@@ -585,7 +627,7 @@
         exercise.updateModelLoop = null;
         exercise.isPlaying = false;
       } else {
-        exercise.updateModelLoop = $timeout(updateModel, exercise.timer);
+        exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
       }
     }
 
@@ -620,27 +662,25 @@
       connection.sendMessage('revertExercise', {});
     }
 
-    function updateSpeed() {
-      $scope.timer = $('#executionSpeed').val();
-    }
-
     $scope.$on('$destroy', function () {
       offDisplayMessage();
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       $interval.cancel(exercise.updateViewLoop);
-      exercise.initialWorlds = {};
-      exercise.answerWorlds = {};
-      exercise.currentWorlds = {};
-      exercise.currentWorld = null;
-      exercise.drawService.setWorld(null);
+      if(!exercise.nonImplementedWorldException) {
+        exercise.initialWorlds = {};
+        exercise.answerWorlds = {};
+        exercise.currentWorlds = {};
+        exercise.currentWorld = null;
+        exercise.drawService.setWorld(null);
+      }
       exercise.instructions = null;
       exercise.api = null;
       exercise.resultType = null;
       exercise.result = null;
       exercise.logs = null;
       window.removeEventListener('resize', resizeCanvas, false);
-      //window.removeEventListener('resize', resizeCodeMirror, false);
+      window.removeEventListener('resize', resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -684,10 +724,9 @@
 
     function resizeCodeMirror() {
       // Want to keep the IDE's height equals to the draw surface's one
-      var drawingAreaHeight = $('#' + exercise.drawingArea).parent().width();
+      var drawingAreaHeight = $('ui-codemirror').parent().parent().height() * 0.8;
       exercise.editor.setSize(null, drawingAreaHeight);
       exercise.editor.refresh();
-      $(document).foundation('equalizer', 'reflow');
     }
 
     function switchToTab(tab) {
@@ -757,6 +796,14 @@
       }
     }
 
+    function toggleAPI() {
+      $scope.showAPI = !$scope.showAPI;
+      $scope.showInstructions = !$scope.showInstructions;
+      if($scope.showInstructions) {
+        $timeout(exercise.resizeCanvas, 0);
+      }
+    }
+    
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
         if (pl.lang === 'Blockly') {
@@ -791,5 +838,9 @@
       }
       updateInstructions(instructions, api);
     }
+  }
+  
+  function readTip(tipID) {
+    this.connection.sendMessage('readTip', { tipID: tipID+'' });
   }
 })();

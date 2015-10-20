@@ -58,5 +58,21 @@
 			changeBuggleCarryBaggle.reverse(currentWorld);
 			expect(buggle.carryBaggle).toEqual(oldCarryBaggle);
 		});
+        
+        it('should not change buggle.carryBaggle when applied then reversed', function () {
+            buggle.carryBaggle = oldCarryBaggle;
+            var current = buggle.carryBaggle;
+            changeBuggleCarryBaggle.apply(currentWorld);
+            changeBuggleCarryBaggle.reverse(currentWorld);
+            expect(buggle.carryBaggle).toEqual(current);
+        });
+        
+        it('should not change buggle.carryBaggle when reversed then applied', function () {
+            buggle.carryBaggle = newCarryBaggle;
+            var current = buggle.carryBaggle;
+            changeBuggleCarryBaggle.reverse(currentWorld);
+            changeBuggleCarryBaggle.apply(currentWorld);
+            expect(buggle.carryBaggle).toEqual(current);
+        });
 	});
 })();

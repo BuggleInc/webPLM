@@ -2,7 +2,7 @@
   <profile></profile>
   <ul class="off-canvas-list">
     <li>
-      <a ui-sref="home" translate>Switch lesson</a>
+      <a ui-sref="home"><i class="fi-home">&nbsp;</i><span translate>Switch lesson</span></a>
     </li>
   </ul>
   <switch-exercise ng-if="navigation.isInLesson()"></switch-exercise>
@@ -11,10 +11,10 @@
       <label translate>Other links</label>
     </li>
     <li>
-      <a translate>Report a bug</a>
+      <a onclick="$('#bugReportModal').foundation('reveal', 'open');"><i class="fi-alert">&nbsp;</i><span translate>Report a bug</span></a>
     </li>
     <li>
-      <a translate>Contact us</a>
+      <a><i class="fi-mail">&nbsp;</i><span translate>Contact us</span></a>
     </li>
   </ul>
 </aside>

@@ -1,41 +1,38 @@
 package controllers
 
+import com.google.inject.Inject
+
 import java.util.UUID
-
-import scala.concurrent.Future
-
 import actors.ActorsMap
 import actors.PLMActor
-import javax.inject.Inject
 import models.User
 import play.api.Logger
-import play.api.Play.current
-import play.api.i18n.Lang
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
-import play.api.mvc.AnyContentAsEmpty
-import play.api.mvc.Request
-import play.api.mvc.RequestHeader
-import play.api.mvc.WebSocket
-import utils.LangUtils
-import utils.CookieUtils
-
-import com.mohiva.play.silhouette.api.Environment
-import com.mohiva.play.silhouette.api.LogoutEvent
-import com.mohiva.play.silhouette.api.Silhouette
+import play.api.libs.json.{Json, JsValue}
+import utils._
+import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
+import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+import play.api.i18n.{ Lang, MessagesApi, Messages }
+import play.api.mvc._
+import play.api.Play.current
+
+import scala.concurrent.Future
 
 /**
  * The basic application controller.
  *
  * @param env The Silhouette environment.
  */
-class ApplicationController @Inject() (implicit val env: Environment[User, JWTAuthenticator])
+class ApplicationController @Inject() (
+    val messagesApi: MessagesApi,
+    implicit val env: Environment[User, JWTAuthenticator],
+    socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, JWTAuthenticator] {
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
     var token = optToken.getOrElse("")
+    var userAgent: String = request.headers.get("User-Agent").getOrElse("")
     var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)
     var actorUUID: String = UUID.randomUUID.toString
     implicit val req = Request(requestWithToken, AnyContentAsEmpty)
@@ -43,7 +40,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) => 
-        Right(PLMActor.propsWithUser(actorUUID,  user) _)
+        Right(PLMActor.propsWithUser(userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
         var newUser: Boolean = false;
@@ -52,7 +49,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
+        Right(PLMActor.props(userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
     }
   }
   
@@ -79,7 +76,7 @@ class ApplicationController @Inject() (implicit val env: Environment[User, JWTAu
    * Manages the sign out action.
    */
   def signOut = SecuredAction.async { implicit request =>
-    env.eventBus.publish(LogoutEvent(request.identity, request, request2lang))
-    request.authenticator.discard(Future.successful(Ok))
+    env.eventBus.publish(LogoutEvent(request.identity, request, request2Messages))
+    env.authenticatorService.discard(request.authenticator, Ok)
   }
 }

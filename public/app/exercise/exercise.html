@@ -1,15 +1,16 @@
 <div style="margin-left: 5%; margin-right: 5%;">
   <div class="top-row" style="display: flex; justify-content: space-between;">
     <div ng-show="showInstructions" class="flex-block">
+      <world-non-implemented ng-if="exercise.nonImplementedWorldException"></world-non-implemented>
       <instructions></instructions>
       <worlds-view></worlds-view>
     </div>
     <div class="flex-block" style="margin-left: 2.5%;">
       <h4 class="left" translate>Code editor: </h4>
-      <button class="right small button radius info" ng-click="showAPI = !showAPI; showInstructions = !showInstructions">
-        <strong ng-show="!showAPI" translate>API</strong>
-        <strong ng-show="!showInstructions" translate>Instructions</strong>
-      </button>
+      <span class="right">
+        <reset-exercise></reset-exercise>
+        <toggle-api></toggle-api>
+      </span>
       <br>
       <br>
       <ide></ide>
@@ -19,10 +20,9 @@
     </div>
   </div>
   <hr class="mid-row">
-  <div class="bottom-row" style="display: flex; justify-content: space-between; align-items: baseline;">
+  <div class="bottom-row" style="display: flex; justify-content: space-between;">
     <div class="flex-block">
-      <h4 translate>Execution results: </h4>
-      <div class="with-newlines " ng-show="exercise.result !=='' ">{{exercise.result}}</div>
+      <execution-results></execution-results>
     </div>
     <div class="flex-block" style="margin-left: 2.5%; ">
       <h4 translate>Test cases: </h4>

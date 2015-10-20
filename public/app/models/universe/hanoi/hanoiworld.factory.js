@@ -1,77 +1,66 @@
-(function ()
-{
+(function () {
 	'use strict';
 
 	angular
 		.module('PLMApp')
-		.factory('HanoiWorld',HanoiWorld);
+		.factory('HanoiWorld', HanoiWorld);
 
-		HanoiWorld.$inject = [ 'HanoiMove'];
+  HanoiWorld.$inject = ['HanoiDisk', 'HanoiMove'];
 
-	function HanoiWorld(HanoiMove)
-	{
-		var HanoiWorld = function(world)
-		{
-			this.type = world.type;
-			this.width = world.width;
-			this.height = world.height;
+	function HanoiWorld(HanoiDisk, HanoiMove) {
+    
+		var HanoiWorld = function (world) {
+			var slot, hanoiDisk, i, j;
+      this.type = world.type;
 			this.operations = [];
 			this.currentState = -1;
-			console.log(world.slotVal);
 			this.moveCount = world.moveCount;
-			this.slotVal = [];
-			for(var i=0;i<world.slotVal.length;i++)
-			{
-				var stock = [];
-				for(var j=0;j<world.slotVal[i].length;j++)
-				{
-					stock.push(world.slotVal[i][j]);
+			this.slots = [];
+			for (i = 0; i < world.slots.length; i += 1) {
+				slot = [];
+				for (j = 0; j < world.slots[i].length; j += 1) {
+          hanoiDisk = new HanoiDisk(world.slots[i][j]);
+					slot.push(hanoiDisk);
 				}
-				this.slotVal.push(stock);
+				this.slots.push(slot);
 			}
 		};
 
-		HanoiWorld.prototype.clone = function()
-		{
+		HanoiWorld.prototype.clone = function () {
 			return new HanoiWorld(this);
 		};
 
-		HanoiWorld.prototype.addOperations = function (operations)
-		{
-			var step = [];
-			for(var i=0; i<operations.length;i++)
-			{
-				var generatedOperation = this.generatedOperation(operations[i]);
+		HanoiWorld.prototype.addOperations = function (operations) {
+			var i, generatedOperation, step;
+      step = [];
+			for (i = 0; i < operations.length; i += 1) {
+				generatedOperation = this.generatedOperation(operations[i]);
 				step.push(generatedOperation);
 			}
 			this.operations.push(step);
 		};
 
-		HanoiWorld.prototype.generatedOperation = function (operation)
-		{
-			switch(operation.type) {
-				case 'hanoiMove':
-					return new HanoiMove(operation);
+		HanoiWorld.prototype.generatedOperation = function (operation) {
+			switch (operation.type) {
+		  case 'hanoiMove':
+				return new HanoiMove(operation);
 			}
 		};
 
 		HanoiWorld.prototype.setState = function (state) {
-			var i;
-			var j;
-			var step;
-			if(state < this.operations.length && state >= -1) {
-				if(this.currentState < state) {
-					for(i=this.currentState+1; i<=state; i++) {
+			var i, j, step;
+			if (state < this.operations.length && state >= -1) {
+				if (this.currentState < state) {
+					for (i = this.currentState + 1; i <= state; i += 1) {
 						step = this.operations[i];
-						for(j=0; j<step.length; j++) {
+						for (j = 0; j < step.length; j += 1) {
 							step[j].apply(this);
 						}
 					}
-				}
-				else {
-					for(i=this.currentState; i>state; i--) {
-						step = this.operations[i];
-						for(j=0; j<step.length; j++) {
+				} else {
+					for (i = this.currentState; i > state; i -= 1) {
+            step = this.operations[i];
+						for (j = 0; j < step.length; j += 1) {
 							step[j].reverse(this);
 						}
 					}
@@ -80,11 +69,10 @@
 			}
 		};
 
-		HanoiWorld.prototype.getEntity = function(entityID)
-		{
+		HanoiWorld.prototype.getEntity = function (entityID) {
 			return this.entities[entityID];
 		};
 
 		return HanoiWorld;
 	}
-})();
+}());

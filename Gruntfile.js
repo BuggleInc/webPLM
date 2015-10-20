@@ -28,7 +28,9 @@ module.exports = function(grunt) {
             'public/javascripts/sinon-1.12.2.js',
             'public/javascripts/angular.js',
             'public/javascripts/angular-animate.js',
+            'public/javascripts/angular-bind-html-compile.js',
             'public/javascripts/angular-cookies.js',
+            'public/javascripts/angular-sanitize.js',
             'public/javascripts/angular-ui-router.js',
             'public/javascripts/angular-ui-codemirror/ui-codemirror.js',
             'public/javascripts/angular-locker.js',
@@ -49,8 +51,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', ['jasmine']);
-  grunt.registerTask('i18n-extract', ['nggettext_extract']);
-  grunt.registerTask('i18n-update', ['nggettext_compile']);
+  grunt.registerTask('gettext-extract', ['nggettext_extract']);
+  grunt.registerTask('gettext-update', ['nggettext_compile']);
 
   grunt.loadNpmTasks('grunt-angular-gettext');
   grunt.loadNpmTasks('grunt-contrib-jasmine');

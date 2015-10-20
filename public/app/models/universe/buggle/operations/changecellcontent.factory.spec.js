@@ -64,5 +64,21 @@
 			changeCellContent.reverse(currentWorld);
 			expect(cell.content).toEqual(oldContent);
 		});
+        
+        it('should not change cell.content when applied then reversed', function () {
+            cell.content = oldContent;
+            var current = cell.content;
+            changeCellContent.apply(currentWorld);
+            changeCellContent.reverse(currentWorld);
+            expect(cell.content).toEqual(current);
+        });
+        
+        it('should not change cell.content when reversed then applied', function () {
+            cell.content = newContent;
+            var current = cell.content;
+            changeCellContent.reverse(currentWorld);
+            changeCellContent.apply(currentWorld);
+            expect(cell.content).toEqual(current);
+        });
 	});
 })();

@@ -14,20 +14,24 @@ import plm.core.model.session.SourceFile
 import plm.core.model.tracking.ProgressSpyListener
 import plm.universe.World
 import scala.collection.mutable.ListBuffer
-import scala.collection.immutable.HashMap
 import play.api.libs.json._
+import play.api.Play
+import play.api.Play.current
 import play.api.Logger
 import play.api.i18n.Lang
 import log.PLMLogger
+import java.util.Map
 import java.util.Locale
+import java.util.Properties
 
-class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
+class PLM(properties: Properties, userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: Option[String], trackUser: Boolean) {
   
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
-  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), trackUser)
   
-  def lessons: Array[Lesson] = game.getLessons.toArray(Array[Lesson]())
+  var game = new Game(userUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), "toto", trackUser, properties)
+
+  def lessons: Map[String, Lesson] = game.getMapLessons
 
   def switchLesson(lessonID: String, executionSpy: ExecutionSpy, demoExecutionSpy: ExecutionSpy): Lecture = {
     var key = "lessons." + lessonID;
@@ -87,6 +91,13 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
   
+  def getAPI(): String = {
+    var api: String = ""
+    if(getInitialWorlds != null) {
+      api = getInitialWorlds.head.getAbout
+    }
+    return api
+  }
   
   def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {
     Logger.debug("Code:\n"+code)
@@ -148,5 +159,20 @@ class PLM(userUUID: String, plmLogger: PLMLogger, locale: Locale, lastProgLang: 
   
   def setTrackUser(trackUser: Boolean) {
     game.setTrackUser(trackUser)
+  }
+  
+  def signalCommonErrorFeedback(commonErrorID: Int, accuracy: Int, help: Int, comment: String) {
+    game.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
+  }
+   
+  def signalReadTip(tipID: String) {
+    game.signalReadTip(tipID)
+  }
+  
+  def quit(resultSpy: ExecutionResultListener, progLangSpy: ProgLangListener, humanLangSpy: HumanLangListener) {
+    game.removeGameStateListener(resultSpy)
+    game.removeProgLangListener(progLangSpy)
+    game.removeHumanLangListener(humanLangSpy)
+    game.quit
   }
 }

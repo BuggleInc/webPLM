@@ -1,6 +1,4 @@
 import com.typesafe.sbt.SbtScalariform._
-import play.PlayScala
-
 import scalariform.formatter.preferences._
 
 //********************************************************
@@ -9,7 +7,7 @@ import scalariform.formatter.preferences._
 
 name := "web-PLM"
 
-version := "1.0-SNAPSHOT"
+version := "1.0"
 
 scalaVersion := "2.11.4"
 
@@ -21,13 +19,17 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-library" % "2.11.4",
   "org.scala-lang" % "scala-compiler" % "2.11.4",
   "org.scala-lang" % "scala-reflect" % "2.11.4",
+  "org.mockito" % "mockito-core" % "1.8.5",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "org.scalatestplus" %% "play" % "1.2.0" % "test",
-  "com.mohiva" %% "play-silhouette" % "2.0",
+  "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
+  "net.ceedubs" %% "ficus" % "1.1.2",
+  "com.mohiva" %% "play-silhouette" % "3.0.4",
+  "com.mohiva" %% "play-silhouette-testkit" % "3.0.4" % "test",
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23",
   "codes.reactive" %% "scala-time-threeten" % "0.3.0-SNAPSHOT",
-  cache
+  "org.scalaj" %% "scalaj-http" % "1.1.5",
+  cache,
+  ws
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

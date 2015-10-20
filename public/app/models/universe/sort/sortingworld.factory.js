@@ -14,8 +14,6 @@
 		var SortingWorld = function(world)
 		{
 			this.type = world.type;
-			this.width = world.width;
-			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
 			this.readCount = world.readCount;
@@ -97,11 +95,6 @@
 				}
 				this.currentState = state;
 			}
-		};
-
-		SortingWorld.prototype.getEntity = function(entityID)
-		{
-			return this.entities[entityID];
 		};
 
 		return SortingWorld;

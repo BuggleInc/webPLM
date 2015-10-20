@@ -1,6 +1,6 @@
 package models.services
 
-import com.mohiva.play.silhouette.api.services.{ AuthInfo, IdentityService }
+import com.mohiva.play.silhouette.api.services.IdentityService
 import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
 import models.User
 import scala.concurrent.Future
@@ -12,21 +12,27 @@ import play.api.i18n.Lang
  */
 trait UserService extends IdentityService[User] {
 
+  var error: Boolean = false
+  
+  def setError(bool: Boolean) {
+    error = bool
+  }
+  
   /**
-   * Saves a user.
+   * Updates a user.
    *
    * @param user The user to save.
-   * @return The saved user.
+   * @return True if the user was successfully updated, false otherwise.
    */
-  def save(user: User): Future[User]
+  def update(user: User): Future[Boolean]
 
   /**
    * Saves the social profile for a user.
    *
-   * If a user exists for this profile then update the user, otherwise create a new user with the given profile.
+   * Create a new user with the given profile.
    *
    * @param profile The social profile to save.
    * @return The user for whom the profile was saved.
    */
-  def save[A <: AuthInfo](profile: CommonSocialProfile, gitID: UUID, trackUser: Option[Boolean], preferredLang: Option[Lang]): Future[User]
+  def save(profile: CommonSocialProfile, trackUser: Option[Boolean], preferredLang: Option[Lang]): Future[User]
 }
