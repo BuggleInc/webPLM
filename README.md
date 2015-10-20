@@ -14,9 +14,9 @@ Also a MongoDB instance have to be running if you want to use the user
 account features. [Check this page](http://docs.mongodb.org/manual/installation/) 
 if you need to install it.   
 
-You can run the application in production mode by running 
-```activator start ``` from the directory containing your clone of
-this repository.
+Once you cloned this repository, you can run the application in
+production mode by running ```activator start ``` from the root
+directory.
 
 If you prefer to run it in debug mode (where it reloads everything
 automatically when files change), use ```activator ~run``` instead.
