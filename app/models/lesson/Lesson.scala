@@ -10,17 +10,19 @@ import play.api.i18n.Lang
 object Lesson {
   implicit val lessonReads: Reads[Lesson] = (
     (JsPath \ "id").read[String] and
-    (JsPath \ "name").read[String] and
+    (JsPath \ "name").readNullable[String] and
     (JsPath \ "lectures").read[Array[Lecture]] and
-    (JsPath \ "descriptions").readNullable[Map[String, String]]
+    (JsPath \ "optDescriptions").readNullable[Map[String, String]]
   )(Lesson.apply _)
   
 }
 
-case class Lesson(id: String, name: String, lectures: Array[Lecture], var descriptions: Option[Map[String, String]]) {
+case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], var optDescriptions: Option[Map[String, String]]) {
   def toJson(lang: Lang): JsObject = {
     val imgPath: String = "lessons/" + id + "/icon.png"
-    val description: Option[String] = (descriptions.get).get(lang.code)
+    val descriptions: Map[String, String] = optDescriptions.get
+    val defaultDescription: String = descriptions.get("en").get
+    val description: String = descriptions.getOrElse(lang.code, defaultDescription)
     
     Json.obj(
       "id" -> id,

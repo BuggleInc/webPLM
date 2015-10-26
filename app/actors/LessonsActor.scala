@@ -6,6 +6,7 @@ import models.lesson.{ Exercise, Lesson}
 import scala.io.Source
 import play.api.libs.json.{ JsObject, Json, JsValue }
 import utils.LangUtils
+import java.io.File
 
 
 /**
@@ -20,10 +21,10 @@ object LessonsActor {
   case class GetExercise(lessonName: String, exerciseName: String)
 
   val lessonsName: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
-    "welcome"//, "maze", "turmites", "turtleart",
-    //"sort/basic", "sort/dutchflag", "sort/baseball", "sort/pancake", 
-    //"recursion/cons", "recursion/logo", "recursion/hanoi",
-    //"bat/string1"
+    "welcome", "maze", "turmites", "turtleart",
+    "sort/basic", "sort/dutchflag", "sort/baseball", "sort/pancake", 
+    "recursion/cons", "recursion/logo", "recursion/hanoi",
+    "bat/string1"
   )
 
   var lessons: Map[String, Lesson] = Map()
@@ -38,10 +39,12 @@ object LessonsActor {
       var descriptions: Map[String, String] = Map()
       LangUtils.getAvailableLangs().foreach { lang =>
         val path: String = getDescriptionPath(lessonName, lang.code)
-        val description: String = Source.fromFile(path).mkString
-        descriptions = descriptions ++ Map(lang.code -> description)
+        if(new File(path).exists) {
+          val description: String = Source.fromFile(path).mkString
+          descriptions = descriptions ++ Map(lang.code -> description)
+        }
       }
-      lesson.descriptions = Some(descriptions)
+      lesson.optDescriptions = Some(descriptions)
       lessons += (lessonName -> lesson)
       orderedLessons = orderedLessons :+ lesson
     }

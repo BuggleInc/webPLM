@@ -21,3 +21,6 @@ POST    /authenticate/:provider                             @controllers.SocialA
 
 # Websocket
 GET     /websocket                                          @controllers.ApplicationController.socket(token: Option[String])
+
+# JSON generators
+GET		/generators/lessonsToJSON							@controllers.JSONGeneratorController.lessonsToJSONFiles
