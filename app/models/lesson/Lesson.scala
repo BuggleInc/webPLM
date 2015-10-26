@@ -2,30 +2,31 @@ package models.lesson
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.i18n.Lang
 /**
  * @author matthieu
  */
 
 object Lesson {
-  implicit val lessonWrites: Writes[Lesson] = (
-    (JsPath \ "id").write[String] and
-    (JsPath \ "name").write[String] and
-    (JsPath \ "description").write[String] and
-    (JsPath \ "about").write[String] and
-    (JsPath \ "imgUrl").write[String] and
-    (JsPath \ "exercises").write[Array[Exercise]]
-  )(unlift(Lesson.unapply))
-  
   implicit val lessonReads: Reads[Lesson] = (
     (JsPath \ "id").read[String] and
     (JsPath \ "name").read[String] and
-    (JsPath \ "description").read[String] and
-    (JsPath \ "about").read[String] and
-    (JsPath \ "imgUrl").read[String] and
-    (JsPath \ "exercises").read[Array[Exercise]]
+    (JsPath \ "lectures").read[Array[Lecture]] and
+    (JsPath \ "descriptions").readNullable[Map[String, String]]
   )(Lesson.apply _)
   
-  implicit val lessonFormat: Format[Lesson] = Format(lessonReads, lessonWrites)
 }
 
-case class Lesson(id: String, name: String, description: String, about: String, imgPath: String, exercises: Array[Exercise]) {}
+case class Lesson(id: String, name: String, lectures: Array[Lecture], var descriptions: Option[Map[String, String]]) {
+  def toJson(lang: Lang): JsObject = {
+    val imgPath: String = "lessons/" + id + "/icon.png"
+    val description: Option[String] = (descriptions.get).get(lang.code)
+    
+    Json.obj(
+      "id" -> id,
+      "name" -> name,
+      "imgUrl" -> imgPath,
+      "description" -> description
+    )
+  }
+}

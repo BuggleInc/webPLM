@@ -25,6 +25,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
 import models.lesson.Lesson
+import play.api.libs.functional.syntax._
 
 object PLMActor {
   def props(executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -108,12 +109,26 @@ class PLMActor (
           plm.setTrackUser(currentTrackUser)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-            import models.lesson.Lesson.lessonWrites
-
-            Logger.error("Get answer from lessonsActor")
+            var jsonLessons: JsArray = Json.arr()
+            lessons.foreach { lesson: Lesson =>
+              jsonLessons = jsonLessons.append(lesson.toJson(currentPreferredLang))
+            }
             sendMessage("lessons", Json.obj(
-              "lessons" -> lessons
+              "lessons" -> jsonLessons
             ))
+          }
+        case "getExercisesList" =>
+          var optLessonName: Option[String] = (msg \ "args" \ "lessonName").asOpt[String]
+          (optLessonName.getOrElse(None)) match {
+            case lessonName: String =>
+              (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[models.lesson.Lecture]].map { lectures =>
+                import models.lesson.Lecture
+                sendMessage("lectures", Json.obj(
+                  "lectures" -> lectures
+                ))
+              }
+            case _ =>
+              Logger.debug("getExercisesList: non-correct JSON")
           }
         case "setProgrammingLanguage" =>
           var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]

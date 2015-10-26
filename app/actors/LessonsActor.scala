@@ -5,6 +5,7 @@ import play.api.Logger
 import models.lesson.{ Exercise, Lesson}
 import scala.io.Source
 import play.api.libs.json.{ JsObject, Json, JsValue }
+import utils.LangUtils
 
 
 /**
@@ -18,7 +19,7 @@ object LessonsActor {
   case class GetExercisesList(lessonName: String)
   case class GetExercise(lessonName: String, exerciseName: String)
 
-  val lessonsName: Array[String] =  Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
+  val lessonsName: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
     "welcome"//, "maze", "turmites", "turtleart",
     //"sort/basic", "sort/dutchflag", "sort/baseball", "sort/pancake", 
     //"recursion/cons", "recursion/logo", "recursion/hanoi",
@@ -32,18 +33,38 @@ object LessonsActor {
 
   def initLessons() {
     lessonsName.foreach { lessonName =>
-      val lesson: Lesson = loadLesson(lessonName)
+      var lesson: Lesson = loadLesson(lessonName)
+      
+      var descriptions: Map[String, String] = Map()
+      LangUtils.getAvailableLangs().foreach { lang =>
+        val path: String = getDescriptionPath(lessonName, lang.code)
+        val description: String = Source.fromFile(path).mkString
+        descriptions = descriptions ++ Map(lang.code -> description)
+      }
+      lesson.descriptions = Some(descriptions)
       lessons += (lessonName -> lesson)
       orderedLessons = orderedLessons :+ lesson
     }
   }
 
   def loadLesson(lessonName: String): Lesson = {
-    val path: String = "lessons/" + lessonName + "/main.json"
+    val path: String = getLessonPath(lessonName, "main.json")
     val lines: String = Source.fromFile(path).mkString
     val json: JsValue = Json.parse(lines)
 
     json.as[Lesson]
+  }
+  
+  def getLessonPath(lessonName: String, filePath: String): String = {
+    return "lessons/" + lessonName + "/" + filePath
+  }
+  
+  def getDescriptionPath(lessonName: String, langCode: String): String = {
+    var path =  getLessonPath(lessonName, "short_desc")
+    if(langCode != "en") {
+      path += "." + langCode
+    }
+    return path + ".html"
   }
 }
 
@@ -52,10 +73,9 @@ class LessonsActor extends Actor {
 
   def receive =  {
     case GetLessonsList =>
-      Logger.error("Exercise: " + LessonsActor.orderedLessons(0).exercises(0).name)
       sender ! LessonsActor.orderedLessons
     case GetExercisesList(lessonName) =>
-      sender ! getLesson(lessonName).get.exercises
+      sender ! getLesson(lessonName).get.lectures
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }

@@ -10,6 +10,10 @@ object LangUtils {
     Lang.availables.exists { lang => lang.code == code }
   }
   
+  def getAvailableLangs(): Seq[Lang] = {
+    Lang.availables
+  }
+  
   def getPreferredLang(request: RequestHeader): Lang = {
     var preferredLang: Lang = Lang.preferred(request.acceptLanguages)
     var cookieLangCode: String = CookieUtils.getCookieValue(request, "lang")
