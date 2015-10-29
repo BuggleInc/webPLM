@@ -6,7 +6,7 @@ import actors.PLMActor
 import play.api.libs.json._
 import play.api.Logger
 
-class PLMLogger(plmActor: PLMActor) extends LogHandler {
+class PLMLogger extends LogHandler {
   
   val INFO = LogHandler.INFO
   val DEBUG = LogHandler.DEBUG
@@ -22,11 +22,5 @@ class PLMLogger(plmActor: PLMActor) extends LogHandler {
         Logger.error(message)
         
     }
-  }
-  override def send(logType: Int, msg: String) {
-    var mapArgs = Json.obj(
-      "msg" -> msg
-    )
-    plmActor.sendMessage("log", mapArgs)
   }
 }

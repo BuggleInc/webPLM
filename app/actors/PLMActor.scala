@@ -55,7 +55,8 @@ class PLMActor (
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
   var availableLangs: Seq[Lang] = Lang.availables
-  var plmLogger: PLMLogger = new PLMLogger(this)
+
+  var plmLogger: PLMLogger = new PLMLogger
 
   var progLangSpy: ProgLangListener  = null
   var humanLangSpy: HumanLangListener = null

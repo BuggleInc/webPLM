@@ -17,7 +17,7 @@ import play.api.Logger
 class JSONGeneratorController extends Controller {
   
   def lessonsToJSONFiles() = Action { implicit request =>
-    val game: Game = new Game("dummy", new PLMLogger(null), Locale.getDefault, "java", false)
+    val game: Game = new Game("dummy", new PLMLogger, Locale.getDefault, "java", false)
     val lessons: Map[String, Lesson] = game.getMapLessons
     
     Game.lessonsName.foreach { lessonName =>
