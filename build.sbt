@@ -60,6 +60,8 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
+unmanagedSourceDirectories in Compile += baseDirectory.value / "exercises"
+
 assemblySettings
 
 mainClass in assembly := Some("play.core.server.ProdServerStart")
