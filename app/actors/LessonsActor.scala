@@ -74,14 +74,16 @@ object LessonsActor {
 class LessonsActor extends Actor {
   import LessonsActor._
 
+  var exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
+  
   def receive =  {
     case GetLessonsList =>
-      sender ! LessonsActor.orderedLessons
+      sender ! orderedLessons
     case GetExercisesList(lessonName) =>
-      sender ! getLesson(lessonName).get.lectures
+      sender ! getLesson(lessonName).lectures
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
 
-  def getLesson(lessonName: String): Option[Lesson] = LessonsActor.lessons.get(lessonName)
+  def getLesson(lessonName: String): Lesson = lessons.get(lessonName).get
 }
