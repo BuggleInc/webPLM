@@ -10,7 +10,7 @@ import plm.universe.bugglequest.SimpleBuggle;
 public class Environment extends ExerciseTemplated {
 	
 	public Environment() {
-		super("environment.Environment", "Environment");
+		super("Environment", "Environment");
 		tabName = "SourceCode";
 		
 		BuggleWorld myWorld = new BuggleWorld(null, "Training Camp",7,7);
