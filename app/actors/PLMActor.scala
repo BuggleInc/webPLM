@@ -53,8 +53,8 @@ class PLMActor (
 
   implicit val timeout = Timeout(5 seconds)
 
-  var lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
-  var exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
+  val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
+  val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
 
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
@@ -174,9 +174,7 @@ class PLMActor (
           }
           */
           (exercisesActor ? GetExercise("Environment")).mapTo[Exercise].map { exercise =>
-            Logger.error("On a eu la réponse !")
             var json: JsObject = ExerciseToJson.exerciseWrites(exercise, Game.JAVA, "", currentPreferredLang.toLocale)
-            Logger.error("On envoie l'exercice!")
             sendMessage("exercise", Json.obj(
               "exercise" -> json
             ))

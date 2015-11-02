@@ -26,15 +26,14 @@ object LessonsActor {
     "bat/string1"
   )
 
-  var lessons: Map[String, Lesson] = Map()
-  var orderedLessons: Array[Lesson] = Array[Lesson]()
-  
-  initLessons
+  val lessons: Map[String, Lesson] = initLessons
+  val orderedLessons: Array[Lesson] = sortLessons
 
-  def initLessons() {
+  def initLessons(): Map[String, Lesson] = {
+    var lessons: Map[String, Lesson] = Map()
     lessonsName.foreach { lessonName =>
       var lesson: Lesson = loadLesson(lessonName)
-      
+
       var descriptions: Map[String, String] = Map()
       LangUtils.getAvailableLangs().foreach { lang =>
         val path: String = getDescriptionPath(lessonName, lang.code)
@@ -45,8 +44,16 @@ object LessonsActor {
       }
       lesson.optDescriptions = Some(descriptions)
       lessons += (lessonName -> lesson)
-      orderedLessons = orderedLessons :+ lesson
     }
+    lessons
+  }
+
+  def sortLessons(): Array[Lesson] = {
+    var orderedLessons: Array[Lesson] = Array[Lesson]()
+    lessonsName.foreach { lessonName =>
+      orderedLessons = orderedLessons :+ lessons.get(lessonName).get
+    }
+    orderedLessons
   }
 
   def loadLesson(lessonName: String): Lesson = {
@@ -56,11 +63,11 @@ object LessonsActor {
 
     json.as[Lesson]
   }
-  
+
   def getLessonPath(lessonName: String, filePath: String): String = {
     return "lessons/" + lessonName + "/" + filePath
   }
-  
+
   def getDescriptionPath(lessonName: String, langCode: String): String = {
     var path =  getLessonPath(lessonName, "short_desc")
     if(langCode != "en") {
@@ -72,7 +79,7 @@ object LessonsActor {
 
 class LessonsActor extends Actor {
   import LessonsActor._
-  
+
   def receive =  {
     case GetLessonsList =>
       sender ! orderedLessons

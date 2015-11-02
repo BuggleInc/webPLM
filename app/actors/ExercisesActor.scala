@@ -32,22 +32,24 @@ object ExercisesActor {
   val logger: PLMLogger = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
 
-  
-  var humanLanguages: Array[Locale] = Array()
-  LangUtils.getAvailableLangs().map { lang => 
-    humanLanguages = humanLanguages :+ (lang.toLocale)
-  }
-  
+  val humanLanguages: Array[Locale] = initHumanLanguages
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, i18n)
   val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, Game.programmingLanguages, humanLanguages)
+  val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseName: String)
 
-  var exercises: Map[String, Exercise] = Map()
+  def initHumanLanguages(): Array[Locale] = {
+    var humanLanguages: Array[Locale] = Array()
+    LangUtils.getAvailableLangs().map { lang => 
+      humanLanguages = humanLanguages :+ (lang.toLocale)
+    }
+    humanLanguages
+  }
 
-  initExercises
+  def initExercises(): Map[String, Exercise] = {
+    var exercises: Map[String, Exercise] = Map()
 
-  def initExercises() {
     var exercise: Exercise = Class.forName("environment.Environment").getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
     exercisesFactory.initializeExercise(exercise, Game.JAVA.asInstanceOf[LangJava])
     Logger.error("exercise: "+ exercise.getWorlds(WorldKind.ANSWER).get(0).getName)
@@ -56,6 +58,8 @@ object ExercisesActor {
     
     exerciseRunner.run(exercise, Game.JAVA.asInstanceOf[LangJava], "recule();")
     Logger.error("exercise: "+ WorldToJson.worldWrite(exercise.getWorlds(WorldKind.CURRENT).get(0)))
+    
+    exercises
   }
 }
 
