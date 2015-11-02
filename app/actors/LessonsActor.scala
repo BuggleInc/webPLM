@@ -18,7 +18,6 @@ object LessonsActor {
 
   case class GetLessonsList()
   case class GetExercisesList(lessonName: String)
-  case class GetExercise(lessonName: String, exerciseName: String)
 
   val lessonsName: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
     "welcome", "maze", "turmites", "turtleart",
@@ -73,8 +72,6 @@ object LessonsActor {
 
 class LessonsActor extends Actor {
   import LessonsActor._
-
-  var exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
   
   def receive =  {
     case GetLessonsList =>

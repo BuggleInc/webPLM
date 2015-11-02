@@ -2,27 +2,42 @@ package json
 
 import play.api.libs.json._
 import plm.core.model.lesson.Lecture
+import plm.core.model.lesson.Exercise
+import plm.core.lang.ProgrammingLanguage
+import plm.universe.World
+import exceptions.NonImplementedWorldException
+import plm.core.model.lesson.Exercise.WorldKind
+import json.world.WorldToJson
+import java.util.Locale
 
 object ExerciseToJson {
 
-  def exercisesWrite(lectures: Array[Lecture]): JsValue = {
-    var array = Json.arr()
-    lectures.foreach { root => 
-      array = array ++ exerciseWrite(root, "null")
+  def exerciseWrites(exercise: Exercise, progLang: ProgrammingLanguage, code: String, currentLocale: Locale): JsObject = {
+    var progLangArray = exercise.getProgLanguages.toArray(Array[ProgrammingLanguage]())
+
+    var json: JsObject = Json.obj(
+      "id" -> exercise.getId,
+      "instructions" -> exercise.getMission(currentLocale.getLanguage, progLang),
+      "code" -> "",
+      "selectedWorldID" -> "Training Camp",
+      "api" -> "",
+      "programmingLanguages" -> ProgrammingLanguageToJson.programmingLanguagesWrite(progLangArray),
+      "currentProgrammingLanguage" -> progLang.getLang,
+      "toolbox" -> ""
+    )
+
+    try {
+      json = json ++ Json.obj(
+          "initialWorlds" -> WorldToJson.worldsWrite(exercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()))
+      )
     }
-    return array
-  }
-  
-  def exerciseWrite(lecture: Lecture , parentID: String): JsArray = {
-    var array = Json.arr(Json.obj(
-      "id" -> lecture.getId,
-      "name" -> lecture.getName,
-      "parent" -> parentID
-    ))
-    lecture.getDependingLectures.toArray(Array[Lecture]()).foreach { lectBis =>
-       array = array ++ exerciseWrite(lectBis, lecture.getName)
+    catch {
+      case e: NonImplementedWorldException =>
+        json = json ++ Json.obj(
+          "exception" -> "nonImplementedWorldException"
+        )
     }
-    return array
+
+    return json
   }
-  
 }

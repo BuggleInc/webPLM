@@ -41,7 +41,7 @@
         updateExercisesList(args.exercises);
         break;
       case 'newHumanLang':
-        connection.sendMessage('getExercises', {});
+        connection.sendMessage('getExercisesList', { lessonName: currentLessonID });
         break;
       }
     }
@@ -70,7 +70,7 @@
     function setCurrentLessonID(lessonID) {
       if (lessonID !== currentLessonID) {
         currentLessonID = lessonID;
-        connection.sendMessage('getExercises', {});
+        connection.sendMessage('getExercisesList', { lessonName: currentLessonID });
       } else {
         $rootScope.$broadcast('exercisesListReady');
       }

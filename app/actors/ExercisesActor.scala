@@ -17,6 +17,7 @@ import org.xnap.commons.i18n.I18nFactory
 import java.util.Locale
 import json.world.WorldToJson
 import plm.core.lang.LangJava
+import utils.LangUtils
 
 /**
  * @author matthieu
@@ -31,8 +32,14 @@ object ExercisesActor {
   val logger: PLMLogger = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
 
+  
+  var humanLanguages: Array[Locale] = Array()
+  LangUtils.getAvailableLangs().map { lang => 
+    humanLanguages = humanLanguages :+ (lang.toLocale)
+  }
+  
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, i18n)
-  val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, Game.programmingLanguages)
+  val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, Game.programmingLanguages, humanLanguages)
 
   case class GetExercise(exerciseName: String)
 
@@ -57,7 +64,7 @@ class ExercisesActor extends Actor {
 
   def receive =  {
     case GetExercise(exerciseName) =>
-      sender ! exercises.get("Environment")
+      sender ! exercises.get("Environment").get
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
