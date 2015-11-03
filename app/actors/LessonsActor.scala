@@ -2,7 +2,7 @@ package actors
 
 import akka.actor._
 import play.api.Logger
-import models.lesson.{ Exercise, Lesson}
+import models.lesson.Lesson
 import scala.io.Source
 import play.api.libs.json.{ JsObject, Json, JsValue }
 import utils.LangUtils
@@ -15,6 +15,8 @@ import java.io.File
 
 object LessonsActor {
   def props = Props[LessonsActor]
+
+  val rootDirectory: String = "lessons"
 
   case class GetLessonsList()
   case class GetExercisesList(lessonName: String)
@@ -65,7 +67,7 @@ object LessonsActor {
   }
 
   def getLessonPath(lessonName: String, filePath: String): String = {
-    return "lessons/" + lessonName + "/" + filePath
+    return List(rootDirectory, lessonName, filePath).mkString("/")
   }
 
   def getDescriptionPath(lessonName: String, langCode: String): String = {
