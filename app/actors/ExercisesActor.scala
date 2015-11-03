@@ -56,7 +56,10 @@ object ExercisesActor {
     Logger.error("exercise: "+ WorldToJson.worldWrite(exercise.getWorlds(WorldKind.ANSWER).get(0)))
     exercises += ("Environment" -> exercise)
     
-    exerciseRunner.run(exercise, Game.JAVA.asInstanceOf[LangJava], "recule();")
+
+    var clone: Exercise = exercisesFactory.cloneExercise(exercise)
+
+    exerciseRunner.run(clone, Game.JAVA.asInstanceOf[LangJava], "recule();")
     Logger.error("exercise: "+ WorldToJson.worldWrite(exercise.getWorlds(WorldKind.CURRENT).get(0)))
     
     exercises
@@ -68,8 +71,13 @@ class ExercisesActor extends Actor {
 
   def receive =  {
     case GetExercise(exerciseName) =>
-      sender ! exercises.get("Environment").get
+      sender ! getExercise(exerciseName)
     case _ =>
       Logger.error("LessonsActor: not supported message")
+  }
+  
+  def getExercise(exerciseName: String): Exercise = {
+    var exercise: Exercise = exercises.get("Environment").get
+    exercisesFactory.cloneExercise(exercise)
   }
 }
