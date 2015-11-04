@@ -118,10 +118,7 @@ class PLMActor (
           plm.setTrackUser(currentTrackUser)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-            var jsonLessons: JsArray = Json.arr()
-            lessons.foreach { lesson: Lesson =>
-              jsonLessons = jsonLessons.append(lesson.toJson(currentPreferredLang))
-            }
+            val jsonLessons: JsArray = Lesson.arrayToJSON(lessons, currentPreferredLang)
             sendMessage("lessons", Json.obj(
               "lessons" -> jsonLessons
             ))

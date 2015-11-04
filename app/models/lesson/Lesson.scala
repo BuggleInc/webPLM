@@ -15,6 +15,14 @@ object Lesson {
     (JsPath \ "optDescriptions").readNullable[Map[String, String]]
   )(Lesson.apply _)
   
+  def arrayToJSON(lessons: Array[Lesson], humanLang: Lang): JsArray = {
+    var jsonLessons: JsArray = Json.arr()
+    lessons.foreach { lesson: Lesson =>
+      jsonLessons = jsonLessons.append(lesson.toJson(humanLang))
+    }
+    jsonLessons
+  }
+  
 }
 
 case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], var optDescriptions: Option[Map[String, String]]) {
