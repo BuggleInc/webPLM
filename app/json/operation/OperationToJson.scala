@@ -50,8 +50,7 @@ object OperationToJson {
         )
     }
     json = json.as[JsObject] ++ Json.obj(
-      "type" -> operation.getName,
-      "msg" -> operation.getMsg
+      "type" -> operation.getName
     )
     return json
   }
