@@ -29,6 +29,9 @@ import ExecutionActor._
 import models.lesson.Lesson
 import play.api.libs.functional.syntax._
 import plm.core.model.Game
+import plm.core.model.lesson.ExecutionProgress
+import java.util.Locale
+import org.xnap.commons.i18n.{ I18n, I18nFactory }
 
 object PLMActor {
   def props(executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -57,6 +60,8 @@ class PLMActor (
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
   val executionActor: ActorRef = context.actorOf(ExecutionActor.props)
+
+  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
 
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
@@ -200,7 +205,21 @@ class PLMActor (
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           optCode.getOrElse(None) match {
             case code: String =>
-              executionActor ! StartExecution(out, currentExercise, code)
+              (executionActor ? StartExecution(out, currentExercise, code)).mapTo[ExecutionProgress].map { executionResult =>
+                val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
+                val commonErrorID: Int = executionResult.commonErrorID
+                val commonErrorText: String = executionResult.commonErrorText
+                val msg: String = executionResult.getMsg(i18n)
+
+                val mapArgs: JsValue = Json.obj(
+                  "msgType" -> msgType,
+                  "msg" -> msg,
+                  "commonErrorID" -> commonErrorID,
+                  "commonErrorText" -> commonErrorText
+                )
+
+                sendMessage("executionResult", mapArgs)
+              }
             case _ =>
               Logger.debug("runExercise: non-correctJSON")
           }

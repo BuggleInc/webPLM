@@ -17,6 +17,7 @@ import plm.universe.World
 import plm.core.GameStateListener
 import plm.core.model.Game.GameState
 import play.api.libs.json.Json
+import plm.core.model.lesson.ExecutionProgress
 
 /**
  * @author matthieu
@@ -41,12 +42,13 @@ class ExecutionActor extends Actor {
   def receive =  {
     case StartExecution(out, exercise, code) =>
       addOperationSpies(out, exercise)
-      exerciseRunner.run(exercise, Game.JAVA.asInstanceOf[LangJava], code)
+      val executionResult: ExecutionProgress = exerciseRunner.run(exercise, Game.JAVA.asInstanceOf[LangJava], code)
       registeredSpies.foreach { spy => 
         spy.sendOperations
         spy.unregister
       }
       registeredSpies = Array()
+      sender ! executionResult
     case StopExecution() =>
       // TODO: Implement me
     case _ =>
