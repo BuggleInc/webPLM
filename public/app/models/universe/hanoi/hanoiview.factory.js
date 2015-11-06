@@ -51,8 +51,8 @@
 
 		function drawColumn(nbColumns) {
       var height, border, x, y, i;
-			
-      height = 200;
+
+      height = 300;
 			border = 65;
 			y = (canvasHeight - height) / 2;
 
@@ -67,13 +67,13 @@
 
 		function drawDisks(slots) {
       var x, y, width, height, coef, borderHeight, borderWidth, space, i, j, disk;
-      
+
 			height = 18;
       coef = 15;
-      borderHeight = 200;
+      borderHeight = 300;
       borderWidth = 65;
-      space = (borderHeight - (height * 8)) / 9;
-			
+      space = (borderHeight - (height * 15)) / 9;
+
 			for (i = 0; i < slots.length; i += 1) {
 				for (j = 0; j < slots[i].length; j += 1) {
           disk = slots[i][j];
@@ -88,7 +88,7 @@
 				}
 			}
 		}
-    
+
     function getColorToRGBA(color) {
       return 'rgba(' + color.join(',') + ')';
     }
