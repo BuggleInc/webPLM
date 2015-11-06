@@ -35,7 +35,7 @@ import play.api.Play.current
 
 object PLMActor {
   def props(executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = props(executionManager, userAgent, actorUUID, user.gitID, false, user.preferredLang, user.lastProgLang, user.trackUser)(out)
+  def propsWithUser(executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(executionManager, userAgent, actorUUID, user, out))
 }
 
 class PLMActor (
@@ -49,6 +49,11 @@ class PLMActor (
     trackUser: Option[Boolean], 
     out: ActorRef)
   extends Actor {
+  
+  def this(executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
+    this(executionManager, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+    setCurrentUser(user)
+  }
   
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
   
