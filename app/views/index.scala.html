@@ -1,4 +1,4 @@
-@(githubClientID: String)
+@(githubClientID: String, plmAccountsClientID: String)
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -101,7 +101,7 @@
 <script type="text/javascript" src="/assets/javascripts/foundation/foundation.tooltip.js"></script>
 <script>
   var githubClientID = "@githubClientID";
-  console.log('githubClientID: ', githubClientID);
+  var plmAccountsClientID = "@plmAccountsClientID";
   $(document).foundation();
 </script>
 

@@ -42,10 +42,10 @@
     $authProvider.tokenName = 'token';
     $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
     $authProvider.authHeader = 'X-Auth-Token';
-    
+
     // PLMAccounts
     $authProvider.plmAccounts({
-      clientId: 'I8mYYmI9NRC5guz8aoXe',
+      clientId: plmAccountsClientID,
       url: '/authenticate/plmAccounts',
       authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr:9000/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,

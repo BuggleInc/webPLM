@@ -94,12 +94,14 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   def provideSocialProviderRegistry(
     facebookProvider: FacebookProvider,
     githubProvider: GitHubProvider,
-    googleProvider: GoogleProvider): SocialProviderRegistry = {
+    googleProvider: GoogleProvider,
+    plmAccountsProvider: PLMAccountsProvider): SocialProviderRegistry = {
 
     SocialProviderRegistry(Seq(
       googleProvider,
       githubProvider,
-      facebookProvider
+      facebookProvider,
+      plmAccountsProvider
     ))
   }
   
