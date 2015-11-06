@@ -1,5 +1,7 @@
 package controllers
 
+import com.google.inject.Inject
+
 import actors._
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
@@ -17,23 +19,24 @@ import play.api.mvc._
 import java.util.UUID
 import utils.CookieUtils
 
-object Application extends Controller {
+class Application @Inject() (configuration: Configuration) extends Controller {
   val system = ActorSystem("application")
-
+  val githubClientID: String = configuration.getString("silhouette.github.clientID").get
+  val plmAccountsClientID: String = configuration.getString("silhouette.plmaccounts.clientID").get
   def index = Action { implicit request =>
-    Ok(views.html.index("Accueil"))
+    Ok(views.html.index(githubClientID, plmAccountsClientID))
   }
 
   def indexLessons = Action { implicit request =>
-    Ok(views.html.index("Accueil"))
+    Ok(views.html.index(githubClientID, plmAccountsClientID))
   }
   
   def lesson(lessonID: String) = Action { implicit request =>
-    Ok(views.html.index("Accueil"))
+    Ok(views.html.index(githubClientID, plmAccountsClientID))
   }
   
   def exercise(lessonID: String, exerciseID: String) = Action { implicit request =>
-    Ok(views.html.index("Accueil"))
+    Ok(views.html.index(githubClientID, plmAccountsClientID))
   }
 
   def specRunner() = Action { implicit request =>

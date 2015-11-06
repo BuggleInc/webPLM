@@ -160,7 +160,7 @@
 
     function getExercise() {
       var args = {
-        lessonID: exercise.lessonID,
+        lessonID: exercise.lessonID
       };
       if (exercise.id !== '') {
         args.exerciseID = exercise.id;
@@ -187,20 +187,14 @@
         exercise.isRunning = false;
         break;
       case 'operations':
-        var item;
-        var i;
-        for(i=0; i < args.acc.length; i++) {
-          item = args.acc[i];
-          handleOperations(item.worldID, 'current', item.operations);
-        }
-        break;
-      case 'demoOperations':
-        var item;
-        var i;
-        for(i=0; i < args.acc.length; i++) {
-          item = args.acc[i];
-          handleOperations(item.worldID, 'answer', item.operations);
-        }
+        var buffer = getOperationsBuffer(args.buffer);
+        buffer.forEach(function (item) {
+          if (item.worldID) {
+            handleOperations(item.worldID, 'current', item.operations);
+          } else if (item.type) {
+            handleOut(item.msg);
+          }
+        });
         break;
       case 'log':
         exercise.logs += args.msg;
@@ -499,13 +493,13 @@
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       if (!exercise.playedDemo) {
-        var args = {
-          lessonID: exercise.lessonID,
-          exerciseID: exercise.id,
-        };
-        connection.sendMessage('runDemo', args);
-        exercise.playedDemo = true;
-        exercise.isRunning = true;
+        $http.get("assets/json/demos/" + exercise.id + ".json").success(function(data){
+          console.log('data: ', data);
+          data.forEach(function(args) {
+            handleOperations(args.worldID, 'answer', args.operations);
+          });
+          exercise.playedDemo = true;
+        });
       } else {
         // We don't need to query the server again
         // Just to replay the animation
@@ -515,7 +509,8 @@
 
     function runCode(worldID) {
       var args;
-
+      exercise.result = '';
+      exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       exercise.worldIDs.map(function (key) {
@@ -558,7 +553,7 @@
       var msgType = data.msgType;
       var msg = data.msg;
       console.log(msgType, ' - ', msg);
-      exercise.result = msg;
+      exercise.result += msg;
       if (msgType === 1) {
         $('#successModal').foundation('reveal', 'open');
       }
@@ -610,6 +605,10 @@
         startUpdateViewLoop();
       }
     }
+
+	function handleOut(msg) {
+      exercise.result += msg;
+	}
 
     function startUpdateModelLoop() {
       exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
@@ -839,8 +838,14 @@
       updateInstructions(instructions, api);
     }
   }
-  
   function readTip(tipID) {
     this.connection.sendMessage('readTip', { tipID: tipID+'' });
+  }
+  
+  function getOperationsBuffer(buffer) {
+    if (buffer.constructor !== Array) {
+      return JSON.parse(buffer);
+    }
+    return buffer;
   }
 })();

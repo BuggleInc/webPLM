@@ -25,7 +25,6 @@ module.exports = function(grunt) {
         ],
         options: {
           vendor: [
-            'public/javascripts/sinon-1.12.2.js',
             'public/javascripts/angular.js',
             'public/javascripts/angular-animate.js',
             'public/javascripts/angular-bind-html-compile.js',
@@ -36,7 +35,9 @@ module.exports = function(grunt) {
             'public/javascripts/angular-locker.js',
             'public/javascripts/angular-mocks.js',
             'public/javascripts/angular-gettext/dist/angular-gettext.js',
+            'public/javascripts/global.js',
             'public/javascripts/satellizer.js',
+            'public/javascripts/sinon-1.12.2.js',
             'public/javascripts/toaster.js'
           ],
           helpers: 'public/javascripts/jasmine/spec/SpecHelper.js'

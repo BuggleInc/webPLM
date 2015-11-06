@@ -1,7 +1,6 @@
 package controllers
 
 import com.google.inject.Inject
-
 import java.util.UUID
 import actors.ActorsMap
 import actors.PLMActor
@@ -16,8 +15,8 @@ import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import play.api.i18n.{ Lang, MessagesApi, Messages }
 import play.api.mvc._
 import play.api.Play.current
-
 import scala.concurrent.Future
+import models.execution.{ LocalExecution, ExecutionManager }
 
 /**
  * The basic application controller.
@@ -27,7 +26,8 @@ import scala.concurrent.Future
 class ApplicationController @Inject() (
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
-    socialProviderRegistry: SocialProviderRegistry)
+    socialProviderRegistry: SocialProviderRegistry,
+    executionManager: ExecutionManager)
   extends Silhouette[User, JWTAuthenticator] {
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
@@ -40,7 +40,7 @@ class ApplicationController @Inject() (
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) => 
-        Right(PLMActor.propsWithUser(userAgent, actorUUID, user) _)
+        Right(PLMActor.propsWithUser(executionManager, userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
         var newUser: Boolean = false;
@@ -49,7 +49,7 @@ class ApplicationController @Inject() (
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
+        Right(PLMActor.props(executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
     }
   }
   

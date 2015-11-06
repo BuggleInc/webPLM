@@ -28,6 +28,7 @@ import play.api.Configuration
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.openid.OpenIdClient
 import play.api.libs.ws.WSClient
+import models.execution.{ ExecutionManager, LocalExecution, Tribunal }
 
 /**
  * The Guice module which wires all Silhouette dependencies.
@@ -85,20 +86,22 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    * Provides the social provider registry.
    *
    * @param facebookProvider The Facebook provider implementation.
+   * @param githubProvider The GitHub provider implementation.
    * @param googleProvider The Google provider implementation.
-   * @param twitterProvider The Twitter provider implementation.
    * @return The Silhouette environment.
    */
   @Provides
   def provideSocialProviderRegistry(
     facebookProvider: FacebookProvider,
+    githubProvider: GitHubProvider,
     googleProvider: GoogleProvider,
-    twitterProvider: TwitterProvider): SocialProviderRegistry = {
+    plmAccountsProvider: PLMAccountsProvider): SocialProviderRegistry = {
 
     SocialProviderRegistry(Seq(
       googleProvider,
+      githubProvider,
       facebookProvider,
-      twitterProvider
+      plmAccountsProvider
     ))
   }
   
@@ -192,6 +195,23 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
 
     new FacebookProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.facebook"))
   }
+  
+  /**
+   * Provides the Github provider.
+   *
+   * @param httpLayer The HTTP layer implementation.
+   * @param stateProvider The OAuth2 state provider implementation.
+   * @param configuration The Play configuration.
+   * @return The Github provider.
+   */
+  @Provides
+  def provideGitHubProvider(
+    httpLayer: HTTPLayer,
+    stateProvider: OAuth2StateProvider,
+    configuration: Configuration): GitHubProvider = {
+
+    new GitHubProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.github"))
+  }
 
   /**
    * Provides the Google provider.
@@ -209,22 +229,15 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
 
     new GoogleProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.google"))
   }
-
-  /**
-   * Provides the Twitter provider.
-   *
-   * @param httpLayer The HTTP layer implementation.
-   * @param tokenSecretProvider The token secret provider implementation.
-   * @param configuration The Play configuration.
-   * @return The Twitter provider.
-   */
-  @Provides
-  def provideTwitterProvider(
-    httpLayer: HTTPLayer,
-    tokenSecretProvider: OAuth1TokenSecretProvider,
-    configuration: Configuration): TwitterProvider = {
-
-    val settings = configuration.underlying.as[OAuth1Settings]("silhouette.twitter")
-    new TwitterProvider(httpLayer, new PlayOAuth1Service(settings), tokenSecretProvider, settings)
-  }
+  
+   @Provides
+   def provideExecutionManager(configuration: Configuration): ExecutionManager = {
+     val executionMode: String = configuration.getString("plm.execution.mode", Some(Set("LOCAL", "TRIBUNAL"))).get
+     executionMode match {
+       case "TRIBUNAL" =>
+         return new Tribunal
+       case _ =>
+         return new LocalExecution
+     }
+   }
 }

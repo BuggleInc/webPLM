@@ -141,5 +141,5 @@ object PLMAccountsProvider {
    * The Custom constants.
    */
   val ID = "plmAccounts"
-  val API = "toto" //Play.configuration.getString("silhouette.plmaccounts.apiURL").get
+  val API = "http://plm.telecomnancy.univ-lorraine.fr:9000/oauth/users/%s"
 }
