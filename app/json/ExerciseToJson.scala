@@ -18,7 +18,7 @@ object ExerciseToJson {
     var json: JsObject = Json.obj(
       "id" -> exercise.getId,
       "instructions" -> exercise.getMission(currentLocale.getLanguage, progLang),
-      "code" -> "",
+      "code" -> code,
       "selectedWorldID" -> "Training Camp",
       "api" -> "",
       "programmingLanguages" -> ProgrammingLanguageToJson.programmingLanguagesWrite(progLangArray),

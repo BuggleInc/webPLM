@@ -26,6 +26,8 @@ import scala.language.postfixOps
 import LessonsActor._
 import ExercisesActor._
 import ExecutionActor._
+import GitActor._
+import SessionActor._
 import models.lesson.Lesson
 import play.api.libs.functional.syntax._
 import plm.core.model.Game
@@ -60,6 +62,8 @@ class PLMActor (
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
   val executionActor: ActorRef = context.actorOf(ExecutionActor.props)
+  val gitActor: ActorRef = context.actorOf(GitActor.props("dummy"))
+  val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, Game.programmingLanguages))
 
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
 
@@ -161,47 +165,16 @@ class PLMActor (
               logNonValidJSON("setLang: non-correct JSON", msg)
           }
         case "getExercise" =>
-          /*
-          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
-          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
-          var lecture: Lecture = null;
-          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None)) match {
-            case (lessonID:String, exerciseID: String) =>
-              lecture = plm.switchExercise(lessonID, exerciseID)
-            case (lessonID:String, _) =>
-              lecture = plm.switchLesson(lessonID)
-            case (_, _) =>
-              logNonValidJSON("getExercise: non-correct JSON", msg)
-          }
-          if(lecture != null) {
-            sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
-            ))
-          }
-          */
           (exercisesActor ? GetExercise("Environment")).mapTo[Exercise].map { exercise =>
             currentExercise = exercise
-            val json: JsObject = ExerciseToJson.exerciseWrites(exercise, Game.JAVA, "", currentPreferredLang.toLocale)
-            sendMessage("exercise", Json.obj(
-              "exercise" -> json
-            ))
+            (sessionActor ? RetrieveCode(currentExercise, plm.programmingLanguage)).mapTo[String].map { code =>
+              val json: JsObject = ExerciseToJson.exerciseWrites(exercise, Game.JAVA, code, currentPreferredLang.toLocale)
+              sendMessage("exercise", Json.obj(
+                "exercise" -> json
+              ))
+            }
           }
         case "runExercise" =>
-          /*
-          var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
-          var optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
-          var optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
-          var optWorkspace: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
-          (optLessonID.getOrElse(None), optExerciseID.getOrElse(None), optCode.getOrElse(None), optWorkspace.getOrElse(None)) match {
-        	  case (lessonID: String, exerciseID: String, code: String, workspace: String) =>
-        		  plm.runExercise(lessonID, exerciseID, code, workspace)
-            case (lessonID:String, exerciseID: String, code: String, _) =>
-              plm.runExercise(lessonID, exerciseID, code, null)
-            case (_, _, _, _) =>
-              logNonValidJSON("runExercise: non-correctJSON", msg)
-          }
-          *
-          */
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           optCode.getOrElse(None) match {
             case code: String =>
