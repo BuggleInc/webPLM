@@ -112,8 +112,8 @@ class PLMActor (
           plm.setUserUUID(currentGitID)
           currentTrackUser = currentUser.trackUser.getOrElse(false)
           plm.setTrackUser(currentTrackUser)
-          currentUser.preferredLang.getOrElse(None) match {
-            case newLang: Lang =>
+          currentUser.preferredLang match {
+            case Some(newLang: Lang) =>
               currentPreferredLang = newLang
               plm.setLang(currentPreferredLang)
             case _ =>
@@ -134,8 +134,8 @@ class PLMActor (
           }
         case "getExercisesList" =>
           val optLessonName: Option[String] = (msg \ "args" \ "lessonName").asOpt[String]
-          (optLessonName.getOrElse(None)) match {
-            case lessonName: String =>
+          optLessonName match {
+            case Some(lessonName: String) =>
               (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[models.lesson.Lecture]].map { lectures =>
                 import models.lesson.Lecture
                 sendMessage("lectures", Json.obj(
@@ -147,8 +147,8 @@ class PLMActor (
           }
         case "setProgrammingLanguage" =>
           var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
-          (optProgrammingLanguage.getOrElse(None)) match {
-            case programmingLanguage: String =>
+          optProgrammingLanguage match {
+            case Some(programmingLanguage: String) =>
               plm.setProgrammingLanguage(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
@@ -156,8 +156,8 @@ class PLMActor (
           }
         case "setLang" =>
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
-          (optLang.getOrElse(None)) match {
-            case lang: String =>
+          optLang match {
+            case Some(lang: String) =>
               currentPreferredLang = Lang(lang)
               plm.setLang(currentPreferredLang)
               savePreferredLang()
@@ -176,8 +176,8 @@ class PLMActor (
           }
         case "runExercise" =>
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
-          optCode.getOrElse(None) match {
-            case code: String =>
+          optCode match {
+            case Some(code: String) =>
               (executionActor ? StartExecution(out, currentExercise, code)).mapTo[ExecutionProgress].map { executionResult =>
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
                 val commonErrorID: Int = executionResult.commonErrorID
@@ -212,8 +212,8 @@ class PLMActor (
           var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
           var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
-          (optFirstName.getOrElse(None), optFirstName.getOrElse(None)) match {
-            case (firstName:String, lastName: String) =>
+          (optFirstName, optFirstName) match {
+            case (Some(firstName:String), Some(lastName: String)) =>
               currentUser = currentUser.copy(
                   firstName = optFirstName,
                   lastName = optLastName,
@@ -221,8 +221,8 @@ class PLMActor (
               )
               UserDAORestImpl.update(currentUser)
               sendMessage("userUpdated", Json.obj())
-              (optTrackUser.getOrElse(None)) match {
-                case trackUser: Boolean =>
+              optTrackUser match {
+                case Some(trackUser: Boolean) =>
                   plm.setTrackUser(currentTrackUser)
                 case _ =>
                   logNonValidJSON("setTrackUser: non-correct JSON", msg)
@@ -236,8 +236,8 @@ class PLMActor (
           clearUserIdle
         case "setTrackUser" =>
           var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
-          (optTrackUser.getOrElse(None)) match {
-            case trackUser: Boolean =>
+          optTrackUser match {
+            case Some(trackUser: Boolean) =>
               currentTrackUser = trackUser
               saveTrackUser(currentTrackUser)
               plm.setTrackUser(currentTrackUser)
@@ -247,14 +247,17 @@ class PLMActor (
         case "submitBugReport" =>
           var optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
           var optBody: Option[String] = (msg \ "args" \ "body").asOpt[String]
-          (optTitle.getOrElse(None), optBody.getOrElse(None)) match {
-            case (title: String, body: String) =>
-              gitHubIssueManager.isCorrect(title, body).getOrElse(None) match {
-                case errorMsg: String =>
+          (optTitle, optBody) match {
+            case (Some(title: String), Some(body: String)) =>
+              gitHubIssueManager.isCorrect(title, body) match {
+                case Some(errorMsg: String) =>
+                  Logger.debug("Try to post incorrect issue...")
+                  Logger.debug("Title: "+title+", body: "+body)
                   sendMessage("incorrectIssue", Json.obj("msg" -> errorMsg))
                 case None =>
-                  gitHubIssueManager.postIssue(title, body).getOrElse(None) match {
-                    case issueUrl: String =>
+                  gitHubIssueManager.postIssue(title, body) match {
+                    case Some(issueUrl: String) =>
+                      Logger.debug("Issue created at: "+ issueUrl)
                       sendMessage("issueCreated", Json.obj("url" -> issueUrl))
                     case None =>
                       Logger.error("Error while uploading issue...")
@@ -269,16 +272,16 @@ class PLMActor (
           var optAccuracy: Option[Int] = (msg \ "args" \ "accuracy").asOpt[Int]
           var optHelp: Option[Int] = (msg \ "args" \ "help").asOpt[Int]
           var optComment: Option[String] = (msg \ "args" \ "comment").asOpt[String]
-          (optCommonErrorID.getOrElse(None), optAccuracy.getOrElse(None), optHelp.getOrElse(None), optComment.getOrElse(None)) match  {
-            case (commonErrorID: Int, accuracy: Int, help: Int, comment: String) =>
+          (optCommonErrorID, optAccuracy, optHelp, optComment) match  {
+            case (Some(commonErrorID: Int), Some(accuracy: Int), Some(help: Int), Some(comment: String)) =>
               plm.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
             case _ =>
               logNonValidJSON("commonErrorFeedback: non-correct JSON", msg)
           }
         case "readTip" =>
           var optTipID: Option[String] = (msg \ "args" \ "tipID").asOpt[String]
-         optTipID.getOrElse(None) match {
-            case tipID: String =>
+          optTipID match {
+            case Some(tipID: String) =>
               plm.signalReadTip(tipID)
             case _ =>
               logNonValidJSON("readTip: non-correct JSON", msg)

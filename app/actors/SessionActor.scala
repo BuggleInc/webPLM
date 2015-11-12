@@ -36,8 +36,8 @@ class SessionActor(gitActor: ActorRef, programmingLanguages: Array[ProgrammingLa
   def receive =  {
     case RetrieveCode(exercise, progLang) =>
       val exerciseCodes: HashMap[ProgrammingLanguage, String] = exercisesCodes.getOrElseUpdate(exercise.getId, new HashMap[ProgrammingLanguage, String])
-      exerciseCodes.get(progLang).getOrElse(None) match {
-        case code: String =>
+      exerciseCodes.get(progLang) match {
+        case Some(code: String) =>
           sender ! code
         case _ =>
           // Not retrieved yet from Git
