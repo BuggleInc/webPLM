@@ -179,6 +179,8 @@ class PLMActor (
           optCode match {
             case Some(code: String) =>
               (executionActor ? StartExecution(out, currentExercise, code)).mapTo[ExecutionProgress].map { executionResult =>
+                gitActor ! Executed(currentExercise, executionResult, code, currentPreferredLang.language)
+
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
                 val commonErrorID: Int = executionResult.commonErrorID
                 val commonErrorText: String = executionResult.commonErrorText
