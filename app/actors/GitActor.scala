@@ -5,15 +5,17 @@ import java.io.PrintWriter
 import scala.collection.mutable.HashMap
 import akka.actor.Actor
 import akka.actor.Props
+import play.api.Logger
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.ExecutionProgress
 import plm.core.model.lesson.ExecutionProgress.outcomeKind._
 import plm.core.model.lesson.Exercise
 import plm.core.model.tracking.GitUtils
 import utils.FileUtils
-import play.api.libs.json.{ JsObject, Json }
-import play.api.Logger
-
+import play.api.Play
+import play.api.Play.current
 /**
  * @author matthieu
  */
@@ -23,13 +25,20 @@ object GitActor {
   val gitDirectory: String = ".plm"
   val repoUrl: String = "https://github.com/BuggleInc/PLM-data.git"
 
-  def props(gitID: String)= Props(new GitActor(gitID))
+  val java: String = System.getProperty("java.version") + " (VM: " + System.getProperty("java.vm.name") + "; version: " + System.getProperty("java.vm.version") + ")"
+  val os: String = System.getProperty("os.name") + " (version: " + System.getProperty("os.version") + "; arch: " + System.getProperty("os.arch") + ")"
+  val plmMajorVersion: String = Play.configuration.getString("plm.major.version").get
+  val plmMinorVersion: String = Play.configuration.getString("plm.minor.version").get
+  val plmVersion: String = plmMajorVersion + " (" + plmMinorVersion + ")"
+  val webPLMVersion: String = Play.configuration.getString("application.version").get
+
+  def props(gitID: String, userAgent: String)= Props(new GitActor(gitID, userAgent))
 
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
 }
 
-class GitActor(gitID: String) extends Actor {
+class GitActor(gitID: String, userAgent: String) extends Actor {
   import GitActor._
 
   val gitUtils: GitUtils = new GitUtils(gitID)
@@ -81,7 +90,8 @@ class GitActor(gitID: String) extends Actor {
       }
       */
       // Log into the git that the PLM just started
-      val startedMessage: String = "{\"kind\":\"started\",\"plm\":\"2.6-pre (20150202)\",\"java\":\"1.8.0_45 (VM: Java HotSpot(TM) 64-Bit Server VM; version: 25.45-b02)\",\"os\":\"Linux (version: 3.13.0-62-generic; arch: amd64)\",\"webplm.version\":\"1.1.0\",\"webplm.user-agent\":\"Mozilla\\/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko\\/20100101 Firefox\\/42.0\"}"
+      val startedJson: JsObject = generateStartedOrLeavedJson
+      val startedMessage: String = jsonToCommitMessage("started", startedJson)
       gitUtils.commit(startedMessage)
 
       // and push to ensure that everything remains in sync
@@ -134,6 +144,17 @@ class GitActor(gitID: String) extends Actor {
   def jsonToCommitMessage(eventKind: String, json: JsObject): String = {
     // Misuses JSON to ensure that the kind is always written first so that we can read github commit lists
     return "{\"kind\": \"" + eventKind + "\", " + json.toString.substring(1)
+  }
+
+  def generateStartedOrLeavedJson(): JsObject = {
+    var json: JsObject = Json.obj(
+      "java" -> java,
+      "os" -> os,
+      "plm" -> plmVersion,
+      "webplm" -> webPLMVersion,
+      "user-agent" -> userAgent
+    )
+    return json
   }
 
   def generateExecutedJson(exercise: Exercise, result: ExecutionProgress): JsObject = {

@@ -1,6 +1,6 @@
 package actors
 
-import java.util.{ Properties, UUID }
+import java.util.{ Locale, Properties, UUID }
 import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -32,7 +32,6 @@ import models.lesson.Lesson
 import play.api.libs.functional.syntax._
 import plm.core.model.Game
 import plm.core.model.lesson.ExecutionProgress
-import java.util.Locale
 import org.xnap.commons.i18n.{ I18n, I18nFactory }
 
 object PLMActor {
@@ -62,7 +61,7 @@ class PLMActor (
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
   val executionActor: ActorRef = context.actorOf(ExecutionActor.props)
-  val gitActor: ActorRef = context.actorOf(GitActor.props("dummy"))
+  val gitActor: ActorRef = context.actorOf(GitActor.props("dummy", userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, Game.programmingLanguages))
 
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
