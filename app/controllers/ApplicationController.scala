@@ -17,6 +17,8 @@ import play.api.mvc._
 import play.api.Play.current
 import scala.concurrent.Future
 import models.execution.{ LocalExecution, ExecutionManager }
+import akka.actor.ActorRef
+import com.google.inject.name.Named
 
 /**
  * The basic application controller.
@@ -24,6 +26,7 @@ import models.execution.{ LocalExecution, ExecutionManager }
  * @param env The Silhouette environment.
  */
 class ApplicationController @Inject() (
+    @Named("pushActor") pushActor: ActorRef,
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
     socialProviderRegistry: SocialProviderRegistry,
@@ -40,7 +43,7 @@ class ApplicationController @Inject() (
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) =>
-        Right(PLMActor.propsWithUser(executionManager, userAgent, actorUUID, user) _)
+        Right(PLMActor.propsWithUser(pushActor, executionManager, userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
         var newUser: Boolean = false;
@@ -49,7 +52,7 @@ class ApplicationController @Inject() (
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
+        Right(PLMActor.props(pushActor, executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
     }
   }
 

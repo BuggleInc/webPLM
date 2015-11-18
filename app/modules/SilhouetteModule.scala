@@ -29,11 +29,13 @@ import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.openid.OpenIdClient
 import play.api.libs.ws.WSClient
 import models.execution.{ ExecutionManager, LocalExecution, Tribunal }
+import play.api.libs.concurrent.AkkaGuiceSupport
+import actors.PushActor
 
 /**
  * The Guice module which wires all Silhouette dependencies.
  */
-class SilhouetteModule extends AbstractModule with ScalaModule {
+class SilhouetteModule extends AbstractModule with ScalaModule with AkkaGuiceSupport {
 
   /**
    * Configures the module.
@@ -51,6 +53,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     bind[FingerprintGenerator].toInstance(new DefaultFingerprintGenerator(false))
     bind[EventBus].toInstance(EventBus())
     bind[Clock].toInstance(Clock())
+    bindActor[PushActor]("pushActor")
   }
   /**
    * Provides the HTTP layer implementation.

@@ -16,6 +16,9 @@ import plm.core.model.tracking.GitUtils
 import utils.FileUtils
 import play.api.Play
 import play.api.Play.current
+import akka.actor.ActorRef
+import scala.concurrent.ExecutionContext.Implicits.global
+
 /**
  * @author matthieu
  */
@@ -32,14 +35,15 @@ object GitActor {
   val plmVersion: String = plmMajorVersion + " (" + plmMinorVersion + ")"
   val webPLMVersion: String = Play.configuration.getString("application.version").get
 
-  def props(gitID: String, userAgent: String)= Props(new GitActor(gitID, userAgent))
+  def props(pushActor: ActorRef, gitID: String, userAgent: String)= Props(new GitActor(pushActor, gitID, userAgent))
 
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
 }
 
-class GitActor(gitID: String, userAgent: String) extends Actor {
+class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Actor {
   import GitActor._
+  import PushActor.RequestPush
 
   val gitUtils: GitUtils = new GitUtils(gitID)
 
@@ -54,7 +58,7 @@ class GitActor(gitID: String, userAgent: String) extends Actor {
       val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
       gitUtils.commit(executedMessage)
       Logger.error("commit message: "+executedMessage)
-      // commit
+      pushActor ! RequestPush(gitID)
     case _ =>
   }
 
