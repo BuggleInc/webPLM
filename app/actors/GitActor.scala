@@ -39,6 +39,7 @@ object GitActor {
 
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
+  case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
 }
 
 class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Actor {
@@ -60,6 +61,13 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
       gitUtils.addFiles
       gitUtils.commit(executedMessage)
 
+      pushActor ! RequestPush(gitID)
+    case SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) =>
+      val jsonSwitched: JsObject = generateSwitchedJson(exerciseTo, optExerciseFrom)
+      val switchedMessage: String = jsonToCommitMessage("switched", jsonSwitched)
+      
+      gitUtils.commit(switchedMessage)
+      
       pushActor ! RequestPush(gitID)
     case _ =>
   }
@@ -189,6 +197,20 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
       json = json ++ Json.obj("exoInterest" -> result.feedbackInterest)
     if (result.feedback != null)
       json = json ++ Json.obj("exoComment" -> result.feedback)
+
+    return json
+  }
+
+  def generateSwitchedJson(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]): JsObject = {
+    var json: JsObject = Json.obj("switchTo" -> exerciseTo.getId)
+
+    optExerciseFrom match {
+      case Some(exerciseFrom: Exercise) =>
+        json = json ++ Json.obj(
+          "exo" -> exerciseFrom.getId    
+        )
+      case _ =>
+    }
 
     return json
   }

@@ -95,7 +95,7 @@ class PLMActor (
   var idleStart: Instant = null
   var idleEnd: Instant = null
 
-  var currentExercise: Exercise = _
+  var optCurrentExercise: Option[Exercise] = None
 
   initExecutionManager
   initSpies
@@ -166,8 +166,10 @@ class PLMActor (
           }
         case "getExercise" =>
           (exercisesActor ? GetExercise("Environment")).mapTo[Exercise].map { exercise =>
-            currentExercise = exercise
-            (sessionActor ? RetrieveCode(currentExercise, plm.programmingLanguage)).mapTo[String].map { code =>
+            gitActor ! SwitchExercise(exercise, optCurrentExercise)
+
+            optCurrentExercise = Some(exercise)
+            (sessionActor ? RetrieveCode(exercise, plm.programmingLanguage)).mapTo[String].map { code =>
               val json: JsObject = ExerciseToJson.exerciseWrites(exercise, Game.JAVA, code, currentPreferredLang.toLocale)
               sendMessage("exercise", Json.obj(
                 "exercise" -> json
@@ -175,11 +177,12 @@ class PLMActor (
             }
           }
         case "runExercise" =>
+          val exercise: Exercise = optCurrentExercise.get
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           optCode match {
             case Some(code: String) =>
-              (executionActor ? StartExecution(out, currentExercise, code)).mapTo[ExecutionProgress].map { executionResult =>
-                gitActor ! Executed(currentExercise, executionResult, code, currentPreferredLang.language)
+              (executionActor ? StartExecution(out, exercise, code)).mapTo[ExecutionProgress].map { executionResult =>
+                gitActor ! Executed(exercise, executionResult, code, currentPreferredLang.language)
 
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
                 val commonErrorID: Int = executionResult.commonErrorID
