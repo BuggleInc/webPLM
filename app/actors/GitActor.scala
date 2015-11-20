@@ -45,7 +45,7 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
   import GitActor._
   import PushActor.RequestPush
 
-  val gitUtils: GitUtils = new GitUtils(gitID)
+  val gitUtils: GitUtils = new GitUtils("")
 
   initRepo
 
@@ -53,11 +53,13 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
       sender ! getCode(exerciseID, progLang)
     case Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) =>
-      createFiles(exercise, result, code, humanLang)
       val jsonExecuted: JsObject = generateExecutedJson(exercise, result)
       val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
+      
+      createFiles(exercise, result, code, humanLang)
+      gitUtils.addFiles
       gitUtils.commit(executedMessage)
-      Logger.error("commit message: "+executedMessage)
+
       pushActor ! RequestPush(gitID)
     case _ =>
   }
@@ -96,10 +98,10 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
       // Log into the git that the PLM just started
       val startedJson: JsObject = generateStartedOrLeavedJson
       val startedMessage: String = jsonToCommitMessage("started", startedJson)
+      
       gitUtils.commit(startedMessage)
-
       // and push to ensure that everything remains in sync
-      //gitUtils.maybePushToUserBranch(userBranch, progress)
+      pushActor ! RequestPush(gitID)
     } 
     catch {
     case e: Exception =>
