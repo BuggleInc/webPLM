@@ -1,17 +1,28 @@
 package actors
 
+import java.util.Locale
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.concurrent.duration.DurationInt
+import scala.concurrent.duration.FiniteDuration
 import scala.language.postfixOps
-import akka.actor.{ Actor, ActorSystem, Props }
+import org.eclipse.jgit.lib.NullProgressMonitor
+import org.eclipse.jgit.lib.ProgressMonitor
+import org.eclipse.jgit.transport.CredentialsProvider
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
+import org.xnap.commons.i18n.I18n
+import org.xnap.commons.i18n.I18nFactory
+import com.google.inject.Inject
+import PushActor.Push
+import PushActor.RequestPush
+import akka.actor.Actor
+import akka.actor.ActorSystem
+import akka.actor.Props
+import log.PLMLogger
+import play.api.Configuration
 import play.api.Logger
+import plm.core.model.LogHandler
 import plm.core.model.tracking.GitUtils
 import java.io.File
-import org.eclipse.jgit.transport.{ CredentialsProvider, UsernamePasswordCredentialsProvider }
-import play.api.Play
-import com.google.inject.Inject
-import play.api.Configuration
-import org.eclipse.jgit.lib.{ NullProgressMonitor, ProgressMonitor }
 
 /**
  * @author matthieu
@@ -27,11 +38,14 @@ object PushActor {
 class PushActor @Inject() (configuration: Configuration) extends Actor {
   import PushActor._
 
+  val logger: LogHandler = new PLMLogger
+  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
+
   val home: String = System.getProperty("user.home")
   val gitDirectory: String = ".plm"
   val repoUrl: String = "https://github.com/BuggleInc/PLM-data.git"
 
-  val interval: FiniteDuration = 5 seconds
+  val interval: FiniteDuration = 5 minutes
 
   val username: String = configuration.getString("plm.github.oauth").getOrElse("dummy-username")
   val password: String = "x-oauth-basic"
@@ -57,7 +71,7 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
   
   def pushRepos() {
     pendingRequests.foreach { gitID => 
-      val gitUtils: GitUtils = new GitUtils("")
+      val gitUtils: GitUtils = new GitUtils(logger, i18n)
       val repoPath: String = List(home, gitDirectory, gitID).mkString("/")
       val repoDir: File = new File(repoPath)
       

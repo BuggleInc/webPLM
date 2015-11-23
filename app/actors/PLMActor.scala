@@ -65,7 +65,7 @@ class PLMActor (
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, Game.programmingLanguages))
 
-  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
+  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
 
   var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 

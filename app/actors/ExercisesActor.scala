@@ -52,16 +52,8 @@ object ExercisesActor {
 
     var exercise: Exercise = Class.forName("environment.Environment").getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
     exercisesFactory.initializeExercise(exercise, Game.JAVA.asInstanceOf[LangJava])
-    Logger.error("exercise: "+ exercise.getWorlds(WorldKind.ANSWER).get(0).getName)
-    Logger.error("exercise: "+ WorldToJson.worldWrite(exercise.getWorlds(WorldKind.ANSWER).get(0)))
     exercises += ("Environment" -> exercise)
-    
 
-    var clone: Exercise = exercisesFactory.cloneExercise(exercise)
-
-    exerciseRunner.run(clone, Game.JAVA.asInstanceOf[LangJava], "recule();")
-    Logger.error("exercise: "+ WorldToJson.worldWrite(exercise.getWorlds(WorldKind.CURRENT).get(0)))
-    
     exercises
   }
 }

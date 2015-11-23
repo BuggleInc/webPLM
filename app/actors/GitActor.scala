@@ -18,6 +18,11 @@ import play.api.Play
 import play.api.Play.current
 import akka.actor.ActorRef
 import scala.concurrent.ExecutionContext.Implicits.global
+import org.xnap.commons.i18n.I18nFactory
+import log.PLMLogger
+import java.util.Locale
+import org.xnap.commons.i18n.I18n
+import plm.core.model.LogHandler
 
 /**
  * @author matthieu
@@ -46,7 +51,10 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
   import GitActor._
   import PushActor.RequestPush
 
-  val gitUtils: GitUtils = new GitUtils("")
+  val logger: LogHandler = new PLMLogger
+  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
+
+  val gitUtils: GitUtils = new GitUtils(logger, i18n)
 
   initRepo
 
@@ -95,14 +103,14 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
       }
 
       // try to get the branch as stored remotely
-      /*if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
+      if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
         gitUtils.mergeRemoteIntoLocalBranch(userBranch)
         Logger.error(userBranch+" was automatically retrieved from the servers.")
       } else {
         // If no branch can be found remotely, create a new one.
         Logger.error("Couldn't retrieve a corresponding session from the servers...")
       }
-      */
+      
       // Log into the git that the PLM just started
       val startedJson: JsObject = generateStartedOrLeavedJson
       val startedMessage: String = jsonToCommitMessage("started", startedJson)
