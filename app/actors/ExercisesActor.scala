@@ -18,6 +18,7 @@ import java.util.Locale
 import json.world.WorldToJson
 import plm.core.lang.LangJava
 import utils.LangUtils
+import models.ProgrammingLanguages
 
 /**
  * @author matthieu
@@ -34,7 +35,7 @@ object ExercisesActor {
 
   val humanLanguages: Array[Locale] = initHumanLanguages
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, i18n)
-  val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, Game.programmingLanguages, humanLanguages)
+  val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
   val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseName: String)
@@ -51,7 +52,7 @@ object ExercisesActor {
     var exercises: Map[String, Exercise] = Map()
 
     var exercise: Exercise = Class.forName("environment.Environment").getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
-    exercisesFactory.initializeExercise(exercise, Game.JAVA.asInstanceOf[LangJava])
+    exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
     exercises += ("Environment" -> exercise)
 
     exercises

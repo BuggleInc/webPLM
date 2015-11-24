@@ -9,7 +9,7 @@ import plm.core.model.lesson.ExerciseRunner
 import org.xnap.commons.i18n.I18n
 import log.PLMLogger
 import plm.core.model.Game
-import plm.core.lang.LangJava
+import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.Exercise.WorldKind
 import json.world.WorldToJson
 import spies.OperationSpy
@@ -30,7 +30,7 @@ object ExecutionActor {
   
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, i18n)
   
-  case class StartExecution(out: ActorRef, exercise: Exercise, code: String)
+  case class StartExecution(out: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String)
   case class StopExecution()
 }
 
@@ -40,9 +40,9 @@ class ExecutionActor extends Actor {
   var registeredSpies: Array[OperationSpy] = Array()
   
   def receive =  {
-    case StartExecution(out, exercise, code) =>
+    case StartExecution(out, exercise, progLang, code) =>
       addOperationSpies(out, exercise)
-      val executionResult: ExecutionProgress = exerciseRunner.run(exercise, Game.JAVA.asInstanceOf[LangJava], code)
+      val executionResult: ExecutionProgress = exerciseRunner.run(exercise, progLang, code)
       registeredSpies.foreach { spy => 
         spy.sendOperations
         spy.unregister

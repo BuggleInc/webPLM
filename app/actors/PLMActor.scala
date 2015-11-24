@@ -33,6 +33,7 @@ import play.api.libs.functional.syntax._
 import plm.core.model.Game
 import plm.core.model.lesson.ExecutionProgress
 import org.xnap.commons.i18n.{ I18n, I18nFactory }
+import models.ProgrammingLanguages
 
 object PLMActor {
   def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -97,6 +98,13 @@ class PLMActor (
 
   var optCurrentExercise: Option[Exercise] = None
 
+  var currentProgLang: ProgrammingLanguage = ProgrammingLanguages.defaultProgrammingLanguage
+  lastProgLang match {
+    case Some(progLang: String) =>
+      currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
+    case _ =>
+  }
+
   initExecutionManager
   initSpies
   registerActor
@@ -149,6 +157,7 @@ class PLMActor (
           var optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
           optProgrammingLanguage match {
             case Some(programmingLanguage: String) =>
+              currentProgLang = ProgrammingLanguages.getProgrammingLanguage(programmingLanguage)
               plm.setProgrammingLanguage(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
@@ -181,7 +190,7 @@ class PLMActor (
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           optCode match {
             case Some(code: String) =>
-              (executionActor ? StartExecution(out, exercise, code)).mapTo[ExecutionProgress].map { executionResult =>
+              (executionActor ? StartExecution(out, exercise, currentProgLang, code)).mapTo[ExecutionProgress].map { executionResult =>
                 gitActor ! Executed(exercise, executionResult, code, currentPreferredLang.language)
 
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
