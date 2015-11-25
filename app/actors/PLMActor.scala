@@ -132,9 +132,19 @@ class PLMActor (
           optProgrammingLanguage match {
             case Some(programmingLanguage: String) =>
               currentProgLang = ProgrammingLanguages.getProgrammingLanguage(programmingLanguage)
-              // FIXME: Re-implement me
-              // plm.setProgrammingLanguage(programmingLanguage)
-
+              optCurrentExercise match {
+              case Some(exercise: Exercise) =>
+                (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+                  val json: JsObject = Json.obj(
+                    "newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
+                    "code" -> code,
+                    "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
+                    "api" -> ""
+                  )
+                  sendMessage("newProgLang", json)
+                }
+              case _ =>
+              }
               saveLastProgLang(programmingLanguage)
             case _ =>
               logNonValidJSON("setProgrammingLanguage: non-correct JSON", msg)
