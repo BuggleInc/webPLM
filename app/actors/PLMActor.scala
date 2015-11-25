@@ -57,7 +57,7 @@ class PLMActor (
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
   val executionActor: ActorRef = context.actorOf(ExecutionActor.props)
-  val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", userAgent))
+  val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)

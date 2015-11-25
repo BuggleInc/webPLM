@@ -40,14 +40,14 @@ object GitActor {
   val plmVersion: String = plmMajorVersion + " (" + plmMinorVersion + ")"
   val webPLMVersion: String = Play.configuration.getString("application.version").get
 
-  def props(pushActor: ActorRef, gitID: String, userAgent: String)= Props(new GitActor(pushActor, gitID, userAgent))
+  def props(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String)= Props(new GitActor(pushActor, gitID, optTrackUser, userAgent))
 
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
 }
 
-class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Actor {
+class GitActor(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String) extends Actor {
   import GitActor._
   import PushActor.RequestPush
 
@@ -62,21 +62,11 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
       sender ! getCode(exerciseID, progLang)
     case Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) =>
-      val jsonExecuted: JsObject = generateExecutedJson(exercise, result)
-      val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
-      
-      createFiles(exercise, result, code, humanLang)
-      gitUtils.addFiles
-      gitUtils.commit(executedMessage)
-
-      pushActor ! RequestPush(gitID)
+      executed(exercise, result, code, humanLang)
+      requestPush
     case SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) =>
-      val jsonSwitched: JsObject = generateSwitchedJson(exerciseTo, optExerciseFrom)
-      val switchedMessage: String = jsonToCommitMessage("switched", jsonSwitched)
-      
-      gitUtils.commit(switchedMessage)
-      
-      pushActor ! RequestPush(gitID)
+      switched(exerciseTo, optExerciseFrom)
+      requestPush
     case _ =>
   }
 
@@ -110,19 +100,52 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
         // If no branch can be found remotely, create a new one.
         Logger.error("Couldn't retrieve a corresponding session from the servers...")
       }
-      
-      // Log into the git that the PLM just started
-      val startedJson: JsObject = generateStartedOrLeavedJson
-      val startedMessage: String = jsonToCommitMessage("started", startedJson)
-      
-      gitUtils.commit(startedMessage)
-      // and push to ensure that everything remains in sync
-      pushActor ! RequestPush(gitID)
-    } 
+
+      started
+      requestPush
+    }
     catch {
     case e: Exception =>
       Logger.error("You found a bug in the PLM. Please report it with all possible details (including the stacktrace below).")
       e.printStackTrace
+    }
+  }
+
+  def started() {
+    val startedJson: JsObject = generateStartedOrLeavedJson
+    val startedMessage: String = jsonToCommitMessage("started", startedJson)
+
+    gitUtils.commit(startedMessage)
+  }
+
+  def leaved() {
+    val leavedJson: JsObject = generateStartedOrLeavedJson
+    val leavedMessage: String = jsonToCommitMessage("started", leavedJson)
+
+    gitUtils.commit(leavedMessage)
+  }
+
+  def executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) {
+    val jsonExecuted: JsObject = generateExecutedJson(exercise, result)
+    val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
+
+    createFiles(exercise, result, code, humanLang)
+    gitUtils.addFiles
+    gitUtils.commit(executedMessage)
+  }
+
+  def switched(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) {
+    val jsonSwitched: JsObject = generateSwitchedJson(exerciseTo, optExerciseFrom)
+    val switchedMessage: String = jsonToCommitMessage("switched", jsonSwitched)
+
+    gitUtils.commit(switchedMessage)
+  }
+
+  def requestPush() {
+    optTrackUser match {
+    case Some(true) =>
+      pushActor ! RequestPush(gitID) 
+    case _ =>
     }
   }
 
@@ -221,5 +244,11 @@ class GitActor(pushActor: ActorRef, gitID: String, userAgent: String) extends Ac
     }
 
     return json
+  }
+
+  override def postStop() = {
+    Logger.debug("gitActor's postStop: leaving & requesting push")
+    leaved
+    requestPush
   }
 }
