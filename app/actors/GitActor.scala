@@ -42,23 +42,35 @@ object GitActor {
 
   def props(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String)= Props(new GitActor(pushActor, gitID, optTrackUser, userAgent))
 
+  case class SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean])
+  case class SetTrackUser(newOptTrackUser: Option[Boolean])
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
 }
 
-class GitActor(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String) extends Actor {
+class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: Option[Boolean], userAgent: String) extends Actor {
   import GitActor._
   import PushActor.RequestPush
+
+  var gitID: String = initialGitID
+  var optTrackUser: Option[Boolean] = initialOptTrackUser
 
   val logger: LogHandler = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
 
   val gitUtils: GitUtils = new GitUtils(logger, i18n)
 
-  initRepo
+  openRepo
 
   def receive =  {
+    case SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean]) =>
+      closeRepo
+      gitID = newGitID
+      optTrackUser = newOptTrackUser
+      openRepo
+    case SetTrackUser(newOptTrackUser: Option[Boolean]) =>
+      optTrackUser = newOptTrackUser
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
       sender ! getCode(exerciseID, progLang)
     case Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) =>
@@ -70,7 +82,7 @@ class GitActor(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean]
     case _ =>
   }
 
-  def initRepo() {
+  def openRepo() {
     val userBranch: String = "PLM"+GitUtils.sha1(gitID)
 
     try {
@@ -109,6 +121,12 @@ class GitActor(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean]
       Logger.error("You found a bug in the PLM. Please report it with all possible details (including the stacktrace below).")
       e.printStackTrace
     }
+  }
+
+  def closeRepo() {
+    leaved
+    requestPush
+    gitUtils.dispose
   }
 
   def started() {

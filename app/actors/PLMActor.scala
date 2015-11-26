@@ -74,8 +74,6 @@ class PLMActor (
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
 
-  var currentTrackUser: Boolean = trackUser.getOrElse(false)
-
   var userIdle: Boolean = false;
   var idleStart: Instant = null
   var idleEnd: Instant = null
@@ -90,7 +88,7 @@ class PLMActor (
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
           setCurrentUser((msg \ "user").asOpt[User].get)
-          currentTrackUser = currentUser.trackUser.getOrElse(false)
+          gitActor ! SwitchUser(currentGitID, currentUser.trackUser)
           currentUser.preferredLang match {
             case Some(newLang: Lang) =>
               currentPreferredLang = newLang
@@ -102,12 +100,8 @@ class PLMActor (
           // FIXME: Re-implement me
           // plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
         case "signOut" =>
-          clearCurrentUser()
-          // FIXME: Re-implement me
-          // plm.setUserUUID(currentGitID)
-          currentTrackUser = false
-          // FIXME: Re-implement me
-          // plm.setTrackUser(currentTrackUser)
+          clearCurrentUser
+          gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
             val jsonLessons: JsArray = Lesson.arrayToJSON(lessons, currentPreferredLang)
@@ -245,13 +239,11 @@ class PLMActor (
         case "userBack" =>
           clearUserIdle
         case "setTrackUser" =>
-          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          val optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
           optTrackUser match {
             case Some(trackUser: Boolean) =>
-              currentTrackUser = trackUser
-              saveTrackUser(currentTrackUser)
-              // FIXME: Re-implement me
-              // plm.setTrackUser(currentTrackUser)
+              gitActor ! SetTrackUser(optTrackUser)
+              saveTrackUser(trackUser)
             case _ =>
               logNonValidJSON("setTrackUser: non-correct JSON", msg)
           }
