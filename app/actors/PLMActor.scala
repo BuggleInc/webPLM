@@ -199,6 +199,7 @@ class PLMActor (
           optCurrentExercise match {
             case Some(currentExercise: Exercise) =>
               currentExercise.getDefaultSourceFile(currentProgLang).getBody
+            case _ =>
           }
           /*
           var lecture = plm.revertExercise
@@ -212,9 +213,9 @@ class PLMActor (
             "availables" -> LangToJson.langsWrite(availableLangs)
           ))
         case "updateUser" =>
-          var optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
-          var optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
-          var optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
+          val optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
+          val optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
+          val optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
           (optFirstName, optFirstName) match {
             case (Some(firstName:String), Some(lastName: String)) =>
               currentUser = currentUser.copy(
@@ -226,8 +227,7 @@ class PLMActor (
               sendMessage("userUpdated", Json.obj())
               optTrackUser match {
                 case Some(trackUser: Boolean) =>
-                  // FIXME: Re-implement me
-                  // plm.setTrackUser(currentTrackUser)
+                  gitActor ! SetTrackUser(optTrackUser)
                 case _ =>
                   logNonValidJSON("setTrackUser: non-correct JSON", msg)
               }
