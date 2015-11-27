@@ -33,6 +33,7 @@ import play.api.libs.functional.syntax._
 import plm.core.model.lesson.ExecutionProgress
 import org.xnap.commons.i18n.{ I18n, I18nFactory }
 import models.ProgrammingLanguages
+import scala.concurrent.Await
 
 object PLMActor {
   def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -99,6 +100,7 @@ class PLMActor (
           }
           // FIXME: Re-implement me
           // plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
+          updateProgLang(currentUser.lastProgLang.getOrElse("java"))
         case "signOut" =>
           clearCurrentUser
           gitActor ! SwitchUser(currentGitID, None)
@@ -125,20 +127,7 @@ class PLMActor (
           val optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
           optProgrammingLanguage match {
             case Some(programmingLanguage: String) =>
-              currentProgLang = ProgrammingLanguages.getProgrammingLanguage(programmingLanguage)
-              optCurrentExercise match {
-              case Some(exercise: Exercise) =>
-                (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-                  val json: JsObject = Json.obj(
-                    "newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
-                    "code" -> code,
-                    "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
-                    "api" -> ""
-                  )
-                  sendMessage("newProgLang", json)
-                }
-              case _ =>
-              }
+              updateProgLang(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
               logNonValidJSON("setProgrammingLanguage: non-correct JSON", msg)
@@ -406,6 +395,42 @@ class PLMActor (
     case _ =>
       ProgrammingLanguages.defaultProgrammingLanguage
     }
+  }
+
+  def updateProgLang(progLang: String) {
+    currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
+    sendMessage("newProgLang", generateUpdatedProgLangJson)
+  }
+
+  def generateUpdatedExerciseJson(): Future[JsObject] = {
+    optCurrentExercise match {
+    case Some(exercise: Exercise) =>
+      (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+        val exerciseJson: JsObject = Json.obj(
+          "code" -> code,
+          "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
+          "api" -> ""
+        )
+        exerciseJson
+      }
+    case _ =>
+      Future { Json.obj() }
+    }
+  }
+
+  def generateUpdatedProgLangJson(): JsObject = {
+    var json: JsObject = Json.obj("newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang))
+
+    val futureTuple = for {
+      exerciseJson <- generateUpdatedExerciseJson
+      test <- Future { Json.obj ("test" -> "don't take this into account ;)") }
+    } yield (exerciseJson, test)
+
+    val tuple = Await.result(futureTuple, 1 seconds)
+    tuple.productIterator.foreach { additionalJson =>
+      json = json ++ additionalJson.asInstanceOf[JsObject]
+    }
+    json
   }
 
   override def postStop() = {
