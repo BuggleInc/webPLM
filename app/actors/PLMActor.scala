@@ -409,7 +409,7 @@ class PLMActor (
         val exerciseJson: JsObject = Json.obj(
           "code" -> code,
           "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
-          "api" -> ""
+          "api" -> exercise.getWorldAPI(currentPreferredLang.toLocale, currentProgLang)
         )
         exerciseJson
       }
