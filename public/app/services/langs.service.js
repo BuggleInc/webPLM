@@ -9,10 +9,9 @@
 
     function langs($rootScope, $cookies, $auth, gettextCatalog, listenersHandler, connection, blocklyService) {
         var availableLangs = [];
-        var selectedLang = $cookies.lang;
+        var selectedLang;
 
         listenersHandler.register('onmessage', handleMessage);
-        connection.sendMessage('getLangs', {});
 
         var service = {
             getAvailableLangs: getAvailableLangs,
@@ -27,7 +26,7 @@
             var cmd = data.cmd;
             var args = data.args;
             switch (cmd) {
-            case 'langs':
+            case 'humanLangs':
                 setSelectedLang(args.selected);
                 updateAvailableLangs(args.availables);
                 break;
@@ -50,7 +49,7 @@
         }
 
         function setRemotelySelectedLang(lang) {
-            connection.sendMessage('setLang', {
+            connection.sendMessage('setHumanLang', {
                 'lang': lang.code
             });
         }

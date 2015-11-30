@@ -63,14 +63,18 @@ class PLMActor (
 
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
 
-  var gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
+  val gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
-  var availableLangs: Seq[Lang] = Lang.availables
+  val availableLangs: Seq[Lang] = Lang.availables
 
+  var optCurrentLesson: Option[String] = None
   var optCurrentExercise: Option[Exercise] = None
   var currentUser: User = null
   var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
-  var currentPreferredLang: Lang = preferredLang.getOrElse(Lang("en"))
+  var currentHumanLang: Lang = initHumanLang(preferredLang)
+
+  sendProgLangs
+  sendHumanLangs
 
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
@@ -92,7 +96,7 @@ class PLMActor (
           gitActor ! SwitchUser(currentGitID, currentUser.trackUser)
           currentUser.preferredLang match {
             case Some(newLang: Lang) =>
-              currentPreferredLang = newLang
+              currentHumanLang = newLang
               // FIXME: Re-implement me
               // plm.setLang(currentPreferredLang)
             case _ =>
@@ -106,7 +110,7 @@ class PLMActor (
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-            val jsonLessons: JsArray = Lesson.arrayToJSON(lessons, currentPreferredLang)
+            val jsonLessons: JsArray = Lesson.arrayToJSON(lessons, currentHumanLang)
             sendMessage("lessons", Json.obj(
               "lessons" -> jsonLessons
             ))
@@ -123,22 +127,20 @@ class PLMActor (
             case _ =>
               Logger.debug("getExercisesList: non-correct JSON")
           }
-        case "setProgrammingLanguage" =>
-          val optProgrammingLanguage: Option[String] = (msg \ "args" \ "programmingLanguage").asOpt[String]
-          optProgrammingLanguage match {
-            case Some(programmingLanguage: String) =>
-              updateProgLang(programmingLanguage)
-              saveLastProgLang(programmingLanguage)
+        case "setProgLang" =>
+          val optProgLang: Option[String] = (msg \ "args" \ "progLang").asOpt[String]
+          optProgLang match {
+            case Some(progLang: String) =>
+              updateProgLang(progLang)
+              saveLastProgLang(progLang)
             case _ =>
               logNonValidJSON("setProgrammingLanguage: non-correct JSON", msg)
           }
-        case "setLang" =>
-          var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
+        case "setHumanLang" =>
+          val optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
           optLang match {
             case Some(lang: String) =>
-              currentPreferredLang = Lang(lang)
-              // FIXME: Re-implement me
-              // plm.setLang(currentPreferredLang)
+              updateHumanLang(lang)
               savePreferredLang()
             case _ =>
               logNonValidJSON("setLang: non-correct JSON", msg)
@@ -149,7 +151,7 @@ class PLMActor (
 
             optCurrentExercise = Some(exercise)
             (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-              val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentPreferredLang.toLocale)
+              val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
               sendMessage("exercise", Json.obj(
                 "exercise" -> json
               ))
@@ -161,7 +163,7 @@ class PLMActor (
           optCode match {
             case Some(code: String) =>
               (executionActor ? StartExecution(out, exercise, currentProgLang, code)).mapTo[ExecutionProgress].map { executionResult =>
-                gitActor ! Executed(exercise, executionResult, code, currentPreferredLang.language)
+                gitActor ! Executed(exercise, executionResult, code, currentHumanLang.language)
 
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
                 val commonErrorID: Int = executionResult.commonErrorID
@@ -196,11 +198,6 @@ class PLMActor (
               "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
           ))
           */
-        case "getLangs" =>
-          sendMessage("langs", Json.obj(
-            "selected" -> LangToJson.langWrite(currentPreferredLang),
-            "availables" -> LangToJson.langsWrite(availableLangs)
-          ))
         case "updateUser" =>
           val optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           val optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
@@ -288,7 +285,7 @@ class PLMActor (
   }
 
   def createMessage(cmdName: String, mapArgs: JsValue): JsValue = {
-    return Json.obj(
+    Json.obj(
       "cmd" -> cmdName,
       "args" -> mapArgs
     )
@@ -334,10 +331,24 @@ class PLMActor (
     )
   }
 
-  def saveLastProgLang(programmingLanguage: String) {
+  def sendProgLangs() {
+    sendMessage("progLangs", Json.obj(
+      "selected" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
+      "availables" -> ProgrammingLanguageToJson.programmingLanguagesWrite(ProgrammingLanguages.programmingLanguages)
+    ))
+  }
+
+  def sendHumanLangs() {
+    sendMessage("humanLangs", Json.obj(
+      "selected" -> LangToJson.langWrite(currentHumanLang),
+      "availables" -> LangToJson.langsWrite(availableLangs)
+    ))
+  }
+
+  def saveLastProgLang(progLang: String) {
     if(currentUser != null) {
       currentUser = currentUser.copy(
-          lastProgLang = Some(programmingLanguage)
+          lastProgLang = Some(progLang)
       )
       UserDAORestImpl.update(currentUser)
     }
@@ -346,7 +357,7 @@ class PLMActor (
   def savePreferredLang() {
     if(currentUser != null) {
       currentUser = currentUser.copy(
-          preferredLang = Some(currentPreferredLang)
+          preferredLang = Some(currentHumanLang)
       )
       UserDAORestImpl.update(currentUser)
     }
@@ -391,10 +402,24 @@ class PLMActor (
   def initProgLang(lastProgLang: Option[String]): ProgrammingLanguage = {
     lastProgLang match {
     case Some(progLang: String) =>
-      return ProgrammingLanguages.getProgrammingLanguage(progLang)
+      ProgrammingLanguages.getProgrammingLanguage(progLang)
     case _ =>
       ProgrammingLanguages.defaultProgrammingLanguage
     }
+  }
+
+  def initHumanLang(lastHumanLang: Option[Lang]): Lang = {
+    lastHumanLang match {
+      case Some(lang: Lang) =>
+        lang
+      case _ =>
+        Lang("en")
+    }
+  }
+
+  def updateHumanLang(humanLang: String) {
+    currentHumanLang = Lang(humanLang)
+    sendMessage("newHumanLang", generateUpdatedHumanLangJson)
   }
 
   def updateProgLang(progLang: String) {
@@ -402,16 +427,51 @@ class PLMActor (
     sendMessage("newProgLang", generateUpdatedProgLangJson)
   }
 
-  def generateUpdatedExerciseJson(): Future[JsObject] = {
+  def generateUpdatedExerciseJson(): JsObject = {
     optCurrentExercise match {
+<<<<<<< 5bf40f9e37a9e6433912e5889582d569303e320e
     case Some(exercise: Exercise) =>
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
         val exerciseJson: JsObject = Json.obj(
           "code" -> code,
           "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
           "api" -> exercise.getWorldAPI(currentPreferredLang.toLocale, currentProgLang)
+=======
+    case Some(exercise: Exercise) => 
+      val exerciseJson: JsObject = Json.obj(
+        "instructions" -> exercise.getMission(currentHumanLang.language, currentProgLang),
+        "api" -> exercise.getWorldAPI(currentHumanLang.toLocale, currentProgLang)
+      )
+      exerciseJson
+    case _ =>
+      Json.obj()
+    }
+  }
+
+  def generateUpdatedHumanLangJson(): JsObject = {
+    var json: JsObject = Json.obj("newHumanLang" -> LangToJson.langWrite(currentHumanLang))
+
+    val futureTuple = for {
+      exercisesListJson <- generateUpdatedExercisesListJson
+      exerciseJson <- Future { generateUpdatedExerciseJson }
+    } yield (exercisesListJson, exerciseJson)
+
+    val tuple = Await.result(futureTuple, 1 seconds)
+    tuple.productIterator.foreach { additionalJson =>
+      json = json ++ additionalJson.asInstanceOf[JsObject]
+    }
+    json
+  }
+
+  def generateUpdatedExercisesListJson(): Future[JsObject] = {
+    optCurrentLesson match {
+    case Some(lessonName: String) =>
+      (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
+        val lecturesJson: JsObject = Json.obj(
+          "lectures" -> lectures
+>>>>>>> Refactor code to manage current human and programming language
         )
-        exerciseJson
+        lecturesJson
       }
     case _ =>
       Future { Json.obj() }
@@ -422,15 +482,29 @@ class PLMActor (
     var json: JsObject = Json.obj("newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang))
 
     val futureTuple = for {
-      exerciseJson <- generateUpdatedExerciseJson
-      test <- Future { Json.obj ("test" -> "don't take this into account ;)") }
-    } yield (exerciseJson, test)
+      codeJson <- generateUpdatedCodeJson
+      exerciseJson <- Future { generateUpdatedExerciseJson }
+    } yield (codeJson, exerciseJson)
 
     val tuple = Await.result(futureTuple, 1 seconds)
     tuple.productIterator.foreach { additionalJson =>
       json = json ++ additionalJson.asInstanceOf[JsObject]
     }
     json
+  }
+
+  def generateUpdatedCodeJson(): Future[JsObject] = {
+    optCurrentExercise match {
+    case Some(exercise: Exercise) => 
+      (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+        val codeJson: JsObject = Json.obj(
+          "code" -> code
+        )
+        codeJson
+      }
+    case _ =>
+      Future { Json.obj() }
+    }
   }
 
   override def postStop() = {

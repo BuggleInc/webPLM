@@ -5,9 +5,9 @@
     .module('PLMApp')
     .factory('progLangs', progLangs);
 
-  progLangs.$inject = ['connection', 'listenersHandler'];
+  progLangs.$inject = ['$auth', '$cookies', 'connection', 'listenersHandler'];
 
-  function progLangs(connection, listenersHandler) {
+  function progLangs($auth, $cookies, connection, listenersHandler) {
     var programmingLanguages = [];
     var currentProgrammingLanguage;
     var disabled = false;
@@ -17,8 +17,8 @@
     var service = {
       setProgLangs: setProgLangs,
       getProgLangs: getProgLangs,
-      setCurrentProglang: setCurrentProglang,
-      getCurrentProglang: getCurrentProglang,
+      setRemotelySelectedLang: setRemotelySelectedLang,
+      getCurrentProgLang: getCurrentProgLang,
       setDisabled: setDisabled,
       isDisabled: isDisabled,
       areAvailable: areAvailable
@@ -30,8 +30,12 @@
       var cmd = data.cmd;
       var args = data.args;
       switch (cmd) {
+      case 'progLangs':
+        setProgLangs(args.availables);
+        setCurrentProgLang(args.selected);
+        break;
       case 'newProgLang':
-        disabled = false;
+        setCurrentProgLang(args.newProgLang);
         break;
       }
     }
@@ -44,16 +48,23 @@
       return programmingLanguages;
     }
 
-    function setCurrentProglang(progLang) {
-      console.log('progLang: ', progLang);
+    function setRemotelySelectedLang(progLang) {
       disabled = true;
-      currentProgrammingLanguage = progLang;
-      connection.sendMessage('setProgrammingLanguage', {
-        programmingLanguage: progLang.lang
+      connection.sendMessage('setProgLang', {
+          'progLang': progLang.lang
       });
     }
 
-    function getCurrentProglang() {
+    function setCurrentProgLang(progLang) {
+      console.log('progLang: ', progLang);
+      if (!$auth.isAuthenticated()) {
+          $cookies.progLang = progLang;
+      }
+      currentProgrammingLanguage = progLang;
+      disabled = false;
+    }
+
+    function getCurrentProgLang() {
       return currentProgrammingLanguage;
     }
 
