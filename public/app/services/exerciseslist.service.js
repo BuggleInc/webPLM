@@ -8,15 +8,15 @@
   exercisesList.$inject = ['$rootScope', 'listenersHandler', 'connection'];
 
   function exercisesList($rootScope, listenersHandler, connection) {
-    var exercisesList;
-    var exercisesTree;
-
-    var currentLessonID;
-    var currentExerciseID;
+    var exercisesList,
+      exercisesTree,
+      currentLessonID,
+      currentExerciseID,
+      service;
 
     listenersHandler.register('onmessage', handleMessage);
 
-    var service = {
+    service = {
       getExercisesList: getExercisesList,
       getExercisesTree: getExercisesTree,
       getNextExerciseID: getNextExerciseID,
@@ -30,15 +30,19 @@
     return service;
 
     function handleMessage(data) {
-      var cmd = data.cmd;
-      var args = data.args;
+      var cmd,
+        args,
+        exercise;
+
+      cmd = data.cmd;
+      args = data.args;
       switch (cmd) {
-        case 'exercise':
-          var exercise = args.exercise;
-          setCurrentExerciseID(exercise.id);
-          break;
-      case 'exercises':
-        updateExercisesList(args.exercises);
+      case 'exercise':
+        exercise = args.exercise;
+        setCurrentExerciseID(exercise.id);
+        break;
+      case 'lectures':
+        updateExercisesList(args.lectures);
         break;
       case 'newHumanLang':
         connection.sendMessage('getExercisesList', { lessonName: currentLessonID });
@@ -55,11 +59,14 @@
     }
 
     function getNextExerciseID() {
-      if(exercisesList === undefined) {
+      var i,
+        exercise;
+
+      if (exercisesList === undefined) {
         return '';
       }
-      for (var i = 0; i < exercisesList.length - 1; i++) {
-        var exercise = exercisesList[i];
+      for (i = 0; i < exercisesList.length - 1; i++) {
+        exercise = exercisesList[i];
         if (currentExerciseID === exercise.id) {
           return exercisesList[i + 1].id;
         }
@@ -71,15 +78,13 @@
       if (lessonID !== currentLessonID) {
         currentLessonID = lessonID;
         connection.sendMessage('getExercisesList', { lessonName: currentLessonID });
-      } else {
-        $rootScope.$broadcast('exercisesListReady');
       }
     }
 
     function getCurrentLessonID() {
       return currentLessonID;
     }
-    
+
     function setCurrentExerciseID(exerciseID) {
       currentExerciseID = exerciseID;
     }
@@ -88,36 +93,28 @@
       return currentExerciseID;
     }
 
-    function updateExercisesList(exercises) {
-      exercisesList = exercises;
-      refactorExercisesListAsTree();
-      $rootScope.$broadcast('exercisesListReady');
+    function addExerciseAndChildrenToList(exercise) {
+      var i;
+
+      exercisesList.push(exercise);
+      for (i = 0; i < exercise.dependingLectures.length; i++) {
+        addExerciseAndChildrenToList(exercise.dependingLectures[i]);
+      }
     }
 
-    function refactorExercisesListAsTree() {
-      var dataMap;
-      var treeData;
+    function refactorExercisesTreeAsList() {
+      var i, exercise;
 
-      // Refactor the exercises list as a tree
-      dataMap = exercisesList.reduce(function (map, node) {
-        map[node.name] = node;
-        return map;
-      }, {});
-      treeData = [];
-      exercisesList.forEach(function (node) {
-        // add to parent
-        var parent = dataMap[node.parent];
-        if (parent) {
-          // create child array if it doesn't exist
-          (parent.children || (parent.children = []))
-          // add node to child array
-          .push(node);
-        } else {
-          // parent is null or missing
-          treeData.push(node);
-        }
-      });
-      exercisesTree = treeData;
+      exercisesList = [];
+      for (i = 0; i < exercisesTree.length; i++) {
+        exercise = exercisesTree[i];
+        addExerciseAndChildrenToList(exercise);
+      }
+    }
+
+    function updateExercisesList(exercises) {
+      exercisesTree = exercises;
+      refactorExercisesTreeAsList();
     }
 
     function isCurrentExerciseAChild(rootLecture) {
@@ -125,9 +122,9 @@
       if (rootLecture.id === currentExerciseID) {
         return true;
       }
-      else if(rootLecture.children) {
-        for (i = 0; i < rootLecture.children.length; i++) {
-          if (rootLecture.children[i].id === currentExerciseID) {
+      if (rootLecture.dependingLectures) {
+        for (i = 0; i < rootLecture.dependingLectures.length; i++) {
+          if (rootLecture.dependingLectures[i].id === currentExerciseID) {
             return true;
           }
         }
@@ -135,4 +132,4 @@
       return false;
     }
   }
-})();
+}());

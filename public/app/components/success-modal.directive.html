@@ -12,6 +12,6 @@
     <button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');" translate>Not yet</button>
     <button ng-if="exercisesList.getNextExerciseID() !== ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID() })" translate>Yes, sure</button>
     <button ng-if="exercisesList.getNextExerciseID() === ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="home" translate>Yes, sure</button>
-    </span>
+  </span>
   <a class="close-reveal-modal">&#215;</a>
 </div>
