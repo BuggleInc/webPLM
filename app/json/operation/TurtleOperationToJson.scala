@@ -33,9 +33,9 @@ object TurtleOperationToJson {
     json = json ++ Json.obj(
       "turtleID" -> turtleOperation.getTurtle.getName
     )
-    return json
+    json
   }
-  
+
   def moveTurtleWrite(moveTurtle: MoveTurtle): JsObject = {
     Json.obj(
       "oldX" -> moveTurtle.getOldX,
@@ -44,21 +44,21 @@ object TurtleOperationToJson {
       "newY" -> moveTurtle.getNewY
     )
   }
-  
+
   def rotateTurtleWrite(rotateTurtle: RotateTurtle): JsObject = {
     Json.obj(
       "oldHeading" -> rotateTurtle.getOldHeading,
       "newHeading" -> rotateTurtle.getNewHeading
     )
   }
-  
+
   def changeTurtleVisibleWrite(changeTurtleVisible: ChangeTurtleVisible): JsObject = {
     Json.obj(
       "oldVisible" -> changeTurtleVisible.getOldVisible,
       "newVisible" -> changeTurtleVisible.getNewVisible
     )
   }
-  
+
   def addLineWrite(addLine: AddLine): JsObject = {
     Json.obj(
       "x1" -> addLine.getX1,
@@ -68,7 +68,7 @@ object TurtleOperationToJson {
       "color" -> Utils.colorToWrapper(addLine.getColor)
     )
   }
-  
+
   def addCircleWrite(addCircle: AddCircle): JsObject = {
     Json.obj(
       "x" -> addCircle.getX,
@@ -77,11 +77,11 @@ object TurtleOperationToJson {
       "color" -> Utils.colorToWrapper(addCircle.getColor)
     )
   }
-  
+
   def clearCanvasWrite(clearCanvas: ClearCanvas): JsObject = {
     Json.obj()
   }
-  
+
   def addSizeHintWrite(addSizeHint: AddSizeHint): JsObject = {
     Json.obj(
       "x1" -> addSizeHint.getX1,

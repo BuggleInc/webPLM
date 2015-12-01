@@ -25,9 +25,9 @@ object SortOperationToJson {
     json = json.as[JsObject] ++ Json.obj(
         "sortID" -> sortOperation.getEntity.getName
     )
-    return json 
+    json 
   }
-  
+
   def swapOperationWrite(swapOperation: SwapOperation): JsValue =
   {
     Json.obj(
@@ -35,7 +35,7 @@ object SortOperationToJson {
       "source" -> swapOperation.getSource()
     )
 	}
-  
+
   def copyOperationWrite(copyOperation: CopyOperation): JsValue =
   {
     Json.obj(
@@ -44,7 +44,7 @@ object SortOperationToJson {
       "oldValue" -> copyOperation.getOldValue()
     )
   }
-  
+
   def setValOperationWrite(setValOperation: SetValOperation): JsValue =
   {
     Json.obj(
@@ -53,7 +53,7 @@ object SortOperationToJson {
         "position" -> setValOperation.getPosition()
     )
   }
-  
+
   def countOperationWrite(countOperation: CountOperation): JsValue =
   {
     Json.obj(
@@ -63,7 +63,7 @@ object SortOperationToJson {
         "oldWrite" -> countOperation.getOldWrite()
     )
   }
-  
+
   def getValueOperationWrite(getValueOperation: GetValueOperation): JsValue =
   {
     Json.obj(

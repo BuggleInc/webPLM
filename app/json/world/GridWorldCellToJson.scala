@@ -9,16 +9,16 @@ object GridWorldCellToJson {
 
   def gridWorldCellsWrite(cells: Array[Array[GridWorldCell]]): JsValue = {
     var arrayCells = JsArray()
-    cells.foreach { line => 
+    cells.foreach { line =>
       var arrayLine = JsArray()
       line.foreach { cell =>
          arrayLine = arrayLine :+ gridWorldCellWrite(cell)
       }
       arrayCells = arrayCells :+ arrayLine
     }
-    return arrayCells
+    arrayCells
   }
-  
+
   def gridWorldCellWrite(gridWorldCell: GridWorldCell): JsValue = {
     var json: JsValue = null
     gridWorldCell match {
@@ -29,7 +29,7 @@ object GridWorldCellToJson {
       "x" -> gridWorldCell.getX,
       "y" -> gridWorldCell.getY
     )
-    return json
+    json
   }
-  
+
 }

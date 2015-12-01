@@ -3,17 +3,17 @@ package json.world.pancake
 import play.api.libs.json._
 import lessons.sort.pancake.universe.Pancake
 
-object PancakeToJson 
+object PancakeToJson
 {
 
   def pancakesWrite(pancakeStack: Array[Pancake]): JsValue = {
     var json: JsArray = Json.arr()
-    pancakeStack.foreach { pancake => 
+    pancakeStack.foreach { pancake =>
       json = json.+:(pancakeWrite(pancake))
     }
-    return json
+    json
   }
-  
+
   def pancakeWrite(pancake: Pancake): JsValue =
   {
     Json.obj(

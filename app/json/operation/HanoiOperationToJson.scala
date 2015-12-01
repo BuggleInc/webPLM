@@ -16,9 +16,9 @@ object HanoiOperationToJson {
     }
     json = json.as[JsObject] ++ Json.obj(
         "hanoiID" -> hanoiOperation.getEntity.getName)
-        return json
+    json
   }
-  
+
   def hanoiMoveWrite(hanoiMove: HanoiMove): JsValue =
   {
     Json.obj(

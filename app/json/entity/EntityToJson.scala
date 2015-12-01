@@ -7,15 +7,15 @@ import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.turtles.Turtle
 
 object EntityToJson {
-  
+
   def entitiesWrite(entities: Array[Entity]): JsValue = {
     var json: JsObject = Json.obj()
-    entities.foreach { entity => 
+    entities.foreach { entity =>
       json = json ++ entityWrite(entity)
     }
-    return json
+    json
   }
-  
+
   def entityWrite(entity: Entity): JsObject = {
     var json: JsValue = null
     entity match {
@@ -24,8 +24,8 @@ object EntityToJson {
       case turtle: Turtle =>
         json = TurtleToJson.turtleWrite(turtle)
     }
-    
-    return Json.obj( 
+
+    Json.obj( 
         entity.getName -> json
     )
   }

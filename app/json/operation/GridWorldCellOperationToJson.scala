@@ -19,21 +19,21 @@ object GridWorldCellOperationToJson {
       "y" -> gridWorldCell.getY
     )
   }
-  
+
   def changeCellHasContentWrite(changeCellHasContent: ChangeCellHasContent): JsValue = {
     Json.obj(
       "oldHasContent" -> changeCellHasContent.getOldHasContent,
       "newHasContent" -> changeCellHasContent.getNewHasContent
     )
   }
-  
+
   def changeCellHasBaggleWrite(changeCellHasBaggle: ChangeCellHasBaggle): JsValue = {
     Json.obj(
       "oldHasBaggle" -> changeCellHasBaggle.getOldHasBaggle,
       "newHasBaggle" -> changeCellHasBaggle.getNewHasBaggle
     )
   }
-  
+
   def changeCellContentWrite(changeCellContent: ChangeCellContent): JsValue = {
     var oldContent = changeCellContent.getOldContent
     var newContent = changeCellContent.getNewContent
@@ -42,7 +42,7 @@ object GridWorldCellOperationToJson {
       "newContent" -> newContent
     )
   }
-  
+
   def changeCellColorWrite(changeCellColor: ChangeCellColor): JsValue = {
     var oldColor = changeCellColor.getOldColor
     var newColor = changeCellColor.getNewColor
@@ -51,7 +51,7 @@ object GridWorldCellOperationToJson {
       "newColor" -> List[Int](newColor.getRed, newColor.getGreen, newColor.getBlue, newColor.getAlpha)
     )
   }
-  
+
   def buggleWorldCellOperationWrite(buggleWorldCellOperation: BuggleWorldCellOperation): JsValue = {
     buggleWorldCellOperation match {
       case changeCellColor: ChangeCellColor =>
@@ -64,11 +64,11 @@ object GridWorldCellOperationToJson {
         changeCellContentWrite(changeCellContent)
       case _ =>
         Json.obj(
-          "operation" -> "arf"    
+          "operation" -> "arf"
         )
     }
   }
-  
+
   def gridWorldCellOperationWrite(gridWorldCellOperation: GridWorldCellOperation): JsValue = {
     var json: JsValue = null
     gridWorldCellOperation match {
@@ -78,6 +78,6 @@ object GridWorldCellOperationToJson {
     json = json.as[JsObject] ++ Json.obj(
         "cell" -> gridWorldCellWrites(gridWorldCellOperation.getCell)
     )
-    return json
+    json
   }
 }

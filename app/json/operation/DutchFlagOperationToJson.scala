@@ -17,9 +17,9 @@ object DutchFlagOperationToJson {
     json = json.as[JsObject] ++ Json.obj(
         "dutchFlagID" -> dutchFlagOperation.getEntity.getName
     )
-    return json
+    json
   }
-  
+
   def dutchFlagSwapWrite(dutchFlagSwap: DutchFlagSwap): JsValue =
   {
     Json.obj(

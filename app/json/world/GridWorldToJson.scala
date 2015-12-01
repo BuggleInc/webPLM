@@ -8,7 +8,7 @@ import plm.universe.bugglequest.BuggleWorld
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 
 object GridWorldToJson {
-  
+
   def gridWorldWrite(gridWorld: GridWorld): JsValue = {
     var json: JsValue = null
     gridWorld match {
@@ -24,6 +24,6 @@ object GridWorldToJson {
       "height" -> gridWorld.getHeight,
       "cells" -> GridWorldCellToJson.gridWorldCellsWrite(gridWorld.getCells)
     )
-    return json
+    json
   }
 }

@@ -33,32 +33,32 @@ import org.eclipse.jgit.api.errors.GitAPIException
 class Git(initUserUUID : String, gitUtils : GitUtils) {
   var userUUID: String = initUserUUID
   var repoUrl : String = Game.getProperty("plm.git.server.url")
-  
+
   def setUserUUID(newUserUUID: String) {
     userUUID = newUserUUID
   }
-  
+
   def commitExecutionResult(code: String, error: String, outcome: String, optTotalTests: Option[String], optPassedTests: Option[String]) {
     var game: Game = gitUtils.getGame();
-    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]   
-    
+    var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
+
     var kindMes: String = "executed";
-    
+
     var courseID: String = game.getCourseID
     var exoID: String = exo.getId
     var pl: ProgrammingLanguage = game.getProgrammingLanguage
     var commitMsg: String = writeExecutionResultCommitMessage(courseID, exoID, pl, outcome, optTotalTests, optPassedTests)
     commitMsg = "{\"kind\" : \"" + kindMes +"\"," + commitMsg.drop(1)
     var userBranch: String = "PLM"+GitUtils.sha1(userUUID)
-    
+
     var pass: Boolean = outcome == "pass"
     generateExecutionResultFiles(exo, game.getProgrammingLanguage, pass, code, error)
-    
+
     gitUtils.removeFiles()
     gitUtils.seqAddFilesToPush(commitMsg, userBranch, NullProgressMonitor.INSTANCE)
   }
-  
-  def writeExecutionResultCommitMessage(courseID: String, exoID: String, pl: ProgrammingLanguage, outcome: String, optTotalTests: Option[String], optPassedTests: Option[String]): String = { 
+
+  def writeExecutionResultCommitMessage(courseID: String, exoID: String, pl: ProgrammingLanguage, outcome: String, optTotalTests: Option[String], optPassedTests: Option[String]): String = {
     var messageJSON: JsObject = Json.obj(
         "course" -> courseID,
         "exo" -> exoID,
@@ -73,7 +73,7 @@ class Git(initUserUUID : String, gitUtils : GitUtils) {
     }
     messageJSON.toString
   }
-  
+
   def generateExecutionResultFiles(exo: Exercise, pl: ProgrammingLanguage, pass: Boolean, code: String, error: String) {
     var correction = exo.getSourceFile(pl, 0).getCorrection() // retrieve the correction
     var mission = exo.getMission(pl) // retrieve the mission
@@ -84,7 +84,7 @@ class Git(initUserUUID : String, gitUtils : GitUtils) {
     var errorFile = new File(getRepoDir, exo.getId() + ext + ".error")
     var correctionFile = new File(getRepoDir, exo.getId() + ext + ".correction")
     var missionFile = new File(getRepoDir, exo.getId() + ext + ".mission")
-    
+
     try {
       // write the code of the exercise into the file
       var fwExo = new FileWriter(exoFile.getAbsoluteFile())
@@ -133,7 +133,7 @@ class Git(initUserUUID : String, gitUtils : GitUtils) {
   def getRepoDir() : File = {
     gitUtils.getRepoDir
   }
-  
+
   def writePLMStartedOrLeavedCommitMessage(kind : String) : String =  {
 	var game = gitUtils.getGame();
     var jsonObject : JsValue = Json.obj(
@@ -142,6 +142,6 @@ class Git(initUserUUID : String, gitUtils : GitUtils) {
         "plm" -> (Game.getProperty("plm.major.version", "internal", false) + " (" + Game.getProperty("plm.minor.version", "internal", false) + ")"))
 
     // Misuses JSON to ensure that the kind is always written first so that we can read github commit lists
-    return "{\"kind\":\""+kind+"\","+Json.stringify(jsonObject).drop(1);
+    "{\"kind\":\""+kind+"\","+Json.stringify(jsonObject).drop(1);
   }
 }

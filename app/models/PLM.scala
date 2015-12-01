@@ -35,7 +35,7 @@ class PLM(
     locale: Locale,
     lastProgLang: Option[String],
     trackUser: Boolean) {
-  
+
   var _currentExercise: Exercise = _
   var _currentLang: Lang = _
 
@@ -53,8 +53,8 @@ class PLM(
     var exo: Exercise = lect.asInstanceOf[Exercise]
 
     _currentExercise = exo;
-    
-    return lect
+
+    lect
   }
 
   def switchExercise(lessonID: String, exerciseID: String): Lecture = {
@@ -67,16 +67,16 @@ class PLM(
 
     _currentExercise = exo;
 
-    return lect
+    lect
   }
 
   def revertExercise(): Lecture = {
     game.revertExo
-    return _currentExercise
+    _currentExercise
   }
 
   def getSelectedWorldID(): String = {
-    return game.getSelectedWorld.getName
+    game.getSelectedWorld.getName
   }
 
   def getInitialWorlds(): Array[World] = {
@@ -92,7 +92,7 @@ class PLM(
     if(getInitialWorlds != null) {
       api = getInitialWorlds.head.getAbout
     }
-    return api
+    api
   }
 
   def runExercise(lessonID: String, exerciseID: String, code: String, workspace: String) {

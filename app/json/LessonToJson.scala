@@ -6,16 +6,16 @@ import java.util.Map
 import plm.core.model.Game
 
 object LessonToJson {
-  
+
   def lessonsWrite(lessons: Map[String, Lesson]): JsValue = {
     var array = new JsArray()
     Game.lessonsName.foreach { lessonName =>
       var lesson: Lesson = lessons.get(lessonName)
       array = array :+ lessonWrite(lesson)
     }
-    return array
+    array
   }
-  
+
   def lessonWrite(lesson: Lesson): JsValue = {
     Json.obj(
       "id" -> lesson.getId,

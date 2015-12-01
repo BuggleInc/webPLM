@@ -6,7 +6,7 @@ import play.api.Logger
 
 
 object PancakeOperationToJson {
-  
+
   def pancakeOperationWrite(pancakeOperation: PancakeOperation): JsValue =
   {
     var json:JsValue = null
@@ -18,9 +18,9 @@ object PancakeOperationToJson {
     json = json.as[JsObject] ++ Json.obj(
         "pancakeID" -> pancakeOperation.getEntity.getName
     )
-    return json
+    json
   }
-  
+
   def flipOperationWrite(flipOperation: FlipOperation): JsValue =
   {
     Json.obj(

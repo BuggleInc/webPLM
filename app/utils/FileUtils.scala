@@ -17,6 +17,6 @@ object FileUtils {
     case e: FileNotFoundException => Logger.error("Couldn't find that file.")
     case e: IOException => Logger.error("Got an IOException!")
     }
-    return fileContent
+    fileContent
   }
 }

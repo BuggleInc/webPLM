@@ -67,7 +67,7 @@ object LessonsActor {
   }
 
   def getLessonPath(lessonName: String, filePath: String): String = {
-    return List(rootDirectory, lessonName, filePath).mkString("/")
+    List(rootDirectory, lessonName, filePath).mkString("/")
   }
 
   def getDescriptionPath(lessonName: String, langCode: String): String = {
@@ -75,7 +75,7 @@ object LessonsActor {
     if(langCode != "en") {
       path += "." + langCode
     }
-    return path + ".html"
+    path + ".html"
   }
 }
 

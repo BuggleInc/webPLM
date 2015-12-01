@@ -5,8 +5,8 @@ import play.api.libs.json.JsValue
 import json.world.BatWorldToJson
 
 object BatOperationToJson {
-  
+
    def batOperationWrite(batOperation: BatOperation): JsValue = {
-    return BatWorldToJson.batWorlddWrite(batOperation.getBatWorld)
+    BatWorldToJson.batWorlddWrite(batOperation.getBatWorld)
   }
 }

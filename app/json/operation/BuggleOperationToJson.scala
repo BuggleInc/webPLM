@@ -29,9 +29,9 @@ object BuggleOperationToJson {
     json = json.as[JsObject] ++ Json.obj(
       "buggleID" -> buggleOperation.getBuggle.getName
     )
-    return json
+    json
   }
-  
+
   def moveBuggleOperationWrite(moveBuggleOperation: MoveBuggleOperation): JsValue = {
     Json.obj(
       "oldX" -> moveBuggleOperation.getOldX(),
@@ -47,7 +47,7 @@ object BuggleOperationToJson {
       "newCarryBaggle" -> changeBuggleCarryBaggle.getNewCarryBaggle
     )
   }
-  
+
   def changeBuggleBrushDownWrite(changeBuggleBrushDown: ChangeBuggleBrushDown): JsValue = {
     Json.obj(
       "oldBrushDown" -> changeBuggleBrushDown.getOldBrushDown,
@@ -61,7 +61,7 @@ object BuggleOperationToJson {
       "newDirection" -> changeBuggleDirection.getNewDirection.intValue()
     )
   }
-  
+
   def changeBuggleBodyColorWrite(changeBuggleBodyColor: ChangeBuggleBodyColor): JsValue = {
     var oldColor = changeBuggleBodyColor.getOldBodyColor
     var newColor = changeBuggleBodyColor.getNewBodyColor
@@ -70,5 +70,5 @@ object BuggleOperationToJson {
       "newColor" -> List[Int](newColor.getRed, newColor.getGreen, newColor.getBlue, newColor.getAlpha)
     )
   }
-  
+
 }

@@ -14,15 +14,15 @@ import lessons.sort.pancake.universe.operations.PancakeOperation
 import lessons.recursion.hanoi.operations.HanoiOperation
 
 object OperationToJson {
-  
+
   def operationsWrite(operations: Array[Operation]): JsValue = {
     var array = new JsArray()
     operations.foreach { operation =>
       array = array :+ operationWrite(operation)
     }
-    return array
+    array
   }
-  
+
   def operationWrite (operation: Operation): JsValue = {
     var json: JsValue = null
     operation match {
@@ -46,12 +46,12 @@ object OperationToJson {
         json = TurtleOperationToJson.turtleOperationWrite(turtleOperation)
       case _ =>
         Json.obj(
-          "operation" -> "arf"    
+          "operation" -> "arf"
         )
     }
     json = json.as[JsObject] ++ Json.obj(
       "type" -> operation.getName
     )
-    return json
+    json
   }
 }

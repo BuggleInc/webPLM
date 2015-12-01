@@ -10,10 +10,10 @@ import plm.universe.World
 import json.world.WorldToJson
 
 object LectureToJson {
-  
-  def lectureWrites(lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], answerWorlds: Array[World], selectedWorldID: String): JsValue = {
+
+  def lectureWrites(lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], selectedWorldID: String): JsValue = {
     var progLangArray = lecture.asInstanceOf[Exercise].getProgLanguages.toArray(Array[ProgrammingLanguage]())
-    
+
     var json = Json.obj(
       "id" -> lecture.getId,
       "instructions" -> lecture.getMission(progLang),
@@ -38,11 +38,11 @@ object LectureToJson {
         )
     }
 
-    return json
+    json
   }
 
-  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {    
-    return Json.obj(
+  def instructionsWrite(lecture: Lecture, progLang: ProgrammingLanguage, initialWorlds: Array[World]): JsValue = {
+    Json.obj(
       "instructions" -> lecture.getMission(progLang),
       "api" -> initialWorlds.head.getAbout
     )

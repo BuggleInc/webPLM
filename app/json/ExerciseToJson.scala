@@ -38,6 +38,6 @@ object ExerciseToJson {
         )
     }
 
-    return json
+    json
   }
 }

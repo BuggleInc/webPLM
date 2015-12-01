@@ -169,13 +169,12 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
 
   def getCode(exerciseID: String, progLang: ProgrammingLanguage): Option[String] = {
     val path: String = retrieveCodePath(exerciseID, progLang)
-    val code: Option[String] = FileUtils.readFile(path)
-    return code
+    FileUtils.readFile(path)
   }
 
   def retrieveCodePath(exerciseID: String, progLang: ProgrammingLanguage): String = {
     val filename: String = List(exerciseID, progLang.getExt, "code").mkString(".")
-    return List(home, gitDirectory, gitID, filename).mkString("/")
+    List(home, gitDirectory, gitID, filename).mkString("/")
   }
 
   def createFiles(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) {
@@ -206,18 +205,17 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
 
   def jsonToCommitMessage(eventKind: String, json: JsObject): String = {
     // Misuses JSON to ensure that the kind is always written first so that we can read github commit lists
-    return "{\"kind\": \"" + eventKind + "\", " + json.toString.substring(1)
+    "{\"kind\": \"" + eventKind + "\", " + json.toString.substring(1)
   }
 
   def generateStartedOrLeavedJson(): JsObject = {
-    var json: JsObject = Json.obj(
+    Json.obj(
       "java" -> java,
       "os" -> os,
       "plm" -> plmVersion,
       "webplm" -> webPLMVersion,
       "user-agent" -> userAgent
     )
-    return json
   }
 
   def generateExecutedJson(exercise: Exercise, result: ExecutionProgress): JsObject = {
@@ -247,7 +245,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     if (result.feedback != null)
       json = json ++ Json.obj("exoComment" -> result.feedback)
 
-    return json
+    json
   }
 
   def generateSwitchedJson(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]): JsObject = {
@@ -261,7 +259,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       case _ =>
     }
 
-    return json
+    json
   }
 
   override def postStop() = {

@@ -17,11 +17,11 @@ object ProgrammingLanguages {
   def defaultProgrammingLanguage(): ProgrammingLanguage = java
   def getProgrammingLanguage(progLangName: String): ProgrammingLanguage = {
     var newProgLang: ProgrammingLanguage = defaultProgrammingLanguage
-    programmingLanguages.foreach { progLang => 
+    programmingLanguages.foreach { progLang =>
       if(progLang.getLang.toLowerCase == progLangName.toLowerCase) {
         newProgLang = progLang
       }
     }
-    return newProgLang
+    newProgLang
   }
 }

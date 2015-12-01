@@ -12,7 +12,7 @@ object HanoiWorldToJson {
     var jsArray = JsArray()
     slots.foreach { vector =>
       var slot = JsArray()
-      vector.toArray(Array[HanoiDisk]()).foreach { hanoiDisk => 
+      vector.toArray(Array[HanoiDisk]()).foreach { hanoiDisk =>
         slot = slot.append(Json.obj(
           "size" -> hanoiDisk.getSize,
           "color" -> Utils.colorToWrapper(hanoiDisk.getColor)
@@ -20,14 +20,9 @@ object HanoiWorldToJson {
       }
       jsArray = jsArray :+ slot
     }
-    return jsArray
+    jsArray
   }
-  /*
-  def integerWrite(integer: Integer): JsValue =
-  {
-    Json.toJson(integer.intValue())
-  } */
-  
+
   def hanoiWorldWrite(hanoiWorld: HanoiWorld): JsValue = {
     Json.obj(
         "type" -> "HanoiWorld",

@@ -18,15 +18,15 @@ import json.world.baseball.BaseballWorldToJson
 import lessons.recursion.hanoi.universe.HanoiWorld
 
 object WorldToJson {
-  
+
   def worldsWrite(worlds: Array[World]): JsValue = {
     var json: JsValue = Json.obj()
     worlds.foreach { world =>
-      json = json.as[JsObject] ++ worldWrite(world).as[JsObject] 
+      json = json.as[JsObject] ++ worldWrite(world).as[JsObject]
     }
-    return json
+    json
   }
- 
+
   def worldWrite(world: World): JsValue = {
     var json: JsValue = null
     world match {
@@ -57,8 +57,8 @@ object WorldToJson {
       case _ =>
         throw NonImplementedWorldException.create;
     }
-    
-    return Json.obj( 
+
+    Json.obj( 
         world.getName -> json
     )
   }
