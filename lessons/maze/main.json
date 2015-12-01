@@ -1,1 +1,53 @@
-{"name":null,"lectures":[{"name":"La souris folle","id":"maze.lessons.maze.randommouse.RandomMouseMaze","dependingLectures":[]},{"name":"Longer les murs","id":"maze.lessons.maze.wallfollower.WallFollowerMaze","dependingLectures":[]},{"name":"Trouver les murs à longer","id":"maze.lessons.maze.wallfindfollow.WallFindFollowMaze","dependingLectures":[]},{"name":"Perdu dans les îles","id":"maze.lessons.maze.island.IslandMaze","dependingLectures":[]},{"name":"Algorithme de Pledge","id":"maze.lessons.maze.pledge.PledgeMaze","dependingLectures":[]},{"name":"Algorithme basique de recherche du plus court chemin","id":"maze.lessons.maze.shortestpath.ShortestPathMaze","dependingLectures":[]}],"id":"maze"}
+{
+  "name" : null,
+  "lectures" : [ {
+    "names" : {
+      "en" : "The crazy mouse",
+      "pt_br" : "O rato doido",
+      "fr" : "La souris folle"
+    },
+    "id" : "maze.lessons.maze.randommouse.RandomMouseMaze",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Following the walls",
+      "pt_br" : "Seguindo as paredes",
+      "fr" : "Longer les murs"
+    },
+    "id" : "maze.lessons.maze.wallfollower.WallFollowerMaze",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Finding the walls to follow",
+      "pt_br" : "Encontrando as paredes para seguir",
+      "fr" : "Trouver les murs à longer"
+    },
+    "id" : "maze.lessons.maze.wallfindfollow.WallFindFollowMaze",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Lost between islands",
+      "pt_br" : "Perdido entre ilhas",
+      "fr" : "Perdu dans les îles"
+    },
+    "id" : "maze.lessons.maze.island.IslandMaze",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Pledge algorithm",
+      "pt_br" : "Algoritmo de Pledge",
+      "fr" : "Algorithme de Pledge"
+    },
+    "id" : "maze.lessons.maze.pledge.PledgeMaze",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Basic Shortest Path algorithm",
+      "pt_br" : "Algoritmo básico do caminho mais curto",
+      "fr" : "Algorithme basique de recherche du plus court chemin"
+    },
+    "id" : "maze.lessons.maze.shortestpath.ShortestPathMaze",
+    "dependingLectures" : [ ]
+  } ],
+  "id" : "maze"
+}

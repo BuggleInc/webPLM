@@ -1,1 +1,37 @@
-{"name":null,"lectures":[{"name":"La fourmi de Langton","id":"turmites.lessons.turmites.langton.Langton","dependingLectures":[]},{"name":"La fourmi de Langton multicolore","id":"turmites.lessons.turmites.langtoncolors.LangtonColors","dependingLectures":[]},{"name":"Turmites","id":"turmites.lessons.turmites.helloturmite.HelloTurmite","dependingLectures":[]},{"name":"Créer des Turmites","id":"turmites.lessons.turmites.turmitecreator.TurmiteCreator","dependingLectures":[]}],"id":"turmites"}
+{
+  "name" : null,
+  "lectures" : [ {
+    "names" : {
+      "en" : "Langton's ant",
+      "pt_br" : "formiga de Langton",
+      "fr" : "La fourmi de Langton"
+    },
+    "id" : "turmites.lessons.turmites.langton.Langton",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Multicolor Langton's ant",
+      "pt_br" : "formiga de Langton multicolorida",
+      "fr" : "La fourmi de Langton multicolore"
+    },
+    "id" : "turmites.lessons.turmites.langtoncolors.LangtonColors",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Turmites",
+      "pt_br" : "Turmites",
+      "fr" : "Turmites"
+    },
+    "id" : "turmites.lessons.turmites.helloturmite.HelloTurmite",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Creating Turmites",
+      "pt_br" : "Criando Turmites",
+      "fr" : "Créer des Turmites"
+    },
+    "id" : "turmites.lessons.turmites.turmitecreator.TurmiteCreator",
+    "dependingLectures" : [ ]
+  } ],
+  "id" : "turmites"
+}

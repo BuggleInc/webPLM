@@ -1,1 +1,141 @@
-{"name":null,"lectures":[{"name":"Longueur","id":"recursion.cons.lessons.recursion.cons.Length","dependingLectures":[]},{"name":"EstMembre","id":"recursion.cons.lessons.recursion.cons.IsMember","dependingLectures":[]},{"name":"Occurrences","id":"recursion.cons.lessons.recursion.cons.Occurrence","dependingLectures":[]},{"name":"Dernier","id":"recursion.cons.lessons.recursion.cons.Last","dependingLectures":[]},{"name":"Min","id":"recursion.cons.lessons.recursion.cons.Min","dependingLectures":[]},{"name":"Croissante","id":"recursion.cons.lessons.recursion.cons.Increasing","dependingLectures":[]},{"name":"Sauf Dernier","id":"recursion.cons.lessons.recursion.cons.ButLast","dependingLectures":[]},{"name":"PlusUn","id":"recursion.cons.lessons.recursion.cons.PlusOne","dependingLectures":[]},{"name":"Retire","id":"recursion.cons.lessons.recursion.cons.Remove","dependingLectures":[]},{"name":"Nième","id":"recursion.cons.lessons.recursion.cons.Nth","dependingLectures":[]},{"name":"nPremiers","id":"recursion.cons.lessons.recursion.cons.Nfirst","dependingLectures":[]},{"name":"nDerniers","id":"recursion.cons.lessons.recursion.cons.Nlast","dependingLectures":[]},{"name":"Sauf nPremiers","id":"recursion.cons.lessons.recursion.cons.ButNfirst","dependingLectures":[]},{"name":"Sauf nDerniers","id":"recursion.cons.lessons.recursion.cons.ButNlast","dependingLectures":[]},{"name":"Inverse","id":"recursion.cons.lessons.recursion.cons.Reverse","dependingLectures":[]},{"name":"Concaténation","id":"recursion.cons.lessons.recursion.cons.Concat","dependingLectures":[]},{"name":"Tous différents","id":"recursion.cons.lessons.recursion.cons.AllDifferent","dependingLectures":[]}],"id":"recursion.cons"}
+{
+  "name" : null,
+  "lectures" : [ {
+    "names" : {
+      "en" : "Length",
+      "pt_br" : "Comprimento",
+      "fr" : "Longueur"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Length",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "IsMember",
+      "pt_br" : "IsMember",
+      "fr" : "EstMembre"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.IsMember",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Occurrences",
+      "pt_br" : "Occurrences",
+      "fr" : "Occurrences"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Occurrence",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Last",
+      "pt_br" : "Last",
+      "fr" : "Dernier"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Last",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Min",
+      "pt_br" : "Min",
+      "fr" : "Min"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Min",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Increasing",
+      "pt_br" : "Increasing",
+      "fr" : "Croissante"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Increasing",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "But Last",
+      "pt_br" : "But Last",
+      "fr" : "Sauf Dernier"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.ButLast",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "PlusOne",
+      "pt_br" : "PlusOne",
+      "fr" : "PlusUn"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.PlusOne",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Remove",
+      "pt_br" : "Remove",
+      "fr" : "Retire"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Remove",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Nth",
+      "pt_br" : "Nth",
+      "fr" : "Nième"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Nth",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Nfirst",
+      "pt_br" : "Nfirst",
+      "fr" : "nPremiers"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Nfirst",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Nlast",
+      "pt_br" : "Nlast",
+      "fr" : "nDerniers"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Nlast",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "But Nfirst",
+      "pt_br" : "But Nfirst",
+      "fr" : "Sauf nPremiers"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.ButNfirst",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "But Nlast",
+      "pt_br" : "But Nlast",
+      "fr" : "Sauf nDerniers"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.ButNlast",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Reverse",
+      "pt_br" : "Reverse",
+      "fr" : "Inverse"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Reverse",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Concat",
+      "pt_br" : "Concat",
+      "fr" : "Concaténation"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.Concat",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "All Different",
+      "pt_br" : "All Different",
+      "fr" : "Tous différents"
+    },
+    "id" : "recursion.cons.lessons.recursion.cons.AllDifferent",
+    "dependingLectures" : [ ]
+  } ],
+  "id" : "recursion.cons"
+}

@@ -3,10 +3,10 @@ package models.lesson
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.i18n.Lang
+
 /**
  * @author matthieu
  */
-
 object Lesson {
   implicit val lessonReads: Reads[Lesson] = (
     (JsPath \ "id").read[String] and
@@ -15,14 +15,13 @@ object Lesson {
     (JsPath \ "optDescriptions").readNullable[Map[String, String]]
   )(Lesson.apply _)
   
-  def arrayToJSON(lessons: Array[Lesson], humanLang: Lang): JsArray = {
+  def arrayToJson(lessons: Array[Lesson], humanLang: Lang): JsArray = {
     var jsonLessons: JsArray = Json.arr()
     lessons.foreach { lesson: Lesson =>
       jsonLessons = jsonLessons.append(lesson.toJson(humanLang))
     }
     jsonLessons
   }
-  
 }
 
 case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], var optDescriptions: Option[Map[String, String]]) {

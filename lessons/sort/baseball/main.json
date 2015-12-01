@@ -1,1 +1,37 @@
-{"name":null,"lectures":[{"name":"Baseball multicolore naïf","id":"sort.baseball.lessons.sort.baseball.NaiveBaseball","dependingLectures":[]},{"name":"Baseball par sélection","id":"sort.baseball.lessons.sort.baseball.SelectBaseball","dependingLectures":[]},{"name":"Baseball par insertion","id":"sort.baseball.lessons.sort.baseball.InsertBaseball","dependingLectures":[]},{"name":"Baseball à bulle","id":"sort.baseball.lessons.sort.baseball.BubbleBaseball","dependingLectures":[]}],"id":"sort.baseball"}
+{
+  "name" : null,
+  "lectures" : [ {
+    "names" : {
+      "en" : "Naive Rainbow Baseball",
+      "pt_br" : "Basebal do arco-íris simples",
+      "fr" : "Baseball multicolore naïf"
+    },
+    "id" : "sort.baseball.lessons.sort.baseball.NaiveBaseball",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Selection Baseball",
+      "pt_br" : "Selection Baseball",
+      "fr" : "Baseball par sélection"
+    },
+    "id" : "sort.baseball.lessons.sort.baseball.SelectBaseball",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Insertion Baseball",
+      "pt_br" : "Insertion Baseball",
+      "fr" : "Baseball par insertion"
+    },
+    "id" : "sort.baseball.lessons.sort.baseball.InsertBaseball",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Bubble Baseball",
+      "pt_br" : "Bubble Baseball",
+      "fr" : "Baseball à bulle"
+    },
+    "id" : "sort.baseball.lessons.sort.baseball.BubbleBaseball",
+    "dependingLectures" : [ ]
+  } ],
+  "id" : "sort.baseball"
+}

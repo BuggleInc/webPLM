@@ -1,1 +1,77 @@
-{"name":null,"lectures":[{"name":"Multiplication de chaînes","id":"bat.string1.lessons.bat.string1.StringTimes","dependingLectures":[]},{"name":"Multiplication de début","id":"bat.string1.lessons.bat.string1.FrontTimes","dependingLectures":[]},{"name":"Éclats de chaîne","id":"bat.string1.lessons.bat.string1.StringBits","dependingLectures":[]},{"name":"Explosion de chaîne","id":"bat.string1.lessons.bat.string1.StringSplosion","dependingLectures":[]},{"name":"Deux derniers","id":"bat.string1.lessons.bat.string1.Last2","dependingLectures":[]},{"name":"Comparaison de chaînes","id":"bat.string1.lessons.bat.string1.StringMatch","dependingLectures":[]},{"name":"Chaîne X","id":"bat.string1.lessons.bat.string1.StringX","dependingLectures":[]},{"name":"Sans les paires","id":"bat.string1.lessons.bat.string1.AltPairs","dependingLectures":[]},{"name":"String Yak","id":"bat.string1.lessons.bat.string1.StringYak","dependingLectures":[]}],"id":"bat.string1"}
+{
+  "name" : null,
+  "lectures" : [ {
+    "names" : {
+      "en" : "StringTimes",
+      "pt_br" : "Multiplicação de strings",
+      "fr" : "Multiplication de chaînes"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringTimes",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "FrontTimes",
+      "pt_br" : "FrontTimes",
+      "fr" : "Multiplication de début"
+    },
+    "id" : "bat.string1.lessons.bat.string1.FrontTimes",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "StringBits",
+      "pt_br" : "StringBits",
+      "fr" : "Éclats de chaîne"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringBits",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "StringSplosion",
+      "pt_br" : "Explosão de strings",
+      "fr" : "Explosion de chaîne"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringSplosion",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "Last2",
+      "pt_br" : "Último2",
+      "fr" : "Deux derniers"
+    },
+    "id" : "bat.string1.lessons.bat.string1.Last2",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "StringMatch",
+      "pt_br" : "Comparação de string",
+      "fr" : "Comparaison de chaînes"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringMatch",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "StringX",
+      "pt_br" : "StringX",
+      "fr" : "Chaîne X"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringX",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "AltPairs",
+      "pt_br" : "Pares alternados",
+      "fr" : "Sans les paires"
+    },
+    "id" : "bat.string1.lessons.bat.string1.AltPairs",
+    "dependingLectures" : [ ]
+  }, {
+    "names" : {
+      "en" : "StringYak",
+      "pt_br" : "StringYak",
+      "fr" : "String Yak"
+    },
+    "id" : "bat.string1.lessons.bat.string1.StringYak",
+    "dependingLectures" : [ ]
+  } ],
+  "id" : "bat.string1"
+}

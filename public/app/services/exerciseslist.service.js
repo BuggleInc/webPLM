@@ -45,7 +45,9 @@
         updateExercisesList(args.lectures);
         break;
       case 'newHumanLang':
-        connection.sendMessage('getExercisesList', { lessonName: currentLessonID });
+        if(args.lectures) {
+          updateExercisesList(args.lectures);
+        }
         break;
       }
     }

@@ -110,7 +110,7 @@ class PLMActor (
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-            val jsonLessons: JsArray = Lesson.arrayToJSON(lessons, currentHumanLang)
+            val jsonLessons: JsArray = Lesson.arrayToJson(lessons, currentHumanLang)
             sendMessage("lessons", Json.obj(
               "lessons" -> jsonLessons
             ))
@@ -120,8 +120,9 @@ class PLMActor (
           optLessonName match {
             case Some(lessonName: String) =>
               (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
+                val jsonLectures: JsArray = Lecture.arrayToJson(lectures, currentHumanLang)
                 sendMessage("lectures", Json.obj(
-                  "lectures" -> lectures
+                  "lectures" -> jsonLectures
                 ))
               }
             case _ =>
@@ -146,12 +147,16 @@ class PLMActor (
               logNonValidJSON("setLang: non-correct JSON", msg)
           }
         case "getExercise" =>
+          val optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           (exercisesActor ? GetExercise("Environment")).mapTo[Exercise].map { exercise =>
             gitActor ! SwitchExercise(exercise, optCurrentExercise)
 
             optCurrentExercise = Some(exercise)
             (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
               val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
+
+              optCurrentLesson = optLessonID
+
               sendMessage("exercise", Json.obj(
                 "exercise" -> json
               ))
@@ -429,15 +434,7 @@ class PLMActor (
 
   def generateUpdatedExerciseJson(): JsObject = {
     optCurrentExercise match {
-<<<<<<< 5bf40f9e37a9e6433912e5889582d569303e320e
     case Some(exercise: Exercise) =>
-      (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-        val exerciseJson: JsObject = Json.obj(
-          "code" -> code,
-          "instructions" -> exercise.getMission(currentPreferredLang.language, currentProgLang),
-          "api" -> exercise.getWorldAPI(currentPreferredLang.toLocale, currentProgLang)
-=======
-    case Some(exercise: Exercise) => 
       val exerciseJson: JsObject = Json.obj(
         "instructions" -> exercise.getMission(currentHumanLang.language, currentProgLang),
         "api" -> exercise.getWorldAPI(currentHumanLang.toLocale, currentProgLang)
@@ -452,9 +449,10 @@ class PLMActor (
     var json: JsObject = Json.obj("newHumanLang" -> LangToJson.langWrite(currentHumanLang))
 
     val futureTuple = for {
+      lessonsListJson <- generateUpdatedLessonsListJson
       exercisesListJson <- generateUpdatedExercisesListJson
       exerciseJson <- Future { generateUpdatedExerciseJson }
-    } yield (exercisesListJson, exerciseJson)
+    } yield (lessonsListJson, exercisesListJson, exerciseJson)
 
     val tuple = Await.result(futureTuple, 1 seconds)
     tuple.productIterator.foreach { additionalJson =>
@@ -463,15 +461,21 @@ class PLMActor (
     json
   }
 
+  def generateUpdatedLessonsListJson(): Future[JsValue] = {
+    (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
+      Json.obj(
+        "lessons" -> Lesson.arrayToJson(lessons, currentHumanLang)
+      )
+    }
+  }
+
   def generateUpdatedExercisesListJson(): Future[JsObject] = {
     optCurrentLesson match {
     case Some(lessonName: String) =>
       (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
-        val lecturesJson: JsObject = Json.obj(
-          "lectures" -> lectures
->>>>>>> Refactor code to manage current human and programming language
+        Json.obj(
+          "lectures" -> Lecture.arrayToJson(lectures, currentHumanLang)
         )
-        lecturesJson
       }
     case _ =>
       Future { Json.obj() }
@@ -495,7 +499,7 @@ class PLMActor (
 
   def generateUpdatedCodeJson(): Future[JsObject] = {
     optCurrentExercise match {
-    case Some(exercise: Exercise) => 
+    case Some(exercise: Exercise) =>
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
         val codeJson: JsObject = Json.obj(
           "code" -> code
