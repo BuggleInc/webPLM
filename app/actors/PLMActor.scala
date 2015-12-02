@@ -74,7 +74,7 @@ class PLMActor (
 
   var optCurrentLesson: Option[String] = None
   var optCurrentExercise: Option[Exercise] = None
-  var currentUser: User = null
+  var optCurrentUser: Option[User] = None
   var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
   var currentHumanLang: Lang = initHumanLang(preferredLang)
 
@@ -97,8 +97,9 @@ class PLMActor (
       val cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
-          setCurrentUser((msg \ "user").asOpt[User].get)
-          gitActor ! SwitchUser(currentGitID, currentUser.trackUser)
+          val currentUser: User = (msg \ "user").asOpt[User].get
+          setCurrentUser(currentUser)
+          gitActor ! SwitchUser(currentUser.gitID, currentUser.trackUser)
           currentUser.preferredLang match {
             case Some(newLang: Lang) =>
               updateHumanLang(newLang.code)
@@ -225,14 +226,15 @@ class PLMActor (
           val optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           val optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
           val optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
-          (optFirstName, optFirstName) match {
-            case (Some(firstName:String), Some(lastName: String)) =>
-              currentUser = currentUser.copy(
+          (optCurrentUser, optFirstName, optLastName) match {
+            case (Some(currentUser: User), Some(firstName:String), Some(lastName: String)) =>
+              val newUser = currentUser.copy(
                   firstName = optFirstName,
                   lastName = optLastName,
                   trackUser = optTrackUser
               )
-              UserDAORestImpl.update(currentUser)
+              optCurrentUser = Some(newUser)
+              UserDAORestImpl.update(newUser)
               sendMessage("userUpdated", Json.obj())
               optTrackUser match {
                 case Some(trackUser: Boolean) =>
@@ -318,34 +320,6 @@ class PLMActor (
     out ! createMessage(cmdName, mapArgs)
   }
 
-  def setCurrentUser(newUser: User) {
-    currentUser = newUser
-    sendMessage("user", Json.obj(
-        "user" -> currentUser
-      )
-    )
-
-    setCurrentGitID(currentUser.gitID.toString, false)
-  }
-
-  def clearCurrentUser() {
-    currentUser = null
-    sendMessage("user", Json.obj())
-
-    currentGitID = UUID.randomUUID.toString
-    setCurrentGitID(currentGitID, true)
-  }
-
-  def setCurrentGitID(newGitID: String, toSend: Boolean) {
-    currentGitID = newGitID;
-    if(toSend) {
-      sendMessage("gitID", Json.obj(
-          "gitID" -> currentGitID
-        )
-      )
-    }
-  }
-
   def registerActor() {
     ActorsMap.add(actorUUID, self)
     sendMessage("actorUUID", Json.obj(
@@ -368,21 +342,92 @@ class PLMActor (
     ))
   }
 
+  def setCurrentUser(newUser: User) {
+    optCurrentUser = Some(newUser)
+    sendMessage("user", Json.obj(
+        "user" -> newUser
+      )
+    )
+
+    setCurrentGitID(newUser.gitID, false)
+  }
+
+  def clearCurrentUser() {
+    optCurrentUser = None
+    sendMessage("user", Json.obj())
+
+    currentGitID = UUID.randomUUID.toString
+    setCurrentGitID(currentGitID, true)
+  }
+
+  def setCurrentGitID(newGitID: String, toSend: Boolean) {
+    currentGitID = newGitID;
+    if(toSend) {
+      sendMessage("gitID", Json.obj(
+          "gitID" -> currentGitID
+        )
+      )
+    }
+  }
+
+<<<<<<< b7d2d1e4b4c3afa6d763fe5d608ae4c24dec92e9
+  def registerActor() {
+    ActorsMap.add(actorUUID, self)
+    sendMessage("actorUUID", Json.obj(
+        "actorUUID" -> actorUUID
+      )
+    )
+  }
+
+  def sendProgLangs() {
+    sendMessage("progLangs", Json.obj(
+      "selected" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
+      "availables" -> ProgrammingLanguageToJson.programmingLanguagesWrite(ProgrammingLanguages.programmingLanguages)
+    ))
+  }
+
+  def sendHumanLangs() {
+    sendMessage("humanLangs", Json.obj(
+      "selected" -> LangToJson.langWrite(currentHumanLang),
+      "availables" -> LangToJson.langsWrite(availableLangs)
+    ))
+  }
+
+=======
+>>>>>>> Refactor PLMActor to use option instead of null for currentUser
   def saveLastProgLang() {
-    if(currentUser != null) {
-      currentUser = currentUser.copy(
+    optCurrentUser match {
+    case Some(currentUser: User) =>
+      val newUser: User = currentUser.copy(
           lastProgLang = Some(currentProgLang.getLang)
       )
-      UserDAORestImpl.update(currentUser)
+      optCurrentUser = Some(newUser)
+      UserDAORestImpl.update(newUser)
+    case _ =>
     }
   }
 
   def savePreferredLang() {
-    if(currentUser != null) {
-      currentUser = currentUser.copy(
+    optCurrentUser match {
+    case Some(currentUser: User) =>
+      val newUser: User = currentUser.copy(
           preferredLang = Some(currentHumanLang)
       )
-      UserDAORestImpl.update(currentUser)
+      optCurrentUser = Some(newUser)
+      UserDAORestImpl.update(newUser)
+    case _ =>
+    }
+  }
+
+  def saveTrackUser(trackUser: Boolean) {
+    optCurrentUser match {
+    case Some(currentUser: User) =>
+      val newUser: User = currentUser.copy(
+          trackUser = Some(trackUser)
+      )
+      optCurrentUser = Some(newUser)
+      UserDAORestImpl.update(newUser)
+    case _ =>
     }
   }
 
@@ -406,15 +451,6 @@ class PLMActor (
     }
     idleStart = null
     idleEnd = null
-  }
-
-  def saveTrackUser(trackUser: Boolean) {
-    if(currentUser != null) {
-      currentUser = currentUser.copy(
-          trackUser = Some(trackUser)
-      )
-      UserDAORestImpl.update(currentUser)
-    }
   }
 
   def logNonValidJSON(label: String, msg: JsValue) {
