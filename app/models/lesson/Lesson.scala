@@ -11,8 +11,7 @@ object Lesson {
   implicit val lessonReads: Reads[Lesson] = (
     (JsPath \ "id").read[String] and
     (JsPath \ "name").readNullable[String] and
-    (JsPath \ "lectures").read[Array[Lecture]] and
-    (JsPath \ "optDescriptions").readNullable[Map[String, String]]
+    (JsPath \ "lectures").read[Array[Lecture]]
   )(Lesson.apply _)
   
   def arrayToJson(lessons: Array[Lesson], humanLang: Lang): JsArray = {
@@ -24,9 +23,11 @@ object Lesson {
   }
 }
 
-case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], var optDescriptions: Option[Map[String, String]]) {
+case class Lesson(id: String, name: Option[String], lectures: Array[Lecture]) {
 
   val orderedIDs: Array[String] = orderIDs
+
+  var optDescriptions: Option[Map[String, String]] = None
 
   def orderIDs(): Array[String] = {
     var array: Array[String] = Array()

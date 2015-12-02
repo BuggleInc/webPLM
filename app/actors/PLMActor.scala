@@ -96,15 +96,16 @@ class PLMActor (
           gitActor ! SwitchUser(currentGitID, currentUser.trackUser)
           currentUser.preferredLang match {
             case Some(newLang: Lang) =>
-              currentHumanLang = newLang
-              // FIXME: Re-implement me
-              // plm.setLang(currentPreferredLang)
+              updateHumanLang(newLang.code)
             case _ =>
-              savePreferredLang()
+              savePreferredLang
           }
-          // FIXME: Re-implement me
-          // plm.setProgrammingLanguage(currentUser.lastProgLang.getOrElse("Java"))
-          updateProgLang(currentUser.lastProgLang.getOrElse("java"))
+          currentUser.lastProgLang match {
+          case Some(progLang: String) =>
+            updateProgLang(progLang)
+          case _ =>
+            saveLastProgLang
+          }
         case "signOut" =>
           clearCurrentUser
           gitActor ! SwitchUser(currentGitID, None)
@@ -133,7 +134,7 @@ class PLMActor (
           optProgLang match {
             case Some(progLang: String) =>
               updateProgLang(progLang)
-              saveLastProgLang(progLang)
+              saveLastProgLang
             case _ =>
               logNonValidJSON("setProgrammingLanguage: non-correct JSON", msg)
           }
@@ -142,7 +143,7 @@ class PLMActor (
           optLang match {
             case Some(lang: String) =>
               updateHumanLang(lang)
-              savePreferredLang()
+              savePreferredLang
             case _ =>
               logNonValidJSON("setLang: non-correct JSON", msg)
           }
@@ -362,10 +363,10 @@ class PLMActor (
     ))
   }
 
-  def saveLastProgLang(progLang: String) {
+  def saveLastProgLang() {
     if(currentUser != null) {
       currentUser = currentUser.copy(
-          lastProgLang = Some(progLang)
+          lastProgLang = Some(currentProgLang.getLang)
       )
       UserDAORestImpl.update(currentUser)
     }

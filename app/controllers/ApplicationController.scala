@@ -46,13 +46,14 @@ class ApplicationController @Inject() (
         Right(PLMActor.propsWithUser(pushActor, executionManager, userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
+        var lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
         var newUser: Boolean = false;
         var gitID: String = CookieUtils.getCookieValue(request, "gitID")
         if(gitID.isEmpty) {
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(pushActor, executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
+        Right(PLMActor.props(pushActor, executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false)) _)
     }
   }
 

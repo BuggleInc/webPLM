@@ -58,7 +58,7 @@
     function setCurrentProgLang(progLang) {
       console.log('progLang: ', progLang);
       if (!$auth.isAuthenticated()) {
-          $cookies.progLang = progLang;
+          $cookies.progLang = progLang.lang;
       }
       currentProgrammingLanguage = progLang;
       disabled = false;
