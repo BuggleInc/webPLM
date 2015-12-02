@@ -25,6 +25,23 @@ object Lesson {
 }
 
 case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], var optDescriptions: Option[Map[String, String]]) {
+
+  val orderedIDs: Array[String] = orderIDs
+
+  def orderIDs(): Array[String] = {
+    var array: Array[String] = Array()
+
+    lectures.foreach { lecture =>
+      array = array ++ lecture.orderIDs
+    }
+
+    array
+  }
+
+  def containsExercise(exerciseID: String): Boolean = {
+    orderedIDs.contains(exerciseID)
+  }
+
   def toJson(lang: Lang): JsObject = {
     val imgPath: String = "lessons/" + id + "/icon.png"
     val descriptions: Map[String, String] = optDescriptions.get

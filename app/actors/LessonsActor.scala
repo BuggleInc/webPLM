@@ -18,10 +18,11 @@ object LessonsActor {
 
   val rootDirectory: String = "lessons"
 
+  case class CheckLessonAndExercise(lessonID: String, exerciseID: String)
   case class GetLessonsList()
-  case class GetExercisesList(lessonName: String)
+  case class GetExercisesList(lessonID: String)
 
-  val lessonsName: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
+  val lessonsID: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
     "welcome", "maze", "turmites", "turtleart",
     "sort/basic", "sort/dutchflag", "sort/baseball", "sort/pancake", 
     "recursion/cons", "recursion/logo", "recursion/hanoi",
@@ -33,7 +34,7 @@ object LessonsActor {
 
   def initLessons(): Map[String, Lesson] = {
     var lessons: Map[String, Lesson] = Map()
-    lessonsName.foreach { lessonName =>
+    lessonsID.foreach { lessonName =>
       var lesson: Lesson = loadLesson(lessonName)
 
       var descriptions: Map[String, String] = Map()
@@ -52,8 +53,8 @@ object LessonsActor {
 
   def sortLessons(): Array[Lesson] = {
     var orderedLessons: Array[Lesson] = Array[Lesson]()
-    lessonsName.foreach { lessonName =>
-      orderedLessons = orderedLessons :+ lessons.get(lessonName).get
+    lessonsID.foreach { lessonID =>
+      orderedLessons = orderedLessons :+ lessons.get(lessonID).get
     }
     orderedLessons
   }
@@ -83,10 +84,12 @@ class LessonsActor extends Actor {
   import LessonsActor._
 
   def receive =  {
+    case CheckLessonAndExercise(lessonID, exerciseID) =>
+      sender ! ( lessonsID.contains(lessonID) && getLesson(lessonID).containsExercise(exerciseID) )
     case GetLessonsList =>
       sender ! orderedLessons
-    case GetExercisesList(lessonName) =>
-      sender ! getLesson(lessonName).lectures
+    case GetExercisesList(lessonID) =>
+      sender ! getLesson(lessonID).lectures
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }

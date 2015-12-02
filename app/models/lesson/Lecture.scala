@@ -24,6 +24,18 @@ object Lecture {
 }
 
 case class Lecture(id: String, optNames: Option[Map[String, String]], dependingLectures: Seq[Lecture]) {
+  def orderIDs(): Array[String] = {
+    var array: Array[String] = Array()
+    
+    array = array.+:(id)
+    
+    dependingLectures.foreach { lecture =>
+      array = array ++ lecture.orderIDs
+    }
+    
+    array
+  }
+
   def toJson(lang: Lang): JsObject = {
     val names: Map[String, String] = optNames.get
     val defaultName: String = names.get("en").get

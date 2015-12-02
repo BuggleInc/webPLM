@@ -148,19 +148,31 @@ class PLMActor (
           }
         case "getExercise" =>
           val optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
-          (exercisesActor ? GetExercise("Environment")).mapTo[Exercise].map { exercise =>
-            gitActor ! SwitchExercise(exercise, optCurrentExercise)
+          val optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
 
-            optCurrentExercise = Some(exercise)
-            (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-              val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
+          (optLessonID, optExerciseID) match {
+          case (Some(lessonID: String), Some(exerciseID: String)) =>
+            (lessonsActor ? CheckLessonAndExercise(lessonID, exerciseID)).mapTo[Boolean].map { ok =>
+              if(ok) {
+                (exercisesActor ? GetExercise(exerciseID)).mapTo[Exercise].map { exercise =>
+                  gitActor ! SwitchExercise(exercise, optCurrentExercise)
 
-              optCurrentLesson = optLessonID
+                  optCurrentLesson = optLessonID
+                  optCurrentExercise = Some(exercise)
 
-              sendMessage("exercise", Json.obj(
-                "exercise" -> json
-              ))
+                  (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+                    val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
+                    sendMessage("exercise", Json.obj(
+                      "exercise" -> json
+                    ))
+                  }
+                }
+              } else {
+                // TODO: redirect to home
+              }
             }
+          case _ =>
+            // TODO: redirect to home
           }
         case "runExercise" =>
           val exercise: Exercise = optCurrentExercise.get
