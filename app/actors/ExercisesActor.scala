@@ -38,7 +38,7 @@ object ExercisesActor {
   val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
   val exercises: Map[String, Exercise] = initExercises
 
-  case class GetExercise(exerciseName: String)
+  case class GetExercise(exerciseID: String)
 
   def initHumanLanguages(): Array[Locale] = {
     var humanLanguages: Array[Locale] = Array()
@@ -63,14 +63,14 @@ class ExercisesActor extends Actor {
   import ExercisesActor._
 
   def receive =  {
-    case GetExercise(exerciseName) =>
-      sender ! getExercise(exerciseName)
+    case GetExercise(exerciseID) =>
+      sender ! getExercise(exerciseID)
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
   
-  def getExercise(exerciseName: String): Exercise = {
-    var exercise: Exercise = exercises.get("Environment").get
+  def getExercise(exerciseID: String): Exercise = {
+    val exercise: Exercise = exercises.get("Environment").get
     exercisesFactory.cloneExercise(exercise)
   }
 }
