@@ -37,7 +37,7 @@ import scala.concurrent.Await
 
 object PLMActor {
   def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = props(pushActor, executionManager, userAgent, actorUUID, user.gitID, false, user.preferredLang, user.lastProgLang, user.trackUser)(out)
+  def propsWithUser(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, user, out))
 }
 
 class PLMActor (
@@ -52,6 +52,11 @@ class PLMActor (
     trackUser: Option[Boolean],
     out: ActorRef)
   extends Actor {
+
+  def this(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
+    this(pushActor, executionManager, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+    setCurrentUser(user)
+  }
 
   implicit val timeout = Timeout(5 seconds)
 
