@@ -47,6 +47,7 @@ object GitActor {
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
+  case class Idle(idleStart: String, idleEnd: String, duration: String)
 }
 
 class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: Option[Boolean], userAgent: String) extends Actor {
@@ -79,6 +80,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     case SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) =>
       switched(exerciseTo, optExerciseFrom)
       requestPush
+    case Idle(idleStart: String, idleEnd: String, duration: String) =>
+      idle(idleStart, idleEnd, duration)
     case _ =>
   }
 
@@ -138,7 +141,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
 
   def leaved() {
     val leavedJson: JsObject = generateStartedOrLeavedJson
-    val leavedMessage: String = jsonToCommitMessage("started", leavedJson)
+    val leavedMessage: String = jsonToCommitMessage("leaved", leavedJson)
 
     gitUtils.commit(leavedMessage)
   }
@@ -157,6 +160,13 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     val switchedMessage: String = jsonToCommitMessage("switched", jsonSwitched)
 
     gitUtils.commit(switchedMessage)
+  }
+
+  def idle(idleStart: String, idleEnd: String, duration: String) {
+    val jsonIdled: JsObject = generateIdleJson(idleStart, idleEnd, duration)
+    val idledMessage: String = jsonToCommitMessage("idle", jsonIdled)
+
+    gitUtils.commit(idledMessage)
   }
 
   def requestPush() {
@@ -260,6 +270,14 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     }
 
     json
+  }
+
+  def generateIdleJson(idleStart: String, idleEnd: String, duration: String): JsObject = {
+    Json.obj(
+        "start" -> idleStart,
+        "end" -> idleEnd,
+        "duration" -> duration
+    )
   }
 
   override def postStop() = {

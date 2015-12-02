@@ -84,9 +84,7 @@ class PLMActor (
   var currentGitID: String = null
   setCurrentGitID(gitID, newUser)
 
-  var userIdle: Boolean = false;
-  var idleStart: Instant = null
-  var idleEnd: Instant = null
+  var optIdle: Option[Instant] = None
 
   registerActor
 
@@ -246,9 +244,9 @@ class PLMActor (
               logNonValidJSON("updateUser: non-correct JSON", msg)
           }
         case "userIdle" =>
-          setUserIdle
+          setIdle
         case "userBack" =>
-          clearUserIdle
+          clearIdle
         case "setTrackUser" =>
           val optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
           optTrackUser match {
@@ -370,31 +368,6 @@ class PLMActor (
     }
   }
 
-<<<<<<< b7d2d1e4b4c3afa6d763fe5d608ae4c24dec92e9
-  def registerActor() {
-    ActorsMap.add(actorUUID, self)
-    sendMessage("actorUUID", Json.obj(
-        "actorUUID" -> actorUUID
-      )
-    )
-  }
-
-  def sendProgLangs() {
-    sendMessage("progLangs", Json.obj(
-      "selected" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
-      "availables" -> ProgrammingLanguageToJson.programmingLanguagesWrite(ProgrammingLanguages.programmingLanguages)
-    ))
-  }
-
-  def sendHumanLangs() {
-    sendMessage("humanLangs", Json.obj(
-      "selected" -> LangToJson.langWrite(currentHumanLang),
-      "availables" -> LangToJson.langsWrite(availableLangs)
-    ))
-  }
-
-=======
->>>>>>> Refactor PLMActor to use option instead of null for currentUser
   def saveLastProgLang() {
     optCurrentUser match {
     case Some(currentUser: User) =>
@@ -431,26 +404,23 @@ class PLMActor (
     }
   }
 
-  def setUserIdle() {
-    userIdle = true
-    idleStart = Instant.apply
+  def setIdle() {
+    val idleStart: Instant = Instant.apply
+    optIdle = Some(idleStart)
+    Logger.debug("start idling at: "+ idleStart)
   }
 
-  def clearUserIdle() {
-    userIdle = false
-    idleEnd = Instant.apply
-    if(idleStart != null) {
-      var duration = Duration.between(idleStart, idleEnd)
+  def clearIdle() {
+    optIdle match {
+    case Some(idleStart: Instant) =>
+      val idleEnd: Instant = Instant.apply
+      val duration = Duration.between(idleStart, idleEnd)
       Logger.debug("end idling at: "+ idleEnd)
       Logger.debug("duration: " + duration)
-      // FIXME: Re-implement me
-      // plm.signalIdle(idleStart.toString, idleEnd.toString, duration.toString)
+      gitActor ! Idle(idleStart.toString, idleEnd.toString, duration.toString)
+    case _ =>
     }
-    else {
-      Logger.error("receive 'userBack' but not previous 'userIdle'")
-    }
-    idleStart = null
-    idleEnd = null
+    optIdle = None
   }
 
   def logNonValidJSON(label: String, msg: JsValue) {
@@ -566,10 +536,8 @@ class PLMActor (
   }
 
   override def postStop() = {
-    Logger.info("postStop: websocket closed - removing the spies")
-    if(userIdle) {
-      clearUserIdle
-    }
+    Logger.debug("postStop: websocket closed - removing the spies")
+    clearIdle
     ActorsMap.remove(actorUUID)
   }
 }
