@@ -9,7 +9,6 @@ import com.mohiva.play.silhouette.api.LoginInfo
 import play.api.Logger
 import play.api.libs.json.JsObject
 
-
 object UserToJson {
   def userWrite(user: User): JsValue = {
     var json: JsObject = Json.obj(
@@ -23,36 +22,35 @@ object UserToJson {
         "providerKey" -> user.loginInfo.providerKey
       )
     )
-    user.lastProgLang.getOrElse(None) match {
-      case lastProgLang: String =>
-        json = json.+("lastProgLang" -> Json.toJson(lastProgLang))
-      case _ =>
-        // Do nothing
+    user.lastProgLang match {
+    case Some(lastProgLang: String) =>
+      json = json.+("lastProgLang" -> Json.toJson(lastProgLang))
+    case _ =>
     }
-    user.preferredLang.getOrElse(None) match {
-      case lang: Lang =>
-        json = json.+("preferredLang" -> Json.obj( "code" -> lang.code))
-      case _ =>
-        // Do nothing
+    user.preferredLang match {
+    case Some(lang: Lang) =>
+      json = json.+("preferredLang" -> Json.obj( "code" -> lang.code))
+    case _ =>
     }
-	user.trackUser.getOrElse(None) match {
-      case trackUser: Boolean =>
-        json = json.+("trackUser" -> Json.toJson(trackUser))
-      case _ =>
-        // Do nothing
+    user.trackUser match {
+    case Some(trackUser: Boolean) =>
+      json = json.+("trackUser" -> Json.toJson(trackUser))
+    case _ =>
     }
     json
   }
 
   def userRead(json: JsValue): User = {
+    Logger.debug("Dans userRead: " + json.toString)
     var preferredLang: Option[Lang] = None
-    if(json.as[JsObject].keys.contains("preferredLang")) {
-       var optCode = (json \ "preferredLang" \ "code").asOpt[String]
-        optCode.getOrElse(None) match {
-          case code: String =>
-            preferredLang = Some(Lang(code))
-        }
+    val optCode = (json \ "preferredLang" \ "code").asOpt[String]
+    optCode match {
+    case Some(code: String) =>
+      preferredLang = Some(Lang(code))
+    case _ =>
     }
+
+    Logger.debug("preferredLang: "+ preferredLang.toString)
 
     new User(
       gitID = (json \ "gitID").as[String],
