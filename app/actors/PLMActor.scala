@@ -60,9 +60,15 @@ class PLMActor (
 
   implicit val timeout = Timeout(5 seconds)
 
+  var optCurrentLesson: Option[String] = None
+  var optCurrentExercise: Option[Exercise] = None
+  var optCurrentUser: Option[User] = None
+  var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
+  var currentHumanLang: Lang = initHumanLang(preferredLang)
+
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
-  val executionActor: ActorRef = context.actorOf(ExecutionActor.props)
+  val executionActor: ActorRef = context.actorOf(ExecutionActor.props(currentHumanLang))
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
@@ -71,12 +77,6 @@ class PLMActor (
   val gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
   val availableLangs: Seq[Lang] = Lang.availables
-
-  var optCurrentLesson: Option[String] = None
-  var optCurrentExercise: Option[Exercise] = None
-  var optCurrentUser: Option[User] = None
-  var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
-  var currentHumanLang: Lang = initHumanLang(preferredLang)
 
   sendProgLangs
   sendHumanLangs
@@ -147,6 +147,7 @@ class PLMActor (
           optLang match {
             case Some(lang: String) =>
               updateHumanLang(lang)
+              executionActor ! UpdateLang(currentHumanLang)
               savePreferredLang
             case _ =>
               logNonValidJSON("setLang: non-correct JSON", msg)
@@ -185,6 +186,7 @@ class PLMActor (
           optCode match {
             case Some(code: String) =>
               (executionActor ? StartExecution(out, exercise, currentProgLang, code)).mapTo[ExecutionProgress].map { executionResult =>
+                sessionActor ! SetCode(exercise, currentProgLang, code)
                 gitActor ! Executed(exercise, executionResult, code, currentHumanLang.language)
 
                 val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
