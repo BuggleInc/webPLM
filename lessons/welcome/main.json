@@ -6,7 +6,7 @@
       "pt_br" : "Bem-vindo ao mundo dos Buggles",
       "fr" : "Bienvenue dans le monde des buggles"
     },
-    "id" : "welcome.lessons.welcome.environment.Environment",
+    "id" : "environment.Environment",
     "dependingLectures" : [ ]
   }, {
     "names" : {
