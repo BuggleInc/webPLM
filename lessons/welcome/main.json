@@ -14,14 +14,14 @@
       "pt_br" : "Instruções",
       "fr" : "Instructions"
     },
-    "id" : "welcome.lessons.welcome.instructions.Instructions",
+    "id" : "instructions.Instructions",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Writing more complex programs",
         "pt_br" : "Escrevendo programas mais complexos",
         "fr" : "Écrire des programmes plus complexes"
       },
-      "id" : "welcome.lessons.welcome.instructions.InstructionsDrawG",
+      "id" : "instructions.InstructionsDrawG",
       "dependingLectures" : [ ]
     } ]
   }, {
