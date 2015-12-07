@@ -19,7 +19,7 @@ object ExerciseToJson {
       "id" -> exercise.getId,
       "instructions" -> exercise.getMission(currentLocale.getLanguage, progLang),
       "code" -> code,
-      "selectedWorldID" -> "Training Camp",
+      "selectedWorldID" -> exercise.getWorld(0).getName,
       "api" -> "",
       "programmingLanguages" -> ProgrammingLanguageToJson.programmingLanguagesWrite(progLangArray),
       "currentProgrammingLanguage" -> progLang.getLang,
