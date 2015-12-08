@@ -39,6 +39,7 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */
   def worldHasMoved() {
+    /*
     world.getEntities.toArray(Array[Entity]()).foreach { entity =>
       if(entity.isReadyToSend) {
         var mapArgs: JsValue = Json.obj(
@@ -53,6 +54,8 @@ class ExecutionSpy(plmActor: PLMActor, messageID: String) extends IWorldView {
         }
       }
     }
+    * 
+    */
   }
 
   /**

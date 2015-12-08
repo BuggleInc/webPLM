@@ -19,6 +19,7 @@ class OperationSpy(out: ActorRef, world: World) extends IWorldView {
   val delay: Int = 1000
   
   var buffer: JsArray = new JsArray
+  var cnt: Int = 0
   var lastTime: Long = System.currentTimeMillis
   
   def getOut(): ActorRef = out
@@ -33,22 +34,22 @@ class OperationSpy(out: ActorRef, world: World) extends IWorldView {
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */
   def worldHasMoved() {
-    world.getEntities.toArray(Array[Entity]()).foreach { entity => 
-      if(entity.isReadyToSend) {
-        val currentTime = System.currentTimeMillis
-        val mapArgs: JsValue = Json.obj(
-          "worldID" -> world.getName,
-          "operations" -> OperationToJson.operationsWrite(entity.getOperations.toArray(Array[Operation]()))
-        )
-        entity.getOperations.clear
-        entity.setReadyToSend(false)
-        buffer = buffer.append(mapArgs)
-        if(lastTime+delay <= currentTime) {
-          lastTime = currentTime
-          sendOperations
-        }
+    val currentTime = System.currentTimeMillis
+    val length: Int = world.getSteps.size
+    for(i <- cnt to length-1) {
+      val operations: Array[Operation] = world.getSteps.get(i).toArray(Array[Operation]())
+      val currentTime = System.currentTimeMillis
+      val mapArgs: JsValue = Json.obj(
+        "worldID" -> world.getName,
+        "operations" -> OperationToJson.operationsWrite(operations)
+      )
+      buffer = buffer.append(mapArgs)
+      if(lastTime+delay <= currentTime) {
+        lastTime = currentTime
+        sendOperations
       }
     }
+    cnt = length
   }
   
   /**

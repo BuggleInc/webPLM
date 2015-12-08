@@ -189,10 +189,16 @@
         exercise.isRunning = false;
         break;
       case 'operations':
+      case 'demoOperations':
+        var worldKind = 'current';
+        if(cmd === 'demoOperations') {
+            worldKind = 'answer';
+            exercise.playedDemo = true;
+        }
         var buffer = getOperationsBuffer(args.buffer);
         buffer.forEach(function (item) {
           if (item.worldID) {
-            handleOperations(item.worldID, 'current', item.operations);
+            handleOperations(item.worldID, worldKind, item.operations);
           } else if (item.type) {
             handleOut(item.msg);
           }
@@ -493,21 +499,7 @@
     function runDemo() {
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
-      exercise.worldIDs.map(function (key) {
-        reset(key, 'answer', true);
-      });
-      if (!exercise.playedDemo) {
-        $http.get("assets/json/demos/" + exercise.id + ".json").success(function(data){
-          data.forEach(function(args) {
-            handleOperations(args.worldID, 'answer', args.operations);
-          });
-          exercise.playedDemo = true;
-        });
-      } else {
-        // We don't need to query the server again
-        // Just to replay the animation
-        replay();
-      }
+      connection.sendMessage('runDemo', {});
     }
 
     function runCode(worldID) {
@@ -627,9 +619,14 @@
 
     function replay() {
       reset(exercise.currentWorldID, exercise.worldKind, true);
-      exercise.isPlaying = true;
-      startUpdateModelLoop();
-      startUpdateViewLoop();
+      if(exercise.worldKind === 'answer' && !exercise.playedDemo) {
+        runDemo();
+      }
+      else {
+        exercise.isPlaying = true;
+        startUpdateModelLoop();
+        startUpdateViewLoop();
+      }
     }
 
     function handleOperations(worldID, worldKind, operations) {

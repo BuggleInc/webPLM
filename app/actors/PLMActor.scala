@@ -21,6 +21,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.Exercise
+import plm.core.model.lesson.Exercise.WorldKind
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
@@ -34,6 +35,8 @@ import plm.core.model.lesson.ExecutionProgress
 import org.xnap.commons.i18n.{ I18n, I18nFactory }
 import models.ProgrammingLanguages
 import scala.concurrent.Await
+import plm.universe.{ Entity, Operation, World }
+import json.operation.OperationToJson
 
 object PLMActor {
   def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -209,6 +212,19 @@ class PLMActor (
         case "stopExecution" =>
           // FIXME: Re-implement me
           // plm.stopExecution
+        case "runDemo" =>
+          optCurrentExercise match {
+            case Some(currentExercise: Exercise) =>
+              var steps: JsArray = JsArray()
+              currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()).foreach { world =>
+                for(i <- 0 to world.getSteps.size-1) {
+                  val operations: Array[Operation] = world.getSteps.get(i).toArray(Array[Operation]())
+                  steps = steps.append(Json.obj("worldID" -> world.getName, "operations" -> OperationToJson.operationsWrite(operations)))
+                }
+              }
+              sendMessage("demoOperations", Json.obj("buffer" -> steps))
+            case _ =>
+          }
         case "revertExercise" =>
           // FIXME: Re-implement me
           optCurrentExercise match {
