@@ -28,7 +28,8 @@ object ExerciseToJson {
 
     try {
       json = json ++ Json.obj(
-          "initialWorlds" -> WorldToJson.worldsWrite(exercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()))
+          "initialWorlds" -> WorldToJson.worldsWrite(exercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]())),
+          "answerWorlds" -> WorldToJson.worldsWrite(exercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()))
       )
     }
     catch {

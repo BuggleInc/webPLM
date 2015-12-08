@@ -230,14 +230,11 @@
         }
         for (var worldID in data.initialWorlds) {
           if (data.initialWorlds.hasOwnProperty(worldID)) {
-            var dataInitialWorld, dataAnswerWorld;
-            exercise.initialWorlds[worldID] = {};
-
+            var dataInitialWorld, dataAnswerWorld, world, answerWorld;
             dataInitialWorld = data.initialWorlds[worldID];
-            dataInitialWorld.id = worldID;
             dataAnswerWorld = data.answerWorlds[worldID];
-
-            var world, answerWorld;
+            dataInitialWorld.id = worldID;
+            exercise.nameWorld = dataInitialWorld.type;
             switch (dataInitialWorld.type) {
             case 'BuggleWorld':
               exercise.tabs = [
