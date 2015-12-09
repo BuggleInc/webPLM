@@ -30,7 +30,7 @@
       "pt_br" : "Instruções condicionais",
       "fr" : "Instructions conditionnelles"
     },
-    "id" : "welcome.lessons.welcome.conditions.Conditions",
+    "id" : "conditions.Conditions",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -38,14 +38,14 @@
       "pt_br" : "Loops while (enquanto)",
       "fr" : "Boucles tant que "
     },
-    "id" : "welcome.lessons.welcome.loopwhile.LoopWhile",
+    "id" : "loopwhile.LoopWhile",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Baggle Seeking",
         "pt_br" : "Procurando Baggles",
         "fr" : "Chercheur de baggles"
       },
-      "id" : "welcome.lessons.welcome.loopwhile.BaggleSeeker",
+      "id" : "loopwhile.BaggleSeeker",
       "dependingLectures" : [ ]
     } ]
   }, {
