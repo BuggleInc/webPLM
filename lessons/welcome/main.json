@@ -54,14 +54,14 @@
       "pt_br" : "Armazenando e manipulando dados",
       "fr" : "Stocker et manipuler des données"
     },
-    "id" : "welcome.lessons.welcome.variables.Variables",
+    "id" : "variables.Variables",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Run Four bases",
         "pt_br" : "Ande quatro bases",
         "fr" : "La course des quatre bases"
       },
-      "id" : "welcome.lessons.welcome.variables.RunFour",
+      "id" : "variables.RunFour",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -69,7 +69,7 @@
         "pt_br" : "A corrida dos quatro meios",
         "fr" : "La course des quatre moitiés"
       },
-      "id" : "welcome.lessons.welcome.variables.RunHalf",
+      "id" : "variables.RunHalf",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -77,7 +77,7 @@
         "pt_br" : "Buggle Dance Revolution (BDR)",
         "fr" : "Buggle Dance Revolution (BDR)"
       },
-      "id" : "welcome.lessons.welcome.bdr.BDR",
+      "id" : "bdr.BDR",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -85,7 +85,7 @@
         "pt_br" : "Buggle Dance Revolution 2 (BDR2)",
         "fr" : "Buggle Dance Revolution 2 (BDR2)"
       },
-      "id" : "welcome.lessons.welcome.bdr.BDR2",
+      "id" : "bdr.BDR2",
       "dependingLectures" : [ ]
     } ]
   }, {
@@ -94,14 +94,14 @@
       "pt_br" : "Loops for",
       "fr" : "Boucles pour "
     },
-    "id" : "welcome.lessons.welcome.loopfor.LoopFor",
+    "id" : "loopfor.LoopFor",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Stairway to Heaven",
         "pt_br" : "Uma escadaria para o Céu",
         "fr" : "la voie du paradis"
       },
-      "id" : "welcome.lessons.welcome.loopfor.LoopStairs",
+      "id" : "loopfor.LoopStairs",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -109,7 +109,7 @@
         "pt_br" : "Treinando o Buggle",
         "fr" : "Entraînement de buggle"
       },
-      "id" : "welcome.lessons.welcome.loopfor.LoopCourse",
+      "id" : "loopfor.LoopCourse",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -117,7 +117,7 @@
         "pt_br" : "Treinamento ao ar livre do Buggle",
         "fr" : "Course en forêt"
       },
-      "id" : "welcome.lessons.welcome.loopfor.LoopCourseForest",
+      "id" : "loopfor.LoopCourseForest",
       "dependingLectures" : [ ]
     } ]
   }, {
@@ -126,14 +126,14 @@
       "pt_br" : "Loops Do .. while (faça .. enquanto)",
       "fr" : "Boucles jusqu'à"
     },
-    "id" : "welcome.lessons.welcome.loopdowhile.LoopDoWhile",
+    "id" : "loopdowhile.LoopDoWhile",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Tracks of buggles",
         "pt_br" : "Trilhas de buggles",
         "fr" : "La buggle Petite Poucette"
       },
-      "id" : "welcome.lessons.welcome.loopdowhile.Poucet1",
+      "id" : "loopdowhile.Poucet1",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -141,7 +141,7 @@
         "pt_br" : "More buggles tracks",
         "fr" : "More buggles tracks"
       },
-      "id" : "welcome.lessons.welcome.loopdowhile.Poucet2",
+      "id" : "loopdowhile.Poucet2",
       "dependingLectures" : [ ]
     } ]
   }, {
@@ -150,14 +150,14 @@
       "pt_br" : "Métodos",
       "fr" : "Méthodes"
     },
-    "id" : "welcome.lessons.welcome.methods.basics.Methods",
+    "id" : "methods.basics.Methods",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Building methodically",
         "pt_br" : "Construindo metodicamente",
         "fr" : "Construire avec méthode"
       },
-      "id" : "welcome.lessons.welcome.methods.basics.MethodsDogHouse",
+      "id" : "methods.basics.MethodsDogHouse",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -165,7 +165,7 @@
         "pt_br" : "desenhando metodicamente",
         "fr" : "Dessiner avec méthode"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.PictureMono1",
+      "id" : "methods.picture.PictureMono1",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -173,7 +173,7 @@
         "pt_br" : "Desenhando metodicamente (apenas grande)",
         "fr" : "Dessiner avec méthode (en plus grand)"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.PictureMono2",
+      "id" : "methods.picture.PictureMono2",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -181,7 +181,7 @@
         "pt_br" : "Desenhando maior e maior",
         "fr" : "Dessiner de plus en plus grand"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.PictureMono3",
+      "id" : "methods.picture.PictureMono3",
       "dependingLectures" : [ ]
     } ]
   }, {
