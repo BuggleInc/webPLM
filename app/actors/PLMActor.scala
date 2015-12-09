@@ -159,29 +159,32 @@ class PLMActor (
           val optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
           val optExerciseID: Option[String] = (msg \ "args" \ "exerciseID").asOpt[String]
 
-          (optLessonID, optExerciseID) match {
-          case (Some(lessonID: String), Some(exerciseID: String)) =>
-            (lessonsActor ? CheckLessonAndExercise(lessonID, exerciseID)).mapTo[Boolean].map { ok =>
-              if(ok) {
-                (exercisesActor ? GetExercise(exerciseID)).mapTo[Exercise].map { exercise =>
-                  gitActor ! SwitchExercise(exercise, optCurrentExercise)
-
-                  optCurrentLesson = optLessonID
-                  optCurrentExercise = Some(exercise)
-
-                  (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-                    val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
-                    sendMessage("exercise", Json.obj(
-                      "exercise" -> json
-                    ))
+          optLessonID match {
+          case Some(lessonID: String) =>
+            (lessonsActor ? LessonExists(lessonID)).mapTo[Boolean].map { lessonExists => 
+              if(lessonExists) {
+                optExerciseID match {
+                case Some(exerciseID: String) =>
+                  (lessonsActor ? CheckLessonAndExercise(lessonID, exerciseID)).mapTo[Boolean].map { ok =>
+                    if(ok) {
+                      switchExercise(lessonID, exerciseID)
+                    } else {
+                      sendMessage("exerciseNotFound", Json.obj())
+                    }
+                  }
+                case _ =>
+                  (lessonsActor ? GetFirstExerciseID(lessonID)).mapTo[String].map { exerciseID =>
+                    switchExercise(lessonID, exerciseID)
                   }
                 }
               } else {
-                // TODO: redirect to home
+                Logger.debug("getExercise: tried to access not known lesson")
+                sendMessage("lessonNotFound", Json.obj())
               }
             }
           case _ =>
-            // TODO: redirect to home
+            Logger.debug("getExercise: non-correctJSON")
+            sendMessage("lessonNotFound", Json.obj())
           }
         case "runExercise" =>
           val exercise: Exercise = optCurrentExercise.get
@@ -344,6 +347,22 @@ class PLMActor (
     )
   }
 
+  def switchExercise(lessonID: String, exerciseID: String) {
+    (exercisesActor ? GetExercise(exerciseID)).mapTo[Exercise].map { exercise =>
+      gitActor ! SwitchExercise(exercise, optCurrentExercise)
+
+      optCurrentLesson = Some(lessonID)
+      optCurrentExercise = Some(exercise)
+
+      (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+        val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
+        sendMessage("exercise", Json.obj(
+          "exercise" -> json
+        ))
+      }
+    }
+  }
+  
   def sendProgLangs() {
     sendMessage("progLangs", Json.obj(
       "selected" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),

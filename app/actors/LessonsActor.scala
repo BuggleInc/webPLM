@@ -18,9 +18,11 @@ object LessonsActor {
 
   val rootDirectory: String = "lessons"
 
+  case class LessonExists(lessonID: String)
   case class CheckLessonAndExercise(lessonID: String, exerciseID: String)
   case class GetLessonsList()
   case class GetExercisesList(lessonID: String)
+  case class GetFirstExerciseID(lessonID: String)
 
   val lessonsID: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
     "welcome", "maze", "turmites", "turtleart",
@@ -84,12 +86,16 @@ class LessonsActor extends Actor {
   import LessonsActor._
 
   def receive =  {
+    case LessonExists(lessonID) =>
+      sender ! lessonsID.contains(lessonID)
     case CheckLessonAndExercise(lessonID, exerciseID) =>
       sender ! ( lessonsID.contains(lessonID) && getLesson(lessonID).containsExercise(exerciseID) )
     case GetLessonsList =>
       sender ! orderedLessons
     case GetExercisesList(lessonID) =>
       sender ! getLesson(lessonID).lectures
+    case GetFirstExerciseID(lessonID) =>
+      sender ! getLesson(lessonID).lectures(0).id
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }

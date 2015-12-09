@@ -7,7 +7,7 @@
 
   Exercise.$inject = [
   '$window', '$http', '$scope', '$sce', '$stateParams', '$location', '$anchorScroll',
-  'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation',
+  'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
   'canvas', 'drawWithDOM',
   'blocklyService',
   '$timeout', '$interval',
@@ -24,7 +24,7 @@
  ];
 
   function Exercise($window, $http, $scope, $sce, $stateParams, $location, $anchorScroll,
-    connection, listenersHandler, langs, progLangs, exercisesList, navigation,
+    connection, listenersHandler, langs, progLangs, exercisesList, navigation, toasterUtils,
     canvas, drawWithDOM,
     blocklyService,
     $timeout, $interval,
@@ -213,6 +213,14 @@
         break;
       case 'newHumanLang':
         updateInstructions(args.instructions, args.api);
+        break;
+      case 'exerciseNotFound':
+        toasterUtils.warning('Exercise ' + exercise.id + ' not found, you\'ve been redirect to the lesson\'s first exercise.');
+        $state.go('exercise', { 'lessonID': exercise.lessonID }, { inherit: false });
+        break;
+      case 'lessonNotFound':
+        toasterUtils.warning('Lesson ' + exercise.lessonID + ' not found, you\'ve been redirect to the homepage.');
+        $state.go('home');
         break;
       }
     }
