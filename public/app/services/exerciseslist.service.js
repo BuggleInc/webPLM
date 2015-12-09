@@ -44,6 +44,7 @@
       case 'lectures':
         updateExercisesList(args.lectures);
         break;
+      case 'newProgLang':
       case 'newHumanLang':
         if(args.lectures) {
           updateExercisesList(args.lectures);

@@ -128,7 +128,7 @@ class PLMActor (
           optLessonName match {
             case Some(lessonName: String) =>
               (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
-                val jsonLectures: JsArray = Lecture.arrayToJson(lectures, currentHumanLang)
+                val jsonLectures: JsArray = Lecture.arrayToJson(lectures, currentHumanLang, currentProgLang)
                 sendMessage("lectures", Json.obj(
                   "lectures" -> jsonLectures
                 ))
@@ -535,7 +535,7 @@ class PLMActor (
     case Some(lessonName: String) =>
       (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
         Json.obj(
-          "lectures" -> Lecture.arrayToJson(lectures, currentHumanLang)
+          "lectures" -> Lecture.arrayToJson(lectures, currentHumanLang, currentProgLang)
         )
       }
     case _ =>
@@ -548,8 +548,9 @@ class PLMActor (
 
     val futureTuple = for {
       codeJson <- generateUpdatedCodeJson
+      exercisesListJson <- generateUpdatedExercisesListJson
       exerciseJson <- Future { generateUpdatedExerciseJson }
-    } yield (codeJson, exerciseJson)
+    } yield (codeJson, exercisesListJson, exerciseJson)
 
     val tuple = Await.result(futureTuple, 1 seconds)
     tuple.productIterator.foreach { additionalJson =>
