@@ -30,7 +30,7 @@ object ExercisesActor {
   def props = Props[ExercisesActor]
 
   val baseDirectory: File = new File("exercises")
-  val filterRegexp = new Regex("^(.(?!Entity))*\\.java$") // Select all files ending with ".java" but not containing "Entity"
+  val filterRegexp = new Regex("^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$") // Select all files ending with ".java" but not containing "Entity"
 
   val exercisesName: Array[String] = generateExercisesIDsList(baseDirectory, filterRegexp)
 
