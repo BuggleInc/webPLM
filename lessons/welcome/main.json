@@ -190,14 +190,14 @@
       "pt_br" : "Funções",
       "fr" : "Fonctions"
     },
-    "id" : "welcome.lessons.welcome.methods.returning.MethodsReturning",
+    "id" : "methods.returning.MethodsReturning",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Slug Tracking",
         "pt_br" : "Rastreando a lesma",
         "fr" : "Pistage de la limace"
       },
-      "id" : "welcome.lessons.welcome.methods.slug.SlugTracking",
+      "id" : "methods.slug.SlugTracking",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -205,7 +205,7 @@
         "pt_br" : "Caça à lesma",
         "fr" : "Chasse à la limace"
       },
-      "id" : "welcome.lessons.welcome.methods.slug.SlugHunting",
+      "id" : "methods.slug.SlugHunting",
       "dependingLectures" : [ ]
     } ]
   }, {
@@ -214,14 +214,14 @@
       "pt_br" : "Métodos com perâmetros",
       "fr" : "Méthodes avec paramètres"
     },
-    "id" : "welcome.lessons.welcome.methods.args.MethodsArgs",
+    "id" : "methods.args.MethodsArgs",
     "dependingLectures" : [ {
       "names" : {
         "en" : "Slugs and Snails",
         "pt_br" : "Lesmas e Caracóis",
         "fr" : "Limaces et escargots"
       },
-      "id" : "welcome.lessons.welcome.methods.slug.SlugSnail",
+      "id" : "methods.slug.SlugSnail",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -229,7 +229,7 @@
         "pt_br" : "Desenho colorido",
         "fr" : "Dessins colorés"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.MethodsPicture",
+      "id" : "methods.picture.MethodsPicture",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -237,7 +237,7 @@
         "pt_br" : "Um desenho colorido maior",
         "fr" : "Grand dessin coloré"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.MethodsPictureLarge",
+      "id" : "methods.picture.MethodsPictureLarge",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -245,7 +245,7 @@
         "pt_br" : "Outro padrão colorido",
         "fr" : "Autre motif coloré"
       },
-      "id" : "welcome.lessons.welcome.methods.picture.PatternPicture",
+      "id" : "methods.picture.PatternPicture",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -253,7 +253,7 @@
         "pt_br" : "Vaso de Flores",
         "fr" : "Pot de fleur"
       },
-      "id" : "welcome.lessons.welcome.methods.flowerpot.FlowerPot",
+      "id" : "methods.flowerpot.FlowerPot",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -261,7 +261,7 @@
         "pt_br" : "Vitrine de flores",
         "fr" : "Jardinière de fleurs"
       },
-      "id" : "welcome.lessons.welcome.methods.flowerpot.FlowerCase",
+      "id" : "methods.flowerpot.FlowerCase",
       "dependingLectures" : [ ]
     } ]
   }, {
