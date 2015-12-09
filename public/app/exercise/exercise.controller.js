@@ -53,6 +53,7 @@
     exercise.lessonID = $stateParams.lessonID;
     exercise.lessonName = exercise.lessonID.charAt(0).toUpperCase() + exercise.lessonID.slice(1);
     exercise.id = $stateParams.exerciseID;
+    exercisesList.setCurrentExerciseID(exercise.id);
 
     exercise.executionStopped = false;
     exercise.isRunning = false;

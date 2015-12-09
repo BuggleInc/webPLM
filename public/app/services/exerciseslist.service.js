@@ -30,17 +30,11 @@
     return service;
 
     function handleMessage(data) {
-      var cmd,
-        args,
-        exercise;
+      var cmd, args;
 
       cmd = data.cmd;
       args = data.args;
       switch (cmd) {
-      case 'exercise':
-        exercise = args.exercise;
-        setCurrentExerciseID(exercise.id);
-        break;
       case 'lectures':
         updateExercisesList(args.lectures);
         break;
