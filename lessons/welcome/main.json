@@ -270,7 +270,7 @@
       "pt_br" : "SleepDay",
       "fr" : "Grasse matinée"
     },
-    "id" : "welcome.lessons.welcome.bat.bool1.SleepIn",
+    "id" : "bat.bool1.SleepIn",
     "dependingLectures" : [ {
       "names" : {
         "en" : "MonkeyTrouble",

@@ -15,19 +15,20 @@ import lessons.sort.pancake.universe.PancakeWorld
 import json.world.pancake.PancakeWorldToJson
 import lessons.sort.baseball.universe._
 import json.world.baseball.BaseballWorldToJson
+import plm.core.lang.ProgrammingLanguage
 import lessons.recursion.hanoi.universe.HanoiWorld
 
 object WorldToJson {
 
-  def worldsWrite(worlds: Array[World]): JsValue = {
+  def worldsWrite(worlds: Array[World], progLang: ProgrammingLanguage): JsValue = {
     var json: JsValue = Json.obj()
     worlds.foreach { world =>
-      json = json.as[JsObject] ++ worldWrite(world).as[JsObject]
+      json = json.as[JsObject] ++ worldWrite(world, progLang).as[JsObject]
     }
     json
   }
 
-  def worldWrite(world: World): JsValue = {
+  def worldWrite(world: World, progLang: ProgrammingLanguage): JsValue = {
     var json: JsValue = null
     world match {
       case gridWorld: GridWorld =>
@@ -37,7 +38,7 @@ object WorldToJson {
             "entities" -> EntityToJson.entitiesWrite(entities)
         )
       case batWorld: BatWorld =>
-      	json = BatWorldToJson.batWorlddWrite(batWorld)
+      	json = BatWorldToJson.batWorlddWrite(batWorld, progLang)
       case sortingWorld: SortingWorld =>
         json = SortWorldToJson.sortWorldWrite(sortingWorld)
       case dutchFlagWorld: DutchFlagWorld =>

@@ -43,7 +43,7 @@ class ExecutionActor(initialLang: Lang) extends Actor {
 
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
-      addOperationSpies(out, exercise)
+      addOperationSpies(out, exercise, progLang)
       val executionResult: ExecutionProgress = exerciseRunner.run(exercise, progLang, code)
       registeredSpies.foreach { spy => 
         spy.sendOperations
@@ -60,9 +60,9 @@ class ExecutionActor(initialLang: Lang) extends Actor {
       Logger.error("LessonsActor: not supported message")
   }
 
-  def addOperationSpies(out: ActorRef, exercise: Exercise) {
+  def addOperationSpies(out: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage) {
     exercise.getWorlds(WorldKind.CURRENT).toArray(Array[World]()).foreach { world =>
-      val worldSpy: OperationSpy = new OperationSpy(out, world)
+      val worldSpy: OperationSpy = new OperationSpy(out, world, progLang)
       registeredSpies = registeredSpies.+:(worldSpy)
     }
   }

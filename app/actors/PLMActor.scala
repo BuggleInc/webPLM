@@ -222,7 +222,7 @@ class PLMActor (
               currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()).foreach { world =>
                 for(i <- 0 to world.getSteps.size-1) {
                   val operations: Array[Operation] = world.getSteps.get(i).toArray(Array[Operation]())
-                  steps = steps.append(Json.obj("worldID" -> world.getName, "operations" -> OperationToJson.operationsWrite(operations)))
+                  steps = steps.append(Json.obj("worldID" -> world.getName, "operations" -> OperationToJson.operationsWrite(operations, currentProgLang)))
                 }
               }
               sendMessage("demoOperations", Json.obj("buffer" -> steps))

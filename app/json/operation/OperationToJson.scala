@@ -11,19 +11,20 @@ import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
 import lessons.sort.dutchflag.operations.DutchFlagOperation
 import lessons.sort.pancake.universe.operations.PancakeOperation
+import plm.core.lang.ProgrammingLanguage
 import lessons.recursion.hanoi.operations.HanoiOperation
 
 object OperationToJson {
 
-  def operationsWrite(operations: Array[Operation]): JsValue = {
+  def operationsWrite(operations: Array[Operation], progLang: ProgrammingLanguage): JsValue = {
     var array = new JsArray()
     operations.foreach { operation =>
-      array = array :+ operationWrite(operation)
+      array = array :+ operationWrite(operation, progLang)
     }
     array
   }
 
-  def operationWrite (operation: Operation): JsValue = {
+  def operationWrite (operation: Operation, progLang: ProgrammingLanguage): JsValue = {
     var json: JsValue = null
     operation match {
       case buggleOperation: BuggleOperation =>
@@ -31,7 +32,7 @@ object OperationToJson {
       case gridWorldCellOperation: GridWorldCellOperation =>
         json = GridWorldCellOperationToJson.gridWorldCellOperationWrite(gridWorldCellOperation)
       case batOperation: BatOperation =>
-        json = BatOperationToJson.batOperationWrite(batOperation)
+        json = BatOperationToJson.batOperationWrite(batOperation, progLang)
       case sortOperation: SortOperation =>
         json = SortOperationToJson.sortOperationWrite(sortOperation)
       case dutchFlagOperation: DutchFlagOperation =>

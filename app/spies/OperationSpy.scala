@@ -11,11 +11,12 @@ import plm.universe.Entity
 import play.api.libs.json.JsValue
 import plm.universe.Operation
 import play.api.Logger
+import plm.core.lang.ProgrammingLanguage
 
 /**
  * @author matthieu
  */
-class OperationSpy(out: ActorRef, world: World) extends IWorldView {  
+class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) extends IWorldView {  
   val delay: Int = 1000
   
   var buffer: JsArray = new JsArray
@@ -41,7 +42,7 @@ class OperationSpy(out: ActorRef, world: World) extends IWorldView {
       val currentTime = System.currentTimeMillis
       val mapArgs: JsValue = Json.obj(
         "worldID" -> world.getName,
-        "operations" -> OperationToJson.operationsWrite(operations)
+        "operations" -> OperationToJson.operationsWrite(operations, progLang)
       )
       buffer = buffer.append(mapArgs)
       if(lastTime+delay <= currentTime) {
