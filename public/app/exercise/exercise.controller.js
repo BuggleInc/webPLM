@@ -681,7 +681,11 @@
     }
 
     function updateView() {
-      if (exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
+      if(exercise.currentWorld === null) {
+        // FIXME: Somehow we can reach this point from time to time
+        $timeout.cancel(exercise.updateModelLoop);
+        $interval.cancel(exercise.updateViewLoop);
+      } else if (exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
         exercise.drawService.update();
         exercise.lastStateDrawn = exercise.currentWorld.currentState;
       }

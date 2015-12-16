@@ -270,14 +270,14 @@
       "pt_br" : "SleepDay",
       "fr" : "Grasse matinée"
     },
-    "id" : "bat.bool1.SleepIn",
+    "id" : "bat.bool1.sleepin.SleepIn",
     "dependingLectures" : [ {
       "names" : {
         "en" : "MonkeyTrouble",
         "pt_br" : "MonkeyTrouble",
         "fr" : "Problème de singe"
       },
-      "id" : "welcome.lessons.welcome.bat.bool1.MonkeyTrouble",
+      "id" : "bat.bool1.monkeytrouble.MonkeyTrouble",
       "dependingLectures" : [ ]
     }, {
       "names" : {
@@ -285,7 +285,7 @@
         "pt_br" : "Near Hundred",
         "fr" : "Presque 100"
       },
-      "id" : "welcome.lessons.welcome.bat.bool1.NearHundred",
+      "id" : "bat.bool1.nearhundred.NearHundred",
       "dependingLectures" : [ ]
     }, {
       "names" : {
