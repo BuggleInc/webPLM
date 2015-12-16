@@ -1,26 +1,26 @@
 (function(){
 	'use strict';
-	
+
 	angular
 		.module('PLMApp')
 		.factory('BuggleWorld', BuggleWorld);
-	
+
 	BuggleWorld.$inject = [
-		'BuggleWorldCell', 'Buggle', 
-		'ChangeCellHasBaggle', 'ChangeCellColor', 
+		'BuggleWorldCell', 'Buggle',
+		'ChangeCellHasBaggle', 'ChangeCellColor',
 		'ChangeBuggleBodyColor', 'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
 		'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown',
-		'NoBaggleUnderBuggle', 'BuggleAlreadyHaveBaggle', 'BuggleDontHaveBaggle', 
+		'NoBaggleUnderBuggle', 'BuggleAlreadyHaveBaggle', 'BuggleDontHaveBaggle',
 		'CellAlreadyHaveBaggle', 'BuggleInOuterSpace'
 	];
-	
+
 	function BuggleWorld (BuggleWorldCell, Buggle,
 			ChangeCellHasBaggle, ChangeCellColor,
 			ChangeBuggleBodyColor, ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
 			ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown,
-			NoBaggleUnderBuggle, BuggleAlreadyHaveBaggle, BuggleDontHaveBaggle, 
+			NoBaggleUnderBuggle, BuggleAlreadyHaveBaggle, BuggleDontHaveBaggle,
 			CellAlreadyHaveBaggle, BuggleInOuterSpace) {
-		
+
 		var BuggleWorld = function (world) {
 			this.type = world.type;
 			this.width = world.width;
@@ -37,20 +37,20 @@
 					this.cells[i][j] = new BuggleWorldCell(cell);
 				}
 			}
-			
+
 			this.entities = {};
 			for(var buggleID in world.entities) {
 				if(world.entities.hasOwnProperty(buggleID)) {
 					var buggle = world.entities[buggleID];
 					this.entities[buggleID] = new Buggle(buggle);
-				}	
+				}
 			}
 		};
-		
+
 		BuggleWorld.prototype.clone = function () {
 			return new BuggleWorld(this);
 		};
-		
+
 		BuggleWorld.prototype.getEntity = function (entityID) {
 			return this.entities[entityID];
 		};
@@ -68,7 +68,7 @@
 					this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
 				}
 			}
-			
+
 			this.drawGrid(ctx, canvasWidth, canvasHeight);
 			this.drawFrontierWalls(ctx, canvasWidth, canvasHeight);
 
@@ -78,7 +78,7 @@
 				}
 			}
 		};
-		
+
 		BuggleWorld.prototype.addOperations = function (operations) {
 			var step = [];
 			for(var i=0; i<operations.length; i++) {
@@ -113,7 +113,7 @@
 				this.currentState = state;
 			}
 		};
-		
+
 		BuggleWorld.prototype.generateOperation = function (operation) {
 			switch(operation.type) {
 				case 'moveBuggleOperation':
@@ -126,13 +126,13 @@
 					return new ChangeBuggleCarryBaggle(operation);
 				case 'changeBuggleBrushDown':
 					return new ChangeBuggleBrushDown(operation);
-				case 'changeCellColor': 
+				case 'changeCellColor':
 					return new ChangeCellColor(operation);
-				case 'changeCellHasBaggle': 
+				case 'changeCellHasBaggle':
 					return new ChangeCellHasBaggle(operation);
-				case 'changeCellHasContent': 
+				case 'changeCellHasContent':
 					return new ChangeCellHasContent(operation);
-				case 'changeCellContent': 
+				case 'changeCellContent':
 					return new ChangeCellContent(operation);
 				case 'buggleEncounterWall':
 					return new BuggleEncounterWall(operation);
@@ -148,7 +148,7 @@
 					return new BuggleInOuterSpace(operation);
 			}
 		};
-		
+
 		return BuggleWorld;
 	}
 })();
