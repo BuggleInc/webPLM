@@ -15,15 +15,15 @@ public class Poucet2 extends ExerciseTemplated {
 		super("Poucet2", "Poucet2");
 		tabName = "Poucet";
 		//setToolbox();
-		
+
 		/* Create initial situation */
 		World[] myWorlds = new World[] {
-				BuggleWorld.newFromFile(null, "lessons/welcome/loopdowhile/Poucet"),
-				BuggleWorld.newFromFile(null, "lessons/welcome/loopdowhile/Poucet3"),
+				BuggleWorld.newFromFile(null, "exercises/loopdowhile/Poucet"),
+				BuggleWorld.newFromFile(null, "exercises/loopdowhile/Poucet3"),
 		};
 		for (World w: myWorlds)
 			w.setDelay(50); // moving a bit faster than usual
-		
+
 		setup(myWorlds);
 	}
 }
