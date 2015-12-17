@@ -1,12 +1,12 @@
 package json.operation
 
 import play.api.libs.json._
-import plm.universe.bugglequest.BuggleOperation
-import plm.universe.bugglequest.MoveBuggleOperation
-import plm.universe.bugglequest.ChangeBuggleDirection
-import plm.universe.bugglequest.ChangeBuggleCarryBaggle
-import plm.universe.bugglequest.ChangeBuggleBrushDown
-import plm.universe.bugglequest.ChangeBuggleBodyColor
+import plm.universe.bugglequest.operations.BuggleOperation
+import plm.universe.bugglequest.operations.MoveBuggleOperation
+import plm.universe.bugglequest.operations.ChangeBuggleDirection
+import plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle
+import plm.universe.bugglequest.operations.ChangeBuggleBrushDown
+import plm.universe.bugglequest.operations.ChangeBuggleBodyColor
 
 object BuggleOperationToJson {
 

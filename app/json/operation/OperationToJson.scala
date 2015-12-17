@@ -5,7 +5,7 @@ import play.api.libs.json._
 import plm.universe.Operation
 import plm.universe.GridWorldCellOperation
 import plm.universe.bat.operations.BatOperation
-import plm.universe.bugglequest.BuggleOperation
+import plm.universe.bugglequest.operations.BuggleOperation
 import plm.universe.turtles.operations.TurtleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation

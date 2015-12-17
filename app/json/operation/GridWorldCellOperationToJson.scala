@@ -5,11 +5,11 @@ import play.api.libs.json._
 import plm.universe.GridWorldCell
 import plm.universe.GridWorldCellOperation
 
-import plm.universe.bugglequest.BuggleWorldCellOperation
-import plm.universe.bugglequest.ChangeCellColor
-import plm.universe.bugglequest.ChangeCellContent
-import plm.universe.bugglequest.ChangeCellHasBaggle
-import plm.universe.bugglequest.ChangeCellHasContent
+import plm.universe.bugglequest.operations.BuggleWorldCellOperation
+import plm.universe.bugglequest.operations.ChangeCellColor
+import plm.universe.bugglequest.operations.ChangeCellContent
+import plm.universe.bugglequest.operations.ChangeCellHasBaggle
+import plm.universe.bugglequest.operations.ChangeCellHasContent
 
 object GridWorldCellOperationToJson {
 
