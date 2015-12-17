@@ -1,6 +1,6 @@
 package json.operation
 
-import lessons.sort.baseball.operations._
+import plm.universe.baseball.operations._
 import play.api.libs.json._
 import plm.universe.Operation
 import plm.universe.GridWorldCellOperation
@@ -9,10 +9,10 @@ import plm.universe.bugglequest.BuggleOperation
 import plm.universe.turtles.operations.TurtleOperation
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.operations.SortOperation
-import lessons.sort.dutchflag.operations.DutchFlagOperation
-import lessons.sort.pancake.universe.operations.PancakeOperation
+import plm.universe.dutchflag.operations.DutchFlagOperation
+import plm.universe.pancake.operations.PancakeOperation
 import plm.core.lang.ProgrammingLanguage
-import lessons.recursion.hanoi.operations.HanoiOperation
+import plm.universe.hanoi.operations.HanoiOperation
 
 object OperationToJson {
 

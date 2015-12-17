@@ -1,7 +1,7 @@
 package json.operation
 
 import play.api.libs.json._
-import lessons.sort.pancake.universe.operations._
+import plm.universe.pancake.operations._
 import play.api.Logger
 
 

@@ -1,7 +1,7 @@
 package json.world
 
 import play.api.libs.json._
-import lessons.sort.dutchflag.universe.DutchFlagWorld
+import plm.universe.dutchflag.DutchFlagWorld
 
 object DutchFlagWorldToJson {
 

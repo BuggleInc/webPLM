@@ -1,7 +1,7 @@
 package json.operation
 
 import play.api.libs.json._
-import lessons.sort.dutchflag.operations._
+import plm.universe.dutchflag.operations._
 
 
 object DutchFlagOperationToJson {

@@ -1,7 +1,7 @@
 package json.world.pancake
 
 import play.api.libs.json._
-import lessons.sort.pancake.universe.Pancake
+import plm.universe.pancake.Pancake
 
 object PancakeToJson
 {

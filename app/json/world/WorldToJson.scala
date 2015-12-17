@@ -10,13 +10,13 @@ import plm.universe.Entity
 import json.entity.EntityToJson
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import plm.universe.sort.SortingWorld
-import lessons.sort.dutchflag.universe.DutchFlagWorld
-import lessons.sort.pancake.universe.PancakeWorld
 import json.world.pancake.PancakeWorldToJson
-import lessons.sort.baseball.universe._
 import json.world.baseball.BaseballWorldToJson
 import plm.core.lang.ProgrammingLanguage
-import lessons.recursion.hanoi.universe.HanoiWorld
+import plm.universe.baseball.BaseballWorld
+import plm.universe.dutchflag.DutchFlagWorld
+import plm.universe.hanoi.HanoiWorld
+import plm.universe.pancake.PancakeWorld
 
 object WorldToJson {
 

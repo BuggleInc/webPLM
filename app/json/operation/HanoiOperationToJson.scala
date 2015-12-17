@@ -1,8 +1,7 @@
 package json.operation
 
 import play.api.libs.json._
-import lessons.recursion.hanoi.operations.HanoiOperation
-import lessons.recursion.hanoi.operations.HanoiMove
+import plm.universe.hanoi.operations.{ HanoiMove, HanoiOperation }
 
 object HanoiOperationToJson {
 

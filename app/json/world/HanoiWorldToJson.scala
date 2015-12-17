@@ -2,8 +2,7 @@ package json.world
 
 import play.api.libs.json._
 import json.Utils
-import lessons.recursion.hanoi.universe.HanoiWorld
-import lessons.recursion.hanoi.universe.HanoiDisk
+import plm.universe.hanoi.{ HanoiDisk, HanoiWorld }
 import java.util.Vector
 
 object HanoiWorldToJson {

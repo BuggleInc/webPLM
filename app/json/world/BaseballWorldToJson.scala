@@ -1,6 +1,6 @@
 package json.world.baseball
 
-import lessons.sort.baseball.universe._
+import plm.universe.baseball.BaseballWorld
 import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json._
 

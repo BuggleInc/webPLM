@@ -1,7 +1,7 @@
-  package json.operation
+package json.operation
 
 import play.api.libs.json._
-import lessons.sort.baseball.operations._
+import plm.universe.baseball.operations._
 
 object BaseballOperationToJson {
 

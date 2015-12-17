@@ -1,8 +1,7 @@
 package json.world.pancake
 
 import play.api.libs.json._
-import lessons.sort.pancake.universe.PancakeWorld
-import lessons.sort.pancake.universe.Pancake
+import plm.universe.pancake.{ Pancake, PancakeWorld }
 import play.api.libs.json.Json.JsValueWrapper
 
 
