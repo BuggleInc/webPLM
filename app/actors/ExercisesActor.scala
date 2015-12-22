@@ -96,6 +96,6 @@ class ExercisesActor extends Actor {
   
   def getExercise(exerciseID: String): Exercise = {
     val exercise: Exercise = exercises.get(exerciseID).get
-    exercisesFactory.cloneExercise(exercise)
+    ExerciseFactory.cloneExercise(exercise)
   }
 }

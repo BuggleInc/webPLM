@@ -26,7 +26,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
 import ExercisesActor._
-import ExecutionActor._
+import execution.ExecutionActor._
 import GitActor._
 import SessionActor._
 import models.lesson.Lesson
@@ -37,6 +37,7 @@ import models.ProgrammingLanguages
 import scala.concurrent.Await
 import plm.universe.{ Entity, Operation, World }
 import json.operation.OperationToJson
+import execution.TribunalActor
 
 object PLMActor {
   def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -71,7 +72,7 @@ class PLMActor (
 
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
-  val executionActor: ActorRef = context.actorOf(ExecutionActor.props(currentHumanLang))
+  val executionActor: ActorRef = context.actorOf(TribunalActor.props(currentHumanLang))
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
