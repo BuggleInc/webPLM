@@ -13,15 +13,11 @@ object ProgrammingLanguages {
   val python: ProgrammingLanguage = new LangPython(false)
   val scala: ProgrammingLanguage = new LangScala(false)
 
+  ProgrammingLanguage.registerSupportedProgLang(java);
+  ProgrammingLanguage.registerSupportedProgLang(python);
+  ProgrammingLanguage.registerSupportedProgLang(scala);
+
   def programmingLanguages(): Array[ProgrammingLanguage] = Array(java, python, scala)
-  def defaultProgrammingLanguage(): ProgrammingLanguage = java
-  def getProgrammingLanguage(progLangName: String): ProgrammingLanguage = {
-    var newProgLang: ProgrammingLanguage = defaultProgrammingLanguage
-    programmingLanguages.foreach { progLang =>
-      if(progLang.getLang.toLowerCase == progLangName.toLowerCase) {
-        newProgLang = progLang
-      }
-    }
-    newProgLang
-  }
+  def defaultProgrammingLanguage(): ProgrammingLanguage = ProgrammingLanguage.defaultProgLang
+  def getProgrammingLanguage(progLangName: String): ProgrammingLanguage = ProgrammingLanguage.getProgrammingLanguage(progLangName)
 }
