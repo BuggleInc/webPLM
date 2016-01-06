@@ -19,6 +19,10 @@ import java.util.{ Map, HashMap }
 import play.api.libs.json.JsObject
 import play.api.libs.json.Json
 import akka.actor.Props
+import org.json.simple.JSONObject
+import org.json.simple.parser._
+import plm.core.model.lesson.ExecutionProgress
+import akka.actor.ActorRef
 
 /**
  * @author matthieu
@@ -75,7 +79,18 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
   val channelOut : Channel = Tribunal.connection.createChannel
   channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, argsOut)
 
-  def startExecution(exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
+  def receive =  {
+    case StartExecution(out, exercise, progLang, code) =>
+      startExecution(sender, out, exercise, progLang, code)
+    case StopExecution() =>
+      // TODO: Implement me
+    case UpdateLang(lang: Lang) =>
+      currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
+    case _ =>
+      Logger.error("LessonsActor: not supported message")
+  }
+
+  def startExecution(plmActor: ActorRef, client: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
     new Thread(new Runnable() {
       override def run() {
         val replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
@@ -108,7 +123,7 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
           }
           // The delivery will be "null" if nextDelivery timed out.
           else if (delivery != null) {
-            //Verdict.handleMessage(self, new String(delivery.getBody(), "UTF-8"), plmActor)
+            handleMessage(plmActor, client, new String(delivery.getBody, "UTF-8"))
           }
         }
         channelIn.close
@@ -116,15 +131,29 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
     }).start();
   }
 
-  def receive =  {
-    case StartExecution(out, exercise, progLang, code) =>
-      startExecution(exercise, progLang, code)
-      //sender ! executionResult
-    case StopExecution() =>
-      // TODO: Implement me
-    case UpdateLang(lang: Lang) =>
-      currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
-    case _ =>
-      Logger.error("LessonsActor: not supported message")
+  def containsOperations(msg: String): Boolean = {
+    false
+  }
+
+  def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String) {
+    if(containsOperations(msg)) {
+      // TODO: handle separately operations to avoid too much parsing
+    }
+    else {
+      val p: JSONParser = new JSONParser()
+      try {
+        val json: JSONObject = p.parse(msg).asInstanceOf[JSONObject]
+        val msgType: String = json.get("type").asInstanceOf[String]
+        msgType match {
+          case "executionResult" =>
+            val jsonResult: JSONObject = json.get("result").asInstanceOf[JSONObject]
+            val result: ExecutionProgress = new ExecutionProgress(jsonResult)
+            plmActor ! result
+          case _ =>
+        }
+      } catch {
+        case e: ParseException => e.printStackTrace
+      }
+    }
   }
 }
