@@ -189,7 +189,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
 
   def createFiles(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) {
     val progLang: ProgrammingLanguage = result.language
-    val error: String = if(result.compilationError != null) result.compilationError else result.executionError
+    val error: String = if(result.outcome == ExecutionProgress.outcomeKind.COMPILE) result.compilationError else result.executionError
     val correction: String = exercise.getDefaultSourceFile(progLang).getCorrection
     val mission: String = exercise.getMission(humanLang, progLang)
 
