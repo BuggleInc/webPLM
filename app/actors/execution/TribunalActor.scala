@@ -131,19 +131,20 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
     }).start();
   }
 
-  def containsOperations(msg: String): Boolean = {
-    false
+  def containsOperations(message: String): Boolean = {
+    message.startsWith("""{"cmd":"operations"""") 
   }
 
   def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String) {
     if(containsOperations(msg)) {
-      // TODO: handle separately operations to avoid too much parsing
+      // Handle separately operations to avoid too much parsing
+      client ! msg
     }
     else {
       val p: JSONParser = new JSONParser()
       try {
         val json: JSONObject = p.parse(msg).asInstanceOf[JSONObject]
-        val msgType: String = json.get("type").asInstanceOf[String]
+        val msgType: String = json.get("cmd").asInstanceOf[String]
         msgType match {
           case "executionResult" =>
             val jsonResult: JSONObject = json.get("result").asInstanceOf[JSONObject]

@@ -337,7 +337,8 @@ class PLMActor (
   }
 
   def sendMessage(cmdName: String, mapArgs: JsValue) {
-    out ! createMessage(cmdName, mapArgs)
+    val msg: JsValue = createMessage(cmdName, mapArgs)
+    out ! msg.toString
   }
 
   def registerActor() {

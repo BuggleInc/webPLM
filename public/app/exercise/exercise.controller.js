@@ -196,8 +196,7 @@
             worldKind = 'answer';
             exercise.playedDemo = true;
         }
-        var buffer = getOperationsBuffer(args.buffer);
-        buffer.forEach(function (item) {
+        args.buffer.forEach(function (item) {
           if (item.worldID) {
             handleOperations(item.worldID, worldKind, item.operations);
           } else if (item.type) {

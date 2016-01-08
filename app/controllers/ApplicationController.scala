@@ -33,7 +33,7 @@ class ApplicationController @Inject() (
     executionManager: ExecutionManager)
   extends Silhouette[User, JWTAuthenticator] {
 
-  def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, JsValue] { request =>
+  def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, String] { request =>
     var token = optToken.getOrElse("")
     var userAgent: String = request.headers.get("User-Agent").getOrElse("")
     var requestWithToken: RequestHeader = env.authenticatorService.embed(token, request)
