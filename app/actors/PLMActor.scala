@@ -37,7 +37,7 @@ import models.ProgrammingLanguages
 import scala.concurrent.Await
 import plm.universe.{ Entity, Operation, World }
 import json.operation.OperationToJson
-import execution.TribunalActor
+import execution._
 import akka.pattern.AskTimeoutException
 import scala.util.Failure
 import scala.util.Success
@@ -75,7 +75,7 @@ class PLMActor (
 
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
-  val executionActor: ActorRef = context.actorOf(TribunalActor.props(currentHumanLang))
+  val executionActor: ActorRef = context.actorOf(LocalExecutionActor.props(currentHumanLang))
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
@@ -195,16 +195,15 @@ class PLMActor (
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
           optCode match {
             case Some(code: String) =>
+              implicit val timeout = Timeout(15 seconds)
               (executionActor ? StartExecution(out, exercise, currentProgLang, code)).mapTo[ExecutionProgress].map { executionResult =>
                 handleExecutionResult(exercise, code, executionResult)
               } onFailure {
                 case timeout: AskTimeoutException =>
                   Logger.error("PLMActor: executionActor ? StartExecution timeout")
                   // Need to generate a special executionResult
-                  val executionResult: ExecutionProgress = new ExecutionProgress(currentProgLang)
-                  val timeoutMsg: String = "The assessment of your code \"time out\". It may due to an infinite loop inside your program!\n" +
-                    "However, if your program doesn't seems to have started, it may indicates that our servers are overloaded. Sorry for the inconvenience and please wait a few moments before submitting your program again."
-                  executionResult.setExecutionError(timeoutMsg)
+                  val executionResult: ExecutionProgress = new ExecutionProgress(currentProgLang, i18n)
+                  executionResult.setTimeoutError
                   handleExecutionResult(exercise, code, executionResult)
                 case t: Throwable =>
                   t.printStackTrace
@@ -213,8 +212,7 @@ class PLMActor (
               Logger.debug("runExercise: non-correctJSON")
           }
         case "stopExecution" =>
-          // FIXME: Re-implement me
-          // plm.stopExecution
+          executionActor ! StopExecution
         case "runDemo" =>
           optCurrentExercise match {
             case Some(currentExercise: Exercise) =>

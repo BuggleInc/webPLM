@@ -23,6 +23,7 @@ import org.json.simple.JSONObject
 import org.json.simple.parser._
 import plm.core.model.lesson.ExecutionProgress
 import akka.actor.ActorRef
+import akka.pattern.AskTimeoutException
 
 /**
  * @author matthieu
@@ -82,8 +83,8 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
       startExecution(sender, out, exercise, progLang, code)
-    case StopExecution() =>
-      // TODO: Implement me
+    case StopExecution =>
+      executionStopped = true
     case UpdateLang(lang: Lang) =>
       currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
     case _ =>
@@ -118,7 +119,7 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
             state = Off
           }
           else if (System.currentTimeMillis > timeout) {
-            //signalExecutionTimeout
+            handleTimeout(plmActor, progLang)
             state = Off
           }
           // The delivery will be "null" if nextDelivery timed out.
@@ -156,5 +157,11 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
         case e: ParseException => e.printStackTrace
       }
     }
+  }
+
+  def handleTimeout(plmActor: ActorRef, progLang: ProgrammingLanguage) {
+    val result: ExecutionProgress = new ExecutionProgress(progLang, currentI18n)
+    result.setTimeoutError
+    plmActor ! result
   }
 }

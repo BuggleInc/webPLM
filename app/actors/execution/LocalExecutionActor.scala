@@ -15,7 +15,9 @@ import play.api.i18n.Lang
 import akka.actor.ActorRef
 import plm.core.model.lesson.Exercise.WorldKind
 import plm.universe.World
-
+import java.util.concurrent.CompletableFuture
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits._
 /**
  * @author matthieu
  */
@@ -35,20 +37,29 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
       addOperationSpies(out, exercise, progLang)
-      val executionResult: ExecutionProgress = exerciseRunner.run(exercise, progLang, code)
-      registeredSpies.foreach { spy => 
-        spy.sendOperations
-        spy.unregister
+      val f: CompletableFuture[ExecutionProgress] = exerciseRunner.run(exercise, progLang, code)
+      
+      val future: Future[ExecutionProgress] = Future { f.get }
+
+      val plmActor: ActorRef = sender
+
+      future onSuccess { 
+        case executionResult: ExecutionProgress =>
+          registeredSpies.foreach { spy => 
+            spy.sendOperations
+            spy.unregister
+          }
+          registeredSpies = Array()
+          plmActor ! executionResult
+        case _ =>
       }
-      registeredSpies = Array()
-      sender ! executionResult
-    case StopExecution() =>
-      // TODO: Implement me
+    case StopExecution =>
+      exerciseRunner.stopExecution
     case UpdateLang(lang: Lang) =>
       currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
       exerciseRunner.setI18n(currentI18n)
     case _ =>
-      Logger.error("LessonsActor: not supported message")
+      Logger.error("LocalExecutionActor: not supported message")
   }
 
   def addOperationSpies(out: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage) {

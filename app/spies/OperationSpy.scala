@@ -12,14 +12,17 @@ import play.api.libs.json.JsValue
 import plm.universe.Operation
 import play.api.Logger
 import plm.core.lang.ProgrammingLanguage
+import org.json.simple.JSONArray
+import org.json.simple.JSONObject
 
 /**
  * @author matthieu
  */
 class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) extends IWorldView {  
-  val delay: Int = 1000
+  val MAX_SIZE: Int = 10000
+  val DELAY: Int = 1000
   
-  var buffer: JsArray = new JsArray
+  var buffer: JSONArray = new JSONArray
   var cnt: Int = 0
   var lastTime: Long = System.currentTimeMillis
   
@@ -35,20 +38,14 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) e
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */
   def worldHasMoved() {
-    val currentTime = System.currentTimeMillis
+    val currentTime: Long = System.currentTimeMillis
     val length: Int = world.getSteps.size
     for(i <- cnt to length-1) {
-      val operations: Array[Operation] = world.getSteps.get(i).toArray(Array[Operation]())
-      val currentTime = System.currentTimeMillis
-      val mapArgs: JsValue = Json.obj(
-        "worldID" -> world.getName,
-        "operations" -> OperationToJson.operationsWrite(operations, progLang)
-      )
-      buffer = buffer.append(mapArgs)
-      if(lastTime+delay <= currentTime) {
-        lastTime = currentTime
-        sendOperations
-      }
+      Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.get(i))
+    }
+    if(buffer.size() >= MAX_SIZE || lastTime+DELAY <= currentTime) {
+      lastTime = System.currentTimeMillis
+      sendOperations
     }
     cnt = length
   }
@@ -59,15 +56,9 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) e
   def worldHasChanged() {}
   
   def sendOperations() {
-    if(buffer.value.length > 0) {
-      val msg: JsObject = Json.obj(
-          "cmd" -> "operations",
-          "args" -> Json.obj(
-              "buffer" -> buffer
-          )
-      )
-      out ! msg
-      buffer = new JsArray
+    if(!buffer.isEmpty) {
+      out ! Operation.operationsBufferToMsg(buffer)      
+      buffer = new JSONArray
     }
   }
   
