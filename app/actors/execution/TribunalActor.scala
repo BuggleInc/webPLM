@@ -24,6 +24,8 @@ import org.json.simple.parser._
 import plm.core.model.lesson.ExecutionProgress
 import akka.actor.ActorRef
 import akka.pattern.AskTimeoutException
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * @author matthieu
@@ -55,7 +57,7 @@ object TribunalActor {
 /**
 * Tribunal state
 */
-object TribunalState extends scala.Enumeration {
+object TribunalState extends Enumeration {
   type TribunalState = Value
   val Off, Waiting, Ack, Launched, Streaming, Replied = Value
 }
@@ -92,51 +94,50 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
   }
 
   def startExecution(plmActor: ActorRef, client: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
-    new Thread(new Runnable() {
-      override def run() {
-        val replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
-        val channelIn : Channel = Tribunal.connection.createChannel
-        channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
-        
-        val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-        channelIn.basicConsume(replyQueue, true, consumer)
+    Future {
+      val replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
+      val channelIn : Channel = Tribunal.connection.createChannel
+      channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
+ 
+      val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
+      channelIn.basicConsume(replyQueue, true, consumer)
 
-        val parameters: JsObject = Json.obj(
-            "exercise" -> exercise.toJSON.toString,
-            "code" -> code,
-            "language" -> progLang.getLang,
-            "localization" -> currentI18n.getLocale.getLanguage,
-            "replyQueue" -> replyQueue
-        )
+      val parameters: JsObject = Json.obj(
+          "exercise" -> exercise.toJSON.toString,
+          "code" -> code,
+          "language" -> progLang.getLang,
+          "localization" -> currentI18n.getLocale.getLanguage,
+          "replyQueue" -> replyQueue
+      )
 
-        channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
-        timeout = System.currentTimeMillis + defaultTimeout
-        state = Waiting
-        while(state != Replied && state != Off) {
-          val delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
-          if (executionStopped) {
-            //signalExecutionStop
-            state = Off
-          }
-          else if (System.currentTimeMillis > timeout) {
-            handleTimeout(plmActor, progLang)
-            state = Off
-          }
-          // The delivery will be "null" if nextDelivery timed out.
-          else if (delivery != null) {
-            handleMessage(plmActor, client, new String(delivery.getBody, "UTF-8"))
-          }
+      channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
+      timeout = System.currentTimeMillis + defaultTimeout
+      state = Waiting
+      while(state != Replied && state != Off) {
+        val delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
+        if (executionStopped) {
+          //handleStopExecution(plmActor, progLang)
+          state = Off
         }
-        channelIn.close
+        else if (System.currentTimeMillis > timeout) {
+          handleTimeout(plmActor, progLang)
+          state = Off
+        }
+        // The delivery will be "null" if nextDelivery timed out.
+        else if (delivery != null) {
+          handleMessage(plmActor, client, new String(delivery.getBody, "UTF-8"))
+        }
       }
-    }).start();
+      channelIn.close
+    }
   }
 
   def containsOperations(message: String): Boolean = {
     message.startsWith("""{"cmd":"operations"""") 
   }
 
-  def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String) {
+  def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String): TribunalState = {
+    var state: TribunalState = Streaming
     if(containsOperations(msg)) {
       // Handle separately operations to avoid too much parsing
       client ! msg
@@ -151,12 +152,14 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
             val jsonResult: JSONObject = json.get("result").asInstanceOf[JSONObject]
             val result: ExecutionProgress = new ExecutionProgress(jsonResult)
             plmActor ! result
+            state = Replied
           case _ =>
         }
       } catch {
         case e: ParseException => e.printStackTrace
       }
     }
+    state
   }
 
   def handleTimeout(plmActor: ActorRef, progLang: ProgrammingLanguage) {
