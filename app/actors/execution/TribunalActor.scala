@@ -116,7 +116,7 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
       while(state != Replied && state != Off) {
         val delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
         if (executionStopped) {
-          //handleStopExecution(plmActor, progLang)
+          handleStopExecution(plmActor, progLang)
           state = Off
         }
         else if (System.currentTimeMillis > timeout) {
@@ -165,6 +165,12 @@ class TribunalActor(initialLang: Lang)  extends ExecutionActor {
   def handleTimeout(plmActor: ActorRef, progLang: ProgrammingLanguage) {
     val result: ExecutionProgress = new ExecutionProgress(progLang, currentI18n)
     result.setTimeoutError
+    plmActor ! result
+  }
+
+  def handleStopExecution(plmActor: ActorRef, progLang: ProgrammingLanguage) {
+    val result: ExecutionProgress = new ExecutionProgress(progLang, currentI18n)
+    result.setStopError
     plmActor ! result
   }
 }
