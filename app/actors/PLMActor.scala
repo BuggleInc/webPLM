@@ -43,13 +43,13 @@ import scala.util.Failure
 import scala.util.Success
 
 object PLMActor {
-  def props(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(pushActor, executionManager, userAgent, actorUUID, user, out))
+  def props(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
+  def propsWithUser(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, out))
 }
 
 class PLMActor (
     pushActor: ActorRef,
-    executionManager: ExecutionManager,
+    executionActor: ActorRef,
     userAgent: String,
     actorUUID: String,
     gitID: String,
@@ -60,8 +60,8 @@ class PLMActor (
     out: ActorRef)
   extends Actor {
 
-  def this(pushActor: ActorRef, executionManager: ExecutionManager, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
-    this(pushActor, executionManager, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+  def this(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
+    this(pushActor, executionActor, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
     setCurrentUser(user)
   }
 
@@ -75,7 +75,6 @@ class PLMActor (
 
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
-  val executionActor: ActorRef = context.actorOf(LocalExecutionActor.props(currentHumanLang))
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 

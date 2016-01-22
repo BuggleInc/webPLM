@@ -16,7 +16,7 @@ import play.api.i18n.{ Lang, MessagesApi, Messages }
 import play.api.mvc._
 import play.api.Play.current
 import scala.concurrent.Future
-import models.execution.{ LocalExecution, ExecutionManager }
+import actors.execution.ExecutionActorFactory
 import akka.actor.ActorRef
 import com.google.inject.name.Named
 
@@ -30,7 +30,7 @@ class ApplicationController @Inject() (
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
     socialProviderRegistry: SocialProviderRegistry,
-    executionManager: ExecutionManager)
+    executionActorFactory: ExecutionActorFactory,)
   extends Silhouette[User, JWTAuthenticator] {
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, String] { request =>
@@ -43,17 +43,17 @@ class ApplicationController @Inject() (
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) =>
-        Right(PLMActor.propsWithUser(pushActor, executionManager, userAgent, actorUUID, user) _)
+        Right(PLMActor.propsWithUser(pushActor, executionActorFactory.create(user.preferredLang), userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
-        var preferredLang: Lang = LangUtils.getPreferredLang(request)
-        var lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
+        val preferredLang: Lang = LangUtils.getPreferredLang(request)
+        val lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
         var newUser: Boolean = false;
         var gitID: String = CookieUtils.getCookieValue(request, "gitID")
         if(gitID.isEmpty) {
           newUser = true;
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(pushActor, executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false)) _)
+        Right(PLMActor.props(pushActor, executionActorFactory.create(Some(preferredLang)), userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false)) _)
     }
   }
 

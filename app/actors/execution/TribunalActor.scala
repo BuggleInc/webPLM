@@ -62,7 +62,7 @@ object TribunalState extends Enumeration {
   val Off, Waiting, Ack, Launched, Streaming, Replied = Value
 }
 
-class TribunalActor(initialLang: Lang)  extends ExecutionActor {
+class TribunalActor(initialLang: Lang) extends ExecutionActor {
   import ExecutionActor._
   import TribunalActor._
   import TribunalState._
