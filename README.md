@@ -10,9 +10,6 @@ Getting Started
 ---------------
 
 First, [install Play Framework](https://www.playframework.com/documentation/2.3.x/Installing).
-Also a MongoDB instance have to be running if you want to use the user
-account features. [Check this page](http://docs.mongodb.org/manual/installation/) 
-if you need to install it.   
 
 Once you cloned this repository, you can run the application in
 production mode by running ```activator start ``` from the root
