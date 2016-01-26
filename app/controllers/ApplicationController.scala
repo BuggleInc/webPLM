@@ -30,7 +30,7 @@ class ApplicationController @Inject() (
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
     socialProviderRegistry: SocialProviderRegistry,
-    executionActorFactory: ExecutionActorFactory,)
+    executionActorFactory: ExecutionActorFactory)
   extends Silhouette[User, JWTAuthenticator] {
 
   def socket(optToken: Option[String]) = WebSocket.tryAcceptWithActor[JsValue, String] { request =>

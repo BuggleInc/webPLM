@@ -41,6 +41,8 @@ import execution._
 import akka.pattern.AskTimeoutException
 import scala.util.Failure
 import scala.util.Success
+import org.json.simple.{ JSONArray, JSONObject }
+import utils.JSONUtils;
 
 object PLMActor {
   def props(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -215,14 +217,14 @@ class PLMActor (
         case "runDemo" =>
           optCurrentExercise match {
             case Some(currentExercise: Exercise) =>
-              var steps: JsArray = JsArray()
+              val buffer: JSONArray = new JSONArray
               currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()).foreach { world =>
-                for(i <- 0 to world.getSteps.size-1) {
-                  val operations: Array[Operation] = world.getSteps.get(i).toArray(Array[Operation]())
-                  steps = steps.append(Json.obj("worldID" -> world.getName, "operations" -> OperationToJson.operationsWrite(operations, currentProgLang)))
+                val length: Int = world.getSteps.size
+                for(i <- 0 until length) {
+                  Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.get(i))
                 }
               }
-              sendMessage("demoOperations", Json.obj("buffer" -> steps))
+              out ! Operation.operationsBufferToMsg("demoOperations", buffer)
             case _ =>
           }
         case "revertExercise" =>
@@ -353,10 +355,20 @@ class PLMActor (
       optCurrentExercise = Some(exercise)
 
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-        val json: JsObject = ExerciseToJson.exerciseWrites(exercise, currentProgLang, code, currentHumanLang.toLocale)
-        sendMessage("exercise", Json.obj(
-          "exercise" -> json
-        ))
+        val jsonExercise: JSONObject = exercise.toJSON
+        // Preferable to remove the exercise's solution from the generated JSON
+        jsonExercise.remove("defaultSourceFiles")
+
+        // FIXME: Add missing fields
+        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission(currentHumanLang.toLocale.getLanguage, currentProgLang))
+        JSONUtils.addString(jsonExercise, "code", code)
+        JSONUtils.addString(jsonExercise, "selectedWorldID", exercise.getWorld(0).getName)
+        JSONUtils.addString(jsonExercise, "api", "")
+        JSONUtils.addString(jsonExercise, "toolbox", "")
+
+        val mapArgs: JSONObject = new JSONObject
+        JSONUtils.addJSONObject(mapArgs, "exercise", jsonExercise)
+        out ! JSONUtils.generateMsg("exercise", mapArgs)
       }
     }
   }

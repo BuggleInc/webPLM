@@ -15,12 +15,12 @@
 
     ChangeBuggleBodyColor.prototype.apply = function (currentWorld) {
 			var buggle = currentWorld.getEntity(this.buggleID);
-			buggle.color = this.newColor;
+			buggle.bodyColor = this.newColor;
 		};
 
 		ChangeBuggleBodyColor.prototype.reverse = function (currentWorld) {
       var buggle = currentWorld.getEntity(this.buggleID);
-			buggle.color = this.oldColor;
+			buggle.bodyColor = this.oldColor;
 		};
 
 		return ChangeBuggleBodyColor;

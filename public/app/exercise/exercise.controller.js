@@ -227,7 +227,7 @@
 
     function setExercise(data) {
       exercise.id = data.id;
-      exercise.name = data.id.split('.').pop();
+      exercise.name = data.name;
 
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
@@ -242,230 +242,229 @@
         if (data.toolbox) {
           setToolbox(data.toolbox);
         }
-        for (var worldID in data.initialWorlds) {
-          if (data.initialWorlds.hasOwnProperty(worldID)) {
-            var dataInitialWorld, dataAnswerWorld, world, answerWorld;
-            dataInitialWorld = data.initialWorlds[worldID];
-            dataAnswerWorld = data.answerWorlds[worldID];
-            dataInitialWorld.id = worldID;
-            exercise.nameWorld = dataInitialWorld.type;
-            switch (dataInitialWorld.type) {
-            case 'BuggleWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: BuggleWorldView.draw
-         },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: BuggleWorldView.draw
-         }
-        ];
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              world = new BuggleWorld(dataInitialWorld);
-              answerWorld = new BuggleWorld(dataAnswerWorld);
-              initCanvas(BuggleWorldView.draw);
-              exercise.drawFnct = BuggleWorldView.draw;
-              break;
-            case 'BatWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: BatWorldView.draw
-         }
-        ];
-              exercise.drawFnct = BatWorldView.draw;
-              world = new BatWorld(dataInitialWorld);
-              answerWorld = new BatWorld(dataAnswerWorld);
-              world.setExpected(answerWorld);
-              BatWorldView.setScope($scope);
-              initDrawWithDOM(BatWorldView.draw);
-              break;
-            case 'TurtleWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: TurtleWorldView.draw
-          },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: TurtleWorldView.draw
+        for (var i=0; i<data.initialWorlds.length; i++) {
+          var dataInitialWorld = data.initialWorlds[i];
+          var dataAnswerWorld = data.answerWorlds[i];
+          var worldID = dataInitialWorld.name;
+          dataInitialWorld.id = worldID;
+          var world, answerWorld;
+          var worldType = dataInitialWorld.type.split('.').pop();
+          switch (worldType) {
+          case 'BuggleWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: BuggleWorldView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: BuggleWorldView.draw
+              }
+            ];
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            world = new BuggleWorld(dataInitialWorld);
+            answerWorld = new BuggleWorld(dataAnswerWorld);
+            initCanvas(BuggleWorldView.draw);
+            exercise.drawFnct = BuggleWorldView.draw;
+            break;
+          case 'BatWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: BatWorldView.draw
+              }
+            ];
+            exercise.drawFnct = BatWorldView.draw;
+            world = new BatWorld(dataInitialWorld);
+            answerWorld = new BatWorld(dataAnswerWorld);
+            world.setExpected(answerWorld);
+            BatWorldView.setScope($scope);
+            initDrawWithDOM(BatWorldView.draw);
+            break;
+          case 'TurtleWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: TurtleWorldView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: TurtleWorldView.draw
+              }
+            ];
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            world = new TurtleWorld(dataInitialWorld);
+            answerWorld = new TurtleWorld(dataAnswerWorld);
+            exercise.drawFnct = TurtleWorldView.draw;
+            initCanvas(exercise.drawFnct);
+            break;
+          case 'SortingWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: SortingWorldView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: SortingWorldView.draw
+              },
+              {
+                name: 'ChronoView',
+                worldKind: 'current',
+                tabNumber: 2,
+                drawFnct: SortingWorldSecondView.draw
+              },
+              {
+                name: 'ChronoDemo',
+                worldKind: 'answer',
+                tabNumber: 3,
+                drawFnct: SortingWorldSecondView.draw
+              }
+            ];
+            exercise.drawFnct = SortingWorldView.draw;
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            exercise.secondViewNeeded = true;
+            world = new SortingWorld(dataInitialWorld);
+            answerWorld = new SortingWorld(dataAnswerWorld);
+            initCanvas(SortingWorldView.draw);
+            break;
+          case 'DutchFlagWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: DutchFlagView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: DutchFlagView.draw
+              },
+              {
+                name: 'ChronoView',
+                worldKind: 'current',
+                tabNumber: 2,
+                drawFnct: DutchFlagSecondView.draw
+              },
+              {
+                name: 'ChronoDemo',
+                worldKind: 'answer',
+                tabNumber: 3,
+                drawFnct: DutchFlagSecondView.draw
+              }
+            ];
+            exercise.drawFnct = DutchFlagView.draw;
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            exercise.secondViewNeeded = true;
+            world = new DutchFlagWorld(dataInitialWorld);
+            answerWorld = new DutchFlagWorld(dataAnswerWorld);
+            initCanvas(DutchFlagView.draw);
+            break;
+          case 'PancakeWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: PancakeView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: PancakeView.draw
+              }
+            ];
+            exercise.drawFnct = PancakeView.draw;
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            world = new PancakeWorld(dataInitialWorld);
+            answerWorld = new PancakeWorld(dataAnswerWorld);
+            initCanvas(PancakeView.draw);
+            break;
+          case 'BaseballWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: BaseballView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: BaseballView.draw
+              },
+              {
+                name: 'ChronoView',
+                worldKind: 'current',
+                tabNumber: 2,
+                drawFnct: BaseballSecondView.draw
+              },
+              {
+                name: 'ChronoDemo',
+                worldKind: 'answer',
+                tabNumber: 3,
+                drawFnct: BaseballSecondView.draw
+              }
+            ];
+            exercise.drawFnct = BaseballView.draw;
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            exercise.secondViewNeeded = true;
+            world = new BaseballWorld(dataInitialWorld);
+            answerWorld = new BaseballWorld(dataAnswerWorld);
+            initCanvas(BaseballView.draw);
+            break;
+          case 'HanoiWorld':
+            exercise.tabs = [
+              {
+                name: 'World',
+                worldKind: 'current',
+                tabNumber: 0,
+                drawFnct: HanoiView.draw
+              },
+              {
+                name: 'Objective',
+                worldKind: 'answer',
+                tabNumber: 1,
+                drawFnct: HanoiView.draw
+              }
+            ];
+            exercise.drawFnct = HanoiView.draw;
+            exercise.objectiveViewNeeded = true;
+            exercise.animationPlayerNeeded = true;
+            world = new HanoiWorld(dataInitialWorld);
+            answerWorld = new HanoiWorld(dataAnswerWorld);
+            initCanvas(HanoiView.draw);
+            break;
           }
-        ];
-                exercise.objectiveViewNeeded = true;
-                exercise.animationPlayerNeeded = true;
-                world = new TurtleWorld(dataInitialWorld);
-                answerWorld = new TurtleWorld(dataAnswerWorld);
-                exercise.drawFnct = TurtleWorldView.draw;
-                initCanvas(exercise.drawFnct);
-                break;
-            case 'SortingWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: SortingWorldView.draw
-         },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: SortingWorldView.draw
-         },
-                {
-                  name: 'ChronoView',
-                  worldKind: 'current',
-                  tabNumber: 2,
-                  drawFnct: SortingWorldSecondView.draw
-         },
-                {
-                  name: 'ChronoDemo',
-                  worldKind: 'answer',
-                  tabNumber: 3,
-                  drawFnct: SortingWorldSecondView.draw
-         }
-        ];
-              exercise.drawFnct = SortingWorldView.draw;
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              exercise.secondViewNeeded = true;
-              world = new SortingWorld(dataInitialWorld);
-              answerWorld = new SortingWorld(dataAnswerWorld);
-              initCanvas(SortingWorldView.draw);
-              break;
-            case 'DutchFlagWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: DutchFlagView.draw
-         },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: DutchFlagView.draw
-         },
-                {
-                  name: 'ChronoView',
-                  worldKind: 'current',
-                  tabNumber: 2,
-                  drawFnct: DutchFlagSecondView.draw
-         },
-                {
-                  name: 'ChronoDemo',
-                  worldKind: 'answer',
-                  tabNumber: 3,
-                  drawFnct: DutchFlagSecondView.draw
-         }
-        ];
-              exercise.drawFnct = DutchFlagView.draw;
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              exercise.secondViewNeeded = true;
-              world = new DutchFlagWorld(dataInitialWorld);
-              answerWorld = new DutchFlagWorld(dataAnswerWorld);
-              initCanvas(DutchFlagView.draw);
-              break;
-            case 'PancakeWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: PancakeView.draw
-         },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: PancakeView.draw
-         }
-        ];
-              exercise.drawFnct = PancakeView.draw;
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              world = new PancakeWorld(dataInitialWorld);
-              answerWorld = new PancakeWorld(dataAnswerWorld);
-              initCanvas(PancakeView.draw);
-              break;
-            case 'BaseballWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: BaseballView.draw
-        },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: BaseballView.draw
-        },
-                {
-                  name: 'ChronoView',
-                  worldKind: 'current',
-                  tabNumber: 2,
-                  drawFnct: BaseballSecondView.draw
-        },
-                {
-                  name: 'ChronoDemo',
-                  worldKind: 'answer',
-                  tabNumber: 3,
-                  drawFnct: BaseballSecondView.draw
-        }
-        ];
-              exercise.drawFnct = BaseballView.draw;
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              exercise.secondViewNeeded = true;
-              world = new BaseballWorld(dataInitialWorld);
-              answerWorld = new BaseballWorld(dataAnswerWorld);
-              initCanvas(BaseballView.draw);
-              break;
-            case 'HanoiWorld':
-              exercise.tabs = [
-                {
-                  name: 'World',
-                  worldKind: 'current',
-                  tabNumber: 0,
-                  drawFnct: HanoiView.draw
-        },
-                {
-                  name: 'Objective',
-                  worldKind: 'answer',
-                  tabNumber: 1,
-                  drawFnct: HanoiView.draw
-        }
-        ];
-              exercise.drawFnct = HanoiView.draw;
-              exercise.objectiveViewNeeded = true;
-              exercise.animationPlayerNeeded = true;
-              world = new HanoiWorld(dataInitialWorld);
-              answerWorld = new HanoiWorld(dataAnswerWorld);
-              initCanvas(HanoiView.draw);
-              break;
-            }
-            world.id = worldID;
-            answerWorld.id = worldID;
-            exercise.initialWorlds[worldID] = world;
-            exercise.answerWorlds[worldID] = answerWorld;
-            exercise.currentWorlds[worldID] = world.clone();
-          }
+          world.id = worldID;
+          answerWorld.id = worldID;
+          exercise.initialWorlds[worldID] = world;
+          exercise.answerWorlds[worldID] = answerWorld;
+          exercise.currentWorlds[worldID] = world.clone();
         }
 
         exercise.worldIDs = Object.keys(exercise.currentWorlds);
