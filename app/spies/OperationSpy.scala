@@ -6,7 +6,6 @@ import play.api.libs.json.JsObject
 import play.api.libs.json.JsArray
 import akka.actor.ActorRef
 import play.api.libs.json.Json
-import json.operation.OperationToJson
 import plm.universe.Entity
 import play.api.libs.json.JsValue
 import plm.universe.Operation

@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 object LangToJson {
 
   def langWrite(lang: Lang): JsValue = {
-    var link = "/assets/images/"+lang.code+".png"
+    val link = "/assets/images/"+lang.code+".png"
     Json.obj(
       "icon" -> link,
       "code" -> lang.code,

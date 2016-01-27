@@ -14,8 +14,8 @@ object ProgrammingLanguageToJson {
   }
 
   def programmingLanguageWrite(programmingLanguage: ProgrammingLanguage): JsValue = {
-    var lang: String = programmingLanguage.getLang
-    var link: String = "/img/lang_"+ lang.toLowerCase +".png"
+    val lang: String = programmingLanguage.getLang
+    val link: String = "/img/lang_"+ lang.toLowerCase +".png"
     Json.obj(
         "lang" -> lang,
         "icon" -> link

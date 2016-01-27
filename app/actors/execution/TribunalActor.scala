@@ -10,9 +10,7 @@ import play.api.Logger
 import org.xnap.commons.i18n.I18nFactory
 import play.api.i18n.Lang
 import org.xnap.commons.i18n.I18n
-import models.execution.Tribunal
 import com.rabbitmq.client.QueueingConsumer
-import models.execution.Verdict
 import plm.core.model.lesson.Exercise
 import plm.core.lang.ProgrammingLanguage
 import java.util.{ Map, HashMap }
@@ -26,6 +24,7 @@ import akka.actor.ActorRef
 import akka.pattern.AskTimeoutException
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import java.util.UUID
 
 /**
  * @author matthieu
@@ -79,8 +78,8 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   val argsIn: Map[String, Object] = new HashMap[String, Object]
   argsIn.put("x-message-ttl", 5000.asInstanceOf[Object])
 
-  val channelOut : Channel = Tribunal.connection.createChannel
-  channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, argsOut)
+  val channelOut : Channel = connection.createChannel
+  channelOut.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, argsOut)
 
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
@@ -95,8 +94,8 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
 
   def startExecution(plmActor: ActorRef, client: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
     Future {
-      val replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
-      val channelIn : Channel = Tribunal.connection.createChannel
+      val replyQueue: String = QUEUE_NAME_REPLY + UUID.randomUUID.toString
+      val channelIn : Channel = connection.createChannel
       channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
  
       val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
@@ -110,7 +109,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
           "replyQueue" -> replyQueue
       )
 
-      channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
+      channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
       timeout = System.currentTimeMillis + defaultTimeout
       state = Waiting
       while(state != Replied && state != Off) {

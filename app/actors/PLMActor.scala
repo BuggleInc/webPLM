@@ -7,12 +7,11 @@ import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
 import scala.concurrent.duration._
 import codes.reactive.scalatime.{ Duration, Instant }
-import json._
+import json.{ LangToJson, ProgrammingLanguageToJson }
 import log.PLMLogger
 import models.GitHubIssueManager
 import models.User
 import models.daos.UserDAORestImpl
-import models.execution.ExecutionManager
 import models.lesson.Lecture
 import play.api.Logger
 import play.api.Play
@@ -36,7 +35,6 @@ import org.xnap.commons.i18n.{ I18n, I18nFactory }
 import models.ProgrammingLanguages
 import scala.concurrent.Await
 import plm.universe.{ Entity, Operation, World }
-import json.operation.OperationToJson
 import execution._
 import akka.pattern.AskTimeoutException
 import scala.util.Failure

@@ -9,13 +9,11 @@ import plm.core.model.lesson.Lesson
 import plm.core.model.LogHandler
 import plm.core.model.lesson.ExerciseFactory
 import plm.core.model.lesson.ExerciseRunner
-import json.LectureToJson
 import plm.universe.World
 import log.PLMLogger
 import org.xnap.commons.i18n.I18n
 import org.xnap.commons.i18n.I18nFactory
 import java.util.Locale
-import json.world.WorldToJson
 import plm.core.lang.LangJava
 import utils.LangUtils
 import models.ProgrammingLanguages
