@@ -30,7 +30,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
   import ExecutionActor._
   
   var currentI18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", initialLang.toLocale, I18nFactory.FALLBACK);
-  val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, currentI18n)
+  val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentI18n)
   
   var registeredSpies: Array[OperationSpy] = Array()
 

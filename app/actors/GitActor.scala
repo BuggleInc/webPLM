@@ -22,7 +22,6 @@ import org.xnap.commons.i18n.I18nFactory
 import log.PLMLogger
 import java.util.Locale
 import org.xnap.commons.i18n.I18n
-import plm.core.model.LogHandler
 
 /**
  * @author matthieu
@@ -57,10 +56,9 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
   var gitID: String = initialGitID
   var optTrackUser: Option[Boolean] = initialOptTrackUser
 
-  val logger: LogHandler = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
 
-  val gitUtils: GitUtils = new GitUtils(logger, i18n)
+  val gitUtils: GitUtils = new GitUtils(i18n)
 
   openRepo
 

@@ -6,7 +6,6 @@ import plm.core.model.lesson.Exercise.WorldKind
 import play.api.Logger
 import plm.core.model.Game
 import plm.core.model.lesson.Lesson
-import plm.core.model.LogHandler
 import plm.core.model.lesson.ExerciseFactory
 import plm.core.model.lesson.ExerciseRunner
 import plm.universe.World
@@ -32,12 +31,11 @@ object ExercisesActor {
 
   val exercisesName: Array[String] = generateExercisesIDsList(baseDirectory, filterRegexp)
 
-  val logger: PLMLogger = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
 
   val humanLanguages: Array[Locale] = initHumanLanguages
-  val exerciseRunner: ExerciseRunner = new ExerciseRunner(logger, i18n)
-  val exercisesFactory: ExerciseFactory = new ExerciseFactory(logger, i18n, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
+  val exerciseRunner: ExerciseRunner = new ExerciseRunner(i18n)
+  val exercisesFactory: ExerciseFactory = new ExerciseFactory(i18n, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
   val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseID: String)

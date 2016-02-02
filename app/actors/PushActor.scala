@@ -20,7 +20,6 @@ import akka.actor.Props
 import log.PLMLogger
 import play.api.Configuration
 import play.api.Logger
-import plm.core.model.LogHandler
 import plm.core.model.tracking.GitUtils
 import java.io.File
 
@@ -38,7 +37,6 @@ object PushActor {
 class PushActor @Inject() (configuration: Configuration) extends Actor {
   import PushActor._
 
-  val logger: LogHandler = new PLMLogger
   val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
 
   val home: String = System.getProperty("user.home")
@@ -71,7 +69,7 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
   
   def pushRepos() {
     pendingRequests.foreach { gitID => 
-      val gitUtils: GitUtils = new GitUtils(logger, i18n)
+      val gitUtils: GitUtils = new GitUtils(i18n)
       val repoPath: String = List(home, gitDirectory, gitID).mkString("/")
       val repoDir: File = new File(repoPath)
       

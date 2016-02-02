@@ -2,6 +2,7 @@ package bdr;
 
 import java.util.Stack;
 
+import plm.core.log.Logger;
 import plm.universe.bugglequest.SimpleBuggle;
 
 public class BDR2Entity extends SimpleBuggle {
@@ -28,7 +29,7 @@ public class BDR2Entity extends SimpleBuggle {
 	boolean complained = false;
 	private void complain(String msg) {
 		if (!complained)
-			getGame().getLogger().log("XXX "+msg);
+			Logger.log("XXX "+msg);
 		complained = true;
 	}
 	private String fmt(char c) {
