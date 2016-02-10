@@ -46,8 +46,8 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
       future onSuccess { 
         case executionResult: ExecutionProgress =>
           registeredSpies.foreach { spy => 
-            spy.sendOperations
-            spy.unregister
+            spy.stop
+            spy.flush
           }
           registeredSpies = Array()
           plmActor ! executionResult

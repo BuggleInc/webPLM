@@ -14,49 +14,52 @@ import plm.core.lang.ProgrammingLanguage
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import utils.JSONUtils
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.ScheduledExecutorService
 
 /**
  * @author matthieu
  */
-class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) extends IWorldView {
+class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   val MAX_SIZE: Int = 10000
   val DELAY: Int = 1000
 
   var buffer: JSONArray = new JSONArray
-  var cnt: Int = 0
-  var lastTime: Long = System.currentTimeMillis
+
+  val ses: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor
+  val cmd: Runnable = new Runnable() {
+    override def run() {
+      var length: Int = world.getSteps.size
+      if(MAX_SIZE < length) {
+        length = MAX_SIZE
+      }
+      for(i <- 0 until length) {
+        Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.poll)
+      }
+      sendOperations
+    }
+  }
+
+  ses.scheduleAtFixedRate(cmd, 1L, 1L, TimeUnit.SECONDS)
 
   def getOut(): ActorRef = out
 
-  world.addWorldUpdatesListener(this)
-
-  def unregister() {
-    world.removeWorldUpdatesListener(this)
+  def stop() {
+    ses.shutdown()
+    ses.awaitTermination(1L, TimeUnit.SECONDS)
   }
 
-  /**
-   * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
-   */
-  def worldHasMoved() {
-    /*
-    val currentTime: Long = System.currentTimeMillis
+  def flush() {
     val length: Int = world.getSteps.size
-    for(i <- cnt until length) {
-      Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.get(i))
+    for(i <- 1 until length) {
+      Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.poll);
+      if(buffer.size==MAX_SIZE) {
+        sendOperations;
+      }
     }
-    if(buffer.size() >= MAX_SIZE || lastTime+DELAY <= currentTime) {
-      lastTime = System.currentTimeMillis
-      sendOperations
-    }
-    cnt = length
-    * 
-    */
+    sendOperations
   }
-
-  /**
-   * Called when entities are created or destroyed, not when they move
-   */
-  def worldHasChanged() {}
 
   def sendOperations() {
     if(!buffer.isEmpty) {
