@@ -39,5 +39,5 @@ db:
   image: mongo
   volumes:
     - "~/mongodb/data:/data/db"
-  ports: 
+  ports:
     - "27017:27017"

@@ -217,9 +217,9 @@ class PLMActor (
             case Some(currentExercise: Exercise) =>
               val buffer: JSONArray = new JSONArray
               currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()).foreach { world =>
-                val length: Int = world.getSteps.size
-                for(i <- 0 until length) {
-                  Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.get(i))
+                val iterator = world.getSteps.iterator
+                while(iterator.hasNext) {
+                  Operation.addOperationsToBuffer(buffer, world.getName, iterator.next)
                 }
               }
               out ! Operation.operationsBufferToMsg("demoOperations", buffer)

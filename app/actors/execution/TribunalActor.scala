@@ -112,6 +112,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
       timeout = System.currentTimeMillis + defaultTimeout
       state = Waiting
+      executionStopped = false
       while(state != Replied && state != Off) {
         val delivery : QueueingConsumer.Delivery = consumer.nextDelivery(1000)
         if (executionStopped) {
@@ -132,7 +133,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   }
 
   def containsOperations(message: String): Boolean = {
-    message.startsWith("""{"cmd":"operations"""") 
+    message.startsWith("""{"cmd":"operations"""")
   }
 
   def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String): TribunalState = {

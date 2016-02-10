@@ -38,6 +38,7 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) e
    * Called every time something changes: entity move, new entity, entity gets destroyed, etc.
    */
   def worldHasMoved() {
+    /*
     val currentTime: Long = System.currentTimeMillis
     val length: Int = world.getSteps.size
     for(i <- cnt until length) {
@@ -48,6 +49,8 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) e
       sendOperations
     }
     cnt = length
+    * 
+    */
   }
 
   /**

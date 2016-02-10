@@ -235,6 +235,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       outcome = "compile"
     case FAIL =>
       outcome = "fail"
+    case TIMEOUT =>
+      outcome = "timeout"
     case PASS =>
       outcome = "pass"
     }
