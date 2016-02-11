@@ -18,6 +18,7 @@ import plm.universe.World
 import java.util.concurrent.CompletableFuture
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
+import plm.core.model.lesson.ExecutionProgress.outcomeKind
 /**
  * @author matthieu
  */
@@ -36,18 +37,19 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
 
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
+      val plmActor: ActorRef = sender
       addOperationSpies(out, exercise, progLang)
       val f: CompletableFuture[ExecutionProgress] = exerciseRunner.run(exercise, progLang, code)
-      
+
       val future: Future[ExecutionProgress] = Future { f.get }
 
-      val plmActor: ActorRef = sender
-
-      future onSuccess { 
+      future onSuccess {
         case executionResult: ExecutionProgress =>
-          registeredSpies.foreach { spy => 
+          registeredSpies.foreach { spy =>
             spy.stop
-            spy.flush
+            if(executionResult.outcome != outcomeKind.TIMEOUT) {
+              spy.flush
+            }
           }
           registeredSpies = Array()
           plmActor ! executionResult

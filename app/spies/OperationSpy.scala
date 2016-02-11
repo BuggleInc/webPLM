@@ -52,7 +52,7 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
 
   def flush() {
     val length: Int = world.getSteps.size
-    for(i <- 1 until length) {
+    for(i <- 0 until length) {
       Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.poll);
       if(buffer.size==MAX_SIZE) {
         sendOperations;
