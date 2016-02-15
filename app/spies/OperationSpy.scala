@@ -1,6 +1,5 @@
 package spies
 
-import plm.universe.IWorldView
 import plm.universe.World
 import play.api.libs.json.JsObject
 import play.api.libs.json.JsArray
