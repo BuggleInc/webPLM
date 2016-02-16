@@ -1,19 +1,30 @@
 package loopfor;
 
 import java.awt.Color;
+import java.util.Locale;
+
+import org.xnap.commons.i18n.I18n;
+
+import plm.core.model.I18nManager;
 
 public class LoopCourseForestEntity extends plm.universe.bugglequest.SimpleBuggle {
 	@Override
 	public void forward(int i)  { 
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
 	}
 	@Override
 	public void backward(int i) {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
 	}
 	@Override
 	public void backward() {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay."));
 	}
 
 	Color[] colors = new Color[] {
@@ -33,8 +44,11 @@ public class LoopCourseForestEntity extends plm.universe.bugglequest.SimpleBuggl
 			super.forward();
 		Color c = getGroundColor();
 		if (c.equals(Color.blue)) {
+			// FIXME: Should throw an exception instead
+			/*
 			if (!haveSeenError())
 				javax.swing.JOptionPane.showMessageDialog(null, getGame().i18n.tr("You fall into water."), getGame().i18n.tr("Test failed"), javax.swing.JOptionPane.ERROR_MESSAGE);
+			*/
 			seenError();
 		} else {
 			for (int i=0;i<colors.length-1;i++)

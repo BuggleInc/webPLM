@@ -13,7 +13,7 @@ public class Instructions extends ExerciseTemplated {
 		super("Instructions", "Instructions");
 		tabName="Program";
 
-		BuggleWorld myWorld = new BuggleWorld(null, "Training World", 7,7);
+		BuggleWorld myWorld = new BuggleWorld("Training World", 7,7);
 		new SimpleBuggle(myWorld, "Rookie", 2, 4, Direction.NORTH, Color.black, Color.lightGray);
 		
 		setup(myWorld);

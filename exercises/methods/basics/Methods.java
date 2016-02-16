@@ -16,7 +16,7 @@ public class Methods extends ExerciseTemplated {
 		super("Methods", "Methods");
 		//setToolbox();
 
-		BuggleWorld myWorld =  new BuggleWorld(null, "Donut World",7,7);
+		BuggleWorld myWorld =  new BuggleWorld("Donut World",7,7);
 		new SimpleBuggle(myWorld, "Homer", 0, 6, Direction.NORTH, Color.black, Color.lightGray);
 
 		try {

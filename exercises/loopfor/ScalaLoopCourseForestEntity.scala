@@ -1,18 +1,27 @@
 package lessons.welcome.loopfor;
 
-import java.awt.Color;
+import java.awt.Color
 import plm.universe.bugglequest.SimpleBuggle
 import plm.core.model.Game
+import java.util.Locale
+import plm.core.model.I18nManager
+import org.xnap.commons.i18n.I18n
 
 class ScalaLoopCourseForestEntity extends SimpleBuggle {
-	override def forward(i: Int)  { 
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
+	override def forward(i: Int)  {
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
 	}
 	override def backward(i: Int) {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
 	}
 	override def backward() {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay."));
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
+		throw new RuntimeException(i18n.tr("Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay."));
 	}
 
 	var colors = Array(
@@ -27,12 +36,17 @@ class ScalaLoopCourseForestEntity extends SimpleBuggle {
 			Color.red)
 	
 	override def forward()  {
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
 		if (!haveSeenError())
 			super.forward();
 		var c = getGroundColor();
 		if (c.equals(Color.blue)) {
+			// FIXME: Re-implement me
+		  /*
 			if (!haveSeenError())
-				javax.swing.JOptionPane.showMessageDialog(null, getGame().i18n.tr("You fall into water."), getGame().i18n.tr("Test failed"), javax.swing.JOptionPane.ERROR_MESSAGE);
+				javax.swing.JOptionPane.showMessageDialog(null, i18n.tr("You fall into water."), i18n.tr("Test failed"), javax.swing.JOptionPane.ERROR_MESSAGE);
+			*/
 			seenError();
 		} else {
 			var nextColor:Color = null;

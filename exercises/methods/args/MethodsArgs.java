@@ -16,7 +16,7 @@ public class MethodsArgs extends ExerciseTemplated {
 		tabName = "Program";
 		//setToolbox();
 
-		BuggleWorld myWorld = new BuggleWorld(null, "Buggles Party",7,7);
+		BuggleWorld myWorld = new BuggleWorld("Buggles Party",7,7);
 		new SimpleBuggle(myWorld, "Homer", 0, 6, Direction.NORTH, Color.black, Color.lightGray);
 		new SimpleBuggle(myWorld, "Bart", 1, 2, Direction.SOUTH, Color.black, Color.lightGray);
 		new SimpleBuggle(myWorld, "Lisa", 2, 4, Direction.SOUTH, Color.black, Color.lightGray);

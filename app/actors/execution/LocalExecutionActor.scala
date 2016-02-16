@@ -1,14 +1,13 @@
 package actors.execution
 
+import java.util.Locale
 import spies.OperationSpy
-import org.xnap.commons.i18n.I18nFactory
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.ExecutionProgress
 import akka.actor.Props
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.ExerciseRunner
 import log.PLMLogger
-import org.xnap.commons.i18n.I18n
 import play.api.Logger
 import akka.actor.Actor
 import play.api.i18n.Lang
@@ -30,8 +29,8 @@ object LocalExecutionActor {
 class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
   import ExecutionActor._
   
-  var currentI18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", initialLang.toLocale, I18nFactory.FALLBACK);
-  val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentI18n)
+  var currentLocale: Locale = initialLang.toLocale
+  val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentLocale)
   
   var registeredSpies: Array[OperationSpy] = Array()
 
@@ -58,8 +57,8 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
     case StopExecution =>
       exerciseRunner.stopExecution
     case UpdateLang(lang: Lang) =>
-      currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
-      exerciseRunner.setI18n(currentI18n)
+      currentLocale = lang.toLocale
+      exerciseRunner.setI18n(currentLocale)
     case _ =>
       Logger.error("LocalExecutionActor: not supported message")
   }

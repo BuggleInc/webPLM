@@ -15,7 +15,7 @@ public class Conditions extends ExerciseTemplated {
 		super("Conditions", "Conditions");
 		tabName = "Program";
 				
-		BuggleWorld myWorld = new BuggleWorld(null, "Closed World",7,7);
+		BuggleWorld myWorld = new BuggleWorld("Closed World",7,7);
 		for (int i=0;i<7;i++) { 
 			new SimpleBuggle(myWorld, "Buggle "+(i+1), i, 3, Direction.NORTH, Color.black, Color.lightGray);
 			if (i%2 == 0) {

@@ -44,7 +44,7 @@ object GitActor {
   case class SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean])
   case class SetTrackUser(newOptTrackUser: Option[Boolean])
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
-  case class Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String)
+  case class Executed(exercise: Exercise, result: ExecutionProgress, code: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
   case class Idle(idleStart: String, idleEnd: String, duration: String)
 }
@@ -56,9 +56,9 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
   var gitID: String = initialGitID
   var optTrackUser: Option[Boolean] = initialOptTrackUser
 
-  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
+  val locale: Locale = new Locale("en")
 
-  val gitUtils: GitUtils = new GitUtils(i18n)
+  val gitUtils: GitUtils = new GitUtils(locale)
 
   openRepo
 
@@ -72,8 +72,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       optTrackUser = newOptTrackUser
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
       sender ! getCode(exerciseID, progLang)
-    case Executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) =>
-      executed(exercise, result, code, humanLang)
+    case Executed(exercise: Exercise, result: ExecutionProgress, code: String) =>
+      executed(exercise, result, code)
       requestPush
     case SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) =>
       switched(exerciseTo, optExerciseFrom)
@@ -144,11 +144,11 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     gitUtils.commit(leavedMessage)
   }
 
-  def executed(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) {
+  def executed(exercise: Exercise, result: ExecutionProgress, code: String) {
     val jsonExecuted: JsObject = generateExecutedJson(exercise, result)
     val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
 
-    createFiles(exercise, result, code, humanLang)
+    createFiles(exercise, result, code)
     gitUtils.addFiles
     gitUtils.commit(executedMessage)
   }
@@ -185,11 +185,11 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     List(home, gitDirectory, gitID, filename).mkString("/")
   }
 
-  def createFiles(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: String) {
+  def createFiles(exercise: Exercise, result: ExecutionProgress, code: String) {
     val progLang: ProgrammingLanguage = result.language
     val error: String = if(result.outcome == ExecutionProgress.outcomeKind.COMPILE) result.compilationError else result.executionError
     val correction: String = exercise.getDefaultSourceFile(progLang).getCorrection
-    val mission: String = exercise.getMission(humanLang, progLang)
+    val mission: String = exercise.getMission
 
     var files: HashMap[String, String] = new HashMap[String, String]
 

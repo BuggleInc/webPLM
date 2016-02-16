@@ -17,7 +17,7 @@ public class RunFour extends ExerciseTemplated {
 		
 		/* Create initial situation */
 		World[] myWorlds = new World[] {
-				BuggleWorld.newFromFile(null, "exercises/variables/RunFour"),
+				BuggleWorld.newFromFile("exercises/variables/RunFour"),
 		};
 		for (World w: myWorlds)
 			w.setDelay(50); // moving a bit faster than usual

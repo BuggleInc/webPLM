@@ -9,7 +9,7 @@ public class MonkeyTrouble extends ExerciseTemplated {
 	public MonkeyTrouble() {
 		super("MonkeyTrouble", "MonkeyTrouble");
 
-		BatWorld myWorld = new BatWorld(null, "monkeyTrouble");
+		BatWorld myWorld = new BatWorld("monkeyTrouble");
 		myWorld.addTest(BatTest.VISIBLE, true, true);
 		myWorld.addTest(BatTest.VISIBLE, false, false);
 		myWorld.addTest(BatTest.VISIBLE, true, false);

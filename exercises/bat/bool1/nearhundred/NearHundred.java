@@ -9,7 +9,7 @@ public class NearHundred extends ExerciseTemplated {
 	public NearHundred() {
 		super("NearHundred", "NearHundred");
 
-		BatWorld myWorld = new BatWorld(null, "nearHundred");
+		BatWorld myWorld = new BatWorld("nearHundred");
 		myWorld.addTest(BatTest.VISIBLE, 93);
 		myWorld.addTest(BatTest.VISIBLE, 90);
 		myWorld.addTest(BatTest.VISIBLE, 89);

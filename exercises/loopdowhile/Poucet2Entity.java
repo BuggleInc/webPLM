@@ -1,18 +1,26 @@
 package loopdowhile;
 
 import java.awt.Color;
+import java.util.Locale;
 
+import org.xnap.commons.i18n.I18n;
+
+import plm.core.model.I18nManager;
 import plm.universe.GridWorld;
 import plm.universe.bugglequest.BuggleWorldCell;
 
 public class Poucet2Entity extends plm.universe.bugglequest.SimpleBuggle {
 	@Override
 	public void forward(int i)  { 
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
 	}
 	@Override
 	public void backward(int i) {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
 	}
 	
 	// Compute the amount of free ways from the current cell

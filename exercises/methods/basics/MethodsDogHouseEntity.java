@@ -1,13 +1,20 @@
 package methods.basics;
 
+import java.util.Locale;
+
+import org.xnap.commons.i18n.I18n;
+
 import plm.core.model.Game;
+import plm.core.model.I18nManager;
 import plm.core.model.lesson.Exercise;
 import plm.universe.bugglequest.SimpleBuggle;
 
 public class MethodsDogHouseEntity extends SimpleBuggle {
 	@Override
 	public void right() {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use right() in this exercise. Use left() instead."));
+		Locale locale = getWorld().getLocale();
+		I18n i18n = I18nManager.getI18n(locale);
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use right() in this exercise. Use left() instead."));
 	}
 
 	private int line = -1;
@@ -19,6 +26,8 @@ public class MethodsDogHouseEntity extends SimpleBuggle {
 			return;
 		}
 		
+		//FIXME: Re-implement me
+		/*
 		for (StackTraceElement s : Thread.currentThread().getStackTrace()) {
 			if (s.getMethodName().equals("dogHouse")) {
 				if (line != -1 && line != s.getLineNumber()) {
@@ -35,6 +44,7 @@ public class MethodsDogHouseEntity extends SimpleBuggle {
 			}
 
 		}
+		*/
 	}
 	/* BEGIN TEMPLATE */
 	/* BEGIN SOLUTION */

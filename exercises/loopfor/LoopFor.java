@@ -17,7 +17,7 @@ public class LoopFor extends ExerciseTemplated {
 		tabName = "Program";
 		//setToolbox();
 		
-		BuggleWorld myWorld = new BuggleWorld(null, "Kitchen",7,7);
+		BuggleWorld myWorld = new BuggleWorld("Kitchen",7,7);
 		for (int i=0;i<7;i++) {
 			new SimpleBuggle(myWorld, "Hungry"+(i+1), i, 6, Direction.NORTH, Color.black, Color.lightGray);
 		    

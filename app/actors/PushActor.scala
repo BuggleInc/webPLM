@@ -66,10 +66,10 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
       pendingRequests = Array[String]()
     case _ =>
   }
-  
+
   def pushRepos() {
     pendingRequests.foreach { gitID => 
-      val gitUtils: GitUtils = new GitUtils(i18n)
+      val gitUtils: GitUtils = new GitUtils(new Locale("en"))
       val repoPath: String = List(home, gitDirectory, gitID).mkString("/")
       val repoDir: File = new File(repoPath)
       
@@ -78,9 +78,10 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
       gitUtils.pushChanges(userBranchHash, progress, cp)
     }
   }
-  
+
   override def postStop() = {
     Logger.error("postStop: server stopped - pushing the repos")
+    cancellable.cancel
     pushRepos
   }
 }

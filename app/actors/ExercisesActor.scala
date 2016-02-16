@@ -18,6 +18,7 @@ import utils.LangUtils
 import models.ProgrammingLanguages
 import scala.util.matching.Regex
 import java.io.File
+import plm.core.model.lesson.UserSettings
 
 /**
  * @author matthieu
@@ -31,11 +32,11 @@ object ExercisesActor {
 
   val exercisesName: Array[String] = generateExercisesIDsList(baseDirectory, filterRegexp)
 
-  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK);
+  val locale: Locale = new Locale("en")
 
   val humanLanguages: Array[Locale] = initHumanLanguages
-  val exerciseRunner: ExerciseRunner = new ExerciseRunner(i18n)
-  val exercisesFactory: ExerciseFactory = new ExerciseFactory(i18n, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
+  val exerciseRunner: ExerciseRunner = new ExerciseRunner(locale)
+  val exercisesFactory: ExerciseFactory = new ExerciseFactory(locale, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
   val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseID: String)
@@ -69,9 +70,10 @@ object ExercisesActor {
 
   def initExercises(): Map[String, Exercise] = {
     var exercises: Map[String, Exercise] = Map()
-
+    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
     exercisesName.foreach { exerciseName => 
       val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
+      exercise.setSettings(userSettings)
       exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
       exercises += (exerciseName -> exercise)
     }

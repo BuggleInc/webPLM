@@ -9,7 +9,7 @@ public class SumDouble extends ExerciseTemplated {
 	public SumDouble() {
 		super("SumDouble", "SumDouble");
 
-		BatWorld myWorld = new BatWorld(null, "sumDouble");
+		BatWorld myWorld = new BatWorld("sumDouble");
 		myWorld.addTest(BatTest.VISIBLE,  1,2);
 		myWorld.addTest(BatTest.VISIBLE,  3,2);
 		myWorld.addTest(BatTest.VISIBLE,  2,2);

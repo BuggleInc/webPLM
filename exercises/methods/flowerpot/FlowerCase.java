@@ -14,7 +14,7 @@ public class FlowerCase extends ExerciseTemplated {
 		super("FlowerCase", "FlowerCase");
 		//setToolbox();
 		BuggleWorld[] myWorlds = new BuggleWorld[] {
-				(BuggleWorld) BuggleWorld.newFromFile(null, "exercises/methods/flowerpot/FlowerCase")
+				(BuggleWorld) BuggleWorld.newFromFile("exercises/methods/flowerpot/FlowerCase")
 		};
 
 		setup(myWorlds);

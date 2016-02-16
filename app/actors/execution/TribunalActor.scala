@@ -7,9 +7,7 @@ import com.rabbitmq.client.Channel
 import play.api.Play
 import play.api.Play.current
 import play.api.Logger
-import org.xnap.commons.i18n.I18nFactory
 import play.api.i18n.Lang
-import org.xnap.commons.i18n.I18n
 import com.rabbitmq.client.QueueingConsumer
 import plm.core.model.lesson.Exercise
 import plm.core.lang.ProgrammingLanguage
@@ -25,6 +23,7 @@ import akka.pattern.AskTimeoutException
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.util.UUID
+import java.util.Locale
 
 /**
  * @author matthieu
@@ -69,7 +68,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   val defaultTimeout : Long = 10000
 
   var state : TribunalState = Off
-  var currentI18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", initialLang.toLocale, I18nFactory.FALLBACK);
+  var currentLocale: Locale = initialLang.toLocale
   var timeout : Long = 0
   var executionStopped: Boolean = false
 
@@ -87,7 +86,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
     case StopExecution =>
       executionStopped = true
     case UpdateLang(lang: Lang) =>
-      currentI18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", lang.toLocale, I18nFactory.FALLBACK);
+      currentLocale = lang.toLocale
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
@@ -105,7 +104,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
           "exercise" -> exercise.toJSON.toString,
           "code" -> code,
           "language" -> progLang.getLang,
-          "localization" -> currentI18n.getLocale.getLanguage,
+          "localization" -> currentLocale.getLanguage,
           "replyQueue" -> replyQueue
       )
 
@@ -163,13 +162,13 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   }
 
   def handleTimeout(plmActor: ActorRef, progLang: ProgrammingLanguage) {
-    val result: ExecutionProgress = new ExecutionProgress(progLang, currentI18n)
+    val result: ExecutionProgress = new ExecutionProgress(progLang, currentLocale)
     result.setTimeoutError
     plmActor ! result
   }
 
   def handleStopExecution(plmActor: ActorRef, progLang: ProgrammingLanguage) {
-    val result: ExecutionProgress = new ExecutionProgress(progLang, currentI18n)
+    val result: ExecutionProgress = new ExecutionProgress(progLang, currentLocale)
     result.setStopError
     plmActor ! result
   }

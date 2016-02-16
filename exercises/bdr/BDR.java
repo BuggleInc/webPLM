@@ -38,7 +38,7 @@ public class BDR extends ExerciseTemplated {
 		tabName = "BDRBuggle";
 		//setToolbox();
 
-		myWorld = new BuggleWorld(null, "Dance Floor",7,7);
+		myWorld = new BuggleWorld("Dance Floor",7,7);
 		/* first dancer, plus its steps */
 		new SimpleBuggle(myWorld, "John Travolta", 0, 6, Direction.EAST, Color.red, Color.lightGray);
 		plus1(0,6);

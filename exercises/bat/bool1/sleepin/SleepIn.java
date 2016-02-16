@@ -10,7 +10,7 @@ public class SleepIn extends ExerciseTemplated {
 		super("SleepIn", "SleepIn");
 		tabName = "SourceCode";
 
-		BatWorld myWorld = new BatWorld(null, "sleepIn");
+		BatWorld myWorld = new BatWorld("sleepIn");
 		myWorld.addTest(BatTest.VISIBLE,  false,false);
 		myWorld.addTest(BatTest.VISIBLE,  true,false);
 		myWorld.addTest(BatTest.INVISIBLE, false,true);

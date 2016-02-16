@@ -41,6 +41,7 @@ import scala.util.Failure
 import scala.util.Success
 import org.json.simple.{ JSONArray, JSONObject }
 import utils.JSONUtils;
+import plm.core.model.lesson.UserSettings
 
 object PLMActor {
   def props(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -78,7 +79,9 @@ class PLMActor (
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, "dummy", None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
-  val i18n: I18n = I18nFactory.getI18n(getClass(),"org.plm.i18n.Messages", new Locale("en"), I18nFactory.FALLBACK)
+  val locale: Locale = currentHumanLang.toLocale
+
+  val userSettings: UserSettings = new UserSettings(currentHumanLang.toLocale, currentProgLang)
 
   val gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
 
@@ -201,7 +204,7 @@ class PLMActor (
                 case timeout: AskTimeoutException =>
                   Logger.error("PLMActor: executionActor ? StartExecution timeout")
                   // Need to generate a special executionResult
-                  val executionResult: ExecutionProgress = new ExecutionProgress(currentProgLang, i18n)
+                  val executionResult: ExecutionProgress = new ExecutionProgress(currentProgLang, locale)
                   executionResult.setTimeoutError
                   handleExecutionResult(exercise, code, executionResult)
                 case t: Throwable =>
@@ -351,6 +354,7 @@ class PLMActor (
 
       optCurrentLesson = Some(lessonID)
       optCurrentExercise = Some(exercise)
+      exercise.setSettings(userSettings)
 
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
         val jsonExercise: JSONObject = exercise.toJSON
@@ -358,7 +362,7 @@ class PLMActor (
         jsonExercise.remove("defaultSourceFiles")
 
         // FIXME: Add missing fields
-        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission(currentHumanLang.toLocale.getLanguage, currentProgLang))
+        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission)
         JSONUtils.addString(jsonExercise, "code", code)
         JSONUtils.addString(jsonExercise, "selectedWorldID", exercise.getWorld(0).getName)
         JSONUtils.addString(jsonExercise, "api", "")
@@ -493,11 +497,13 @@ class PLMActor (
 
   def updateHumanLang(humanLang: String) {
     currentHumanLang = Lang(humanLang)
+    userSettings.setHumanLang(currentHumanLang.toLocale)
     sendMessage("newHumanLang", generateUpdatedHumanLangJson)
   }
 
   def updateProgLang(progLang: String) {
     currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
+    userSettings.setProgLang(currentProgLang)
     sendMessage("newProgLang", generateUpdatedProgLangJson)
   }
 
@@ -505,8 +511,8 @@ class PLMActor (
     optCurrentExercise match {
     case Some(exercise: Exercise) =>
       val exerciseJson: JsObject = Json.obj(
-        "instructions" -> exercise.getMission(currentHumanLang.language, currentProgLang),
-        "api" -> exercise.getWorldAPI(currentHumanLang.toLocale, currentProgLang)
+        "instructions" -> exercise.getMission,
+        "api" -> exercise.getWorldAPI
       )
       exerciseJson
     case _ =>
@@ -583,12 +589,12 @@ class PLMActor (
 
   def handleExecutionResult(exercise: Exercise, code: String, executionResult: ExecutionProgress) {
     sessionActor ! SetCode(exercise, currentProgLang, code)
-    gitActor ! Executed(exercise, executionResult, code, currentHumanLang.language)
+    gitActor ! Executed(exercise, executionResult, code)
 
     val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
     val commonErrorID: Int = executionResult.commonErrorID
     val commonErrorText: String = executionResult.commonErrorText
-    val msg: String = executionResult.getMsg(i18n)
+    val msg: String = executionResult.getMsg(locale)
 
     val mapArgs: JsValue = Json.obj(
       "msgType" -> msgType,

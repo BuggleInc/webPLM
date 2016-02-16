@@ -14,7 +14,7 @@ public class InstructionsDrawG extends ExerciseTemplated {
 		tabName = "Source";
 		//setToolbox();
 
-		BuggleWorld myWorld = new BuggleWorld(null, "Training World", 7, 7);
+		BuggleWorld myWorld = new BuggleWorld("Training World", 7, 7);
 		new SimpleBuggle(myWorld, "Rookie", 5, 1, Direction.NORTH, Color.black, Color.blue);
 		
 		setup(myWorld);

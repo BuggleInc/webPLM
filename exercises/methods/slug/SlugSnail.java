@@ -18,7 +18,7 @@ public class SlugSnail extends ExerciseTemplated {
 
 		BuggleWorld[] myWorlds = new BuggleWorld[2];
 
-		BuggleWorld myWorld = new BuggleWorld(null, "Kitty", 8, 7);
+		BuggleWorld myWorld = new BuggleWorld("Kitty", 8, 7);
 		for (int i = 5; i >= 2; i--)
 			myWorld.setColor(6, i,Color.pink);
 		myWorld.setColor(6, 1, Color.orange);
@@ -39,7 +39,7 @@ public class SlugSnail extends ExerciseTemplated {
 		}
 		myWorlds[0] = myWorld;
 
-		myWorld = new BuggleWorld(null, "Snail", 8, 7);
+		myWorld = new BuggleWorld("Snail", 8, 7);
 		for (int i = 5; i >= 2; i--)
 		    myWorld.setColor(6, i,Color.orange);
 		myWorld.putTopWall(6, 2);

@@ -4,13 +4,19 @@ import java.awt.Color
 import plm.core.model.Game
 import plm.universe.GridWorld
 import plm.universe.bugglequest.BuggleWorldCell
+import java.util.Locale
+import plm.core.model.I18nManager
+import org.xnap.commons.i18n.I18n
 
 class ScalaPoucet2Entity extends plm.universe.bugglequest.SimpleBuggle {
-	override def forward(i: Int)  { 
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
+	override def forward(i: Int)  {
+	  val locale: Locale = getWorld.getLocale
+		throw new RuntimeException(I18nManager.getI18n(locale).tr("Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead."));
 	}
 	override def backward(i: Int) {
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead."));
 	}
 
 	def crossing(): Boolean = {

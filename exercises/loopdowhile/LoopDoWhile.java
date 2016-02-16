@@ -16,7 +16,7 @@ public class LoopDoWhile extends ExerciseTemplated {
 		tabName = "Program";
 		//setToolbox();
 				
-		BuggleWorld myWorld = new BuggleWorld(null, "Yellow Submarine",13,7);
+		BuggleWorld myWorld = new BuggleWorld("Yellow Submarine",13,7);
 		for (int i=0;i<7;i++) {
 			new SimpleBuggle(myWorld, "Beatles"+(i+1), i, 6, Direction.NORTH, Color.black, Color.lightGray);
 		    for (int j=6; j>i; j--)

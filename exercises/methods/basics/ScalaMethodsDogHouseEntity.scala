@@ -5,10 +5,15 @@ import plm.core.model.Game
 import scala.collection.JavaConversions
 import plm.core.model.lesson.Exercise
 import plm.core.log.Logger
+import java.util.Locale
+import plm.core.model.I18nManager
+import org.xnap.commons.i18n.I18n
 
 class ScalaMethodsDogHouseEntity extends SimpleBuggle {
-	override def right()  { 
-		throw new RuntimeException(getGame().i18n.tr("Sorry Dave, I cannot let you use right() in this exercise. Use left() instead."));
+	override def right()  {
+	  val locale: Locale = getWorld.getLocale
+	  val i18n: I18n = I18nManager.getI18n(locale)
+		throw new RuntimeException(i18n.tr("Sorry Dave, I cannot let you use right() in this exercise. Use left() instead."));
 	}
 
 	var savedLine = -1
@@ -34,11 +39,15 @@ class ScalaMethodsDogHouseEntity extends SimpleBuggle {
 	  if (savedLine == -1) {
 	    savedLine = usedLine
 	  } else if (savedLine != usedLine) {
+	    // FIXME: Re-implement me
+	    /*
 	    var offset = getGame().getCurrentLesson().getCurrentExercise().asInstanceOf[Exercise].getSourceFile(Game.SCALA, 0).getOffset()
 	    var msg = getGame().i18n.tr("Sorry Dave, I cannot let you use left() both in lines {0} and {1} in this exercise. You can write left() only once in this exercise.",
 	        (savedLine-offset),(usedLine-offset));
+		  
 		  Logger.log(msg);
 		  throw new RuntimeException(msg);
+	  	*/
 	  }
 	  super.left();
 	}

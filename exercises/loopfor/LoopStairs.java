@@ -18,7 +18,7 @@ public class LoopStairs extends ExerciseTemplated{
 					
 			/* Create initial situation */
 			World[] myWorlds = new World[] {
-					BuggleWorld.newFromFile(null, "exercises/loopfor/LoopStairs")
+					BuggleWorld.newFromFile("exercises/loopfor/LoopStairs")
 			};
 			
 			setup(myWorlds);
