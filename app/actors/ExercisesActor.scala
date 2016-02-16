@@ -4,8 +4,6 @@ import akka.actor._
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.Exercise.WorldKind
 import play.api.Logger
-import plm.core.model.Game
-import plm.core.model.lesson.Lesson
 import plm.core.model.lesson.ExerciseFactory
 import plm.core.model.lesson.ExerciseRunner
 import plm.universe.World

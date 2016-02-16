@@ -1,7 +1,6 @@
 package lessons.welcome.variables;
 
 import java.awt.Color
-import plm.core.model.Game
 import java.util.Locale
 import plm.core.model.I18nManager
 import org.xnap.commons.i18n.I18n

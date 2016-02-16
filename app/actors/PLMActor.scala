@@ -365,7 +365,7 @@ class PLMActor (
         JSONUtils.addString(jsonExercise, "instructions", exercise.getMission)
         JSONUtils.addString(jsonExercise, "code", code)
         JSONUtils.addString(jsonExercise, "selectedWorldID", exercise.getWorld(0).getName)
-        JSONUtils.addString(jsonExercise, "api", "")
+        JSONUtils.addString(jsonExercise, "api", exercise.getWorldAPI)
         JSONUtils.addString(jsonExercise, "toolbox", "")
 
         val mapArgs: JSONObject = new JSONObject

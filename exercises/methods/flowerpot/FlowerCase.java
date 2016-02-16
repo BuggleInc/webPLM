@@ -2,9 +2,9 @@ package methods.flowerpot;
 
 import java.io.IOException;
 
-import plm.core.model.Game;
+
 import plm.core.model.lesson.ExerciseTemplated;
-import plm.core.model.lesson.Lesson;
+
 import plm.universe.BrokenWorldFileException;
 import plm.universe.bugglequest.BuggleWorld;
 

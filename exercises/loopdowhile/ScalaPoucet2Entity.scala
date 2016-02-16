@@ -1,7 +1,7 @@
 package lessons.welcome.loopdowhile;
 
 import java.awt.Color
-import plm.core.model.Game
+
 import plm.universe.GridWorld
 import plm.universe.bugglequest.BuggleWorldCell
 import java.util.Locale

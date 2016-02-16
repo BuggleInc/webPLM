@@ -1,6 +1,5 @@
 package lessons.welcome.variables;
 
-import plm.core.model.Game
 import java.util.Locale
 import plm.core.model.I18nManager
 import org.xnap.commons.i18n.I18n

@@ -2,9 +2,9 @@ package loopwhile;
 
 import java.awt.Color;
 
-import plm.core.model.Game;
+
 import plm.core.model.lesson.ExerciseTemplated;
-import plm.core.model.lesson.Lesson;
+
 import plm.universe.Direction;
 import plm.universe.bugglequest.BuggleWorld;
 import plm.universe.bugglequest.SimpleBuggle;

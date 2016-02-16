@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.xnap.commons.i18n.I18n;
 
-import plm.core.model.Game;
+
 import plm.core.model.I18nManager;
 import plm.core.model.lesson.Exercise;
 import plm.universe.bugglequest.SimpleBuggle;
