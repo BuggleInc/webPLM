@@ -2,6 +2,7 @@ sudo: false
 language: scala
 scala:
   - 2.11.4
+  - 2.11.7
 jdk:
   - oraclejdk8
 install:
@@ -14,12 +15,10 @@ script:
   - sbt "test-only *Spec"
   - grunt test
 notifications:
-  recipients:
-    - martin.quinson@loria.fr
-    - gerald.oster@loria.fr
-    - matthieu.nicolas@loria.fr
   email:
+    recipients:
+      - martin.quinson@loria.fr
+      - gerald.oster@loria.fr
+      - matthieu.nicolas@loria.fr
     on_success: change
     on_failure: always
-  template:
-    - "%{repository}/%{branch} (%{commit} - %{author}): %{message}"
