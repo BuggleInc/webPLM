@@ -1,362 +1,377 @@
-(function(){
-	'use strict';
+(function () {
+  'use strict';
 
-	describe('BuggleWorld', function() {
-		var _BuggleWorld;
+  describe('BuggleWorld', function () {
+    var _BuggleWorld, buggleWorld,
+      type, width, height,
+      operations, steps, currentState,
+      entities, expectedEntities, bugglesIDs,
+      cells;
 
-		var buggleWorld;
-		var type;
-		var width;
-		var height;
-		var operations;
-		var currentState;
-		var steps;
-		var cells;
-		var entities;
-		var bugglesID;
-		
-		beforeEach(module('PLMApp'));
+    beforeEach(module('PLMApp'));
 
-		beforeEach(inject(function(BuggleWorld) {
-			_BuggleWorld = BuggleWorld;	
-		}));
+    beforeEach(inject(function(BuggleWorld) {
+      _BuggleWorld = BuggleWorld;
+    }));
 
-		beforeEach(function() {
-			var i, j;
-			var nbEntities;
-			var dataBuggleWorld;
+    beforeEach(function () {
+      var i, j, nbEntities,
+        dataBuggleWorld,
+        cell, buggle;
 
-			type = getRandomString(15);
-			width = getRandomInt(10) + 1;
-			height = getRandomInt(10) + 1;
-			operations = [];
-			currentState = -1;
-			steps = [];
+      type = getRandomString(15);
+      width = getRandomInt(10) + 1;
+      height = getRandomInt(10) + 1;
+      operations = [];
+      currentState = -1;
+      steps = [];
 
-			cells = [];
-			for(i=0; i<width; i++) {
-				var temp = [];
-				for(j=0; j<height; j++) {
-					var cell = getRandomBuggleWorldCell();
-					temp.push(cell);
-				}
-				cells.push(temp);
-			}
+      cells = [];
+      for (i = 0; i < width; i += 1) {
+        for (j = 0; j < height; j += 1) {
+          cell = getRandomBuggleWorldCell();
+          cell.x = i;
+          cell.y = j;
+          cells.push(cell);
+        }
+      }
 
-			entities = {};
-			bugglesID = [];
-			nbEntities = getRandomInt(10) + 1;
-			for(i=0; i<nbEntities; i++) {
-				var buggleID = getRandomString(15);
-				bugglesID.push(buggleID);
-				entities[buggleID] = getRandomBuggle();
-			}
+      entities = [];
+      bugglesIDs = [];
+      expectedEntities = {};
+      nbEntities = getRandomInt(10) + 1;
+      for (i = 0; i < nbEntities; i += 1) {
+        buggle = getRandomBuggle();
+        buggle.name = getRandomString(15);
+        bugglesIDs.push(buggle.name);
+        entities.push(buggle);
+        expectedEntities[buggle.name] = buggle;
+      }
 
-			dataBuggleWorld = {
-				type: type,
-				width: width,
-				height: height,
-				cells: cells,
-				entities: entities
-			};
-			buggleWorld = new _BuggleWorld(dataBuggleWorld);
-		});
+      dataBuggleWorld = {
+        type: type,
+        sizeX: width,
+        sizeY: height,
+        cells: cells,
+        entities: entities
+      };
 
-		it('should be initialized correctly by its constructor', function () {
-			expect(buggleWorld.type).toEqual(type);
-			expect(buggleWorld.width).toEqual(width);
-			expect(buggleWorld.height).toEqual(height);
-			expect(buggleWorld.operations).toEqual(operations);
-			expect(buggleWorld.currentState).toEqual(currentState);
-			expect(buggleWorld.steps).toEqual(steps);
+      buggleWorld = new _BuggleWorld(dataBuggleWorld);
+    });
 
-			for(var i=0; i<width; i++) {
-				for(var j=0; j<height; j++) {
-					var cell = buggleWorld.getCell(i, j);
-					expect(cell).toEqualToBuggleWorldCell(cells[i][j]);
-				}
-			}
+    it('should be initialized correctly by its constructor', function() {
+      var i, j, index,
+        buggleID, buggle,
+        cell;
 
-			for(var buggleID in entities) {
-				if(entities.hasOwnProperty(buggleID)) {
-					var buggle = buggleWorld.getEntity(buggleID);
-					expect(buggle).toEqualToBuggle(entities[buggleID]);
-				}	
-			}
-		});
+      expect(buggleWorld.type).toEqual(type);
+      expect(buggleWorld.width).toEqual(width);
+      expect(buggleWorld.height).toEqual(height);
+      expect(buggleWorld.operations).toEqual(operations);
+      expect(buggleWorld.currentState).toEqual(currentState);
+      expect(buggleWorld.steps).toEqual(steps);
 
-		it('clone should return a correct copy of the world', function () {
-			var other;
-			var clone = buggleWorld.clone();
+      for (i = 0; i < width; i += 1) {
+        for (j = 0; j < height; j += 1) {
+          cell = buggleWorld.getCell(i, j);
+          index = i * height + j;
+          expect(cell).toEqualToBuggleWorldCell(cells[index]);
+        }
+      }
 
-			expect(buggleWorld.type).toEqual(clone.type);
-			expect(buggleWorld.width).toEqual(clone.width);
-			expect(buggleWorld.height).toEqual(clone.height);
-			expect(buggleWorld.operations).toEqual(clone.operations);
-			expect(buggleWorld.currentState).toEqual(clone.currentState);
-			expect(buggleWorld.steps).toEqual(clone.steps);
+      for (buggleID in expectedEntities) {
+        if (expectedEntities.hasOwnProperty(buggleID)) {
+          buggle = buggleWorld.getEntity(buggleID);
+          expect(buggle).toEqualToBuggle(expectedEntities[buggleID]);
+        }
+      }
+    });
 
-			for(var i=0; i<width; i++) {
-				for(var j=0; j<height; j++) {
-					var cell = buggleWorld.getCell(i, j);
-					other = clone.getCell(i, j);
-					expect(cell).toEqualToBuggleWorldCell(other);
-				}
-			}
+    it('clone should return a correct copy of the world', function () {
+      var i, j,
+        clone,
+        buggleID,
+        actual, expected;
 
-			for(var buggleID in entities) {
-				if(entities.hasOwnProperty(buggleID)) {
-					var buggle = buggleWorld.getEntity(buggleID);
-					other = clone.getEntity(buggleID);
-					expect(buggle).toEqualToBuggle(other);
-				}
-			}
-		});
+      clone = buggleWorld.clone();
 
-		it('getEntity should return the correct buggle', function () {
-			var buggleID = getRandomValueFromArray(bugglesID);
-			var buggle = buggleWorld.getEntity(buggleID);
-			expect(buggle).toEqualToBuggle(entities[buggleID]);
-		});
+      expect(buggleWorld.type).toEqual(clone.type);
+      expect(buggleWorld.width).toEqual(clone.width);
+      expect(buggleWorld.height).toEqual(clone.height);
+      expect(buggleWorld.operations).toEqual(clone.operations);
+      expect(buggleWorld.currentState).toEqual(clone.currentState);
+      expect(buggleWorld.steps).toEqual(clone.steps);
 
-		it('getCell should return the correct cell', function () {
-			var x = getRandomInt(width);
-			var y = getRandomInt(height);
-			var cell = buggleWorld.getCell(x, y);
-			expect(cell).toEqualToBuggleWorldCell(cells[x][y]);
-		});
+      for (i = 0; i < width; i += 1) {
+        for (j = 0; j < height; j += 1) {
+          expected = buggleWorld.getCell(i, j);
+          actual = clone.getCell(i, j);
+          expect(actual).toEqualToBuggleWorldCell(expected);
+        }
+      }
 
-		it('addOperations should try to generate an operation for each element of the list', function () {
-			var i;
-			var elt;
-			var nbElt = getRandomInt(50) + 1;
-			var operations = [];
-			var generateOperationCallCount;
+      for (buggleID in expectedEntities) {
+        if (expectedEntities.hasOwnProperty(buggleID)) {
+          expected = buggleWorld.getEntity(buggleID);
+          actual = clone.getEntity(buggleID);
+          expect(actual).toEqualToBuggle(expected);
+        }
+      }
+    });
 
-			spyOn(buggleWorld, 'generateOperation');
-			for(i=0; i<nbElt; i++) {
-				elt = getRandomString(3);
-				operations.push(elt);
-			}
-			buggleWorld.addOperations(operations);
-			generateOperationCallCount = buggleWorld.generateOperation.calls.count();
-			expect(generateOperationCallCount).toEqual(nbElt);
-			for(i=0; i<nbElt; i++) {
-				elt = buggleWorld.generateOperation.calls.argsFor(i)[0];
-				expect(elt).toEqual(operations[i]);
-			}
-		});
+    it('getEntity should return the correct buggle', function () {
+      var buggleID, actual, expected;
+      buggleID = getRandomValueFromArray(bugglesIDs);
 
-		it('setState should call "apply" for each operations between ' +
-			'currentState and objectiveState if objectiveState > currentState', function () {
-			var nbSteps = getRandomInt(15)+1;
-			var nbOperations;
-			var i, j;
+      actual = buggleWorld.getEntity(buggleID);
+      expected = expectedEntities[buggleID];
 
-			var expectedApplyCallCount = 0;
+      expect(actual).toEqualToBuggle(expected);
+    });
 
-			var operation = { 
-				apply: function () {},
-				reverse: function () {} 
-			};
-			spyOn(operation, 'apply');
+    it('getCell should return the correct cell', function () {
+      var x, y, index, actual, expected;
+      x = getRandomInt(width);
+      y = getRandomInt(height);
+      index = x * height + y;
 
-			var operations = [];
-			var step;
+      actual = buggleWorld.getCell(x, y);
+      expected = cells[index];
 
-			// Set operations
-			for(i=0; i<nbSteps; i++) {
-				nbOperations = getRandomInt(15) + 1;
-				step = [];
-				for(j=0; j<nbOperations; j++) {
-					step.push(operation);
-				}
-				operations.push(step);
-			}
-			buggleWorld.operations = operations;
+      expect(actual).toEqualToBuggleWorldCell(expected);
+    });
 
-			var currentState = getRandomInt(nbSteps) - 1;
-			buggleWorld.currentState = currentState;
-			var objectiveState = currentState + getRandomInt(nbSteps-currentState-1) + 1;
+    it('addOperations should try to generate an operation for each element of the list', function () {
+      var i,
+        elt, nbElt,
+        generateOperationCallCount;
 
-			for(i=currentState+1; i<=objectiveState; i++) {
-				for(j=0; j<operations[i].length; j++) {
-					expectedApplyCallCount++;
-				}
-			}
+      nbElt = getRandomInt(50) + 1;
+      operations = [];
 
-			buggleWorld.setState(objectiveState);
+      spyOn(buggleWorld, 'generateOperation');
+      for (i = 0; i < nbElt; i += 1) {
+        elt = getRandomString(3);
+        operations.push(elt);
+      }
+      buggleWorld.addOperations(operations);
+      generateOperationCallCount = buggleWorld.generateOperation.calls.count();
+      expect(generateOperationCallCount).toEqual(nbElt);
+      for (i = 0; i < nbElt; i += 1) {
+        elt = buggleWorld.generateOperation.calls.argsFor(i)[0];
+        expect(elt).toEqual(operations[i]);
+      }
+    });
 
-			var actualApplyCallCount = operation.apply.calls.count();
-			expect(actualApplyCallCount).toEqual(expectedApplyCallCount);
-		});
+    it('setState should call "apply" for each operations between ' +
+      'currentState and objectiveState if objectiveState > currentState',
+      function () {
+        var i, j,
+          nbSteps, nbOperations, operation, step,
+          expectedApplyCallCount, actualApplyCallCount,
+          currentState, objectiveState;
 
-		it('setState should never call "reverse" if objectiveState > currentState', function () {
-			var nbSteps = getRandomInt(15)+1;
-			var nbOperations;
-			var i, j;
+        nbSteps = getRandomInt(15) + 1;
+        expectedApplyCallCount = 0;
 
-			var expectedReverseCall = false;
+        operation = {
+          apply: function() {},
+          reverse: function() {}
+        };
+        spyOn(operation, 'apply');
 
-			var operation = { 
-				apply: function () {},
-				reverse: function () {} 
-			};
-			spyOn(operation, 'reverse');
+        // Set operations
+        for (i = 0; i < nbSteps; i += 1) {
+          nbOperations = getRandomInt(15) + 1;
+          step = [];
+          for (j = 0; j < nbOperations; j += 1) {
+            step.push(operation);
+          }
+          operations.push(step);
+        }
+        buggleWorld.operations = operations;
 
-			var operations = [];
-			var step;
+        currentState = getRandomInt(nbSteps) - 1;
+        buggleWorld.currentState = currentState;
+        objectiveState = currentState + getRandomInt(nbSteps - currentState - 1) + 1;
 
-			// Set operations
-			for(i=0; i<nbSteps; i++) {
-				nbOperations = getRandomInt(15) + 1;
-				step = [];
-				for(j=0; j<nbOperations; j++) {
-					step.push(operation);
-				}
-				operations.push(step);
-			}
-			buggleWorld.operations = operations;
+        for (i = currentState + 1; i <= objectiveState; i += 1) {
+          for (j = 0; j < operations[i].length; j++) {
+            expectedApplyCallCount++;
+          }
+        }
 
-			// Generate currentState & objectiveState
-			var currentState = getRandomInt(nbSteps) - 1;
-			buggleWorld.currentState = currentState;
-			var objectiveState = currentState + getRandomInt(nbSteps-currentState-1) + 1;
+        buggleWorld.setState(objectiveState);
 
-			// Launch setState
-			buggleWorld.setState(objectiveState);
+        actualApplyCallCount = operation.apply.calls.count();
+        expect(actualApplyCallCount).toEqual(expectedApplyCallCount);
+      });
 
-			// Check the call count
-			var actualReverseCall = operation.reverse.calls.any();
-			expect(actualReverseCall).toEqual(expectedReverseCall);
-		});
+    it('setState should never call "reverse" if objectiveState > currentState', function () {
+      var i, j,
+        nbSteps, nbOperations, operation, step,
+        currentState, objectiveState,
+        expectedReverseCall, actualReverseCall;
 
-		it('setState should call "reverse" for each operations between ' +
-			'currentState and objectiveState if objectiveState > currentState', function () {
-			var nbSteps = getRandomInt(15)+1;
-			var nbOperations;
-			var i, j;
+      nbSteps = getRandomInt(15) + 1;
+      expectedReverseCall = false;
 
-			var expectedReverseCallCount = 0;
+      operation = {
+        apply: function() {},
+        reverse: function() {}
+      };
+      spyOn(operation, 'reverse');
 
-			var operation = { 
-				apply: function () {},
-				reverse: function () {} 
-			};
-			spyOn(operation, 'reverse');
+     // Set operations
+      for (i = 0; i < nbSteps; i += 1) {
+        nbOperations = getRandomInt(15) + 1;
+        step = [];
+        for (j = 0; j < nbOperations; j += 1) {
+          step.push(operation);
+        }
+        operations.push(step);
+      }
+      buggleWorld.operations = operations;
 
-			var operations = [];
-			var step;
+      // Generate currentState & objectiveState
+      currentState = getRandomInt(nbSteps) - 1;
+      buggleWorld.currentState = currentState;
+      objectiveState = currentState + getRandomInt(nbSteps - currentState - 1) + 1;
 
-			// Set operations
-			for(i=0; i<nbSteps; i++) {
-				nbOperations = getRandomInt(15) + 1;
-				step = [];
-				for(j=0; j<nbOperations; j++) {
-					step.push(operation);
-				}
-				operations.push(step);
-			}
-			buggleWorld.operations = operations;
+      // Launch setState
+      buggleWorld.setState(objectiveState);
 
-			var objectiveState = getRandomInt(nbSteps) - 1;
-			var currentState = objectiveState + getRandomInt(nbSteps-objectiveState-1) + 1;
-			buggleWorld.currentState = currentState;
+      // Check the call count
+      actualReverseCall = operation.reverse.calls.any();
+      expect(actualReverseCall).toEqual(expectedReverseCall);
+    });
 
-			for(i=currentState; i>objectiveState; i--) {
-				for(j=0; j<operations[i].length; j++) {
-					expectedReverseCallCount++;
-				}
-			}
+    it('setState should call "reverse" for each operations between ' +
+      'currentState and objectiveState if objectiveState > currentState',
+      function () {
+        var i, j,
+          nbSteps, nbOperations, operation, step,
+          currentState, objectiveState,
+          expectedReverseCallCount, actualReverseCallCount;
 
-			buggleWorld.setState(objectiveState);
+        nbSteps = getRandomInt(15) + 1;
+        expectedReverseCallCount = 0;
 
-			var actualReverseCallCount = operation.reverse.calls.count();
-			expect(actualReverseCallCount).toEqual(expectedReverseCallCount);
-		});
+        operation = {
+          apply: function() {},
+          reverse: function() {}
+        };
+        spyOn(operation, 'reverse');
 
-		it('setState should never call "apply" if objectiveState > currentState', function () {
-			var nbSteps = getRandomInt(15)+1;
-			var nbOperations;
-			var i, j;
+        // Set operations
+        for (i = 0; i < nbSteps; i += 1) {
+          nbOperations = getRandomInt(15) + 1;
+          step = [];
+          for (j = 0; j < nbOperations; j += 1) {
+            step.push(operation);
+          }
+          operations.push(step);
+        }
+        buggleWorld.operations = operations;
 
-			var expectedApplyCall = false;
+        objectiveState = getRandomInt(nbSteps) - 1;
+        currentState = objectiveState + getRandomInt(nbSteps - objectiveState - 1) + 1;
+        buggleWorld.currentState = currentState;
 
-			var operation = { 
-				apply: function () {},
-				reverse: function () {} 
-			};
-			spyOn(operation, 'apply');
+        for (i = currentState; i > objectiveState; i -= 1) {
+          for (j = 0; j < operations[i].length; j += 1) {
+            expectedReverseCallCount++;
+          }
+        }
 
-			var operations = [];
-			var step;
+        buggleWorld.setState(objectiveState);
 
-			// Set operations
-			for(i=0; i<nbSteps; i++) {
-				nbOperations = getRandomInt(15) + 1;
-				step = [];
-				for(j=0; j<nbOperations; j++) {
-					step.push(operation);
-				}
-				operations.push(step);
-			}
-			buggleWorld.operations = operations;
+        actualReverseCallCount = operation.reverse.calls.count();
+        expect(actualReverseCallCount).toEqual(expectedReverseCallCount);
+      });
 
-			// Generate currentState & objectiveState
-			var objectiveState = getRandomInt(nbSteps) - 1;
-			var currentState = objectiveState + getRandomInt(nbSteps-objectiveState-1) + 1;
-			buggleWorld.currentState = currentState;
+    it('setState should never call "apply" if objectiveState > currentState', function () {
+      var i, j,
+        nbSteps, nbOperations, operation, step,
+        currentState, objectiveState,
+        expectedApplyCall, actualApplyCall;
 
-			// Launch setState
-			buggleWorld.setState(objectiveState);
+      nbSteps = getRandomInt(15) + 1;
+      expectedApplyCall = false;
 
-			// Check the call count
-			var actualApplyCall = operation.apply.calls.any();
-			expect(actualApplyCall).toEqual(expectedApplyCall);
-		});
+      operation = {
+        apply: function() {},
+        reverse: function() {}
+      };
+      spyOn(operation, 'apply');
 
-		it('setState should not call "apply" nor "reverse" if objectiveState === currentState', function () {
-			var nbSteps = getRandomInt(15)+1;
-			var nbOperations;
-			var i, j;
+      // Set operations
+      for (i = 0; i < nbSteps; i += 1) {
+        nbOperations = getRandomInt(15) + 1;
+        step = [];
+        for (j = 0; j < nbOperations; j += 1) {
+          step.push(operation);
+        }
+        operations.push(step);
+      }
+      buggleWorld.operations = operations;
 
-			var expectedApplyCall = false;
-			var expectedReverseCall = false;
+      // Generate currentState & objectiveState
+      objectiveState = getRandomInt(nbSteps) - 1;
+      currentState = objectiveState + getRandomInt(nbSteps - objectiveState - 1) + 1;
+      buggleWorld.currentState = currentState;
 
-			var operation = { 
-				apply: function () {},
-				reverse: function () {} 
-			};
-			spyOn(operation, 'apply');
-			spyOn(operation, 'reverse');
+      // Launch setState
+      buggleWorld.setState(objectiveState);
 
-			var operations = [];
-			var step;
+      // Check the call count
+      actualApplyCall = operation.apply.calls.any();
+      expect(actualApplyCall).toEqual(expectedApplyCall);
+    });
 
-			// Set operations
-			for(i=0; i<nbSteps; i++) {
-				nbOperations = getRandomInt(15) + 1;
-				step = [];
-				for(j=0; j<nbOperations; j++) {
-					step.push(operation);
-				}
-				operations.push(step);
-			}
-			buggleWorld.operations = operations;
+    it('setState should not call "apply" nor "reverse" if objectiveState === currentState', function () {
+      var i, j,
+        nbSteps, nbOperations, operation, step,
+        currentState, objectiveState,
+        expectedApplyCall, actualApplyCall,
+        expectedReverseCall, actualReverseCall;
 
-			// Generate currentState & objectiveState
-			var currentState = getRandomInt(nbSteps) - 1;
-			var objectiveState = currentState;
-			buggleWorld.currentState = currentState;
+      nbSteps = getRandomInt(15) + 1;
 
-			// Launch setState
-			buggleWorld.setState(objectiveState);
+      expectedApplyCall = false;
+      expectedReverseCall = false;
 
-			// Check the call count
-			var actualApplyCall = operation.apply.calls.any();
-			var actualReverseCall = operation.reverse.calls.any();
-			expect(actualApplyCall).toEqual(expectedApplyCall);
-			expect(actualReverseCall).toEqual(expectedReverseCall);
-		});
-	});
+      operation = {
+        apply: function() {},
+        reverse: function() {}
+      };
+      spyOn(operation, 'apply');
+      spyOn(operation, 'reverse');
+
+      // Set operations
+      for (i = 0; i < nbSteps; i += 1) {
+        nbOperations = getRandomInt(15) + 1;
+        step = [];
+        for (j = 0; j < nbOperations; j += 1) {
+          step.push(operation);
+        }
+        operations.push(step);
+      }
+      buggleWorld.operations = operations;
+
+      // Generate currentState & objectiveState
+      currentState = getRandomInt(nbSteps) - 1;
+      objectiveState = currentState;
+      buggleWorld.currentState = currentState;
+
+      // Launch setState
+      buggleWorld.setState(objectiveState);
+
+      // Check the call count
+      actualApplyCall = operation.apply.calls.any();
+      actualReverseCall = operation.reverse.calls.any();
+      expect(actualApplyCall).toEqual(expectedApplyCall);
+      expect(actualReverseCall).toEqual(expectedReverseCall);
+    });
+  });
 })();

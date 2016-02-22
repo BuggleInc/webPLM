@@ -9,15 +9,14 @@
 		var y;
 		var color;
 		var hasBaggle;
-		var hasContent;
 		var content;
-		var hasLeftWall;
-		var hasTopWall;
-		
+		var leftWall;
+		var topWall;
+
 		beforeEach(module('PLMApp'));
 
 		beforeEach(inject(function(BuggleWorldCell) {
-			_BuggleWorldCell = BuggleWorldCell;	
+			_BuggleWorldCell = BuggleWorldCell;
 		}));
 
 		beforeEach(function() {
@@ -25,19 +24,17 @@
 			y = getRandomInt(999);
 			color = getRandomColor();
 			hasBaggle = getRandomBoolean();
-			hasContent = getRandomBoolean();
 			content = getRandomString(15);
-			hasLeftWall = getRandomBoolean();
-			hasTopWall = getRandomBoolean();
+			leftWall = getRandomBoolean();
+			topWall = getRandomBoolean();
 			var dataBuggleWorldCell = {
 				x: x,
 				y: y,
 				color: color,
 				hasBaggle: hasBaggle,
-				hasContent: hasContent,
 				content: content,
-				hasLeftWall: hasLeftWall,
-				hasTopWall: hasTopWall
+				leftWall: leftWall,
+				topWall: topWall
 			};
 			buggleWorldCell = new _BuggleWorldCell(dataBuggleWorldCell);
 		});
@@ -47,10 +44,9 @@
 			expect(buggleWorldCell.y).toEqual(y);
 			expect(buggleWorldCell.color).toEqual(color);
 			expect(buggleWorldCell.hasBaggle).toEqual(hasBaggle);
-			expect(buggleWorldCell.hasContent).toEqual(hasContent);
 			expect(buggleWorldCell.content).toEqual(content);
-			expect(buggleWorldCell.hasLeftWall).toEqual(hasLeftWall);
-			expect(buggleWorldCell.hasTopWall).toEqual(hasTopWall);
+			expect(buggleWorldCell.leftWall).toEqual(leftWall);
+			expect(buggleWorldCell.topWall).toEqual(topWall);
 		});
 	});
 })();

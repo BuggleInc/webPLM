@@ -23,7 +23,7 @@
 		beforeEach(function() {
 			var dataCell = {};
 			cell = new _BuggleWorldCell(dataCell);
-			
+
 			var getCell = sinon.stub();
 			getCell.returns(cell);
 
@@ -38,10 +38,8 @@
 			oldContent = getRandomString(15);
 
 			var dataOperation = {
-				cell: {
-					x: x,
-					y: y
-				},
+				x: x,
+				y: y,
 				newContent: newContent,
 				oldContent: oldContent
 			};
@@ -64,7 +62,7 @@
 			changeCellContent.reverse(currentWorld);
 			expect(cell.content).toEqual(oldContent);
 		});
-        
+
         it('should not change cell.content when applied then reversed', function () {
             cell.content = oldContent;
             var current = cell.content;
@@ -72,7 +70,7 @@
             changeCellContent.reverse(currentWorld);
             expect(cell.content).toEqual(current);
         });
-        
+
         it('should not change cell.content when reversed then applied', function () {
             cell.content = newContent;
             var current = cell.content;

@@ -23,7 +23,7 @@
 		beforeEach(function() {
 			var dataCell = {};
 			cell = new _BuggleWorldCell(dataCell);
-			
+
 			var getCell = sinon.stub();
 			getCell.returns(cell);
 
@@ -38,10 +38,8 @@
 			oldColor = getRandomColor();
 
 			var dataOperation = {
-				cell: {
-					x: x,
-					y: y
-				},
+				x: x,
+				y: y,
 				newColor: newColor,
 				oldColor: oldColor
 			};
@@ -64,7 +62,7 @@
 			changeCellColor.reverse(currentWorld);
 			expect(cell.color).toEqual(oldColor);
 		});
-        
+
         it('should not change cell.color when applied then reversed', function () {
             cell.color = oldColor;
             var current = cell.color;
@@ -72,7 +70,7 @@
             changeCellColor.reverse(currentWorld);
             expect(cell.color).toEqual(current);
         });
-        
+
         it('should not change cell.color when reversed then applied', function () {
             cell.color = newColor;
             var current = cell.color;

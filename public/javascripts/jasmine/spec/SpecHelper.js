@@ -81,11 +81,8 @@ function toEqualToBuggle (actual, expected) {
 
 function getRandomBuggleWorldCell() {
 	return {
-		x: getRandomInt(999),
-		y: getRandomInt(999),
 		color: getRandomColor(),
 		hasBaggle: getRandomBoolean(),
-		hasContent: getRandomBoolean(),
 		content: getRandomString(15),
 		hasLeftWall: getRandomBoolean(),
 		hasTopWall: getRandomBoolean()
@@ -98,9 +95,8 @@ function toEqualToBuggleWorldCell (actual, expected) {
 			actual.y === expected.y &&
 			actual.color === expected.color &&
 			actual.hasBaggle === expected.hasBaggle &&
-			actual.hasContent === expected.hasContent &&
 			actual.content === expected.content &&
-			actual.hasLeftWall === expected.hasLeftWall &&
-			actual.hasTopWall === expected.hasTopWall
+			actual.leftWall === expected.leftWall &&
+			actual.topWall === expected.topWall
 	};
 }

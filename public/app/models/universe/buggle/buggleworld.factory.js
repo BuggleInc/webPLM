@@ -66,7 +66,7 @@
       for (i = 0; i < world.width; i++) {
         col = [];
         for (j = 0; j < world.height; j++) {
-          cell = world.cells[i][j];
+          cell = world.getCell(i, j);
           col.push(new BuggleWorldCell(cell));
         }
         this.cells.push(col);
@@ -102,25 +102,6 @@
 
     BuggleWorld.prototype.getCell = function(x, y) {
       return this.cells[x][y];
-    };
-
-    BuggleWorld.prototype.draw = function(ctx, canvasWidth, canvasHeight) {
-      var i, j, buggleID;
-
-      for (i = 0; i < this.width; i++) {
-        for (j = 0; j < this.height; j++) {
-          this.cells[i][j].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
-        }
-      }
-
-      this.drawGrid(ctx, canvasWidth, canvasHeight);
-      this.drawFrontierWalls(ctx, canvasWidth, canvasHeight);
-
-      for (buggleID in this.entities) {
-        if (this.entities.hasOwnProperty(buggleID)) {
-          this.entities[buggleID].draw(ctx, canvasWidth, canvasHeight, this.width, this.height);
-        }
-      }
     };
 
     BuggleWorld.prototype.addOperations = function(operations) {

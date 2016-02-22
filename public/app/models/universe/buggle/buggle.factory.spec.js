@@ -11,11 +11,11 @@
 		var direction;
 		var carryBaggle;
 		var brushDown;
-		
+
 		beforeEach(module('PLMApp'));
 
 		beforeEach(inject(function(Buggle) {
-			_Buggle = Buggle;	
+			_Buggle = Buggle;
 		}));
 
 		beforeEach(function() {
@@ -30,7 +30,7 @@
 			dataBuggle = {
 				x: x,
 				y: y,
-				color: color,
+				bodyColor: color,
 				direction: direction,
 				carryBaggle: carryBaggle,
 				brushDown: brushDown
@@ -41,7 +41,7 @@
 		it('should be initialized correctly by its constructor', function () {
 			expect(buggle.x).toEqual(x);
 			expect(buggle.y).toEqual(y);
-			expect(buggle.color).toEqual(color);
+			expect(buggle.bodyColor).toEqual(color);
 			expect(buggle.direction).toEqual(direction);
 			expect(buggle.carryBaggle).toEqual(carryBaggle);
 			expect(buggle.brushDown).toEqual(brushDown);
