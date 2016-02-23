@@ -17,6 +17,8 @@ import models.ProgrammingLanguages
 import scala.util.matching.Regex
 import java.io.File
 import plm.core.model.lesson.UserSettings
+import plm.core.model.lesson.tip.AbstractTipFactory
+import models.lesson.TipFactory
 
 /**
  * @author matthieu
@@ -34,7 +36,11 @@ object ExercisesActor {
 
   val humanLanguages: Array[Locale] = initHumanLanguages
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(locale)
+
   val exercisesFactory: ExerciseFactory = new ExerciseFactory(locale, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
+  val tipsFactory: AbstractTipFactory = new TipFactory
+  exercisesFactory.setTipFactory(tipsFactory)
+
   val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseID: String)
