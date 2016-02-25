@@ -148,6 +148,8 @@
         exercise.idle = false;
         connection.sendMessage('userBack', {});
       }
+      // Save the editor content in the local storage
+      $window.localStorage.setItem("editor." + exercise.id, editor.getValue());
       startIdleLoop();
     }
 
