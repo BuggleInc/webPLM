@@ -214,6 +214,10 @@
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
 
+      var editorValue = $window.localStorage.getItem("editor." + exercise.id);
+      if (editorValue != null)
+          editor.setValue(editorValue);
+      
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
@@ -470,8 +474,8 @@
       exercise.resultType = null;
       exercise.result = '';
       exercise.logs = '';
-
       exercisesList.setCurrentLessonID(exercise.lessonID);
+
     }
 
     function updateInstructions(instructions, api) {
