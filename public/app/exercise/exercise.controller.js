@@ -149,7 +149,7 @@
         connection.sendMessage('userBack', {});
       }
       // Save the editor content in the local storage
-      $window.localStorage.setItem("editor." + exercise.id, editor.getValue());
+      $window.localStorage.setItem("editor." + exercise.id + "." + editor.getOption("mode"), editor.getValue());
       startIdleLoop();
     }
 
@@ -159,6 +159,13 @@
       exercise.editor.on('change', resetIdleLoop);
       resizeCodeMirror();
     };
+    
+    
+    function loadEditorContent() {
+      var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + editor.getOption("mode"));
+      if (editorValue != null) 
+          editor.setValue(editorValue);
+    }
 
     function getExercise() {
       var args = {
@@ -214,9 +221,7 @@
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
 
-      var editorValue = $window.localStorage.getItem("editor." + exercise.id);
-      if (editorValue != null)
-          editor.setValue(editorValue);
+      loadEditorContent();
       
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
@@ -421,7 +426,7 @@
               world = new BaseballWorld(initialWorld);
               initCanvas(BaseballView.draw);
               break;
-            case 'HanoiWorld':
+            case 'HanoiWorld':data.currentProgrammingLanguage
               exercise.tabs = [
                 {
                   name: 'World',
@@ -799,6 +804,7 @@
           break;
         }
       }
+      loadEditorContent();
     }
 
     function toggleAPI() {
