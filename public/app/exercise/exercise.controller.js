@@ -426,7 +426,7 @@
               world = new BaseballWorld(initialWorld);
               initCanvas(BaseballView.draw);
               break;
-            case 'HanoiWorld':data.currentProgrammingLanguage
+            case 'HanoiWorld':
               exercise.tabs = [
                 {
                   name: 'World',
