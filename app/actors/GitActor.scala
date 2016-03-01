@@ -189,7 +189,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     val progLang: ProgrammingLanguage = result.language
     val error: String = if(result.outcome == ExecutionProgress.outcomeKind.COMPILE) result.compilationError else result.executionError
     val correction: String = exercise.getDefaultSourceFile(progLang).getCorrection
-    val mission: String = exercise.getMission
+    val mission: String = exercise.getMission(locale, progLang)
 
     var files: HashMap[String, String] = new HashMap[String, String]
 

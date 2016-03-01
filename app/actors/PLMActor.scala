@@ -357,12 +357,12 @@ class PLMActor (
       exercise.setSettings(userSettings)
 
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-        val jsonExercise: JSONObject = exercise.toJSON
+        val jsonExercise: JSONObject = new JSONObject() // FIXME: exercise.toJSON
         // Preferable to remove the exercise's solution from the generated JSON
         jsonExercise.remove("defaultSourceFiles")
 
         // FIXME: Add missing fields
-        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission)
+        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission(currentHumanLang.toLocale, currentProgLang))
         JSONUtils.addString(jsonExercise, "code", code)
         JSONUtils.addString(jsonExercise, "selectedWorldID", exercise.getWorld(0).getName)
         JSONUtils.addString(jsonExercise, "api", exercise.getWorldAPI)
@@ -511,7 +511,7 @@ class PLMActor (
     optCurrentExercise match {
     case Some(exercise: Exercise) =>
       val exerciseJson: JsObject = Json.obj(
-        "instructions" -> exercise.getMission,
+        "instructions" -> exercise.getMission(currentHumanLang.toLocale, currentProgLang),
         "api" -> exercise.getWorldAPI
       )
       exerciseJson

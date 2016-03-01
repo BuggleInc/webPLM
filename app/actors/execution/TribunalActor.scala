@@ -101,7 +101,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       channelIn.basicConsume(replyQueue, true, consumer)
 
       val parameters: JsObject = Json.obj(
-          "exercise" -> exercise.toJSON.toString,
+          "exercise" -> "", // FIXME: exercise.toJSON.toString,
           "code" -> code,
           "language" -> progLang.getLang,
           "localization" -> currentLocale.getLanguage,
@@ -149,7 +149,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
         msgType match {
           case "executionResult" =>
             val jsonResult: JSONObject = json.get("result").asInstanceOf[JSONObject]
-            val result: ExecutionProgress = new ExecutionProgress(jsonResult)
+            val result: ExecutionProgress = new ExecutionProgress(ProgrammingLanguage.defaultProgLang)// FIXME: jsonResult)
             plmActor ! result
             state = Replied
           case _ =>

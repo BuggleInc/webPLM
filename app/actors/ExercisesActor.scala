@@ -1,25 +1,29 @@
 package actors
 
+import java.io.File
+import java.util.Locale
+import scala.util.matching.Regex
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.google.gson.JsonObject
 import akka.actor._
-import plm.core.model.lesson.Exercise
-import plm.core.model.lesson.Exercise.WorldKind
+import log.PLMLogger
+import models.ProgrammingLanguages
+import models.lesson.TipFactory
 import play.api.Logger
+import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.ExerciseFactory
 import plm.core.model.lesson.ExerciseRunner
-import plm.universe.World
-import log.PLMLogger
-import org.xnap.commons.i18n.I18n
-import org.xnap.commons.i18n.I18nFactory
-import java.util.Locale
-import plm.core.lang.LangJava
-import utils.LangUtils
-import models.ProgrammingLanguages
-import scala.util.matching.Regex
-import java.io.File
 import plm.core.model.lesson.UserSettings
 import plm.core.model.lesson.tip.AbstractTipFactory
-import models.lesson.TipFactory
-
+import utils.LangUtils
+import plm.core.model.lesson.BlankExercise
+import com.fasterxml.jackson.databind.module.SimpleModule
+import java.awt.Color
+import plm.core.utils.CustomColorDeserializer
+import com.fasterxml.jackson.annotation.JsonTypeInfo
 /**
  * @author matthieu
  */
@@ -79,6 +83,35 @@ object ExercisesActor {
       val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
       exercise.setSettings(userSettings)
       exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
+
+      if(exercise.getId == "Environment") {
+        val mapper: ObjectMapper = new ObjectMapper()
+        val module: SimpleModule = new SimpleModule
+        module.addDeserializer(classOf[Color], new CustomColorDeserializer)
+        mapper.registerModule(module)
+        try {
+            val root: JsonNode = mapper.convertValue(exercise, classOf[JsonNode])
+            val typeEntities: String = root.get("initialWorld").get(0).get("entities").get(0).get("type").asText
+            for(i <- 0 until exercise.getWorldCount;
+              j <- 0 until exercise.getInitialWorld.get(i).getEntityCount) {
+              val node: JsonNode = root.path("answerWorld").path(i).path("entities").path(j)
+              node.asInstanceOf[ObjectNode].put("type", typeEntities)
+            }
+            Logger.error("original JSON: " + root.toString)
+            val clone: Exercise = mapper.readValue(root.toString(), classOf[BlankExercise]);
+            clone.asInstanceOf[BlankExercise].setupCurrentWorld
+            clone.setSettings(userSettings)
+            val json: String = mapper.writeValueAsString(clone)
+            Logger.error("clone JSON: " + json)
+        }
+        catch {
+          case jsonE: JsonProcessingException =>
+            jsonE.printStackTrace
+          case e: Exception =>
+            e.printStackTrace
+        }
+      }
+
       exercises += (exerciseName -> exercise)
     }
 
