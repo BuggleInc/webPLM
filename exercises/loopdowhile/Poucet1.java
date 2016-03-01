@@ -20,10 +20,6 @@ public class Poucet1 extends ExerciseTemplated {
 				BuggleWorld.newFromFile("exercises/loopdowhile/Poucet"),
 				BuggleWorld.newFromFile("exercises/loopdowhile/Poucet2"),
 		};
-		for (World w: myWorlds) {
-			w.setDelay(50); // moving a bit faster than usual
-			System.err.println("name: " + w.getName());
-		}
 		setup(myWorlds);
 	}
 }

@@ -18,9 +18,7 @@ public class RunHalf extends ExerciseTemplated {
 		World[] myWorlds = new World[] {
 				BuggleWorld.newFromFile("exercises/variables/RunHalf"),
 		};
-		for (World w: myWorlds)
-			w.setDelay(50); // moving a bit faster than usual
-		
+
 		setup(myWorlds);
 	}
 }

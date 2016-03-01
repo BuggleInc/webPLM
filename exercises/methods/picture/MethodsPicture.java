@@ -15,7 +15,6 @@ public class MethodsPicture extends ExerciseTemplated {
 		super("MethodsPicture", "MethodsPicture");
 		//setToolbox();
 		BuggleWorld myWorld =  new BuggleWorld("World",15,15);
-		myWorld.setDelay(20);
 		new SimpleBuggle(myWorld, "Picasso", 0, 14, Direction.EAST, Color.black, Color.lightGray);
 
 		setup(myWorld);

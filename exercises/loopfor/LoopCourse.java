@@ -20,8 +20,6 @@ public class LoopCourse extends ExerciseTemplated{
 			World[] myWorlds = new World[] {
 					BuggleWorld.newFromFile("exercises/loopfor/LoopCourse")
 			};
-			for (World w: myWorlds)
-				w.setDelay(10); // runners are moving faster than usual
 			
 			setup(myWorlds);
 		}
