@@ -1,6 +1,6 @@
 package actors
 
-import java.util.{ Locale, Properties, UUID }
+import java.util.{ Locale, Properties, UUID, Map, HashMap }
 import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -40,7 +40,7 @@ import akka.pattern.AskTimeoutException
 import scala.util.Failure
 import scala.util.Success
 import org.json.simple.{ JSONArray, JSONObject }
-import utils.JSONUtils;
+import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.UserSettings
 
 object PLMActor {
@@ -218,14 +218,9 @@ class PLMActor (
         case "runDemo" =>
           optCurrentExercise match {
             case Some(currentExercise: Exercise) =>
-              val buffer: JSONArray = new JSONArray
               currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()).foreach { world =>
-                val iterator = world.getSteps.iterator
-                while(iterator.hasNext) {
-                  Operation.addOperationsToBuffer(buffer, world.getName, iterator.next)
-                }
+                out ! JSONUtils.demoOperationsToJSON(world)
               }
-              out ! Operation.operationsBufferToMsg("demoOperations", buffer)
             case _ =>
           }
         case "revertExercise" =>
@@ -357,20 +352,10 @@ class PLMActor (
       exercise.setSettings(userSettings)
 
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-        val jsonExercise: JSONObject = new JSONObject() // FIXME: exercise.toJSON
-        // Preferable to remove the exercise's solution from the generated JSON
-        jsonExercise.remove("defaultSourceFiles")
+        val mapArgs: Map[String, Object] = new HashMap[String, Object]
+        mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, code, exercise.getWorld(0).getName, ""))
 
-        // FIXME: Add missing fields
-        JSONUtils.addString(jsonExercise, "instructions", exercise.getMission(currentHumanLang.toLocale, currentProgLang))
-        JSONUtils.addString(jsonExercise, "code", code)
-        JSONUtils.addString(jsonExercise, "selectedWorldID", exercise.getWorld(0).getName)
-        JSONUtils.addString(jsonExercise, "api", exercise.getWorldAPI)
-        JSONUtils.addString(jsonExercise, "toolbox", "")
-
-        val mapArgs: JSONObject = new JSONObject
-        JSONUtils.addJSONObject(mapArgs, "exercise", jsonExercise)
-        out ! JSONUtils.generateMsg("exercise", mapArgs)
+        out ! JSONUtils.createMessage("exercise", mapArgs)
       }
     }
   }

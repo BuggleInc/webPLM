@@ -24,6 +24,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.util.UUID
 import java.util.Locale
+import plm.core.model.json.JSONUtils
 
 /**
  * @author matthieu
@@ -100,15 +101,17 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
       channelIn.basicConsume(replyQueue, true, consumer)
 
-      val parameters: JsObject = Json.obj(
-          "exercise" -> "", // FIXME: exercise.toJSON.toString,
-          "code" -> code,
-          "language" -> progLang.getLang,
-          "localization" -> currentLocale.getLanguage,
-          "replyQueue" -> replyQueue
-      )
+      val parameters: Map[String, Object] = new HashMap[String, Object]
+      parameters.put("exercise", exercise)
+      parameters.put("code", code)
+      parameters.put("language", progLang.getLang)
+      parameters.put("localization", currentLocale.getLanguage)
+      parameters.put("replyQueue", replyQueue)
+      
+      val json: String = JSONUtils.mapToJSON(parameters)
+      Logger.error("json: "+ json)
 
-      channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, parameters.toString.getBytes("UTF-8"))
+      channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, json.getBytes("UTF-8"))
       timeout = System.currentTimeMillis + defaultTimeout
       state = Waiting
       executionStopped = false

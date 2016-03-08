@@ -6,22 +6,22 @@
     .controller('Exercise', Exercise);
 
   Exercise.$inject = [
-  '$window', '$http', '$scope', '$sce', '$stateParams', '$location', '$anchorScroll',
-  'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
-  'canvas', 'drawWithDOM',
-  'blocklyService',
-  '$timeout', '$interval',
-  'locker',
-  'BuggleWorld', 'BuggleWorldView',
-  'BatWorld', 'BatWorldView',
-  'TurtleWorld', 'TurtleWorldView',
-  'SortingWorld', 'SortingWorldView',
-  'SortingWorldSecondView',
-  'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
-  'PancakeWorld', 'PancakeView',
-  'BaseballWorld', 'BaseballView', 'BaseballSecondView',
-  'HanoiWorld', 'HanoiView'
- ];
+    '$window', '$http', '$scope', '$sce', '$stateParams', '$location', '$anchorScroll',
+    'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
+    'canvas', 'drawWithDOM',
+    'blocklyService',
+    '$timeout', '$interval',
+    'locker',
+    'BuggleWorld', 'BuggleWorldView',
+    'BatWorld', 'BatWorldView',
+    'TurtleWorld', 'TurtleWorldView',
+    'SortingWorld', 'SortingWorldView',
+    'SortingWorldSecondView',
+    'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
+    'PancakeWorld', 'PancakeView',
+    'BaseballWorld', 'BaseballView', 'BaseballSecondView',
+    'HanoiWorld', 'HanoiView'
+  ];
 
   function Exercise($window, $http, $scope, $sce, $stateParams, $location, $anchorScroll,
     connection, listenersHandler, langs, progLangs, exercisesList, navigation, toasterUtils,
@@ -38,10 +38,12 @@
     BaseballWorld, BaseballView, BaseballSecondView,
     HanoiWorld, HanoiView) {
 
-    var exercise = this;
+    var exercise, panelID, canvasID;
 
-    var panelID = 'panel';
-    var canvasID = 'canvas';
+    exercise = this;
+
+    panelID = 'panel';
+    canvasID = 'canvas';
 
     exercise.connection = connection;
     exercise.langs = langs;
@@ -175,9 +177,11 @@
     getExercise();
 
     function handleMessage(data) {
+      var cmd, args, worldKind;
       console.log('message received: ', data);
-      var cmd = data.cmd;
-      var args = data.args;
+
+      cmd = data.cmd;
+      args = data.args;
       switch (cmd) {
       case 'exercise':
         setExercise(args.exercise);
@@ -191,18 +195,16 @@
         break;
       case 'operations':
       case 'demoOperations':
-        var worldKind = 'current';
-        if(cmd === 'demoOperations') {
-            worldKind = 'answer';
-            exercise.playedDemo = true;
+        worldKind = 'current';
+        if (cmd === 'demoOperations') {
+          worldKind = 'answer';
+          exercise.playedDemo = true;
         }
-        args.buffer.forEach(function (item) {
-          if (item.worldID) {
-            handleOperations(item.worldID, worldKind, item.operations);
-          } else if (item.type) {
-            handleOut(item.msg);
-          }
-        });
+        if (args.worldID) {
+          handleOperations(args.worldID, worldKind, args.steps);
+        } else if (args.type) {
+          handleOut(args.msg);
+        }
         break;
       case 'log':
         exercise.logs += args.msg;
@@ -637,10 +639,14 @@
       }
     }
 
-    function handleOperations(worldID, worldKind, operations) {
-      var world = exercise[worldKind + 'Worlds'][worldID];
-      world.addOperations(operations);
-      if (world === exercise.currentWorld && !exercise.animationOnGoing && !exercise.executionStopped) {
+    function handleOperations(worldID, worldKind, steps) {
+      var i, world, step;
+      world = exercise[worldKind + 'Worlds'][worldID];
+      for(i = 0; i < steps.length; i += 1) {
+        step = steps[i];
+        world.addOperations(step);
+      }
+      if (world === exercise.currentWorld && exercise.updateViewLoop === null) {
         exercise.isPlaying = true;
         startUpdateModelLoop();
         startUpdateViewLoop();

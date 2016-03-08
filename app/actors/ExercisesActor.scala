@@ -22,8 +22,14 @@ import utils.LangUtils
 import plm.core.model.lesson.BlankExercise
 import com.fasterxml.jackson.databind.module.SimpleModule
 import java.awt.Color
-import plm.core.utils.CustomColorDeserializer
+import plm.core.model.json.CustomColorDeserializer
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import plm.core.model.json.JSONUtils
+import java.util.HashMap
+import plm.core.model.lesson.Exercise.WorldKind
+import plm.universe.World
+import plm.universe.Operation
+import java.util.ArrayList
 /**
  * @author matthieu
  */
@@ -84,34 +90,10 @@ object ExercisesActor {
       exercise.setSettings(userSettings)
       exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
 
-      if(exercise.getId == "Environment") {
-        val mapper: ObjectMapper = new ObjectMapper()
-        val module: SimpleModule = new SimpleModule
-        module.addDeserializer(classOf[Color], new CustomColorDeserializer)
-        mapper.registerModule(module)
-        try {
-            val root: JsonNode = mapper.convertValue(exercise, classOf[JsonNode])
-            val typeEntities: String = root.get("initialWorld").get(0).get("entities").get(0).get("type").asText
-            for(i <- 0 until exercise.getWorldCount;
-              j <- 0 until exercise.getInitialWorld.get(i).getEntityCount) {
-              val node: JsonNode = root.path("answerWorld").path(i).path("entities").path(j)
-              node.asInstanceOf[ObjectNode].put("type", typeEntities)
-            }
-            Logger.error("original JSON: " + root.toString)
-            val clone: Exercise = mapper.readValue(root.toString(), classOf[BlankExercise]);
-            clone.asInstanceOf[BlankExercise].setupCurrentWorld
-            clone.setSettings(userSettings)
-            val json: String = mapper.writeValueAsString(clone)
-            Logger.error("clone JSON: " + json)
-        }
-        catch {
-          case jsonE: JsonProcessingException =>
-            jsonE.printStackTrace
-          case e: Exception =>
-            e.printStackTrace
-        }
+      if(exercise.getId == "Poucet1") {
+        val jsonExercise: ObjectNode = JSONUtils.exerciseToJudgeJSON(exercise)
+        Logger.error("jsonExercise: " + jsonExercise)
       }
-
       exercises += (exerciseName -> exercise)
     }
 

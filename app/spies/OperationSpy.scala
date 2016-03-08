@@ -12,7 +12,7 @@ import play.api.Logger
 import plm.core.lang.ProgrammingLanguage
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
-import utils.JSONUtils
+import plm.core.model.json.JSONUtils
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.ScheduledExecutorService
@@ -29,13 +29,6 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   val ses: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor
   val cmd: Runnable = new Runnable() {
     override def run() {
-      var length: Int = world.getSteps.size
-      if(MAX_SIZE < length) {
-        length = MAX_SIZE
-      }
-      for(i <- 0 until length) {
-        Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.poll)
-      }
       sendOperations
     }
   }
@@ -50,20 +43,12 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   }
 
   def flush() {
-    val length: Int = world.getSteps.size
-    for(i <- 0 until length) {
-      Operation.addOperationsToBuffer(buffer, world.getName, world.getSteps.poll);
-      if(buffer.size==MAX_SIZE) {
-        sendOperations;
-      }
-    }
     sendOperations
   }
 
   def sendOperations() {
-    if(!buffer.isEmpty) {
-      out ! Operation.operationsBufferToMsg("operations", buffer)
-      buffer = new JSONArray
+    if(!world.getSteps.isEmpty) {
+      out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
     }
   }
 
