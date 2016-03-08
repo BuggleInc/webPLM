@@ -45,7 +45,7 @@
 
     exercise.connection = connection;
     exercise.langs = langs;
-    
+
     exercise.tabs = [];
     exercise.currentTab = 0;
     exercise.drawFnct = null;
@@ -73,6 +73,7 @@
     exercise.currentWorldID = null;
     exercise.worldKind = 'current';
     exercise.worldIDs = []; // Mandatory to generate dynamically the select
+    exercise.animationOnGoing = false;
     exercise.updateModelLoop = null;
     exercise.updateViewLoop = null;
 
@@ -125,7 +126,7 @@
     exercise.resizeCanvas = resizeCanvas;
 
     exercise.readTip = readTip;
-    
+
     exercise.idle = false;
 
     startIdleLoop();
@@ -479,7 +480,7 @@
 
     function setCurrentWorld(worldID, worldKind) {
       $timeout.cancel(exercise.updateModelLoop);
-      $interval.cancel(exercise.updateViewLoop);
+      stopUpdateViewLoop();
       exercise.currentWorldID = worldID;
       exercise.worldKind = worldKind;
       exercise.currentWorld = exercise[exercise.worldKind + 'Worlds'][exercise.currentWorldID];
@@ -550,16 +551,26 @@
     }
 
     function handleResult(data) {
-      var msgType = data.msgType;
-      var msg = data.msg;
-      console.log(msgType, ' - ', msg);
-      exercise.result += msg;
-      if (msgType === 1) {
-        $('#successModal').foundation('reveal', 'open');
-      }
-      exercise.resultType = msgType;
-      exercise.display = 'result';
+      var msg, msgType, unbindListener;
+
       exercise.isRunning = false;
+
+      msgType = data.msgType;
+      msg = data.msg;
+      unbindListener = $scope.$watch('exercise.animationOnGoing', function (newValue, oldValue) {
+        if(newValue === oldValue) {
+          // The watcher is fired right after the init
+          // We do not want to display the result yet
+          return;
+        }
+        exercise.result += msg;
+        if (msgType === 1) {
+          $('#successModal').foundation('reveal', 'open');
+        }
+        exercise.resultType = msgType;
+        exercise.display = 'result';
+        unbindListener(); // Allows to remove the listener
+      });
     }
 
     function reset(worldID, worldKind, keepOperations) {
@@ -585,7 +596,7 @@
       exercise.lastStateDrawn = -1;
 
       $timeout.cancel(exercise.updateModelLoop);
-      $timeout.cancel(exercise.updateViewLoop);
+      stopUpdateViewLoop();
       exercise.isPlaying = false;
     }
 
@@ -599,7 +610,7 @@
     function handleOperations(worldID, worldKind, operations) {
       var world = exercise[worldKind + 'Worlds'][worldID];
       world.addOperations(operations);
-      if (world === exercise.currentWorld && exercise.updateViewLoop === null) {
+      if (world === exercise.currentWorld && !exercise.animationOnGoing) {
         exercise.isPlaying = true;
         startUpdateModelLoop();
         startUpdateViewLoop();
@@ -632,6 +643,7 @@
 
     function startUpdateViewLoop() {
       exercise.updateViewLoop = $interval(updateView, 1 / 10);
+      exercise.animationOnGoing = true;
     }
 
     function updateView() {
@@ -641,14 +653,19 @@
       }
 
       if (!exercise.isPlaying) {
-        $interval.cancel(exercise.updateViewLoop);
+        stopUpdateViewLoop();
       }
+    }
+
+    function stopUpdateViewLoop() {
+      $interval.cancel(exercise.updateViewLoop);
+      exercise.animationOnGoing = false;
     }
 
     function setWorldState(state) {
       resetIdleLoop();
       $timeout.cancel(exercise.updateModelLoop);
-      $interval.cancel(exercise.updateViewLoop);
+      stopUpdateViewLoop();
       exercise.isPlaying = false;
       state = parseInt(state);
       exercise.currentWorld.setState(state);
@@ -665,7 +682,7 @@
       offDisplayMessage();
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
-      $interval.cancel(exercise.updateViewLoop);
+      stopUpdateViewLoop();
       if(!exercise.nonImplementedWorldException) {
         exercise.initialWorlds = {};
         exercise.answerWorlds = {};
@@ -741,7 +758,7 @@
         }
       }
     }
-    
+
     function setDrawFnct(drawFnct) {
       exercise.drawService.setDraw(drawFnct);
       exercise.drawFnct = drawFnct;
@@ -802,7 +819,7 @@
         $timeout(exercise.resizeCanvas, 0);
       }
     }
-    
+
     function updateUI(pl, instructions, api, code) {
       if (pl !== null) {
         if (pl.lang === 'Blockly') {
@@ -841,7 +858,7 @@
   function readTip(tipID) {
     this.connection.sendMessage('readTip', { tipID: tipID+'' });
   }
-  
+
   function getOperationsBuffer(buffer) {
     if (buffer.constructor !== Array) {
       return JSON.parse(buffer);
