@@ -55,12 +55,6 @@ msgstr ""
 msgid "| y ="
 msgstr ""
 
-#: public/app/components/home/lesson-overview.directive.html:15
-msgid ""
-"A graph representing your\n"
-"    progress will be displayed here if you select a lesson."
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:424
 msgid "A letter, word, or line of text."
 msgstr ""
@@ -79,6 +73,10 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:304
 msgid "acos"
+msgstr ""
+
+#: public/app/components/home/lesson-overview.directive.html:12
+msgid "Action"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:94
@@ -293,7 +291,7 @@ msgstr ""
 msgid "clearMessage"
 msgstr ""
 
-#: public/app/exercise/exercise.html:9
+#: public/app/exercise/exercise.html:10
 msgid "Code editor:"
 msgstr ""
 
@@ -325,7 +323,7 @@ msgstr ""
 msgid "Confirm changes"
 msgstr ""
 
-#: public/app/services/connection.service.js:45
+#: public/app/services/connection.service.js:49
 msgid "Connexion lost"
 msgstr ""
 
@@ -1147,6 +1145,10 @@ msgstr ""
 msgid "list"
 msgstr ""
 
+#: public/app/components/home/lesson-overview.directive.html:4
+msgid "List of lessons"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:433
 msgid "Lists"
 msgstr ""
@@ -1301,7 +1303,7 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-#: public/app/components/home/lesson-overview.directive.html:6
+#: public/app/components/home/lesson-overview.directive.html:7
 msgid ""
 "Pick a lesson on the left, and start coding! If unsure, take\n"
 "      the \"welcome\" one: it will guide you through the basics."
@@ -1492,10 +1494,6 @@ msgstr ""
 
 #: public/app/components/exercise/results.directive.html:3
 msgid "Result"
-msgstr ""
-
-#: public/app/components/home/lesson-overview.directive.html:13
-msgid "Resume"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:346
@@ -1766,7 +1764,7 @@ msgstr ""
 msgid "Run the user-defined function '%1'."
 msgstr ""
 
-#: public/app/services/connection.service.js:50
+#: public/app/services/connection.service.js:54
 msgid "Session closed"
 msgstr ""
 
@@ -1876,6 +1874,10 @@ msgstr ""
 msgid "standard deviation of list"
 msgstr ""
 
+#: public/app/components/home/lesson-overview.directive.html:14
+msgid "Start"
+msgstr ""
+
 #: public/app/components/bug-report-modal.directive.html:50
 msgid "Submit"
 msgstr ""
@@ -1928,7 +1930,7 @@ msgstr ""
 msgid "The PLM currently saves your usage data anonymously on its servers. That way, you can retrieve your session from any connected computer as long as you sign in."
 msgstr ""
 
-#: public/app/components/home/lesson-overview.directive.html:4
+#: public/app/components/home/lesson-overview.directive.html:5
 msgid ""
 "The PLM will teach you the art of computer\n"
 "      programming through interactive exercises, at your own pace."
@@ -2136,11 +2138,11 @@ msgstr ""
 msgid "You can later update your preference from your profile's page."
 msgstr ""
 
-#: public/app/services/connection.service.js:46
+#: public/app/services/connection.service.js:50
 msgid "You have been brutally disconnected from the server, probably due to a crash. You should copy your current work before refreshing the page. Please excuse us for the inconvenience."
 msgstr ""
 
-#: public/app/services/connection.service.js:51
+#: public/app/services/connection.service.js:55
 msgid "You have been disconnected from the server. If it was not wanted, don't forget to copy your current work before refreshing the page."
 msgstr ""
 
@@ -2162,8 +2164,4 @@ msgstr ""
 
 #: public/app/services/user.service.js:151
 msgid "Your profile has been successfully updated"
-msgstr ""
-
-#: public/app/components/home/lesson-overview.directive.html:11
-msgid "Your progress"
 msgstr ""

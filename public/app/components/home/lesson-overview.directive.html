@@ -1,17 +1,16 @@
 <div class="row">
   <span ng-show="home.currentLesson" ng-bind-html="home.currentLesson.description"></span>
   <span ng-show="!home.currentLesson">
+    <h3 translate>List of lessons</h3>
     <p translate>The PLM will teach you the art of computer
       programming through interactive exercises, at your own pace.<p>
     <p translate>Pick a lesson on the left, and start coding! If unsure, take
       the "welcome" one: it will guide you through the basics.</p>
   </span>
 </div> <!-- /.row lesson's description -->
-<div class="row">
-  <h2 translate>Your progress</h2>
-  <p ng-show="home.currentLesson">
-    <button class="button radius" ng-click="home.goToLesson()" translate>Resume</button>
+<div class="row" ng-show="home.currentLesson">
+  <h3 translate>Action</h3>
+  <p>
+    <button class="button radius" ng-click="home.goToLesson()" translate>Start</button>
   </p>
-  <p ng-show="!home.currentLesson" translate>A graph representing your
-    progress will be displayed here if you select a lesson.</p>
 </div> <!-- /.row user's progression -->
