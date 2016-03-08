@@ -29,7 +29,9 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   val ses: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor
   val cmd: Runnable = new Runnable() {
     override def run() {
-      sendOperations
+      if(!world.getSteps.isEmpty) {
+	    out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
+	  }
     }
   }
 
@@ -43,12 +45,8 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   }
 
   def flush() {
-    sendOperations
-  }
-
-  def sendOperations() {
     if(!world.getSteps.isEmpty) {
-      out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
+      out ! JSONUtils.operationsToJSON(world, -1)
     }
   }
 
