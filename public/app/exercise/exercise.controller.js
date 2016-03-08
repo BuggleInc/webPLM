@@ -54,6 +54,7 @@
     exercise.lessonName = exercise.lessonID.charAt(0).toUpperCase() + exercise.lessonID.slice(1);
     exercise.id = $stateParams.exerciseID;
 
+    exercise.executionStopped = false;
     exercise.isRunning = false;
     exercise.isPlaying = false;
     exercise.playedDemo = false;
@@ -544,9 +545,14 @@
       }
       connection.sendMessage('runExercise', args);
       exercise.isRunning = true;
+      exercise.executionStopped = false;
     }
 
     function stopExecution() {
+      exercise.executionStopped = true;
+      exercise.isPlaying = false;
+      $timeout.cancel(exercise.updateModelLoop);
+      stopUpdateViewLoop();
       connection.sendMessage('stopExecution', null);
     }
 
@@ -557,20 +563,31 @@
 
       msgType = data.msgType;
       msg = data.msg;
-      unbindListener = $scope.$watch('exercise.animationOnGoing', function (newValue, oldValue) {
-        if(newValue === oldValue) {
-          // The watcher is fired right after the init
-          // We do not want to display the result yet
-          return;
-        }
+
+      if(!exercise.executionStopped) {
+        unbindListener = $scope.$watch('exercise.animationOnGoing', function (newValue, oldValue) {
+          if(newValue === oldValue) {
+            // The watcher is fired right after the init
+            // We do not want to display the result yet
+            return;
+          }
+          exercise.result += msg;
+          if (msgType === 1) {
+            $('#successModal').foundation('reveal', 'open');
+          }
+          exercise.resultType = msgType;
+          exercise.display = 'result';
+          unbindListener(); // Allows to remove the listener
+        });
+      }
+      else {
         exercise.result += msg;
         if (msgType === 1) {
           $('#successModal').foundation('reveal', 'open');
         }
         exercise.resultType = msgType;
         exercise.display = 'result';
-        unbindListener(); // Allows to remove the listener
-      });
+      }
     }
 
     function reset(worldID, worldKind, keepOperations) {
@@ -610,16 +627,16 @@
     function handleOperations(worldID, worldKind, operations) {
       var world = exercise[worldKind + 'Worlds'][worldID];
       world.addOperations(operations);
-      if (world === exercise.currentWorld && !exercise.animationOnGoing) {
+      if (world === exercise.currentWorld && !exercise.animationOnGoing && !exercise.executionStopped) {
         exercise.isPlaying = true;
         startUpdateModelLoop();
         startUpdateViewLoop();
       }
     }
 
-	function handleOut(msg) {
+    function handleOut(msg) {
       exercise.result += msg;
-	}
+    }
 
     function startUpdateModelLoop() {
       exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
