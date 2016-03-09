@@ -229,12 +229,15 @@
         }
         for (var worldID in data.initialWorlds) {
           if (data.initialWorlds.hasOwnProperty(worldID)) {
+            var dataInitialWorld, dataAnswerWorld;
             exercise.initialWorlds[worldID] = {};
-            var initialWorld = data.initialWorlds[worldID];
-            data.initialWorlds[worldID].id = worldID;
-            var world;
-            exercise.nameWorld = initialWorld.type;
-            switch (initialWorld.type) {
+
+            dataInitialWorld = data.initialWorlds[worldID];
+            dataInitialWorld.id = worldID;
+            dataAnswerWorld = data.answerWorlds[worldID];
+
+            var world, answerWorld;
+            switch (dataInitialWorld.type) {
             case 'BuggleWorld':
               exercise.tabs = [
                 {
@@ -252,7 +255,8 @@
         ];
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
-              world = new BuggleWorld(initialWorld);
+              world = new BuggleWorld(dataInitialWorld);
+              answerWorld = new BuggleWorld(dataAnswerWorld);
               initCanvas(BuggleWorldView.draw);
               exercise.drawFnct = BuggleWorldView.draw;
               break;
@@ -266,7 +270,8 @@
          }
         ];
               exercise.drawFnct = BatWorldView.draw;
-              world = new BatWorld(initialWorld);
+              world = new BatWorld(dataInitialWorld);
+              answerWorld = new BatWorld(dataAnswerWorld);
               BatWorldView.setScope($scope);
               initDrawWithDOM(BatWorldView.draw);
               break;
@@ -287,7 +292,8 @@
         ];
                 exercise.objectiveViewNeeded = true;
                 exercise.animationPlayerNeeded = true;
-                world = new TurtleWorld(initialWorld);
+                world = new TurtleWorld(dataInitialWorld);
+                answerWorld = new TurtleWorld(dataAnswerWorld);
                 exercise.drawFnct = TurtleWorldView.draw;
                 initCanvas(exercise.drawFnct);
                 break;
@@ -322,7 +328,8 @@
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
               exercise.secondViewNeeded = true;
-              world = new SortingWorld(initialWorld);
+              world = new SortingWorld(dataInitialWorld);
+              answerWorld = new SortingWorld(dataAnswerWorld);
               initCanvas(SortingWorldView.draw);
               break;
             case 'DutchFlagWorld':
@@ -356,7 +363,8 @@
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
               exercise.secondViewNeeded = true;
-              world = new DutchFlagWorld(initialWorld);
+              world = new DutchFlagWorld(dataInitialWorld);
+              answerWorld = new DutchFlagWorld(dataAnswerWorld);
               initCanvas(DutchFlagView.draw);
               break;
             case 'PancakeWorld':
@@ -377,7 +385,8 @@
               exercise.drawFnct = PancakeView.draw;
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
-              world = new PancakeWorld(initialWorld);
+              world = new PancakeWorld(dataInitialWorld);
+              answerWorld = new PancakeWorld(dataAnswerWorld);
               initCanvas(PancakeView.draw);
               break;
             case 'BaseballWorld':
@@ -411,7 +420,8 @@
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
               exercise.secondViewNeeded = true;
-              world = new BaseballWorld(initialWorld);
+              world = new BaseballWorld(dataInitialWorld);
+              answerWorld = new BaseballWorld(dataAnswerWorld);
               initCanvas(BaseballView.draw);
               break;
             case 'HanoiWorld':
@@ -432,13 +442,15 @@
               exercise.drawFnct = HanoiView.draw;
               exercise.objectiveViewNeeded = true;
               exercise.animationPlayerNeeded = true;
-              world = new HanoiWorld(initialWorld);
+              world = new HanoiWorld(dataInitialWorld);
+              answerWorld = new HanoiWorld(dataAnswerWorld);
               initCanvas(HanoiView.draw);
               break;
             }
             world.id = worldID;
+            answerWorld.id = worldID;
             exercise.initialWorlds[worldID] = world;
-            exercise.answerWorlds[worldID] = world.clone();
+            exercise.answerWorlds[worldID] = answerWorld;
             exercise.currentWorlds[worldID] = world.clone();
           }
         }
@@ -493,7 +505,6 @@
       exercise.isPlaying = true;
       if (!exercise.playedDemo) {
         $http.get("assets/json/demos/" + exercise.id + ".json").success(function(data){
-          console.log('data: ', data);
           data.forEach(function(args) {
             handleOperations(args.worldID, 'answer', args.operations);
           });
@@ -628,6 +639,8 @@
         exercise.isPlaying = true;
         startUpdateModelLoop();
         startUpdateViewLoop();
+      } else if(worldKind === 'answer' && world !== exercise.currentWorld) {
+        world.currentState += 1;
       }
     }
 
@@ -767,9 +780,6 @@
       }
       if (exercise.worldKind !== tab.worldKind) {
         setCurrentWorld(exercise.currentWorldID, tab.worldKind);
-        if (!exercise.playedDemo && tab.worldKind === 'answer') {
-          runDemo();
-        }
       }
     }
 

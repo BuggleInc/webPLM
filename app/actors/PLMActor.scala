@@ -147,7 +147,7 @@ class PLMActor (
           }
           if(lecture != null) {
             sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
+              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
             ))
           }
         case "runExercise" =>
@@ -168,7 +168,7 @@ class PLMActor (
         case "revertExercise" =>
           var lecture = plm.revertExercise
           sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
+              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
           ))
         case "getExercises" =>
           if(plm.currentExercise != null) {
