@@ -1,0 +1,8 @@
+<ul class="accordion" data-accordion style="max-width:90%; ba">
+  <li class="accordion-navigation">
+    <a ng-click="showTip()"><i>{{ title }}</i></a>
+    <div ng-class="{ active: displayTip }" class="content panel radius">
+      <ng-transclude></ng-transclude>
+    </div>
+  </li>
+</ul>

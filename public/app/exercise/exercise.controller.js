@@ -217,9 +217,6 @@
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
-      exercise.instructions = $sce.trustAsHtml(data.instructions);
-      exercise.api = $sce.trustAsHtml(data.api);
-      exercise.code = data.code.trim();
       exercise.currentWorldID = data.selectedWorldID;
 
       if (data.exception === 'nonImplementedWorldException') {
@@ -475,7 +472,7 @@
     }
 
     function updateInstructions(instructions, api) {
-      exercise.instructions = $sce.trustAsHtml(instructions);
+      exercise.instructions = instructions;
       exercise.api = $sce.trustAsHtml(api);
     }
 
