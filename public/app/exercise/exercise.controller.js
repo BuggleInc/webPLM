@@ -163,7 +163,7 @@
     
     function loadEditorContent() {
       var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + editor.getOption("mode"));
-      if (editorValue != null) 
+      if (editorValue !== null) 
           editor.setValue(editorValue);
     }
 
@@ -220,8 +220,6 @@
     function setExercise(data) {
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
-
-      loadEditorContent();
       
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
@@ -804,7 +802,6 @@
           break;
         }
       }
-      loadEditorContent();
     }
 
     function toggleAPI() {
@@ -845,6 +842,7 @@
           $timeout(function () {
             exercise.editor.refresh();
           }, 0);
+          loadEditorContent();
         }
       }
       updateInstructions(instructions, api);
