@@ -10,7 +10,7 @@ import play.api.Logger
 import java.io.IOException
 
 object GitHubIssueManager {
-  private val oAuth2Token: String = "toto"
+  private val oAuth2Token: String = Play.configuration.getString("plm.github.oauth").get
   private val repository: String = Play.configuration.getString("plm.github.repo").get
   private val owner: String = Play.configuration.getString("plm.github.owner").get
 }
