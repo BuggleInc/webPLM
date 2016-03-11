@@ -503,6 +503,9 @@
     function runDemo() {
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
+      exercise.worldIDs.map(function (key) {
+        reset(key, 'answer', true);
+      });
       if (!exercise.playedDemo) {
         $http.get("assets/json/demos/" + exercise.id + ".json").success(function(data){
           data.forEach(function(args) {
