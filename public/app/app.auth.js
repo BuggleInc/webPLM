@@ -54,10 +54,7 @@
       requiredUrlParams: ['display', 'scope'],
       display: 'popup',
       type: '2.0',
-      popupOptions: {
-        width: 580,
-        height: 400
-      }
+      popupOptions: { width: 775, height: 562 }
     });
 
     // Facebook
@@ -70,11 +67,7 @@
       scopeDelimiter: ',',
       requiredUrlParams: ['display', 'scope'],
       display: 'popup',
-      type: '2.0',
-      popupOptions: {
-        width: 481,
-        height: 269
-      }
+      type: '2.0'
     });
 
     // GitHub
@@ -101,8 +94,7 @@
 			requiredUrlParams: ['scope'],
 			optionalUrlParams: ['display'],
 			display: 'popup',
-			type: '2.0',
-			popupOptions: { width: 580, height: 400 }
+			type: '2.0'
 		});
 
     // Twitter
