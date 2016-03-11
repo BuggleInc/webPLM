@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
+import AssemblyKeys._
 
 //********************************************************
 // Play settings
@@ -58,3 +59,16 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(FormatXml, false)
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
+
+assemblySettings
+
+mainClass in assembly := Some("play.core.server.ProdServerStart")
+
+fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)
+
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    case PathList("org", "apache", xs @ _*)   => MergeStrategy.first
+    case x => old(x)
+  }
+}
