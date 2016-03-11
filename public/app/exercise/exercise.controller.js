@@ -568,14 +568,15 @@
     }
 
     function handleResult(data) {
-      var msg, msgType, unbindListener;
+      var nbStates, msg, msgType, unbindListener;
 
       exercise.isRunning = false;
 
+      nbStates = exercise.currentWorld.operations.length - 1;
       msgType = data.msgType;
       msg = data.msg;
 
-      if(!exercise.executionStopped) {
+      if(!exercise.executionStopped && nbStates !== -1) {
         unbindListener = $scope.$watch('exercise.animationOnGoing', function (newValue, oldValue) {
           if(newValue === oldValue) {
             // The watcher is fired right after the init
