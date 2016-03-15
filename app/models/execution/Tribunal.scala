@@ -22,7 +22,7 @@ object Tribunal {
 
   var QUEUE_ADDR = Play.configuration.getString("messagequeue.addr").getOrElse("localhost")
   var QUEUE_PORT = Play.configuration.getString("messagequeue.port").getOrElse("5672")
-  
+
   // Connection
   var factory : ConnectionFactory = new ConnectionFactory()
   factory.setHost(QUEUE_ADDR)
@@ -56,10 +56,10 @@ class Tribunal extends ExecutionManager {
   argsOut.put("x-message-ttl", defaultTimeout.asInstanceOf[Object])
   var argsIn: Map[String, Object]  = new HashMap[String, Object]
   argsIn.put("x-message-ttl", 5000.asInstanceOf[Object])
-  
+
   var channelOut : Channel = Tribunal.connection.createChannel
   channelOut.queueDeclare(Tribunal.QUEUE_NAME_REQUEST, false, false, false, argsOut)
-  
+
 	/**
 	* Tribunal state
 	*/
@@ -84,12 +84,12 @@ class Tribunal extends ExecutionManager {
         var replyQueue: String = Tribunal.QUEUE_NAME_REPLY + java.util.UUID.randomUUID.toString
         var channelIn : Channel = Tribunal.connection.createChannel
         channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
-        
+
         var consumer : QueueingConsumer = new QueueingConsumer(channelIn)
         channelIn.basicConsume(replyQueue, true, consumer)
-        
+
         var finalParameters: JsObject = parameters.++(Json.obj("replyQueue" -> replyQueue))
-        
+
         channelOut.basicPublish("", Tribunal.QUEUE_NAME_REQUEST, null, finalParameters.toString.getBytes("UTF-8"))
         timeout = System.currentTimeMillis + defaultTimeout
         state = Waiting
@@ -112,7 +112,7 @@ class Tribunal extends ExecutionManager {
       }
     }).start();
 	}
-  
+
 	private def setData(newGit:Git, lessonID:String, exerciseID:String, code:String) {
 		git = newGit
 		parameters = Json.obj(
@@ -138,10 +138,10 @@ class Tribunal extends ExecutionManager {
     var code: String = (parameters \ "code").asOpt[String].getOrElse("")
     var error: String = ""
     var outcome: String = "stop"
-    git.commitExecutionResult(code, error, outcome, None, None)    
+    git.commitExecutionResult(code, error, outcome, None, None)
   }
-  
-  
+
+
 	private def signalExecutionTimeout() {
     var message: String = "The compiler timed out."
 		Logger.debug("[judge] " + message)

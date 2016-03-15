@@ -22,7 +22,7 @@ object TurtleWorldToJson {
         "sizeHints" -> sizeHintsWrite(turtleWorld.sizeHints())
     )
   }
-  
+
   def shapesWrite(shapes: Iterator[Shape]): JsValue = {
     var jsArray: JsArray = JsArray()
     var shape: Shape = null
@@ -47,12 +47,12 @@ object TurtleWorldToJson {
             "color" -> Utils.colorToWrapper(circle.color)
           ))
         case _ =>
-          Logger.debug("TurtleWorldToJson: shape not supported")
+          Logger.error("TurtleWorldToJson: shape not supported")
       }
     }
     return jsArray
   }
-  
+
   def sizeHintsWrite(sizeHints: Iterator[SizeHint]): JsValue = {
     var jsArray: JsArray = JsArray()
     var sizeHint: SizeHint = null
@@ -68,5 +68,5 @@ object TurtleWorldToJson {
     }
     return jsArray
   }
-  
+
 }

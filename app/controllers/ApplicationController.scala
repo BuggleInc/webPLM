@@ -39,7 +39,7 @@ class ApplicationController @Inject() (
     SecuredRequestHandler { securedRequest =>
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
-      case HandlerResult(r, Some(user)) => 
+      case HandlerResult(r, Some(user)) =>
         Right(PLMActor.propsWithUser(executionManager, userAgent, actorUUID, user) _)
       case HandlerResult(r, None) =>
         var preferredLang: Lang = LangUtils.getPreferredLang(request)
@@ -52,7 +52,7 @@ class ApplicationController @Inject() (
         Right(PLMActor.props(executionManager, userAgent, actorUUID,  gitID, newUser, Some(preferredLang), None, Some(false)) _)
     }
   }
-  
+
   /**
    * Returns the user.
    *
@@ -67,8 +67,8 @@ class ApplicationController @Inject() (
           )
           Future.successful(Ok)
         case _ =>
-          Logger.debug("Actor not found... Weird isn't it?")
-          Future.successful(Unauthorized)  
+          Logger.error("Actor not found... Weird isn't it?")
+          Future.successful(Unauthorized)
     }
   }
 

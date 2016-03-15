@@ -38,10 +38,7 @@ object UserDAORestImpl {
     var resourceURI = profilesServiceURL+"/"+loginInfo.providerID+"/"+loginInfo.providerKey
     WS.url(resourceURI).get().map {
       response =>
-        Logger.debug("On a eu une réponse!")
-        Logger.debug("Response status: " + response.status)
         if(response.status == 200) {
-          Logger.debug("On passe pas ici")
           Some(UserToJson.userRead((response.json \ "profile").get))
         }
         else {
@@ -58,20 +55,18 @@ object UserDAORestImpl {
    */
   def save(user: User) = {
     val data: JsValue = UserToJson.userWrite(user)
-    Logger.debug("Dans save: " + data.toString)
     WS.url(profilesServiceURL).post(data).map {
       response =>
         if(response.status == 200) {
-          Logger.debug("On a bien reçu une rep: "+ response.json.toString)
           Some(UserToJson.userRead((response.json \ "profile").get))
         }
         else {
           None
         }
-        
+
     }
   }
-  
+
   /**
    * Updates a user.
    *
@@ -82,7 +77,7 @@ object UserDAORestImpl {
     val data = UserToJson.userWrite(user)
     var resourceURI = profilesServiceURL+"/"+user.loginInfo.providerID+"/"+user.loginInfo.providerKey
     WS.url(resourceURI).put(data).map {
-      response => 
+      response =>
         if(response.status == 200) {
           true
         }
@@ -92,5 +87,5 @@ object UserDAORestImpl {
         //(response.json \ "profile")).asOpt[User]
     }
   }
-  
+
 }

@@ -54,7 +54,7 @@ class SocialAuthController @Inject() (
       case Some(p: SocialProvider with CommonSocialProfileBuilder) =>
         p.authenticate().flatMap {
           case Left(result) => Future.successful(result)
-          case Right(authInfo) => 
+          case Right(authInfo) =>
             var preferredLang: Lang = LangUtils.getPreferredLang(request)
             for {
             profile <- p.retrieveProfile(authInfo)
@@ -70,7 +70,7 @@ class SocialAuthController @Inject() (
                     "user" -> user
                   )
                 case _ =>
-                  Logger.debug("Actor not found... Weird isn't it?")
+                  Logger.error("Actor " + actorUUID + " not found")
               }
               env.eventBus.publish(LoginEvent(user, request, request2Messages))
               Ok(Json.obj("token" -> token))
