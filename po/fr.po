@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-09-29 16:54+0100\n"
+"PO-Revision-Date: 2016-03-08 17:40+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -67,14 +67,6 @@ msgstr "| x ="
 msgid "| y ="
 msgstr "| y ="
 
-#: public/app/components/home/lesson-overview.directive.html:15
-msgid ""
-"A graph representing your\n"
-"    progress will be displayed here if you select a lesson."
-msgstr ""
-"Un graphe représentant vos\n"
-"    progrès sera affiché ici si vous sélectionnez une leçon."
-
 #: public/app/services/blocklymsg.service.js:424
 msgid "A letter, word, or line of text."
 msgstr "Une lettre, un mot ou une ligne de texte."
@@ -94,6 +86,10 @@ msgstr "absolu"
 #: public/app/services/blocklymsg.service.js:304
 msgid "acos"
 msgstr "acos"
+
+#: public/app/components/home/lesson-overview.directive.html:12
+msgid "Action"
+msgstr "Action"
 
 #: public/app/services/blocklymsg.service.js:94
 msgid "Add a condition to the if block."
@@ -327,7 +323,7 @@ msgstr "Choisir une couleur dans la palette"
 msgid "clearMessage"
 msgstr "effaceMessage"
 
-#: public/app/exercise/exercise.html:9
+#: public/app/exercise/exercise.html:10
 msgid "Code editor:"
 msgstr "Éditeur de code:"
 
@@ -359,7 +355,7 @@ msgstr "colorer avec"
 msgid "Confirm changes"
 msgstr "Confirmer les modifications"
 
-#: public/app/services/connection.service.js:45
+#: public/app/services/connection.service.js:49
 msgid "Connexion lost"
 msgstr "Déconnecté"
 
@@ -1225,6 +1221,10 @@ msgstr "gris clair"
 msgid "list"
 msgstr "liste"
 
+#: public/app/components/home/lesson-overview.directive.html:4
+msgid "List of lessons"
+msgstr "Liste des leçons"
+
 #: public/app/services/blocklymsg.service.js:433
 msgid "Lists"
 msgstr "Listes"
@@ -1381,7 +1381,7 @@ msgstr "Mot de passe"
 msgid "Password:"
 msgstr "Mot de passe:"
 
-#: public/app/components/home/lesson-overview.directive.html:6
+#: public/app/components/home/lesson-overview.directive.html:7
 msgid ""
 "Pick a lesson on the left, and start coding! If unsure, take\n"
 "      the \"welcome\" one: it will guide you through the basics."
@@ -1598,10 +1598,6 @@ msgstr "Réinitialiser"
 #: public/app/components/exercise/results.directive.html:3
 msgid "Result"
 msgstr "Résultat"
-
-#: public/app/components/home/lesson-overview.directive.html:13
-msgid "Resume"
-msgstr "Reprendre"
 
 #: public/app/services/blocklymsg.service.js:346
 msgid "return"
@@ -1903,7 +1899,7 @@ msgstr ""
 msgid "Run the user-defined function '%1'."
 msgstr "Exécuter la fonction '%1' définie par l’utilisateur."
 
-#: public/app/services/connection.service.js:50
+#: public/app/services/connection.service.js:54
 msgid "Session closed"
 msgstr "Session fermée"
 
@@ -2020,6 +2016,10 @@ msgstr "racine carrée"
 msgid "standard deviation of list"
 msgstr "écart-type de la liste"
 
+#: public/app/components/home/lesson-overview.directive.html:14
+msgid "Start"
+msgstr "Démarrer"
+
 #: public/app/components/bug-report-modal.directive.html:50
 msgid "Submit"
 msgstr "Soumettre"
@@ -2082,7 +2082,7 @@ msgstr ""
 "serveurs. Vous pouvez ainsi retrouver votre session depuis n'importe quel "
 "ordinateur."
 
-#: public/app/components/home/lesson-overview.directive.html:4
+#: public/app/components/home/lesson-overview.directive.html:5
 msgid ""
 "The PLM will teach you the art of computer\n"
 "      programming through interactive exercises, at your own pace."
@@ -2320,7 +2320,7 @@ msgstr ""
 "Vous pouvez changer vos préférences à tout instant depuis votre page de "
 "profil."
 
-#: public/app/services/connection.service.js:46
+#: public/app/services/connection.service.js:50
 msgid ""
 "You have been brutally disconnected from the server, probably due to a "
 "crash. You should copy your current work before refreshing the page. Please "
@@ -2330,7 +2330,7 @@ msgstr ""
 "crash. Vous devriez copier votre travail actuel avant de rafraîchir la page. "
 "Veuillez nous excuser de ce désagrément."
 
-#: public/app/services/connection.service.js:51
+#: public/app/services/connection.service.js:55
 msgid ""
 "You have been disconnected from the server. If it was not wanted, don't "
 "forget to copy your current work before refreshing the page."
@@ -2363,9 +2363,18 @@ msgstr ""
 msgid "Your profile has been successfully updated"
 msgstr "Votre profil a été correctement mis à jour"
 
-#: public/app/components/home/lesson-overview.directive.html:11
-msgid "Your progress"
-msgstr "Votre progression"
+#~ msgid ""
+#~ "A graph representing your\n"
+#~ "    progress will be displayed here if you select a lesson."
+#~ msgstr ""
+#~ "Un graphe représentant vos\n"
+#~ "    progrès sera affiché ici si vous sélectionnez une leçon."
+
+#~ msgid "Resume"
+#~ msgstr "Reprendre"
+
+#~ msgid "Your progress"
+#~ msgstr "Votre progression"
 
 #~ msgid "Already a member?"
 #~ msgstr "Déjà un compte?"

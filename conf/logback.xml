@@ -1,0 +1,71 @@
+<!--
+  ~ Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+  -->
+<!-- The default logback configuration that Play uses if no other configuration is provided -->
+<configuration>
+
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+
+  <appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>logs/application.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- Daily rollover with compression -->
+          <fileNamePattern>application-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+          <!-- keep 30 days worth of history -->
+          <maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+          <pattern>%date{yyyy-MM-dd HH:mm:ss ZZZZ} [%level] from %logger in %thread - %message%n%xException</pattern>
+      </encoder>
+  </appender>
+
+  <appender name="ROOT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>logs/root.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!-- Daily rollover with compression -->
+          <fileNamePattern>root-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+          <!-- keep 30 days worth of history -->
+          <maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+          <pattern>%date{yyyy-MM-dd HH:mm:ss ZZZZ} [%level] from %logger in %thread - %message%n%xException</pattern>
+      </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="APP_ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="APP_FILE" />
+  </appender>
+
+  <appender name="ROOT_ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="ROOT_FILE" />
+  </appender>
+
+  <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="STDOUT" />
+  </appender>
+
+  <logger name="play" level="INFO" />
+
+  <logger name="application" level="DEBUG" additivity="false">
+    <appender-ref ref="APP_ASYNCFILE" />
+    <appender-ref ref="ASYNCSTDOUT" />
+  </logger>
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
+  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
+  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" />
+  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" />
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+
+  <root level="WARN">
+    <appender-ref ref="ASYNCSTDOUT" />
+    <appender-ref ref="ROOT_ASYNCFILE" />
+  </root>
+
+</configuration>

@@ -69,7 +69,7 @@ class LocalExecution extends GameStateListener with ExecutionManager {
   def stateChanged(gameState: GameState) {
     gameState match {
       case GameState.EXECUTION_ENDED =>
-        Logger.debug("Executed - Now sending the exercise's result")
+        Logger.info("Executed - Now sending the exercise's result")
         var exo: Exercise = game.getCurrentLesson.getCurrentExercise.asInstanceOf[Exercise]
         var msgType: Int = 0;
         var commonErrorID: Int = exo.lastResult.commonErrorID;
@@ -81,11 +81,11 @@ class LocalExecution extends GameStateListener with ExecutionManager {
 
         var mapArgs: JsValue = Json.obj(
           "msgType" -> msgType,
-          "msg" -> msg, 
-          "commonErrorID" -> commonErrorID, 
+          "msg" -> msg,
+          "commonErrorID" -> commonErrorID,
           "commonErrorText" -> commonErrorText
         )
-        
+
         registeredSpies.foreach { spy => spy.sendOperations }
         plmActor.sendMessage("executionResult", mapArgs)
         removeExecutionSpy

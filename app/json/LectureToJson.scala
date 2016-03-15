@@ -11,7 +11,7 @@ import json.world.WorldToJson
 
 object LectureToJson {
   
-  def lectureWrites(lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], selectedWorldID: String): JsValue = {
+  def lectureWrites(lecture: Lecture, progLang: ProgrammingLanguage, code: String, initialWorlds: Array[World], answerWorlds: Array[World], selectedWorldID: String): JsValue = {
     var progLangArray = lecture.asInstanceOf[Exercise].getProgLanguages.toArray(Array[ProgrammingLanguage]())
     
     var json = Json.obj(
@@ -27,7 +27,8 @@ object LectureToJson {
 
     try {
       json = json.as[JsObject] ++ Json.obj(
-          "initialWorlds" -> WorldToJson.worldsWrite(initialWorlds)
+          "initialWorlds" -> WorldToJson.worldsWrite(initialWorlds),
+          "answerWorlds" -> WorldToJson.worldsWrite(answerWorlds)
       )
     }
     catch {

@@ -47,17 +47,14 @@
     $authProvider.plmAccounts({
       clientId: plmAccountsClientID,
       url: '/authenticate/plmAccounts',
-      authorizationEndpoint: 'http://plm.telecomnancy.univ-lorraine.fr:9000/#!/dialog/authorize',
+      authorizationEndpoint: 'https://plm-accounts.telecomnancy.univ-lorraine.fr/#!/dialog/authorize',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
       scope: 'email',
       scopeDelimiter: ',',
       requiredUrlParams: ['display', 'scope'],
       display: 'popup',
       type: '2.0',
-      popupOptions: {
-        width: 580,
-        height: 400
-      }
+      popupOptions: { width: 775, height: 562 }
     });
 
     // Facebook
@@ -70,11 +67,7 @@
       scopeDelimiter: ',',
       requiredUrlParams: ['display', 'scope'],
       display: 'popup',
-      type: '2.0',
-      popupOptions: {
-        width: 481,
-        height: 269
-      }
+      type: '2.0'
     });
 
     // GitHub
@@ -101,8 +94,7 @@
 			requiredUrlParams: ['scope'],
 			optionalUrlParams: ['display'],
 			display: 'popup',
-			type: '2.0',
-			popupOptions: { width: 580, height: 400 }
+			type: '2.0'
 		});
 
     // Twitter

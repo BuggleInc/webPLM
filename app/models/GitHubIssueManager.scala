@@ -19,7 +19,7 @@ object GitHubIssueManager {
  * @author matthieu
  */
 class GitHubIssueManager {
-  
+
   def postIssue(title: String, body: String): Option[String] = {
     var client: GitHubClient = new GitHubClient
     client.setOAuth2Token(GitHubIssueManager.oAuth2Token)
@@ -33,13 +33,13 @@ class GitHubIssueManager {
     }
     catch {
       case ex: IOException => {
-        Logger.debug("Error while uploading issue: ")
-        Logger.debug(ex.getLocalizedMessage)
+        Logger.error("Error while uploading issue: ")
+        Logger.error(ex.getLocalizedMessage)
         None
       }
     }
   }
-  
+
   def isCorrect(title: String, body: String): Option[String] = {
     if(title.isEmpty) {
       return Some("The current title is empty, please specify a relevant title.\n")

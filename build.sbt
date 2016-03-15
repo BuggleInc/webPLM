@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
+import AssemblyKeys._
 
 //********************************************************
 // Play settings
@@ -7,7 +8,7 @@ import scalariform.formatter.preferences._
 
 name := "web-PLM"
 
-version := "1.2.2"
+version := "1.3.0"
 
 scalaVersion := "2.11.4"
 
@@ -35,6 +36,7 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalacOptions ++= Seq(
+  "-Xmax-classfile-name", "200",
   "-deprecation", // Emit warning and location for usages of deprecated APIs.
   "-feature", // Emit warning and location for usages of features that should be imported explicitly.
   "-unchecked", // Enable additional warnings where generated code depends on assumptions.
@@ -57,3 +59,16 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(FormatXml, false)
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
+
+assemblySettings
+
+mainClass in assembly := Some("play.core.server.ProdServerStart")
+
+fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)
+
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    case PathList("org", "apache", xs @ _*)   => MergeStrategy.first
+    case x => old(x)
+  }
+}

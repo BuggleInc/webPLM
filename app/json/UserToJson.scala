@@ -41,14 +41,10 @@ object UserToJson {
       case _ =>
         // Do nothing
     }
-    Logger.debug("On envoie: "+json.toString)
     json
   }
-  
+
   def userRead(json: JsValue): User = {
-    Logger.debug("Dans userRead: " + json.toString)
-    
-    
     var preferredLang: Option[Lang] = None
     if(json.as[JsObject].keys.contains("preferredLang")) {
        var optCode = (json \ "preferredLang" \ "code").asOpt[String]
@@ -57,9 +53,7 @@ object UserToJson {
             preferredLang = Some(Lang(code))
         }
     }
-    
-    Logger.debug("preferredLang: "+ preferredLang.toString)
-   
+
     new User(
       gitID = (json \ "gitID").as[String],
       email = (json \ "email").asOpt[String],

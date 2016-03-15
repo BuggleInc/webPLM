@@ -88,8 +88,8 @@ class PLMActor (
   
   def receive = {
     case msg: JsValue =>
-      Logger.debug("Received a message")
-      Logger.debug(msg.toString())
+      Logger.debug("Message received:")
+      Logger.debug(msg.toString)
       var cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
@@ -121,7 +121,7 @@ class PLMActor (
               plm.setProgrammingLanguage(programmingLanguage)
               saveLastProgLang(programmingLanguage)
             case _ =>
-              Logger.debug("setProgrammingLanguage: non-correct JSON")
+              logNonValidJSON("setProgrammingLanguage: non-correct JSON", msg)
           }
         case "setLang" =>
           var optLang: Option[String] =  (msg \ "args" \ "lang").asOpt[String]
@@ -131,7 +131,7 @@ class PLMActor (
               plm.setLang(currentPreferredLang)
               savePreferredLang()
             case _ =>
-              Logger.debug("setLang: non-correct JSON")
+              logNonValidJSON("setLang: non-correct JSON", msg)
           }
         case "getExercise" =>
           var optLessonID: Option[String] = (msg \ "args" \ "lessonID").asOpt[String]
@@ -143,11 +143,11 @@ class PLMActor (
             case (lessonID:String, _) =>
               lecture = plm.switchLesson(lessonID)
             case (_, _) =>
-              Logger.debug("getExercise: non-correct JSON")
+              logNonValidJSON("getExercise: non-correct JSON", msg)
           }
           if(lecture != null) {
             sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
+              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
             ))
           }
         case "runExercise" =>
@@ -161,14 +161,14 @@ class PLMActor (
             case (lessonID:String, exerciseID: String, code: String, _) =>
               plm.runExercise(lessonID, exerciseID, code, null)
             case (_, _, _, _) =>
-              Logger.debug("runExercise: non-correctJSON")
+              logNonValidJSON("runExercise: non-correctJSON", msg)
           }
         case "stopExecution" =>
           plm.stopExecution
         case "revertExercise" =>
           var lecture = plm.revertExercise
           sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getSelectedWorldID)
+              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
           ))
         case "getExercises" =>
           if(plm.currentExercise != null) {
@@ -199,10 +199,10 @@ class PLMActor (
                 case trackUser: Boolean =>
                   plm.setTrackUser(currentTrackUser)
                 case _ =>
-                  Logger.debug("setTrackUser: non-correct JSON")
+                  logNonValidJSON("setTrackUser: non-correct JSON", msg)
               }
             case _ =>
-              Logger.debug("updateUser: non-correct JSON")
+              logNonValidJSON("updateUser: non-correct JSON", msg)
           }
         case "userIdle" =>
           setUserIdle
@@ -216,7 +216,7 @@ class PLMActor (
               saveTrackUser(currentTrackUser)
               plm.setTrackUser(currentTrackUser)              
             case _ =>
-              Logger.debug("setTrackUser: non-correct JSON")
+              logNonValidJSON("setTrackUser: non-correct JSON", msg)
           }
         case "submitBugReport" =>
           var optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
@@ -225,21 +225,18 @@ class PLMActor (
             case (title: String, body: String) =>
               gitHubIssueManager.isCorrect(title, body).getOrElse(None) match {
                 case errorMsg: String =>
-                  Logger.debug("Try to post incorrect issue...")
-                  Logger.debug("Title: "+title+", body: "+body)
                   sendMessage("incorrectIssue", Json.obj("msg" -> errorMsg))
                 case None =>
                   gitHubIssueManager.postIssue(title, body).getOrElse(None) match {
                     case issueUrl: String =>
-                      Logger.debug("Issue created at: "+ issueUrl)
                       sendMessage("issueCreated", Json.obj("url" -> issueUrl))
                     case None =>
-                      Logger.debug("Error while uploading issue...")
+                      Logger.error("Error while uploading issue...")
                       sendMessage("issueErrored", Json.obj())
                   }
               }
             case (_, _) =>
-              Logger.debug("submitBugReport: non-correct JSON")
+              logNonValidJSON("submitBugReport: non-correct JSON", msg)
           }
         case "commonErrorFeedback" =>
           var optCommonErrorID: Option[Int] = (msg \ "args" \ "commonErrorID").asOpt[Int]
@@ -250,7 +247,7 @@ class PLMActor (
             case (commonErrorID: Int, accuracy: Int, help: Int, comment: String) =>
               plm.signalCommonErrorFeedback(commonErrorID, accuracy, help, comment)
             case _ =>
-              Logger.debug("commonErrorFeedback: non-correct JSON")
+              logNonValidJSON("commonErrorFeedback: non-correct JSON", msg)
           }
         case "readTip" =>
           var optTipID: Option[String] = (msg \ "args" \ "tipID").asOpt[String]
@@ -258,12 +255,12 @@ class PLMActor (
             case tipID: String =>
               plm.signalReadTip(tipID)
             case _ =>
-              Logger.debug("readTip: non-correct JSON")
+              logNonValidJSON("readTip: non-correct JSON", msg)
           } 
         case "ping" =>
           // Do nothing
         case _ =>
-          Logger.debug("cmd: non-correct JSON")
+          logNonValidJSON("cmd: non-correct JSON", msg)
       }
   }
   
@@ -348,7 +345,6 @@ class PLMActor (
   def setUserIdle() {
     userIdle = true
     idleStart = Instant.apply
-    Logger.debug("start idling at: "+ idleStart)      
   }
 
   def clearUserIdle() {
@@ -356,8 +352,6 @@ class PLMActor (
     idleEnd = Instant.apply
     if(idleStart != null) {
       var duration = Duration.between(idleStart, idleEnd)
-      Logger.debug("end idling at: "+ idleEnd)
-      Logger.debug("duration: " + duration)
       plm.signalIdle(idleStart.toString, idleEnd.toString, duration.toString)
     }
     else {
@@ -375,9 +369,14 @@ class PLMActor (
       UserDAORestImpl.update(currentUser)
     }
   }
+  
+  def logNonValidJSON(label: String, msg: JsValue) {
+    Logger.error(label)
+    Logger.error(msg.toString)
+  }
 
   override def postStop() = {
-    Logger.debug("postStop: websocket closed - removing the spies")
+    Logger.info("postStop: websocket closed - removing the spies")
     if(userIdle) {
       clearUserIdle
     }

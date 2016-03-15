@@ -79,11 +79,6 @@ class PLMAccountsParser extends SocialProfileParser[JsValue, CommonSocialProfile
     val lastName = (json \ "lastName").asOpt[String]
     val avatarUrl = Some("")
     val email = (json \ "email").asOpt[String].filter(!_.isEmpty)
-
-    
-    Logger.debug("userID: "+ userID)
-    Logger.debug("fullName: "+ fullName)
-    Logger.debug("email: "+ email)
     
     CommonSocialProfile(
       loginInfo = LoginInfo(ID, userID),

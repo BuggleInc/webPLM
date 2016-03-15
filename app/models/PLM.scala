@@ -83,6 +83,10 @@ class PLM(
     if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.INITIAL) != null) _currentExercise.getWorlds(WorldKind.INITIAL).toArray(Array[World]()) else null
   }
 
+  def getAnswerWorlds(): Array[World] = {
+    if(_currentExercise != null && _currentExercise.getWorlds(WorldKind.ANSWER) != null) _currentExercise.getWorlds(WorldKind.ANSWER).toArray(Array[World]()) else null
+  }
+
   def getAPI(): String = {
     var api: String = ""
     if(getInitialWorlds != null) {
