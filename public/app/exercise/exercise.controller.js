@@ -583,12 +583,15 @@
             // We do not want to display the result yet
             return;
           }
-          exercise.result += msg;
-          if (msgType === 1) {
-            $('#successModal').foundation('reveal', 'open');
-          }
-          exercise.resultType = msgType;
-          exercise.display = 'result';
+          // Will display the result a few moments after the animation's end
+          $timeout(function() {
+            exercise.result += msg;
+            if (msgType === 1) {
+              $('#successModal').foundation('reveal', 'open');
+            }
+            exercise.resultType = msgType;
+            exercise.display = 'result';
+          }, 500);
           unbindListener(); // Allows to remove the listener
         });
       }
