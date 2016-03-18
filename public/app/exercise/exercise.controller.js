@@ -6,7 +6,7 @@
     .controller('Exercise', Exercise);
 
   Exercise.$inject = [
-  '$window', '$http', '$scope', '$sce', '$stateParams',
+  '$window', '$http', '$scope', '$sce', '$stateParams', '$location', '$anchorScroll',
   'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation',
   'canvas', 'drawWithDOM',
   'blocklyService',
@@ -23,7 +23,7 @@
   'HanoiWorld', 'HanoiView'
  ];
 
-  function Exercise($window, $http, $scope, $sce, $stateParams,
+  function Exercise($window, $http, $scope, $sce, $stateParams, $location, $anchorScroll,
     connection, listenersHandler, langs, progLangs, exercisesList, navigation,
     canvas, drawWithDOM,
     blocklyService,
@@ -557,6 +557,9 @@
       connection.sendMessage('runExercise', args);
       exercise.isRunning = true;
       exercise.executionStopped = false;
+
+      $location.hash(exercise.drawingArea);
+      $anchorScroll();
     }
 
     function stopExecution() {
