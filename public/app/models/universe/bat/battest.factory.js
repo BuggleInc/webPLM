@@ -8,33 +8,33 @@
   function BatTest() {
 
     var BatTest = function(batTest) {
-      this.name = batTest.name;
-      this.answered = batTest.answered;
+      this.funName = batTest.funName;
+      this.parameters = batTest.parameters;
       this.result = batTest.result;
-      this.displayedResult = batTest.displayedResult;
       this.expected = batTest.expected;
-      this.displayedExpected = batTest.displayedExpected;
       this.visible = batTest.visible;
+      this.answered = batTest.answered;
       this.correct = batTest.correct;
     };
 
-    BatTest.prototype.setResult = function(result, displayedResult) {
+    BatTest.prototype.setResult = function(result) {
       this.result = result;
-      this.displayedResult = displayedResult;
       this.answered = true;
       if(this.result == this.expected) {
         this.correct = true;
       }
     };
 
-    BatTest.prototype.setExpected = function(expected, displayedExpected) {
+    BatTest.prototype.setExpected = function(expected) {
       this.expected = expected;
-      this.displayedExpected = displayedExpected;
     };
 
     BatTest.prototype.toString = function () {
-      var suffix = !this.correct ? ' (expected: '+ this.displayedExpected + ')' : '';
-      return this.name + ' = ' + (this.answered ? this.displayedResult + suffix : this.displayedExpected)
+      var suffix = !this.correct ? ' (expected: '+ this.expected + ')' : '';
+      var rightMember = (this.answered ? this.result + suffix : this.expected);
+      var leftMember = this.funName + '(' + this.parameters.join(',') + ')';
+
+      return leftMember + ' = ' + rightMember;
     };
 
     return BatTest;

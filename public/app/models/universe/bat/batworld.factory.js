@@ -29,13 +29,13 @@
       }
     };
 
-		BatWorld.prototype.setBatTestResult = function (index, result, displayedResult) {
-			this.batTests[index].setResult(result, displayedResult);
-		}
+    BatWorld.prototype.setBatTestResult = function (index, result) {
+      this.batTests[index].setResult(result);
+    }
 
     BatWorld.prototype.setExpected = function (answerWorld) {
       for (var i = 0; i < this.batTests.length; i++) {
-        this.batTests[i].setExpected(answerWorld.batTests[i].result, answerWorld.batTests[i].displayedResult);
+        this.batTests[i].setExpected(answerWorld.batTests[i].result);
       }
     };
 
@@ -57,7 +57,6 @@
       for (var i = 0; i < operations.length; i++) {
         var operation = operations[i];
         var generatedOperation = this.generateOperation(operation);
-        console.log('generatedOperation; ', generatedOperation);
         var currentWorld = this;
         $timeout(function() {
           generatedOperation.apply(currentWorld);
@@ -68,7 +67,7 @@
     };
 
     BatWorld.prototype.generateOperation = function (operation) {
-      switch (operation.type) {
+      switch (operation.name) {
         case 'setResult':
           return new SetResult(operation);
       }
