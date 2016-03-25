@@ -25,6 +25,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import java.util.UUID
 import java.util.Locale
 import plm.core.model.json.JSONUtils
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * @author matthieu
@@ -102,14 +103,13 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       channelIn.basicConsume(replyQueue, true, consumer)
 
       val parameters: Map[String, Object] = new HashMap[String, Object]
-      parameters.put("exercise", exercise)
+      parameters.put("exercise", JSONUtils.exerciseToJudgeJSON(exercise)) // To remove incorrect entities' type
       parameters.put("code", code)
       parameters.put("language", progLang.getLang)
       parameters.put("localization", currentLocale.getLanguage)
       parameters.put("replyQueue", replyQueue)
       
       val json: String = JSONUtils.mapToJSON(parameters)
-      Logger.error("json: "+ json)
 
       channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, json.getBytes("UTF-8"))
       timeout = System.currentTimeMillis + defaultTimeout
@@ -145,20 +145,14 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       client ! msg
     }
     else {
-      val p: JSONParser = new JSONParser()
-      try {
-        val json: JSONObject = p.parse(msg).asInstanceOf[JSONObject]
-        val msgType: String = json.get("cmd").asInstanceOf[String]
-        msgType match {
-          case "executionResult" =>
-            val jsonResult: JSONObject = json.get("result").asInstanceOf[JSONObject]
-            val result: ExecutionProgress = new ExecutionProgress(ProgrammingLanguage.defaultProgLang)// FIXME: jsonResult)
-            plmActor ! result
-            state = Replied
-          case _ =>
-        }
-      } catch {
-        case e: ParseException => e.printStackTrace
+      val json: JsonNode = JSONUtils.mapper.readTree(msg)
+      val msgType: String = json.path("cmd").asText
+      msgType match {
+        case "executionResult" =>
+          val result: ExecutionProgress = JSONUtils.mapper.treeToValue(json.path("args").path("result"), classOf[ExecutionProgress])
+          plmActor ! result
+          state = Replied
+        case _ =>
       }
     }
     state
