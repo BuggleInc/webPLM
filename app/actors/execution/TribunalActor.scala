@@ -127,7 +127,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
         }
         // The delivery will be "null" if nextDelivery timed out.
         else if (delivery != null) {
-          handleMessage(plmActor, client, progLang, new String(delivery.getBody, "UTF-8"))
+          state = handleMessage(plmActor, client, progLang, new String(delivery.getBody, "UTF-8"))
         }
       }
       channelIn.close
