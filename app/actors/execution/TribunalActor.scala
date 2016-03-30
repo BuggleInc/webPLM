@@ -127,7 +127,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
         }
         // The delivery will be "null" if nextDelivery timed out.
         else if (delivery != null) {
-          handleMessage(plmActor, client, new String(delivery.getBody, "UTF-8"))
+          handleMessage(plmActor, client, progLang, new String(delivery.getBody, "UTF-8"))
         }
       }
       channelIn.close
@@ -138,7 +138,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
     message.startsWith("""{"cmd":"operations"""")
   }
 
-  def handleMessage(plmActor: ActorRef, client: ActorRef, msg: String): TribunalState = {
+  def handleMessage(plmActor: ActorRef, client: ActorRef, progLang: ProgrammingLanguage, msg: String): TribunalState = {
     var state: TribunalState = Streaming
     if(containsOperations(msg)) {
       // Handle separately operations to avoid too much parsing
@@ -150,6 +150,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       msgType match {
         case "executionResult" =>
           val result: ExecutionProgress = JSONUtils.mapper.treeToValue(json.path("args").path("result"), classOf[ExecutionProgress])
+          result.language = progLang
           plmActor ! result
           state = Replied
         case _ =>
