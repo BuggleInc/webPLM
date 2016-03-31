@@ -90,10 +90,6 @@ object ExercisesActor {
       exercise.setSettings(userSettings)
       exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
 
-      if(exercise.getId == "Poucet1") {
-        val jsonExercise: ObjectNode = JSONUtils.exerciseToJudgeJSON(exercise)
-        Logger.error("jsonExercise: " + jsonExercise)
-      }
       exercises += (exerciseName -> exercise)
     }
 
