@@ -70,6 +70,11 @@ class PLM(
     return lect
   }
 
+  def getLastCommitId() : String = {
+    return gitUtils.getLastCommitId()
+  }
+
+
   def revertExercise(): Lecture = {
     game.revertExo
     return _currentExercise

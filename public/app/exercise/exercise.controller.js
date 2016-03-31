@@ -150,6 +150,7 @@
       }
       // Save the editor content in the local storage
       $window.localStorage.setItem("editor." + exercise.id + "." + editor.getOption("mode"), editor.getValue());
+      connection.sendMessage('getLastCommit', null);
       startIdleLoop();
     }
 
@@ -213,6 +214,9 @@
         break;
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
+        break;
+      case 'commitId':
+        console.log("Commit id received");
         break;
       }
     }

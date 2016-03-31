@@ -177,6 +177,8 @@ class PLMActor (
               "exercises" -> ExerciseToJson.exercisesWrite(lectures) 
             ))
           }
+        case "getLastCommit" =>
+          sendMessage("commitId", Json.obj("id" -> plm.getLastCommitId()))
         case "getLangs" =>
           sendMessage("langs", Json.obj(
             "selected" -> LangToJson.langWrite(currentPreferredLang),
