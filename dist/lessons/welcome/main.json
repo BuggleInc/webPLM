@@ -356,7 +356,7 @@
             "pt_br": "Parot Trouble",
             "fr": "Problème de perroquet"
           },
-          "id": "welcome.lessons.welcome.bat.bool1.ParotTrouble",
+          "id": "bat.bool1.parottrouble.ParotTrouble",
           "dependingLectures": []
         },
         {
@@ -365,7 +365,7 @@
             "pt_br": "Makes 10",
             "fr": "Font 10"
           },
-          "id": "welcome.lessons.welcome.bat.bool1.Makes10",
+          "id": "bat.bool1.makes10.Makes10",
           "dependingLectures": []
         },
         {
@@ -374,7 +374,7 @@
             "pt_br": "Positivo Negativo",
             "fr": "Positif Négatif"
           },
-          "id": "welcome.lessons.welcome.bat.bool1.PosNeg",
+          "id": "bat.bool1.posneg.PosNeg",
           "dependingLectures": []
         },
         {
