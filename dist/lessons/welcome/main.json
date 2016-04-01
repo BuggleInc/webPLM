@@ -383,7 +383,7 @@
             "pt_br": "Frio Quente",
             "fr": "Feu glacé"
           },
-          "id": "welcome.lessons.welcome.bat.bool1.IcyHot",
+          "id": "bat.bool1.icyhot.IcyHot",
           "dependingLectures": []
         },
         {
@@ -392,7 +392,7 @@
             "pt_br": "In [10;20]",
             "fr": "Dans [10;20]"
           },
-          "id": "welcome.lessons.welcome.bat.bool1.In1020",
+          "id": "bat.bool1.in1020.In1020",
           "dependingLectures": []
         },
         {
