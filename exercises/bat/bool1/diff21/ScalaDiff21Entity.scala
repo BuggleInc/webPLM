@@ -8,7 +8,7 @@ import plm.universe.bat.BatEntity
  */
 class ScalaDiff21Entity extends BatEntity {
   override def run(t: BatTest) {
-    t.setResult( diff21(t.getParameter(1).asInstanceOf[Integer]))
+    t.setResult( diff21(t.getParameter(0).asInstanceOf[Integer]))
   }
 
   /* BEGIN TEMPLATE */
