@@ -828,7 +828,7 @@
         "pt_br": "Mundo das cobras",
         "fr": "Monde de serpents"
       },
-      "id": "welcome.lessons.welcome.traversal.Snake",
+      "id": "traversal.snake.Snake",
       "dependingLectures": [
         {
           "names": {
@@ -836,7 +836,7 @@
             "pt_br": "Percorrer pelas colunas",
             "fr": "Parcours en colonne"
           },
-          "id": "welcome.lessons.welcome.traversal.column.TraversalByColumn",
+          "id": "traversal.column.traversalbycolumn.TraversalByColumn",
           "dependingLectures": []
         },
         {
