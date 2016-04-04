@@ -845,7 +845,7 @@
             "pt_br": "Percorrer pelas linhas",
             "fr": "Parcours en ligne"
           },
-          "id": "welcome.lessons.welcome.traversal.line.TraversalByLine",
+          "id": "traversal.line.traversalbyline.TraversalByLine",
           "dependingLectures": []
         },
         {
@@ -854,7 +854,7 @@
             "pt_br": "Percorrer em zig-zag",
             "fr": "Parcours en zig-zag"
           },
-          "id": "welcome.lessons.welcome.traversal.zigzag.TraversalZigZag",
+          "id": "traversal.zigzag.traversalzigzag.TraversalZigZag",
           "dependingLectures": []
         },
         {
@@ -863,7 +863,7 @@
             "pt_br": "Percorrer na diagonal",
             "fr": "Parcours en diagonale"
           },
-          "id": "welcome.lessons.welcome.traversal.diagonal.TraversalDiagonal",
+          "id": "traversal.diagonal.traversaldiagonal.TraversalDiagonal",
           "dependingLectures": []
         }
       ]
@@ -874,7 +874,7 @@
         "pt_br": "Perdido em Moria",
         "fr": "Perdu dans la Moria"
       },
-      "id": "welcome.lessons.welcome.summative.Moria",
+      "id": "summative.moria.Moria",
       "dependingLectures": []
     }
   ],
