@@ -9,12 +9,22 @@
 
     var BatTest = function(batTest) {
       this.funName = batTest.funName;
-      this.parameters = batTest.parameters;
       this.result = batTest.result;
       this.expected = batTest.expected;
       this.visible = batTest.visible;
       this.answered = batTest.answered;
       this.correct = batTest.correct;
+
+      if(batTest instanceof BatTest) {
+        this.parameters = batTest.parameters; // Already apply filter on parameters
+      } else {
+        this.parameters = batTest.parameters.map(function (item) {
+          if(item instanceof Array) {
+            return item[1]; // item[0] is the type of the item
+          }
+          return item;
+        });
+      }
     };
 
     BatTest.prototype.setResult = function(result) {
