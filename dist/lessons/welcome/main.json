@@ -817,7 +817,7 @@
             "pt_br": "Ilha dos Buggles",
             "fr": "L'île des Buggles"
           },
-          "id": "welcome.lessons.welcome.array.island.Island",
+          "id": "array.island.Island",
           "dependingLectures": []
         }
       ]
