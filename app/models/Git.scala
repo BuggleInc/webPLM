@@ -130,6 +130,10 @@ class Git(initUserUUID : String, gitUtils : GitUtils) {
     }
   }
 
+  def getLastCommitId(file: String) : String = {
+    return gitUtils.getLastCommitId(file)
+  }
+
   def getRepoDir() : File = {
     gitUtils.getRepoDir
   }

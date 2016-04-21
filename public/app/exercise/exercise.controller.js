@@ -96,6 +96,7 @@
     exercise.ide = 'codemirror';
     exercise.toolbox = null;
     exercise.studentCode = null;
+    exercise.commitId = null;
 
     exercise.drawServiceType = '';
     exercise.drawService = null;
@@ -149,8 +150,14 @@
         connection.sendMessage('userBack', {});
       }
       // Save the editor content in the local storage
-      $window.localStorage.setItem("editor." + exercise.id + "." + editor.getOption("mode"), editor.getValue());
-      connection.sendMessage('getLastCommit', null);
+      $window.localStorage.setItem("editor." + exercise.id + "." + editor.currentProgrammingLanguage, editor.getValue());
+      var args = {
+        lessonID: exercise.lessonID,
+        exerciseID: exercise.id,
+        language: exercise.currentProgrammingLanguage
+      }
+      connection.sendMessage("getLastCommit", args)
+      
       startIdleLoop();
     }
 
@@ -163,9 +170,18 @@
     
     
     function loadEditorContent() {
-      var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + editor.getOption("mode"));
-      if (editorValue !== null) 
-          editor.setValue(editorValue);
+      var args = {
+        lessonID: exercise.lessonID,
+        exerciseID: exercise.id,
+        language: exercise.currentProgrammingLanguage
+      }
+      connection.sendMessage('getLastCommit', args);
+      var localCommitId = $window.localStorage.getItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage);
+      if (localCommitId == exercise.commitId) {
+        var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage);
+        if (editorValue !== null) 
+            editor.setValue(editorValue);
+      }
     }
 
     function getExercise() {
@@ -216,7 +232,7 @@
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
         break;
       case 'commitId':
-        console.log("Commit id received");
+        exercise.commitId = args.id;
         break;
       }
     }

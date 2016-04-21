@@ -43,6 +43,7 @@ class PLM(
   var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
   var gitGest = new Git(initUserUUID, gitUtils)
 
+
   def lessons: Map[String, Lesson] = game.getMapLessons
 
   def switchLesson(lessonID: String): Lecture = {
@@ -70,8 +71,9 @@ class PLM(
     return lect
   }
 
-  def getLastCommitId() : String = {
-    return gitUtils.getLastCommitId()
+  def getLastCommitId(file: String) : String = {
+    filename
+    return gitGest.getLastCommitId(file)
   }
 
 
