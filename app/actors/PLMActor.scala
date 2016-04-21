@@ -178,8 +178,15 @@ class PLMActor (
             ))
           }
         case "getLastCommit" =>
-          var file: Option[String] = (msg \ "args" \ "file").asOpt[String]
-          sendMessage("commitId", Json.obj("id" -> plm.getLastCommitId(file)))
+          var optExerciseID : Option[String]  = (msg \ "args" \ "exerciseID").asOpt[String]
+          var optLanguage : Option[String]  = (msg \ "args" \ "language").asOpt[String]
+          var filename: String = null
+          (optExerciseID.getOrElse(None), optLanguage.getOrElse(None)) match {
+            case (exerciseID: String, language: String) =>
+            filename = exerciseID + "." + language + ".code"
+            sendMessage("commitId", Json.obj("id" -> plm.getLastCommitId(filename)))
+          }
+          
         case "getLangs" =>
           sendMessage("langs", Json.obj(
             "selected" -> LangToJson.langWrite(currentPreferredLang),

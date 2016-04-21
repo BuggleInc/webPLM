@@ -152,7 +152,6 @@
       // Save the editor content in the local storage
       $window.localStorage.setItem("editor." + exercise.id + "." + editor.currentProgrammingLanguage, editor.getValue());
       var args = {
-        lessonID: exercise.lessonID,
         exerciseID: exercise.id,
         language: exercise.currentProgrammingLanguage
       }
@@ -171,7 +170,6 @@
     
     function loadEditorContent() {
       var args = {
-        lessonID: exercise.lessonID,
         exerciseID: exercise.id,
         language: exercise.currentProgrammingLanguage
       }

@@ -72,7 +72,6 @@ class PLM(
   }
 
   def getLastCommitId(file: String) : String = {
-    filename
     return gitGest.getLastCommitId(file)
   }
 
