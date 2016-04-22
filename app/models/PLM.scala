@@ -71,14 +71,13 @@ class PLM(
     return lect
   }
 
-  def getLastCommitId(file: String) : String = {
-    return gitGest.getLastCommitId(file)
-  }
-
-
   def revertExercise(): Lecture = {
     game.revertExo
     return _currentExercise
+  }
+
+  def getLastCommitId(exerciseID: String, language: String) : String = {
+    return gitUtils.getLastCommitId(exerciseID, language)
   }
 
   def getSelectedWorldID(): String = {

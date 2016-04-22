@@ -149,14 +149,7 @@
         exercise.idle = false;
         connection.sendMessage('userBack', {});
       }
-      // Save the editor content in the local storage
-      $window.localStorage.setItem("editor." + exercise.id + "." + editor.currentProgrammingLanguage, editor.getValue());
-      var args = {
-        exerciseID: exercise.id,
-        language: exercise.currentProgrammingLanguage
-      }
-      connection.sendMessage("getLastCommit", args)
-      
+      saveEditorContent();
       startIdleLoop();
     }
 
@@ -168,18 +161,18 @@
     };
     
     
+    function saveEditorContent()  {
+      // Save the editor content in the local storage
+      $window.localStorage.setItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage, editor.getValue());
+      $window.localStorage.setItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage, exercise.commitId);
+    }
+
     function loadEditorContent() {
       var args = {
         exerciseID: exercise.id,
         language: exercise.currentProgrammingLanguage
       }
-      connection.sendMessage('getLastCommit', args);
-      var localCommitId = $window.localStorage.getItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage);
-      if (localCommitId == exercise.commitId) {
-        var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage);
-        if (editorValue !== null) 
-            editor.setValue(editorValue);
-      }
+      connection.sendMessage('loadContent', args);
     }
 
     function getExercise() {
@@ -232,7 +225,22 @@
       case 'commitId':
         exercise.commitId = args.id;
         break;
+      case 'loadContent': 
+        exercise.commitId = args.id;
+        var localCommitId = $window.localStorage.getItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage);
+        if (localCommitId === exercise.commitId || localCommitId === "") {
+          var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage);
+          if (editorValue !== null) {
+            editor.setValue(editorValue);
+            // FIXME
+            console.log("content loaded from local storage");
+          }
+        } else
+        // FIXME
+          console.log("content NOT loaded");
+        break;
       }
+
     }
 
     function setExercise(data) {
@@ -486,6 +494,7 @@
           }
         }
         progLangs.setCurrentProglang(progLang);
+        exercise.currentProgrammingLanguage = progLang.lang.toLowerCase();
         updateUI(progLang, data.instructions, data.api, data.code.trim());
       }
 
@@ -641,7 +650,8 @@
       exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
     }
 
-    function updateModel() {
+    function updateModel() {     
+      connection.sendMessage("getLastCommit", {exerciseID: exercise.id, language: exercise.currentProgrammingLanguage})
       var currentState = exercise.currentWorld.currentState;
       var nbStates = exercise.currentWorld.operations.length - 1;
       if (currentState !== nbStates) {

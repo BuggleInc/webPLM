@@ -178,15 +178,9 @@ class PLMActor (
             ))
           }
         case "getLastCommit" =>
-          var optExerciseID : Option[String]  = (msg \ "args" \ "exerciseID").asOpt[String]
-          var optLanguage : Option[String]  = (msg \ "args" \ "language").asOpt[String]
-          var filename: String = null
-          (optExerciseID.getOrElse(None), optLanguage.getOrElse(None)) match {
-            case (exerciseID: String, language: String) =>
-            filename = exerciseID + "." + language + ".code"
-            sendMessage("commitId", Json.obj("id" -> plm.getLastCommitId(filename)))
-          }
-          
+          getCommitId(msg, "commitId")
+        case "loadContent" => 
+          getCommitId(msg, "loadContent")
         case "getLangs" =>
           sendMessage("langs", Json.obj(
             "selected" -> LangToJson.langWrite(currentPreferredLang),
@@ -315,6 +309,17 @@ class PLMActor (
       )
     }
   } 
+
+  def getCommitId(msg: JsValue, response: String) {
+    var optExerciseID : Option[String]  = (msg \ "args" \ "exerciseID").asOpt[String]
+          var optLanguage : Option[String]  = (msg \ "args" \ "language").asOpt[String]
+          var filename: String = null
+          (optExerciseID.getOrElse(None), optLanguage.getOrElse(None)) match {
+            case (exerciseID: String, language: String) =>
+              filename = exerciseID + "." + language + ".code"
+              sendMessage(response, Json.obj("id" -> plm.getLastCommitId(exerciseID, language)))
+          }
+  }
   
   def initExecutionManager() {
     executionManager.setPLMActor(this)
