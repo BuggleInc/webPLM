@@ -16,7 +16,7 @@ import java.io.File
 object LessonsActor {
   def props = Props[LessonsActor]
 
-  val rootDirectory: String = "lessons"
+  val rootDirectory: String = if(play.Play.isProd) { "lessons" } else { "dist/lessons" }
 
   case class LessonExists(lessonID: String)
   case class CheckLessonAndExercise(lessonID: String, exerciseID: String)
