@@ -60,7 +60,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
-unmanagedSourceDirectories in Compile += baseDirectory.value / "exercises"
+unmanagedSourceDirectories in Compile += baseDirectory.value / "dist" / "exercises"
 
 assemblySettings
 

@@ -37,7 +37,8 @@ import java.util.ArrayList
 object ExercisesActor {
   def props = Props[ExercisesActor]
 
-  val baseDirectory: File = new File("exercises")
+  val path: String = if(play.Play.isProd) { "exercises" } else { "dist/exercises" }
+  val baseDirectory: File = new File(path)
   val filterRegexp = new Regex("^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$") // Select all files ending with ".java" but not containing "Entity"
 
   val exercisesName: Array[String] = generateExercisesIDsList(baseDirectory, filterRegexp)
