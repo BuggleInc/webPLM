@@ -14,6 +14,8 @@ GET     /assets/*file                                       controllers.Assets.a
 GET     /img/*file                                          controllers.Assets.at(path="/img", file)
 GET     /lessons/*file                                      controllers.Assets.at(path="/lessons", file)
 
+GET		/utils/export-exercises								@controllers.UtilsController.exportExercises
+
 GET     /user/:actorUUID                                    @controllers.ApplicationController.user(actorUUID: String)
 GET     /signOut                                            @controllers.ApplicationController.signOut
 GET     /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
