@@ -89,11 +89,9 @@ object ExercisesActor {
   def initExercises(): Map[String, Exercise] = {
     var exercises: Map[String, Exercise] = Map()
     val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
-    exercisesName.foreach { exerciseName => 
-      val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
-      exercise.setSettings(userSettings)
-      exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
-
+    exercisesName.foreach { exerciseName =>
+      val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/") + ".json"
+      val exercise: Exercise = JSONUtils.fileToExercise(path)
       exercises += (exerciseName -> exercise)
     }
 
