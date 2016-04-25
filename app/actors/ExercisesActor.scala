@@ -30,6 +30,7 @@ import plm.core.model.lesson.Exercise.WorldKind
 import plm.universe.World
 import plm.universe.Operation
 import java.util.ArrayList
+import com.fasterxml.jackson.databind.SerializationFeature
 /**
  * @author matthieu
  */
@@ -49,12 +50,14 @@ object ExercisesActor {
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(locale)
 
   val exercisesFactory: ExerciseFactory = new ExerciseFactory(locale, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
+  exercisesFactory.setRootDirectory(path)
   val tipsFactory: AbstractTipFactory = new TipFactory
   exercisesFactory.setTipFactory(tipsFactory)
 
   val exercises: Map[String, Exercise] = initExercises
 
   case class GetExercise(exerciseID: String)
+  case class ExportExercises()
 
   def generateExercisesIDsList(directory: File, r: Regex): Array[String] = {
     val files: Array[File] = directory.listFiles
@@ -96,6 +99,22 @@ object ExercisesActor {
 
     exercises
   }
+
+  def exportExercises(): Unit = {
+    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
+    exercisesName.foreach { exerciseName =>
+      // Instantiate the exercise the old fashioned way
+      val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
+      exercise.setSettings(userSettings)
+      exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
+
+      // Store into a file its JSON serialization
+      val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
+      JSONUtils.mapper.enable(SerializationFeature.INDENT_OUTPUT)
+      JSONUtils.mapper.writeValue(new File(path + ".json"), JSONUtils.exerciseToJudgeJSON(exercise))
+      JSONUtils.mapper.disable(SerializationFeature.INDENT_OUTPUT)
+    }
+  }
 }
 
 class ExercisesActor extends Actor {
@@ -104,6 +123,8 @@ class ExercisesActor extends Actor {
   def receive =  {
     case GetExercise(exerciseID) =>
       sender ! getExercise(exerciseID)
+    case ExportExercises =>
+      exportExercises
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
