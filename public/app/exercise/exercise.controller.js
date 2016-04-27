@@ -98,6 +98,7 @@
     exercise.ide = 'codemirror';
     exercise.toolbox = null;
     exercise.studentCode = null;
+    exercise.commitId = null;
 
     exercise.drawServiceType = '';
     exercise.drawService = null;
@@ -150,6 +151,7 @@
         exercise.idle = false;
         connection.sendMessage('userBack', {});
       }
+      saveEditorContent();
       startIdleLoop();
     }
 
@@ -159,6 +161,21 @@
       exercise.editor.on('change', resetIdleLoop);
       resizeCodeMirror();
     };
+    
+    
+    function saveEditorContent()  {
+      // Save the editor content in the local storage
+      $window.localStorage.setItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage, editor.getValue());
+      $window.localStorage.setItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage, exercise.commitId);
+    }
+
+    function loadEditorContent() {
+      var args = {
+        exerciseID: exercise.id,
+        language: exercise.currentProgrammingLanguage
+      }
+      connection.sendMessage('loadContent', args);
+    }
 
     function getExercise() {
       var args = {
@@ -207,13 +224,31 @@
       case 'newHumanLang':
         updateUI(exercise.currentProgrammingLanguage, args.instructions, args.api, null);
         break;
+      case 'commitId':
+        exercise.commitId = args.id;
+        break;
+      case 'loadContent': 
+        exercise.commitId = args.id;
+        var localCommitId = $window.localStorage.getItem("commitId." + exercise.id + "." + exercise.currentProgrammingLanguage);
+        if (localCommitId === exercise.commitId || localCommitId === "") {
+          var editorValue = $window.localStorage.getItem("editor." + exercise.id + "." + exercise.currentProgrammingLanguage);
+          if (editorValue !== null) {
+            editor.setValue(editorValue);
+            // FIXME
+            console.log("content loaded from local storage");
+          }
+        } else
+        // FIXME
+          console.log("content NOT loaded");
+        break;
       }
+
     }
 
     function setExercise(data) {
       exercise.id = data.id;
       exercise.name = data.id.split('.').pop();
-
+      
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
@@ -470,6 +505,7 @@
           }
         }
         progLangs.setCurrentProglang(progLang);
+        exercise.currentProgrammingLanguage = progLang.lang.toLowerCase();
         updateUI(progLang, data.instructions, data.api, data.code.trim());
       }
 
@@ -479,8 +515,8 @@
       exercise.resultType = null;
       exercise.result = '';
       exercise.logs = '';
-
       exercisesList.setCurrentLessonID(exercise.lessonID);
+
     }
 
     function updateInstructions(instructions, api) {
@@ -662,7 +698,8 @@
       exercise.updateModelLoop = $timeout(updateModel, $scope.timer);
     }
 
-    function updateModel() {
+    function updateModel() {     
+      connection.sendMessage("getLastCommit", {exerciseID: exercise.id, language: exercise.currentProgrammingLanguage})
       var currentState = exercise.currentWorld.currentState;
       var nbStates = exercise.currentWorld.operations.length - 1;
       if (currentState !== nbStates) {
@@ -884,6 +921,7 @@
           $timeout(function () {
             exercise.editor.refresh();
           }, 0);
+          loadEditorContent();
         }
       }
       updateInstructions(instructions, api);

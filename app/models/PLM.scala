@@ -43,6 +43,7 @@ class PLM(
   var game = new Game(initUserUUID, plmLogger, locale, lastProgLang.getOrElse("Java"), gitUtils, trackUser, properties)
   var gitGest = new Git(initUserUUID, gitUtils)
 
+
   def lessons: Map[String, Lesson] = game.getMapLessons
 
   def switchLesson(lessonID: String): Lecture = {
@@ -73,6 +74,10 @@ class PLM(
   def revertExercise(): Lecture = {
     game.revertExo
     return _currentExercise
+  }
+
+  def getLastCommitId(exerciseID: String, language: String) : String = {
+    return gitUtils.getLastCommitId(exerciseID, language)
   }
 
   def getSelectedWorldID(): String = {
