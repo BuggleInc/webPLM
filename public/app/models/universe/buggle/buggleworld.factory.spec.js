@@ -17,7 +17,7 @@
     beforeEach(function () {
       var i, j, nbEntities,
         dataBuggleWorld,
-        cell, buggle;
+        cell, row, buggle;
 
       type = getRandomString(15);
       width = getRandomInt(10) + 1;
@@ -28,12 +28,14 @@
 
       cells = [];
       for (i = 0; i < width; i += 1) {
+        row = [];
         for (j = 0; j < height; j += 1) {
           cell = getRandomBuggleWorldCell();
           cell.x = i;
           cell.y = j;
-          cells.push(cell);
+          row.push(cell);
         }
+        cells.push(row);
       }
 
       entities = [];
@@ -50,8 +52,8 @@
 
       dataBuggleWorld = {
         type: type,
-        sizeX: width,
-        sizeY: height,
+        width: width,
+        height: height,
         cells: cells,
         entities: entities
       };
@@ -74,8 +76,7 @@
       for (i = 0; i < width; i += 1) {
         for (j = 0; j < height; j += 1) {
           cell = buggleWorld.getCell(i, j);
-          index = i * height + j;
-          expect(cell).toEqualToBuggleWorldCell(cells[index]);
+          expect(cell).toEqualToBuggleWorldCell(cells[i][j]);
         }
       }
 
@@ -133,10 +134,9 @@
       var x, y, index, actual, expected;
       x = getRandomInt(width);
       y = getRandomInt(height);
-      index = x * height + y;
 
       actual = buggleWorld.getCell(x, y);
-      expected = cells[index];
+      expected = cells[x][y];
 
       expect(actual).toEqualToBuggleWorldCell(expected);
     });
