@@ -2,35 +2,23 @@ package actors
 
 import java.io.File
 import java.util.Locale
+
 import scala.util.matching.Regex
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.JsonNode
+
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.node.ObjectNode
-import com.google.gson.JsonObject
+
 import akka.actor._
 import log.PLMLogger
 import models.ProgrammingLanguages
 import models.lesson.TipFactory
 import play.api.Logger
+import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.ExerciseFactory
 import plm.core.model.lesson.ExerciseRunner
 import plm.core.model.lesson.UserSettings
 import plm.core.model.lesson.tip.AbstractTipFactory
 import utils.LangUtils
-import plm.core.model.lesson.BlankExercise
-import com.fasterxml.jackson.databind.module.SimpleModule
-import java.awt.Color
-import plm.core.model.json.CustomColorDeserializer
-import com.fasterxml.jackson.annotation.JsonTypeInfo
-import plm.core.model.json.JSONUtils
-import java.util.HashMap
-import plm.core.model.lesson.Exercise.WorldKind
-import plm.universe.World
-import plm.universe.Operation
-import java.util.ArrayList
-import com.fasterxml.jackson.databind.SerializationFeature
 /**
  * @author matthieu
  */
@@ -108,9 +96,7 @@ object ExercisesActor {
 
       // Store into a file its JSON serialization
       val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
-      JSONUtils.mapper.enable(SerializationFeature.INDENT_OUTPUT)
-      JSONUtils.mapper.writeValue(new File(path + ".json"), JSONUtils.exerciseToJudgeJSON(exercise))
-      JSONUtils.mapper.disable(SerializationFeature.INDENT_OUTPUT)
+      JSONUtils.exerciseToFile(path+".json", exercise)
     }
   }
 }
