@@ -96,7 +96,7 @@ object ExercisesActor {
 
       // Store into a file its JSON serialization
       val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
-      JSONUtils.exerciseToFile(path+".json", exercise)
+      JSONUtils.exerciseToFile(path, exercise)
     }
   }
 }
