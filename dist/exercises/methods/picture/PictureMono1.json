@@ -1,0 +1,1799 @@
+{
+  "id" : "PictureMono1",
+  "name" : "PictureMono1",
+  "tabName" : "PictureMono1",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "PictureMono1",
+      "body" : "public void run() {\n}\n",
+      "template" : "$package   import plm.universe.bugglequest.SimpleBuggle; public class PictureMono1 extends SimpleBuggle { $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle;\npublic class PictureMono1 extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t\tmakeV();\n\t\tmakeV();\n\t\tmakeV();\n\t\tmakeV();\n\t}\n\tvoid mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tvoid makeV() {\n\t\tforward(2);\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tbackward();\n\t\tright();\n\t\tforward();\n\t\tmark();\n\n\t\tforward(2);\n\t\tleft();\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "PictureMono1",
+      "body" : "override def run() {\n}\n",
+      "template" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.SimpleBuggle;\nclass PictureMono1 extends SimpleBuggle {\n$body\n}\n",
+      "offset" : 6,
+      "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\nclass PictureMono1 extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (i <- 1 to 4) {\n\t\t\tmakeV();\n\t\t}\n\t}\n\tdef mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tdef makeV() {\n\t\tforward(2);\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tbackward();\n\t\tright();\n\t\tforward();\n\t\tmark();\n\n\t\tforward(2);\n\t\tleft();\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "PictureMono1",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef mark():\n   brushDown()\n   brushUp()\n\ndef makeV():\n   forward(2)\n   mark()\n   forward()\n   left()\n   forward()\n   mark()\n   backward()\n   right()\n   forward()\n   mark()   \n   forward(2)\n   left()\n\n\nfor i in range(4):\n    makeV()\n# END SOLUTION\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bugglequest.BuggleWorld",
+    "@jsonId" : 1,
+    "name" : "World",
+    "width" : 7,
+    "height" : 7,
+    "entities" : [ {
+      "type" : "plm.universe.bugglequest.SimpleBuggle",
+      "name" : "Picasso",
+      "x" : 0,
+      "y" : 6,
+      "direction" : 1,
+      "bodyColor" : [ 0, 0, 0, 255 ],
+      "brushColor" : [ 192, 192, 192, 255 ],
+      "world" : 1,
+      "inited" : false,
+      "brushDown" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>void left()<br/>\n          void right()<br/>\n          void back()<br/>\n          void forward() or void forward(int steps)<br/>\n          void backward() or void backward(int steps)<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>int getX()<br/>\n          int getY()<br/>\n          void setX(int x)<br/>\n          void setY(int y)<br/>\n          void setPos(int x, int y)</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>Color getBodyColor()<br/>\n          void setBodyColor(Color c)</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>boolean isFacingWall()<br/>\n          boolean isBackingWall()</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>Direction getDirection()<br/>\n          void setDirection(Direction dir)<br/>\n          Direction.NORTH, Direction.EAST, Direction.SOUTH and Direction.WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>boolean isSelected()</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>void brushUp()<br/>\n          void brushDown()<br/>\n          boolean isBrushDown()</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>void setBrushColor(Color c)<br/>\n          Color getBrushColor()</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>Color getGroundColor()</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>boolean isOverBaggle()<br/>\n          boolean isCarryingBaggle()<br/>\n          void pickupBaggle()<br/>\n          void dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>boolean isOverMessage()<br/>\n          void writeMessage(String msg)<br/>\n          String readMessage()<br/>\n          void clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
+    "parameters" : null,
+    "cells" : [ [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 0,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 1,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 2,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 3,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 4,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 5,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 1,
+      "x" : 6,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ] ],
+    "visibleGrid" : true,
+    "easter" : false
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bugglequest.BuggleWorld",
+    "@jsonId" : 2,
+    "name" : "World",
+    "width" : 7,
+    "height" : 7,
+    "entities" : [ {
+      "type" : "plm.universe.bugglequest.SimpleBuggle",
+      "name" : "Picasso",
+      "world" : 2,
+      "inited" : true,
+      "bodyColor" : [ 0, 0, 0, 255 ],
+      "brushColor" : [ 192, 192, 192, 255 ],
+      "x" : 0,
+      "y" : 6,
+      "direction" : 1,
+      "brushDown" : false
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 3,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 6,
+      "newX" : 1,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 4,
+      "buggleID" : "Picasso",
+      "oldX" : 1,
+      "oldY" : 6,
+      "newX" : 2,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 5,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 6,
+      "x" : 2,
+      "y" : 6,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 7,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 8,
+      "buggleID" : "Picasso",
+      "oldX" : 2,
+      "oldY" : 6,
+      "newX" : 3,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 9,
+      "buggleID" : "Picasso",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 10,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 6,
+      "newX" : 3,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 11,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 12,
+      "x" : 3,
+      "y" : 5,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 13,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 14,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 5,
+      "newX" : 3,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 15,
+      "buggleID" : "Picasso",
+      "oldDirection" : 0,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 16,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 6,
+      "newX" : 4,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 17,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 18,
+      "x" : 4,
+      "y" : 6,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 19,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 20,
+      "buggleID" : "Picasso",
+      "oldX" : 4,
+      "oldY" : 6,
+      "newX" : 5,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 21,
+      "buggleID" : "Picasso",
+      "oldX" : 5,
+      "oldY" : 6,
+      "newX" : 6,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 22,
+      "buggleID" : "Picasso",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 23,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 6,
+      "newX" : 6,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 24,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 5,
+      "newX" : 6,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 25,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 26,
+      "x" : 6,
+      "y" : 4,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 27,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 28,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 4,
+      "newX" : 6,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 29,
+      "buggleID" : "Picasso",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 30,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 3,
+      "newX" : 5,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 31,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 32,
+      "x" : 5,
+      "y" : 3,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 33,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 34,
+      "buggleID" : "Picasso",
+      "oldX" : 5,
+      "oldY" : 3,
+      "newX" : 6,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 35,
+      "buggleID" : "Picasso",
+      "oldDirection" : 3,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 36,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 3,
+      "newX" : 6,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 37,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 38,
+      "x" : 6,
+      "y" : 2,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 39,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 40,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 2,
+      "newX" : 6,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 41,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 1,
+      "newX" : 6,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 42,
+      "buggleID" : "Picasso",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 43,
+      "buggleID" : "Picasso",
+      "oldX" : 6,
+      "oldY" : 0,
+      "newX" : 5,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 44,
+      "buggleID" : "Picasso",
+      "oldX" : 5,
+      "oldY" : 0,
+      "newX" : 4,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 45,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 46,
+      "x" : 4,
+      "y" : 0,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 47,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 48,
+      "buggleID" : "Picasso",
+      "oldX" : 4,
+      "oldY" : 0,
+      "newX" : 3,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 49,
+      "buggleID" : "Picasso",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 50,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 0,
+      "newX" : 3,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 51,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 52,
+      "x" : 3,
+      "y" : 1,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 53,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 54,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 1,
+      "newX" : 3,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 55,
+      "buggleID" : "Picasso",
+      "oldDirection" : 2,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 56,
+      "buggleID" : "Picasso",
+      "oldX" : 3,
+      "oldY" : 0,
+      "newX" : 2,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 57,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 58,
+      "x" : 2,
+      "y" : 0,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 59,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 60,
+      "buggleID" : "Picasso",
+      "oldX" : 2,
+      "oldY" : 0,
+      "newX" : 1,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 61,
+      "buggleID" : "Picasso",
+      "oldX" : 1,
+      "oldY" : 0,
+      "newX" : 0,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 62,
+      "buggleID" : "Picasso",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 63,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 0,
+      "newX" : 0,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 64,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 1,
+      "newX" : 0,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 65,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 66,
+      "x" : 0,
+      "y" : 2,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 67,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 68,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 2,
+      "newX" : 0,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 69,
+      "buggleID" : "Picasso",
+      "oldDirection" : 2,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 70,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 3,
+      "newX" : 1,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 71,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 72,
+      "x" : 1,
+      "y" : 3,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 73,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 74,
+      "buggleID" : "Picasso",
+      "oldX" : 1,
+      "oldY" : 3,
+      "newX" : 0,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 75,
+      "buggleID" : "Picasso",
+      "oldDirection" : 1,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 76,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 3,
+      "newX" : 0,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 77,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : false,
+      "newBrushDown" : true,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellColor",
+      "@jsonId" : 78,
+      "x" : 0,
+      "y" : 4,
+      "oldColor" : [ 255, 255, 255, 255 ],
+      "name" : "changeCellColor",
+      "newColor" : [ 192, 192, 192, 255 ]
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleBrushDown",
+      "@jsonId" : 79,
+      "buggleID" : "Picasso",
+      "oldBrushDown" : true,
+      "newBrushDown" : false,
+      "name" : "changeBuggleBrushDown"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 80,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 4,
+      "newX" : 0,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 81,
+      "buggleID" : "Picasso",
+      "oldX" : 0,
+      "oldY" : 5,
+      "newX" : 0,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 82,
+      "buggleID" : "Picasso",
+      "oldDirection" : 2,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>void left()<br/>\n          void right()<br/>\n          void back()<br/>\n          void forward() or void forward(int steps)<br/>\n          void backward() or void backward(int steps)<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>int getX()<br/>\n          int getY()<br/>\n          void setX(int x)<br/>\n          void setY(int y)<br/>\n          void setPos(int x, int y)</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>Color getBodyColor()<br/>\n          void setBodyColor(Color c)</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>boolean isFacingWall()<br/>\n          boolean isBackingWall()</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>Direction getDirection()<br/>\n          void setDirection(Direction dir)<br/>\n          Direction.NORTH, Direction.EAST, Direction.SOUTH and Direction.WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>boolean isSelected()</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>void brushUp()<br/>\n          void brushDown()<br/>\n          boolean isBrushDown()</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>void setBrushColor(Color c)<br/>\n          Color getBrushColor()</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>Color getGroundColor()</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>boolean isOverBaggle()<br/>\n          boolean isCarryingBaggle()<br/>\n          void pickupBaggle()<br/>\n          void dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>boolean isOverMessage()<br/>\n          void writeMessage(String msg)<br/>\n          String readMessage()<br/>\n          void clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
+    "parameters" : null,
+    "cells" : [ [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 2,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 4,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 0,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 3,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 1,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 0,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 2,
+      "y" : 6,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 1,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 5,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 3,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 0,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 4,
+      "y" : 6,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 2,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 3,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 4,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 5,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ], [ {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 0,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 1,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 2,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 3,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 4,
+      "color" : [ 192, 192, 192, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 5,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    }, {
+      "type" : "plm.universe.bugglequest.BuggleWorldCell",
+      "world" : 2,
+      "x" : 6,
+      "y" : 6,
+      "color" : [ 255, 255, 255, 255 ],
+      "leftWall" : false,
+      "topWall" : false,
+      "msgColor" : [ 128, 128, 230, 255 ],
+      "content" : "",
+      "hasBaggle" : false
+    } ] ],
+    "visibleGrid" : true,
+    "easter" : false
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Methodically drawing</h2>\n\nIn this exercise, we will reproduce the geometric drawing that you can see\nin the \"Objective\" tab.\n\n<p>Your goal (here and in any well written program) is to write the simplest\npossible code. For that, you have to decompose your work in\nsub-steps, and write a specific method for each sub-step.</p>\n\n<p>If you observe carefully the picture to draw, it is constituted of four\nparts depicting a sort of V. A possible decomposition is to write a method \nin charge of drawing a V from the current position. Its prototype can be: \n<code>[!java|c]void [/!]makeV()</code></p>\n\n<p>In this method, you should use the methods <code>brushUp()</code> and\n<code>brushDown()</code> to mark the ground (you may want to factorize this in another\nmethod). It may be wise to write the <code>makeV()</code> so that it places directly \nthe buggle in position for the next V.</p>\n \n<p>Your turn. Your code should not be longer than 4 lines (not counting \n<code>makeV</code>)...</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Dessiner avec méthode</h2>\n\nDans cet exercice, nous allons reproduire un dessin géométrique, que vous\npouvez voir en cliquant sur l'onglet «Objectif».\n\n<p>Votre objectif (ici, et dans tous les programmes bien faits) est d'écrire le\ncode le plus simple possible. Pour cela, vous veillerez à décomposer le\ntravail à faire en sous-étape, et à faire réaliser chaque sous-étape par une\nméthode particulière.</p>\n\n<p>Si on observe attentivement le modèle à dessiner, on remarque qu'il est\ncomposé de quatre formes en sorte de V à des positions différentes.  Un\ndécoupage possible est d'écrire une fonction chargée de faire un V à partir\nde la position courante. Son prototype peut être : <code>[!java|c]void\n[/!]faireV()</code></p>\n\n<p>Dans cette méthode, vous devez utiliser les méthodes\n<code>baisseBrosse()</code> et <code>leveBrosse()</code> pour marquer le\nsol. Peut-être que marquer le sol devrait faire l'objet d'une méthode\nséparée? Il faudrait également que  méthode <code>faireV()</code> place\ndirectement la buggle en position pour dessiner le prochain V.</p>\n \n<p>À vous de jouer. Votre code ne devrait pas prendre plus de quatre lignes\n(sans compter <code>faireV</code>)...</p>\n"
+  }
+}

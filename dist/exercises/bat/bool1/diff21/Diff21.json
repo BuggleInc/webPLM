@@ -1,0 +1,285 @@
+{
+  "id" : "Diff21",
+  "name" : "Diff21",
+  "tabName" : "Diff21",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "Diff21",
+      "body" : "int diff21(int n) {\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class Diff21 extends BatEntity { \tpublic void run(BatTest t) { \t\tt.setResult( diff21((Integer)t.getParameter(0)) );\t\t \t}  $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class Diff21 extends BatEntity {\n\n\tpublic void run(BatTest t) {\n\t\tt.setResult( diff21((Integer)t.getParameter(0)) );\t\t\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tint diff21(int n) {\n\t\t/* BEGIN SOLUTION */\n\t\tif (n>21)\n\t\t\treturn 2*(n-21);\n\t\treturn 21-n;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "Diff21",
+      "body" : "def diff21(n:Int): Int = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\n/**\n * @author matthieu\n */\nclass Diff21 extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( diff21(t.getParameter(0).asInstanceOf[Integer]))\n  }\n\n$body\n}\n",
+      "offset" : 11,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\n/**\n * @author matthieu\n */\nclass Diff21 extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( diff21(t.getParameter(0).asInstanceOf[Integer]))\n  }\n\n  /* BEGIN TEMPLATE */\n  def diff21(n:Int): Int = {\n    /* BEGIN SOLUTION */\n    if (n>21) {\n      2*(n-21)\n    }\n    21-n\n    /* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "Diff21",
+      "body" : "def diff21(n):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef diff21(n):\n# BEGIN SOLUTION\n  if (n>21):\n    return 2*(n-21)\n  return 21-n\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "diff21",
+    "batTests" : [ {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 2 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 11 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 0 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 19 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 10 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 21 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 22 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 25 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 30 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ -21 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "diff21",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "diff21",
+    "batTests" : [ {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 2 ],
+      "result" : 19,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 11 ],
+      "result" : 10,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : true,
+      "parameters" : [ 0 ],
+      "result" : 21,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 19 ],
+      "result" : 2,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 10 ],
+      "result" : 11,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 21 ],
+      "result" : 0,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 22 ],
+      "result" : 2,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 25 ],
+      "result" : 8,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ 30 ],
+      "result" : 18,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "diff21",
+      "visible" : false,
+      "parameters" : [ -21 ],
+      "result" : 42,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "diff21",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : 19,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : 10,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : 21,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : 2,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 7,
+      "index" : 4,
+      "result" : 11,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 8,
+      "index" : 5,
+      "result" : 0,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 9,
+      "index" : 6,
+      "result" : 2,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 10,
+      "index" : 7,
+      "result" : 8,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 11,
+      "index" : 8,
+      "result" : 18,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 12,
+      "index" : 9,
+      "result" : 42,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Diff 21</h1>\nGiven an int n, return the absolute difference between n and 21,\nexcept return double the absolute difference if n is over 21. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Diff 21</h1>\nÉtant donné un entier n, retournez la différence absolue entre n et 21, sauf\nsi n est plus grand que 21. Dans ce cas, doublez la différence absolue. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
+  }
+}

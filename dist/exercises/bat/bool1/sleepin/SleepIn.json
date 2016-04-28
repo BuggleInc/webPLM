@@ -1,0 +1,153 @@
+{
+  "id" : "SleepIn",
+  "name" : "SleepIn",
+  "tabName" : "SourceCode",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "SleepIn",
+      "body" : "boolean sleepIn(boolean weekday, boolean vacation) {\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class SleepIn extends BatEntity { \tpublic void run(BatTest t) { \t\tt.setResult( sleepIn((Boolean)t.getParameter(0),(Boolean)t.getParameter(1)) ); \t}  $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class SleepIn extends BatEntity {\n\n\tpublic void run(BatTest t) {\n\t\tt.setResult( sleepIn((Boolean)t.getParameter(0),(Boolean)t.getParameter(1)) );\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tboolean sleepIn(boolean weekday, boolean vacation) {\n\t\t/* BEGIN SOLUTION */\n\t\treturn !weekday || vacation;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "SleepIn",
+      "body" : "def sleepIn(weekday: Boolean, vacation: Boolean): Boolean = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\n/**\n * @author matthieu\n */\nclass SleepIn extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( sleepIn(t.getParameter(0).asInstanceOf[Boolean],t.getParameter(1).asInstanceOf[Boolean]))\n  }\n\n$body\n}\n",
+      "offset" : 11,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\n/**\n * @author matthieu\n */\nclass SleepIn extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( sleepIn(t.getParameter(0).asInstanceOf[Boolean],t.getParameter(1).asInstanceOf[Boolean]))\n  }\n\n  /* BEGIN TEMPLATE */\n  def sleepIn(weekday: Boolean, vacation: Boolean): Boolean = {\n    /* BEGIN SOLUTION */\n    !weekday || vacation;\n    /* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "SleepIn",
+      "body" : "def sleepIn(weekday, vacation):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef sleepIn(weekday, vacation):\n# BEGIN SOLUTION\n  return !weekday || vacation\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "sleepIn",
+    "batTests" : [ {
+      "funName" : "sleepIn",
+      "visible" : true,
+      "parameters" : [ false, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : true,
+      "parameters" : [ true, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : false,
+      "parameters" : [ false, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : false,
+      "parameters" : [ true, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "sleepIn",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "sleepIn",
+    "batTests" : [ {
+      "funName" : "sleepIn",
+      "visible" : true,
+      "parameters" : [ false, false ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : true,
+      "parameters" : [ true, false ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : false,
+      "parameters" : [ false, true ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "sleepIn",
+      "visible" : false,
+      "parameters" : [ true, true ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "sleepIn",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : true,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>SleepDay</h1>\n\nThe parameter weekday is true if it is a weekday, and the parameter\nvacation is true if we are on vacation. We sleep in if it is not a\nweekday or we're on vacation. Return true if we sleep in. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Grasse matinée</h1>\n\nLe paramètre weekday est vrai si nous sommes un jour de semaine, et le\nparamètre vacation est vrai si nous sommes en vacances. Nous pouvons dormir\nce matin s'il ne s'agit pas d'un jour de semaine ou si nous sommes en\nvacances. Retournez vrai si nous pouvons faire la grasse matinée. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
+  }
+}
