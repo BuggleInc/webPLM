@@ -74,12 +74,33 @@ object ExercisesActor {
     humanLanguages
   }
 
+  def initExercise(exerciseName: String): Exercise = {
+    val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/") + ".json"
+    if(new File(path).exists) {
+      initFromJSON(path)
+    }
+    else {
+      initFromSource(exerciseName)
+    }
+  }
+
+  def initFromJSON(path: String): Exercise = {
+    JSONUtils.fileToExercise(path)
+  }
+
+  def initFromSource(exerciseName: String): Exercise = {
+    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
+    val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
+    exercise.setSettings(userSettings)
+    exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
+    exercise
+  }
+
   def initExercises(): Map[String, Exercise] = {
     var exercises: Map[String, Exercise] = Map()
     val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
     exercisesName.foreach { exerciseName =>
-      val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/") + ".json"
-      val exercise: Exercise = JSONUtils.fileToExercise(path)
+      val exercise: Exercise = initExercise(exerciseName)
       exercises += (exerciseName -> exercise)
     }
 
@@ -90,9 +111,7 @@ object ExercisesActor {
     val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
     exercisesName.foreach { exerciseName =>
       // Instantiate the exercise the old fashioned way
-      val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
-      exercise.setSettings(userSettings)
-      exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
+      val exercise: Exercise = initFromSource(exerciseName)
 
       // Store into a file its JSON serialization
       val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
