@@ -1,0 +1,351 @@
+{
+  "id" : "PosNeg",
+  "name" : "PosNeg",
+  "tabName" : "PosNeg",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "PosNeg",
+      "body" : "boolean posNeg(int a,int b,boolean negative) {\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class PosNeg extends BatEntity {\tpublic void run(BatTest t) { \t\tt.setResult( posNeg((Integer)t.getParameter(0),(Integer)t.getParameter(1),(Boolean)t.getParameter(2)) );\t\t \t}  $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class PosNeg extends BatEntity {\n\tpublic void run(BatTest t) {\n\t\tt.setResult( posNeg((Integer)t.getParameter(0),(Integer)t.getParameter(1),(Boolean)t.getParameter(2)) );\t\t\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tboolean posNeg(int a,int b,boolean negative) {\n\t\t/* BEGIN SOLUTION */\n\t\tif (negative)\n\t\t\treturn a<0&&b<0;\n\t\treturn (a<0&&b>0) || (a>0&&b<0);\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "PosNeg",
+      "body" : "def posNeg(a:Int, b:Int, negative:Boolean):Boolean = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass PosNeg extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( posNeg(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int], t.getParameter(2).asInstanceOf[Boolean]) )\n  }\n  \n$body\n}\n",
+      "offset" : 9,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass PosNeg extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( posNeg(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int], t.getParameter(2).asInstanceOf[Boolean]) )\n  }\n  \n  /* BEGIN TEMPLATE */\n  def posNeg(a:Int, b:Int, negative:Boolean):Boolean = {\n    /* BEGIN SOLUTION */\n  \tif (negative) {\n  \t  a<0 && b<0;\n  \t} else {\n  \t  (a<0 && b>0) || (a>0 && b<0)\n  \t}\n  \t/* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "PosNeg",
+      "body" : "def posNeg(a, b, negative):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef posNeg(a, b, negative):\n# BEGIN SOLUTION\n  if (negative):\n    return a<0 and b<0\n  return (a<0 and b>0) or (a>0 and b<0)\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "posNeg",
+    "batTests" : [ {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ -1, 1, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ 1, -1, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ 1, 1, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, -1, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 1, -1, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, 1, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 1, 1, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, -1, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 5, -5, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -6, 6, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, -5, false ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, 5, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, -5, true ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "posNeg",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "posNeg",
+    "batTests" : [ {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ -1, 1, false ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ 1, -1, false ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : true,
+      "parameters" : [ 1, 1, false ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, -1, false ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 1, -1, true ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, 1, true ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 1, 1, true ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -1, -1, true ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ 5, -5, true ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -6, 6, false ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, -5, false ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, 5, true ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "posNeg",
+      "visible" : false,
+      "parameters" : [ -5, -5, true ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "posNeg",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 7,
+      "index" : 4,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 8,
+      "index" : 5,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 9,
+      "index" : 6,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 10,
+      "index" : 7,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 11,
+      "index" : 8,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 12,
+      "index" : 9,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 13,
+      "index" : 10,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 14,
+      "index" : 11,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 15,
+      "index" : 12,
+      "result" : true,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Positive Negative</h1>\nGiven 2 int values, return true if one is negative and one is\npositive. Unless negative is true, then they both must be negative. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Positif Négatif</h1>\nÉtant donné deux entiers, retournez vrai si l'un d'entre eux est positif et\nl'autre négatif. Sauf si le paramètre négative est vrai, auquel cas il faut\nque les deux nombres soient négatifs. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
+  }
+}

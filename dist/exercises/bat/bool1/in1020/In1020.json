@@ -1,0 +1,263 @@
+{
+  "id" : "In1020",
+  "name" : "In1020",
+  "tabName" : "In1020",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "In1020",
+      "body" : "boolean in1020(int a, int b) {\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class In1020 extends BatEntity {\t@Override \tpublic void run(BatTest t) { \t\tt.setResult( in1020((Integer)t.getParameter(0),(Integer)t.getParameter(1)) );\t\t \t}  $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class In1020 extends BatEntity {\n\t@Override\n\tpublic void run(BatTest t) {\n\t\tt.setResult( in1020((Integer)t.getParameter(0),(Integer)t.getParameter(1)) );\t\t\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tboolean in1020(int a, int b) {\n\t\t/* BEGIN SOLUTION */\n\t\treturn a>9&&a<21 || b>9&&b<21;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "In1020",
+      "body" : "def in1020(a:Int, b:Int):Boolean = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass In1020 extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( in1020(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int]) )\n  }\n  \n$body\n}\n",
+      "offset" : 9,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass In1020 extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( in1020(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int]) )\n  }\n  \n  /* BEGIN TEMPLATE */\n  def in1020(a:Int, b:Int):Boolean = {\n    /* BEGIN SOLUTION */\n    (a>9 && a<21) || (b>9 && b<21)\n    /* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "In1020",
+      "body" : "def in1020(a, b):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef in1020(a, b):\n# BEGIN SOLUTION\n  return (a>9 and a<21) or (b>9 and b<21)\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "in1020",
+    "batTests" : [ {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 12, 99 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 21, 12 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 8, 99 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 99, 10 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 20, 20 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 21, 21 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 9, 9 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 10, 42 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 12, -2 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "in1020",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "in1020",
+    "batTests" : [ {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 12, 99 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 21, 12 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : true,
+      "parameters" : [ 8, 99 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 99, 10 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 20, 20 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 21, 21 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 9, 9 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 10, 42 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "in1020",
+      "visible" : false,
+      "parameters" : [ 12, -2 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "in1020",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 7,
+      "index" : 4,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 8,
+      "index" : 5,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 9,
+      "index" : 6,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 10,
+      "index" : 7,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 11,
+      "index" : 8,
+      "result" : true,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>In [10;20]</h1>\nGiven 2 int values, return true if either of them is in the range\n10..20 inclusive. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Dans [10;20]</h1>\nÉtant donné deux nombres entiers, retournez vrai si l'un d'entre eux est\ndans l'intervalle [10;20]. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
+  }
+}

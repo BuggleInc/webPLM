@@ -1,0 +1,175 @@
+{
+  "id" : "Island",
+  "name" : "Island",
+  "tabName" : "Island",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "Island",
+      "body" : "int island(int[] num) {\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class Island extends BatEntity {\tpublic void run(BatTest t) { \t\tt.setResult( island((int[])t.getParameter(0)) ); \t} \t $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class Island extends BatEntity {\n\tpublic void run(BatTest t) {\n\t\tt.setResult( island((int[])t.getParameter(0)) );\n\t}\n\t\n\t/* BEGIN TEMPLATE */\n\tint island(int[] num) {\n\t\t/* BEGIN SOLUTION */\n\t\tint nbisland=0;\n\t\tfor(int i=0;i<num.length-1;i++){\n\t\t\tif(num[i]<num[i+1]){\n\t\t\t\tnbisland++;\n\t\t\t}\n\t\t}\n\t\treturn nbisland;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "Island",
+      "body" : "def island(num:Array[Int]): Int = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass Island extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( island(t.getParameter(0).asInstanceOf[Array[Int]]))\n  }\n\n$body\n}\n",
+      "offset" : 8,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass Island extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( island(t.getParameter(0).asInstanceOf[Array[Int]]))\n  }\n\n  /* BEGIN TEMPLATE */\n  def island(num:Array[Int]): Int = {\n    /* BEGIN SOLUTION */\n    var nbIsland=0;\n\t\tfor (i <- 0 to num.length-2){\n\t\t\tif (num(i)<num(i+1))\n\t\t    nbIsland=nbIsland+1;\n\t\t}\n\t\tnbIsland\n    /* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "Island",
+      "body" : "def island(num):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef island(num):\n# BEGIN SOLUTION\n  nbisland=0\n  for i in range(len(num)-1):\n    if num[i]<num[i+1]:\n      nbisland=nbisland+1\n  return nbisland\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "island",
+    "batTests" : [ {
+      "funName" : "island",
+      "visible" : true,
+      "parameters" : [ [ "[I", [ 0, 1, 2, 2, 1, 0, 1, 2, 2, 1, 0 ] ] ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : true,
+      "parameters" : [ [ "[I", [ 0, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 0 ] ] ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 ] ] ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 0, 0, 0, 0, 0 ] ] ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 0, 2, 4, 0, 0 ] ] ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "island",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "island",
+    "batTests" : [ {
+      "funName" : "island",
+      "visible" : true,
+      "parameters" : [ [ "[I", [ 0, 1, 2, 2, 1, 0, 1, 2, 2, 1, 0 ] ] ],
+      "result" : 4,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : true,
+      "parameters" : [ [ "[I", [ 0, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 0 ] ] ],
+      "result" : 7,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 ] ] ],
+      "result" : 10,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 0, 0, 0, 0, 0 ] ] ],
+      "result" : 0,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "island",
+      "visible" : false,
+      "parameters" : [ [ "[I", [ 0, 0, 2, 4, 0, 0 ] ] ],
+      "result" : 2,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "island",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : 4,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : 7,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : 10,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : 0,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 7,
+      "index" : 4,
+      "result" : 2,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Buggles' Island</h1>\n\nYou just received the traveling notes of your old aunt who traveled\naccross the country of the Buggles' Islands. She wrote down the\naltitude every kilometer during her trip, resulting in a sequence of\nnumbers as follows.\n\n<pre>0 0 1 1 2 2 1 1 0 1 2 2 1 1 0</pre>\n\n<p>Here is a cut of the islands on that path:</p>\n\n<pre>\n       /***\\       /*\\         &lt;-- 2 meters above the see level\n   /***********\\ /*******\\     &lt;-- 1 meter above the see level\n***************************    &lt;-- see level\n| | | | | | | | | | | | | |\n0 0 1 1 2 2 1 1 0 1 2 1 1 0    &lt;-- altitude on each point\n</pre>\n\n<p>This example is constituted of four levels of island:</p>\n\n<ul>\n  <li>1 1 2 2 1 1 (the island on the left)</li>\n  <li>2 2 (the mountain topping the left island)</li>\n  <li>1 2 1 1 (the right island)</li>\n  <li>2 (the mountain on the right)</li>\n</ul>\n\n<p>This can also be visualized this way:</p>\n\n<pre>0 0(1 1(2 2)1 1)0(1(2)1 1)0</pre>\n\n<p>Could you write a little program to compute the amount of levels in\na given sequence of altitudes? Actually, there is an iterative and a\nrecursive solution to that problem.</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>L'île des Buggles</h1>\n\nVous venez de recevoir les notes de voyage que votre vieille tante a rédigé\nlors de ses visites aux Îles des Buggles. Elle a noté l'altitude à chaque\nkilomètre pendant son voyage, ce qui donne des suites de nombres comme suit.\n\n<pre>0 0 1 1 2 2 1 1 0 1 2 2 1 1 0</pre>\n\n<p>Voici une vue en coupe de l'île sur le parcours de votre tante :</p>\n\n<pre>\n       /***\\       /*\\         &lt;-- 2 mètres au dessus du niveau de la mer\n   /***********\\ /*******\\     &lt;-- 1 mètre au dessus du niveau de la mer\n***************************    &lt;-- niveau de la mer\n| | | | | | | | | | | | | |\n0 0 1 1 2 2 1 1 0 1 2 1 1 0    &lt;-- altitude en chaque point\n</pre>\n\n<p>Cet exemple est constitué de quatre niveaux d'île :</p>\n\n<ul>\n  <li>1 1 2 2 1 1 (l'île sur la gauche)</li>\n  <li>2 2 (la montagne au sommet de l'île à gauche)</li>\n  <li>1 2 1 1 (l'île de droite)</li>\n  <li>2 (la montagne sur l'ile à droite)</li>\n</ul>\n\n<p>Cela peut également être visualisé ainsi :</p>\n\n<pre>0 0(1 1(2 2)1 1)0(1(2)1 1)0</pre>\n\n<p>Pourriez vous écrire un petit programme calculant le nombre de niveaux\nd'îles dans une séquence d'altitudes donnée ? En fait, il existe une\nsolution itérative et une solution récursive à ce problème.</p>\n"
+  }
+}

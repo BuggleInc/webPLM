@@ -1,0 +1,197 @@
+{
+  "id" : "IcyHot",
+  "name" : "IcyHot",
+  "tabName" : "IcyHot",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "IcyHot",
+      "body" : "boolean icyHot(int temp1, int temp2) {\n\n}\n",
+      "template" : "$package   import plm.universe.bat.BatEntity; import plm.universe.bat.BatTest;  public class IcyHot extends BatEntity {\tpublic void run(BatTest t) { \t\tt.setResult( icyHot((Integer)t.getParameter(0),(Integer)t.getParameter(1)) );\t\t \t}  $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.bat.BatEntity;\nimport plm.universe.bat.BatTest;\n\npublic class IcyHot extends BatEntity {\n\tpublic void run(BatTest t) {\n\t\tt.setResult( icyHot((Integer)t.getParameter(0),(Integer)t.getParameter(1)) );\t\t\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tboolean icyHot(int temp1, int temp2) {\n\n\t\t/* BEGIN SOLUTION */\n\t\treturn temp1<0&&temp2>100 || temp1>100&&temp2<0;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "IcyHot",
+      "body" : "def icyHot(temp1:Int, temp2: Int): Boolean = {\n}\n",
+      "template" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass IcyHot extends BatEntity {  override def run(t: BatTest) {\n    t.setResult( icyHot(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int]) )\n  }\n  \n$body\n}\n",
+      "offset" : 9,
+      "correction" : "$package \n\nimport plm.universe.bat.BatTest\nimport plm.universe.bat.BatEntity\n\nclass IcyHot extends BatEntity {\n  override def run(t: BatTest) {\n    t.setResult( icyHot(t.getParameter(0).asInstanceOf[Int], t.getParameter(1).asInstanceOf[Int]) )\n  }\n  \n  /* BEGIN TEMPLATE */\n  def icyHot(temp1:Int, temp2: Int): Boolean = {\n    /* BEGIN SOLUTION */\n    temp1<0 && temp2>100 || temp1>100 && temp2<0\n    /* END SOLUTION */\n  }\n  /* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "IcyHot",
+      "body" : "def icyHot(temp1, temp2):\n",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\ndef icyHot(temp1, temp2):\n# BEGIN SOLUTION\n  return temp1<0 and temp2>100 or temp1>100 and temp2<0\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 1,
+    "name" : "icyHot",
+    "batTests" : [ {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ 120, -1 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ -1, 120 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ 2, 120 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ -1, 100 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ -2, -2 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ 120, 120 ],
+      "result" : null,
+      "correct" : false,
+      "answered" : false,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "icyHot",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.bat.BatWorld",
+    "@jsonId" : 2,
+    "name" : "icyHot",
+    "batTests" : [ {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ 120, -1 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ -1, 120 ],
+      "result" : true,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : true,
+      "parameters" : [ 2, 120 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ -1, 100 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ -2, -2 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    }, {
+      "funName" : "icyHot",
+      "visible" : false,
+      "parameters" : [ 120, 120 ],
+      "result" : false,
+      "correct" : false,
+      "answered" : true,
+      "objectiveTest" : false
+    } ],
+    "entities" : [ {
+      "type" : "plm.universe.bat.BatEntity",
+      "name" : "icyHot",
+      "world" : 2,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 3,
+      "index" : 0,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 4,
+      "index" : 1,
+      "result" : true,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 5,
+      "index" : 2,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 6,
+      "index" : 3,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 7,
+      "index" : 4,
+      "result" : false,
+      "name" : "setResult"
+    } ], [ {
+      "type" : "plm.universe.bat.operations.SetResult",
+      "@jsonId" : 8,
+      "index" : 5,
+      "result" : false,
+      "name" : "setResult"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
+    "parameters" : null
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Icy Hot</h1>\nGiven two temperatures, return true if one is less than 0 and the\nother is greater than 100. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Feu glacé</h1>\nÉtant donné deux températures, retournez vrai si l'une est inférieure à zéro\net l'autre supérieure à 100. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
+  }
+}
