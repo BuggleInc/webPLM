@@ -26,7 +26,13 @@ import utils.LangUtils
 object ExercisesActor {
   def props = Props[ExercisesActor]
 
-  val path: String = if(play.Play.isProd) { "exercises" } else { "dist/exercises" }
+  if(play.Play.isProd) {
+    Exercise.directory = "exercises"
+  } else {
+    Exercise.directory = "dist/exercises"
+  }
+
+  val path: String = Exercise.directory
   val baseDirectory: File = new File(path)
   val filterRegexp = new Regex("^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$") // Select all files ending with ".java" but not containing "Entity"
 
@@ -69,7 +75,7 @@ object ExercisesActor {
 
   def initHumanLanguages(): Array[Locale] = {
     var humanLanguages: Array[Locale] = Array()
-    LangUtils.getAvailableLangs().map { lang => 
+    LangUtils.getAvailableLangs().map { lang =>
       humanLanguages = humanLanguages :+ (lang.toLocale)
     }
     humanLanguages
@@ -137,7 +143,7 @@ class ExercisesActor extends Actor {
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
-  
+
   def getExercise(exerciseID: String): Exercise = {
     val exercise: Exercise = exercises.get(exerciseID).get
     ExerciseFactory.cloneExercise(exercise)

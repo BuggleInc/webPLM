@@ -2,7 +2,7 @@ package loopdowhile;
 
 import java.io.IOException;
 
-
+import plm.core.model.lesson.Exercise;
 import plm.core.model.lesson.ExerciseTemplated;
 
 import plm.universe.BrokenWorldFileException;
@@ -18,8 +18,8 @@ public class Poucet2 extends ExerciseTemplated {
 
 		/* Create initial situation */
 		World[] myWorlds = new World[] {
-				BuggleWorld.newFromFile("exercises/loopdowhile/Poucet"),
-				BuggleWorld.newFromFile("exercises/loopdowhile/Poucet3"),
+				BuggleWorld.newFromFile(Exercise.directory + "/loopdowhile/Poucet"),
+				BuggleWorld.newFromFile(Exercise.directory + "/loopdowhile/Poucet3"),
 		};
 
 		setup(myWorlds);

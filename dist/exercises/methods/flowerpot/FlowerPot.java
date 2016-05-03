@@ -2,7 +2,7 @@ package methods.flowerpot;
 
 import java.io.IOException;
 
-
+import plm.core.model.lesson.Exercise;
 import plm.core.model.lesson.ExerciseTemplated;
 
 import plm.universe.BrokenWorldFileException;
@@ -14,7 +14,7 @@ public class FlowerPot extends ExerciseTemplated {
 		super("FlowerPot", "FlowerPot");
 		//setToolbox();
 		BuggleWorld[] myWorlds = new BuggleWorld[] {
-				(BuggleWorld) BuggleWorld.newFromFile("exercises/methods/flowerpot/FlowerPot")
+				(BuggleWorld) BuggleWorld.newFromFile(Exercise.directory + "/methods/flowerpot/FlowerPot")
 		};
 
 		setup(myWorlds);

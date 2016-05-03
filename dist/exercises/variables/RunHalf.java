@@ -2,7 +2,7 @@ package variables;
 
 import java.io.IOException;
 
-
+import plm.core.model.lesson.Exercise;
 import plm.core.model.lesson.ExerciseTemplated;
 
 import plm.universe.BrokenWorldFileException;
@@ -14,9 +14,9 @@ public class RunHalf extends ExerciseTemplated {
 	public RunHalf() throws IOException, BrokenWorldFileException {
 		super("RunHalf", "RunHalf");
 		//setToolbox();
-		
+
 		World[] myWorlds = new World[] {
-				BuggleWorld.newFromFile("exercises/variables/RunHalf"),
+				BuggleWorld.newFromFile(Exercise.directory + "/variables/RunHalf"),
 		};
 
 		setup(myWorlds);
