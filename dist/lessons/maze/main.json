@@ -7,7 +7,7 @@
         "pt_br": "O rato doido",
         "fr": "La souris folle"
       },
-      "id": "maze.lessons.maze.randommouse.RandomMouseMaze",
+      "id": "maze.randommouse.RandomMouseMaze",
       "dependingLectures": []
     },
     {
@@ -16,7 +16,7 @@
         "pt_br": "Seguindo as paredes",
         "fr": "Longer les murs"
       },
-      "id": "maze.lessons.maze.wallfollower.WallFollowerMaze",
+      "id": "maze.wallfollower.WallFollowerMaze",
       "dependingLectures": []
     },
     {
@@ -25,7 +25,7 @@
         "pt_br": "Encontrando as paredes para seguir",
         "fr": "Trouver les murs à longer"
       },
-      "id": "maze.lessons.maze.wallfindfollow.WallFindFollowMaze",
+      "id": "maze.wallfindfollow.WallFindFollowMaze",
       "dependingLectures": []
     },
     {
@@ -34,7 +34,7 @@
         "pt_br": "Perdido entre ilhas",
         "fr": "Perdu dans les îles"
       },
-      "id": "maze.lessons.maze.island.IslandMaze",
+      "id": "maze.island.IslandMaze",
       "dependingLectures": []
     },
     {
@@ -43,7 +43,7 @@
         "pt_br": "Algoritmo de Pledge",
         "fr": "Algorithme de Pledge"
       },
-      "id": "maze.lessons.maze.pledge.PledgeMaze",
+      "id": "maze.pledge.PledgeMaze",
       "dependingLectures": []
     },
     {
@@ -52,7 +52,7 @@
         "pt_br": "Algoritmo básico do caminho mais curto",
         "fr": "Algorithme basique de recherche du plus court chemin"
       },
-      "id": "maze.lessons.maze.shortestpath.ShortestPathMaze",
+      "id": "maze.shortestpath.ShortestPathMaze",
       "dependingLectures": []
     }
   ],
