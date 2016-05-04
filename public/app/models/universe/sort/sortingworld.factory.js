@@ -18,7 +18,7 @@
 			this.currentState = -1;
 			this.readCount = world.readCount;
 			this.writeCount = world.writeCount;
-			
+
 			this.values = [];
 			for(var i=0;i<world.values.length;i++)
 			{
@@ -58,7 +58,7 @@
 
 		SortingWorld.prototype.generatedOperation = function (operation)
 		{
-			switch(operation.type) {
+			switch(operation.name) {
 				case 'copyOperation':
 					return new CopyOperation(operation);
 				case 'setValOperation':
