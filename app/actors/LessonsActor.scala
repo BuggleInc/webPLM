@@ -26,9 +26,9 @@ object LessonsActor {
 
   val lessonsID: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
     "welcome", "maze", "turmites", "turtleart",
-    "sort/basic", "sort/dutchflag", "sort/baseball", "sort/pancake", 
-    "recursion/cons", "recursion/logo", "recursion/hanoi",
-    "bat/string1"
+    "sort.basic", "sort.dutchflag", "sort.baseball", "sort.pancake",
+    "recursion.cons", "recursion.logo", "recursion.hanoi",
+    "bat.string1"
   )
 
   val lessons: Map[String, Lesson] = initLessons
@@ -37,7 +37,7 @@ object LessonsActor {
   def initLessons(): Map[String, Lesson] = {
     var lessons: Map[String, Lesson] = Map()
     lessonsID.foreach { lessonName =>
-      var lesson: Lesson = loadLesson(lessonName)
+      val lesson: Lesson = loadLesson(lessonName)
 
       var descriptions: Map[String, String] = Map()
       LangUtils.getAvailableLangs().foreach { lang =>
@@ -70,7 +70,7 @@ object LessonsActor {
   }
 
   def getLessonPath(lessonName: String, filePath: String): String = {
-    List(rootDirectory, lessonName, filePath).mkString("/")
+    (List(rootDirectory) ++ lessonName.split("\\.").toList ++ List(filePath)).mkString("/")
   }
 
   def getDescriptionPath(lessonName: String, langCode: String): String = {
