@@ -7,7 +7,7 @@
 		.factory('DutchFlagSwap', DutchFlagSwap);
 
 	function DutchFlagSwap()
-	{	
+	{
 		var DutchFlagSwap = function(data)
 		{
 			this.dest = data.destination;

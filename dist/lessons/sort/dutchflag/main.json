@@ -6,7 +6,7 @@
       "pt_br" : "O problema da bandeira holandesa",
       "fr" : "Le problème du drapeau hollandais"
     },
-    "id" : "sort.dutchflag.lessons.sort.dutchflag.DutchFlagAlgo",
+    "id" : "sort.dutchflag.DutchFlagAlgo",
     "dependingLectures" : [ ]
   } ],
   "id" : "sort.dutchflag"

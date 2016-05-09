@@ -52,7 +52,7 @@
 
 		DutchFlagWorld.prototype.generatedOperation = function (operation)
 		{
-			switch(operation.type) {
+			switch(operation.name) {
 				case 'dutchFlagSwap':
 					return new DutchFlagSwap(operation);
 			}
