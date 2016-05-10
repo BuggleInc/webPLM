@@ -1,0 +1,261 @@
+{
+  "id" : "NaiveBaseball",
+  "name" : "NaiveBaseball",
+  "tabName" : "NaiveBaseball",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "NaiveBaseball",
+      "body" : "public void run() {\n}\n",
+      "template" : "$package   import plm.universe.baseball.BaseballEntity; import plm.universe.baseball.BaseballWorld;  public class NaiveBaseball extends BaseballEntity {\t $body  } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.baseball.BaseballEntity;\nimport plm.universe.baseball.BaseballWorld;\n\npublic class NaiveBaseball extends BaseballEntity {\n\t\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t\twhile (!isSorted()) {\n\t\t\tint baseNext = (getHoleBase()+1) % getBasesAmount();\n\t\t\tint posNext = -1;\n\t\t\tint maxDistance = -1;\n\t\t\tfor (int pos=0;pos<getPositionsAmount();pos++) {\n\t\t\t\tint player = getPlayerColor(baseNext, pos);\n\t\t\t\tint distance = (baseNext - player + getBasesAmount()) % getBasesAmount();\n\t\t\t\tif (distance > maxDistance) {\n\t\t\t\t\tmaxDistance = distance;\n\t\t\t\t\tposNext = pos;\n\t\t\t\t}\n\n\t\t\t}\n\n\t\t\tmove(baseNext,posNext);\n\t\t}\n\t\t((BaseballWorld) world).assertSorted(\"naive sort\");\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "NaiveBaseball",
+      "body" : "override def run() {\n}\n",
+      "template" : "$package \n\nimport plm.universe.baseball.BaseballWorld\nimport plm.universe.baseball.BaseballEntity\n\nclass NaiveBaseball extends BaseballEntity {\n$body\n\n}\n",
+      "offset" : 6,
+      "correction" : "$package \n\nimport plm.universe.baseball.BaseballWorld\nimport plm.universe.baseball.BaseballEntity\n\nclass NaiveBaseball extends BaseballEntity {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\twhile (!isSorted()) {\n\t\t\tval baseNext = (getHoleBase()+1) % getBasesAmount();\n\t\t\tvar posNext = -1;\n\t\t\tvar maxDistance = -1;\n\t\t\tfor (pos <- 0 to getPositionsAmount() -1) {\n\t\t\t\tval player = getPlayerColor(baseNext, pos);\n\t\t\t\tvar distance = (baseNext - player + getBasesAmount()) % getBasesAmount();\n\t\t\t\tif (distance > maxDistance) {\n\t\t\t\t\tmaxDistance = distance;\n\t\t\t\t\tposNext = pos;\n\t\t\t\t}\n//\t\t\t\tLogger.log(world.toString()+\"  baseNext:\"+baseNext+\" player:\"+player+\"  distance:\"+distance+\" (#bases:\"+getBasesAmount()+\")\");\n\t\t\t}\n//\t\t\tLogger.log(\"move \"+baseNext+\",\"+posNext);\n\t\t\tmove(baseNext,posNext);\n\t\t}\n\t\tworld.asInstanceOf[BaseballWorld].assertSorted(\"naive sort\");\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "NaiveBaseball",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\nwhile not isSorted():\n\tbaseNext = (getHoleBase()+1) % getBasesAmount()\n\tposNext = -1\n\tmaxDistance = -1\n\tfor pos in range(getPositionsAmount()):\n\t\tplayer = getPlayerColor(baseNext, pos)\n\t\tdistance = (baseNext - player + getBasesAmount()) % getBasesAmount()\n\t\tif distance > maxDistance:\n\t\t\tmaxDistance = distance\n\t\t\tposNext = pos\n\tmove(baseNext,posNext);\n# END SOLUTION\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 1,
+    "name" : "Field 1",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "basesAmount" : 4,
+    "positionsAmount" : 2,
+    "holeBase" : 3,
+    "holePosition" : 0,
+    "initialField" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 2,
+    "name" : "Field 2",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 2,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "basesAmount" : 4,
+    "positionsAmount" : 2,
+    "holeBase" : 3,
+    "holePosition" : 0,
+    "initialField" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "moveCount" : 0
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 3,
+    "name" : "Field 1",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 3,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 4,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 5,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 6,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 7,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 8,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 9,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 10,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 11,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 12,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 13,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 14,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 15,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, -1 ],
+    "basesAmount" : 4,
+    "positionsAmount" : 2,
+    "holeBase" : 3,
+    "holePosition" : 1,
+    "initialField" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "moveCount" : 12
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 16,
+    "name" : "Field 2",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 16,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 17,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 18,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 19,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 20,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 21,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 22,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 23,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 24,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 25,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 26,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 27,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 28,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, -1 ],
+    "basesAmount" : 4,
+    "positionsAmount" : 2,
+    "holeBase" : 3,
+    "holePosition" : 1,
+    "initialField" : [ 2, 2, 0, 3, 1, 0, -1, 1 ],
+    "moveCount" : 12
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Naive Rainbow Baseball</h1>\n\n<p>Today, the buggles decided to play a baseball game, but they are rather out of luck, actually.\nFirst, kinda forgot the rules, and ... well ... they cannot find the ball and bats again. \nSo they decided to \"adapt a bit\" the rules. As the are no ball, the buggles can only running \naround the field, what they do happily: for a while, all attending buggle run at full speed in\nall directions around the field.</p> \n\n<p>But after a few collisions, they decide to invent new rules to organize a bit the game: \nThey make one team per base and two players per team. One of the teams has only one player so \nthat its base has an empty location. Then, the players are dispatched randomly around the bases, \nand the game for them is to reach their home base. The whole game stops when all players are home. \nThere is no winning team: either all players win, or they all lose. Actually, this game is very\ndifferent from the original baseball. The only rule that remains is that you can only run around \nthe field, from one base to the next one, without crossing middle of the field.</p>\n\n<p>Now, they are asking you to help them deciding who and when should move so that each player \nreturns to its base. Only one buggle can move at each round, from its position to the empty spot. \nThe maximal distance that a buggle can cover in one round is of one base.</p>\n\n<p>So, at each round, the empty spot is on one base (say <code>B</code>), and you should decide \nwhich buggle enters that empty spot. There is four candidates (two from base <code>B-1</code> \nand two from base <code>B+1</code>). Actually, there is a fifth candidate since the buggle that \nis on the same base than the empty spot can change its position, but that's not really helping.</p>\n\n<h3>The Naïve algorithm</h3>\n\n<p>In this exercise, we will first explore a very simple algorithm. To decide which of the four \ncandidate buggles should enter the empty spot, we first restrict ourselves and decide that buggles\ncan only turn clockwise. Then, from the two remaining candidates, we pick the one that has the \nlargest distance to cover to reach its base (turning clockwise). Click on the demo button: this \nworks rather well in practice.</p>\n\n<p>It's hard to find a simpler algorithm for this problem: While it's not sorted, search for \nthe base containing the candidate buggles: if the hole is in base <code>B</code>, it's the base \n<code>B+1</code>, modulo the amount of bases. Then, compute the distance that each buggle of that \nbase still has to run to reach its base (0 if it's already home). Once you found the buggle that \nshould enter the empty spot, just use the <code>move</code> method on it, and iterate.</p>   \n\n<p>The main difficulty should be to get the few equations right: determining the base next to the \nhole should be easy, but determining the distance that a player has to cover may reveal a bit more\nchallenging. Don't hesitate to draw pictures on a paper to cover all possible cases. It should not\nbe that difficult either: there is not that many cases after all.</p>  \n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Baseball multicolore naïf</h1>\n\n<p>Aujourd'hui, les buggles ont décidé de faire une partie de baseball, mais il\nfaut avouer que ce n'est pas très bien engagé : elles ne se souviennent plus\ntrès bien des règles, et ... euh ... elles ont perdu les battes et les\nballes. Elles ont donc décidé «d'adapter un peu» les règles. Comme il n'y a\nplus de balle, la seule chose qu'elles peuvent faire est de courir sur le\nterrain. C'est d'ailleurs ce qu'elles ont fait pendant un moment : toutes\nles buggles présentes se sont mises à courir en tous sens sur le terrain.</p> \n\n<p>Mais après quelques collisions plus ou moins douloureuses, elles décident\nd'inventer de nouvelles règles pour organiser la partie. Elles décident de\nfaire une équipe par base sur le terrain et deux joueurs par équipes. L'une\ndes équipes n'a qu'un seul joueur pour que l'une des bases ait un\nemplacement vide. Ensuite, les joueurs se répartissent aléatoirement sur les\nbases, et le jeu est de faire en sorte que chaque joueur retourne sur sa\nbase. La partie s’arrête quand tous les joueurs sont chez eux. Il n'y a pas\nd'équipe gagnante : soit tous les joueurs remportent la partie, soit ils la\nperdent tous. Oui, c'est vrai, ce jeu est très différent du baseball\nhabituel. La seule règle qui reste est qu'il faut courir autour du terrain,\nde base en base, sans jamais passer au centre du terrain.</p>\n\n<p>Maintenant, les buggles ont besoin de vous pour décider qui doit bouger à\nquel moment de façon à ce que chacune rejoigne sa base. Une seule buggle\npeut bouger à chaque tour, de sa position jusqu'à l'emplacement vide. De\nplus, la distance maximale qu'une buggle peut parcourir en un tour est de\nune seule base.</p>\n\n<p>Ainsi, à chaque tour, l'emplacement vide se trouve sur une base (disons\n<code>B</code>), et vous devez décider quelle buggle occupera cette\nplace. Il y a quatre candidates : deux de la base <code>B-1<code>, et deux\nde la base <code>B+1</code>. En fait, il y a une cinquième candidate puisque\nla buggle qui se trouve sur la même base que le trou peut aller l'occuper,\nmais ça ne fait pas vraiment avancer le problème.</p>\n\n<h3>Algorithme naïf</h3>\n\n<p>Dans cet exercice, nous allons explorer un premier algorithme très\nsimple. Pour décider laquelle des quatre candidates doit aller occuper\nl'emplacement vide, nous commençons par nous restreindre à tourner dans le\nsens des aiguilles d'une montre. Ensuite, parmi les deux candidates\nrestantes, nous prenons celle qui a encore le plus de chemin à parcourir\njusqu'à sa base (dans le sens des aiguilles d'une montre). Essayez la\ndémonstration : cela marche plutôt bien en pratique.</p>\n\n<p>Il est difficile d'imaginer un algorithme plus simple pour ce problème :\ntant que ce n'est pas trié, chercher la base contenant les candidates. Si le\ntrou est sur la base <code>B</code>, il s'agit de la base <code>B+1</code>\n(modulo le nombre de bases). Ensuite, il faut calculer la distance que\nchacune des buggles de cette base doit encore parcourir (0 si elle est déjà\nchez elle). Une fois que vous avez sélectionné l'heureuse élue, utilisez la\nméthode <code>deplace</code> pour la faire bouger, avant de passer à\nl'itération suivante.</p>   \n\n<p>La principale difficulté est peut-être d'écrire les quelques équations\nnécessaires sans se tromper. Trouver quelle est la base après le trou\ndevrait être assez facile, mais calculer la distance que chaque joueur doit\nencore parcourir peut s'avérer plus problématique. N'hésitez pas à faire des\ndessins pour vérifier que votre équation marche dans tous les cas, il n'y a\npas tant de cas possibles que cela après tout.</p>  \n"
+  }
+}

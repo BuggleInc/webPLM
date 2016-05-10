@@ -31,7 +31,7 @@
 			ctx.strokeStyle = '#000000';
 			//draws edges of our drawArena
 			ctx.strokeRect(0,0, canvasWidth, canvasHeight);
-			
+
 			//draws the initial stage or the different steps
 			if(baseballWorld.operations.length === 0)
 				drawInitial(baseballWorld);
@@ -45,8 +45,8 @@
 
 		function drawBases(baseballWorld)
 		{
-			var nb = baseballWorld.baseAmount;
-			var nbPos = baseballWorld.posAmount;
+			var nb = baseballWorld.basesAmount;
+			var nbPos = baseballWorld.positionsAmount;
 			var width = 15;
 			var height = 60 + (5 * nbPos) - (3.5 * nb);
 			var spacing = (canvasHeight - (height * nb)) / nb;
@@ -67,9 +67,9 @@
 
 		//initial view, any operations to draw
 		function drawInitial(baseballWorld)
-		{	
-			var nb = baseballWorld.baseAmount;
-			var nbPos = baseballWorld.posAmount;
+		{
+			var nb = baseballWorld.basesAmount;
+			var nbPos = baseballWorld.positionsAmount;
 			var x = canvasWidth-15;
 			var y;
 			var height = 60 + (5 * nbPos) - (3.5 * nb);
@@ -93,7 +93,7 @@
 					}
 					else
 					{
-						ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[i*baseballWorld.posAmount+j]];
+						ctx.strokeStyle = baseballWorld.colors[baseballWorld.field[i*baseballWorld.positionsAmount+j]];
 					}
 
 					ctx.moveTo(15,y);
@@ -109,8 +109,8 @@
 		//several operations
 		function drawSteps(baseballWorld)
 		{
-			var nb = baseballWorld.baseAmount;
-			var nbPos = baseballWorld.posAmount;
+			var nb = baseballWorld.basesAmount;
+			var nbPos = baseballWorld.positionsAmount;
 			var memory = baseballWorld.memory;
 			var x, y, x2, y2, nbUnitMemo;
 			var height = 60 + (5 * nbPos) - (3.5 * nb);
@@ -128,7 +128,7 @@
 					nbUnitMemo = 1;
 					for(var k=0;k<nbPos;k++)
 					{
-						
+
 						if(memory[i][j*nbPos + k] === -1)
 						{
 							memo.push([j,nbUnitMemo]);
@@ -173,7 +173,7 @@
 							ctx.strokeStyle = '#000000';
 							ctx.stroke();
 							ctx.closePath();
-							nbUnit += 2; 
+							nbUnit += 2;
 							ctx.setLineDash([0,0]);
 						}else
 						{

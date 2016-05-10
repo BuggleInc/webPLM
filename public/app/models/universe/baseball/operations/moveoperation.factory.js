@@ -14,17 +14,17 @@
 
 		MoveOperation.prototype.apply = function(currentWorld)
 		{
-			currentWorld.move = this.base * currentWorld.posAmount + this.position;
+			currentWorld.move = this.base * currentWorld.positionsAmount + this.position;
 			this.oldBase = currentWorld.holeBase;
-			this.oldPosition = currentWorld.holePos;
-			currentWorld.field[currentWorld.holeBase*currentWorld.posAmount + currentWorld.holePos] = currentWorld.field[this.base * currentWorld.posAmount + this.position];
-			currentWorld.field[this.base * currentWorld.posAmount + this.position] = -1;
+			this.oldPosition = currentWorld.holePosition;
+			currentWorld.field[currentWorld.holeBase*currentWorld.positionsAmount + currentWorld.holePosition] = currentWorld.field[this.base * currentWorld.positionsAmount + this.position];
+			currentWorld.field[this.base * currentWorld.positionsAmount + this.position] = -1;
 			currentWorld.oldBase = currentWorld.holeBase;
-			currentWorld.oldPosition = currentWorld.holePos;
+			currentWorld.oldPosition = currentWorld.holePosition;
 			currentWorld.holeBase = this.base;
-			currentWorld.holePos = this.position;
+			currentWorld.holePosition = this.position;
 			currentWorld.isReverse = false;
-			currentWorld.oldMove = currentWorld.oldBase * currentWorld.posAmount + currentWorld.oldPosition;
+			currentWorld.oldMove = currentWorld.oldBase * currentWorld.positionsAmount + currentWorld.oldPosition;
 			currentWorld.moveCount++;
 			var stock = [];
 			for(var i=0;i<currentWorld.field.length;i++)
@@ -43,11 +43,11 @@
 			currentWorld.oldBase = this.base;
 			currentWorld.oldPosition = this.position;
 			currentWorld.holeBase = this.oldBase
-			currentWorld.holePos = this.oldPosition;
-			currentWorld.move = this.oldBase*currentWorld.posAmount + this.oldPosition;
-			currentWorld.oldMove = currentWorld.holeBase*currentWorld.posAmount + currentWorld.holePos;
-			currentWorld.field[this.base*currentWorld.posAmount + this.position] = currentWorld.field[this.oldBase*currentWorld.posAmount + this.oldPosition];
-			currentWorld.field[this.oldBase*currentWorld.posAmount + this.oldPosition] = -1;
+			currentWorld.holePosition = this.oldPosition;
+			currentWorld.move = this.oldBase*currentWorld.positionsAmount + this.oldPosition;
+			currentWorld.oldMove = currentWorld.holeBase*currentWorld.positionsAmount + currentWorld.holePosition;
+			currentWorld.field[this.base*currentWorld.positionsAmount + this.position] = currentWorld.field[this.oldBase*currentWorld.positionsAmount + this.oldPosition];
+			currentWorld.field[this.oldBase*currentWorld.positionsAmount + this.oldPosition] = -1;
 			currentWorld.isReverse = true;
 			currentWorld.moveCount--;
 		};

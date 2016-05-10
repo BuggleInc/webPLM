@@ -13,20 +13,14 @@
 		var BaseballWorld = function(world)
 		{
 			this.type = world.type;
-			this.width = world.width;
-			this.height = world.height;
 			this.operations = [];
 			this.currentState = -1;
-			
-			this.field = [];
-			this.initValues = [];
-			for(var i=0; i<world.field.length;i++)
-			{
-				this.field.push(world.field[i]);
-				this.initValues.push(world.field[i]);
-			}
+
+			this.field = world.field.slice();
+			this.initialField = world.initialField.slice();
+
 			this.memory = [];
-			this.memory.push(this.initValues);
+			this.memory.push(this.initialField);
 
 			this.colors = [ '#0000FF', '#00FF00', 'rgb(255,0,255)', '#996600',
 			'rgb(255,56,0)', '#333300', 'rgb(0,103,165)', 'rgb(201,0,22)',
@@ -34,19 +28,19 @@
 			'rgb(75,0,130)', 'rgb(150,85,120)', '#FF3300', '#00FFFF', '#4C0000', '#242400', '#1A4C33',
 			'#80804C', '#FF9900', '#CC0066', '#666699', '#009999', '#661A80', '#333329'];
 
-			this.baseAmount = world.baseAmount;	
-			this.posAmount = world.posAmount;
+			this.basesAmount = world.basesAmount;
+			this.positionsAmount = world.positionsAmount;
 
 			this.holeBase = world.holeBase;
-			this.holePos  = world.holePos;
+			this.holePosition  = world.holePosition;
 			this.moveCount = world.moveCount;
 
-			this.move;
-			this.oldMove;
-			this.holeX;
-			this.holeY;
-			this.oldBase;
-			this.oldPosition;
+			this.move = -1;
+			this.oldMove = -1;
+			this.holeX = -1;
+			this.holeY = -1;
+			this.oldBase = -1;
+			this.oldPosition = -1;
 			this.isReverse = false;
 		};
 
@@ -68,7 +62,7 @@
 
 		BaseballWorld.prototype.generatedOperation = function (operation)
 		{
-			switch(operation.type) {
+			switch(operation.name) {
 				case 'moveOperation':
 					return new MoveOperation(operation);
 			}

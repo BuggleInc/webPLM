@@ -6,7 +6,7 @@
       "pt_br" : "Basebal do arco-íris simples",
       "fr" : "Baseball multicolore naïf"
     },
-    "id" : "sort.baseball.lessons.sort.baseball.NaiveBaseball",
+    "id" : "sort.baseball.NaiveBaseball",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -14,7 +14,7 @@
       "pt_br" : "Selection Baseball",
       "fr" : "Baseball par sélection"
     },
-    "id" : "sort.baseball.lessons.sort.baseball.SelectBaseball",
+    "id" : "sort.baseball.SelectBaseball",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -22,7 +22,7 @@
       "pt_br" : "Insertion Baseball",
       "fr" : "Baseball par insertion"
     },
-    "id" : "sort.baseball.lessons.sort.baseball.InsertBaseball",
+    "id" : "sort.baseball.InsertBaseball",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -30,7 +30,7 @@
       "pt_br" : "Bubble Baseball",
       "fr" : "Baseball à bulle"
     },
-    "id" : "sort.baseball.lessons.sort.baseball.BubbleBaseball",
+    "id" : "sort.baseball.BubbleBaseball",
     "dependingLectures" : [ ]
   } ],
   "id" : "sort.baseball"

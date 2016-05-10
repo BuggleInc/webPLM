@@ -1,0 +1,3637 @@
+{
+  "id" : "BubbleBaseball",
+  "name" : "BubbleBaseball",
+  "tabName" : "BubbleBaseball",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "BubbleBaseball",
+      "body" : "public void run() {\n}\n",
+      "template" : "$package   import plm.universe.baseball.BaseballEntity; import plm.universe.baseball.BaseballWorld;  public class BubbleBaseball extends BaseballEntity {\t $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.baseball.BaseballEntity;\nimport plm.universe.baseball.BaseballWorld;\n\npublic class BubbleBaseball extends BaseballEntity {\n\t\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t\twhile (!isSorted()) {\n\t\t\twhile (getHoleBase()>0) {\n\t\t\t\tint maxPos = 0;\n\t\t\t\tint maxColor = getPlayerColor(getHoleBase()-1, 0);\n\t\t\t\tfor (int pos=1;pos<getPositionsAmount();pos++) \n\t\t\t\t\tif (getPlayerColor(getHoleBase()-1, pos) > maxColor) {\n\t\t\t\t\t\tmaxColor = getPlayerColor(getHoleBase()-1, pos);\n\t\t\t\t\t\tmaxPos = pos;\n\t\t\t\t\t}\n\t\t\t\tmove(getHoleBase()-1,maxPos);\n\t\t\t}\n\t\t\twhile (getHoleBase()<getBasesAmount()-1) {\n\t\t\t\tint minPos = 0;\n\t\t\t\tint minColor = getPlayerColor(getHoleBase()+1, 0);\n\t\t\t\tfor (int pos=1;pos<getPositionsAmount();pos++) \n\t\t\t\t\tif (getPlayerColor(getHoleBase()+1, pos) < minColor) {\n\t\t\t\t\t\tminColor = getPlayerColor(getHoleBase()+1, pos);\n\t\t\t\t\t\tminPos = pos;\n\t\t\t\t\t}\n\t\t\t\tmove(getHoleBase()+1,minPos);\t\t\t\t\n\t\t\t}\n\t\t}\n\t\t((BaseballWorld) world).assertSorted(\"bubble sort\");\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "BubbleBaseball",
+      "body" : "override def run() {\n}\n",
+      "template" : "$package \n\nimport plm.universe.baseball.BaseballWorld\nimport plm.universe.baseball.BaseballEntity\n\nclass BubbleBaseball extends BaseballEntity {\t\n$body\n}\n",
+      "offset" : 6,
+      "correction" : "$package \n\nimport plm.universe.baseball.BaseballWorld\nimport plm.universe.baseball.BaseballEntity\n\nclass BubbleBaseball extends BaseballEntity {\n\t\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\twhile (!isSorted()) {\n\t\t\twhile (getHoleBase()>0) {\n\t\t\t\tvar maxPos = 0;\n\t\t\t\tvar maxColor = getPlayerColor(getHoleBase()-1, 0);\n\t\t\t\tfor (pos <- 1 to getPositionsAmount()-1) \n\t\t\t\t\tif (getPlayerColor(getHoleBase()-1, pos) > maxColor) {\n\t\t\t\t\t\tmaxColor = getPlayerColor(getHoleBase()-1, pos);\n\t\t\t\t\t\tmaxPos = pos;\n\t\t\t\t\t}\n\t\t\t\tmove(getHoleBase()-1,maxPos);\n\t\t\t}\n\t\t\twhile (getHoleBase()<getBasesAmount()-1) {\n\t\t\t\tvar minPos = 0;\n\t\t\t\tvar minColor = getPlayerColor(getHoleBase()+1, 0);\n\t\t\t\tfor (pos <- 1 to getPositionsAmount()-1) \n\t\t\t\t\tif (getPlayerColor(getHoleBase()+1, pos) < minColor) {\n\t\t\t\t\t\tminColor = getPlayerColor(getHoleBase()+1, pos);\n\t\t\t\t\t\tminPos = pos;\n\t\t\t\t\t}\n\t\t\t\tmove(getHoleBase()+1,minPos);\t\t\t\t\n\t\t\t}\n\t\t}\n\t\tworld.asInstanceOf[BaseballWorld].assertSorted(\"bubble sort\");\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "BubbleBaseball",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\nwhile not isSorted():\n\twhile getHoleBase()>0:\n\t\tmaxPos = 0\n\t\tmaxColor = getPlayerColor(getHoleBase()-1, 0)\n\t\tfor pos in range(getPositionsAmount()):\n\t\t\tif getPlayerColor(getHoleBase()-1, pos) > maxColor:\n\t\t\t\tmaxColor = getPlayerColor(getHoleBase()-1, pos)\n\t\t\t\tmaxPos = pos\n\t\tmove(getHoleBase()-1,maxPos);\n\twhile getHoleBase()<getBasesAmount()-1:\n\t\tminPos = 0\n\t\tminColor = getPlayerColor(getHoleBase()+1, 0)\n\t\tfor pos in range(getPositionsAmount()):\n\t\t\tif getPlayerColor(getHoleBase()+1, pos) < minColor:\n\t\t\t\tminColor = getPlayerColor(getHoleBase()+1, pos)\n\t\t\t\tminPos = pos\n\t\tmove(getHoleBase()+1,minPos)\n# END SOLUTION \n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 1,
+    "name" : "5 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, -1, 2, 1, 4, 1, 3, 2, 3, 0 ],
+    "basesAmount" : 5,
+    "positionsAmount" : 2,
+    "holeBase" : 0,
+    "holePosition" : 1,
+    "initialField" : [ 0, -1, 2, 1, 4, 1, 3, 2, 3, 0 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 2,
+    "name" : "5 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 2,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ -1, 2, 2, 1, 4, 1, 3, 2, 0, 3, 4, 3, 1, 0, 0 ],
+    "basesAmount" : 5,
+    "positionsAmount" : 3,
+    "holeBase" : 0,
+    "holePosition" : 0,
+    "initialField" : [ -1, 2, 2, 1, 4, 1, 3, 2, 0, 3, 4, 3, 1, 0, 0 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 3,
+    "name" : "6 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 3,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 1, 0, 1, 2, 5, 4, 4, 0, 3, 2, -1, 3 ],
+    "basesAmount" : 6,
+    "positionsAmount" : 2,
+    "holeBase" : 5,
+    "holePosition" : 0,
+    "initialField" : [ 1, 0, 1, 2, 5, 4, 4, 0, 3, 2, -1, 3 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 4,
+    "name" : "6 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 4,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 1, 3, 1, 5, 2, -1, 3, 0, 3, 5, 4, 0, 4, 2, 1, 2, 4 ],
+    "basesAmount" : 6,
+    "positionsAmount" : 3,
+    "holeBase" : 2,
+    "holePosition" : 0,
+    "initialField" : [ 0, 1, 3, 1, 5, 2, -1, 3, 0, 3, 5, 4, 0, 4, 2, 1, 2, 4 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 5,
+    "name" : "7 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 5,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 5, 1, 3, 2, 6, 0, 1, 2, 4, 4, -1, 0, 5, 3 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 2,
+    "holeBase" : 5,
+    "holePosition" : 0,
+    "initialField" : [ 5, 1, 3, 2, 6, 0, 1, 2, 4, 4, -1, 0, 5, 3 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 6,
+    "name" : "7 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 6,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 4, -1, 4, 2, 6, 2, 1, 3, 3, 0, 6, 0, 2, 5, 5, 5, 1, 4, 1, 3, 0 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 3,
+    "holeBase" : 0,
+    "holePosition" : 1,
+    "initialField" : [ 4, -1, 4, 2, 6, 2, 1, 3, 3, 0, 6, 0, 2, 5, 5, 5, 1, 4, 1, 3, 0 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 7,
+    "name" : "7 bases, 4 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 7,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 3, 0, 3, 2, 1, 6, 1, 2, 4, 0, 6, 4, 0, 1, 5, 6, 5, 5, 4, 5, 1, 0, -1, 2, 3, 2, 3, 4 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 4,
+    "holeBase" : 5,
+    "holePosition" : 2,
+    "initialField" : [ 3, 0, 3, 2, 1, 6, 1, 2, 4, 0, 6, 4, 0, 1, 5, 6, 5, 5, 4, 5, 1, 0, -1, 2, 3, 2, 3, 4 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 8,
+    "name" : "8 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 8,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 5, 1, 0, 3, 2, 7, 4, 1, 5, 6, -1, 0, 6, 4, 3, 2 ],
+    "basesAmount" : 8,
+    "positionsAmount" : 2,
+    "holeBase" : 5,
+    "holePosition" : 0,
+    "initialField" : [ 5, 1, 0, 3, 2, 7, 4, 1, 5, 6, -1, 0, 6, 4, 3, 2 ],
+    "moveCount" : 0
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 9,
+    "name" : "8 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 9,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 5, 6, 0, 4, 7, 3, 3, 4, 6, 3, 7, 5, -1, 2, 1, 0, 1, 1, 2, 5, 0, 6, 2, 4 ],
+    "basesAmount" : 8,
+    "positionsAmount" : 3,
+    "holeBase" : 4,
+    "holePosition" : 0,
+    "initialField" : [ 5, 6, 0, 4, 7, 3, 3, 4, 6, 3, 7, 5, -1, 2, 1, 0, 1, 1, 2, 5, 0, 6, 2, 4 ],
+    "moveCount" : 0
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 10,
+    "name" : "5 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 10,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 11,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 12,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 13,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 14,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 15,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 16,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 17,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 18,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 19,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 20,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 21,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 22,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 23,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 24,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 25,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 26,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 27,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 28,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 29,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 30,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 31,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 32,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 33,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 34,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 35,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 36,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 37,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 38,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, 3, 4, -1 ],
+    "basesAmount" : 5,
+    "positionsAmount" : 2,
+    "holeBase" : 4,
+    "holePosition" : 1,
+    "initialField" : [ 0, -1, 2, 1, 4, 1, 3, 2, 3, 0 ],
+    "moveCount" : 28
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 39,
+    "name" : "5 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 39,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 40,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 41,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 42,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 43,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 44,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 45,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 46,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 47,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 48,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 49,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 50,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 51,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 52,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 53,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 54,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 55,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 56,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 57,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 58,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 59,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 60,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 61,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 62,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 63,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 64,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 65,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 66,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 67,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 68,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 69,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 70,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 71,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 72,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 73,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 74,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 75,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, -1 ],
+    "basesAmount" : 5,
+    "positionsAmount" : 3,
+    "holeBase" : 4,
+    "holePosition" : 2,
+    "initialField" : [ -1, 2, 2, 1, 4, 1, 3, 2, 0, 3, 4, 3, 1, 0, 0 ],
+    "moveCount" : 36
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 76,
+    "name" : "6 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 76,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 77,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 78,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 79,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 80,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 81,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 82,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 83,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 84,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 85,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 86,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 87,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 88,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 89,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 90,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 91,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 92,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 93,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 94,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 95,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 96,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 97,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 98,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 99,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 100,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 101,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 102,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 103,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 104,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 105,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 106,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, -1, 5 ],
+    "basesAmount" : 6,
+    "positionsAmount" : 2,
+    "holeBase" : 5,
+    "holePosition" : 0,
+    "initialField" : [ 1, 0, 1, 2, 5, 4, 4, 0, 3, 2, -1, 3 ],
+    "moveCount" : 30
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 107,
+    "name" : "6 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 107,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 108,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 109,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 110,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 111,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 112,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 113,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 114,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 115,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 116,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 117,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 118,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 119,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 120,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 121,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 122,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 123,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 124,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 125,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 126,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 127,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 128,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 129,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 130,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 131,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 132,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 133,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 134,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 135,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 136,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 137,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 138,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 139,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 140,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 141,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 142,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 143,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 144,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 145,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 146,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 147,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 148,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 149,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 150,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 151,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 152,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 153,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 154,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, -1 ],
+    "basesAmount" : 6,
+    "positionsAmount" : 3,
+    "holeBase" : 5,
+    "holePosition" : 2,
+    "initialField" : [ 0, 1, 3, 1, 5, 2, -1, 3, 0, 3, 5, 4, 0, 4, 2, 1, 2, 4 ],
+    "moveCount" : 47
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 155,
+    "name" : "7 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 155,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 156,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 157,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 158,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 159,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 160,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 161,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 162,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 163,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 164,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 165,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 166,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 167,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 168,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 169,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 170,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 171,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 172,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 173,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 174,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 175,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 176,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 177,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 178,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 179,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 180,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 181,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 182,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 183,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 184,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 185,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 186,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 187,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 188,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 189,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 190,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 191,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 192,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 193,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 194,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 195,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 196,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 197,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 198,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 199,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 200,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 201,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 202,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 203,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 204,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 205,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 206,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 207,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 208,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 209,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 210,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 211,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 212,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 213,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 214,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, -1, 6 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 2,
+    "holeBase" : 6,
+    "holePosition" : 0,
+    "initialField" : [ 5, 1, 3, 2, 6, 0, 1, 2, 4, 4, -1, 0, 5, 3 ],
+    "moveCount" : 59
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 215,
+    "name" : "7 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 215,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 216,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 217,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 218,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 219,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 220,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 221,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 222,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 223,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 224,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 225,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 226,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 227,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 228,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 229,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 230,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 231,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 232,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 233,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 234,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 235,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 236,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 237,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 238,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 239,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 240,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 241,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 242,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 243,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 244,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 245,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 246,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 247,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 248,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 249,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 250,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 251,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 252,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 253,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 254,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 255,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 256,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 257,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 258,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 259,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 260,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 261,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 262,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 263,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 264,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 265,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 266,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 267,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 268,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 269,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 270,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 271,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 272,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 273,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 274,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 275,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 276,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 277,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 278,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 279,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 280,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 281,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, -1 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 3,
+    "holeBase" : 6,
+    "holePosition" : 2,
+    "initialField" : [ 4, -1, 4, 2, 6, 2, 1, 3, 3, 0, 6, 0, 2, 5, 5, 5, 1, 4, 1, 3, 0 ],
+    "moveCount" : 66
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 282,
+    "name" : "7 bases, 4 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 282,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 283,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 284,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 285,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 286,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 287,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 288,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 289,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 290,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 291,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 292,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 293,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 294,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 295,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 296,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 297,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 298,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 299,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 300,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 301,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 302,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 303,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 304,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 305,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 306,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 307,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 308,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 309,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 310,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 311,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 312,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 313,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 314,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 315,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 316,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 317,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 318,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 319,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 320,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 321,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 322,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 323,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 324,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 325,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 326,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 327,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 328,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 329,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 330,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 331,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 332,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 333,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 334,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 335,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 336,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 337,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 338,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 339,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 340,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 341,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 342,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 343,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 344,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 345,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 346,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 347,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 348,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 349,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 350,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 351,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 352,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 353,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 354,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 355,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 356,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 357,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 358,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 359,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 360,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 361,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 362,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 363,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 364,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 3
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 365,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, -1, 6, 6 ],
+    "basesAmount" : 7,
+    "positionsAmount" : 4,
+    "holeBase" : 6,
+    "holePosition" : 1,
+    "initialField" : [ 3, 0, 3, 2, 1, 6, 1, 2, 4, 0, 6, 4, 0, 1, 5, 6, 5, 5, 4, 5, 1, 0, -1, 2, 3, 2, 3, 4 ],
+    "moveCount" : 83
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 366,
+    "name" : "8 bases, 2 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 366,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 367,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 368,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 369,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 370,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 371,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 372,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 373,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 374,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 375,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 376,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 377,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 378,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 379,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 380,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 381,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 382,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 383,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 384,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 385,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 386,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 387,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 388,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 389,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 390,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 391,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 392,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 393,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 394,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 395,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 396,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 397,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 398,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 399,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 400,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 401,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 402,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 403,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 404,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 405,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 406,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 407,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 408,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 409,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 410,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 411,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 412,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 413,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 414,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 415,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 416,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 417,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 418,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 419,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 420,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 421,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 422,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 423,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 424,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 425,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 426,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 427,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 428,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 429,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 430,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 431,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 432,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 433,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 434,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, -1 ],
+    "basesAmount" : 8,
+    "positionsAmount" : 2,
+    "holeBase" : 7,
+    "holePosition" : 1,
+    "initialField" : [ 5, 1, 0, 3, 2, 7, 4, 1, 5, 6, -1, 0, 6, 4, 3, 2 ],
+    "moveCount" : 68
+  }, {
+    "type" : "plm.universe.baseball.BaseballWorld",
+    "@jsonId" : 435,
+    "name" : "8 bases, 3 positions",
+    "entities" : [ {
+      "type" : "plm.universe.baseball.BaseballEntity",
+      "name" : "(noname)",
+      "world" : 435,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 436,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 437,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 438,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 439,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 440,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 441,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 442,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 443,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 444,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 445,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 446,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 447,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 448,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 449,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 450,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 451,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 452,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 453,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 454,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 455,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 456,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 457,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 458,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 459,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 460,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 461,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 462,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 463,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 464,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 465,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 466,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 467,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 468,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 469,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 470,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 471,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 472,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 473,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 474,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 475,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 476,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 477,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 478,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 479,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 480,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 481,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 482,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 483,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 484,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 485,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 486,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 487,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 488,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 489,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 490,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 491,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 492,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 493,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 494,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 495,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 496,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 497,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 498,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 499,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 500,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 501,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 502,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 503,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 504,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 505,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 506,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 507,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 508,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 509,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 510,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 511,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 512,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 513,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 514,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 515,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 516,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 517,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 518,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 519,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 520,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 521,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 522,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 523,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 524,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 525,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 526,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 527,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 528,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 529,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 530,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 531,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 532,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 533,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 534,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 535,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 536,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 537,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 538,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 539,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 540,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 541,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 542,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 543,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 544,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 545,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 546,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 547,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 548,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 1
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 549,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 550,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 551,
+      "name" : "moveOperation",
+      "base" : 0,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 552,
+      "name" : "moveOperation",
+      "base" : 1,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 553,
+      "name" : "moveOperation",
+      "base" : 2,
+      "position" : 2
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 554,
+      "name" : "moveOperation",
+      "base" : 3,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 555,
+      "name" : "moveOperation",
+      "base" : 4,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 556,
+      "name" : "moveOperation",
+      "base" : 5,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 557,
+      "name" : "moveOperation",
+      "base" : 6,
+      "position" : 0
+    } ], [ {
+      "type" : "plm.universe.baseball.operations.MoveOperation",
+      "@jsonId" : 558,
+      "name" : "moveOperation",
+      "base" : 7,
+      "position" : 1
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "parameters" : null,
+    "field" : [ 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, -1, 7 ],
+    "basesAmount" : 8,
+    "positionsAmount" : 3,
+    "holeBase" : 7,
+    "holePosition" : 1,
+    "initialField" : [ 5, 6, 0, 4, 7, 3, 3, 4, 6, 3, 7, 5, -1, 2, 1, 0, 1, 1, 2, 5, 0, 6, 2, 4 ],
+    "moveCount" : 123
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Bubble Baseball</h1>\n\n<p>Crap, we adapted the insertion sort because our selection sort required too much moves to get\nthe selected players to their position, but the insertion sort requires an inordinate amount of \nchanges to get the border elements to their position within the sorted area without mixing the already \nsorted elements. At the end of the day, our selection variant was more efficient with at most \n<code>3*amountOfBase</code> moves to sort one element (1 to get the hole alongside with the player, \nand 2 to get the hole+player in position) while our insertion variant requires at most \n<code>3*amountOfPlayers</code> to sort one element (2 to descend the hole and player in position, \n1 to get the hole back to its position). That's twice as bad as there is two players per base. It may \nbe possible to improve the insertion sort by moving by more than one element when descending, but it \nseems uneasy (at least, while not mixing the already sorted elements) and it would probably only \nensure that our insertion variant becomes as efficient as our selection variant, not dramatically better.</p>\n\n<p>If we cannot make the sort faster, we can make it easier. If you think about it, it seems rather natural\nto adapt the bubble sort to this problem: the hole becomes the bubble that moves up and down, sorting a bit \nthe array during each traversal. The big lines are simply: \"while it's not sorted, move the hole down to base 0 \n(moving the biggest player of each base at each step) and then back to the maximal base (moving the smallest \nplayer of each base)\". After a while, <code>isSorted()</code> will return true and your algorithm will stop.</p>\n\n<p>This is so easy that we introduce another variant of the problem, with more than two players per base. \nBut actually, that shouldn't block you very long, should it?</p>\n\n<p>Surprisingly, the bubble sort variant requires ways less moves than the other variants. This is astonishing\nbecause usually, the bubble sort performs much worse than the others sorts, but it comes from the very good\nmatch between its big lines and the baseball universe. It actually happens rather often that a pleasantly \nwritten algorithm performs very decently. But this is not an universal rule either, as demonstrated by the naive \nalgorithm of the first exercise, that was nice, simple and wrong ;)</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Baseball à bulle</h1>\n\n<p>Zut, nous avions adapté le tri par insertion parce que notre tri par\nsélection nécessitait trop de déplacements pour mener les joueurs\nsélectionnés à leur position, mais le tri par insertion impose une quantité\ndéraisonnable de déplacements pour déplacer les joueurs de la frontière\njusqu'à leur place dans la section triée. Au final, notre variante par\nsélection était plus efficace, avec au pire <code>3*nombre de bases</code>\ndéplacement par élément à trier (1 pour apporter le trou jusqu'au joueur à\nbouger, et 2 pour amener le joueur et le trou jusqu'à leur position\nfinale).  De son coté, notre variante par insertion nécessite au pire\n<code>3*nombre de joueurs</code> déplacements pour trier un élément (2 pour\ndescendre le joueur et le trou à leur place, et 1 pour remonter le\ntrou). C'est deux fois pire puisqu'il y a deux joueurs par base. Il serait\nprobablement possible d'améliorer un peu notre variante par insertion en\ndescendant plus vite le trou et le joueur, mais cela semble assez difficile\n(il ne faut pas mélanger les éléments déjà triés pendant la descente), et\ncela ne permettrait que de rendre cette variante aussi efficace que celle\npar sélection, pas de faire vraiment mieux.</p>\n\n<p>Si nous ne pouvons pas rendre ce tri plus rapide, au moins nous pouvons le\nfaire plus simplement. Quand on y pense, il semble assez naturel d'adapter\nle tri à bulle à ce problème : le trou devient la bulle qui monte et qui\ndescend, en sortant peu à peu le tableau. Les grandes lignes de l'algorithme\nsont très simples : «tant que ce n'est pas trier, déplacer le trou vers le\nbas puis vers le haut. À chaque pas, c'est le plus petit des deux joueurs de\nla base qui descend, et le plus grand des deux qui monte (en fonction du\nsens de déplacement).». Après un moment, <code>estTrie()</code> devient\nvrai, et votre algorithme s'arrête.</p>\n\n<p>C'est tellement simple que nous pouvons nous payer le luxe d'une autre\nvariante du problème, avec plus de deux joueurs par base. Mais cela ne va\npas vous ralentir longtemps, n'est ce pas?</p>\n\n<p>De manière étonnante, la variante à bulle semble nécessiter beaucoup moins\nde déplacements que les autres variantes. C'est assez surprenant car\nhabituellement, le tri à bulle est la pire des variantes possibles, mais\ncela s'explique sans peine par les analogies entre cet algorithme et le\nproblème du baseball multicolore. Il est relativement courant qu'un\nalgorithme écrit simplement et naturellement se comporte bien en\npratique. Il ne s'agit cependant pas d'une règle absolue, comme prouvé par\nl'algorithme simple et faux du premier exercice !</p>\n"
+  }
+}
