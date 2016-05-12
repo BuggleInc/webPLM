@@ -15,16 +15,13 @@
 			this.type = world.type;
 			this.operations = [];
 			this.currentState = -1;
-			this.pancakeStack = [];
-			for(var i=0;i<world.pancakeStack.length;i++)
-			{
-				this.pancakeStack.push(world.pancakeStack[i]);
+			this.pancakeStack = world.pancakeStack.slice();
+			if (!(world instanceof PancakeWorld)) {
+				this.pancakeStack.reverse();
 			}
 
 			this.moveCount = world.moveCount;
-
 			this.numberFlip = world.numberFlip ;
-
 			this.burnedWorld = world.burnedWorld;
 		};
 
@@ -46,7 +43,7 @@
 
 		PancakeWorld.prototype.generatedOperation = function (operation)
 		{
-			switch(operation.type) {
+			switch(operation.name) {
 				case 'flipOperation':
 					return new FlipOperation(operation);
 			}

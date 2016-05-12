@@ -6,7 +6,7 @@
       "pt_br" : "Ordenação da panqueca",
       "fr" : "Trier des crêpes"
     },
-    "id" : "sort.pancake.lessons.sort.pancake.BasicPancake",
+    "id" : "sort.pancake.BasicPancake",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -14,7 +14,7 @@
       "pt_br" : "Bubble Pancakes",
       "fr" : "Crêpes et bulle"
     },
-    "id" : "sort.pancake.lessons.sort.pancake.BubblePancake",
+    "id" : "sort.pancake.BubblePancake",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -22,7 +22,7 @@
       "pt_br" : "Panquecas queimadas",
       "fr" : "Crêpes brûlées"
     },
-    "id" : "sort.pancake.lessons.sort.pancake.BurnedPancake",
+    "id" : "sort.pancake.BurnedPancake",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -30,7 +30,7 @@
       "pt_br" : "Ondenação de Panqueca Rápida",
       "fr" : "Tri rapide de crêpes"
     },
-    "id" : "sort.pancake.lessons.sort.pancake.GatesPancake",
+    "id" : "sort.pancake.GatesPancake",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -38,7 +38,7 @@
       "pt_br" : "Faster Burned Pancake Sorting",
       "fr" : "Tri rapide de crêpes brûlées"
     },
-    "id" : "sort.pancake.lessons.sort.pancake.CohenPancake",
+    "id" : "sort.pancake.CohenPancake",
     "dependingLectures" : [ ]
   } ],
   "id" : "sort.pancake"

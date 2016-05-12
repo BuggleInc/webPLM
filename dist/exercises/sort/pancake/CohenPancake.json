@@ -1,0 +1,1659 @@
+{
+  "id" : "CohenPancake",
+  "name" : "CohenPancake",
+  "tabName" : "CohenPancake",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "CohenPancake",
+      "body" : "public void solve() {\n}\n",
+      "template" : "$package   import plm.core.log.Logger; import plm.universe.pancake.PancakeEntity;  public class CohenPancake extends PancakeEntity {\t \tpublic void run() { \t\tthis.solve(); \t}  \t/* BEGIN HIDDEN */ \tint getRankOf(int size) { \t\tfor (int rank=0;rank<getStackSize();rank++) \t\t\tif (getPancakeRadius(rank) == size) \t\t\t\treturn rank; \t\treturn -99;  \t} \tint debug=0;  \tvoid showStack(boolean nl) { \t\tif (debug>0) { \t\t\tSystem.out.print(\"{\"); \t\t\tfor (int rank=0; rank < getStackSize(); rank++)  \t\t\t\tSystem.out.print( (isPancakeUpsideDown(rank)?\"-\":\"\") + getPancakeRadius(rank)+\", \"); \t\t\tSystem.out.print(\"}  \"); \t\t\tif (nl) \t\t\t\tLogger.log(\"\"); \t\t} \t} \t/* END HIDDEN */  $body  } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.core.log.Logger;\nimport plm.universe.pancake.PancakeEntity;\n\npublic class CohenPancake extends PancakeEntity {\n\t\n\tpublic void run() {\n\t\tthis.solve();\n\t}\n\n\t/* BEGIN HIDDEN */\n\tint getRankOf(int size) {\n\t\tfor (int rank=0;rank<getStackSize();rank++)\n\t\t\tif (getPancakeRadius(rank) == size)\n\t\t\t\treturn rank;\n\t\treturn -99; \n\t}\n\tint debug=0; \n\tvoid showStack(boolean nl) {\n\t\tif (debug>0) {\n\t\t\tSystem.out.print(\"{\");\n\t\t\tfor (int rank=0; rank < getStackSize(); rank++) \n\t\t\t\tSystem.out.print( (isPancakeUpsideDown(rank)?\"-\":\"\") + getPancakeRadius(rank)+\", \");\n\t\t\tSystem.out.print(\"}  \");\n\t\t\tif (nl)\n\t\t\t\tLogger.log(\"\");\n\t\t}\n\t}\n\t/* END HIDDEN */\n\n\t/* BEGIN TEMPLATE */\n\tpublic void solve() {\n\t\t/* BEGIN SOLUTION */\n\t\tint maxPos = getStackSize();\n\t\twhile (true) {\n\t\t\t\t\t\n\t\t\tif (debug>0)\n\t\t\t\tSystem.out.print(\"maxPos:\"+maxPos+\" \");\n\t\t\tshowStack(false);\n\t\t\t\n\t\t\tint maxupside = -1, maxupsidePos = -1;\n\t\t\tboolean sorted = true;\n\t\t\tfor (int pos=0; pos<getStackSize(); pos++) {\n\t\t\t\tif (getPancakeRadius(pos) != pos+1 || isPancakeUpsideDown(pos))\n\t\t\t\t\tsorted = false;\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tif (pos<maxPos && !isPancakeUpsideDown(pos) && (maxupside < getPancakeRadius(pos))) {\n\t\t\t\t\tmaxupside = getPancakeRadius(pos);\n\t\t\t\t\tmaxupsidePos = pos;\n\t\t\t\t}\n\t\t\t}\n\t\t\t\n\t\t\tif (sorted) { \n\t\t\t\tif (debug > 0) \n\t\t\t\t\tLogger.log(\"It's sorted now. Get out of here\\n\");\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\t\n\t\t\tif (maxupside != -1) { \n\t\t\t\tif (maxupside == maxPos) { \n\t\t\t\t\tif (debug > 0) \n\t\t\t\t\t\tLogger.log(\"Case 1.C; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside);\n\t\t\t\t\tif (maxupsidePos+1 != maxPos) {\n\t\t\t\t\t\tflip(maxupsidePos+1);\n\t\t\t\t\t\tflip(maxPos);\n\t\t\t\t\t}\n\t\t\t\t\tmaxPos--;\n\t\t\t\t} else {\n\t\t\t\t\tint pPlus1 = getRankOf(maxupside+1);\n\t\t\t\t\tif (pPlus1 > maxupsidePos) {\n\t\t\t\t\t\tif (debug > 0) \n\t\t\t\t\t\t\tLogger.log(\"Case 1.A; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside+\", pPlus1 = \"+pPlus1);\n\t\t\t\t\t\tflip(pPlus1+1);showStack(true);\n\t\t\t\t\t\tflip(pPlus1-maxupsidePos);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tif (debug > 0) \n\t\t\t\t\t\t\tLogger.log(\"Case 1.B; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside+\", pPlus1 = \"+pPlus1);\t\t\t\t\t\t\n\t\t\t\t\t\tflip(maxupsidePos+1);\n\t\t\t\t\t\tflip(maxupsidePos-pPlus1);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t} else { \n\t\t\t\tboolean reverted = true;\n\t\t\t\tfor (int pos=0; reverted && pos<maxPos; pos++) \n\t\t\t\t\tif (getPancakeRadius(pos)!=pos+1)\n\t\t\t\t\t\treverted = false;\n\t\t\t\t\n\t\t\t\tif (reverted) {\n\t\t\t\t\tif (debug > 0) \n\t\t\t\t\t\tLogger.log(\"Case 2.B\");\n\t\t\t\t\tfor (int i=0; i<maxPos; i++) {\n\t\t\t\t\t\tflip(maxPos);\n\t\t\t\t\t\tif (maxPos>1)\n\t\t\t\t\t\t\tflip(maxPos-1);\n\t\t\t\t\t\tshowStack(true);\n\t\t\t\t\t}\n\t\t\t\t} else { \n\t\t\t\t\t\n\t\t\t\t\tint pPlus1 = getRankOf(getStackSize()+1);\n\t\t\t\t\tint p;\n\t\t\t\t\tfor (int radius=maxPos; radius > 0; radius--) {\n\t\t\t\t\t\tp = getRankOf(radius);\n\t\t\t\t\t\tif (p>maxPos)\n\t\t\t\t\t\t\tp=-99;\n\t\t\t\t\t\tif (pPlus1!=-99 && pPlus1<p) { \n\t\t\t\t\t\t\tif (debug > 0) \n\t\t\t\t\t\t\t\tLogger.log(\"Case 2.A; p=\"+p+\", radius=\"+radius+\", pPlus1=\"+pPlus1);\n\t\t\t\t\t\t\tflip(p+1);\n\t\t\t\t\t\t\tif (pPlus1!=0)\n\t\t\t\t\t\t\t\tflip(pPlus1+1);\n\t\t\t\t\t\t\tradius = -1; \n\t\t\t\t\t\t}\n\t\t\t\t\t\tpPlus1 = p; \n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "CohenPancake",
+      "body" : "def solve() {\n}\n",
+      "template" : "$package \n\nimport plm.universe.pancake.PancakeEntity\nimport plm.core.log.Logger\n\nclass CohenPancake extends PancakeEntity {\n\toverride def run() {\n\t\tsolve();\n\t}\n\n\t/* BEGIN HIDDEN */\n\tdef getRankOf(size: Integer):Integer = {\n\t\t\tfor (rank <- 0 to getStackSize()-1)\n\t\t\t\tif (getPancakeRadius(rank) == size)\n\t\t\t\t\treturn rank;\n\t\t\t\t\treturn -99; // Well, be robust to border cases \n\t}\n\tvar debug=false; \n\tdef showStack(nl:Boolean) {\n\t\tif (debug) {\n\t\t\tSystem.out.print(\"{\");\n\t\t\tfor (rank <- 0 to getStackSize()-1) {\n\t\t\t\tif (isPancakeUpsideDown(rank))\n\t\t\t\t\tSystem.out.print(\"-\")\n\t\t\t\t\tSystem.out.print(getPancakeRadius(rank)+\", \");\n\t\t\t}  \n\t\t\tSystem.out.print(\"}  \");\n\t\t\tif (nl)\n\t\t\t\tLogger.log(\"\");\n\t\t}\n\t}\n\t/* END HIDDEN */\n\n$body\n}\n",
+      "offset" : 32,
+      "correction" : "$package \n\nimport plm.universe.pancake.PancakeEntity\nimport plm.core.log.Logger\n\nclass CohenPancake extends PancakeEntity {\n\n\toverride def run() {\n\t\tsolve();\n\t}\n\n\t/* BEGIN HIDDEN */\n\tdef getRankOf(size: Integer):Integer = {\n\t\t\tfor (rank <- 0 to getStackSize()-1)\n\t\t\t\tif (getPancakeRadius(rank) == size)\n\t\t\t\t\treturn rank;\n\t\t\t\t\treturn -99; // Well, be robust to border cases \n\t}\n\tvar debug=false; \n\tdef showStack(nl:Boolean) {\n\t\tif (debug) {\n\t\t\tSystem.out.print(\"{\");\n\t\t\tfor (rank <- 0 to getStackSize()-1) {\n\t\t\t\tif (isPancakeUpsideDown(rank))\n\t\t\t\t\tSystem.out.print(\"-\")\n\t\t\t\t\tSystem.out.print(getPancakeRadius(rank)+\", \");\n\t\t\t}  \n\t\t\tSystem.out.print(\"}  \");\n\t\t\tif (nl)\n\t\t\t\tLogger.log(\"\");\n\t\t}\n\t}\n\t/* END HIDDEN */\n\n\t/* BEGIN TEMPLATE */\n\tdef solve() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar maxPos = getStackSize();\n\t\twhile (true) {\n\n\t\t\tif (debug)\n\t\t\t\tSystem.out.print(\"maxPos:\"+maxPos+\" \");\n\t\t\tshowStack(false);\n\n\t\t\tvar maxupside = -1\n\t\t\t\t\tvar maxupsidePos = -1\n\t\t\t\t\tvar sorted = true\n\t\t\t\t\tfor (pos <- 0 to getStackSize()-1) {\n\t\t\t\t\t\tif (getPancakeRadius(pos) != pos+1 || isPancakeUpsideDown(pos))\n\t\t\t\t\t\t\tsorted = false;\n\n\t\t\t\t\t\t// Search if we are in case 1 on the considered interval\n\t\t\t\t\t\tif (pos<maxPos && !isPancakeUpsideDown(pos) && (maxupside < getPancakeRadius(pos))) {\n\t\t\t\t\t\t\tmaxupside = getPancakeRadius(pos);\n\t\t\t\t\t\t\tmaxupsidePos = pos;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\n\t\t\tif (sorted) { // we are done, no need to continue\n\t\t\t\tif (debug) \n\t\t\t\t\tLogger.log(\"It's sorted now. Get out of here\\n\");\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\tif (maxupside != -1) { // Case 1. \n\t\t\t\tif (maxupside == maxPos) { // Case 1.C\n\t\t\t\t\tif (debug) \n\t\t\t\t\t\tLogger.log(\"Case 1.C; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside);\n\t\t\t\t\tif (maxupsidePos+1 != maxPos) {\n\t\t\t\t\t\tflip(maxupsidePos+1);\n\t\t\t\t\t\tflip(maxPos);\n\t\t\t\t\t}\n\t\t\t\t\tmaxPos = maxPos - 1;\n\t\t\t\t} else {\n\t\t\t\t\tval pPlus1 = getRankOf(maxupside+1);\n\t\t\t\t\tif (pPlus1 > maxupsidePos) {\n\t\t\t\t\t\tif (debug) \n\t\t\t\t\t\t\tLogger.log(\"Case 1.A; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside+\", pPlus1 = \"+pPlus1);\n\t\t\t\t\t\tflip(pPlus1+1);showStack(true);\n\t\t\t\t\t\tflip(pPlus1-maxupsidePos);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tif (debug) \n\t\t\t\t\t\t\tLogger.log(\"Case 1.B; maxupsidePos = \"+maxupsidePos+\", maxupside = \"+maxupside+\", pPlus1 = \"+pPlus1);\t\t\t\t\t\t\n\t\t\t\t\t\tflip(maxupsidePos+1);\n\t\t\t\t\t\tflip(maxupsidePos-pPlus1);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t} else { // Case 2. All pancakes are upside down.\n\t\t\t\tvar reverted = true;\n\t\t\t\tfor (pos <- 0 to maxPos-1) \n\t\t\t\t\tif (getPancakeRadius(pos)!=pos+1)\n\t\t\t\t\t\treverted = false;\n\n\t\t\t\t\t\tif (reverted) {\n\t\t\t\t\t\t\tif (debug) \n\t\t\t\t\t\t\t\tLogger.log(\"Case 2.B\");\n\t\t\t\t\t\t\tfor (i <- 1 to maxPos) {\n\t\t\t\t\t\t\t\tflip(maxPos);\n\t\t\t\t\t\t\t\tshowStack(true)\n\t\t\t\t\t\t\t\tif (maxPos>1)\n\t\t\t\t\t\t\t\t\tflip(maxPos-1);\n\t\t\t\t\t\t\t\tshowStack(true);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t} else { \n\n\t\t\t\t\t\t\tvar pPlus1 = getRankOf(getStackSize()+1)\n\t\t\t\t\t\t\t\t\tvar p = -1\n\t\t\t\t\t\t\t\t\tvar found = false\n\t\t\t\t\t\t\t\t\tfor (radius <- maxPos to 0 by -1) {\n\t\t\t\t\t\t\t\t\t\tif (!found) {\n\t\t\t\t\t\t\t\t\t\t\tp = getRankOf(radius);\n\t\t\t\t\t\t\t\t\t\t\tif (p>maxPos)\n\t\t\t\t\t\t\t\t\t\t\t\tp = -99\n\t\t\t\t\t\t\t\t\t\t\t\tif (pPlus1 != -99 && pPlus1<p) { // we've got the larger p such that p+1 is above p and both are upsideof\n\t\t\t\t\t\t\t\t\t\t\t\t\tif (debug) \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tLogger.log(\"Case 2.A; p=\"+p+\", radius=\"+radius+\", pPlus1=\"+pPlus1);\n\t\t\t\t\t\t\t\t\t\t\t\t\tflip(p+1);\n\t\t\t\t\t\t\t\t\t\t\t\t\tif (pPlus1!=0)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tflip(pPlus1+1);\n\t\t\t\t\t\t\t\t\t\t\t\t\tfound = true\n\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\tpPlus1 = p; // shift downward\n\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t}\n\t\t}\t\t\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "CohenPancake",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef getRankOf(size):\n    for rank in range(getStackSize()):\n        if getPancakeRadius(rank) == size:\n            return rank\n    return -99 # be robust to border cases\n\ndebug = False\ndef showStack():\n    if debug:\n        s = \"maxPos:\"+str(maxPos)+\" {\"\n        for rank in range(getStackSize()):\n            if isPancakeUpsideDown(rank):\n                s = s + \"-\"\n            s = s + str(getPancakeRadius(rank)) + \", \"\n        s = s + \"}\"\n        print(s)\n\nmaxPos = getStackSize()\nkeepGoing = True\nwhile keepGoing:\n    if isSelected() and debug:\n        showStack()\n        \n    maxupside = -1\n    maxupsidePos = -1\n    sorted = True\n    for pos in range(getStackSize()):\n        if getPancakeRadius(pos) != pos+1 or isPancakeUpsideDown(pos):\n            sorted = False\n            \n        # Search if we are in case 1 on the considered interval\n        if (pos<maxPos and not isPancakeUpsideDown(pos) and (maxupside < getPancakeRadius(pos))):\n                maxupside = getPancakeRadius(pos)\n                maxupsidePos = pos;\n\n    if sorted: # we are done, no need to continue\n        if debug:\n            print(\"It's sorted now. Get out of here\\n\");\n        break;\n\n    if maxupside != -1: # Case 1. \n        pPlus1 = getRankOf(maxupside+1)\n        if maxupside == maxPos: # Case 1.C\n            if debug:\n                print(\"Case 1.C; maxupsidePos = \"+str(maxupsidePos)+\", maxupside = \"+str(maxupside))\n            if maxupsidePos+1 != maxPos:\n                flip(maxupsidePos+1);\n                flip(maxPos);\n            maxPos -= 1\n        elif pPlus1 > maxupsidePos:\n            if debug:\n                print(\"Case 1.A; maxupsidePos = \"+str(maxupsidePos)+\", maxupside = \"+str(maxupside)+\", pPlus1 = \"+str(pPlus1))\n            flip(pPlus1+1)\n            flip(pPlus1-maxupsidePos);\n        else:\n            if debug:\n                print(\"Case 1.B; maxupsidePos = \"+str(maxupsidePos)+\", maxupside = \"+str(maxupside)+\", pPlus1 = \"+str(pPlus1));\n            flip(maxupsidePos+1);\n            flip(maxupsidePos-pPlus1);\n    else: # Case 2. All pancakes are upside down.\n        reverted = True   \n        for pos in range(maxPos):\n            if getPancakeRadius(pos)!=pos+1:\n                reverted = False\n                \n        if reverted:\n            if debug:\n                print(\"Case 2.B\")\n            for i in range(maxPos):\n                flip(maxPos)\n                if maxPos>1:\n                    flip(maxPos-1)\n                showStack()\n            keepGoing = False\n        else:\n            pPlus1 = getRankOf(getStackSize()+1)\n            p = 0\n            for radius in range(maxPos,0,-1):\n                p = getRankOf(radius);\n                if p>maxPos:\n                    p=-99\n                if (pPlus1!=-99 and pPlus1<p): # we've got the larger p such that p+1 is above p and both are upsideof\n                    if debug:\n                        print(\"Case 2.A; p=\"+str(p)+\", radius=\"+str(radius)+\", pPlus1=\"+str(pPlus1))\n                    flip(p+1)\n                    if pPlus1!=0:\n                        flip(pPlus1+1)\n                    radius = -1 # We're done with this iteration of the loop\n                pPlus1 = p # look downward\n# END SOLUTION\n",
+      "error" : "Error"
+    }
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 1,
+    "name" : "5 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 1,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 2
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 1
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 2,
+    "name" : "upside down",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 2,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 10
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 3,
+    "name" : "7 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 3,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 3
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 7
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 4,
+    "name" : "8 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 4,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 5
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 3
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 5,
+    "name" : "9 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 5,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 4
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 8
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 6,
+    "name" : "15 pancackes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 6,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 7
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 15
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 13
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 7,
+    "name" : "random 15 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 7,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 4
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 15
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 13
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 11
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 8,
+    "name" : "30 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 8,
+      "inited" : false
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 0,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 17
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 24
+    }, {
+      "radius" : 27
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 28
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 29
+    }, {
+      "radius" : 25
+    }, {
+      "radius" : 15
+    }, {
+      "radius" : 20
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 18
+    }, {
+      "radius" : 19
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 21
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 23
+    }, {
+      "radius" : 22
+    }, {
+      "radius" : 16
+    }, {
+      "radius" : 26
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 13
+    }, {
+      "radius" : 30
+    } ]
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 9,
+    "name" : "5 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 9,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 10,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 11,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 12,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 13,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 14,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 15,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 16,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 3
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 7,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 17,
+    "name" : "upside down",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 17,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 18,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 19,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 20,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 21,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 22,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 23,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 24,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 25,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 26,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 27,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 28,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 29,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 30,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 31,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 32,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 33,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 34,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 35,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 36,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 37,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 10
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 20,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 10
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 38,
+    "name" : "7 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 38,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 39,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 40,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 41,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 42,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 43,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 44,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 45,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 4
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 7,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 46,
+    "name" : "8 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 46,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 47,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 48,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 49,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 50,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 51,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 52,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 53,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 54,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 55,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 56,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 57,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 58,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 59,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 60,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 61,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 4
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 15,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 62,
+    "name" : "9 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 62,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 63,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 64,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 65,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 66,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 67,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 68,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 69,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 70,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 71,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 72,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 73,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 11,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 74,
+    "name" : "15 pancackes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 74,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 75,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 76,
+      "name" : "flipOperation",
+      "number" : 15,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 77,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 15
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 78,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 79,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 80,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 81,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 82,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 83,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 84,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 85,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 86,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 87,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 88,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 89,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 90,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 91,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 92,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 93,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 94,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 95,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 96,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 97,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 98,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 24,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 13
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 15
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 99,
+    "name" : "random 15 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 99,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 100,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 101,
+      "name" : "flipOperation",
+      "number" : 15,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 102,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 15
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 103,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 104,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 105,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 106,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 107,
+      "name" : "flipOperation",
+      "number" : 12,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 108,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 12
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 109,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 110,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 111,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 112,
+      "name" : "flipOperation",
+      "number" : 6,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 113,
+      "name" : "flipOperation",
+      "number" : 9,
+      "oldNumber" : 6
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 114,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 9
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 115,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 116,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 117,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 118,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 119,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 120,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 121,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 122,
+      "name" : "flipOperation",
+      "number" : 1,
+      "oldNumber" : 2
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 23,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 13
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 15
+    } ]
+  }, {
+    "type" : "plm.universe.pancake.PancakeWorld",
+    "@jsonId" : 123,
+    "name" : "30 pancakes",
+    "entities" : [ {
+      "type" : "plm.universe.pancake.PancakeEntity",
+      "name" : "Bill",
+      "world" : 123,
+      "inited" : true
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 124,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : -1
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 125,
+      "name" : "flipOperation",
+      "number" : 29,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 126,
+      "name" : "flipOperation",
+      "number" : 27,
+      "oldNumber" : 29
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 127,
+      "name" : "flipOperation",
+      "number" : 28,
+      "oldNumber" : 27
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 128,
+      "name" : "flipOperation",
+      "number" : 23,
+      "oldNumber" : 28
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 129,
+      "name" : "flipOperation",
+      "number" : 27,
+      "oldNumber" : 23
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 130,
+      "name" : "flipOperation",
+      "number" : 26,
+      "oldNumber" : 27
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 131,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 26
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 132,
+      "name" : "flipOperation",
+      "number" : 18,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 133,
+      "name" : "flipOperation",
+      "number" : 26,
+      "oldNumber" : 18
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 134,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 26
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 135,
+      "name" : "flipOperation",
+      "number" : 25,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 136,
+      "name" : "flipOperation",
+      "number" : 22,
+      "oldNumber" : 25
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 137,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 22
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 138,
+      "name" : "flipOperation",
+      "number" : 20,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 139,
+      "name" : "flipOperation",
+      "number" : 23,
+      "oldNumber" : 20
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 140,
+      "name" : "flipOperation",
+      "number" : 21,
+      "oldNumber" : 23
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 141,
+      "name" : "flipOperation",
+      "number" : 18,
+      "oldNumber" : 21
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 142,
+      "name" : "flipOperation",
+      "number" : 19,
+      "oldNumber" : 18
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 143,
+      "name" : "flipOperation",
+      "number" : 22,
+      "oldNumber" : 19
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 144,
+      "name" : "flipOperation",
+      "number" : 19,
+      "oldNumber" : 22
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 145,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 19
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 146,
+      "name" : "flipOperation",
+      "number" : 15,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 147,
+      "name" : "flipOperation",
+      "number" : 20,
+      "oldNumber" : 15
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 148,
+      "name" : "flipOperation",
+      "number" : 16,
+      "oldNumber" : 20
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 149,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 16
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 150,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : 2
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 151,
+      "name" : "flipOperation",
+      "number" : 16,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 152,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 16
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 153,
+      "name" : "flipOperation",
+      "number" : 15,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 154,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 15
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 155,
+      "name" : "flipOperation",
+      "number" : 14,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 156,
+      "name" : "flipOperation",
+      "number" : 12,
+      "oldNumber" : 14
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 157,
+      "name" : "flipOperation",
+      "number" : 13,
+      "oldNumber" : 12
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 158,
+      "name" : "flipOperation",
+      "number" : 12,
+      "oldNumber" : 13
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 159,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 12
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 160,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 161,
+      "name" : "flipOperation",
+      "number" : 10,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 162,
+      "name" : "flipOperation",
+      "number" : 11,
+      "oldNumber" : 10
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 163,
+      "name" : "flipOperation",
+      "number" : 7,
+      "oldNumber" : 11
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 164,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 7
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 165,
+      "name" : "flipOperation",
+      "number" : 12,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 166,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 12
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 167,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 168,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 169,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 170,
+      "name" : "flipOperation",
+      "number" : 5,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 171,
+      "name" : "flipOperation",
+      "number" : 8,
+      "oldNumber" : 5
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 172,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 8
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 173,
+      "name" : "flipOperation",
+      "number" : 3,
+      "oldNumber" : 4
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 174,
+      "name" : "flipOperation",
+      "number" : 4,
+      "oldNumber" : 3
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 175,
+      "name" : "flipOperation",
+      "number" : 2,
+      "oldNumber" : 4
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
+    "parameters" : null,
+    "moveCount" : 52,
+    "selected" : -1,
+    "burnedWorld" : true,
+    "pancakeStack" : [ {
+      "radius" : 1
+    }, {
+      "radius" : 2
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 6
+    }, {
+      "radius" : 7
+    }, {
+      "radius" : 8
+    }, {
+      "radius" : 9
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 13
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 15
+    }, {
+      "radius" : 16
+    }, {
+      "radius" : 17
+    }, {
+      "radius" : 18
+    }, {
+      "radius" : 19
+    }, {
+      "radius" : 20
+    }, {
+      "radius" : 21
+    }, {
+      "radius" : 22
+    }, {
+      "radius" : 23
+    }, {
+      "radius" : 24
+    }, {
+      "radius" : 25
+    }, {
+      "radius" : 26
+    }, {
+      "radius" : 27
+    }, {
+      "radius" : 28
+    }, {
+      "radius" : 29
+    }, {
+      "radius" : 30
+    } ]
+  } ],
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Faster Burned Pancake Sorting</h1>\n\n<p>The Gates' algorithm that we saw in the previous exercise quickly sort a stack of unburned pancakes \nby increasing the size of the blocks of sorted pancakes. This is much faster that the naive algorithm \nwhich moves at each step the largest pancake to the bottom of still unsorted pancakes. Gates' algorithm \nmanages to sort a stack of <i>n</i> pancakes in less than <i>(5n + 5)/3</i> steps in the worst case, \nwhile the naive algorithm requires at most <i>2n</i> steps. Gates is thus about one third faster in the \nworst case.</p>\n\n<p>In this exercise, we will explore an adaptation of the same idea to burnt pancakes. This was first \npublished by David X. Cohen and Manuel Blum. David Cohen co-founded a few years later the Futurama TV \nshow full of mathematical jokes. Definitively, interesting people studied that \nlittle pancake problem...</p>\n\n<p>The Cohen's algorithm is slightly easier than the Gates' one since it distinguishes less cases:</p>\n\n<p><b>Case 1:</b> At least one pancake is rightside up in the stack. Let <i>p</i> be the largest such pancake. \n Note that <i>p + 1</i> must therefore be upside down, unless <i>p = n</i> (in which case there is no <i>p + 1</i> pancake).</p>\n\n<ul>\n  <li><b>Case 1.a:</b> <i>p+1</i> is lower in the stack than <i>p</i>.  <div align=\"center\"><img src=\"img/cohen-1a.png\"/></div><br/></li>\n  <li><b>Case 1.b:</b> <i>p+1</i> is higher in the stack than <i>p</i>. <div align=\"center\"><img src=\"img/cohen-1b.png\"/></div><br/></li>\n  <li><b>Case 1.c:</b> There is no <i>p+1</i> because <i>p</i> is the largest pancake in stack, that is because <i>p = n</i>.\n     If pancake <i>p</i> is already in position, there is nothing to do. If not, you can move it to the bottom of the stack in 2 flips:\n     <div align=\"center\"><img src=\"img/cohen-1c.png\"/></div>\n     \n    <b>The trick is that the pancake <i>p</i> should never be considered again.</b> Otherwise, you will consider that pancake \n      again and again since it's rightside up, and since that's the largest pancake. To leave that pancake alone, you should \n      keep track of the stack size that is still to be sorted. Any traversal of the stack must then only consider these pancakes,\n      leaving alone the ones that are already in position at the bottom of the stack.\n     </li>\n</ul>\n   \n \n<p><b>Case 2:</b> All pancakes are downside. Again, we distinguish two sub-cases.</p>\n  \n<ul>\n <li><b>Case 2.a:</b> There is at least one <i>p</i> for which <i>p+1</i> is higher than <i>p</i> \n   (if there is several such <i>p</i>, take the largest one).\n   <div align=\"center\"><img src=\"img/cohen-2a.png\"/></div><br/>\n </li>\n <li><b>Case 2.b:</b> Any pancake <i>p</i> is lower than pancake <i>p+1</i>. In that case, we must have that setting:\n    <div align=\"center\"><img src=\"img/cohen-2b.png\"/></div>\n </li>\n</ul>\n\n<p>As you can see, we achieve one join in 2 flips in the cases 1 or 2.a. Since we need to achieve n joins to sort the stack, we can sort \nthe stack in <i>2n</i> steps if case 2.b does not occurs.</p>\n\n<p>That case 2.b requires a very different handling as it is obviously not possible to achieve a join in only 2 flips. \n  But fortunately, we can leverage the very specific setting of the stack in that case to provide the following algorithm. \n  It sorts a stack in that exact configuration after exactly <i>2n</i> steps.</p>\n  \n<pre>\nRepeat n times\n    Flip the whole stack of n pancakes\n    Flip the top (n-1) pancakes\n</pre>\n \n<p>It may sound somehow magic, but it actually works, as depicted on an example below.</p>\n\n<p><div align=\"center\"><img src=\"img/cohen-2b-algo.png\"/></div></p>\n\n<p>So, all in all, the Cohen algorithm manages to sort the stack of burnt pancakes in <i>2n</i> steps in all cases. \nQuite a win over the naive algorithm for burnt pancakes that requires <i>3n</i> steps.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"I cannot get it right.\">\nDon't worry. This exercise is very difficult, so it's ok if it does not work right away for you.\nAdd some relevant logging to your code to understand where it stop performing correctly. \nMake sure to use the method <code>isSelected()</code> so that your logs only appears in the \ncurrently displayed world. In particular, it may help to print textually the state of the world\neach time you enter the main loop. \n</tips></p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Tri rapide de crêpes brûlées</h1>\n\n<p>L'algorithme de Gates que nous avons vu dans l'exercice précédent trie\nrapidement les crêpes non brûlées en augmentant constamment la taille de\nsous-séquences triées dans la pile. Cela va bien plus vite que l'algorithme\nnaïf qui déplace à chaque étape la plus grande crêpe en bas de la pile\nnon-triée. L'algorithme de Gates trie une pile de <i>n</i> crêpes en moins\nde  <i>(5n + 5)/3</i> étapes dans le pire des cas là où l'algorithme naïf\nnécessite <i>2n</i> étapes. L'algorithme de Gates est donc un tiers plus\nrapide dans le pire des cas.</p>\n\n<p>Dans cet exercice, nous allons explorer une adaptation de la même idée aux\ncrêpes brûlées. Cet algorithme fut tout d'abord publié par David X. Cohen et\nManuel Blum. Quelques années après, David Cohen lançait avec un ami la série\nFuturama, remplie de blagues mathématiques. Décidément, ce petit problème de\ncrêpes a inspiré des gens intéressant...</p>\n\n<p>L'algorithme de Cohen est un peu plus simple que celui de Gates, car il\ndistingue moins de cas :</p>\n\n<p><b>Cas 1 :</b> Au moins une crêpe est à l'endroit dans la pile. Soit\n<i>p</i> la plus grande des crêpes à l'endroit. Notez que <i>p + 1</i> est\ndonc forcément à l'envers, à moins que <i>p = n</i> (auquel cas il n'y a pas\nde crêpe <i>p + 1</i>).</p>\n\n<ul>\n  <li><b>Cas 1.a :</b> <i>p+1</i> est placée plus bas que <i>p</i> dans la pile.  <div align=\"center\"><img src=\"img/cohen-1a.png\"/></div><br/></li>\n  <li><b>Cas 1.b :</b> <i>p+1</i> est placée plus haut que <i>p</i> dans la pile. <div align=\"center\"><img src=\"img/cohen-1b.png\"/></div><br/></li>\n  <li><b>Cas 1.c :</b> Il n'y a pas de crêpe <i>p + 1</i> car <i>p</i> est la plus\ngrande crêpe de la pile (c'est à dire que <i>p = n</i>). Si la crêpe\n<i>p</i> est déjà en position, il n'y a rien à faire. Dans le cas contraire,\non peut l'amener en bas de la pile en deux opérations :\n     <div align=\"center\"><img src=\"img/cohen-1c.png\"/></div>\n     \n    <b>Le truc est que la crêpe <i>p</i> ne doit plus jamais être considérée\naprès cela.</b> Dans le cas contraire, vous allez considérer cette crêpe\nencore et encore puisqu'elle est à l'endroit et que c'est la plus grande des\ncrêpes. Pour la laisser en paix, vous devez garder trace de la taille de la\npile restant à trier. Tout balayage de la pile de crêpes doit se limiter aux\ncrêpes restant à trier, sans considérer celles étant déjà en position en bas\nde la pile.\n     </li>\n</ul>\n   \n \n<p><b>Cas 2 :</b> Toutes les crêpes sont à l'envers. À nouveau, nous\ndistinguons deux sous-cas.</p>\n  \n<ul>\n <li><b>Cas 2.a :</b> Il y a au moins une crêpe <i>p</i> pour laquelle <i>p+1</i>\nest placée au dessus de <i>p</i> dans la pile (s'il y a plusieurs tels\n<i>p</i>, prenez le plus grand).\n   <div align=\"center\"><img src=\"img/cohen-2a.png\"/></div><br/>\n </li>\n <li><b>Cas 2.b:</b> Chaque crêpe <i>p</i> est placée plus bas que sa crêpe\n<i>p+1</i>. Dans ce cas, nous avons forcément la situation suivante :\n    <div align=\"center\"><img src=\"img/cohen-2b.png\"/></div>\n </li>\n</ul>\n\n<p>Dans les cas 1 ou 2.a, nous pouvons fusionner deux crêpes qui doivent se\nsuivre en deux opérations. Puisque nous devons réaliser n fusions de ce\ngenre pour trier la pile, nous pouvons trier la pile en <i>2n</i> opérations\nsi le cas 2.b n'arrive jamais.</p>\n\n<p>Ce cas 2.b nécessite un traitement particulier puisqu'il est impossible de\nfusionner deux crêpes qui doivent se suivre en deux étapes seulement. Fort\nheureusement, une seule configuration de pile rentre dans ce cas de\nfigure. Nous pouvons alors utiliser l'algorithme suivant, conçu pour tirer\npartie de cette configuration. Cet algorithme trie alors toute la pile en\nexactement <i>2n</i> opérations.</p>\n  \n<pre>\nRépéter n fois\n    Inverser toute la pile de n crêpes \n    Inverser les (n-1) crêpes placées au sommet de la pile\n</pre>\n \n<p>Cela peut sembler un peu magique, mais cela fonctionne. Le dessin ci-dessous\nmontre même comment.</p>\n\n<p><div align=\"center\"><img src=\"img/cohen-2b-algo.png\"/></div></p>\n\n<p>Donc, dans tous les cas, l'algorithme de Cohen parvient à trier une pile de\ncrêpes brûlées en <i>2n</i> étapes, dans tous les cas. C'est mieux que\nl'algorithme naïf pour crêpes brûlées, qui nécessite <i>3n</i> étapes.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Je n'y arrive pas.\">\nPas de panique, cet exercice est très difficile, et il est donc normale de\nne pas y parvenir du premier coup. Ajouter des affichages à votre code pour\nvoir les différentes étapes, et ainsi comprendre le moment où votre\nalgorithme cesse de se comporter correctement. Assurez vous d'utiliser la\nméthode <code>isSelected()</code> pour que vos affichages n'aient lieu que\npour le monde en cours d'affichage. En particulier, cela peut aider\nd'afficher textuellement l'état du monde à chaque fois que vous entrez dans\nla boucle principale. \n</tips></p>\n"
+  }
+}
