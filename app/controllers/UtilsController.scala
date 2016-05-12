@@ -14,4 +14,9 @@ class UtilsController @Inject() (system: ActorSystem) extends Controller {
     exercisesActor ! ExercisesActor.ExportExercises
     Ok("It's done")
   }
+  
+  def exportExercise(exerciseID: String) = Action {
+    exercisesActor ! ExercisesActor.ExportExercise(exerciseID)
+    Ok("It's done")
+  }
 }

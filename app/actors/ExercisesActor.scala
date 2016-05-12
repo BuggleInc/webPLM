@@ -46,6 +46,7 @@ object ExercisesActor {
 
   case class GetExercise(exerciseID: String)
   case class ExportExercises()
+  case class ExportExercise(exerciseID: String)
 
   def generateExercisesIDsList(directory: File, r: Regex): Array[String] = {
     val files: Array[File] = directory.listFiles
@@ -108,15 +109,18 @@ object ExercisesActor {
   }
 
   def exportExercises(): Unit = {
-    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
     exercisesName.foreach { exerciseName =>
-      // Instantiate the exercise the old fashioned way
-      val exercise: Exercise = initFromSource(exerciseName)
-
-      // Store into a file its JSON serialization
-      val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
-      JSONUtils.exerciseToFile(path, exercise)
+      exportExercise(exerciseName)
     }
+  }
+  
+  def exportExercise(exerciseName: String) {
+    // Instantiate the exercise the old fashioned way
+    val exercise: Exercise = initFromSource(exerciseName)
+
+    // Store into a file its JSON serialization
+    val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
+    JSONUtils.exerciseToFile(path, exercise)
   }
 }
 
@@ -128,6 +132,8 @@ class ExercisesActor extends Actor {
       sender ! getExercise(exerciseID)
     case ExportExercises =>
       exportExercises
+    case ExportExercise(exerciseID) =>
+      exportExercise(exerciseID)
     case _ =>
       Logger.error("LessonsActor: not supported message")
   }
