@@ -8,7 +8,7 @@
   HanoiWorld.$inject = ['HanoiDisk', 'HanoiMove'];
 
 	function HanoiWorld(HanoiDisk, HanoiMove) {
-    
+
 		var HanoiWorld = function (world) {
 			var slot, hanoiDisk, i, j;
       this.type = world.type;
@@ -41,7 +41,7 @@
 		};
 
 		HanoiWorld.prototype.generatedOperation = function (operation) {
-			switch (operation.type) {
+			switch (operation.name) {
 		  case 'hanoiMove':
 				return new HanoiMove(operation);
 			}
