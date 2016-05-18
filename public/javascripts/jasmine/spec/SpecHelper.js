@@ -84,8 +84,8 @@ function getRandomBuggleWorldCell() {
 		color: getRandomColor(),
 		hasBaggle: getRandomBoolean(),
 		content: getRandomString(15),
-		hasLeftWall: getRandomBoolean(),
-		hasTopWall: getRandomBoolean()
+		leftWall: getRandomBoolean(),
+		topWall: getRandomBoolean()
 	};
 }
 
