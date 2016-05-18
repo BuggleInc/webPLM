@@ -6,7 +6,7 @@
       "pt_br" : "Os primos menores dos buggles",
       "fr" : "Les petites cousines des Buggles"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.square.FourSquare",
+    "id" : "recursion.logo.square.FourSquare",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -14,7 +14,7 @@
       "pt_br" : "Espirais",
       "fr" : "Spirales"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.spiral.Spiral",
+    "id" : "recursion.logo.spiral.Spiral",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -22,7 +22,7 @@
       "pt_br" : "Desenhando espirais",
       "fr" : "Faire des spirales"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.spiral.SpiralUse",
+    "id" : "recursion.logo.spiral.SpiralUse",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -30,7 +30,7 @@
       "pt_br" : "Árvores",
       "fr" : "Arbres"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.tree.Tree",
+    "id" : "recursion.logo.tree.Tree",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -38,7 +38,7 @@
       "pt_br" : "Floco de neve",
       "fr" : "Flocons de neige"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.koch.Koch",
+    "id" : "recursion.logo.koch.Koch",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -46,7 +46,7 @@
       "pt_br" : "Snow square",
       "fr" : "Carrés de neige"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.koch.SquareKoch",
+    "id" : "recursion.logo.koch.SquareKoch",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -54,7 +54,7 @@
       "pt_br" : "Snow pentagon",
       "fr" : "Pentagone de neige"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.koch.PentaKoch",
+    "id" : "recursion.logo.koch.PentaKoch",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -62,7 +62,7 @@
       "pt_br" : "Snow hexagon",
       "fr" : "Hexagone de neige"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.koch.HexaKoch",
+    "id" : "recursion.logo.koch.HexaKoch",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -70,7 +70,7 @@
       "pt_br" : "Carangueijo Fractal",
       "fr" : "La fractale du crabe"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.koch.Crab",
+    "id" : "recursion.logo.koch.Crab",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -78,7 +78,7 @@
       "pt_br" : "Triângulo de Sierpinski",
       "fr" : "Triangle de Sierpinski"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.sierpinski.Sierpinski",
+    "id" : "recursion.logo.sierpinski.Sierpinski",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -86,7 +86,7 @@
       "pt_br" : "Fractal de polígonos",
       "fr" : "Fractales de polygones"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.polygonfractal.PolygonFractal",
+    "id" : "recursion.logo.polygonfractal.PolygonFractal",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -94,7 +94,7 @@
       "pt_br" : "Curva do Dragão (1)",
       "fr" : "Courbe du Dragon (1)"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.dragoncurve.DragonCurve1",
+    "id" : "recursion.logo.dragoncurve.DragonCurve1",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -102,7 +102,7 @@
       "pt_br" : "A curva do dragão (2)",
       "fr" : "Courbe du Dragon (2)"
     },
-    "id" : "recursion.logo.lessons.recursion.logo.dragoncurve.DragonCurve2",
+    "id" : "recursion.logo.dragoncurve.DragonCurve2",
     "dependingLectures" : [ ]
   } ],
   "id" : "recursion.logo"
