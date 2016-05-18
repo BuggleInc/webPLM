@@ -6,7 +6,7 @@
       "pt_br" : "formiga de Langton",
       "fr" : "La fourmi de Langton"
     },
-    "id" : "turmites.lessons.turmites.langton.Langton",
+    "id" : "turmites.langton.Langton",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -14,7 +14,7 @@
       "pt_br" : "formiga de Langton multicolorida",
       "fr" : "La fourmi de Langton multicolore"
     },
-    "id" : "turmites.lessons.turmites.langtoncolors.LangtonColors",
+    "id" : "turmites.langtoncolors.LangtonColors",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -22,7 +22,7 @@
       "pt_br" : "Turmites",
       "fr" : "Turmites"
     },
-    "id" : "turmites.lessons.turmites.helloturmite.HelloTurmite",
+    "id" : "turmites.helloturmite.HelloTurmite",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -30,7 +30,7 @@
       "pt_br" : "Criando Turmites",
       "fr" : "Créer des Turmites"
     },
-    "id" : "turmites.lessons.turmites.turmitecreator.TurmiteCreator",
+    "id" : "turmites.turmitecreator.TurmiteCreator",
     "dependingLectures" : [ ]
   } ],
   "id" : "turmites"
