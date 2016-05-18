@@ -12,11 +12,11 @@
     var BuggleWorldCell = function(cell) {
       this.x = cell.x;
       this.y = cell.y;
-      this.color = cell.color;
-      this.hasBaggle = cell.hasBaggle;
-      this.content = cell.content;
-      this.leftWall = cell.leftWall;
-      this.topWall = cell.topWall;
+      this.color = cell.color || DEFAULT_CELL_COLOR;
+      this.hasBaggle = cell.hasBaggle || false;
+      this.content = cell.content || "";
+      this.leftWall = cell.leftWall || false;
+      this.topWall = cell.topWall || false;
     };
 
     BuggleWorldCell.getDefaultCell = function(x, y) {

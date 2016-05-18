@@ -253,6 +253,7 @@
           var worldType = dataInitialWorld.type.split('.').pop();
           switch (worldType) {
           case 'BuggleWorld':
+          case 'TurmiteWorld':
             exercise.tabs = [
               {
                 name: 'World',
