@@ -134,7 +134,7 @@
       "pt_br" : "All Different",
       "fr" : "Tous différents"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.AllDifferent",
+    "id" : "recursion.cons.alldifferent.AllDifferent",
     "dependingLectures" : [ ]
   } ],
   "id" : "recursion.cons"

@@ -276,6 +276,7 @@
             exercise.drawFnct = BuggleWorldView.draw;
             break;
           case 'BatWorld':
+          case 'ConsWorld':
             exercise.tabs = [
               {
                 name: 'World',
