@@ -2,195 +2,195 @@
   "name" : null,
   "lectures" : [ {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Square",
+      "pt_br" : "Square",
+      "fr" : "Square"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Square",
+    "id" : "turtleart.square.Square",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "SmallSquare",
+      "pt_br" : "SmallSquare",
+      "fr" : "SmallSquare"
     },
-    "id" : "turtleart.lessons.turtleart.Main.SmallSquare",
+    "id" : "turtleart.smallsquare.SmallSquare",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Stairs",
+      "pt_br" : "Stairs",
+      "fr" : "Stairs"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Stairs",
+    "id" : "turtleart.stairs.Stairs",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "TriangleFlat",
+      "pt_br" : "TriangleFlat",
+      "fr" : "TriangleFlat"
     },
-    "id" : "turtleart.lessons.turtleart.Main.TriangleFlat",
+    "id" : "turtleart.triangleflat.TriangleFlat",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Triangle",
+      "pt_br" : "Triangle",
+      "fr" : "Triangle"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Triangle",
+    "id" : "turtleart.triangle.Triangle",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "House",
+      "pt_br" : "House",
+      "fr" : "House"
     },
-    "id" : "turtleart.lessons.turtleart.Main.House",
+    "id" : "turtleart.house.House",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "HouseThree",
+      "pt_br" : "HouseThree",
+      "fr" : "HouseThree"
     },
-    "id" : "turtleart.lessons.turtleart.Main.HouseThree",
+    "id" : "turtleart.housethree.HouseThree",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "HouseMany",
+      "pt_br" : "HouseMany",
+      "fr" : "HouseMany"
     },
-    "id" : "turtleart.lessons.turtleart.Main.HouseMany",
+    "id" : "turtleart.housemany.HouseMany",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Polygon6",
+      "pt_br" : "Polygon6",
+      "fr" : "Polygon6"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Polygon6",
+    "id" : "turtleart.polygon6.Polygon6",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Polygon7",
+      "pt_br" : "Polygon7",
+      "fr" : "Polygon7"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Polygon7",
+    "id" : "turtleart.polygon7.Polygon7",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Polygon20",
+      "pt_br" : "Polygon20",
+      "fr" : "Polygon20"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Polygon20",
+    "id" : "turtleart.polygon20.Polygon20",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Polygon360",
+      "pt_br" : "Polygon360",
+      "fr" : "Polygon360"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Polygon360",
+    "id" : "turtleart.polygon360.Polygon360",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "CircleTwo",
+      "pt_br" : "CircleTwo",
+      "fr" : "CircleTwo"
     },
-    "id" : "turtleart.lessons.turtleart.Main.CircleTwo",
+    "id" : "turtleart.circletwo.CircleTwo",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "CircleYing",
+      "pt_br" : "CircleYing",
+      "fr" : "CircleYing"
     },
-    "id" : "turtleart.lessons.turtleart.Main.CircleYing",
+    "id" : "turtleart.circleying.CircleYing",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "CircleSquare",
+      "pt_br" : "CircleSquare",
+      "fr" : "CircleSquare"
     },
-    "id" : "turtleart.lessons.turtleart.Main.CircleSquare",
+    "id" : "turtleart.circlesquare.CircleSquare",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "CircleTen",
+      "pt_br" : "CircleTen",
+      "fr" : "CircleTen"
     },
-    "id" : "turtleart.lessons.turtleart.Main.CircleTen",
+    "id" : "turtleart.circleten.CircleTen",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "DiskFourth",
+      "pt_br" : "DiskFourth",
+      "fr" : "DiskFourth"
     },
-    "id" : "turtleart.lessons.turtleart.Main.DiskFourth",
+    "id" : "turtleart.diskfourth.DiskFourth",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "DiskFour",
+      "pt_br" : "DiskFour",
+      "fr" : "DiskFour"
     },
-    "id" : "turtleart.lessons.turtleart.Main.DiskFour",
+    "id" : "turtleart.diskfour.DiskFour",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "DiskTwo",
+      "pt_br" : "DiskTwo",
+      "fr" : "DiskTwo"
     },
-    "id" : "turtleart.lessons.turtleart.Main.DiskTwo",
+    "id" : "turtleart.disktwo.DiskTwo",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Star",
+      "pt_br" : "Star",
+      "fr" : "Star"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Star",
+    "id" : "turtleart.star.Star",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Flower",
+      "pt_br" : "Flower",
+      "fr" : "Flower"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Flower",
+    "id" : "turtleart.flower.Flower",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Kerr36",
+      "pt_br" : "Kerr36",
+      "fr" : "Kerr36"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Kerr36",
+    "id" : "turtleart.kerr36.Kerr36",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Kerr40",
+      "pt_br" : "Kerr40",
+      "fr" : "Kerr40"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Kerr40",
+    "id" : "turtleart.kerr40.Kerr40",
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "Name not found",
-      "pt_br" : "Name not found",
-      "fr" : "Name not found"
+      "en" : "Flower3",
+      "pt_br" : "Flower3",
+      "fr" : "Flower3"
     },
-    "id" : "turtleart.lessons.turtleart.Main.Flower3",
+    "id" : "turtleart.flower3.Flower3",
     "dependingLectures" : [ ]
   } ],
   "id" : "turtleart"
