@@ -6,7 +6,7 @@
       "pt_br" : "Comprimento",
       "fr" : "Longueur"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Length",
+    "id" : "recursion.cons.length.Length",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -14,7 +14,7 @@
       "pt_br" : "IsMember",
       "fr" : "EstMembre"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.IsMember",
+    "id" : "recursion.cons.ismember.IsMember",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -22,7 +22,7 @@
       "pt_br" : "Occurrences",
       "fr" : "Occurrences"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Occurrence",
+    "id" : "recursion.cons.occurrences.Occurrences",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -30,7 +30,7 @@
       "pt_br" : "Last",
       "fr" : "Dernier"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Last",
+    "id" : "recursion.cons.last.Last",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -38,7 +38,7 @@
       "pt_br" : "Min",
       "fr" : "Min"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Min",
+    "id" : "recursion.cons.min.Min",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -46,7 +46,7 @@
       "pt_br" : "Increasing",
       "fr" : "Croissante"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Increasing",
+    "id" : "recursion.cons.increasing.Increasing",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -54,7 +54,7 @@
       "pt_br" : "But Last",
       "fr" : "Sauf Dernier"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.ButLast",
+    "id" : "recursion.cons.butlast.ButLast",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -62,7 +62,7 @@
       "pt_br" : "PlusOne",
       "fr" : "PlusUn"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.PlusOne",
+    "id" : "recursion.cons.plusone.PlusOne",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -70,7 +70,7 @@
       "pt_br" : "Remove",
       "fr" : "Retire"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Remove",
+    "id" : "recursion.cons.remove.Remove",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -78,7 +78,7 @@
       "pt_br" : "Nth",
       "fr" : "Nième"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Nth",
+    "id" : "recursion.cons.nth.Nth",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -86,7 +86,7 @@
       "pt_br" : "Nfirst",
       "fr" : "nPremiers"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Nfirst",
+    "id" : "recursion.cons.nfirst.Nfirst",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -94,7 +94,7 @@
       "pt_br" : "Nlast",
       "fr" : "nDerniers"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Nlast",
+    "id" : "recursion.cons.nlast.Nlast",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -102,7 +102,7 @@
       "pt_br" : "But Nfirst",
       "fr" : "Sauf nPremiers"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.ButNfirst",
+    "id" : "recursion.cons.butnfirst.ButNfirst",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -110,7 +110,7 @@
       "pt_br" : "But Nlast",
       "fr" : "Sauf nDerniers"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.ButNlast",
+    "id" : "recursion.cons.butnlast.ButNlast",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -118,7 +118,7 @@
       "pt_br" : "Reverse",
       "fr" : "Inverse"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Reverse",
+    "id" : "recursion.cons.reverse.Reverse",
     "dependingLectures" : [ ]
   }, {
     "names" : {
@@ -126,7 +126,7 @@
       "pt_br" : "Concat",
       "fr" : "Concaténation"
     },
-    "id" : "recursion.cons.lessons.recursion.cons.Concat",
+    "id" : "recursion.cons.concat.Concat",
     "dependingLectures" : [ ]
   }, {
     "names" : {

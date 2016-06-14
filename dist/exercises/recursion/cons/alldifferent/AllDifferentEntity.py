@@ -1,9 +1,8 @@
 # BEGIN TEMPLATE
 def allDifferent(list):
-  print list
 # BEGIN SOLUTION
   if list == None:
-    return True;
+    return True
   ptr = list.tail
   while ptr != None and ptr.head != list.head:
     ptr = ptr.tail
