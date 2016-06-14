@@ -52,21 +52,33 @@
       return item;
     };
 
+    BatTest.prototype.parameterToStr = function (parameter) {
+      if(parameter === null) {
+        return 'null';
+      }
+      if(parameter instanceof Array) {
+        return '[' + parameter.toString() + ']';
+      }
+      return parameter.toString()
+    }
+
     BatTest.prototype.toString = function () {
-      var parameter, i;
-      var display = [];
-      var suffix = !this.correct ? ' (expected: '+ this.expected + ')' : '';
-      var rightMember = (this.answered ? this.result + suffix : this.expected);
+      var leftMember, rightMember, suffix,
+        display, displayedExpected, displayedResult,
+        parameter, i;
+
+      display = [];
+      displayedExpected = this.parameterToStr(this.expected);
+      displayedResult = this.parameterToStr(this.result);
+
+      suffix = !this.correct ? ' (expected: '+ displayedExpected + ')' : '';
+      rightMember = (this.answered ? displayedResult + suffix : displayedExpected);
 
       for(i=0; i<this.parameters.length; i += 1) {
         parameter = this.parameters[i];
-        if(parameter instanceof Array) {
-          display.push('[' + parameter.toString() + ']'); // Otherwise the brackets are lost with toString()
-        } else {
-          display.push(parameter.toString());
-        }
+        display.push( this.parameterToStr(parameter) ); // Otherwise the brackets are lost with toString()
       }
-      var leftMember = this.funName + '(' + display.join(',') + ')';
+      leftMember = this.funName + '(' + display.join(',') + ')';
 
       return leftMember + ' = ' + rightMember;
     };
