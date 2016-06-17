@@ -63,7 +63,7 @@
     exercise.playedDemo = false;
 
     exercise.instructions = null;
-    exercise.api = null;
+    exercise.help = null;
     exercise.resultType = null;
     exercise.result = '';
     exercise.logs = '';
@@ -210,11 +210,11 @@
         exercise.logs += args.msg;
         break;
       case 'newProgLang':
-        updateInstructions(args.instructions, args.api);
+        updateInstructions(args.instructions, args.help);
         updateCodeEditor(args.newProgLang, args.code);
         break;
       case 'newHumanLang':
-        updateInstructions(args.instructions, args.api);
+        updateInstructions(args.instructions, args.help);
         break;
       case 'exerciseNotFound':
         toasterUtils.warning('Exercise ' + exercise.id + ' not found, you\'ve been redirect to the lesson\'s first exercise.');
@@ -477,7 +477,7 @@
 
         window.addEventListener('resize', resizeCodeMirror, false);
 
-        updateInstructions(data.instructions, data.api);
+        updateInstructions(data.instructions, data.help);
         updateCodeEditor(progLangs.getCurrentProgLang(), data.code.trim());
       }
 
@@ -491,9 +491,9 @@
       exercisesList.setCurrentLessonID(exercise.lessonID);
     }
 
-    function updateInstructions(instructions, api) {
+    function updateInstructions(instructions, help) {
       exercise.instructions = instructions;
-      exercise.api = $sce.trustAsHtml(api);
+      exercise.help = $sce.trustAsHtml(help);
     }
 
     function setCurrentWorld(worldID, worldKind) {
@@ -736,7 +736,7 @@
         exercise.drawService.setWorld(null);
       }
       exercise.instructions = null;
-      exercise.api = null;
+      exercise.help = null;
       exercise.resultType = null;
       exercise.result = null;
       exercise.logs = null;
