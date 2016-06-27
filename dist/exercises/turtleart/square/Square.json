@@ -1,0 +1,253 @@
+{
+  "id" : "Square",
+  "name" : "Square",
+  "tabName" : "Square",
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "Square",
+      "body" : "public void run() {\n}\n",
+      "template" : "$package   import plm.universe.turtles.Turtle;  public class Square extends Turtle { $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\npublic class Square extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n        addSizeHint(35,50, 35,250);\n        addSizeHint(250,35, 50,35);\n\n        for (int i = 0; i < 4; i++) {\n        \tforward(200);\n        \tright(90);\n        }\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "Square",
+      "body" : "override def run() {\n}\n",
+      "template" : "$package \n\nimport plm.universe.turtles.Turtle;\n\nclass Square extends Turtle {\n$body\n}\n",
+      "offset" : 5,
+      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\nclass Square extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n        addSizeHint(35,50, 35,250);\n        addSizeHint(250,35, 50,35);\n\n        for (i <- 1 to 4) {\n        \tforward(200);\n        \tright(90);\n        }\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "Square",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\naddSizeHint(35,50, 35,250);\naddSizeHint(250,35, 50,35);\n\nfor i in range(4):\n\tforward(200);\n\tright(90);\n# END SOLUTION\n",
+      "error" : "Error"
+    }
+  },
+  "helps" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The universe of turtles</h1>\n\n<p>This is an adaptation of LOGO for the Programmer's Learning Machine.</p>\n\n<p>It is directly inspired from the work of the mathematician Seymour\nPapert in the 60's. Inspired from the swiss psycholog Jean Piaget, he came\nup with a learning method called LOGO to teach programming to young\nchilds. The world is full of turtles which leave a painting where they go\nand which respond to simple orders.</p>\n\n<h2>Functions to move the turtle</h2>\n\n<pre><code class=\"code-container\">[!java|c]void [/!]forward([!java|c]double [/!]steps[!scala]:Double[/!])\n[!java|c]void [/!]backward([!java|c]double [/!]steps[!scala]:Double[/!])</code></pre>\nMoves forward or backward of the requested amount of steps.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]right([!java|c]double [/!]angle[!scala]:Double[/!])\n[!java|c]void [/!]left([!java|c]double [/!]angle[!scala]:Double[/!])</code></pre>\nTurns left or right of the given angle (in degrees).\n\n<pre><code class=\"code-container\">[!java|c]double [/!]getX()[!scala]:Double[/!]\n[!java|c]double [/!]getY()[!scala]:Double[/!]</code></pre>\nReturns the current position of the turtle. \nNote that the point (0,0) is on the top left corner, as it is often the case in Computer Science.  \n\n<pre><code class=\"code-container\">[!java|c]void [/!]setX([!java|c]double [/!]x[!scala]:Double[/!])\n[!java|c]void [/!]setY([!java|c]double [/!]y[!scala]:Double[/!])\n[!java|c]void [/!]setPos([!java|c]double [/!]x[!scala]:Double[/!], [!java|c]double [/!]y[!scala]:Double[/!])</code></pre>\nTeleports the turtle to a new position (without leaving any trace).\n\n<pre><code class=\"code-container\">[!java|c]void [/!]moveTo([!java|c]double [/!]x[!scala]:Double[/!], [!java|c]double [/!]y[!scala]:Double[/!])</code></pre>\nMoves the turtle to a new position.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]circle([!java|c]double [/!]radius[!scala]:Double[/!])</code></pre>\nDraw a circle of the specified radius centered on the turtle.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]hide()</code></pre>\nHides the turtle.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]show()</code></pre>\nShows the turtle back.\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]isVisible()[!scala]:Boolean[/!]</code></pre>\nReturns whether the turtle is currently visible.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]clear()</code></pre>\nRemoves any trail on the sheet.\n\n<pre><code class=\"code-container\">[!java|c]double [/!]getHeading()[!scala]:Double[/!]</code></pre>\nReturns the current heading of the turtle (in degrees).\n\n<pre><code class=\"code-container\">[!java|c]void [/!]setHeading([!java|c]double [/!]angle[!scala]:Double[/!])</code></pre>\nSets a new heading to the turtle (in degrees).\n\n<h2>Functions about the pen</h2>\n\n<pre><code class=\"code-container\">[!java|c]void [/!]penUp()</code></pre>\nMoves the pen up (turtles have pens, not brushes as buggles). The\nturtle will not leave any trace during its subsequent moves.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]penDown()</code></pre>\nMoves the pen down. The turtle will leave a trace during its subsequent moves.\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]isPenDown()[!scala]:Boolean[/!]</code></pre>\nReturns the current pen position as a boolean.\n\n<pre><code class=\"code-container\">[!java|c]Color [/!]getColor()[!scala]:Color[/!]</code></pre>\nReturns the current pen color.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]setColor([!java|c]Color [/!]color[!scala]:Color[/!])</code></pre>\nChanges the pen color.\n\n<h2>Other functions</h2>\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]isSelected()[!scala]:Boolean[/!]</code></pre>\nReturns whether the current turtle is selected in the graphical interface.\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>L'univers des tortues</h1>\n\n<p>Cet univers est une adaptation de LOGO pour la Programmer's Learning\nMachine.</p>\n\n<p>Il est directement inspiré des travaux du mathématicien Seymour Papert dans\nles années 60. Inspiré par le psychologue suisse Jean Piaget, il a inventé\nune méthode d'apprentissage de la programmation accessible aux jeunes\nenfants nommée LOGO. Le monde est peuplé de tortues qui laissent une trace\nlà où elles marchent et à qui on peut donner des ordres simples.</p>\n\n<h2>Fonctions pour déplacer la tortue</h2>\n\n<pre><code class=\"code-container\">[!java|c]void [/!]avance([!java|c]double [/!]nbPas[!scala]:Double[/!])\n[!java|c]void [/!]recule([!java|c]double [/!]nbPas[!scala]:Double[/!])</code></pre>\nAvance ou recule du nombre de pas demandé.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]droite([!java|c]double [/!]angle[!scala]:Double[/!])\n[!java|c]void [/!]gauche([!java|c]double [/!]angle[!scala]:Double[/!])</code></pre>\nTourne à gauche ou à droite de l'angle indiqué (en degrés).\n\n<pre><code class=\"code-container\">[!java|c]double [/!]getX()[!scala]:Double[/!]\n[!java|c]double [/!]getY()[!scala]:Double[/!]</code></pre>\nRenvoie la position courante de la tortue. L'origine (0; 0) est dans le coin\nen haut à gauche, comme c'est souvent le cas en informatique.  \n\n<pre><code class=\"code-container\">[!java|c]void [/!]setX([!java|c]double [/!]x[!scala]:Double[/!])\n[!java|c]void [/!]setY([!java|c]double [/!]y[!scala]:Double[/!])\n[!java|c]void [/!]setPos([!java|c]double [/!]x[!scala]:Double[/!], [!java|c]double [/!]y[!scala]:Double[/!])</code></pre>\nTéléporte la tortue à une nouvelle position (sans laisser de trace).\n\n<pre><code class=\"code-container\">[!java|c]void [/!]allerVers([!java|c]double [/!]x[!scala]:Double[/!], [!java|c]double [/!]y[!scala]:Double[/!])</code></pre>\nDéplace la tortue à une nouvelle position.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]cercle([!java|c]double [/!]rayon[!scala]:Double[/!])</code></pre>\nDessine un cercle du rayon demandé et centré sur la tortue.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]cache()</code></pre>\nCache la tortue.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]montre()</code></pre>\nMontre la tortue.\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]estVisible()[!scala]:Boolean[/!]</code></pre>\nRenvoie vrai si la tortue est actuellement visible.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]efface()</code></pre>\nEfface toutes les traces de la feuille.\n\n<pre><code class=\"code-container\">[!java|c]double [/!]getCap()[!scala]:Double[/!]</code></pre>\nRetourne le cap actuel de la tortue (en degrés).\n\n<pre><code class=\"code-container\">[!java|c]void [/!]setCap([!java|c]double [/!]angle[!scala]:Double[/!])</code></pre>\nChange le cap de la tortue à l'angle indiqué (en degrés).\n\n<h2>Fonctions à propos du stylo</h2>\n\n<pre><code class=\"code-container\">[!java|c]void [/!]leveCrayon()</code></pre>\nRemonte le crayon de la tortue (les tortues ont des crayons, pas des brosses\ncomme les buggles). La tortue ne laissera plus de trace lors de ses\ndéplacements suivants.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]baisseCrayon()</code></pre>\nDescend le stylo. La tortue laissera une trace lors de ses prochains\ndéplacements.\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]estCrayonBaisse()[!scala]:Boolean[/!]</code></pre>\nRetourne si le stylo est actuellement baissé ou non.\n\n<pre><code class=\"code-container\">[!java|c]Color [/!]getCouleur()[!scala]:Color[/!]</code></pre>\nRetourne la couleur actuelle du stylo.\n\n<pre><code class=\"code-container\">[!java|c]void [/!]setCouleur([!java|c]Color [/!]couleur[!scala]:Color[/!])</code></pre>\nModifier la couleur du stylo.\n\n<h2>Autres fonctions</h2>\n\n<pre><code class=\"code-container\">[!java]boolean [/!][!c]int [/!]estChoisie()[!scala]:Boolean[/!]</code></pre>\nRenvoie si la tortue actuelle est sélectionnée dans l'interface graphique.\n\n<h2>Couleurs valides</h2>\n<table border=1>\n<tr><td>Nom</td><td>Couleur</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n"
+  },
+  "initialWorlds" : [ {
+    "type" : "plm.universe.turtles.TurtleWorld",
+    "@jsonId" : 1,
+    "name" : "Square",
+    "width" : 300.0,
+    "height" : 300.0,
+    "entities" : [ {
+      "type" : "plm.universe.turtles.Turtle",
+      "name" : "Hawksbill",
+      "x" : 50.0,
+      "y" : 250.0,
+      "world" : 1,
+      "inited" : false,
+      "color" : [ 0, 0, 0, 255 ],
+      "direction" : 270.0
+    } ],
+    "steps" : [ ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The universe of turtles</h1>\n\n<p>This is an adaptation of LOGO for the Programmer's Learning Machine.</p>\n\n<p>It is directly inspired from the work of the mathematician Seymour\nPapert in the 60's. Inspired from the swiss psycholog Jean Piaget, he came\nup with a learning method called LOGO to teach programming to young\nchilds. The world is full of turtles which leave a painting where they go\nand which respond to simple orders.</p>\n\n<h2>Functions to move the turtle</h2>\n\n<pre><code class=\"code-container\">void forward(double steps)\nvoid backward(double steps)</code></pre>\nMoves forward or backward of the requested amount of steps.\n\n<pre><code class=\"code-container\">void right(double angle)\nvoid left(double angle)</code></pre>\nTurns left or right of the given angle (in degrees).\n\n<pre><code class=\"code-container\">double getX()\ndouble getY()</code></pre>\nReturns the current position of the turtle. \nNote that the point (0,0) is on the top left corner, as it is often the case in Computer Science.  \n\n<pre><code class=\"code-container\">void setX(double x)\nvoid setY(double y)\nvoid setPos(double x, double y)</code></pre>\nTeleports the turtle to a new position (without leaving any trace).\n\n<pre><code class=\"code-container\">void moveTo(double x, double y)</code></pre>\nMoves the turtle to a new position.\n\n<pre><code class=\"code-container\">void circle(double radius)</code></pre>\nDraw a circle of the specified radius centered on the turtle.\n\n<pre><code class=\"code-container\">void hide()</code></pre>\nHides the turtle.\n\n<pre><code class=\"code-container\">void show()</code></pre>\nShows the turtle back.\n\n<pre><code class=\"code-container\">boolean isVisible()</code></pre>\nReturns whether the turtle is currently visible.\n\n<pre><code class=\"code-container\">void clear()</code></pre>\nRemoves any trail on the sheet.\n\n<pre><code class=\"code-container\">double getHeading()</code></pre>\nReturns the current heading of the turtle (in degrees).\n\n<pre><code class=\"code-container\">void setHeading(double angle)</code></pre>\nSets a new heading to the turtle (in degrees).\n\n<h2>Functions about the pen</h2>\n\n<pre><code class=\"code-container\">void penUp()</code></pre>\nMoves the pen up (turtles have pens, not brushes as buggles). The\nturtle will not leave any trace during its subsequent moves.\n\n<pre><code class=\"code-container\">void penDown()</code></pre>\nMoves the pen down. The turtle will leave a trace during its subsequent moves.\n\n<pre><code class=\"code-container\">boolean isPenDown()</code></pre>\nReturns the current pen position as a boolean.\n\n<pre><code class=\"code-container\">Color getColor()</code></pre>\nReturns the current pen color.\n\n<pre><code class=\"code-container\">void setColor(Color color)</code></pre>\nChanges the pen color.\n\n<h2>Other functions</h2>\n\n<pre><code class=\"code-container\">boolean isSelected()</code></pre>\nReturns whether the current turtle is selected in the graphical interface.\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n",
+    "parameters" : null,
+    "shapes" : [ ],
+    "sizeHints" : [ ]
+  } ],
+  "answerWorlds" : [ {
+    "type" : "plm.universe.turtles.TurtleWorld",
+    "@jsonId" : 2,
+    "name" : "Square",
+    "width" : 300.0,
+    "height" : 300.0,
+    "entities" : [ {
+      "type" : "plm.universe.turtles.Turtle",
+      "name" : "Hawksbill",
+      "world" : 2,
+      "inited" : true,
+      "color" : [ 0, 0, 0, 255 ],
+      "x" : 49.99999999999997,
+      "y" : 250.00000000000003,
+      "direction" : 270.0
+    } ],
+    "steps" : [ [ {
+      "type" : "plm.universe.turtles.operations.AddSizeHint",
+      "@jsonId" : 3,
+      "turtleID" : "Hawksbill",
+      "x1" : 35,
+      "y1" : 50,
+      "x2" : 35,
+      "y2" : 250,
+      "text" : "200",
+      "name" : "addSizeHint"
+    }, {
+      "type" : "plm.universe.turtles.operations.AddSizeHint",
+      "@jsonId" : 4,
+      "turtleID" : "Hawksbill",
+      "x1" : 250,
+      "y1" : 35,
+      "x2" : 50,
+      "y2" : 35,
+      "text" : "200",
+      "name" : "addSizeHint"
+    }, {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 5,
+      "turtleID" : "Hawksbill",
+      "x1" : 50.0,
+      "y1" : 250.0,
+      "x2" : 49.999999999999964,
+      "y2" : 50.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 6,
+      "turtleID" : "Hawksbill",
+      "oldX" : 50.0,
+      "oldY" : 250.0,
+      "newX" : 49.999999999999964,
+      "newY" : 50.0,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 7,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 360.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 8,
+      "turtleID" : "Hawksbill",
+      "x1" : 49.999999999999964,
+      "y1" : 50.0,
+      "x2" : 249.99999999999997,
+      "y2" : 50.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 9,
+      "turtleID" : "Hawksbill",
+      "oldX" : 49.999999999999964,
+      "oldY" : 50.0,
+      "newX" : 249.99999999999997,
+      "newY" : 50.0,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 10,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : 90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 11,
+      "turtleID" : "Hawksbill",
+      "x1" : 249.99999999999997,
+      "y1" : 50.0,
+      "x2" : 249.99999999999997,
+      "y2" : 250.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 12,
+      "turtleID" : "Hawksbill",
+      "oldX" : 249.99999999999997,
+      "oldY" : 50.0,
+      "newX" : 249.99999999999997,
+      "newY" : 250.0,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 13,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 90.0,
+      "newHeading" : 180.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 14,
+      "turtleID" : "Hawksbill",
+      "x1" : 249.99999999999997,
+      "y1" : 250.0,
+      "x2" : 49.99999999999997,
+      "y2" : 250.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 15,
+      "turtleID" : "Hawksbill",
+      "oldX" : 249.99999999999997,
+      "oldY" : 250.0,
+      "newX" : 49.99999999999997,
+      "newY" : 250.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 16,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 270.0,
+      "name" : "rotateTurtle"
+    } ] ],
+    "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The universe of turtles</h1>\n\n<p>This is an adaptation of LOGO for the Programmer's Learning Machine.</p>\n\n<p>It is directly inspired from the work of the mathematician Seymour\nPapert in the 60's. Inspired from the swiss psycholog Jean Piaget, he came\nup with a learning method called LOGO to teach programming to young\nchilds. The world is full of turtles which leave a painting where they go\nand which respond to simple orders.</p>\n\n<h2>Functions to move the turtle</h2>\n\n<pre><code class=\"code-container\">void forward(double steps)\nvoid backward(double steps)</code></pre>\nMoves forward or backward of the requested amount of steps.\n\n<pre><code class=\"code-container\">void right(double angle)\nvoid left(double angle)</code></pre>\nTurns left or right of the given angle (in degrees).\n\n<pre><code class=\"code-container\">double getX()\ndouble getY()</code></pre>\nReturns the current position of the turtle. \nNote that the point (0,0) is on the top left corner, as it is often the case in Computer Science.  \n\n<pre><code class=\"code-container\">void setX(double x)\nvoid setY(double y)\nvoid setPos(double x, double y)</code></pre>\nTeleports the turtle to a new position (without leaving any trace).\n\n<pre><code class=\"code-container\">void moveTo(double x, double y)</code></pre>\nMoves the turtle to a new position.\n\n<pre><code class=\"code-container\">void circle(double radius)</code></pre>\nDraw a circle of the specified radius centered on the turtle.\n\n<pre><code class=\"code-container\">void hide()</code></pre>\nHides the turtle.\n\n<pre><code class=\"code-container\">void show()</code></pre>\nShows the turtle back.\n\n<pre><code class=\"code-container\">boolean isVisible()</code></pre>\nReturns whether the turtle is currently visible.\n\n<pre><code class=\"code-container\">void clear()</code></pre>\nRemoves any trail on the sheet.\n\n<pre><code class=\"code-container\">double getHeading()</code></pre>\nReturns the current heading of the turtle (in degrees).\n\n<pre><code class=\"code-container\">void setHeading(double angle)</code></pre>\nSets a new heading to the turtle (in degrees).\n\n<h2>Functions about the pen</h2>\n\n<pre><code class=\"code-container\">void penUp()</code></pre>\nMoves the pen up (turtles have pens, not brushes as buggles). The\nturtle will not leave any trace during its subsequent moves.\n\n<pre><code class=\"code-container\">void penDown()</code></pre>\nMoves the pen down. The turtle will leave a trace during its subsequent moves.\n\n<pre><code class=\"code-container\">boolean isPenDown()</code></pre>\nReturns the current pen position as a boolean.\n\n<pre><code class=\"code-container\">Color getColor()</code></pre>\nReturns the current pen color.\n\n<pre><code class=\"code-container\">void setColor(Color color)</code></pre>\nChanges the pen color.\n\n<h2>Other functions</h2>\n\n<pre><code class=\"code-container\">boolean isSelected()</code></pre>\nReturns whether the current turtle is selected in the graphical interface.\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n",
+    "parameters" : null,
+    "shapes" : [ {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 49.999999999999964,
+      "y1" : 50.0,
+      "x2" : 50.0,
+      "y2" : 250.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 200.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 49.999999999999964,
+      "y1" : 50.0,
+      "x2" : 249.99999999999997,
+      "y2" : 50.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 200.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 249.99999999999997,
+      "y1" : 50.0,
+      "x2" : 249.99999999999997,
+      "y2" : 250.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 200.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 49.99999999999997,
+      "y1" : 250.00000000000003,
+      "x2" : 249.99999999999997,
+      "y2" : 250.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 200.0
+    } ],
+    "sizeHints" : [ {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 35.0,
+      "y1" : 50.0,
+      "x2" : 35.0,
+      "y2" : 250.0,
+      "text" : "200"
+    }, {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 250.0,
+      "y1" : 35.0,
+      "x2" : 50.0,
+      "y2" : 35.0,
+      "text" : "200"
+    } ]
+  } ],
+  "instructions" : {
+    "en" : "",
+    "fr" : ""
+  }
+}

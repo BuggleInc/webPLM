@@ -28,6 +28,10 @@
       "error" : "Error"
     }
   },
+  "helps" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>[!java|c]int [/!]getBasesAmount() [!scala]:Int[/!]</pre>\nReturns the amount of bases on this field.\n\n<pre>[!java|c]int [/!]getPositionsAmount() [!scala]:Int[/!]</pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>[!java|c]int [/!]getHoleBase() [!scala]:Int[/!]</pre>\nReturns the base in which the hole is located.\n\n<pre>[!java|c]int [/!]getHolePosition() [!scala]:Int[/!]</pre>\nReturns the hole position within its base\n\n<pre>[!java|c]int [/!]getPlayerColor([!java|c]int [/!]base[!scala]:Int[/!], [!java|c]int [/!]position[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nReturns the color of the player at a given location.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSorted()  [!scala]:Boolean[/!]</pre>\nReturns whether all players of the field are at home.\n     \n<pre>[!java]boolean [/!][!c]int [/!]isBaseSorted([!java|c]int [/!]base)  [!scala]:Boolean[/!]</pre>\nReturns whether all players of a given base are at home.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSelected()  [!scala]:Boolean[/!]</pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>[!java|c]void [/!]move([!java|c]int [/!]base[!scala]:Int[/!], [!java|c]int [/!]position[!scala]:Int[/!])</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Baseball multicolore</h1>\n<p>Les couleurs sont représentées comme des entiers, entre <code>0</code> et\n<code>nombre de bases - 1</code>. Le trou est représenté par la valeur\nspéciale <code>-1</code>. La couleur de chaque base est son rang, ce qui\nfait que la base <code>1</code> est de couleur <code>1</code>. Dans\nl'interface graphique, la base <code>0</code> est la bleue foncée tandis que\nla base <code>1</code> est celle fuscia.</p>\n\n<p>Une fois que tous les joueurs du terrain sont chez eux, le trou se trouve\ndans la dernière base, celle de rang <code>getNombreBases()-1</code>.</p>\n\n<h2>Fonctions pour découvrir les dimensions du monde</h2>\n\n<pre>[!java|c]int [/!]getNombreBases() [!scala]:Int[/!]</pre>\nRetourne le nombre de bases dans le terrain.\n\n<pre>[!java|c]int [/!]getNombrePositions() [!scala]:Int[/!]</pre>\nRetourne le nombre de positions disponibles par base.\n\n<h2>Fonctions pour découvrir l'état du monde</h2>\n\n<pre>[!java|c]int [/!]getTrouBase() [!scala]:Int[/!]</pre>\nRetourne l'index de la base où se trouve le trou.\n\n<pre>[!java|c]int [/!]getTrouPosition() [!scala]:Int[/!]</pre>\nRetourne la position du trou dans sa base.\n\n<pre>[!java|c]int [/!]getCouleurJoueur([!java|c]int [/!]base[!scala]:Int[/!], [!java|c]int [/!]position[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nRetourne la couleur d'un joueur donné à partir de sa position.\n\n<pre>[!java]boolean [/!][!c]int [/!]estTrie() [!scala]:Boolean[/!]</pre>\nRetourne si tous les joueurs présents sur le terrain sont chez eux.\n     \n<pre>[!java]boolean [/!][!c]int [/!]estBaseTriee([!java|c]int [/!]base)  [!scala]:Boolean[/!]</pre>\nRetourne si tous les joueurs d'une base donnée sont chez eux.\n\n<pre>[!java]boolean [/!][!c]int [/!]estSelectionne() [!scala]:Boolean[/!]</pre>\nRenvoi si le monde actuel est sélectionné dans l'interface graphique.\n<h2>Fonctions pour changer le monde</h2>\n\n<pre>[!java|c]void [/!]deplace([!java|c]int [/!]base[!scala]:Int[/!], [!java|c]int [/!]position[!scala]:Int[/!])</pre>\nDéplace un joueur dans le trou. Une exception IllegalArgumentException est\nlevée si le joueur indiqué n'est pas suffisamment près du trou. Il peut être\nau plus à une base du trou.\n"
+  },
   "initialWorlds" : [ {
     "type" : "plm.universe.baseball.BaseballWorld",
     "@jsonId" : 1,
@@ -82,75 +86,75 @@
     "steps" : [ [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 4,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 5,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 6,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 7,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 8,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 9,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 10,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 11,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 12,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 13,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 14,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 15,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
     "parameters" : null,
@@ -174,75 +178,75 @@
     "steps" : [ [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 17,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 18,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 19,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 20,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 21,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 22,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 23,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 24,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 25,
-      "name" : "moveOperation",
       "base" : 0,
-      "position" : 0
+      "position" : 0,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 26,
-      "name" : "moveOperation",
       "base" : 1,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 27,
-      "name" : "moveOperation",
       "base" : 2,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ], [ {
       "type" : "plm.universe.baseball.operations.MoveOperation",
       "@jsonId" : 28,
-      "name" : "moveOperation",
       "base" : 3,
-      "position" : 1
+      "position" : 1,
+      "name" : "moveOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Rainbow Baseball</h1>\n<p>The colors are represented by integers, between <code>0</code> and <code>amount of bases -1</code>. \nThe hole is represented by the special value <code>-1</code>. \nThe color of each base is its rank. So base <code>1</code> is of color <code>1</code>. \nIn the graphical interface, the base <code>0</code> is the dark blue\none while the base <code>1</code> is the fuscia one.</p>\n\n<p>Once every players on the field are in their home base, the hole should be in the last base, \nthat is of rank <code>getBasesAmount()-1</code>.</p>\n\n<h2>Functions to retrieve the world's dimensions</h2>\n\n<pre>int getBasesAmount() </pre>\nReturns the amount of bases on this field.\n\n<pre>int getPositionsAmount() </pre>\nReturns the amount of player's positions per base on this field.\n\n<h2>Functions to retrieve the world's state</h2>\n\n<pre>int getHoleBase() </pre>\nReturns the base in which the hole is located.\n\n<pre>int getHolePosition() </pre>\nReturns the hole position within its base\n\n<pre>int getPlayerColor(int base, int position)  </pre>\nReturns the color of the player at a given location.\n\n<pre>boolean isSorted()  </pre>\nReturns whether all players of the field are at home.\n     \n<pre>boolean isBaseSorted(int base)  </pre>\nReturns whether all players of a given base are at home.\n\n<pre>boolean isSelected()  </pre>\nReturns whether the current world is selected in the interface.\n<h2>Functions to change the world</h2>\n\n<pre>void move(int base, int position)</pre>\nMoves a given player into the hole. This throws an IllegalArgumentException if the specified player is not near the hole (at most one base away).\n",
     "parameters" : null,
