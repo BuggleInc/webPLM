@@ -43,7 +43,7 @@ object LessonsActor {
       LangUtils.getAvailableLangs().foreach { lang =>
         val path: String = getDescriptionPath(lessonName, lang.code)
         if(new File(path).exists) {
-          val description: String = Source.fromFile(path).mkString
+          val description: String = Source.fromFile(path)("UTF-8").mkString
           descriptions = descriptions ++ Map(lang.code -> description)
         }
       }
@@ -63,7 +63,7 @@ object LessonsActor {
 
   def loadLesson(lessonName: String): Lesson = {
     val path: String = getLessonPath(lessonName, "main.json")
-    val lines: String = Source.fromFile(path).mkString
+    val lines: String = Source.fromFile(path)("UTF-8").mkString
     val json: JsValue = Json.parse(lines)
 
     json.as[Lesson]
