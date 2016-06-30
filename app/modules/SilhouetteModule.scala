@@ -70,7 +70,7 @@ class SilhouetteModule(environment: play.api.Environment, configuration: Configu
    */
   @Provides
   def provideHTTPLayer(client: WSClient): HTTPLayer = new PlayHTTPLayer(client)
-  
+
   /**
    * Provides the Silhouette environment.
    *
@@ -104,17 +104,15 @@ class SilhouetteModule(environment: play.api.Environment, configuration: Configu
   def provideSocialProviderRegistry(
     facebookProvider: FacebookProvider,
     githubProvider: GitHubProvider,
-    googleProvider: GoogleProvider,
-    plmAccountsProvider: PLMAccountsProvider): SocialProviderRegistry = {
+    googleProvider: GoogleProvider): SocialProviderRegistry = {
 
     SocialProviderRegistry(Seq(
       googleProvider,
       githubProvider,
-      facebookProvider,
-      plmAccountsProvider
+      facebookProvider
     ))
   }
-  
+
   /**
    * Provides the authenticator service.
    *
@@ -205,7 +203,7 @@ class SilhouetteModule(environment: play.api.Environment, configuration: Configu
 
     new FacebookProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.facebook"))
   }
-  
+
   /**
    * Provides the Github provider.
    *
