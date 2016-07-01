@@ -1,1 +1,11 @@
-.git/
+.git
+app/
+app-2.11/
+bin/
+conf/
+dist/
+lib/
+logs/
+po/
+project/
+public/
