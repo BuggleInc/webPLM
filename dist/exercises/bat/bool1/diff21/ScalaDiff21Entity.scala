@@ -17,7 +17,9 @@ class ScalaDiff21Entity extends BatEntity {
     if (n>21) {
       2*(n-21)
     }
-    21-n
+    else {
+      21 - n
+    }
     /* END SOLUTION */
   }
   /* END TEMPLATE */
