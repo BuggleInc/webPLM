@@ -1,20 +1,18 @@
 package actors
 
-import java.util.{ Locale, Properties, UUID, Map, HashMap }
+import java.util.{ Locale, UUID, Map, HashMap }
 import scala.concurrent.Future
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 import codes.reactive.scalatime.{ Duration, Instant }
 import json.{ LangToJson, ProgrammingLanguageToJson }
-import log.PLMLogger
 import models.GitHubIssueManager
 import models.User
 import models.daos.UserDAORestImpl
 import models.lesson.Lecture
 import play.api.Logger
-import play.api.Play
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.libs.json._
@@ -29,17 +27,11 @@ import execution.ExecutionActor._
 import GitActor._
 import SessionActor._
 import models.lesson.Lesson
-import play.api.libs.functional.syntax._
 import plm.core.model.lesson.ExecutionProgress
-import org.xnap.commons.i18n.{ I18n, I18nFactory }
 import models.ProgrammingLanguages
 import scala.concurrent.Await
-import plm.universe.{ Entity, Operation, World }
-import execution._
+import plm.universe.World
 import akka.pattern.AskTimeoutException
-import scala.util.Failure
-import scala.util.Success
-import org.json.simple.{ JSONArray, JSONObject }
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.UserSettings
 
@@ -394,7 +386,7 @@ class PLMActor (
   }
 
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
-    currentGitID = newGitID;
+    currentGitID = newGitID
     if(toSend) {
       sendMessage("gitID", Json.obj(
           "gitID" -> currentGitID

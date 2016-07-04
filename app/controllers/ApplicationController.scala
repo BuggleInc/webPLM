@@ -47,10 +47,10 @@ class ApplicationController @Inject() (
       case HandlerResult(r, None) =>
         val preferredLang: Lang = LangUtils.getPreferredLang(request)
         val lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
-        var newUser: Boolean = false;
+        var newUser: Boolean = false
         var gitID: String = CookieUtils.getCookieValue(request, "gitID")
         if(gitID.isEmpty) {
-          newUser = true;
+          newUser = true
           gitID = UUID.randomUUID.toString
         }
         Right(PLMActor.props(pushActor, executionActorFactory.create(Some(preferredLang)), userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false)) _)

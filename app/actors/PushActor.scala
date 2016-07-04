@@ -48,7 +48,7 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
   val username: String = configuration.getString("plm.github.oauth").getOrElse("dummy-username")
   val password: String = "x-oauth-basic"
 
-  val cp: CredentialsProvider = new UsernamePasswordCredentialsProvider(username, password);
+  val cp: CredentialsProvider = new UsernamePasswordCredentialsProvider(username, password)
   val progress: ProgressMonitor = NullProgressMonitor.INSTANCE
 
   val system = ActorSystem("application")

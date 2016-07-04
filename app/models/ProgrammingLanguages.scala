@@ -13,9 +13,9 @@ object ProgrammingLanguages {
   val python: ProgrammingLanguage = new LangPython(false)
   val scala: ProgrammingLanguage = new LangScala(false)
 
-  ProgrammingLanguage.registerSupportedProgLang(java);
-  ProgrammingLanguage.registerSupportedProgLang(python);
-  ProgrammingLanguage.registerSupportedProgLang(scala);
+  ProgrammingLanguage.registerSupportedProgLang(java)
+  ProgrammingLanguage.registerSupportedProgLang(python)
+  ProgrammingLanguage.registerSupportedProgLang(scala)
 
   def programmingLanguages(): Array[ProgrammingLanguage] = Array(java, python, scala)
   def defaultProgrammingLanguage(): ProgrammingLanguage = ProgrammingLanguage.defaultProgLang

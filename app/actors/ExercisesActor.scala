@@ -76,7 +76,7 @@ object ExercisesActor {
   def initHumanLanguages(): Array[Locale] = {
     var humanLanguages: Array[Locale] = Array()
     LangUtils.getAvailableLangs().map { lang =>
-      humanLanguages = humanLanguages :+ (lang.toLocale)
+      humanLanguages = humanLanguages :+ lang.toLocale
     }
     humanLanguages
   }
