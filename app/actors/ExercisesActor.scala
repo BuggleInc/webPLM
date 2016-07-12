@@ -68,7 +68,7 @@ object ExercisesActor {
           }
           else if(path.matches(filterRegexp)) {
             // Found an exercise, store the exercise's class
-            results = results :+ path.replaceAll("/", "\\.").dropRight(5)
+            results = results :+ path.replaceAll("/", "\\.").dropRight(5).drop(1)
           }
         }
       case None =>
@@ -79,7 +79,7 @@ object ExercisesActor {
 
   def initHumanLanguages(): Array[Locale] = {
     var humanLanguages: Array[Locale] = Array()
-    LangUtils.getAvailableLangs().map { lang =>
+    LangUtils.getAvailableLangs().foreach { lang =>
       humanLanguages = humanLanguages :+ lang.toLocale
     }
     humanLanguages
@@ -89,11 +89,9 @@ object ExercisesActor {
     val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
     Play.resourceAsStream(path) match {
       case Some(is: InputStream) =>
-        // FIXME: Re-implement me
         val lines: String = Source.fromInputStream(is).getLines().mkString("")
         is.close
-        // JSONUtils.jsonStringToExercise(lines)
-        null
+        JSONUtils.jsonStringToExercise(lines)
       case None =>
         Logger.error(exerciseName + "'s JSON is missing, initializing it from source")
         initFromSource(exerciseName)
