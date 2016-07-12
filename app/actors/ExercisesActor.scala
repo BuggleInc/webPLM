@@ -1,17 +1,18 @@
 package actors
 
-import java.io.File
+import java.io.{File, InputStream}
+import java.net.URL
 import java.util.Locale
 
 import scala.util.matching.Regex
-
 import com.fasterxml.jackson.databind.ObjectMapper
-
 import akka.actor._
 import log.PLMLogger
 import models.ProgrammingLanguages
 import models.lesson.TipFactory
 import play.api.Logger
+import play.api.Play
+import play.api.Play.current
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.ExerciseFactory
@@ -19,6 +20,8 @@ import plm.core.model.lesson.ExerciseRunner
 import plm.core.model.lesson.UserSettings
 import plm.core.model.lesson.tip.AbstractTipFactory
 import utils.LangUtils
+
+import scala.io.Source
 /**
  * @author matthieu
  */
@@ -26,17 +29,9 @@ import utils.LangUtils
 object ExercisesActor {
   def props = Props[ExercisesActor]
 
-  if(play.Play.isProd) {
-    Exercise.directory = "exercises"
-  } else {
-    Exercise.directory = "dist/exercises"
-  }
+  val filterRegexp = "^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$" // Select all files ending with ".java" but not containing "Entity"
 
-  val path: String = Exercise.directory
-  val baseDirectory: File = new File(path)
-  val filterRegexp = new Regex("^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$") // Select all files ending with ".java" but not containing "Entity"
-
-  val exercisesName: Array[String] = generateExercisesIDsList(baseDirectory, filterRegexp)
+  val exercisesName: Array[String] = generateExercisesIDsList
 
   val locale: Locale = new Locale("en")
 
@@ -44,7 +39,6 @@ object ExercisesActor {
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(locale)
 
   val exercisesFactory: ExerciseFactory = new ExerciseFactory(locale, exerciseRunner, ProgrammingLanguages.programmingLanguages, humanLanguages)
-  exercisesFactory.setRootDirectory(path)
   val tipsFactory: AbstractTipFactory = new TipFactory
   exercisesFactory.setTipFactory(tipsFactory)
 
@@ -54,21 +48,31 @@ object ExercisesActor {
   case class ExportExercises()
   case class ExportExercise(exerciseID: String)
 
-  def generateExercisesIDsList(directory: File, r: Regex): Array[String] = {
-    val files: Array[File] = directory.listFiles
-    var results: Array[String] = Array()
-    if(files != null) {
-      results = results ++ files.filter(_.isDirectory).flatMap(recursiveListFiles(_,r)).map { file => file }
-    }
-    results
+  def generateExercisesIDsList(): Array[String] = {
+    recursiveListFiles("/")
   }
 
-  def recursiveListFiles(f: File, r: Regex): Array[String] = {
-    val files: Array[File] = f.listFiles
+  def recursiveListFiles(path: String): Array[String] = {
     var results: Array[String] = Array()
-    if(files != null) {
-      results = files.filter(f => r.findFirstIn(f.getName).isDefined).map { file => f.getName + "." + file.getName.dropRight(5) /* To remove ".java" */ }
-      results = results ++ files.filter(_.isDirectory).flatMap(recursiveListFiles(_,r)).map { file => f.getName + "." + file }
+
+    Play.resource(path) match {
+      case Some(url: URL) =>
+        if(url.getProtocol.equals("file")) {
+          val file: File = new File(url.toURI)
+          if(file.isDirectory) {
+            // Recursively browse the files of the directory looking for exercises
+            results = results ++ file.listFiles.flatMap { file =>
+              val filename: String = if(path.equals("/")) { path + file.getName } else { path + "/" + file.getName}
+              recursiveListFiles(filename)
+            }
+          }
+          else if(path.matches(filterRegexp)) {
+            // Found an exercise, store the exercise's class
+            results = results :+ path.replaceAll("/", "\\.").dropRight(5)
+          }
+        }
+      case None =>
+        Logger.error("No resource found for " + path)
     }
     results
   }
@@ -82,12 +86,17 @@ object ExercisesActor {
   }
 
   def initExercise(exerciseName: String): Exercise = {
-    val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/") + ".json"
-    if(new File(path).exists) {
-      initFromJSON(path)
-    }
-    else {
-      initFromSource(exerciseName)
+    val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
+    Play.resourceAsStream(path) match {
+      case Some(is: InputStream) =>
+        // FIXME: Re-implement me
+        val lines: String = Source.fromInputStream(is).getLines().mkString("")
+        is.close
+        // JSONUtils.jsonStringToExercise(lines)
+        null
+      case None =>
+        Logger.error(exerciseName + "'s JSON is missing, initializing it from source")
+        initFromSource(exerciseName)
     }
   }
 
@@ -119,14 +128,15 @@ object ExercisesActor {
       exportExercise(exerciseName)
     }
   }
-  
+
+  // FIXME: Re-implement me
   def exportExercise(exerciseName: String) {
     // Instantiate the exercise the old fashioned way
     val exercise: Exercise = initFromSource(exerciseName)
 
     // Store into a file its JSON serialization
-    val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
-    JSONUtils.exerciseToFile(path, exercise)
+    // val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
+    // JSONUtils.exerciseToFile(path, exercise)
   }
 }
 

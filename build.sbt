@@ -60,7 +60,11 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
-unmanagedSourceDirectories in Compile += baseDirectory.value / "dist" / "exercises"
+unmanagedSourceDirectories in Compile += baseDirectory.value / "exercises"      // Add .java and .scala as sources
+
+unmanagedResourceDirectories in Compile += baseDirectory.value / "exercises"    // Add .py, .blockly... as resources
+
+unmanagedSourceDirectories in Assets += baseDirectory.value / "exercises"       // Add .png as assets
 
 unmanagedResourceDirectories in Compile += baseDirectory.value / "lessons"
 

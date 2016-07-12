@@ -2,7 +2,6 @@ package actors.execution
 
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
-import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.Channel
 import play.api.Play
 import play.api.Play.current
@@ -12,14 +11,9 @@ import com.rabbitmq.client.QueueingConsumer
 import plm.core.model.lesson.Exercise
 import plm.core.lang.ProgrammingLanguage
 import java.util.{ Map, HashMap }
-import play.api.libs.json.JsObject
-import play.api.libs.json.Json
 import akka.actor.Props
-import org.json.simple.JSONObject
-import org.json.simple.parser._
 import plm.core.model.lesson.ExecutionProgress
 import akka.actor.ActorRef
-import akka.pattern.AskTimeoutException
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.util.UUID
