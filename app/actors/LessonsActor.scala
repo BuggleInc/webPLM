@@ -3,11 +3,14 @@ package actors
 import akka.actor._
 import play.api.Logger
 import models.lesson.Lesson
-import scala.io.Source
-import play.api.libs.json.{ JsObject, Json, JsValue }
-import utils.LangUtils
-import java.io.File
 
+import scala.io.Source
+import play.api.libs.json.{JsObject, JsValue, Json}
+import utils.LangUtils
+import java.io.{File, InputStream}
+
+import play.api.Play
+import play.api.Play.current
 
 /**
  * @author matthieu
@@ -15,8 +18,6 @@ import java.io.File
 
 object LessonsActor {
   def props = Props[LessonsActor]
-
-  val rootDirectory: String = if(play.Play.isProd) { "lessons" } else { "dist/lessons" }
 
   case class LessonExists(lessonID: String)
   case class CheckLessonAndExercise(lessonID: String, exerciseID: String)
@@ -37,18 +38,14 @@ object LessonsActor {
   def initLessons(): Map[String, Lesson] = {
     var lessons: Map[String, Lesson] = Map()
     lessonsID.foreach { lessonName =>
-      val lesson: Lesson = loadLesson(lessonName)
-
-      var descriptions: Map[String, String] = Map()
-      LangUtils.getAvailableLangs().foreach { lang =>
-        val path: String = getDescriptionPath(lessonName, lang.code)
-        if(new File(path).exists) {
-          val description: String = Source.fromFile(path)("UTF-8").mkString
-          descriptions = descriptions ++ Map(lang.code -> description)
-        }
+      loadLesson(lessonName) match {
+        case Some(lesson: Lesson) =>
+          val descriptions: Map[String, String] = getDescriptions(lessonName)
+          lesson.optDescriptions = Some(descriptions)
+          lessons += (lessonName -> lesson)
+        case None =>
+          Logger.error(lessonName + " is missing...")
       }
-      lesson.optDescriptions = Some(descriptions)
-      lessons += (lessonName -> lesson)
     }
     lessons
   }
@@ -61,25 +58,41 @@ object LessonsActor {
     orderedLessons
   }
 
-  def loadLesson(lessonName: String): Lesson = {
-    val path: String = getLessonPath(lessonName, "main.json")
-    val lines: String = Source.fromFile(path)("UTF-8").mkString
-    val json: JsValue = Json.parse(lines)
-
-    json.as[Lesson]
-  }
-
-  def getLessonPath(lessonName: String, filePath: String): String = {
-    (List(rootDirectory) ++ lessonName.split("\\.").toList ++ List(filePath)).mkString("/")
-  }
-
-  def getDescriptionPath(lessonName: String, langCode: String): String = {
-    var path =  getLessonPath(lessonName, "short_desc")
-    if(langCode != "en") {
-      path += "." + langCode
+  def loadLesson(lessonName: String): Option[Lesson] = {
+    Play.resourceAsStream(lessonName.replace(".", "/") + "/main.json") match {
+      case Some(is: InputStream) =>
+        val lines: String = Source.fromInputStream(is).getLines().mkString("\n")
+        is.close
+        val json: JsValue = Json.parse(lines)
+        Some(json.as[Lesson])
+      case None =>
+        None
     }
-    path + ".html"
   }
+
+  def getDescriptions(lessonName: String): Map[String, String] = {
+    var descriptions: Map[String, String] = Map()
+    LangUtils.getAvailableLangs().foreach { lang =>
+
+      var path = lessonName.replace(".", "/") + "/short_desc"
+      if(lang.code != "en") {
+        path += "." + lang.code
+      }
+      path += ".html"
+
+      Play.resourceAsStream(path) match {
+        case Some(is: InputStream) =>
+          val description = Source.fromInputStream(is).getLines().mkString("\n")
+          is.close
+          descriptions = descriptions ++ Map(lang.code -> description)
+        case None =>
+          Logger.error(lessonName + "'s " + lang.language + " description is missing...")
+      }
+    }
+
+    descriptions
+  }
+
 }
 
 class LessonsActor extends Actor {

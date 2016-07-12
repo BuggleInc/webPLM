@@ -44,7 +44,7 @@ case class Lesson(id: String, name: Option[String], lectures: Array[Lecture]) {
   }
 
   def toJson(lang: Lang): JsObject = {
-    val imgPath: String = "lessons/" + id + "/icon.png"
+    val imgPath: String = "lessons/" + id.replaceAll("\\.", "/") + "/icon.png"
     val descriptions: Map[String, String] = optDescriptions.get
     val defaultDescription: String = descriptions.get("en").get
     val description: String = descriptions.getOrElse(lang.code, defaultDescription)

@@ -62,6 +62,10 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 
 unmanagedSourceDirectories in Compile += baseDirectory.value / "dist" / "exercises"
 
+unmanagedResourceDirectories in Compile += baseDirectory.value / "lessons"
+
+unmanagedResourceDirectories in Assets += baseDirectory.value / "lessons"
+
 assemblySettings
 
 mainClass in assembly := Some("play.core.server.ProdServerStart")
