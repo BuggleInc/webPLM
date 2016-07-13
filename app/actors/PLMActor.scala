@@ -337,18 +337,23 @@ class PLMActor (
   }
 
   def switchExercise(lessonID: String, exerciseID: String) {
-    (exercisesActor ? GetExercise(exerciseID)).mapTo[Exercise].map { exercise =>
-      gitActor ! SwitchExercise(exercise, optCurrentExercise)
+    (exercisesActor ? GetExercise(exerciseID)).mapTo[Option[Exercise]].map { optExercise =>
+      optExercise match {
+        case Some(exercise: Exercise) =>
+          gitActor ! SwitchExercise(exercise, optCurrentExercise)
 
-      optCurrentLesson = Some(lessonID)
-      optCurrentExercise = Some(exercise)
-      exercise.setSettings(userSettings)
+          optCurrentLesson = Some(lessonID)
+          optCurrentExercise = Some(exercise)
+          exercise.setSettings(userSettings)
 
-      (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
-        val mapArgs: Map[String, Object] = new HashMap[String, Object]
-        mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, code, exercise.getWorld(0).getName, ""))
+          (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+            val mapArgs: Map[String, Object] = new HashMap[String, Object]
+            mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, code, exercise.getWorld(0).getName, ""))
 
-        out ! JSONUtils.createMessage("exercise", mapArgs)
+            out ! JSONUtils.createMessage("exercise", mapArgs)
+          }
+        case None =>
+          out ! JSONUtils.createMessage("exerciseNotFound", null)
       }
     }
   }

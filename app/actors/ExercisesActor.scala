@@ -148,8 +148,12 @@ class ExercisesActor extends Actor {
       Logger.error("LessonsActor: not supported message")
   }
 
-  def getExercise(exerciseID: String): Exercise = {
-    val exercise: Exercise = exercises.get(exerciseID).get
-    ExerciseFactory.cloneExercise(exercise)
+  def getExercise(exerciseID: String): Option[Exercise] = {
+    exercises.get(exerciseID) match {
+      case Some(exercise: Exercise) =>
+        Some(ExerciseFactory.cloneExercise(exercise))
+      case None =>
+        None
+    }
   }
 }
