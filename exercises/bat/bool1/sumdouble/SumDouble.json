@@ -1,5 +1,5 @@
 {
-  "id" : "SumDouble",
+  "id" : "bat.bool1.sumdouble.SumDouble",
   "name" : "SumDouble",
   "tabName" : "SumDouble",
   "defaultSourceFiles" : {
@@ -31,6 +31,10 @@
   "helps" : {
     "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
     "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>Ce monde contient un environnement simpliste de tests largement inspiré de\nhttp://codingbat.com inventé par Nick Parlente.</p>\n\n<p>Les exercices classiques sont très courts, et visent à améliorer les\ncapacités de stratégie de programmation des étudiants. C'est pour vous\nprévenir que vous allez faire face à une très longue liste de très petits\nexercices à propos de choses très simples. L'idée est de vous entraîner sur\nces problèmes jusqu'à ce que cela devienne automatique.</p>\n   \n<p>Contrairement aux autres mondes, le BatWorld ne fournit ni de belles\nabstractions ni de belles visualisations. Vous aurez à remplier une fonction\nqui sera appelée avec plusieurs ensembles différents de paramètres, et c'est\ntout.</p>\n   \n<p>Pour plus d'informations, vous devriez consulter la documentation de\nCodingBat.com qui contient par exemple une documentation très utile sur les\nopérateurs booléens : http://codingbat.com/doc/ifboolean.html</p>\n"
+  },
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Sum Double</h1>\nGiven two int values, return their sum. Unless the two values are the\nsame, then return double their sum. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Somme doublée</h1>\nÉtant donné deux entiers, retournez leur somme. Sauf si les valeurs sont\négales, auquel cas vous devez retourner le double de leur somme. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
   },
   "initialWorlds" : [ {
     "type" : "plm.universe.bat.BatWorld",
@@ -193,9 +197,5 @@
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BatWorld</h1>\n\n<p>This world is a simplistic testing environment largely inspired from\nthe http://codingbat.com invented by Nick Parlente.</p>\n\n<p>The typical exercises are very short ones, aiming at improving the\n   tactical programming abilities of the students. That is to say that\n   you will be presented a quite long list of very little exercises\n   about rather simple things. The idea is to train you on these\n   issues until they become automatic to you.</p>\n   \n<p>In contrary to the other worlds, the BatWorld does not provide any\n   fancy abstraction nor visualization. You have to fill a function,\n   which gets called for a bunch of parameter sets, and that's it.</p>\n   \n<p>For more information, you should refer to the CodingBat.com documentation, \n   which contains for example a very useful documentation on boolean operators:\n   http://codingbat.com/doc/ifboolean.html</p>\n",
     "parameters" : null
-  } ],
-  "instructions" : {
-    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Sum Double</h1>\nGiven two int values, return their sum. Unless the two values are the\nsame, then return double their sum. \n\n<p>This exercise was converted to PLM from the excellent exercising site http://codingbat.com/</p>\n",
-    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Somme doublée</h1>\nÉtant donné deux entiers, retournez leur somme. Sauf si les valeurs sont\négales, auquel cas vous devez retourner le double de leur somme. \n\n<p>Cet exercice a été extrait pour PLM depuis l'excellent site d'exercices\nhttp://codingbat.com/</p>\n"
-  }
+  } ]
 }

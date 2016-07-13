@@ -1,5 +1,5 @@
 {
-  "id" : "BubblePancake",
+  "id" : "sort.pancake.BubblePancake",
   "name" : "BubblePancake",
   "tabName" : "BubblePancake",
   "defaultSourceFiles" : {
@@ -32,6 +32,10 @@
     "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>[!java|c]int [/!]getStackSize()  [!scala]:Int[/!]</pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>[!java|c]int [/!]getPancakeRadius([!java|c]int [/!]rank[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>[!java]boolean [/!][!c]int [/!]isPancakeUpsideDown([!java|c]int [/!]rank[!scala]:Int[/!])   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>[!java|c]void [/!]flip([!java|c]int [/!]amount[!scala]:Int[/!])</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSorted()   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSelected()   [!scala]:Boolean[/!]</pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Monde des crêpes</h1>\n\n<p>Cet univers est très simple, avec seulement cinq fonctions fournies.</p>\n\n<pre>[!java|c]int [/!]getTaillePile()  [!scala]:Int[/!]</pre>\nRenvoie la taille du tas de crêpes, c'est à dire le nombre de crêpes qui le\ncompose.\n\n<pre>[!java|c]int [/!]getRayonCrepe([!java|c]int [/!]rang[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nRenvoie le rayon de la crêpe passée en argument, sachant que le rang de la\ncrêpe du haut est 0.\n\n<pre>[!java]boolean [/!][!c]int [/!]estCrepeRetournee([!java|c]int [/!]rang[!scala]:Int[/!])   [!scala]:Boolean[/!]</pre>\nRenvoie si la crêpe passée en paramètre (la crêpe du haut étant de rang 0)\nest à l'envers, c'est-à-dire si sa face brûlée est en haut.\n\n<pre>[!java|c]void [/!]retourne([!java|c]int [/!]quantité[!scala]:Int[/!])</pre>\nRetourne les <code>quantité</code> premières crêpes de la pile, en partant\ndu sommet de celle-ci.\n\n<pre>[!java]boolean [/!][!c]int [/!]estTriee()   [!scala]:Boolean[/!]</pre>\nRenvoie si la pile de crêpes est correctement triée.\n\n<pre>[!java]boolean [/!][!c]int [/!]estSelectionne() [!scala]:Boolean[/!]</pre>\nRenvoi si le monde actuel est sélectionné dans l'interface graphique.  \n"
   },
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Bubble Pancakes</h1>\n\n<p>This problem is similar to the previous: you have to sort the pancakes, the smallest at the top and the biggest at the bottom, except you can only flip them to sort.</p>\n\n<p>The purpose here is to sort them using the bubble algorithm, where one pancake is moved to the bottom until it encounters a bigger one. In graphical representations, it looks like a bubble takes the element and move them through the pile. This is where its name comes from.</p>\n\n<p>Now, using pancakes makes it a little more difficult to write, because you have to find a way to swap only two pancakes at a time.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"I don't get it. I need some help.\">\nThe bubble algorithm consists in browsing the whole pile from top to bottom, and making a comparision between two pancakes. Each time the top pancake is bigger than the one below, you have to swap them, then compare the bigger pancake you just swapped with one below, and so on. You have to browse through the entire pile until no swap has occurred, in which case the pile is sorted.</tips>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"The first tip was not enough. I need another one.\">\nIf you don't understand the basic bubble sorting algorithm, you should try the exercises within the “Sorting algorithms” lesson. If you do, but can't figure a way to swap only two pancakes at a time, think of a situation where only two pancakes are swapped at a time, and find a way to reach that situation.\n</tips></p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Crêpes et bulle</h1>\n\n<p>Cet exercice ressemble au précédent: il faut que vous triiez les crêpes, la\nplus petite en haut de la pile, et la plus grande en bas de la pile, sauf\nque vous ne pouvez seulement en retourner qu’un certain nombre.</p>\n\n<p>L'objectif ici est de trier les crêpes en utilisant l'algorithme du tri à\nbulle, où une crêpe est déplacée vers le bas de la pile jusqu'à qu'elle en\nrencontre une plus grande. Dans les représentations graphiques, cela se\nmatérialise par une bulle qui prend un élément et le déplace sur toute la\npile, d'où le nom de \"tri à bulle\".</p>\n\n<p>Maintenant, l'utilisation de crêpes rend l'algorithme un peu plus difficile\nà écrire, car vous devez trouver un moyen d'échanger de place seulement deux\ncrêpes à la fois.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Je suis perdu, j'ai besoin d'aide.\">\nLe tri à bulle consiste à parcourir la pile entière, de haut en bas, et\nd'effectuer des comparaisons entre deux crêpes. Chaque fois que la crêpe du\ndessus est plus grande que celle du dessous, il faut que vous les échangiez,\npuis que vous compariez la crêpe que vous venez de déplacer avec celle du\ndessous, et ainsi de suite. Vous devez continuer à parcourir toute la pile\njusqu'à que vous ne déplaciez plus aucune crêpe, auquel cas la pile est\ntriée.</tips>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"Ce premier indice n'était pas suffisant, j'ai besoin de plus d'aide.\">\nSi vous ne comprenez pas l'algorithme de tri à bulle de base, vous devriez\nd'abord essayer les exercices le concernant dans la leçon \"Algorithmes de\ntri\". Si c'est plutôt le fait d'échanger seulement deux crêpes à la fois qui\nvous pose problème, cherchez une situation où seulement deux crêpes sont\néchangées, et trouver un moyen d'arriver à cette situation.\n</tips></p>\n"
+  },
   "initialWorlds" : [ {
     "type" : "plm.universe.pancake.PancakeWorld",
     "@jsonId" : 1,
@@ -49,15 +53,15 @@
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
-      "radius" : 1
+      "radius" : 5
     }, {
       "radius" : 2
     }, {
-      "radius" : 4
-    }, {
       "radius" : 3
     }, {
-      "radius" : 5
+      "radius" : 4
+    }, {
+      "radius" : 1
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
@@ -76,23 +80,23 @@
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
+      "radius" : 9
+    }, {
+      "radius" : 7
+    }, {
       "radius" : 3
+    }, {
+      "radius" : 4
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 2
     }, {
       "radius" : 8
     }, {
       "radius" : 1
-    }, {
-      "radius" : 5
-    }, {
-      "radius" : 4
-    }, {
-      "radius" : 7
-    }, {
-      "radius" : 10
-    }, {
-      "radius" : 2
-    }, {
-      "radius" : 9
     }, {
       "radius" : 6
     } ]
@@ -113,35 +117,35 @@
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
-      "radius" : 2
-    }, {
-      "radius" : 9
-    }, {
-      "radius" : 5
-    }, {
-      "radius" : 1
-    }, {
-      "radius" : 14
-    }, {
-      "radius" : 6
+      "radius" : 4
     }, {
       "radius" : 7
     }, {
-      "radius" : 13
+      "radius" : 3
     }, {
-      "radius" : 4
+      "radius" : 6
     }, {
-      "radius" : 11
+      "radius" : 5
     }, {
       "radius" : 15
     }, {
-      "radius" : 12
+      "radius" : 9
     }, {
       "radius" : 8
     }, {
-      "radius" : 3
+      "radius" : 2
+    }, {
+      "radius" : 1
+    }, {
+      "radius" : 11
     }, {
       "radius" : 10
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 14
+    }, {
+      "radius" : 13
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
@@ -160,65 +164,65 @@
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
-      "radius" : 1
-    }, {
       "radius" : 2
+    }, {
+      "radius" : 17
     }, {
       "radius" : 20
     }, {
-      "radius" : 13
-    }, {
-      "radius" : 5
-    }, {
-      "radius" : 6
-    }, {
-      "radius" : 29
-    }, {
-      "radius" : 8
+      "radius" : 4
     }, {
       "radius" : 9
     }, {
-      "radius" : 4
+      "radius" : 6
     }, {
-      "radius" : 19
+      "radius" : 16
     }, {
-      "radius" : 12
+      "radius" : 1
     }, {
-      "radius" : 14
+      "radius" : 5
     }, {
-      "radius" : 24
-    }, {
-      "radius" : 30
+      "radius" : 10
     }, {
       "radius" : 23
     }, {
-      "radius" : 25
+      "radius" : 19
     }, {
-      "radius" : 18
-    }, {
-      "radius" : 27
-    }, {
-      "radius" : 17
+      "radius" : 24
     }, {
       "radius" : 21
     }, {
       "radius" : 22
     }, {
-      "radius" : 16
+      "radius" : 26
     }, {
-      "radius" : 10
+      "radius" : 27
     }, {
       "radius" : 3
     }, {
-      "radius" : 26
+      "radius" : 25
     }, {
-      "radius" : 11
+      "radius" : 14
     }, {
       "radius" : 15
     }, {
+      "radius" : 11
+    }, {
       "radius" : 7
     }, {
+      "radius" : 30
+    }, {
+      "radius" : 12
+    }, {
+      "radius" : 29
+    }, {
+      "radius" : 8
+    }, {
       "radius" : 28
+    }, {
+      "radius" : 18
+    }, {
+      "radius" : 13
     } ]
   } ],
   "answerWorlds" : [ {
@@ -234,25 +238,133 @@
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 6,
-      "number" : 4,
+      "number" : 2,
       "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 7,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 8,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 9,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 10,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 11,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 12,
       "number" : 4,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 13,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 14,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 15,
+      "number" : 5,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 16,
+      "number" : 2,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 17,
+      "number" : 5,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 18,
+      "number" : 4,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 19,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 20,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 21,
+      "number" : 3,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 22,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 23,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 24,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 25,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 26,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "parameters" : null,
-    "moveCount" : 3,
+    "moveCount" : 21,
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
@@ -268,163 +380,55 @@
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
-    "@jsonId" : 9,
+    "@jsonId" : 27,
     "name" : "10 pancakes",
     "entities" : [ {
       "type" : "plm.universe.pancake.PancakeEntity",
       "name" : "Pancake Seller",
-      "world" : 9,
+      "world" : 27,
       "inited" : true
     } ],
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 10,
-      "number" : 3,
-      "oldNumber" : -1,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 11,
-      "number" : 2,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 12,
-      "number" : 3,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 13,
-      "number" : 4,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 14,
-      "number" : 2,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 15,
-      "number" : 4,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 16,
-      "number" : 5,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 17,
-      "number" : 2,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 18,
-      "number" : 5,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 19,
-      "number" : 6,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 20,
-      "number" : 2,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 21,
-      "number" : 6,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 22,
-      "number" : 8,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 23,
-      "number" : 2,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 24,
-      "number" : 8,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 25,
-      "number" : 9,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 26,
-      "number" : 2,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 27,
-      "number" : 9,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 28,
-      "number" : 10,
-      "oldNumber" : 9,
+      "number" : 2,
+      "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 29,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 30,
-      "number" : 10,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 31,
-      "number" : 2,
-      "oldNumber" : 10,
+      "number" : 3,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 32,
       "number" : 2,
-      "oldNumber" : 2,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 33,
-      "number" : 2,
+      "number" : 3,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 34,
       "number" : 4,
-      "oldNumber" : 2,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -441,151 +445,457 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 37,
-      "number" : 7,
+      "number" : 6,
       "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 38,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 39,
-      "number" : 7,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 40,
-      "number" : 9,
-      "oldNumber" : 7,
+      "number" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 41,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 42,
-      "number" : 9,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 43,
-      "number" : 6,
-      "oldNumber" : 9,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 44,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 45,
-      "number" : 6,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 46,
-      "number" : 8,
-      "oldNumber" : 6,
+      "number" : 9,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 47,
       "number" : 2,
-      "oldNumber" : 8,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 48,
-      "number" : 8,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 49,
-      "number" : 5,
-      "oldNumber" : 8,
+      "number" : 10,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 50,
       "number" : 2,
-      "oldNumber" : 5,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 51,
-      "number" : 5,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 52,
-      "number" : 7,
-      "oldNumber" : 5,
+      "number" : 2,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 53,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 54,
-      "number" : 7,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 55,
-      "number" : 4,
-      "oldNumber" : 7,
+      "number" : 3,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 56,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 57,
-      "number" : 4,
+      "number" : 3,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 58,
-      "number" : 3,
-      "oldNumber" : 4,
+      "number" : 5,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 59,
       "number" : 2,
-      "oldNumber" : 3,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 60,
+      "number" : 5,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 61,
+      "number" : 6,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 62,
+      "number" : 2,
+      "oldNumber" : 6,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 63,
+      "number" : 6,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 64,
+      "number" : 7,
+      "oldNumber" : 6,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 65,
+      "number" : 2,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 66,
+      "number" : 7,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 67,
+      "number" : 8,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 68,
+      "number" : 2,
+      "oldNumber" : 8,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 69,
+      "number" : 8,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 70,
+      "number" : 9,
+      "oldNumber" : 8,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 71,
+      "number" : 2,
+      "oldNumber" : 9,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 72,
+      "number" : 9,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 73,
+      "number" : 4,
+      "oldNumber" : 9,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 74,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 75,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 76,
+      "number" : 5,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 77,
+      "number" : 2,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 78,
+      "number" : 5,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 79,
+      "number" : 7,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 80,
+      "number" : 2,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 81,
+      "number" : 7,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 82,
+      "number" : 8,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 83,
+      "number" : 2,
+      "oldNumber" : 8,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 84,
+      "number" : 8,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 85,
+      "number" : 4,
+      "oldNumber" : 8,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 86,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 87,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 88,
+      "number" : 6,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 89,
+      "number" : 2,
+      "oldNumber" : 6,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 90,
+      "number" : 6,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 91,
+      "number" : 7,
+      "oldNumber" : 6,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 92,
+      "number" : 2,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 93,
+      "number" : 7,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 94,
       "number" : 3,
+      "oldNumber" : 7,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 95,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 96,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 97,
+      "number" : 5,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 98,
+      "number" : 2,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 99,
+      "number" : 5,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 100,
+      "number" : 2,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 101,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 102,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 103,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 104,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 105,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 106,
+      "number" : 3,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 107,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 108,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 109,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 110,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 111,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "parameters" : null,
-    "moveCount" : 51,
+    "moveCount" : 84,
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
@@ -611,685 +921,379 @@
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
-    "@jsonId" : 61,
+    "@jsonId" : 112,
     "name" : "15 pancakes",
     "entities" : [ {
       "type" : "plm.universe.pancake.PancakeEntity",
       "name" : "Pancake Seller",
-      "world" : 61,
+      "world" : 112,
       "inited" : true
     } ],
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 62,
+      "@jsonId" : 113,
       "number" : 3,
       "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 63,
-      "number" : 2,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 64,
-      "number" : 3,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 65,
-      "number" : 4,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 66,
-      "number" : 2,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 67,
-      "number" : 4,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 68,
-      "number" : 6,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 69,
-      "number" : 2,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 70,
-      "number" : 6,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 71,
-      "number" : 7,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 72,
-      "number" : 2,
-      "oldNumber" : 7,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 73,
-      "number" : 7,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 74,
-      "number" : 8,
-      "oldNumber" : 7,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 75,
-      "number" : 2,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 76,
-      "number" : 8,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 77,
-      "number" : 9,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 78,
-      "number" : 2,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 79,
-      "number" : 9,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 80,
-      "number" : 10,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 81,
-      "number" : 2,
-      "oldNumber" : 10,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 82,
-      "number" : 10,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 83,
-      "number" : 12,
-      "oldNumber" : 10,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 84,
-      "number" : 2,
-      "oldNumber" : 12,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 85,
-      "number" : 12,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 86,
-      "number" : 13,
-      "oldNumber" : 12,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 87,
-      "number" : 2,
-      "oldNumber" : 13,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 88,
-      "number" : 13,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 89,
-      "number" : 14,
-      "oldNumber" : 13,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 90,
-      "number" : 2,
-      "oldNumber" : 14,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 91,
-      "number" : 14,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 92,
-      "number" : 15,
-      "oldNumber" : 14,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 93,
-      "number" : 2,
-      "oldNumber" : 15,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 94,
-      "number" : 15,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 95,
-      "number" : 3,
-      "oldNumber" : 15,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 96,
-      "number" : 2,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 97,
-      "number" : 3,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 98,
-      "number" : 5,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 99,
-      "number" : 2,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 100,
-      "number" : 5,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 101,
-      "number" : 6,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 102,
-      "number" : 2,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 103,
-      "number" : 6,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 104,
-      "number" : 8,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 105,
-      "number" : 2,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 106,
-      "number" : 8,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 107,
-      "number" : 9,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 108,
-      "number" : 2,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 109,
-      "number" : 9,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 110,
-      "number" : 11,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 111,
-      "number" : 2,
-      "oldNumber" : 11,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 112,
-      "number" : 11,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 113,
-      "number" : 12,
-      "oldNumber" : 11,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 114,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 115,
-      "number" : 12,
+      "number" : 3,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 116,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 4,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 117,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 118,
-      "number" : 13,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 119,
-      "number" : 14,
-      "oldNumber" : 13,
+      "number" : 5,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 120,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 121,
-      "number" : 14,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 122,
-      "number" : 2,
-      "oldNumber" : 14,
+      "number" : 7,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 123,
       "number" : 2,
-      "oldNumber" : 2,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 124,
-      "number" : 2,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 125,
-      "number" : 7,
-      "oldNumber" : 2,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 126,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 127,
-      "number" : 7,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 128,
-      "number" : 10,
-      "oldNumber" : 7,
+      "number" : 9,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 129,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 130,
-      "number" : 10,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 131,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 10,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 132,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 133,
-      "number" : 11,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 134,
-      "number" : 12,
-      "oldNumber" : 11,
+      "number" : 11,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 135,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 136,
-      "number" : 12,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 137,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 138,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 139,
-      "number" : 13,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 140,
-      "number" : 6,
-      "oldNumber" : 13,
+      "number" : 13,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 141,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 142,
-      "number" : 6,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 143,
-      "number" : 10,
-      "oldNumber" : 6,
+      "number" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 144,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 145,
-      "number" : 10,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 146,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 15,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 147,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 148,
-      "number" : 11,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 149,
-      "number" : 12,
-      "oldNumber" : 11,
+      "number" : 2,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 150,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 151,
-      "number" : 12,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 152,
-      "number" : 5,
-      "oldNumber" : 12,
+      "number" : 4,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 153,
       "number" : 2,
-      "oldNumber" : 5,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 154,
-      "number" : 5,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 155,
-      "number" : 9,
-      "oldNumber" : 5,
+      "number" : 7,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 156,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 157,
-      "number" : 9,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 158,
-      "number" : 10,
-      "oldNumber" : 9,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 159,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 160,
-      "number" : 10,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 161,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 9,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 162,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 163,
-      "number" : 11,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 164,
-      "number" : 4,
-      "oldNumber" : 11,
+      "number" : 11,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 165,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 166,
-      "number" : 4,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 167,
-      "number" : 8,
-      "oldNumber" : 4,
+      "number" : 14,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 168,
       "number" : 2,
-      "oldNumber" : 8,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 169,
-      "number" : 8,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 170,
-      "number" : 9,
-      "oldNumber" : 8,
+      "number" : 7,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 171,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 172,
-      "number" : 9,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 173,
       "number" : 8,
-      "oldNumber" : 9,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -1306,44 +1310,44 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 176,
-      "number" : 7,
+      "number" : 6,
       "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 177,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 178,
-      "number" : 7,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 179,
-      "number" : 6,
-      "oldNumber" : 7,
+      "number" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 180,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 181,
-      "number" : 6,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 182,
       "number" : 5,
-      "oldNumber" : 6,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -1360,25 +1364,151 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 185,
-      "number" : 4,
+      "number" : 6,
       "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 186,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 187,
+      "number" : 6,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 188,
       "number" : 4,
+      "oldNumber" : 6,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 189,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 190,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 191,
+      "number" : 5,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 192,
+      "number" : 2,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 193,
+      "number" : 5,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 194,
+      "number" : 3,
+      "oldNumber" : 5,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 195,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 196,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 197,
+      "number" : 4,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 198,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 199,
+      "number" : 4,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 200,
+      "number" : 2,
+      "oldNumber" : 4,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 201,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 202,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 203,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 204,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 205,
+      "number" : 3,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 206,
+      "number" : 2,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 207,
+      "number" : 2,
+      "oldNumber" : 2,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 208,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "parameters" : null,
-    "moveCount" : 126,
+    "moveCount" : 96,
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
@@ -1414,991 +1544,865 @@
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
-    "@jsonId" : 188,
+    "@jsonId" : 209,
     "name" : "30 pancakes",
     "entities" : [ {
       "type" : "plm.universe.pancake.PancakeEntity",
       "name" : "Pancake Seller",
-      "world" : 188,
+      "world" : 209,
       "inited" : true
     } ],
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 189,
+      "@jsonId" : 210,
       "number" : 4,
       "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 190,
-      "number" : 2,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 191,
-      "number" : 4,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 192,
-      "number" : 5,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 193,
-      "number" : 2,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 194,
-      "number" : 5,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 195,
-      "number" : 6,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 196,
-      "number" : 2,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 197,
-      "number" : 6,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 198,
-      "number" : 8,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 199,
-      "number" : 2,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 200,
-      "number" : 8,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 201,
-      "number" : 9,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 202,
-      "number" : 2,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 203,
-      "number" : 9,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 204,
-      "number" : 10,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 205,
-      "number" : 2,
-      "oldNumber" : 10,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 206,
-      "number" : 10,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 207,
-      "number" : 11,
-      "oldNumber" : 10,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 208,
-      "number" : 2,
-      "oldNumber" : 11,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 209,
-      "number" : 11,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 210,
-      "number" : 12,
-      "oldNumber" : 11,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 211,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 212,
-      "number" : 12,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 213,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 5,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 214,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 215,
-      "number" : 13,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 216,
-      "number" : 14,
-      "oldNumber" : 13,
+      "number" : 6,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 217,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 218,
-      "number" : 14,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 219,
-      "number" : 16,
-      "oldNumber" : 14,
+      "number" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 220,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 221,
-      "number" : 16,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 222,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 223,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 224,
-      "number" : 17,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 225,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 9,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 226,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 227,
-      "number" : 18,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 228,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 10,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 229,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 230,
-      "number" : 19,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 231,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 12,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 232,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 233,
-      "number" : 20,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 234,
-      "number" : 21,
-      "oldNumber" : 20,
+      "number" : 14,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 235,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 236,
-      "number" : 21,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 237,
-      "number" : 22,
-      "oldNumber" : 21,
+      "number" : 15,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 238,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 239,
-      "number" : 22,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 240,
-      "number" : 23,
-      "oldNumber" : 22,
+      "number" : 18,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 241,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 242,
-      "number" : 23,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 243,
-      "number" : 24,
-      "oldNumber" : 23,
+      "number" : 19,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 244,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 245,
-      "number" : 24,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 246,
-      "number" : 25,
-      "oldNumber" : 24,
+      "number" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 247,
       "number" : 2,
-      "oldNumber" : 25,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 248,
-      "number" : 25,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 249,
-      "number" : 26,
-      "oldNumber" : 25,
+      "number" : 21,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 250,
       "number" : 2,
-      "oldNumber" : 26,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 251,
-      "number" : 26,
+      "number" : 21,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 252,
-      "number" : 27,
-      "oldNumber" : 26,
+      "number" : 22,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 253,
       "number" : 2,
-      "oldNumber" : 27,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 254,
-      "number" : 27,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 255,
-      "number" : 28,
-      "oldNumber" : 27,
+      "number" : 23,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 256,
       "number" : 2,
-      "oldNumber" : 28,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 257,
-      "number" : 28,
+      "number" : 23,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 258,
-      "number" : 29,
-      "oldNumber" : 28,
+      "number" : 25,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 259,
       "number" : 2,
-      "oldNumber" : 29,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 260,
-      "number" : 29,
+      "number" : 25,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 261,
-      "number" : 30,
-      "oldNumber" : 29,
+      "number" : 26,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 262,
       "number" : 2,
-      "oldNumber" : 30,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 263,
-      "number" : 30,
+      "number" : 26,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 264,
-      "number" : 4,
-      "oldNumber" : 30,
+      "number" : 27,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 265,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 266,
-      "number" : 4,
+      "number" : 27,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 267,
-      "number" : 5,
-      "oldNumber" : 4,
+      "number" : 28,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 268,
       "number" : 2,
-      "oldNumber" : 5,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 269,
-      "number" : 5,
+      "number" : 28,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 270,
-      "number" : 7,
-      "oldNumber" : 5,
+      "number" : 29,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 271,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 29,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 272,
-      "number" : 7,
+      "number" : 29,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 273,
-      "number" : 8,
-      "oldNumber" : 7,
+      "number" : 30,
+      "oldNumber" : 29,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 274,
       "number" : 2,
-      "oldNumber" : 8,
+      "oldNumber" : 30,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 275,
-      "number" : 8,
+      "number" : 30,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 276,
-      "number" : 9,
-      "oldNumber" : 8,
+      "number" : 3,
+      "oldNumber" : 30,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 277,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 278,
-      "number" : 9,
+      "number" : 3,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 279,
-      "number" : 10,
-      "oldNumber" : 9,
+      "number" : 4,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 280,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 281,
-      "number" : 10,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 282,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 5,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 283,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 284,
-      "number" : 11,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 285,
-      "number" : 12,
-      "oldNumber" : 11,
+      "number" : 6,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 286,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 287,
-      "number" : 12,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 288,
-      "number" : 15,
-      "oldNumber" : 12,
+      "number" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 289,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 290,
-      "number" : 15,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 291,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 292,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 293,
-      "number" : 16,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 294,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 9,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 295,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 296,
-      "number" : 17,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 297,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 11,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 298,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 299,
-      "number" : 18,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 300,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 13,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 301,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 302,
-      "number" : 19,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 303,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 304,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 305,
-      "number" : 20,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 306,
-      "number" : 21,
-      "oldNumber" : 20,
+      "number" : 17,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 307,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 308,
-      "number" : 21,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 309,
-      "number" : 22,
-      "oldNumber" : 21,
+      "number" : 18,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 310,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 311,
-      "number" : 22,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 312,
-      "number" : 23,
-      "oldNumber" : 22,
+      "number" : 19,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 313,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 314,
-      "number" : 23,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 315,
-      "number" : 24,
-      "oldNumber" : 23,
+      "number" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 316,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 317,
-      "number" : 24,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 318,
-      "number" : 25,
-      "oldNumber" : 24,
+      "number" : 21,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 319,
       "number" : 2,
-      "oldNumber" : 25,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 320,
-      "number" : 25,
+      "number" : 21,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 321,
-      "number" : 26,
-      "oldNumber" : 25,
+      "number" : 22,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 322,
       "number" : 2,
-      "oldNumber" : 26,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 323,
-      "number" : 26,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 324,
-      "number" : 27,
-      "oldNumber" : 26,
+      "number" : 24,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 325,
       "number" : 2,
-      "oldNumber" : 27,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 326,
-      "number" : 27,
+      "number" : 24,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 327,
-      "number" : 28,
-      "oldNumber" : 27,
+      "number" : 26,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 328,
       "number" : 2,
-      "oldNumber" : 28,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 329,
-      "number" : 28,
+      "number" : 26,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 330,
-      "number" : 29,
-      "oldNumber" : 28,
+      "number" : 27,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 331,
       "number" : 2,
-      "oldNumber" : 29,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 332,
-      "number" : 29,
+      "number" : 27,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 333,
-      "number" : 6,
-      "oldNumber" : 29,
+      "number" : 28,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 334,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 335,
-      "number" : 6,
+      "number" : 28,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 336,
-      "number" : 7,
-      "oldNumber" : 6,
+      "number" : 29,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 337,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 29,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 338,
-      "number" : 7,
+      "number" : 29,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 339,
-      "number" : 8,
-      "oldNumber" : 7,
+      "number" : 4,
+      "oldNumber" : 29,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 340,
       "number" : 2,
-      "oldNumber" : 8,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 341,
-      "number" : 8,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 342,
-      "number" : 10,
-      "oldNumber" : 8,
+      "number" : 6,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 343,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 344,
-      "number" : 10,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 345,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 7,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 346,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 347,
-      "number" : 11,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 348,
-      "number" : 14,
-      "oldNumber" : 11,
+      "number" : 8,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 349,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 350,
-      "number" : 14,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 351,
       "number" : 16,
-      "oldNumber" : 14,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -2487,908 +2491,908 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 366,
-      "number" : 22,
+      "number" : 23,
       "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 367,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 368,
-      "number" : 22,
+      "number" : 23,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 369,
-      "number" : 23,
-      "oldNumber" : 22,
+      "number" : 25,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 370,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 371,
-      "number" : 23,
+      "number" : 25,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 372,
-      "number" : 24,
-      "oldNumber" : 23,
+      "number" : 27,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 373,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 374,
-      "number" : 24,
+      "number" : 27,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 375,
-      "number" : 25,
-      "oldNumber" : 24,
+      "number" : 28,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 376,
       "number" : 2,
-      "oldNumber" : 25,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 377,
-      "number" : 25,
+      "number" : 28,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 378,
-      "number" : 26,
-      "oldNumber" : 25,
+      "number" : 5,
+      "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 379,
       "number" : 2,
-      "oldNumber" : 26,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 380,
-      "number" : 26,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 381,
-      "number" : 27,
-      "oldNumber" : 26,
+      "number" : 6,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 382,
       "number" : 2,
-      "oldNumber" : 27,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 383,
-      "number" : 27,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 384,
-      "number" : 7,
-      "oldNumber" : 27,
+      "number" : 15,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 385,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 386,
-      "number" : 7,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 387,
-      "number" : 9,
-      "oldNumber" : 7,
+      "number" : 17,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 388,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 389,
-      "number" : 9,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 390,
-      "number" : 15,
-      "oldNumber" : 9,
+      "number" : 18,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 391,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 392,
-      "number" : 15,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 393,
-      "number" : 17,
-      "oldNumber" : 15,
+      "number" : 19,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 394,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 395,
-      "number" : 17,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 396,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 397,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 398,
-      "number" : 18,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 399,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 22,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 400,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 401,
-      "number" : 19,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 402,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 24,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 403,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 404,
-      "number" : 20,
+      "number" : 24,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 405,
-      "number" : 21,
-      "oldNumber" : 20,
+      "number" : 26,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 406,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 407,
-      "number" : 21,
+      "number" : 26,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 408,
-      "number" : 22,
-      "oldNumber" : 21,
+      "number" : 27,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 409,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 410,
-      "number" : 22,
+      "number" : 27,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 411,
-      "number" : 24,
-      "oldNumber" : 22,
+      "number" : 4,
+      "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 412,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 413,
-      "number" : 24,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 414,
-      "number" : 25,
-      "oldNumber" : 24,
+      "number" : 5,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 415,
       "number" : 2,
-      "oldNumber" : 25,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 416,
-      "number" : 25,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 417,
-      "number" : 26,
-      "oldNumber" : 25,
+      "number" : 14,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 418,
       "number" : 2,
-      "oldNumber" : 26,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 419,
-      "number" : 26,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 420,
-      "number" : 6,
-      "oldNumber" : 26,
+      "number" : 16,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 421,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 422,
-      "number" : 6,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 423,
-      "number" : 14,
-      "oldNumber" : 6,
+      "number" : 17,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 424,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 425,
-      "number" : 14,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 426,
-      "number" : 16,
-      "oldNumber" : 14,
+      "number" : 18,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 427,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 428,
-      "number" : 16,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 429,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 19,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 430,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 431,
-      "number" : 17,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 432,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 21,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 433,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 434,
-      "number" : 18,
+      "number" : 21,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 435,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 23,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 436,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 437,
-      "number" : 19,
+      "number" : 23,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 438,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 25,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 439,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 440,
-      "number" : 20,
+      "number" : 25,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 441,
-      "number" : 21,
-      "oldNumber" : 20,
+      "number" : 26,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 442,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 443,
-      "number" : 21,
+      "number" : 26,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 444,
-      "number" : 23,
-      "oldNumber" : 21,
+      "number" : 3,
+      "oldNumber" : 26,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 445,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 446,
-      "number" : 23,
+      "number" : 3,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 447,
-      "number" : 24,
-      "oldNumber" : 23,
+      "number" : 13,
+      "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 448,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 449,
-      "number" : 24,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 450,
-      "number" : 25,
-      "oldNumber" : 24,
+      "number" : 15,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 451,
       "number" : 2,
-      "oldNumber" : 25,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 452,
-      "number" : 25,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 453,
-      "number" : 5,
-      "oldNumber" : 25,
+      "number" : 16,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 454,
       "number" : 2,
-      "oldNumber" : 5,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 455,
-      "number" : 5,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 456,
-      "number" : 13,
-      "oldNumber" : 5,
+      "number" : 17,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 457,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 458,
-      "number" : 13,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 459,
-      "number" : 15,
-      "oldNumber" : 13,
+      "number" : 18,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 460,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 461,
-      "number" : 15,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 462,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 20,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 463,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 464,
-      "number" : 16,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 465,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 22,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 466,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 467,
-      "number" : 17,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 468,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 24,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 469,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 470,
-      "number" : 18,
+      "number" : 24,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 471,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 25,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 472,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 473,
-      "number" : 19,
+      "number" : 25,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 474,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 2,
+      "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 475,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 476,
-      "number" : 20,
+      "number" : 2,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 477,
-      "number" : 22,
-      "oldNumber" : 20,
+      "number" : 12,
+      "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 478,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 479,
-      "number" : 22,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 480,
-      "number" : 23,
-      "oldNumber" : 22,
+      "number" : 14,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 481,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 482,
-      "number" : 23,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 483,
-      "number" : 24,
-      "oldNumber" : 23,
+      "number" : 15,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 484,
       "number" : 2,
-      "oldNumber" : 24,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 485,
-      "number" : 24,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 486,
-      "number" : 4,
-      "oldNumber" : 24,
+      "number" : 16,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 487,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 488,
-      "number" : 4,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 489,
-      "number" : 12,
-      "oldNumber" : 4,
+      "number" : 17,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 490,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 491,
-      "number" : 12,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 492,
-      "number" : 14,
-      "oldNumber" : 12,
+      "number" : 19,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 493,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 494,
-      "number" : 14,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 495,
-      "number" : 17,
-      "oldNumber" : 14,
+      "number" : 21,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 496,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 497,
-      "number" : 17,
+      "number" : 21,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 498,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 23,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 499,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 500,
-      "number" : 18,
+      "number" : 23,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 501,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 24,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 502,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 503,
-      "number" : 19,
+      "number" : 24,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 504,
-      "number" : 21,
-      "oldNumber" : 19,
+      "number" : 11,
+      "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 505,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 506,
-      "number" : 21,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 507,
-      "number" : 22,
-      "oldNumber" : 21,
+      "number" : 13,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 508,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 509,
-      "number" : 22,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 510,
-      "number" : 23,
-      "oldNumber" : 22,
+      "number" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 511,
       "number" : 2,
-      "oldNumber" : 23,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 512,
-      "number" : 23,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 513,
-      "number" : 13,
-      "oldNumber" : 23,
+      "number" : 15,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 514,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 515,
-      "number" : 13,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 516,
       "number" : 16,
-      "oldNumber" : 13,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -3405,98 +3409,98 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 519,
-      "number" : 17,
+      "number" : 18,
       "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 520,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 521,
-      "number" : 17,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 522,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 20,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 523,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 524,
-      "number" : 18,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 525,
-      "number" : 20,
-      "oldNumber" : 18,
+      "number" : 22,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 526,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 527,
-      "number" : 20,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 528,
-      "number" : 21,
-      "oldNumber" : 20,
+      "number" : 23,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 529,
       "number" : 2,
-      "oldNumber" : 21,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 530,
-      "number" : 21,
+      "number" : 23,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 531,
-      "number" : 22,
-      "oldNumber" : 21,
+      "number" : 10,
+      "oldNumber" : 23,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 532,
       "number" : 2,
-      "oldNumber" : 22,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 533,
-      "number" : 22,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 534,
       "number" : 12,
-      "oldNumber" : 22,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -3513,98 +3517,98 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 537,
-      "number" : 15,
+      "number" : 13,
       "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 538,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 539,
-      "number" : 15,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 540,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 541,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 542,
-      "number" : 16,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 543,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 15,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 544,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 545,
-      "number" : 17,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 546,
-      "number" : 19,
-      "oldNumber" : 17,
+      "number" : 17,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 547,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 548,
-      "number" : 19,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 549,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 19,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 550,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 551,
-      "number" : 20,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 552,
       "number" : 21,
-      "oldNumber" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -3621,296 +3625,296 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 555,
-      "number" : 14,
+      "number" : 22,
       "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 556,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 557,
-      "number" : 14,
+      "number" : 22,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 558,
-      "number" : 15,
-      "oldNumber" : 14,
+      "number" : 9,
+      "oldNumber" : 22,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 559,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 560,
-      "number" : 15,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 561,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 11,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 562,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 563,
-      "number" : 16,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 564,
-      "number" : 18,
-      "oldNumber" : 16,
+      "number" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 565,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 566,
-      "number" : 18,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 567,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 13,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 568,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 569,
-      "number" : 19,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 570,
-      "number" : 20,
-      "oldNumber" : 19,
+      "number" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 571,
       "number" : 2,
-      "oldNumber" : 20,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 572,
-      "number" : 20,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 573,
-      "number" : 13,
-      "oldNumber" : 20,
+      "number" : 16,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 574,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 575,
-      "number" : 13,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 576,
-      "number" : 14,
-      "oldNumber" : 13,
+      "number" : 18,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 577,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 578,
-      "number" : 14,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 579,
-      "number" : 15,
-      "oldNumber" : 14,
+      "number" : 20,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 580,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 581,
-      "number" : 15,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 582,
-      "number" : 17,
-      "oldNumber" : 15,
+      "number" : 21,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 583,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 584,
-      "number" : 17,
+      "number" : 21,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 585,
-      "number" : 18,
-      "oldNumber" : 17,
+      "number" : 8,
+      "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 586,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 587,
-      "number" : 18,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 588,
-      "number" : 19,
-      "oldNumber" : 18,
+      "number" : 10,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 589,
       "number" : 2,
-      "oldNumber" : 19,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 590,
-      "number" : 19,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 591,
-      "number" : 12,
-      "oldNumber" : 19,
+      "number" : 11,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 592,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 593,
-      "number" : 12,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 594,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 595,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 596,
-      "number" : 13,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 597,
-      "number" : 14,
-      "oldNumber" : 13,
+      "number" : 13,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 598,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 599,
-      "number" : 14,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 600,
-      "number" : 16,
-      "oldNumber" : 14,
+      "number" : 15,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 601,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 602,
-      "number" : 16,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 603,
       "number" : 17,
-      "oldNumber" : 16,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -3927,296 +3931,296 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 606,
-      "number" : 18,
+      "number" : 19,
       "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 607,
       "number" : 2,
-      "oldNumber" : 18,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 608,
-      "number" : 18,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 609,
-      "number" : 12,
-      "oldNumber" : 18,
+      "number" : 20,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 610,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 611,
-      "number" : 12,
+      "number" : 20,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 612,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 7,
+      "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 613,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 614,
-      "number" : 13,
+      "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 615,
-      "number" : 15,
-      "oldNumber" : 13,
+      "number" : 11,
+      "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 616,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 617,
-      "number" : 15,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 618,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 12,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 619,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 620,
-      "number" : 16,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 621,
-      "number" : 17,
-      "oldNumber" : 16,
+      "number" : 14,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 622,
       "number" : 2,
-      "oldNumber" : 17,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 623,
-      "number" : 17,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 624,
-      "number" : 11,
-      "oldNumber" : 17,
+      "number" : 16,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 625,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 626,
-      "number" : 11,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 627,
-      "number" : 12,
-      "oldNumber" : 11,
+      "number" : 18,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 628,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 629,
-      "number" : 12,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 630,
-      "number" : 14,
-      "oldNumber" : 12,
+      "number" : 19,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 631,
       "number" : 2,
-      "oldNumber" : 14,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 632,
-      "number" : 14,
+      "number" : 19,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 633,
-      "number" : 15,
-      "oldNumber" : 14,
+      "number" : 6,
+      "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 634,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 635,
-      "number" : 15,
+      "number" : 6,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 636,
-      "number" : 16,
-      "oldNumber" : 15,
+      "number" : 10,
+      "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 637,
       "number" : 2,
-      "oldNumber" : 16,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 638,
-      "number" : 16,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 639,
-      "number" : 10,
-      "oldNumber" : 16,
+      "number" : 11,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 640,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 641,
-      "number" : 10,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 642,
-      "number" : 11,
-      "oldNumber" : 10,
+      "number" : 13,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 643,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 644,
-      "number" : 11,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 645,
-      "number" : 13,
-      "oldNumber" : 11,
+      "number" : 15,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 646,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 647,
-      "number" : 13,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 648,
-      "number" : 15,
-      "oldNumber" : 13,
+      "number" : 18,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 649,
       "number" : 2,
-      "oldNumber" : 15,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 650,
-      "number" : 15,
+      "number" : 18,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 651,
-      "number" : 9,
-      "oldNumber" : 15,
+      "number" : 5,
+      "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 652,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 653,
-      "number" : 9,
+      "number" : 5,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 654,
       "number" : 10,
-      "oldNumber" : 9,
+      "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -4269,241 +4273,223 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 663,
-      "number" : 9,
+      "number" : 17,
       "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 664,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 665,
-      "number" : 9,
+      "number" : 17,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 666,
-      "number" : 11,
-      "oldNumber" : 9,
+      "number" : 4,
+      "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 667,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 668,
-      "number" : 11,
+      "number" : 4,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 669,
-      "number" : 13,
-      "oldNumber" : 11,
+      "number" : 9,
+      "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 670,
       "number" : 2,
-      "oldNumber" : 13,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 671,
-      "number" : 13,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 672,
-      "number" : 8,
-      "oldNumber" : 13,
+      "number" : 13,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 673,
       "number" : 2,
-      "oldNumber" : 8,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 674,
-      "number" : 8,
+      "number" : 13,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 675,
-      "number" : 12,
-      "oldNumber" : 8,
+      "number" : 16,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 676,
       "number" : 2,
-      "oldNumber" : 12,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 677,
-      "number" : 12,
+      "number" : 16,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 678,
-      "number" : 7,
-      "oldNumber" : 12,
+      "number" : 8,
+      "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 679,
       "number" : 2,
-      "oldNumber" : 7,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 680,
-      "number" : 7,
+      "number" : 8,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 681,
-      "number" : 11,
-      "oldNumber" : 7,
+      "number" : 12,
+      "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 682,
       "number" : 2,
-      "oldNumber" : 11,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 683,
-      "number" : 11,
+      "number" : 12,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 684,
-      "number" : 6,
-      "oldNumber" : 11,
+      "number" : 15,
+      "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 685,
       "number" : 2,
-      "oldNumber" : 6,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 686,
-      "number" : 6,
+      "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 687,
-      "number" : 10,
-      "oldNumber" : 6,
+      "number" : 11,
+      "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 688,
       "number" : 2,
-      "oldNumber" : 10,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 689,
-      "number" : 10,
+      "number" : 11,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 690,
-      "number" : 5,
-      "oldNumber" : 10,
+      "number" : 14,
+      "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 691,
       "number" : 2,
-      "oldNumber" : 5,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 692,
-      "number" : 5,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 693,
-      "number" : 9,
-      "oldNumber" : 5,
+      "number" : 10,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 694,
       "number" : 2,
-      "oldNumber" : 9,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 695,
-      "number" : 9,
+      "number" : 10,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 696,
-      "number" : 4,
-      "oldNumber" : 9,
+      "number" : 9,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 697,
       "number" : 2,
-      "oldNumber" : 4,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 698,
-      "number" : 4,
-      "oldNumber" : 2,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 699,
-      "number" : 8,
-      "oldNumber" : 4,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 700,
-      "number" : 2,
-      "oldNumber" : 8,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 701,
-      "number" : 8,
+      "number" : 9,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "parameters" : null,
-    "moveCount" : 513,
+    "moveCount" : 489,
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
@@ -4567,9 +4553,5 @@
     }, {
       "radius" : 30
     } ]
-  } ],
-  "instructions" : {
-    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Bubble Pancakes</h1>\n\n<p>This problem is similar to the previous: you have to sort the pancakes, the smallest at the top and the biggest at the bottom, except you can only flip them to sort.</p>\n\n<p>The purpose here is to sort them using the bubble algorithm, where one pancake is moved to the bottom until it encounters a bigger one. In graphical representations, it looks like a bubble takes the element and move them through the pile. This is where its name comes from.</p>\n\n<p>Now, using pancakes makes it a little more difficult to write, because you have to find a way to swap only two pancakes at a time.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"I don't get it. I need some help.\">\nThe bubble algorithm consists in browsing the whole pile from top to bottom, and making a comparision between two pancakes. Each time the top pancake is bigger than the one below, you have to swap them, then compare the bigger pancake you just swapped with one below, and so on. You have to browse through the entire pile until no swap has occurred, in which case the pile is sorted.</tips>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"The first tip was not enough. I need another one.\">\nIf you don't understand the basic bubble sorting algorithm, you should try the exercises within the “Sorting algorithms” lesson. If you do, but can't figure a way to swap only two pancakes at a time, think of a situation where only two pancakes are swapped at a time, and find a way to reach that situation.\n</tips></p>\n",
-    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Crêpes et bulle</h1>\n\n<p>Cet exercice ressemble au précédent: il faut que vous triiez les crêpes, la\nplus petite en haut de la pile, et la plus grande en bas de la pile, sauf\nque vous ne pouvez seulement en retourner qu’un certain nombre.</p>\n\n<p>L'objectif ici est de trier les crêpes en utilisant l'algorithme du tri à\nbulle, où une crêpe est déplacée vers le bas de la pile jusqu'à qu'elle en\nrencontre une plus grande. Dans les représentations graphiques, cela se\nmatérialise par une bulle qui prend un élément et le déplace sur toute la\npile, d'où le nom de \"tri à bulle\".</p>\n\n<p>Maintenant, l'utilisation de crêpes rend l'algorithme un peu plus difficile\nà écrire, car vous devez trouver un moyen d'échanger de place seulement deux\ncrêpes à la fois.</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Je suis perdu, j'ai besoin d'aide.\">\nLe tri à bulle consiste à parcourir la pile entière, de haut en bas, et\nd'effectuer des comparaisons entre deux crêpes. Chaque fois que la crêpe du\ndessus est plus grande que celle du dessous, il faut que vous les échangiez,\npuis que vous compariez la crêpe que vous venez de déplacer avec celle du\ndessous, et ainsi de suite. Vous devez continuer à parcourir toute la pile\njusqu'à que vous ne déplaciez plus aucune crêpe, auquel cas la pile est\ntriée.</tips>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"Ce premier indice n'était pas suffisant, j'ai besoin de plus d'aide.\">\nSi vous ne comprenez pas l'algorithme de tri à bulle de base, vous devriez\nd'abord essayer les exercices le concernant dans la leçon \"Algorithmes de\ntri\". Si c'est plutôt le fait d'échanger seulement deux crêpes à la fois qui\nvous pose problème, cherchez une situation où seulement deux crêpes sont\néchangées, et trouver un moyen d'arriver à cette situation.\n</tips></p>\n"
-  }
+  } ]
 }

@@ -1,5 +1,5 @@
 {
-  "id" : "DutchFlagAlgo",
+  "id" : "sort.dutchflag.DutchFlagAlgo",
   "name" : "DutchFlagAlgo",
   "tabName" : "DutchFlagAlgo",
   "defaultSourceFiles" : {
@@ -32,6 +32,10 @@
     "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The Dutch Flag Problem</h1>\n\n<h2>Provided values</h2>\n\n<p>The colors are represented through the following constants: BLUE, WHITE and RED. \nYou can use them directly in your code.</p>\n\n<h2>Provided functions</h2>\n\n<p>This world is very simple, with only 5 provided functions. </p>\n\n<pre>[!java|c]void [/!]swap([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int [/!]y[!scala]:Int[/!])</pre>\nSwap the lines number <code>x</code> and <code>y</code>.\n\n<pre>[!java|c]int [/!]getSize() [!scala]:Int[/!]</pre>\nReturns the amount of lines on this flag.\n\n<pre>[!java|c]int [/!]getColor([!java|c]int [/!]line[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nReturns the color of the given line.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSorted()  [!scala]:Boolean[/!]</pre>\nReturns whether the flag is sorted.\n     \n<pre>[!java]boolean [/!][!c]int [/!]isSelected()  [!scala]:Boolean[/!]</pre>\nReturns whether the current world is selected in the interface.\n\n",
     "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Le problème du drapeau hollandais</h1>\n\n<h2>Valeurs fournies</h2>\n\n<p>Les couleurs sont représentées par les constantes suivantes : BLEU, BLANC et\nROUGE. Vous pouvez les utiliser directement dans votre code.</p>\n\n<h2>Fonctions fournies</h2>\n\n<p>Cet univers est très simple, avec seulement cinq fonctions fournies. </p>\n\n<pre>[!java|c]void [/!]echange([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int [/!]y[!scala]:Int[/!])</pre>\nÉchange les lignes numéros <code>x</code> et <code>y</code>.\n\n<pre>[!java|c]int [/!]getTaille()  [!scala]:Int[/!]</pre>\nRetourne le nombre de lignes sur ce drapeau.\n\n<pre>[!java|c]int [/!]getCouleur([!java|c]int [/!]ligne[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nRetourne la couleur d'une ligne donnée.\n\n<pre>[!java]boolean [/!][!c]int [/!]estTrie() [!scala]:Boolean[/!]</pre>\nRenvoie si le drapeau est correctement trié.\n     \n<pre>[!java]boolean [/!][!c]int [/!]estSelectionne() [!scala]:Boolean[/!]</pre>\nRenvoi si le monde actuel est sélectionné dans l'interface graphique.\n\n"
   },
+  "instructions" : {
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The Dutch Flag Problem</h1>\n\n<p>Your work is to sort all the colors of the Dutch flag, and the only provided primitive is to exchange two given lines. \nIn addition, you should not create any additional variables (but a few indices).</p>\n\n<p>If you think carefully, this can be done in linear time, where you sort a line at each iteration of the loop. \nYou may want to check again the <a ui-sref=\"exercise({ lessonID: 'sort.basic', exerciseID: 'sort.basic.lessons.sort.basic.insertion.AlgInsertionSort' })\">insertion sort</a>, \nof which the Dutch Flag sort is a variation. The main difference is that you have 3 insertion points, not only one...</p>\n\n\n<a href=\"\" data-reveal-id=\"myModal\" ng-click=\"exercise.readTip(1)\">I need an hint to start</a>\n\n<div id=\"myModal\" class=\"reveal-modal\" data-reveal=\"\" aria-labelledby=\"modalTitle\" aria-hidden=\"true\" role=\"dialog\">\n  <p>\n    Do a traversal over your data, saving 3 indices:\n    <ul>\n      <li>\n        <code>afterBlue</code> is initialized to 0. Make sure that every cell below <code>afterBlue</code> is filled with blue elements.\n      </li>\n      <li><code>whiteRed</code> is initialized to size-1. Make sure that every cell after <code>whiteRed</code> is filled with red elements.</li>\n      <li><code>beforeWhite</code> is initialized to size-1. Make sure that every cell after <code>beforeWhite</code> and before <code>whiteRed</code> is filled with white elements.</li>\n    </ul>\n    Note that the unsorted cells are always between <code>afterBlue</code> and <code>beforeWhite</code>.\n    <br/> At each step of your traversal, check the color of the cell at <code>afterBlue</code> and do the required exchanges. The loop ending condition is when <code>afterBlue</code> becomes larger than <code>beforeWhite</code>.\n    <br/>\n  </p>\n  <a class=\"close-reveal-modal\" aria-label=\"Close\">&#215;</a>\n</div>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Le problème du drapeau hollandais</h1>\n\n<p>Votre travail est de trier les couleurs du drapeau hollandais. La seule\nprimitive à votre disposition permet d'échanger deux lignes données. De\nplus, vous ne devez pas créer de nouvelles variables (à l'exception de\nquelques indices).</p>\n\n<p>À la réflexion, on peut le faire en temps linéaire, en triant un élément à\nchaque étape de la boucle. Vous devriez peut-être réviser comment se passe\nle <a ui-sref=\"exercise({ lessonID: 'sort.basic', exerciseID:\n'sort.basic.lessons.sort.basic.insertion.AlgInsertionSort' })\">tri par\ninsertion</a>, car le tri du drapeau hollandais est une variation sur le\nthème. La principale différence est que vous n'avez pas un seul point\nd'insertion, mais 3...</p>\n\n\n<a href=\"\" data-reveal-id=\"myModal\" ng-click=\"exercise.readTip(1)\">J'ai\nbesoin d'un indice pour démarrer</a>\n\n<div id=\"myModal\" class=\"reveal-modal\" data-reveal=\"\" aria-labelledby=\"modalTitle\" aria-hidden=\"true\" role=\"dialog\">\n  <p>\n    Traversez vos données, en maintenant trois indices :\n    <ul>\n      <li>\n        <code>apresBleu</code> est initialisé à 0. Assurez vous de n'avoir que des\ncellules bleues entre 0 et <code>apresBleu</code> à tout moment.\n      </li>\n      <li><code>blancRouge</code> est initialisé à taille-1. Assurez vous de n'avoir\nque des cellules rouges après <code>blancRouge</code>.</li>\n      <li><code>avantBlanc</code> est initialisé à taille-1. Assurez vous de n'avoir\nque des cellules blanches entre <code>avantBlanc</code> et\n<code>blancRouge</code>.</li>\n    </ul>\n    Remarques que les cellules non triées sont toujours entre\n<code>apresBleu</code> et <code>avantBlanc</code>.\n    <br/> À chaque étape de votre traversée, regardez la couleur de la case pointée\npar <code>apresBleu</code> et effectuez les échanges qui s'imposent. La\nboucle s'arrête quand <code>apresBleu</code> devient plus grand que\n<code>avantBlanc</code>.\n    <br/>\n  </p>\n  <a class=\"close-reveal-modal\" aria-label=\"Close\">&#215;</a>\n</div>\n"
+  },
   "initialWorlds" : [ {
     "type" : "plm.universe.dutchflag.DutchFlagWorld",
     "@jsonId" : 1,
@@ -41,8 +45,8 @@
       "name" : "Flag sorter",
       "world" : 1,
       "inited" : false,
-      "sorted" : false,
       "taille" : 6,
+      "sorted" : false,
       "size" : 6
     } ],
     "steps" : [ ],
@@ -60,8 +64,8 @@
       "name" : "Flag sorter",
       "world" : 2,
       "inited" : false,
-      "sorted" : false,
       "taille" : 12,
+      "sorted" : false,
       "size" : 12
     } ],
     "steps" : [ ],
@@ -79,8 +83,8 @@
       "name" : "Flag sorter",
       "world" : 3,
       "inited" : false,
-      "sorted" : false,
       "taille" : 18,
+      "sorted" : false,
       "size" : 18
     } ],
     "steps" : [ ],
@@ -98,8 +102,8 @@
       "name" : "Flag sorter",
       "world" : 4,
       "inited" : false,
-      "sorted" : false,
       "taille" : 36,
+      "sorted" : false,
       "size" : 36
     } ],
     "steps" : [ ],
@@ -117,8 +121,8 @@
       "name" : "Flag sorter",
       "world" : 5,
       "inited" : false,
-      "sorted" : false,
       "taille" : 300,
+      "sorted" : false,
       "size" : 300
     } ],
     "steps" : [ ],
@@ -136,8 +140,8 @@
       "name" : "Flag sorter",
       "world" : 6,
       "inited" : false,
-      "sorted" : false,
       "taille" : 12,
+      "sorted" : false,
       "size" : 12
     } ],
     "steps" : [ ],
@@ -155,8 +159,8 @@
       "name" : "Flag sorter",
       "world" : 7,
       "inited" : false,
-      "sorted" : false,
       "taille" : 12,
+      "sorted" : false,
       "size" : 12
     } ],
     "steps" : [ ],
@@ -174,8 +178,8 @@
       "name" : "Flag sorter",
       "world" : 8,
       "inited" : false,
-      "sorted" : false,
       "taille" : 12,
+      "sorted" : false,
       "size" : 12
     } ],
     "steps" : [ ],
@@ -194,8 +198,8 @@
       "name" : "Flag sorter",
       "world" : 9,
       "inited" : true,
-      "sorted" : true,
       "taille" : 6,
+      "sorted" : true,
       "size" : 6
     } ],
     "steps" : [ [ {
@@ -243,8 +247,8 @@
       "name" : "Flag sorter",
       "world" : 15,
       "inited" : true,
-      "sorted" : true,
       "taille" : 12,
+      "sorted" : true,
       "size" : 12
     } ],
     "steps" : [ [ {
@@ -334,8 +338,8 @@
       "name" : "Flag sorter",
       "world" : 28,
       "inited" : true,
-      "sorted" : true,
       "taille" : 18,
+      "sorted" : true,
       "size" : 18
     } ],
     "steps" : [ [ {
@@ -449,8 +453,8 @@
       "name" : "Flag sorter",
       "world" : 45,
       "inited" : true,
-      "sorted" : true,
       "taille" : 36,
+      "sorted" : true,
       "size" : 36
     } ],
     "steps" : [ [ {
@@ -708,8 +712,8 @@
       "name" : "Flag sorter",
       "world" : 86,
       "inited" : true,
-      "sorted" : true,
       "taille" : 300,
+      "sorted" : true,
       "size" : 300
     } ],
     "steps" : [ [ {
@@ -2533,8 +2537,8 @@
       "name" : "Flag sorter",
       "world" : 388,
       "inited" : true,
-      "sorted" : true,
       "taille" : 12,
+      "sorted" : true,
       "size" : 12
     } ],
     "steps" : [ [ {
@@ -2666,8 +2670,8 @@
       "name" : "Flag sorter",
       "world" : 408,
       "inited" : true,
-      "sorted" : true,
       "taille" : 12,
+      "sorted" : true,
       "size" : 12
     } ],
     "steps" : [ [ {
@@ -2769,8 +2773,8 @@
       "name" : "Flag sorter",
       "world" : 423,
       "inited" : true,
-      "sorted" : true,
       "taille" : 12,
+      "sorted" : true,
       "size" : 12
     } ],
     "steps" : [ [ {
@@ -2821,9 +2825,5 @@
     "content" : [ 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
     "moveCount" : 7,
     "initialContent" : [ 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0 ]
-  } ],
-  "instructions" : {
-    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The Dutch Flag Problem</h1>\n\n<p>Your work is to sort all the colors of the Dutch flag, and the only provided primitive is to exchange two given lines. \nIn addition, you should not create any additional variables (but a few indices).</p>\n\n<p>If you think carefully, this can be done in linear time, where you sort a line at each iteration of the loop. \nYou may want to check again the <a ui-sref=\"exercise({ lessonID: 'sort.basic', exerciseID: 'sort.basic.lessons.sort.basic.insertion.AlgInsertionSort' })\">insertion sort</a>, \nof which the Dutch Flag sort is a variation. The main difference is that you have 3 insertion points, not only one...</p>\n\n\n<a href=\"\" data-reveal-id=\"myModal\" ng-click=\"exercise.readTip(1)\">I need an hint to start</a>\n\n<div id=\"myModal\" class=\"reveal-modal\" data-reveal=\"\" aria-labelledby=\"modalTitle\" aria-hidden=\"true\" role=\"dialog\">\n  <p>\n    Do a traversal over your data, saving 3 indices:\n    <ul>\n      <li>\n        <code>afterBlue</code> is initialized to 0. Make sure that every cell below <code>afterBlue</code> is filled with blue elements.\n      </li>\n      <li><code>whiteRed</code> is initialized to size-1. Make sure that every cell after <code>whiteRed</code> is filled with red elements.</li>\n      <li><code>beforeWhite</code> is initialized to size-1. Make sure that every cell after <code>beforeWhite</code> and before <code>whiteRed</code> is filled with white elements.</li>\n    </ul>\n    Note that the unsorted cells are always between <code>afterBlue</code> and <code>beforeWhite</code>.\n    <br/> At each step of your traversal, check the color of the cell at <code>afterBlue</code> and do the required exchanges. The loop ending condition is when <code>afterBlue</code> becomes larger than <code>beforeWhite</code>.\n    <br/>\n  </p>\n  <a class=\"close-reveal-modal\" aria-label=\"Close\">&#215;</a>\n</div>\n",
-    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Le problème du drapeau hollandais</h1>\n\n<p>Votre travail est de trier les couleurs du drapeau hollandais. La seule\nprimitive à votre disposition permet d'échanger deux lignes données. De\nplus, vous ne devez pas créer de nouvelles variables (à l'exception de\nquelques indices).</p>\n\n<p>À la réflexion, on peut le faire en temps linéaire, en triant un élément à\nchaque étape de la boucle. Vous devriez peut-être réviser comment se passe\nle <a ui-sref=\"exercise({ lessonID: 'sort.basic', exerciseID:\n'sort.basic.lessons.sort.basic.insertion.AlgInsertionSort' })\">tri par\ninsertion</a>, car le tri du drapeau hollandais est une variation sur le\nthème. La principale différence est que vous n'avez pas un seul point\nd'insertion, mais 3...</p>\n\n\n<a href=\"\" data-reveal-id=\"myModal\" ng-click=\"exercise.readTip(1)\">J'ai\nbesoin d'un indice pour démarrer</a>\n\n<div id=\"myModal\" class=\"reveal-modal\" data-reveal=\"\" aria-labelledby=\"modalTitle\" aria-hidden=\"true\" role=\"dialog\">\n  <p>\n    Traversez vos données, en maintenant trois indices :\n    <ul>\n      <li>\n        <code>apresBleu</code> est initialisé à 0. Assurez vous de n'avoir que des\ncellules bleues entre 0 et <code>apresBleu</code> à tout moment.\n      </li>\n      <li><code>blancRouge</code> est initialisé à taille-1. Assurez vous de n'avoir\nque des cellules rouges après <code>blancRouge</code>.</li>\n      <li><code>avantBlanc</code> est initialisé à taille-1. Assurez vous de n'avoir\nque des cellules blanches entre <code>avantBlanc</code> et\n<code>blancRouge</code>.</li>\n    </ul>\n    Remarques que les cellules non triées sont toujours entre\n<code>apresBleu</code> et <code>avantBlanc</code>.\n    <br/> À chaque étape de votre traversée, regardez la couleur de la case pointée\npar <code>apresBleu</code> et effectuez les échanges qui s'imposent. La\nboucle s'arrête quand <code>apresBleu</code> devient plus grand que\n<code>avantBlanc</code>.\n    <br/>\n  </p>\n  <a class=\"close-reveal-modal\" aria-label=\"Close\">&#215;</a>\n</div>\n"
-  }
+  } ]
 }

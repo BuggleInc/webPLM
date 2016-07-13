@@ -17,7 +17,6 @@ public class WallFindFollowMaze extends ExerciseTemplated {
 		setup(new World[] {
 				((BuggleWorld) BuggleWorld.newFromFile(Exercise.directory + "/maze/wallfindfollow/WallFindFollowMaze")).ignoreDirectionDifference(),
 				((BuggleWorld) BuggleWorld.newFromFile(Exercise.directory + "/maze/wallfindfollow/WallFindFollowMaze2")).ignoreDirectionDifference()
-				
 		});
 	}
 }
