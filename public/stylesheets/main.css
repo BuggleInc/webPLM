@@ -46,6 +46,10 @@
   font-size: 72px;
 }
 
+.instructions {
+  padding-right: 1vw;
+}
+
 .CodeMirror-matchingbracket {
   color: #1A9C00 !important;
 }
@@ -75,21 +79,21 @@ menu {
 
 .top-row {
   position: absolute;
-  width: 90%;
+  width: 95%;
   height: 60%;
 }
 
 .mid-row {
   position: absolute;
   top: 70% ;
-  width:90%;
+  width:95%;
 }
 
 .bottom-row {
   position: absolute;
   top: 75%;
   height: 20%;
-  width: 90%;
+  width: 95%;
 }
 
 .button-with-icon {
