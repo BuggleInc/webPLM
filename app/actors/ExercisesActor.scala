@@ -4,10 +4,7 @@ import java.io.{File, InputStream}
 import java.net.URL
 import java.util.Locale
 
-import scala.util.matching.Regex
-import com.fasterxml.jackson.databind.ObjectMapper
 import akka.actor._
-import log.PLMLogger
 import models.ProgrammingLanguages
 import models.lesson.TipFactory
 import play.api.Logger
@@ -29,7 +26,8 @@ import scala.io.Source
 object ExercisesActor {
   def props = Props[ExercisesActor]
 
-  val filterRegexp = "^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$" // Select all files ending with ".java" but not containing "Entity"
+  val baseDirectory: String = "exercises/"
+  val filterRegexp: String = "^(.(?!(Entity)|(CommonErr[0-9]*)))*\\.java$" // Select all files ending with ".java" but not containing "Entity"
 
   val exercisesName: Array[String] = generateExercisesIDsList
 
@@ -89,7 +87,7 @@ object ExercisesActor {
     val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
     Play.resourceAsStream(path) match {
       case Some(is: InputStream) =>
-        val lines: String = Source.fromInputStream(is).getLines().mkString("")
+        val lines: String = Source.fromInputStream(is)("UTF-8").getLines().mkString("")
         is.close
         JSONUtils.jsonStringToExercise(lines)
       case None =>
@@ -112,7 +110,6 @@ object ExercisesActor {
 
   def initExercises(): Map[String, Exercise] = {
     var exercises: Map[String, Exercise] = Map()
-    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
     exercisesName.foreach { exerciseName =>
       val exercise: Exercise = initExercise(exerciseName)
       exercises += (exerciseName -> exercise)
@@ -127,14 +124,13 @@ object ExercisesActor {
     }
   }
 
-  // FIXME: Re-implement me
   def exportExercise(exerciseName: String) {
     // Instantiate the exercise the old fashioned way
     val exercise: Exercise = initFromSource(exerciseName)
 
     // Store into a file its JSON serialization
-    // val path: String = List(baseDirectory.getPath, exerciseName.replaceAll("\\.", "/")).mkString("/")
-    // JSONUtils.exerciseToFile(path, exercise)
+    val path: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
+    JSONUtils.exerciseToFile(path, exercise)
   }
 }
 
