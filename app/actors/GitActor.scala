@@ -46,6 +46,7 @@ object GitActor {
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
+  case class RevertExercise(exercise: Exercise, progLang: ProgrammingLanguage)
   case class Idle(idleStart: String, idleEnd: String, duration: String)
 }
 
@@ -78,6 +79,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     case SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise]) =>
       switched(exerciseTo, optExerciseFrom)
       requestPush
+    case RevertExercise(exercise: Exercise, progLang: ProgrammingLanguage) =>
+      revertExercise(exercise, progLang)
     case Idle(idleStart: String, idleEnd: String, duration: String) =>
       idle(idleStart, idleEnd, duration)
     case _ =>
@@ -167,6 +170,16 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     gitUtils.commit(idledMessage)
   }
 
+  def revertExercise(exercise: Exercise, progLang: ProgrammingLanguage): Unit = {
+    val jsonReverted: JsObject = generateRevertJson(exercise, progLang)
+    val revertedMessage: String = jsonToCommitMessage("reverted", jsonReverted)
+
+    deleteFiles(exercise, progLang)
+    gitUtils.addFiles()
+
+    gitUtils.commit(revertedMessage)
+  }
+
   def requestPush() {
     optTrackUser match {
     case Some(true) =>
@@ -191,7 +204,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     val correction: String = exercise.getDefaultSourceFile(progLang).getCorrection
     val mission: String = exercise.getMission(locale, progLang)
 
-    var files: HashMap[String, String] = new HashMap[String, String]
+    val files: HashMap[String, String] = new HashMap[String, String]
 
     files.put("code", code)
     files.put("error", error)
@@ -208,6 +221,19 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       val writer = new PrintWriter(new File(path))
       writer.write(content)
       writer.close()
+    }
+  }
+
+  def deleteFiles(exercise: Exercise, progLang: ProgrammingLanguage): Unit = {
+    val extensions: List[String] = List("code", "error", "correction", "mission")
+
+    extensions.foreach { extension =>
+      val filename: String = List(exercise.getId, progLang.getExt, extension).mkString(".")
+      val path: String = List(home, gitDirectory, gitID, filename).mkString("/")
+      val file: File = new File(path)
+      if(file.exists) {
+        file.delete()
+      }
     }
   }
 
@@ -270,6 +296,13 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     }
 
     json
+  }
+
+  def generateRevertJson(exercise: Exercise, progLang: ProgrammingLanguage): JsObject = {
+    Json.obj(
+      "exo" -> exercise.getId,
+      "lang" -> progLang.toString
+    )
   }
 
   def generateIdleJson(idleStart: String, idleEnd: String, duration: String): JsObject = {

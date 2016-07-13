@@ -223,6 +223,9 @@
         toasterUtils.warning('Lesson ' + exercise.lessonID + ' not found, you\'ve been redirect to the homepage.');
         $state.go('home');
         break;
+      case 'reset':
+        exercise.code = args.defaultCode;
+        break;
       }
     }
 

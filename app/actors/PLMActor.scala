@@ -23,6 +23,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
 import ExercisesActor._
+import SessionActor._
 import execution.ExecutionActor._
 import GitActor._
 import SessionActor._
@@ -217,18 +218,15 @@ class PLMActor (
             case _ =>
           }
         case "revertExercise" =>
-          // FIXME: Re-implement me
           optCurrentExercise match {
             case Some(currentExercise: Exercise) =>
-              currentExercise.getDefaultSourceFile(currentProgLang).getBody
+              val defaultCode: String = currentExercise.getDefaultSourceFile(currentProgLang).getBody
+              sessionActor ! SetCode(currentExercise, currentProgLang, defaultCode)
+              gitActor ! RevertExercise(currentExercise, currentProgLang)
+
+              sendMessage("reset", Json.obj("defaultCode" -> defaultCode))
             case _ =>
           }
-          /*
-          var lecture = plm.revertExercise
-          sendMessage("exercise", Json.obj(
-              "exercise" -> LectureToJson.lectureWrites(lecture, plm.programmingLanguage, plm.getStudentCode, plm.getInitialWorlds, plm.getAnswerWorlds, plm.getSelectedWorldID)
-          ))
-          */
         case "updateUser" =>
           val optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
           val optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
