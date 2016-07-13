@@ -6,7 +6,7 @@
     .controller('Exercise', Exercise);
 
   Exercise.$inject = [
-    '$window', '$http', '$scope', '$sce', '$stateParams', '$location', '$anchorScroll',
+    '$window', '$http', '$scope', '$sce', '$state', '$stateParams', '$location', '$anchorScroll',
     'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
     'canvas', 'drawWithDOM',
     'blocklyService',
@@ -23,7 +23,7 @@
     'HanoiWorld', 'HanoiView'
   ];
 
-  function Exercise($window, $http, $scope, $sce, $stateParams, $location, $anchorScroll,
+  function Exercise($window, $http, $scope, $sce, $state, $stateParams, $location, $anchorScroll,
     connection, listenersHandler, langs, progLangs, exercisesList, navigation, toasterUtils,
     canvas, drawWithDOM,
     blocklyService,
