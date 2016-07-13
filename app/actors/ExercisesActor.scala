@@ -87,7 +87,7 @@ object ExercisesActor {
     val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
     Play.resourceAsStream(path) match {
       case Some(is: InputStream) =>
-        val lines: String = Source.fromInputStream(is)("UTF-8").getLines().mkString("")
+        val lines: String = Source.fromInputStream(is)("UTF-8").mkString
         is.close
         JSONUtils.jsonStringToExercise(lines)
       case None =>

@@ -61,7 +61,7 @@ object LessonsActor {
   def loadLesson(lessonName: String): Option[Lesson] = {
     Play.resourceAsStream(lessonName.replace(".", "/") + "/main.json") match {
       case Some(is: InputStream) =>
-        val lines: String = Source.fromInputStream(is)("UTF-8").getLines().mkString("\n")
+        val lines: String = Source.fromInputStream(is)("UTF-8").mkString
         is.close
         val json: JsValue = Json.parse(lines)
         Some(json.as[Lesson])
