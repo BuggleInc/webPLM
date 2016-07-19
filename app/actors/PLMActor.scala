@@ -23,7 +23,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
 import ExercisesActor._
-import SessionActor._
 import execution.ExecutionActor._
 import GitActor._
 import SessionActor._
@@ -128,7 +127,7 @@ class PLMActor (
           optLessonName match {
             case Some(lessonName: String) =>
               (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
-                val jsonLectures: JsArray = Lecture.arrayToJson(lectures, currentHumanLang, currentProgLang)
+                val jsonLectures: JsArray = Lecture.arrayToJson(sessionActor, lectures, currentHumanLang, currentProgLang)
                 sendMessage("lectures", Json.obj(
                   "lectures" -> jsonLectures
                 ))
@@ -530,7 +529,7 @@ class PLMActor (
     case Some(lessonName: String) =>
       (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
         Json.obj(
-          "lectures" -> Lecture.arrayToJson(lectures, currentHumanLang, currentProgLang)
+          "lectures" -> Lecture.arrayToJson(sessionActor, lectures, currentHumanLang, currentProgLang)
         )
       }
     case _ =>

@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+.not-passed {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
 .size-12 {
   font-size: 8px;
 }

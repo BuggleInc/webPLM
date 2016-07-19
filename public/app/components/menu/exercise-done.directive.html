@@ -1,0 +1,5 @@
+<div style="height: 6vh; display: flex; flex-direction: row; flex-wrap: wrap;">
+    <img ng-repeat="progLang in progLangs.getProgLangs()"
+         class="thumbnail" ng-class="{ 'not-passed': !exercise.exercisePassed[progLang.lang] }" ng-src="{{ progLang.icon }}"
+         style="margin: auto;">
+</div>

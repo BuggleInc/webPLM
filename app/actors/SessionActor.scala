@@ -25,6 +25,7 @@ object SessionActor {
 
   case class RetrieveCode(exercise: Exercise, progLang: ProgrammingLanguage)
   case class SetCode(exercise: Exercise, progLang: ProgrammingLanguage, code: String)
+  case class IsExercisePassed(exercise: Exercise, progLang: ProgrammingLanguage)
 }
 
 class SessionActor(gitActor: ActorRef, programmingLanguages: Array[ProgrammingLanguage]) extends Actor {
@@ -45,6 +46,14 @@ class SessionActor(gitActor: ActorRef, programmingLanguages: Array[ProgrammingLa
       }
     case SetCode(exercise, progLang, code) =>
       setCode(exercise, progLang, code)
+    case IsExercisePassed(exercise, progLang) =>
+      val exercisePassed: HashMap[ProgrammingLanguage, Boolean] = exercisesPassed.getOrElseUpdate(exercise.getId, new HashMap[ProgrammingLanguage, Boolean])
+      exercisePassed.get(progLang) match {
+        case Some(passed: Boolean) =>
+          sender ! passed
+        case _ =>
+          passedFromGit(exercise, progLang)
+      }
     case _ =>
   }
 
@@ -62,9 +71,22 @@ class SessionActor(gitActor: ActorRef, programmingLanguages: Array[ProgrammingLa
       }
     }
   }
+
+  def passedFromGit(exercise: Exercise, progLang: ProgrammingLanguage): Unit = {
+    val actor: ActorRef = sender
+    (gitActor ? GitActor.IsExercisePassed(exercise.getId, progLang)).mapTo[Boolean].map { passed =>
+      setPassed(exercise, progLang, passed)
+      actor ! passed
+    }
+  }
   
   def setCode(exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
     val exerciseCodes: HashMap[ProgrammingLanguage, String] = exercisesCodes.getOrElseUpdate(exercise.getId, new HashMap[ProgrammingLanguage, String])
     exerciseCodes.put(progLang, code)
+  }
+
+  def setPassed(exercise: Exercise, progLang: ProgrammingLanguage, passed: Boolean) {
+    val exercisePassed: HashMap[ProgrammingLanguage, Boolean] = exercisesPassed.getOrElseUpdate(exercise.getId, new HashMap[ProgrammingLanguage, Boolean])
+    exercisePassed.put(progLang, passed)
   }
 }

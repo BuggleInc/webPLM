@@ -6,7 +6,10 @@
 <ul class="off-canvas-list" style="min-height: 6rem; height: 60%; overflow-y: auto;">
   <span ng-repeat="rootLecture in exercisesList.getExercisesTree()">
     <li ng-if="rootLecture.dependingLectures.length === 0" ng-class="{'active-menu-item': exercisesList.isCurrentExerciseAChild(rootLecture)}" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: rootLecture.id })">
-      <a><strong>{{rootLecture.name}}</strong></a>
+      <a>
+        <strong>{{rootLecture.name}}</strong>
+        <exercise-done exercise="rootLecture"></exercise-done>
+      </a>
     </li>
     <li ng-if="rootLecture.dependingLectures.length !== 0" ng-class="{'active-menu-item': exercisesList.isCurrentExerciseAChild(rootLecture)}" ng-click="rootLecture.deployed = !rootLecture.deployed" class="accordion-navigation">
       <a>
@@ -15,10 +18,16 @@
       </a>
     </li>
     <li ng-show="rootLecture.deployed" ng-class="{'active-menu-item': rootLecture.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: rootLecture.id })">
-      <a style="margin-left: 5%">{{rootLecture.name}}</a>
+      <a style="margin-left: 5%">
+        {{rootLecture.name}}
+        <exercise-done exercise="rootLecture"></exercise-done>
+      </a>
     </li>
     <li ng-show="rootLecture.deployed" ng-repeat="exo in rootLecture.dependingLectures" ng-class="{'active-menu-item': exo.id === exercisesList.getCurrentExerciseID()}" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: exo.id })">
-      <a style="margin-left: 5%">{{exo.name}}</a>
+      <a style="margin-left: 5%">
+        {{exo.name}}
+        <exercise-done exercise="exo"></exercise-done>
+      </a>
     </li>
   </span>
 </ul>

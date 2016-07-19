@@ -132,21 +132,6 @@ object ExercisesActor {
     val path: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
     JSONUtils.exerciseToFile(path, exercise)
   }
-}
-
-class ExercisesActor extends Actor {
-  import ExercisesActor._
-
-  def receive =  {
-    case GetExercise(exerciseID) =>
-      sender ! getExercise(exerciseID)
-    case ExportExercises =>
-      exportExercises
-    case ExportExercise(exerciseID) =>
-      exportExercise(exerciseID)
-    case _ =>
-      Logger.error("LessonsActor: not supported message")
-  }
 
   def getExercise(exerciseID: String): Option[Exercise] = {
     exercises.get(exerciseID) match {
@@ -155,5 +140,20 @@ class ExercisesActor extends Actor {
       case None =>
         None
     }
+  }
+}
+
+class ExercisesActor extends Actor {
+  import ExercisesActor._
+
+  def receive = {
+    case GetExercise(exerciseID) =>
+      sender ! getExercise(exerciseID)
+    case ExportExercises =>
+      exportExercises
+    case ExportExercise(exerciseID) =>
+      exportExercise(exerciseID)
+    case _ =>
+      Logger.error("LessonsActor: not supported message")
   }
 }

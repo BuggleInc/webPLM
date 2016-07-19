@@ -44,6 +44,7 @@ object GitActor {
   case class SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean])
   case class SetTrackUser(newOptTrackUser: Option[Boolean])
   case class RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage)
+  case class IsExercisePassed(exerciseID: String, progLang: ProgrammingLanguage)
   case class Executed(exercise: Exercise, result: ExecutionProgress, code: String)
   case class SwitchExercise(exerciseTo: Exercise, optExerciseFrom: Option[Exercise])
   case class RevertExercise(exercise: Exercise, progLang: ProgrammingLanguage)
@@ -73,6 +74,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       optTrackUser = newOptTrackUser
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
       sender ! getCode(exerciseID, progLang)
+    case IsExercisePassed(exerciseID: String, progLang: ProgrammingLanguage) =>
+      sender ! isExercisePassed(exerciseID, progLang)
     case Executed(exercise: Exercise, result: ExecutionProgress, code: String) =>
       executed(exercise, result, code)
       requestPush
@@ -196,6 +199,13 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
   def retrieveCodePath(exerciseID: String, progLang: ProgrammingLanguage): String = {
     val filename: String = List(exerciseID, progLang.getExt, "code").mkString(".")
     List(home, gitDirectory, gitID, filename).mkString("/")
+  }
+
+  def isExercisePassed(exerciseID: String, progLang: ProgrammingLanguage): Boolean = {
+    val filename: String = List(exerciseID, progLang.getExt, "DONE").mkString(".")
+    val path: String = List(home, gitDirectory, gitID, filename).mkString("/")
+
+    new File(path).exists
   }
 
   def createFiles(exercise: Exercise, result: ExecutionProgress, code: String) {
