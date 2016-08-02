@@ -145,6 +145,8 @@ html {
   height: 64px;
   border-radius: 4px;
   outline: none;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .provider > img {
