@@ -2,7 +2,7 @@
 	<li ng-repeat="lesson in home.lessons"> <!-- Order by descending id -->
     <div class="lesson-th">
 		  <a ng-dblclick="home.goToLesson()" ng-click="home.setCurrentLesson(lesson)" class="th radius" role="button">
-		    <img ng-src="{{lesson.imgUrl}}"/>
+		    <img ng-src="{{lesson.imgUrl}}" alt="{{lesson.id}}"/>
 		  </a>
 		  <h6 class="subheader">{{lesson.id}}</h6>
 	  </div>
