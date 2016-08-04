@@ -4,14 +4,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: public/app/services/blocklymsg.service.js:303
-msgid "-"
-msgstr ""
-
-#: public/app/components/track-user-modal.directive.html:4
-msgid ", no nominative information is published, only the source code written to solve the challenges."
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:147
 msgid "#"
 msgstr ""
@@ -25,34 +17,16 @@ msgstr ""
 msgid "%1 is empty"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:281
-msgid "^"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:233
 msgid "+"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:249
-msgid "÷"
+#: public/app/components/track-user-modal.directive.html:4
+msgid ", no nominative information is published, only the source code written to solve the challenges."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:261
-msgid "×"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:318
-#: public/app/services/blocklymsg.service.js:323
-msgid "| step ="
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:360
-#: public/app/services/blocklymsg.service.js:366
-msgid "| x ="
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:363
-msgid "| y ="
+#: public/app/services/blocklymsg.service.js:303
+msgid "-"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:424
@@ -63,20 +37,20 @@ msgstr ""
 msgid "A number."
 msgstr ""
 
+#: public/app/components/exercise/toggle-api.directive.html:2
+msgid "API"
+msgstr ""
+
 #: public/app/components/application-header.directive.html:22
 msgid "About"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:294
-msgid "absolute"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:304
-msgid "acos"
-msgstr ""
-
 #: public/app/components/home/lesson-overview.directive.html:12
 msgid "Action"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:20
+msgid "Add Comment"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:94
@@ -107,10 +81,6 @@ msgstr ""
 msgid "Add an item to the text."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:20
-msgid "Add Comment"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:355
 msgid "Add, remove, or reorder inputs to this function."
 msgstr ""
@@ -127,86 +97,28 @@ msgstr ""
 msgid "Add, remove, or reorder sections to reconfigure this text block."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:331
-msgid "allow statements"
-msgstr ""
-
 #: public/app/services/user.service.js:98
 msgid "An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:223
-msgid "and"
 msgstr ""
 
 #: public/app/components/exercise/animation-speed.directive.html:3
 msgid "Animation speed:"
 msgstr ""
 
-#: public/app/components/exercise/toggle-api.directive.html:2
-msgid "API"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:372
 msgid "Append some text to variable '%1'."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:369
-msgid "append text"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:198
 msgid "Append the item to the end of a list."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:192
-msgid "as"
-msgstr ""
-
 #: public/app/components/track-user-modal.directive.html:4
 msgid "As you can see here"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:305
-msgid "asin"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:306
-msgid "atan"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:265
-msgid "average of list"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:442
-msgid "back"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:319
-#: public/app/services/blocklymsg.service.js:321
-msgid "backward"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:48
-msgid "black"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:66
-msgid "blend"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:67
 msgid "Blends two colours together with a given ratio (0.0 - 1.0)."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:49
-#: public/app/services/blocklymsg.service.js:73
-msgid "blue"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:80
-msgid "break out of loop"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:82
@@ -225,14 +137,6 @@ msgstr ""
 msgid "Brush up."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:22
-msgid "brushDown"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:28
-msgid "brushUp"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:431
 msgid "Buggle"
 msgstr ""
@@ -241,18 +145,10 @@ msgstr ""
 msgid "But DO NEVER DISCLOSE A PASSWORD to a bug tracker. Never."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:241
-msgid "by"
-msgstr ""
-
 #: public/app/components/bug-report-modal.directive.html:49
 #: public/app/components/exercise/reset-exercise.directive.html:7
 #: public/app/profile/profile.html:79
 msgid "Cancel"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:242
-msgid "change"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:27
@@ -287,10 +183,6 @@ msgstr ""
 msgid "Choose a colour from the palette."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:481
-msgid "clearMessage"
-msgstr ""
-
 #: public/app/exercise/exercise.html:10
 msgid "Code editor:"
 msgstr ""
@@ -307,20 +199,12 @@ msgstr ""
 msgid "Color."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:62
-msgid "colour 1"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:63
-msgid "colour 2"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:77
-msgid "colour with"
-msgstr ""
-
 #: public/app/profile/profile.html:80
 msgid "Confirm changes"
+msgstr ""
+
+#: public/app/components/success-modal.directive.html:8
+msgid "Congratulations, you pass this exercise!"
 msgstr ""
 
 #: public/app/services/connection.service.js:49
@@ -329,10 +213,6 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:432
 msgid "Constants"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:247
-msgid "constrain %1 low %2 high %3"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:248
@@ -349,18 +229,6 @@ msgstr ""
 
 #: public/app/components/exercise/reset-exercise.directive.html:8
 msgid "Continue"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:81
-msgid "continue with next iteration of loop"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:307
-msgid "cos"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:92
-msgid "count with"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:339
@@ -387,22 +255,6 @@ msgstr ""
 msgid "Create a piece of text by joining together any number of items."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:138
-msgid "create empty list"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:142
-msgid "create list with"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:189
-msgid "create list with item %1 repeated %2 times"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:410
-msgid "create text with"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:177
 msgid "Creates a copy of the specified portion of a list."
 msgstr ""
@@ -419,20 +271,16 @@ msgstr ""
 msgid "Creates a list consisting of the given value repeated the specified number of times."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:467
-msgid "crossing"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:50
-msgid "cyan"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:117
 msgid "Delete %1 Blocks"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:116
 msgid "Delete Block"
+msgstr ""
+
+#: public/app/components/exercise/animation-player.directive.html:17
+msgid "Demo"
 msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:44
@@ -459,21 +307,8 @@ msgstr ""
 msgid "Disable Block"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:106
-#: public/app/services/blocklymsg.service.js:505
-#: public/app/services/blocklymsg.service.js:509
-#: public/app/services/blocklymsg.service.js:510
-#: public/app/services/blocklymsg.service.js:512
-msgid "do"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:110
 msgid "Do some statements several times."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:342
-#: public/app/services/blocklymsg.service.js:497
-msgid "do something"
 msgstr ""
 
 #: public/app/components/track-user-modal.directive.html:5
@@ -484,42 +319,20 @@ msgstr ""
 msgid "Do you want to share your data?"
 msgstr ""
 
-#: public/app/components/success-modal.directive.html:6
+#: public/app/components/success-modal.directive.html:14
 msgid "Do you want to try the next one?"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:51
-msgid "drakgrey"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:462
 msgid "Drop a baggle."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:461
-msgid "dropBaggle"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:124
 msgid "Duplicate"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:118
-msgid "east"
-msgstr ""
-
 #: public/app/profile/profile.html:50
 msgid "Edit profile"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:515
-#: public/app/services/blocklymsg.service.js:98
-msgid "else"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:513
-#: public/app/services/blocklymsg.service.js:99
-msgid "else if"
 msgstr ""
 
 #: public/app/components/sign-in/sign-in-form.directive.html:7
@@ -547,10 +360,6 @@ msgstr ""
 msgid "Execution results"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:469
-msgid "exitReached"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:127
 msgid "Expand Block"
 msgstr ""
@@ -563,110 +372,21 @@ msgstr ""
 msgid "External Inputs"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:206
-msgid "false"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:178
-msgid "find first occurrence of item"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:402
-msgid "find first occurrence of text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:180
-msgid "find last occurrence of item"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:403
-msgid "find last occurrence of text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:145
-msgid "first"
-msgstr ""
-
 #: public/app/profile/profile.html:24
 #: public/app/profile/profile.html:56
 msgid "First name:"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:88
-msgid "for each item"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:89
 msgid "For each item in a list, set the variable '%1' to the item, and then do some statements."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:324
-#: public/app/services/blocklymsg.service.js:326
-msgid "forward"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:91
-msgid "from %1 to %2 by %3"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:148
-msgid "get"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:149
-msgid "get and remove"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:136
 msgid "Get brush position."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:378
-msgid "get first letter"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:37
 msgid "Get heading."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:383
-msgid "get last letter"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:380
-msgid "get letter #"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:379
-msgid "get letter # from end"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:384
-msgid "get random letter"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:175
-msgid "get sub-list from #"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:174
-msgid "get sub-list from # from end"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:173
-msgid "get sub-list from first"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:395
-msgid "get substring from first letter"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:397
-msgid "get substring from letter #"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:396
-msgid "get substring from letter # from end"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:35
@@ -689,51 +409,6 @@ msgstr ""
 msgid "Get y coordinate."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:34
-msgid "getBodyColor"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:24
-msgid "getBrushColor"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:36
-msgid "getDirection"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:471
-msgid "getGroundColor"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:479
-msgid "getIndication"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:477
-msgid "getWorldHeight"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:489
-msgid "getWorldWidth"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:131
-msgid "getX"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:129
-msgid "getY"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:52
-msgid "gray"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:53
-#: public/app/services/blocklymsg.service.js:74
-msgid "green"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:93
 msgid "Have the variable %1 take on the values from the start number to the end number, counting by the specified interval, and do the specified blocks."
 msgstr ""
@@ -751,205 +426,6 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:64
-msgid "http://meyerweb.com/eric/tools/color-blend/"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:70
-msgid "http://randomcolour.com"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:75
-msgid "http://www.december.com/html/spec/colorper.html"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:224
-msgid "https://code.google.com/p/blockly/wiki/And_Or"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:96
-msgid "https://code.google.com/p/blockly/wiki/If_Then"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:188
-msgid "https://code.google.com/p/blockly/wiki/Lists#create_list_with"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:172
-msgid "https://code.google.com/p/blockly/wiki/Lists#Getting_a_sublist"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:179
-#: public/app/services/blocklymsg.service.js:503
-msgid "https://code.google.com/p/blockly/wiki/Lists#Getting_Items_from_a_List"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:191
-msgid "https://code.google.com/p/blockly/wiki/Lists#in_list_..._set"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:183
-msgid "https://code.google.com/p/blockly/wiki/Lists#is_empty"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:185
-msgid "https://code.google.com/p/blockly/wiki/Lists#length_of"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:90
-msgid "https://code.google.com/p/blockly/wiki/Loops#count_with"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:85
-msgid "https://code.google.com/p/blockly/wiki/Loops#for_each for each block"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:79
-msgid "https://code.google.com/p/blockly/wiki/Loops#Loop_Termination_Blocks"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:111
-msgid "https://code.google.com/p/blockly/wiki/Loops#repeat"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:373
-msgid "https://code.google.com/p/blockly/wiki/Text#Adjusting_text_case"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:406
-msgid "https://code.google.com/p/blockly/wiki/Text#Checking_for_empty_text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:393
-msgid "https://code.google.com/p/blockly/wiki/Text#Extracting_a_region_of_text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:381
-msgid "https://code.google.com/p/blockly/wiki/Text#Extracting_text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:400
-msgid "https://code.google.com/p/blockly/wiki/Text#Finding_text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:418
-msgid "https://code.google.com/p/blockly/wiki/Text#Getting_input_from_the_user"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:415
-msgid "https://code.google.com/p/blockly/wiki/Text#Printing_text"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:409
-msgid "https://code.google.com/p/blockly/wiki/Text#Text_creation"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:370
-#: public/app/services/blocklymsg.service.js:412
-msgid "https://code.google.com/p/blockly/wiki/Text#Text_modification"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:425
-msgid "https://code.google.com/p/blockly/wiki/Text#Trimming_%28removing%29_spaces"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:207
-msgid "https://code.google.com/p/blockly/wiki/True_False"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:450
-msgid "https://code.google.com/p/blockly/wiki/Variables#Get"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:455
-msgid "https://code.google.com/p/blockly/wiki/Variables#Set"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:229
-msgid "https://en.wikipedia.org/wiki/%3F:"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:234
-msgid "https://en.wikipedia.org/wiki/Arithmetic"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:246
-msgid "https://en.wikipedia.org/wiki/Clamping_%28graphics%29"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:68
-msgid "https://en.wikipedia.org/wiki/Color"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:105
-msgid "https://en.wikipedia.org/wiki/For_loop"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:210
-msgid "https://en.wikipedia.org/wiki/Inequality_(mathematics)"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:137
-msgid "https://en.wikipedia.org/wiki/Linked_list#Empty_lists"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:244
-msgid "https://en.wikipedia.org/wiki/Mathematical_constant"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:258
-msgid "https://en.wikipedia.org/wiki/Modulo_operation"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:217
-msgid "https://en.wikipedia.org/wiki/Negation"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:221
-msgid "https://en.wikipedia.org/wiki/Nullable_type"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:262
-msgid "https://en.wikipedia.org/wiki/Number"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:334
-#: public/app/services/blocklymsg.service.js:336
-#: public/app/services/blocklymsg.service.js:341
-#: public/app/services/blocklymsg.service.js:345
-msgid "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:240
-msgid "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:282
-#: public/app/services/blocklymsg.service.js:285
-msgid "https://en.wikipedia.org/wiki/Random_number_generation"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:288
-msgid "https://en.wikipedia.org/wiki/Rounding"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:293
-msgid "https://en.wikipedia.org/wiki/Square_root"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:423
-msgid "https://en.wikipedia.org/wiki/String_(computer_science)"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:308
-msgid "https://en.wikipedia.org/wiki/Trigonometric_functions"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:100
-#: public/app/services/blocklymsg.service.js:511
-msgid "if"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:101
 msgid "If a value is true, then do some statements."
 msgstr ""
@@ -962,10 +438,6 @@ msgstr ""
 msgid "If a value is true, then return a second value."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:230
-msgid "if false"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:103
 msgid "If the first value is true, then do the first block of statements.  Otherwise, if the second value is true, do the second block of statements."
 msgstr ""
@@ -974,43 +446,12 @@ msgstr ""
 msgid "If the first value is true, then do the first block of statements.  Otherwise, if the second value is true, do the second block of statements.  If none of the values are true, do the last block of statements."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:231
-msgid "if true"
-msgstr ""
-
 #: public/app/components/bug-report-modal.directive.html:9
 msgid "If you encounter a technical bug, please tell us what you did,\twhich outcome you were expecting and what happened instead."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:182
-#: public/app/services/blocklymsg.service.js:495
-#: public/app/services/blocklymsg.service.js:496
-#: public/app/services/blocklymsg.service.js:506
-#: public/app/services/blocklymsg.service.js:508
-#: public/app/services/blocklymsg.service.js:86
-msgid "in list"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:382
-#: public/app/services/blocklymsg.service.js:394
-#: public/app/services/blocklymsg.service.js:401
-msgid "in text"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:134
 msgid "Inline Inputs"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:352
-msgid "input name:"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:354
-msgid "inputs"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:193
-msgid "insert at"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:197
@@ -1033,90 +474,8 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:250
-msgid "is divisible by"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:251
-msgid "is even"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:252
-msgid "is negative"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:253
-msgid "is odd"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:254
-msgid "is positive"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:255
-msgid "is prime"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:257
-msgid "is whole"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:30
-msgid "isBackingWall"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:135
-msgid "isBrushDown"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:459
-msgid "isCarryingBaggle"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:32
-msgid "isFacingWall"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:475
-msgid "isGroundWhite"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:463
-msgid "isOverBaggle"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:483
-msgid "isOverMessage"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:473
-msgid "isOverOrange"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:38
-msgid "isSelected"
-msgstr ""
-
 #: public/app/services/bugreport.service.js:50
 msgid "Issue created"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:448
-#: public/app/services/blocklymsg.service.js:498
-#: public/app/services/blocklymsg.service.js:499
-#: public/app/services/blocklymsg.service.js:500
-#: public/app/services/blocklymsg.service.js:501
-#: public/app/services/blocklymsg.service.js:504
-#: public/app/services/blocklymsg.service.js:514
-msgid "item"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:388
-msgid "join"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:150
-msgid "last"
 msgstr ""
 
 #: public/app/profile/profile.html:32
@@ -1124,25 +483,8 @@ msgstr ""
 msgid "Last name:"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:444
-msgid "left"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:186
-#: public/app/services/blocklymsg.service.js:413
-msgid "length of %1"
-msgstr ""
-
 #: public/app/components/track-user-modal.directive.html:7
 msgid "Let me decide later"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:54
-msgid "lightgrey"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:140
-msgid "list"
 msgstr ""
 
 #: public/app/components/home/lesson-overview.directive.html:4
@@ -1189,36 +531,16 @@ msgstr ""
 msgid "Loops"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:55
-msgid "magenta"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:436
 msgid "Maths"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:266
-msgid "max of list"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:317
 msgid "Me"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:267
-msgid "median of list"
-msgstr ""
-
 #: public/app/components/application-header.directive.html:9
 msgid "Menu"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:268
-msgid "min of list"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:269
-msgid "modes of list"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:437
@@ -1255,40 +577,16 @@ msgstr ""
 msgid "No, don't publish my data"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:119
-msgid "north"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:218
-msgid "not %1"
-msgstr ""
-
 #: public/app/profile/profile.html:45
 msgid "Not chosen yet"
 msgstr ""
 
-#: public/app/components/success-modal.directive.html:12
+#: public/app/components/success-modal.directive.html:22
 msgid "Not yet"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:220
-msgid "null"
 msgstr ""
 
 #: public/app/components/track-user-modal.directive.html:9
 msgid "Ok, share my data"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:225
-msgid "or"
-msgstr ""
-
-#: public/app/components/bug-report-modal.directive.html:25
-msgid "or try again later?"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:56
-msgid "orange"
 msgstr ""
 
 #: public/app/components/menu/menu.directive.html:11
@@ -1313,14 +611,6 @@ msgstr ""
 msgid "Pickup a baggle."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:465
-msgid "pickupBaggle"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:57
-msgid "pink"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:21
 msgid "Please authorize this app to enable your work to be saved and to allow it to be shared by you."
 msgstr ""
@@ -1331,10 +621,6 @@ msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:7
 msgid "Please write your suggestion below, with all necessary details (if possible in English or French)."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:416
-msgid "print %1"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:417
@@ -1351,14 +637,6 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:421
-msgid "prompt for number with message"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:422
-msgid "prompt for text with message"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:419
 msgid "Prompt for user for a number."
 msgstr ""
@@ -1367,49 +645,8 @@ msgstr ""
 msgid "Prompt for user for some text."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:151
-msgid "random"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:71
-msgid "random colour"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:283
-msgid "random fraction"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:286
-msgid "random integer from %1 to %2"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:270
-msgid "random item of list"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:65
-msgid "ratio"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:486
 msgid "Read the message."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:485
-msgid "readMessage"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:58
-#: public/app/services/blocklymsg.service.js:76
-msgid "red"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:259
-msgid "remainder of %1 ÷ %2"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:152
-msgid "remove"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:356
@@ -1464,22 +701,6 @@ msgstr ""
 msgid "Rename variable..."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:108
-msgid "repeat"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:107
-msgid "repeat %1 times"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:112
-msgid "repeat until"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:113
-msgid "repeat while"
-msgstr ""
-
 #: public/app/components/menu/menu.directive.html:14
 msgid "Report a bug"
 msgstr ""
@@ -1494,10 +715,6 @@ msgstr ""
 
 #: public/app/components/exercise/results.directive.html:3
 msgid "Result"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:346
-msgid "return"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:301
@@ -1736,24 +953,8 @@ msgstr ""
 msgid "Reverting this exercise will erase all your work and cannot be undone. Are you sure that you want to proceed?"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:446
-msgid "right"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:289
-msgid "round"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:292
 msgid "Round a number up or down."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:290
-msgid "round down"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:291
-msgid "round up"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:337
@@ -1766,11 +967,6 @@ msgstr ""
 
 #: public/app/services/connection.service.js:54
 msgid "Session closed"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:194
-#: public/app/services/blocklymsg.service.js:457
-msgid "set"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:43
@@ -1791,22 +987,6 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:365
 msgid "Set y coordinate."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:40
-msgid "setBodyColor"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:26
-msgid "setBrushColor"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:42
-msgid "setDirection"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:361
-msgid "setPos"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:204
@@ -1833,15 +1013,6 @@ msgstr ""
 msgid "Sets this variable to be equal to the input."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:364
-#: public/app/services/blocklymsg.service.js:367
-msgid "setX"
-msgstr ""
-
-#: public/app/components/sign-in/sign-in-form.directive.html:21
-msgid "Sign in"
-msgstr ""
-
 #: public/app/components/application-header.directive.html:16
 #: public/app/components/menu/profile.directive.html:7
 #: public/app/components/profile-top-bar.directive.html:3
@@ -1854,24 +1025,12 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:309
-msgid "sin"
+#: public/app/components/sign-in/sign-in-form.directive.html:21
+msgid "Sign in"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:83
 msgid "Skip the rest of this loop, and continue with the next iteration."
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:120
-msgid "south"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:295
-msgid "square root"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:271
-msgid "standard deviation of list"
 msgstr ""
 
 #: public/app/components/home/lesson-overview.directive.html:14
@@ -1890,24 +1049,12 @@ msgstr ""
 msgid "Suggestion"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:272
-msgid "sum of list"
-msgstr ""
-
 #: public/app/components/menu/switch-exercise.directive.html:3
 msgid "Switch exercise"
 msgstr ""
 
 #: public/app/components/menu/menu.directive.html:5
 msgid "Switch lesson"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:310
-msgid "tan"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:228
-msgid "test"
 msgstr ""
 
 #: public/app/exercise/exercise.html:28
@@ -1944,55 +1091,8 @@ msgstr ""
 msgid "This exercise's world view is not yet implemented. If you still want to pass this exercise, you only have at your disposition the instructions, the API and the results of your program's execution to understand the problem and solve it. You can also download and use the previous version of the PLM <a href=\"http://webloria.loria.fr/~quinson/Teaching/PLM/\">here</a> to do this exercise.<a class=\"close\">&times;</a>"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:109
-msgid "times"
-msgstr ""
-
 #: public/app/components/bug-report-modal.directive.html:33
 msgid "Title:"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:343
-#: public/app/services/blocklymsg.service.js:371
-#: public/app/services/blocklymsg.service.js:456
-#: public/app/services/blocklymsg.service.js:494
-msgid "to"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:170
-msgid "to #"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:169
-msgid "to # from end"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:171
-msgid "to last"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:392
-msgid "to last letter"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:391
-msgid "to letter #"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:390
-msgid "to letter # from end"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:374
-msgid "to lower case"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:375
-msgid "to Title Case"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:376
-msgid "to UPPER CASE"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:468
@@ -2023,22 +1123,6 @@ msgstr ""
 msgid "Tooltip for isOverOrange block not define."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:426
-msgid "trim spaces from both sides of"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:427
-msgid "trim spaces from left side of"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:428
-msgid "trim spaces from right side of"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:209
-msgid "true"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:443
 msgid "Turn back."
 msgstr ""
@@ -2064,6 +1148,10 @@ msgstr ""
 msgid "Variables"
 msgstr ""
 
+#: public/app/components/exercise/reset-exercise.directive.html:3
+msgid "Warning!"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:351
 msgid "Warning: This block may be used only within a function definition."
 msgstr ""
@@ -2076,20 +1164,12 @@ msgstr ""
 msgid "Warning: This function has duplicate parameters."
 msgstr ""
 
-#: public/app/components/exercise/reset-exercise.directive.html:3
-msgid "Warning!"
-msgstr ""
-
-#: public/app/profile/profile.html:5
-msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
-msgstr ""
-
 #: public/app/home/home.html:2
 msgid "Welcome to the PLM, <small>the programmer's learning machine</small>"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:121
-msgid "west"
+#: public/app/profile/profile.html:5
+msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
 msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:8
@@ -2104,33 +1184,12 @@ msgstr ""
 msgid "While a value is true, then do some statements."
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:59
-msgid "white"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:332
-#: public/app/services/blocklymsg.service.js:338
-msgid "with:"
-msgstr ""
-
 #: public/app/services/blocklymsg.service.js:441
 msgid "World"
 msgstr ""
 
-#: public/app/services/blocklymsg.service.js:487
-msgid "writeMessage"
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:359
-msgid "y ="
-msgstr ""
-
-#: public/app/services/blocklymsg.service.js:60
-msgid "yellow"
-msgstr ""
-
-#: public/app/components/success-modal.directive.html:13
-#: public/app/components/success-modal.directive.html:14
+#: public/app/components/success-modal.directive.html:26
+#: public/app/components/success-modal.directive.html:31
 msgid "Yes, sure"
 msgstr ""
 
@@ -2150,7 +1209,7 @@ msgstr ""
 msgid "You have been logged out"
 msgstr ""
 
-#: public/app/components/success-modal.directive.html:9
+#: public/app/components/success-modal.directive.html:17
 msgid "You have cleared this lesson! Do you want to go back to the home page?"
 msgstr ""
 
@@ -2164,4 +1223,953 @@ msgstr ""
 
 #: public/app/services/user.service.js:151
 msgid "Your profile has been successfully updated"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:281
+msgid "^"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:294
+msgid "absolute"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:304
+msgid "acos"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:331
+msgid "allow statements"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:223
+msgid "and"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:369
+msgid "append text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:192
+msgid "as"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:305
+msgid "asin"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:306
+msgid "atan"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:265
+msgid "average of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:442
+msgid "back"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:319
+#: public/app/services/blocklymsg.service.js:321
+msgid "backward"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:48
+msgid "black"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:66
+msgid "blend"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:49
+#: public/app/services/blocklymsg.service.js:73
+msgid "blue"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:80
+msgid "break out of loop"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:22
+msgid "brushDown"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:28
+msgid "brushUp"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:241
+msgid "by"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:242
+msgid "change"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:481
+msgid "clearMessage"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:62
+msgid "colour 1"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:63
+msgid "colour 2"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:77
+msgid "colour with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:247
+msgid "constrain %1 low %2 high %3"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:81
+msgid "continue with next iteration of loop"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:307
+msgid "cos"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:92
+msgid "count with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:138
+msgid "create empty list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:142
+msgid "create list with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:189
+msgid "create list with item %1 repeated %2 times"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:410
+msgid "create text with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:467
+msgid "crossing"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:50
+msgid "cyan"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:106
+#: public/app/services/blocklymsg.service.js:505
+#: public/app/services/blocklymsg.service.js:509
+#: public/app/services/blocklymsg.service.js:510
+#: public/app/services/blocklymsg.service.js:512
+msgid "do"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:342
+#: public/app/services/blocklymsg.service.js:497
+msgid "do something"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:51
+msgid "drakgrey"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:461
+msgid "dropBaggle"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:118
+msgid "east"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:515
+#: public/app/services/blocklymsg.service.js:98
+msgid "else"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:513
+#: public/app/services/blocklymsg.service.js:99
+msgid "else if"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:469
+msgid "exitReached"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:206
+msgid "false"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:178
+msgid "find first occurrence of item"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:402
+msgid "find first occurrence of text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:180
+msgid "find last occurrence of item"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:403
+msgid "find last occurrence of text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:145
+msgid "first"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:88
+msgid "for each item"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:324
+#: public/app/services/blocklymsg.service.js:326
+msgid "forward"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:91
+msgid "from %1 to %2 by %3"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:148
+msgid "get"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:149
+msgid "get and remove"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:378
+msgid "get first letter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:383
+msgid "get last letter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:380
+msgid "get letter #"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:379
+msgid "get letter # from end"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:384
+msgid "get random letter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:175
+msgid "get sub-list from #"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:174
+msgid "get sub-list from # from end"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:173
+msgid "get sub-list from first"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:395
+msgid "get substring from first letter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:397
+msgid "get substring from letter #"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:396
+msgid "get substring from letter # from end"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:34
+msgid "getBodyColor"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:24
+msgid "getBrushColor"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:36
+msgid "getDirection"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:471
+msgid "getGroundColor"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:479
+msgid "getIndication"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:477
+msgid "getWorldHeight"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:489
+msgid "getWorldWidth"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:131
+msgid "getX"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:129
+msgid "getY"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:52
+msgid "gray"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:53
+#: public/app/services/blocklymsg.service.js:74
+msgid "green"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:64
+msgid "http://meyerweb.com/eric/tools/color-blend/"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:70
+msgid "http://randomcolour.com"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:75
+msgid "http://www.december.com/html/spec/colorper.html"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:224
+msgid "https://code.google.com/p/blockly/wiki/And_Or"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:96
+msgid "https://code.google.com/p/blockly/wiki/If_Then"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:179
+#: public/app/services/blocklymsg.service.js:503
+msgid "https://code.google.com/p/blockly/wiki/Lists#Getting_Items_from_a_List"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:172
+msgid "https://code.google.com/p/blockly/wiki/Lists#Getting_a_sublist"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:188
+msgid "https://code.google.com/p/blockly/wiki/Lists#create_list_with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:191
+msgid "https://code.google.com/p/blockly/wiki/Lists#in_list_..._set"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:183
+msgid "https://code.google.com/p/blockly/wiki/Lists#is_empty"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:185
+msgid "https://code.google.com/p/blockly/wiki/Lists#length_of"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:79
+msgid "https://code.google.com/p/blockly/wiki/Loops#Loop_Termination_Blocks"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:90
+msgid "https://code.google.com/p/blockly/wiki/Loops#count_with"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:85
+msgid "https://code.google.com/p/blockly/wiki/Loops#for_each for each block"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:111
+msgid "https://code.google.com/p/blockly/wiki/Loops#repeat"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:373
+msgid "https://code.google.com/p/blockly/wiki/Text#Adjusting_text_case"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:406
+msgid "https://code.google.com/p/blockly/wiki/Text#Checking_for_empty_text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:393
+msgid "https://code.google.com/p/blockly/wiki/Text#Extracting_a_region_of_text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:381
+msgid "https://code.google.com/p/blockly/wiki/Text#Extracting_text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:400
+msgid "https://code.google.com/p/blockly/wiki/Text#Finding_text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:418
+msgid "https://code.google.com/p/blockly/wiki/Text#Getting_input_from_the_user"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:415
+msgid "https://code.google.com/p/blockly/wiki/Text#Printing_text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:409
+msgid "https://code.google.com/p/blockly/wiki/Text#Text_creation"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:370
+#: public/app/services/blocklymsg.service.js:412
+msgid "https://code.google.com/p/blockly/wiki/Text#Text_modification"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:425
+msgid "https://code.google.com/p/blockly/wiki/Text#Trimming_%28removing%29_spaces"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:207
+msgid "https://code.google.com/p/blockly/wiki/True_False"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:450
+msgid "https://code.google.com/p/blockly/wiki/Variables#Get"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:455
+msgid "https://code.google.com/p/blockly/wiki/Variables#Set"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:229
+msgid "https://en.wikipedia.org/wiki/%3F:"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:234
+msgid "https://en.wikipedia.org/wiki/Arithmetic"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:246
+msgid "https://en.wikipedia.org/wiki/Clamping_%28graphics%29"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:68
+msgid "https://en.wikipedia.org/wiki/Color"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:105
+msgid "https://en.wikipedia.org/wiki/For_loop"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:210
+msgid "https://en.wikipedia.org/wiki/Inequality_(mathematics)"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:137
+msgid "https://en.wikipedia.org/wiki/Linked_list#Empty_lists"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:244
+msgid "https://en.wikipedia.org/wiki/Mathematical_constant"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:258
+msgid "https://en.wikipedia.org/wiki/Modulo_operation"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:217
+msgid "https://en.wikipedia.org/wiki/Negation"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:221
+msgid "https://en.wikipedia.org/wiki/Nullable_type"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:262
+msgid "https://en.wikipedia.org/wiki/Number"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:334
+#: public/app/services/blocklymsg.service.js:336
+#: public/app/services/blocklymsg.service.js:341
+#: public/app/services/blocklymsg.service.js:345
+msgid "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:240
+msgid "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:282
+#: public/app/services/blocklymsg.service.js:285
+msgid "https://en.wikipedia.org/wiki/Random_number_generation"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:288
+msgid "https://en.wikipedia.org/wiki/Rounding"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:293
+msgid "https://en.wikipedia.org/wiki/Square_root"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:423
+msgid "https://en.wikipedia.org/wiki/String_(computer_science)"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:308
+msgid "https://en.wikipedia.org/wiki/Trigonometric_functions"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:100
+#: public/app/services/blocklymsg.service.js:511
+msgid "if"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:230
+msgid "if false"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:231
+msgid "if true"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:182
+#: public/app/services/blocklymsg.service.js:495
+#: public/app/services/blocklymsg.service.js:496
+#: public/app/services/blocklymsg.service.js:506
+#: public/app/services/blocklymsg.service.js:508
+#: public/app/services/blocklymsg.service.js:86
+msgid "in list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:382
+#: public/app/services/blocklymsg.service.js:394
+#: public/app/services/blocklymsg.service.js:401
+msgid "in text"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:352
+msgid "input name:"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:354
+msgid "inputs"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:193
+msgid "insert at"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:250
+msgid "is divisible by"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:251
+msgid "is even"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:252
+msgid "is negative"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:253
+msgid "is odd"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:254
+msgid "is positive"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:255
+msgid "is prime"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:257
+msgid "is whole"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:30
+msgid "isBackingWall"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:135
+msgid "isBrushDown"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:459
+msgid "isCarryingBaggle"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:32
+msgid "isFacingWall"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:475
+msgid "isGroundWhite"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:463
+msgid "isOverBaggle"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:483
+msgid "isOverMessage"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:473
+msgid "isOverOrange"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:38
+msgid "isSelected"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:448
+#: public/app/services/blocklymsg.service.js:498
+#: public/app/services/blocklymsg.service.js:499
+#: public/app/services/blocklymsg.service.js:500
+#: public/app/services/blocklymsg.service.js:501
+#: public/app/services/blocklymsg.service.js:504
+#: public/app/services/blocklymsg.service.js:514
+msgid "item"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:388
+msgid "join"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:150
+msgid "last"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:444
+msgid "left"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:186
+#: public/app/services/blocklymsg.service.js:413
+msgid "length of %1"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:54
+msgid "lightgrey"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:140
+msgid "list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:55
+msgid "magenta"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:266
+msgid "max of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:267
+msgid "median of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:268
+msgid "min of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:269
+msgid "modes of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:119
+msgid "north"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:218
+msgid "not %1"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:220
+msgid "null"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:225
+msgid "or"
+msgstr ""
+
+#: public/app/components/bug-report-modal.directive.html:25
+msgid "or try again later?"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:56
+msgid "orange"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:465
+msgid "pickupBaggle"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:57
+msgid "pink"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:416
+msgid "print %1"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:421
+msgid "prompt for number with message"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:422
+msgid "prompt for text with message"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:151
+msgid "random"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:71
+msgid "random colour"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:283
+msgid "random fraction"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:286
+msgid "random integer from %1 to %2"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:270
+msgid "random item of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:65
+msgid "ratio"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:485
+msgid "readMessage"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:58
+#: public/app/services/blocklymsg.service.js:76
+msgid "red"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:259
+msgid "remainder of %1 ÷ %2"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:152
+msgid "remove"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:108
+msgid "repeat"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:107
+msgid "repeat %1 times"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:112
+msgid "repeat until"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:113
+msgid "repeat while"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:346
+msgid "return"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:446
+msgid "right"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:289
+msgid "round"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:290
+msgid "round down"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:291
+msgid "round up"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:194
+#: public/app/services/blocklymsg.service.js:457
+msgid "set"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:40
+msgid "setBodyColor"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:26
+msgid "setBrushColor"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:42
+msgid "setDirection"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:361
+msgid "setPos"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:364
+#: public/app/services/blocklymsg.service.js:367
+msgid "setX"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:309
+msgid "sin"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:120
+msgid "south"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:295
+msgid "square root"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:271
+msgid "standard deviation of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:272
+msgid "sum of list"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:310
+msgid "tan"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:228
+msgid "test"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:109
+msgid "times"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:343
+#: public/app/services/blocklymsg.service.js:371
+#: public/app/services/blocklymsg.service.js:456
+#: public/app/services/blocklymsg.service.js:494
+msgid "to"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:170
+msgid "to #"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:169
+msgid "to # from end"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:375
+msgid "to Title Case"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:376
+msgid "to UPPER CASE"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:171
+msgid "to last"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:392
+msgid "to last letter"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:391
+msgid "to letter #"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:390
+msgid "to letter # from end"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:374
+msgid "to lower case"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:426
+msgid "trim spaces from both sides of"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:427
+msgid "trim spaces from left side of"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:428
+msgid "trim spaces from right side of"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:209
+msgid "true"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:121
+msgid "west"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:59
+msgid "white"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:332
+#: public/app/services/blocklymsg.service.js:338
+msgid "with:"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:487
+msgid "writeMessage"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:359
+msgid "y ="
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:60
+msgid "yellow"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:318
+#: public/app/services/blocklymsg.service.js:323
+msgid "| step ="
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:360
+#: public/app/services/blocklymsg.service.js:366
+msgid "| x ="
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:363
+msgid "| y ="
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:261
+msgid "×"
+msgstr ""
+
+#: public/app/services/blocklymsg.service.js:249
+msgid "÷"
 msgstr ""
