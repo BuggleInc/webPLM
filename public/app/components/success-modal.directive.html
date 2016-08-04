@@ -1,17 +1,40 @@
 <!-- Modal de victoire -->
-<div id="successModal" class="reveal-modal" data-reveal=true>
+<div id="successModal" class="reveal-modal large" data-reveal=true>
   <h2 translate>Success \o/</h2>
-  <p class="lead"><img src="/img/trophy.png"/ translate>Congratulations, you pass this exercise!</p>
-  <span ng-if="exercisesList.getNextExerciseID() !== ''">
+  <div class="row">
+    <div class="small-8 small-offset-2 columns">
+      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: baseline;">
+        <img src="/assets/images/trophy.png" alt="trophy" width="105px" height="105px" style="margin: auto;">
+        <p class="lead" style="margin: auto;" translate>Congratulations, you pass this exercise!</p>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="exercisesList.getNextExerciseID() !== ''">
     <p translate>Do you want to try the next one?</p>
-  </span>
-  <span ng-if="exercisesList.getNextExerciseID() === ''">
+  </div>
+  <div ng-if="exercisesList.getNextExerciseID() === ''">
     <p translate>You have cleared this lesson! Do you want to go back to the home page?</p>
-  </span>
-  <span class="center">
-    <button class="secondary" onclick="$('#successModal').foundation('reveal', 'close');" translate>Not yet</button>
-    <button ng-if="exercisesList.getNextExerciseID() !== ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID() })" translate>Yes, sure</button>
-    <button ng-if="exercisesList.getNextExerciseID() === ''" class="center right" onclick="$('#successModal').foundation('reveal', 'close');" ui-sref="home" translate>Yes, sure</button>
-  </span>
+  </div>
+  <div class="row">
+    <div class="small-8 small-offset-2 columns">
+      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: baseline;">
+        <button onclick="$('#successModal').foundation('reveal', 'close');"
+                class="secondary"
+                style="margin: auto;"
+                translate>Not yet</button>
+        <button ng-if="exercisesList.getNextExerciseID() !== ''"
+                onclick="$('#successModal').foundation('reveal', 'close');"
+                ui-sref="exercise({ lessonID: exercisesList.getCurrentLessonID(), exerciseID: exercisesList.getNextExerciseID() })"
+                style="margin: auto;"
+                translate>Yes, sure</button>
+        <button ng-if="exercisesList.getNextExerciseID() === ''"
+                onclick="$('#successModal').foundation('reveal', 'close');"
+                ui-sref="home"
+                style="margin: auto;"
+                translate>Yes, sure</button>
+      </div>
+    </div>
+  </div>
   <a class="close-reveal-modal">&#215;</a>
 </div>
