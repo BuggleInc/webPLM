@@ -19,6 +19,7 @@ tmp
 /*~
 npm-debug.log
 node_modules/
+root-log-*
 
 #ruby
 .bundle
