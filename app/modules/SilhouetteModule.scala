@@ -104,12 +104,14 @@ class SilhouetteModule(environment: play.api.Environment, configuration: Configu
   def provideSocialProviderRegistry(
     facebookProvider: FacebookProvider,
     githubProvider: GitHubProvider,
-    googleProvider: GoogleProvider): SocialProviderRegistry = {
+    googleProvider: GoogleProvider,
+    plmAccountsProvider: PLMAccountsProvider): SocialProviderRegistry = {
 
     SocialProviderRegistry(Seq(
       googleProvider,
       githubProvider,
-      facebookProvider
+      facebookProvider,
+      plmAccountsProvider
     ))
   }
 
