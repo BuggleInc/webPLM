@@ -45,9 +45,7 @@
 
     // PLMAccounts
     $authProvider.plmAccounts({
-      clientId: plmAccountsClientID,
       url: '/authenticate/plmAccounts',
-      authorizationEndpoint: 'https://plm-accounts.telecomnancy.univ-lorraine.fr/oauth2/dialog',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
       scope: 'email',
       scopeDelimiter: ',',
@@ -59,7 +57,6 @@
 
     // Facebook
     $authProvider.facebook({
-      clientId: '1067831246562575',
       url: '/authenticate/facebook',
       authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
       redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
@@ -71,31 +68,29 @@
     });
 
     // GitHub
-		$authProvider.github({
-			clientId: githubClientID,
-			url: '/authenticate/github',
-			authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
-			scope: 'user:email',
-			scopeDelimiter: ',',
-			display: 'popup',
-			type: '2.0'
-		});
+    $authProvider.github({
+      url: '/authenticate/github',
+      authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
+      scope: 'user:email',
+      scopeDelimiter: ',',
+      display: 'popup',
+      type: '2.0'
+    });
 
-		// Google
-		$authProvider.google({
-			clientId: '440881557579-gk8rs3j0tm0oko7mo45fouodg02q6r8l.apps.googleusercontent.com',
-			url: '/authenticate/google',
-			authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-			redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
-			scope: ['profile', 'email'],
-			scopePrefix: 'openid',
-			scopeDelimiter: ' ',
-			requiredUrlParams: ['scope'],
-			optionalUrlParams: ['display'],
-			display: 'popup',
-			type: '2.0'
-		});
+    // Google
+    $authProvider.google({
+      url: '/authenticate/google',
+      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
+      scope: ['profile', 'email'],
+      scopePrefix: 'openid',
+      scopeDelimiter: ' ',
+      requiredUrlParams: ['scope'],
+      optionalUrlParams: ['display'],
+      display: 'popup',
+      type: '2.0'
+    });
 
     // Twitter
     $authProvider.twitter({

@@ -20,23 +20,20 @@ import java.util.UUID
 import utils.CookieUtils
 
 class Application @Inject() (configuration: Configuration) extends Controller {
-  val system = ActorSystem("application")
-  val githubClientID: String = configuration.getString("silhouette.github.clientID").get
-  val plmAccountsClientID: String = configuration.getString("silhouette.plmaccounts.clientID").get
   def index = Action { implicit request =>
-    Ok(views.html.index(githubClientID, plmAccountsClientID))
+    Ok(views.html.index())
   }
 
   def indexLessons = Action { implicit request =>
-    Ok(views.html.index(githubClientID, plmAccountsClientID))
+    Ok(views.html.index())
   }
   
   def lesson(lessonID: String) = Action { implicit request =>
-    Ok(views.html.index(githubClientID, plmAccountsClientID))
+    Ok(views.html.index())
   }
   
   def exercise(lessonID: String, exerciseID: String) = Action { implicit request =>
-    Ok(views.html.index(githubClientID, plmAccountsClientID))
+    Ok(views.html.index())
   }
 
   def specRunner() = Action { implicit request =>
