@@ -6,7 +6,7 @@ import com.mohiva.play.silhouette.impl.exceptions.ProfileRetrievalException
 import com.mohiva.play.silhouette.impl.providers._
 import PLMAccountsProvider._
 import play.api.http.HeaderNames
-import play.api.libs.json.{ JsObject, JsValue }
+import play.api.libs.json.{JsObject, JsValue}
 import play.api.Logger
 
 import scala.concurrent.Future
@@ -47,7 +47,9 @@ trait BasePLMAccountsProvider extends OAuth2Provider {
    * @return On success the build social profile, otherwise a failure.
    */
   override protected def buildProfile(authInfo: OAuth2Info): Future[Profile] = {
-    httpLayer.url(urls("api").format(authInfo.accessToken)).get().flatMap { response =>
+    // Header mandatory to be authorized to access PLM-accounts API
+    val authorizationHeader: String = "Bearer " + authInfo.accessToken
+    httpLayer.url(urls("api")).withHeaders(HeaderNames.AUTHORIZATION -> authorizationHeader).get().flatMap { response =>
       val json = response.json
       (json \ "error").asOpt[JsObject] match {
         case Some(error) =>
@@ -77,7 +79,7 @@ class PLMAccountsParser extends SocialProfileParser[JsValue, CommonSocialProfile
     val fullName = (json \ "displayName").asOpt[String]
     val firstName = (json \ "firstName").asOpt[String]
     val lastName = (json \ "lastName").asOpt[String]
-    val avatarUrl = Some("")
+    val avatarUrl = (json \ "profileImageURL").asOpt[String]
     val email = (json \ "email").asOpt[String].filter(!_.isEmpty)
     
     CommonSocialProfile(
@@ -136,5 +138,5 @@ object PLMAccountsProvider {
    * The Custom constants.
    */
   val ID = "plmAccounts"
-  val API = "http://plm.telecomnancy.univ-lorraine.fr:9000/oauth/users/%s"
+  val API = "https://plm-accounts.telecomnancy.univ-lorraine.fr/api/oauth2/users"
 }
