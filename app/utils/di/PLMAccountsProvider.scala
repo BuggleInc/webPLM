@@ -49,7 +49,7 @@ trait BasePLMAccountsProvider extends OAuth2Provider {
   override protected def buildProfile(authInfo: OAuth2Info): Future[Profile] = {
     // Header mandatory to be authorized to access PLM-accounts API
     val authorizationHeader: String = "Bearer " + authInfo.accessToken
-    httpLayer.url(urls("api")).withHeaders(HeaderNames.AUTHORIZATION -> authorizationHeader).get().flatMap { response =>
+    httpLayer.url(settings.customProperties.getOrElse("apiURL", API)).withHeaders(HeaderNames.AUTHORIZATION -> authorizationHeader).get().flatMap { response =>
       val json = response.json
       (json \ "error").asOpt[JsObject] match {
         case Some(error) =>

@@ -1,18 +1,18 @@
 package modules
 
-import com.google.inject.{ AbstractModule, Provides }
+import com.google.inject.{AbstractModule, Provides}
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services._
 import com.mohiva.play.silhouette.api.util._
-import com.mohiva.play.silhouette.api.{ Environment, EventBus }
+import com.mohiva.play.silhouette.api.{Environment, EventBus}
 import com.mohiva.play.silhouette.impl.authenticators._
-import com.mohiva.play.silhouette.impl.daos.{ CacheAuthenticatorDAO, DelegableAuthInfoDAO }
+import com.mohiva.play.silhouette.impl.daos.{CacheAuthenticatorDAO, DelegableAuthInfoDAO}
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.providers.oauth1._
-import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{ CookieSecretProvider, CookieSecretSettings }
+import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{CookieSecretProvider, CookieSecretSettings}
 import com.mohiva.play.silhouette.impl.providers.oauth1.services.PlayOAuth1Service
 import com.mohiva.play.silhouette.impl.providers.oauth2._
-import com.mohiva.play.silhouette.impl.providers.oauth2.state.{ CookieStateProvider, CookieStateSettings, DummyStateProvider }
+import com.mohiva.play.silhouette.impl.providers.oauth2.state.{CookieStateProvider, CookieStateSettings, DummyStateProvider}
 import com.mohiva.play.silhouette.impl.providers.openid.services.PlayOpenIDService
 import com.mohiva.play.silhouette.impl.repositories.DelegableAuthInfoRepository
 import com.mohiva.play.silhouette.impl.services._
@@ -20,7 +20,7 @@ import com.mohiva.play.silhouette.impl.util._
 import models.User
 import models.daos._
 import utils.di._
-import models.services.{ UserService, UserServiceImpl }
+import models.services.{UserService, UserServiceImpl}
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import net.codingwell.scalaguice.ScalaModule
@@ -28,7 +28,7 @@ import play.api.Configuration
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.openid.OpenIdClient
 import play.api.libs.ws.WSClient
-import actors.execution.{ ExecutionActorFactory, LocalExecutionActorFactory, TribunalActorFactory }
+import actors.execution.{ExecutionActorFactory, LocalExecutionActorFactory, TribunalActorFactory}
 import play.api.libs.concurrent.AkkaGuiceSupport
 import actors.PushActor
 
@@ -186,7 +186,9 @@ class SilhouetteModule(environment: play.api.Environment, configuration: Configu
       httpLayer: HTTPLayer,
       stateProvider: OAuth2StateProvider,
       configuration: Configuration): PLMAccountsProvider = {
-    new PLMAccountsProvider(httpLayer, stateProvider, configuration.underlying.as[OAuth2Settings]("silhouette.plmaccounts"))
+    val settings = configuration.underlying.as[OAuth2Settings]("silhouette.plmaccounts")
+    val customProperties = Map("apiURL" -> configuration.getString("silhouette.plmaccounts.apiURL").getOrElse(PLMAccountsProvider.API))
+    new PLMAccountsProvider(httpLayer, stateProvider, settings.copy(customProperties = customProperties))
   }
 
   /**
