@@ -13,7 +13,7 @@
   "devDependencies": {
     "yo":  "~1.3.3",
     "grunt-angular-gettext": "^2.0.1",
-    "grunt-contrib-jasmine": "^0.8.2"
+    "grunt-contrib-jasmine": "^1.0.0"
   },
   "scripts": {
     "test": "activator \"test-only *Spec\""
