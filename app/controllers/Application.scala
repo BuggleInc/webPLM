@@ -42,4 +42,22 @@ class Application @Inject() (configuration: Configuration) extends Controller {
   def specRunner() = Action { implicit request =>
     Ok(views.html.specRunner())
   }
+
+  def oauthSettings() = Action { implicit request =>
+    Ok(Json.obj(
+      "facebook" -> Json.obj(
+        "clientId" -> configuration.getString("silhouette.facebook.clientID").get
+      ),
+      "github" -> Json.obj(
+        "clientId" -> configuration.getString("silhouette.github.clientID").get
+      ),
+      "google" -> Json.obj(
+        "clientId" -> configuration.getString("silhouette.google.clientID").get
+      ),
+      "plmAccounts" -> Json.obj(
+        "clientId" -> configuration.getString("silhouette.plmaccounts.clientID").get,
+        "authorizationEndpoint" -> configuration.getString("silhouette.plmaccounts.authorizationEndpoint").get
+      )
+    ))
+  }
 }

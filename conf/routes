@@ -18,6 +18,8 @@ GET     /signOut                                            @controllers.Applica
 GET     /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
 POST    /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
 
+GET     /api/oauth/settings                                 @controllers.Application.oauthSettings
+
 # Assets
 GET     /lessons/$file<.+\.png$>                            controllers.Assets.at(path="/public", file)
 GET     /exercises/$file<.+\.(png|jpeg)$>                   controllers.Assets.at(path="/public", file)
