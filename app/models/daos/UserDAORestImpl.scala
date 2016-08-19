@@ -26,7 +26,7 @@ class UserDAORestImpl extends UserDAO {
 }
 
 object UserDAORestImpl {
-  val profilesServiceURL = Play.configuration.getString("silhouette.plmprofiles.url").get + "/profiles"
+  val profilesServiceURL = Play.configuration.getString("silhouette.plmprofiles.url").get + "/api/profiles"
 
   /**
    * Finds a user by its login info.
@@ -39,7 +39,7 @@ object UserDAORestImpl {
     WS.url(resourceURI).get().map {
       response =>
         if(response.status == 200) {
-          Some(UserToJson.userRead((response.json \ "profile").get))
+          Some(UserToJson.userRead(response.json))
         }
         else {
           None
@@ -58,7 +58,7 @@ object UserDAORestImpl {
     WS.url(profilesServiceURL).post(data).map {
       response =>
         if(response.status == 200) {
-          Some(UserToJson.userRead((response.json \ "profile").get))
+          Some(UserToJson.userRead(response.json))
         }
         else {
           None
