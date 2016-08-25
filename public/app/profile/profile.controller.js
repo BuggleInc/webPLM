@@ -20,6 +20,7 @@
 
 		profile.switchToMode = switchToMode;
 		profile.updateProfile = updateProfile;
+		profile.validateName = validateName;
 
 		function switchToMode(mode) {
 			profile.mode = mode;
@@ -29,6 +30,13 @@
 			profile.user = userService.getUser();
 			profile.userTemp = userService.cloneUser();
 		}
+
+        function validateName(name) {
+            if(!name || name.trim().length === 0) {
+                return false;
+            }
+            return true;
+        }
 
 		function updateProfile() {
 			userService.updateUser(profile.userTemp);

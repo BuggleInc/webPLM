@@ -227,14 +227,12 @@ class PLMActor (
             case _ =>
           }
         case "updateUser" =>
-          val optFirstName: Option[String] = (msg \ "args" \ "firstName").asOpt[String]
-          val optLastName: Option[String] = (msg \ "args" \ "lastName").asOpt[String]
+          val optFullName: Option[String] = (msg \ "args" \ "fullName").asOpt[String]
           val optTrackUser: Option[Boolean] = (msg \ "args" \ "trackUser").asOpt[Boolean]
-          (optCurrentUser, optFirstName, optLastName) match {
-            case (Some(currentUser: User), Some(firstName:String), Some(lastName: String)) =>
+          (optCurrentUser, optFullName) match {
+            case (Some(currentUser: User), Some(fullName: String)) if !fullName.trim.isEmpty =>
               val newUser = currentUser.copy(
-                  firstName = optFirstName,
-                  lastName = optLastName,
+                  fullName = optFullName,
                   trackUser = optTrackUser
               )
               optCurrentUser = Some(newUser)

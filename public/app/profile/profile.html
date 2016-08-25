@@ -2,7 +2,7 @@
 	<hr/>
 	<div class="row">
 		<div class="small-9 columns">
-			<h4 translate>Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}</h4>
+			<h4 translate>Welcome {{ profile.user.fullName }}</h4>
 		</div>
 		<div class="small-3 columns">
 			<img style="height:40px;" ng-src="{{ profile.user.avatarURL }}" alt="avatar">
@@ -21,18 +21,10 @@
 	<div ng-show="profile.mode === 'view'">
 		<div class="row">
 			<div class="small-6 columns">
-				<strong translate>First name:</strong>
+				<strong translate>Display name:</strong>
 			</div>
 			<div class="small-6 columns">
-				{{ profile.user.firstName }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="small-6 columns">
-				<strong translate>Last name:</strong>
-			</div>
-			<div class="small-6 columns">
-				{{ profile.user.lastName }}
+				{{ profile.user.fullName }}
 			</div>
 		</div>
         <div class="row">
@@ -53,18 +45,10 @@
 	<div ng-show="profile.mode === 'edit'">
 		<div class="row">
 			<div class="small-6 columns">
-				<strong translate>First name:</strong>
+				<strong translate>Display name:</strong>
 			</div>
 			<div class="small-6 columns">
-				<input type="text" ng-model="profile.userTemp.firstName">
-			</div>
-		</div>
-		<div class="row">
-			<div class="small-6 columns">
-				<strong translate>Last name:</strong>
-			</div>
-			<div class="small-6 columns">
-				<input type="text" ng-model="profile.userTemp.lastName">
+				<input type="text" ng-model="profile.userTemp.fullName">
 			</div>
 		</div>
         <div class="row">
@@ -77,7 +61,7 @@
 		</div>
 		<div class="row center">
 			<button class="secondary" ng-click="profile.switchToMode('view')" translate>Cancel</button>
-			<button ng-click="profile.updateProfile()" translate>Confirm changes</button>
+			<button ng-disabled="!profile.validateName(profile.userTemp.fullName)" ng-click="profile.updateProfile()" translate>Confirm changes</button>
 		</div>
 	</div>
 </div>

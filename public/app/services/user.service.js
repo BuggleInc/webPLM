@@ -77,20 +77,16 @@
 
     function cloneUser() {
       return {
-        firstName: user.firstName,
-        lastName: user.lastName,
+        fullName: user.fullName,
         trackUser: user.trackUser
       };
     }
 
     function updateUser(newUser) {
-      user.firstName = newUser.firstName;
-      user.lastName = newUser.lastName;
-      user.fullName = user.firstName + ' ' + newUser.lastName;
+      user.fullName = newUser.fullName;
       user.trackUser = newUser.trackUser;
       connection.sendMessage('updateUser', {
-        firstName: user.firstName,
-        lastName: user.lastName,
+        fullName: user.fullName,
         trackUser: user.trackUser
       });
       timeoutProfileUpdate = $timeout(function () {
