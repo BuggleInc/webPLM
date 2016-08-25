@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-08-04 13:03+0100\n"
+"PO-Revision-Date: 2016-08-25 18:35+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -114,7 +114,7 @@ msgstr ""
 "Ajouter, supprimer, ou réordonner des sections pour reconfigurer ce bloc de "
 "texte."
 
-#: public/app/services/user.service.js:98
+#: public/app/services/user.service.js:94
 msgid ""
 "An error occurred while updating your profile. Please excuse us for the "
 "inconvenience and retry to submit your changes later."
@@ -171,7 +171,7 @@ msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:49
 #: public/app/components/exercise/reset-exercise.directive.html:7
-#: public/app/profile/profile.html:79
+#: public/app/profile/profile.html:63
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -231,7 +231,7 @@ msgstr "Réduire les blocs"
 msgid "Color."
 msgstr "Couleur."
 
-#: public/app/profile/profile.html:80
+#: public/app/profile/profile.html:64
 msgid "Confirm changes"
 msgstr "Confirmer les modifications"
 
@@ -348,6 +348,10 @@ msgstr "Direction."
 msgid "Disable Block"
 msgstr "Désactiver le bloc"
 
+#: public/app/profile/profile.html:24 public/app/profile/profile.html:48
+msgid "Display name:"
+msgstr "Nom :"
+
 #: public/app/services/blocklymsg.service.js:110
 msgid "Do some statements several times."
 msgstr "Exécuter certains ordres plusieurs fois."
@@ -372,7 +376,7 @@ msgstr "Poser un biscuit."
 msgid "Duplicate"
 msgstr "Dupliquer"
 
-#: public/app/profile/profile.html:50
+#: public/app/profile/profile.html:42
 msgid "Edit profile"
 msgstr "Modifier le profil"
 
@@ -393,7 +397,7 @@ msgstr "Activer le bloc"
 msgid "Erase the message."
 msgstr "Effacer le message."
 
-#: public/app/services/user.service.js:97
+#: public/app/services/user.service.js:93
 msgid "Error during update"
 msgstr "Erreur au cours de la mise à jour"
 
@@ -412,10 +416,6 @@ msgstr "Développer les blocs"
 #: public/app/services/blocklymsg.service.js:128
 msgid "External Inputs"
 msgstr "Entrées externes"
-
-#: public/app/profile/profile.html:24 public/app/profile/profile.html:56
-msgid "First name:"
-msgstr "Prénom:"
 
 #: public/app/services/blocklymsg.service.js:89
 msgid ""
@@ -509,6 +509,14 @@ msgstr ""
 "Sinon, si la seconde valeur est vraie, exécuter le second bloc d’ordres. Si "
 "aucune des valeurs n’est vraie, exécuter le dernier bloc d’ordres."
 
+#: public/app/sign-in/sign-in.html:4
+msgid ""
+"If you do not have any specific account, click on the left icon to use our "
+"own authentication system."
+msgstr ""
+"Si vous ne possédez aucun compte, cliquez sur l'icône de gauche pour "
+"utiliser notre propre système d'authentification."
+
 #: public/app/components/bug-report-modal.directive.html:9
 msgid ""
 "If you encounter a technical bug, please tell us what you did,\twhich "
@@ -550,10 +558,6 @@ msgstr "Consignes"
 #: public/app/services/bugreport.service.js:50
 msgid "Issue created"
 msgstr "Ticket ouvert"
-
-#: public/app/profile/profile.html:32 public/app/profile/profile.html:64
-msgid "Last name:"
-msgstr "Nom:"
 
 #: public/app/components/track-user-modal.directive.html:7
 msgid "Let me decide later"
@@ -651,7 +655,7 @@ msgstr ""
 msgid "No, don't publish my data"
 msgstr "Non, ne publiez pas mes données"
 
-#: public/app/profile/profile.html:45
+#: public/app/profile/profile.html:37
 msgid "Not chosen yet"
 msgstr "Pas encore de décision prise"
 
@@ -1305,7 +1309,7 @@ msgstr "Trouner à gauche."
 msgid "Turn right."
 msgstr "Tourner à droite."
 
-#: public/app/profile/profile.html:40 public/app/profile/profile.html:72
+#: public/app/profile/profile.html:32 public/app/profile/profile.html:56
 msgid "Usage data release:"
 msgstr "Publication des traces d'utilisation:"
 
@@ -1341,8 +1345,8 @@ msgid "Welcome to the PLM, <small>the programmer's learning machine</small>"
 msgstr "Bienvenue dans la PLM, <small>l'exerciseur du programmeur</small>"
 
 #: public/app/profile/profile.html:5
-msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
-msgstr "Bienvenue {{ profile.user.firstName }} {{ profile.user.lastName }}"
+msgid "Welcome {{ profile.user.fullName }}"
+msgstr "Bienvenue {{ profile.user.fullName }}"
 
 #: public/app/components/bug-report-modal.directive.html:8
 msgid ""
@@ -1414,7 +1418,7 @@ msgstr ""
 "Votre retour nécessite quelques petites modifications avant d'être envoyé, "
 "veuillez corriger le ou les problèmes suivants:"
 
-#: public/app/services/user.service.js:151
+#: public/app/services/user.service.js:147
 msgid "Your profile has been successfully updated"
 msgstr "Votre profil a été correctement mis à jour"
 
@@ -2370,6 +2374,9 @@ msgstr "×"
 #: public/app/services/blocklymsg.service.js:249
 msgid "÷"
 msgstr "÷"
+
+#~ msgid "Last name:"
+#~ msgstr "Nom:"
 
 #~ msgid ""
 #~ "A graph representing your\n"

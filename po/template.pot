@@ -97,7 +97,7 @@ msgstr ""
 msgid "Add, remove, or reorder sections to reconfigure this text block."
 msgstr ""
 
-#: public/app/services/user.service.js:98
+#: public/app/services/user.service.js:94
 msgid "An error occurred while updating your profile. Please excuse us for the inconvenience and retry to submit your changes later."
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:49
 #: public/app/components/exercise/reset-exercise.directive.html:7
-#: public/app/profile/profile.html:79
+#: public/app/profile/profile.html:63
 msgid "Cancel"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Color."
 msgstr ""
 
-#: public/app/profile/profile.html:80
+#: public/app/profile/profile.html:64
 msgid "Confirm changes"
 msgstr ""
 
@@ -307,6 +307,11 @@ msgstr ""
 msgid "Disable Block"
 msgstr ""
 
+#: public/app/profile/profile.html:24
+#: public/app/profile/profile.html:48
+msgid "Display name:"
+msgstr ""
+
 #: public/app/services/blocklymsg.service.js:110
 msgid "Do some statements several times."
 msgstr ""
@@ -331,7 +336,7 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: public/app/profile/profile.html:50
+#: public/app/profile/profile.html:42
 msgid "Edit profile"
 msgstr ""
 
@@ -352,7 +357,7 @@ msgstr ""
 msgid "Erase the message."
 msgstr ""
 
-#: public/app/services/user.service.js:97
+#: public/app/services/user.service.js:93
 msgid "Error during update"
 msgstr ""
 
@@ -370,11 +375,6 @@ msgstr ""
 
 #: public/app/services/blocklymsg.service.js:128
 msgid "External Inputs"
-msgstr ""
-
-#: public/app/profile/profile.html:24
-#: public/app/profile/profile.html:56
-msgid "First name:"
 msgstr ""
 
 #: public/app/services/blocklymsg.service.js:89
@@ -446,6 +446,10 @@ msgstr ""
 msgid "If the first value is true, then do the first block of statements.  Otherwise, if the second value is true, do the second block of statements.  If none of the values are true, do the last block of statements."
 msgstr ""
 
+#: public/app/sign-in/sign-in.html:4
+msgid "If you do not have any specific account, click on the left icon to use our own authentication system."
+msgstr ""
+
 #: public/app/components/bug-report-modal.directive.html:9
 msgid "If you encounter a technical bug, please tell us what you did,\twhich outcome you were expecting and what happened instead."
 msgstr ""
@@ -476,11 +480,6 @@ msgstr ""
 
 #: public/app/services/bugreport.service.js:50
 msgid "Issue created"
-msgstr ""
-
-#: public/app/profile/profile.html:32
-#: public/app/profile/profile.html:64
-msgid "Last name:"
 msgstr ""
 
 #: public/app/components/track-user-modal.directive.html:7
@@ -577,7 +576,7 @@ msgstr ""
 msgid "No, don't publish my data"
 msgstr ""
 
-#: public/app/profile/profile.html:45
+#: public/app/profile/profile.html:37
 msgid "Not chosen yet"
 msgstr ""
 
@@ -1135,8 +1134,8 @@ msgstr ""
 msgid "Turn right."
 msgstr ""
 
-#: public/app/profile/profile.html:40
-#: public/app/profile/profile.html:72
+#: public/app/profile/profile.html:32
+#: public/app/profile/profile.html:56
 msgid "Usage data release:"
 msgstr ""
 
@@ -1169,7 +1168,7 @@ msgid "Welcome to the PLM, <small>the programmer's learning machine</small>"
 msgstr ""
 
 #: public/app/profile/profile.html:5
-msgid "Welcome {{ profile.user.firstName }} {{ profile.user.lastName }}"
+msgid "Welcome {{ profile.user.fullName }}"
 msgstr ""
 
 #: public/app/components/bug-report-modal.directive.html:8
@@ -1221,7 +1220,7 @@ msgstr ""
 msgid "Your feedback needs some little changes before being send, please fix the following issue(s):"
 msgstr ""
 
-#: public/app/services/user.service.js:151
+#: public/app/services/user.service.js:147
 msgid "Your profile has been successfully updated"
 msgstr ""
 
