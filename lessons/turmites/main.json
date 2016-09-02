@@ -3,7 +3,7 @@
   "lectures" : [ {
     "names" : {
       "en" : "Langton's ant",
-      "pt_br" : "formiga de Langton",
+      "pt" : "formiga de Langton",
       "fr" : "La fourmi de Langton"
     },
     "id" : "turmites.langton.Langton",
@@ -11,7 +11,7 @@
   }, {
     "names" : {
       "en" : "Multicolor Langton's ant",
-      "pt_br" : "formiga de Langton multicolorida",
+      "pt" : "formiga de Langton multicolorida",
       "fr" : "La fourmi de Langton multicolore"
     },
     "id" : "turmites.langtoncolors.LangtonColors",
@@ -19,7 +19,7 @@
   }, {
     "names" : {
       "en" : "Turmites",
-      "pt_br" : "Turmites",
+      "pt" : "Turmites",
       "fr" : "Turmites"
     },
     "id" : "turmites.helloturmite.HelloTurmite",
@@ -27,7 +27,7 @@
   }, {
     "names" : {
       "en" : "Creating Turmites",
-      "pt_br" : "Criando Turmites",
+      "pt" : "Criando Turmites",
       "fr" : "Créer des Turmites"
     },
     "id" : "turmites.turmitecreator.TurmiteCreator",
