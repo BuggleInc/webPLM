@@ -12,7 +12,7 @@ mais que listas de ordens simples dadas à máquina. É muito semelhante a uma
 receita dizendo <i>Derreta os pedaços de chocolate, adicione açucar, mexa e
 sirva</i>. Em seus programas, tais instruções são chamadas funções ou
 métodos, e você deve acrescentar parêntesis para invocá-las:</p>  
-		<pre>nomeDoMétodo()</pre>
+		<pre><code class="code-container">nameOfTheMethod()</code></pre>
 		
    <p>[!thelang] precisa das instruções separadas por ponto-e-vírgula
 (;)[!python|scala] ou por quebra de linhas[/!].  O exemplo anterior poderia
@@ -20,20 +20,19 @@ ter sido escrito da seguinte forma[!python|scala] (você também pode
 adicionar ponto-e-vírgula no final das linhas, mas isto não é
 obrigatório)[/!].</p>
     
-<pre>
-derretaOsPedaçosDeChocolate()[!java|c];[/!]
-adicioneAçucar()[!java|c];[/!]
-mexa()[!java|c];[/!]
-sirva()[!java|c];[/!]
-</pre>
+<pre><code class="code-container">meltTheChocolatePieces()[!java|c];[/!]
+addSugar()[!java|c];[/!]
+coolMix()[!java|c];[/!]
+serve()[!java|c];[/!]
+</code></pre>
     
 [!python|scala]
    <p>Também pode ser escrito da seguinte forma, mas geralmente isto é considerado
 como uma prática ruim para agrupar várias instruções na mesma linha já que
 prejudica muito a legibilidade.</p>
-<pre>
-derretaOsPedaçosDeChocolate(); adicioneAçucar(); mexa(); sirva()
-</pre>
+<pre><code class="code-container">
+meltTheChocolatePieces(); addSugar(); coolMix(); serve()
+</code></pre>
 [/!]
 
   <p>Obviamente, estes métodos específicos não existem por padrão em [!thelang],
@@ -44,22 +43,20 @@ próprios métodos).</p>
 método para cada botão do painel de controle interativo. Para alcançar o
 mesmo efeito que o botão <b>avançar</b> (fazendo o buggle avançar um passo),
 você precisa escrever o seguinte no editor: </p>
-  <pre>[!java|scala|python]avançar()[!java];[/!][/!][!c]avançarUmPasso();[/!]</pre>
+<pre><code class="code-container">[!java|scala|python]forward()[!java];[/!][/!][!c]stepForward();[/!]</code></pre>
   <p>Da mesma forma, para obter o mesmo efeito que os botões
 <b>[!java|scala|python]recuar[/!][!c]recuarUmPasso[/!]</b>, <b>esquerda</b>
 e <b>direita</b>, você precisa respectivamente:</p>
-<pre>
-recuar()[!java|c];[/!]
-esquerda()[!java|c];[/!]
-direita()[!java|c];[/!]
-</pre>
+<pre><code class="code-container">backward()[!java|c];[/!]
+left()[!java|c];[/!]
+right()[!java|c];[/!]
+</code></pre>
 
 	 <p>O botão <b>marcar</b> é diferente, pois corresponde a dois métodos: o
 primeiro move a caneta para cima e o segundo move a caneta para baixo.</p>
-<pre>
-levantarPincel()[!java|c];[/!]
-abaixarPincel()[!java|c];[/!]
-</pre>
+<pre><code class="code-container">brushUp()[!java|c];[/!]
+brushDown()[!java|c];[/!]
+</code></pre>
   <p>O buggle tem outros métodos, que estão no menu "Ajuda/sobre este mundo" e
 serão introduzidos quando forem necessários.</p>
 
@@ -69,19 +66,8 @@ mas não muito. O objetivo é que seu buggle simplesmente desenhe uma casa (um
 quadrado), e se esconda dentro. Verifique o mundo objetivo para ver
 exatamente o que isto significa. 
 
-  <p>Use seu pincel para marcar o chão à medida em que anda. Comece a marcar o
-chão com <code>brushDown()</code>, e pare com <code>brushUp()</code> (e.g.,
-para entrar na sua casa sem marcar o chão). A lista completa de todas as
-instruções que o buggle entende pode ser encontrada em "Ajuda/Sobre este
-mundo".</p>
-
-<h3>Depois deste exercício</h3>
-<p>Quando for para o próximo exercício, observe que existe um sub-exercício
-depois deste.  Por padrão, ele fica escondido no menu e você tem que abrir o
-sub-menu para vê-lo. Quando você troca de exercício, a maioria dos
-exercícios fica escondida por que a árvore está recolhida, como segue:</p>
-<img src="sub-exercise-folded.png"/> 
-
-<p>Você tem que clicar no pequeno símbolo a esquerda do buggle para expandir a
-árvore, como segue:</p>
-<img src="sub-exercise-unfolded.png"/> 
+  <p>Use your brush to mark the ground as you walk. Start marking the ground with
+<code>brushDown()</code>, and stop it with <code>brushUp()</code> afterward
+(e.g., to enter your house without marking its ground). The full list of all
+instructions understood by your buggle can be found by clicking on the
+button <i>API</i> of the <i>Code editor</i> section.</p>

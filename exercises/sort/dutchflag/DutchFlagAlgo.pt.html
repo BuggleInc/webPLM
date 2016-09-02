@@ -6,29 +6,38 @@
 primitiva fornecida é trocar duas linhas dadas. Adicionalmente, você não
 deve criar quaisquer variáveis adicionais (exceto alguns índices).</p>
 
-<p>Se você pensar com carinho, isto pode ser feito em tempo linear, onde você
-ordena uma linha a cada iteração do loop. Você pode querer dar mais uma
-olhada no <a
-href="plm://lessons.sort.basic/insertion.AlgInsertionSort">insertion
-sort</a>, do qual o Dutch Flag sort é uma variação. A principal diferença é
-que você tem 3 pontos de inserção, e não apenas um...</p>
+<p>If you think carefully, this can be done in linear time, where you sort a
+line at each iteration of the loop.  You may want to check again the <a
+ui-sref="exercise({ lessonID: 'sort.basic', exerciseID:
+'sort.basic.lessons.sort.basic.insertion.AlgInsertionSort' })">insertion
+sort</a>, of which the Dutch Flag sort is a variation. The main difference
+is that you have 3 insertion points, not only one...</p>
 
- <div class="tip" id="tip-1" alt="Preciso de uma dica para começar">
- Atravesse seus dados, guardando 3 índices:
- <ul>
-  <li><code>afterBlue</code> é iniciado como 0. Certifique-se de que cada célula
-abaixo de <code>afterBlue</code> é preenchida com elementos azuis.</li>
-  <li><code>whiteRed</code> é iniciado como size-1. Certifique-se de que cada
+
+<a href="" data-reveal-id="myModal" ng-click="exercise.readTip(1)">I need an
+hint to start</a>
+
+<div id="myModal" class="reveal-modal" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <p>
+    Atravesse seus dados, guardando 3 índices:
+    <ul>
+      <li>
+        <code>afterBlue</code> é iniciado como 0. Certifique-se de que cada célula
+abaixo de <code>afterBlue</code> é preenchida com elementos azuis.
+      </li>
+      <li><code>whiteRed</code> é iniciado como size-1. Certifique-se de que cada
 célula depois de <code>whiteRed</code> é preenchida com elementos vermelhos.</li>
-  <li><code>beforeWhite</code> é iniciado com size-1. Certifiqeu-se de que cada
+      <li><code>beforeWhite</code> é iniciado com size-1. Certifiqeu-se de que cada
 célula depois de <code>beforeWhite</code> e antes de <code>whiteRed</code> é
 preenchida com elementos brancos.</li>
- </ul> 
- Observe que as células não-ordenadas ficam sempre entre
-<code>afterBlue</code> e <code>beforeWhite</code>.<br/>
- 
- Em cada passo de sua travessia, verifique a cor da célula em
-<code>afterBlue</code> e faça as mudanças necessárias. A condição de fim de
-loop é quando <code>afterBlue</code> se torna maior que
-<code>beforeWhite</code>.<br/>
- </div>
+    </ul>
+    Observe que as células não-ordenadas ficam sempre entre
+<code>afterBlue</code> e <code>beforeWhite</code>.
+    <br/> At each step of your traversal, check the color of the cell at
+<code>afterBlue</code> and do the required exchanges. The loop ending
+condition is when <code>afterBlue</code> becomes larger than
+<code>beforeWhite</code>.
+    <br/>
+  </p>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
