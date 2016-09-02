@@ -10,13 +10,13 @@ pegue um guarda-chuva</i>.
 
 <p>A sintaxe de [!thelang] é a seguinte:</p>
 
-<pre>[!java|scala|c]if (<b>condição</b>) {
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeForVerdade();</b>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerDepoisSeForVerdade();</b>
-}[/!][!python]if <b>condição</b>:
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeForVerdade()</b>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerDepoisSeForVerdade()</b>[/!]
-<b>oQueFazerDeUmJeitoOuDeOutro()[!java|c];[/!]</b></pre>
+<pre><code class="code-container">[!java|scala|c]if (<b>condition</b>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfTrue();</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoNextIfTrue();</b>
+}[/!][!python]if <b>condition</b>:
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfTrue()</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoNextIfTrue()</b>[/!]
+<b>whatToDoAnyway()[!java|c];[/!]</b></code></pre>
 
 <p>Se a condição for verdade, o código do próximo bloco será executado e então
 o resto do código continua. Se a condição for falsa, o próximo bloco é
@@ -51,21 +51,21 @@ perder no seu próprio código se ele não for corretamente indentado, então
 você precisa deixar ele bem arrumado para que trabalhar nele continue sendo
 agradável e produtivo.</p>
 
-
-<p class="python">Todas as indentações de um dado bloco devem ser consistentes, e não é
+[!python]
+<p>Todas as indentações de um dado bloco devem ser consistentes, e não é
 possível cortar um bloco. os dois códigos a seguir estão incorretos e devem
 resultar em erro.</p>
-<pre class="python">if <b>condição</b>:
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazer()</b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerDepois()</b> <span class="comment"># um espaço a mais </span>
-<b>oQueFazerDeUmJeitoOuDeOutro()</b>
-</pre>
-<pre class="python">se <b>condição</b>:
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazer()</b>
-<b>oQueFazerDeUmJeitoOuDeOutro()</b>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerASeguir()</b> <span class="comment"># este bloco não está condicionado a uma linha de condição</span>
-</pre>
-
+<pre><code class="code-container">if <b>condition</b>:
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDo()</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoNext()</b> <span class="comment"># one space too much </span>
+<b>whatToDoAnyway()</b>
+</code></pre>
+<pre><code class="code-container">if <b>condition</b>:
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDo()</b>
+<b>whatToDoAnyway()</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoNext()</b> <span class="comment"># this block is not hanging to a condition line</span>
+</code></pre>
+[/!]
 <p>A condição deve ser uma expressão
 <code>[!c]int[/!][!java]boolean[/!][!scala|python]Boolean[/!]</code>. O
 bloco interno do código será executado se a expressão for calculada como
@@ -121,18 +121,18 @@ remover ambiguidades que apareçam na expressão.</li>
 <p>Por fim, é possível especificar o que fazer quando a condição é falsa usando
 a seguinte sintaxe. Neste caso, a instrução <code>oQueFazerSeForFalso</code>
 será executada apenas se a condição for falsa.</p>
- <pre>[!java|scala|c]if (<b>condição</b>) {
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeCondiçãoÉVerdadeira();</b>
+ <pre><code class="code-container">[!java|scala|c]if (<b>condition</b>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfTheConditionIsTrue();</b>
 } else {
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeForFalsa();</b>
-}[/!][!python]if (<b>condição</b>):
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeCondiçãoÉVerdadeira()</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfItsFalse();</b>
+}[/!][!python]if (<b>condition</b>):
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfTheConditionIsTrue()</b>
 else:
-&nbsp;&nbsp;&nbsp;&nbsp;<b>oQueFazerSeForFalsa()</b>[/!]</pre>
-
-<p class="Python">Não esqueça do dois-pontos (:) depois do else, ele indica que um novo bloco
+&nbsp;&nbsp;&nbsp;&nbsp;<b>whatToDoIfItsFalse()</b>[/!]</code></pre>
+[!python]
+<p>Não esqueça do dois-pontos (:) depois do else, ele indica que um novo bloco
 está começando.</p>
-
+[/!]
 <h3>Objetivo do exercício</h3><a name="Objectives"/> Se o buggle está de cara numa parede, você deve se
 mover um passo para trás. Se não, você deve se mover um passo para
 frente. para detectar se você está de cara para uma parede, simplesmente use
@@ -143,5 +143,4 @@ buggle entende.
 vários buggles, cada um começando numa posição diferente. O mesmo código
 será executado para cada um deles.</p>
 
-<p>Quando seu programa funcionar, vá para o próximo exercício, que está
-escondido numa sub-árvore da janela de seleção.</p>
+<p>Quando o seu programa funciona, vá para o próximo exercício.</p>

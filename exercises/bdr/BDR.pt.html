@@ -15,37 +15,37 @@ Existe um detalhe que nós omitimos sobre a sintaxe do condicional: se um
 ramo contém apenas uma instrução, então o colchetes se torna
 opcional. Portanto, estes dois pedaços de código são equivalentes:</p>
 
- <pre>if (<b>condition</b>) {
+ <pre><code class="code-container">if (<b>condition</b>) {
     <b>whatToDoIfTheConditionIsTrue();</b>
 } else {
     <b>whatToDoElse();</b>
-}</pre>
- <pre>if (<b>condição</b>) 
-    <b>oQueFazerSeACondiçãoÉVerdadeira();</b>
+}</code></pre>
+ <pre><code class="code-container">if (<b>condition</b>) 
+    <b>whatToDoIfTheConditionIsTrue();</b>
 else
-    <b>oQueFazerCasoContrário();</b></pre>
+    <b>whatToDoElse();</b></code></pre>
 
 <p>Na verdade, você pode fazer o mesmo em corpos de loop que se reduzem a
 apenas uma instrução. Mas cuidado, isto se torna perigoso se sua cadeia de
 instruções <tt>if</tt> parece com isto: </p>
-<pre>if (estáSobreBaggle())    
+<pre><code class="code-container">if (isOverBaggle())    
      if (x == 5)
-          esquerda();
+          left();
 else
-     direita();
-[!c]avançarUmPasso();[/!][!java|scala]avançar();[/!]</pre>
+     right();
+[!c]stepForward();[/!][!java|scala]forward();[/!]</code></pre>
 
 <p>De fato, não é para virar à direita quando não existe baggle no chão E x é
 igual a 5, mas quando o buggle encontra um baggle no chão e x é diferente de
 5. Colocando de outra forma, o buggle entende o código anterior como se ele
 fosse escrito da seguinte forma (note que o <tt>else</tt> foi movido para a
 direita):</p>
-<pre>if (estáSobreBaggle())    
+<pre><code class="code-container">if (isOverBaggle())    
         if (x == 5)
-            esquerda();
+            left();
         else
-            direita();
-avançar();</pre>
+            right();
+[!c]stepForward();[/!][!java|scala]forward();[/!]</code></pre>
 
 <p>A primeira lição a tirar daí é que identação é muito importante para ajudar
 os humanos a entender, mesmo que não mude o significado do código. Nós
@@ -56,7 +56,7 @@ você quer que um professor leia ele (para dar nota ou tirar uma dúvida), ou
 se você quiser reutilizar seu código mais tarde, ou mesmo se você quiser
 depurar você mesmo seu código.</p> 
 
-<pre>if (estáSobreBaggle()) if (x == 5) esquerda(); else direita(); [!c]avançarUmPasso();[/!][!java|scala]avançar();[/!]</pre>
+<pre><code class="code-container">if (isOverBaggle()) if (x == 5) left(); else right(); [!c]stepForward();[/!][!java|scala]forward();[/!]</code></pre>
 
 <p>A segunda lição é que o ramo do <tt>else</tt> sempre se conecta ao
 <tt>if</tt> mais próximo. Isto pode se tornar confuso em alguns casos, e
@@ -67,26 +67,26 @@ para remover quaisquer ambiguidades.</p>
 <h3>Encadeando condicionais</h3>
 
 <p>Algumas vezes você quer perguntar ao buggle algo similar a:</p> 
-<pre>se está chovendo, pegue um guarda-chuva;
-se não, e se está quente, pegue uma garrafa de água;
-se não e se hoje é 4 de Julho, pegue uma bandeira dos estados unidos</pre>
+<pre><code class="code-container">if it's raining, take an umbrella;
+if not, and if it's a hot day, take a bottle of water;
+if not and if it's July 4th, take an American flag</code></pre>
 
 <p>O armadilha é que nós queremos que pelo menos uma destas ações sejam
 feitas.É como dizer, se está chovendo num 4 de Julho quente, não queremos
 que o buggle vá para fora com um guarda-chuva, água e um bandeira, mas
 simplesmente com um guarda-chuva. O código seguinte está, então, ERRADO.</p>
 
-<pre>[!scala|c|java]if (chovendo())
-    pegueGuarda-Chuva();
-if (quente())
-    pegueAgua();
-if (hoje4Julho())
-    pegueBandeira();[/!][!python]if chovendo():
-    pegueGuarda-Chuva()
-if quente():
-    pegueAgua()
-if hoje4Julho():
-    pegueBandeira()[/!]</pre>
+<pre><code class="code-container">[!scala|c|java]if (rainy())
+    takeUmbrella();
+if (hot())
+    takeWater();
+if (todayIsJuly4th())
+    takeFlag();[/!][!python]if rainy():
+    takeUmbrella()
+if hot():
+    takeWater()
+if todayIsJuly4th():
+    takeFlag()[/!]</code></pre>
 
 
 <p>Na verdade, já que as condições são calculadas uma depois da outra, existe
@@ -94,24 +94,24 @@ um risco de que você vá para a marcha de 4 de Julho num dia chuvoso. Na
 verdade, nós devemos usar algo como isto para garantir que uma vez que
 encontremos a condição verdadeira, não passemos para as próximas.</p>
 
-<pre>[!java|scala|c]if (chuvoso()) {
-    pegarGuardaChuva();
+<pre><code class="code-container">[!java|scala|c]if (rainy()) {
+    takeUmbrella();
 } else {
-    if (diaQuente()) {
-        pegarAgua();
+    if (hotDay()) {
+        takeWater();
     } else {
-        if (jogoDaCopa()) {
-            pegarBandeira();
+        if (todayIsJuly4th()) {
+            takeFlag();
         }
     }
-}[/!][!python]if chuvoso():
-    pegarGuardaChuva()
+}[/!][!python]if rainy():
+    takeUmbrella()
 else:
-    if diaQuente():
-        pegarAgua()
+    if hotDay():
+        takeWater()
     else:
-        if jogoDaCopa():
-            pegarBandeira()[/!]</pre>
+        if todayIsJuly4th():
+            takeFlag()[/!]</code></pre>
 
 
 <p>Infelizmente, tal cascata de condicionais é bastante difícil de ler. É
@@ -122,18 +122,18 @@ específica para estes <tt>else if</tt>, mas não [!thelang].[/!]
 marcar explicitamente estes ramos "else if".[/!]
 </p>
 
-<pre>[!c|java|scala]if (chuvoso()) { 
-    pegarGuardaChuva();
-} else if (diaQuente()) {
-    pegarAgua();
-} else if (jogoDaCopa()) {
-    pegarBandeira();
-}[/!][!python]if chuvoso():
-    pegarGuardaChuva()
-elif diaQuente():
-    pegarAgua()
-elif jogoDaCopa():
-    pegarBandeira()[/!]</pre>
+<pre><code class="code-container">[!c|java|scala]if (rainy()) { 
+    takeUmbrella();
+} else if (hotDay()) {
+    takeWater();
+} else if (todayIsJuly4th()) {
+    takeFlag();
+}[/!][!python]if rainy():
+    takeUmbrella()
+elif hotDay():
+    takeWater()
+elif todayIsJuly4th():
+    takeFlag()[/!]</code></pre>
 
 <h3>Grafitagem no mundo dos Buggles</h3>
 
