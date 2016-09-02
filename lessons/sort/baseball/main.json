@@ -3,7 +3,7 @@
   "lectures" : [ {
     "names" : {
       "en" : "Naive Rainbow Baseball",
-      "pt_br" : "Basebal do arco-íris simples",
+      "pt" : "Basebal do arco-íris simples",
       "fr" : "Baseball multicolore naïf"
     },
     "id" : "sort.baseball.NaiveBaseball",
@@ -11,7 +11,7 @@
   }, {
     "names" : {
       "en" : "Selection Baseball",
-      "pt_br" : "Selection Baseball",
+      "pt" : "Selection Baseball",
       "fr" : "Baseball par sélection"
     },
     "id" : "sort.baseball.SelectBaseball",
@@ -19,7 +19,7 @@
   }, {
     "names" : {
       "en" : "Insertion Baseball",
-      "pt_br" : "Insertion Baseball",
+      "pt" : "Insertion Baseball",
       "fr" : "Baseball par insertion"
     },
     "id" : "sort.baseball.InsertBaseball",
@@ -27,7 +27,7 @@
   }, {
     "names" : {
       "en" : "Bubble Baseball",
-      "pt_br" : "Bubble Baseball",
+      "pt" : "Bubble Baseball",
       "fr" : "Baseball à bulle"
     },
     "id" : "sort.baseball.BubbleBaseball",

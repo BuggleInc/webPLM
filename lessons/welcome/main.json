@@ -4,7 +4,7 @@
     {
       "names": {
         "en": "Welcome in the Buggles' World",
-        "pt_br": "Bem-vindo ao mundo dos Buggles",
+        "pt": "Bem-vindo ao mundo dos Buggles",
         "fr": "Bienvenue dans le monde des buggles"
       },
       "id": "environment.Environment",
@@ -13,7 +13,7 @@
     {
       "names": {
         "en": "Instructions",
-        "pt_br": "Instruções",
+        "pt": "Instruções",
         "fr": "Instructions"
       },
       "id": "instructions.Instructions",
@@ -21,7 +21,7 @@
         {
           "names": {
             "en": "Writing more complex programs",
-            "pt_br": "Escrevendo programas mais complexos",
+            "pt": "Escrevendo programas mais complexos",
             "fr": "Écrire des programmes plus complexes"
           },
           "id": "instructions.InstructionsDrawG",
@@ -32,7 +32,7 @@
     {
       "names": {
         "en": "Conditional instructions",
-        "pt_br": "Instruções condicionais",
+        "pt": "Instruções condicionais",
         "fr": "Instructions conditionnelles"
       },
       "id": "conditions.Conditions",
@@ -41,7 +41,7 @@
     {
       "names": {
         "en": "While loops",
-        "pt_br": "Loops while (enquanto)",
+        "pt": "Loops while (enquanto)",
         "fr": "Boucles tant que "
       },
       "id": "loopwhile.LoopWhile",
@@ -49,7 +49,7 @@
         {
           "names": {
             "en": "Baggle Seeking",
-            "pt_br": "Procurando Baggles",
+            "pt": "Procurando Baggles",
             "fr": "Chercheur de baggles"
           },
           "id": "loopwhile.BaggleSeeker",
@@ -60,7 +60,7 @@
     {
       "names": {
         "en": "Storing and manipulating data",
-        "pt_br": "Armazenando e manipulando dados",
+        "pt": "Armazenando e manipulando dados",
         "fr": "Stocker et manipuler des données"
       },
       "id": "variables.Variables",
@@ -68,7 +68,7 @@
         {
           "names": {
             "en": "Run Four bases",
-            "pt_br": "Ande quatro bases",
+            "pt": "Ande quatro bases",
             "fr": "La course des quatre bases"
           },
           "id": "variables.RunFour",
@@ -77,7 +77,7 @@
         {
           "names": {
             "en": "The Four Halves run",
-            "pt_br": "A corrida dos quatro meios",
+            "pt": "A corrida dos quatro meios",
             "fr": "La course des quatre moitiés"
           },
           "id": "variables.RunHalf",
@@ -86,7 +86,7 @@
         {
           "names": {
             "en": "Buggle Dance Revolution (BDR)",
-            "pt_br": "Buggle Dance Revolution (BDR)",
+            "pt": "Buggle Dance Revolution (BDR)",
             "fr": "Buggle Dance Revolution (BDR)"
           },
           "id": "bdr.BDR",
@@ -95,7 +95,7 @@
         {
           "names": {
             "en": "Buggle Dance Revolution 2 (BDR2)",
-            "pt_br": "Buggle Dance Revolution 2 (BDR2)",
+            "pt": "Buggle Dance Revolution 2 (BDR2)",
             "fr": "Buggle Dance Revolution 2 (BDR2)"
           },
           "id": "bdr.BDR2",
@@ -106,7 +106,7 @@
     {
       "names": {
         "en": "For loops",
-        "pt_br": "Loops for",
+        "pt": "Loops for",
         "fr": "Boucles pour "
       },
       "id": "loopfor.LoopFor",
@@ -114,7 +114,7 @@
         {
           "names": {
             "en": "Stairway to Heaven",
-            "pt_br": "Uma escadaria para o Céu",
+            "pt": "Uma escadaria para o Céu",
             "fr": "la voie du paradis"
           },
           "id": "loopfor.LoopStairs",
@@ -123,7 +123,7 @@
         {
           "names": {
             "en": "Training Buggle",
-            "pt_br": "Treinando o Buggle",
+            "pt": "Treinando o Buggle",
             "fr": "Entraînement de buggle"
           },
           "id": "loopfor.LoopCourse",
@@ -132,7 +132,7 @@
         {
           "names": {
             "en": "Outdoor Training Buggle",
-            "pt_br": "Treinamento ao ar livre do Buggle",
+            "pt": "Treinamento ao ar livre do Buggle",
             "fr": "Course en forêt"
           },
           "id": "loopfor.LoopCourseForest",
@@ -143,7 +143,7 @@
     {
       "names": {
         "en": "Do .. while loops",
-        "pt_br": "Loops Do .. while (faça .. enquanto)",
+        "pt": "Loops Do .. while (faça .. enquanto)",
         "fr": "Boucles jusqu'à"
       },
       "id": "loopdowhile.LoopDoWhile",
@@ -151,7 +151,7 @@
         {
           "names": {
             "en": "Tracks of buggles",
-            "pt_br": "Trilhas de buggles",
+            "pt": "Trilhas de buggles",
             "fr": "La buggle Petite Poucette"
           },
           "id": "loopdowhile.Poucet1",
@@ -160,7 +160,7 @@
         {
           "names": {
             "en": "More buggles tracks",
-            "pt_br": "More buggles tracks",
+            "pt": "More buggles tracks",
             "fr": "More buggles tracks"
           },
           "id": "loopdowhile.Poucet2",
@@ -171,7 +171,7 @@
     {
       "names": {
         "en": "Methods",
-        "pt_br": "Métodos",
+        "pt": "Métodos",
         "fr": "Méthodes"
       },
       "id": "methods.basics.Methods",
@@ -179,7 +179,7 @@
         {
           "names": {
             "en": "Building methodically",
-            "pt_br": "Construindo metodicamente",
+            "pt": "Construindo metodicamente",
             "fr": "Construire avec méthode"
           },
           "id": "methods.basics.MethodsDogHouse",
@@ -188,7 +188,7 @@
         {
           "names": {
             "en": "Methodically drawing",
-            "pt_br": "desenhando metodicamente",
+            "pt": "desenhando metodicamente",
             "fr": "Dessiner avec méthode"
           },
           "id": "methods.picture.PictureMono1",
@@ -197,7 +197,7 @@
         {
           "names": {
             "en": "Methodically drawing (only bigger)",
-            "pt_br": "Desenhando metodicamente (apenas grande)",
+            "pt": "Desenhando metodicamente (apenas grande)",
             "fr": "Dessiner avec méthode (en plus grand)"
           },
           "id": "methods.picture.PictureMono2",
@@ -206,7 +206,7 @@
         {
           "names": {
             "en": "Drawing bigger and bigger",
-            "pt_br": "Desenhando maior e maior",
+            "pt": "Desenhando maior e maior",
             "fr": "Dessiner de plus en plus grand"
           },
           "id": "methods.picture.PictureMono3",
@@ -217,7 +217,7 @@
     {
       "names": {
         "en": "Functions",
-        "pt_br": "Funções",
+        "pt": "Funções",
         "fr": "Fonctions"
       },
       "id": "methods.returning.MethodsReturning",
@@ -225,7 +225,7 @@
         {
           "names": {
             "en": "Slug Tracking",
-            "pt_br": "Rastreando a lesma",
+            "pt": "Rastreando a lesma",
             "fr": "Pistage de la limace"
           },
           "id": "methods.slug.SlugTracking",
@@ -234,7 +234,7 @@
         {
           "names": {
             "en": "Slug Hunting",
-            "pt_br": "Caça à lesma",
+            "pt": "Caça à lesma",
             "fr": "Chasse à la limace"
           },
           "id": "methods.slug.SlugHunting",
@@ -245,7 +245,7 @@
     {
       "names": {
         "en": "Methods with parameters",
-        "pt_br": "Métodos com perâmetros",
+        "pt": "Métodos com perâmetros",
         "fr": "Méthodes avec paramètres"
       },
       "id": "methods.args.MethodsArgs",
@@ -253,7 +253,7 @@
         {
           "names": {
             "en": "Slugs and Snails",
-            "pt_br": "Lesmas e Caracóis",
+            "pt": "Lesmas e Caracóis",
             "fr": "Limaces et escargots"
           },
           "id": "methods.slug.SlugSnail",
@@ -262,7 +262,7 @@
         {
           "names": {
             "en": "Colorful drawing",
-            "pt_br": "Desenho colorido",
+            "pt": "Desenho colorido",
             "fr": "Dessins colorés"
           },
           "id": "methods.picture.MethodsPicture",
@@ -271,7 +271,7 @@
         {
           "names": {
             "en": "Larger colorful drawing",
-            "pt_br": "Um desenho colorido maior",
+            "pt": "Um desenho colorido maior",
             "fr": "Grand dessin coloré"
           },
           "id": "methods.picture.MethodsPictureLarge",
@@ -280,7 +280,7 @@
         {
           "names": {
             "en": "Another Colorful Pattern",
-            "pt_br": "Outro padrão colorido",
+            "pt": "Outro padrão colorido",
             "fr": "Autre motif coloré"
           },
           "id": "methods.picture.PatternPicture",
@@ -289,7 +289,7 @@
         {
           "names": {
             "en": "Flower Pot",
-            "pt_br": "Vaso de Flores",
+            "pt": "Vaso de Flores",
             "fr": "Pot de fleur"
           },
           "id": "methods.flowerpot.FlowerPot",
@@ -298,7 +298,7 @@
         {
           "names": {
             "en": "Flower Display Case",
-            "pt_br": "Vitrine de flores",
+            "pt": "Vitrine de flores",
             "fr": "Jardinière de fleurs"
           },
           "id": "methods.flowerpot.FlowerCase",
@@ -309,7 +309,7 @@
     {
       "names": {
         "en": "SleepDay",
-        "pt_br": "SleepDay",
+        "pt": "SleepDay",
         "fr": "Grasse matinée"
       },
       "id": "bat.bool1.sleepin.SleepIn",
@@ -317,7 +317,7 @@
         {
           "names": {
             "en": "MonkeyTrouble",
-            "pt_br": "MonkeyTrouble",
+            "pt": "MonkeyTrouble",
             "fr": "Problème de singe"
           },
           "id": "bat.bool1.monkeytrouble.MonkeyTrouble",
@@ -326,7 +326,7 @@
         {
           "names": {
             "en": "Near Hundred",
-            "pt_br": "Near Hundred",
+            "pt": "Near Hundred",
             "fr": "Presque 100"
           },
           "id": "bat.bool1.nearhundred.NearHundred",
@@ -335,7 +335,7 @@
         {
           "names": {
             "en": "Sum Double",
-            "pt_br": "Soma dupla",
+            "pt": "Soma dupla",
             "fr": "Somme doublée"
           },
           "id": "bat.bool1.sumdouble.SumDouble",
@@ -344,7 +344,7 @@
         {
           "names": {
             "en": "Diff 21",
-            "pt_br": "Diferença 21",
+            "pt": "Diferença 21",
             "fr": "Diff 21"
           },
           "id": "bat.bool1.diff21.Diff21",
@@ -353,7 +353,7 @@
         {
           "names": {
             "en": "Parot Trouble",
-            "pt_br": "Parot Trouble",
+            "pt": "Parot Trouble",
             "fr": "Problème de perroquet"
           },
           "id": "bat.bool1.parottrouble.ParotTrouble",
@@ -362,7 +362,7 @@
         {
           "names": {
             "en": "Makes 10",
-            "pt_br": "Makes 10",
+            "pt": "Makes 10",
             "fr": "Font 10"
           },
           "id": "bat.bool1.makes10.Makes10",
@@ -371,7 +371,7 @@
         {
           "names": {
             "en": "Positive Negative",
-            "pt_br": "Positivo Negativo",
+            "pt": "Positivo Negativo",
             "fr": "Positif Négatif"
           },
           "id": "bat.bool1.posneg.PosNeg",
@@ -380,7 +380,7 @@
         {
           "names": {
             "en": "Icy Hot",
-            "pt_br": "Frio Quente",
+            "pt": "Frio Quente",
             "fr": "Feu glacé"
           },
           "id": "bat.bool1.icyhot.IcyHot",
@@ -389,7 +389,7 @@
         {
           "names": {
             "en": "In [10;20]",
-            "pt_br": "In [10;20]",
+            "pt": "In [10;20]",
             "fr": "Dans [10;20]"
           },
           "id": "bat.bool1.in1020.In1020",
@@ -400,7 +400,7 @@
     {
       "names": {
         "en": "Buggles' Island",
-        "pt_br": "Ilha dos Buggles",
+        "pt": "Ilha dos Buggles",
         "fr": "L'île des Buggles"
       },
       "id": "array.island.Island",
@@ -409,7 +409,7 @@
     {
       "names": {
         "en": "Snake World",
-        "pt_br": "Mundo das cobras",
+        "pt": "Mundo das cobras",
         "fr": "Monde de serpents"
       },
       "id": "traversal.snake.Snake",
@@ -417,7 +417,7 @@
         {
           "names": {
             "en": "Traversal by column",
-            "pt_br": "Percorrer pelas colunas",
+            "pt": "Percorrer pelas colunas",
             "fr": "Parcours en colonne"
           },
           "id": "traversal.column.traversalbycolumn.TraversalByColumn",
@@ -426,7 +426,7 @@
         {
           "names": {
             "en": "Traversal by line",
-            "pt_br": "Percorrer pelas linhas",
+            "pt": "Percorrer pelas linhas",
             "fr": "Parcours en ligne"
           },
           "id": "traversal.line.traversalbyline.TraversalByLine",
@@ -435,7 +435,7 @@
         {
           "names": {
             "en": "Zig-zag traversal",
-            "pt_br": "Percorrer em zig-zag",
+            "pt": "Percorrer em zig-zag",
             "fr": "Parcours en zig-zag"
           },
           "id": "traversal.zigzag.traversalzigzag.TraversalZigZag",
@@ -444,7 +444,7 @@
         {
           "names": {
             "en": "Diagonal Traversal",
-            "pt_br": "Percorrer na diagonal",
+            "pt": "Percorrer na diagonal",
             "fr": "Parcours en diagonale"
           },
           "id": "traversal.diagonal.traversaldiagonal.TraversalDiagonal",
@@ -455,7 +455,7 @@
     {
       "names": {
         "en": "Lost in the Moria",
-        "pt_br": "Perdido em Moria",
+        "pt": "Perdido em Moria",
         "fr": "Perdu dans la Moria"
       },
       "id": "summative.moria.Moria",

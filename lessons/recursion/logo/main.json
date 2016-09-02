@@ -3,7 +3,7 @@
   "lectures" : [ {
     "names" : {
       "en" : "The small cousines of Buggles",
-      "pt_br" : "Os primos menores dos buggles",
+      "pt" : "Os primos menores dos buggles",
       "fr" : "Les petites cousines des Buggles"
     },
     "id" : "recursion.logo.square.FourSquare",
@@ -11,7 +11,7 @@
   }, {
     "names" : {
       "en" : "Spirals",
-      "pt_br" : "Espirais",
+      "pt" : "Espirais",
       "fr" : "Spirales"
     },
     "id" : "recursion.logo.spiral.Spiral",
@@ -19,7 +19,7 @@
   }, {
     "names" : {
       "en" : "Drawing spirals",
-      "pt_br" : "Desenhando espirais",
+      "pt" : "Desenhando espirais",
       "fr" : "Faire des spirales"
     },
     "id" : "recursion.logo.spiral.SpiralUse",
@@ -27,7 +27,7 @@
   }, {
     "names" : {
       "en" : "Trees",
-      "pt_br" : "Árvores",
+      "pt" : "Árvores",
       "fr" : "Arbres"
     },
     "id" : "recursion.logo.tree.Tree",
@@ -35,7 +35,7 @@
   }, {
     "names" : {
       "en" : "Snow flake",
-      "pt_br" : "Floco de neve",
+      "pt" : "Floco de neve",
       "fr" : "Flocons de neige"
     },
     "id" : "recursion.logo.koch.Koch",
@@ -43,7 +43,7 @@
   }, {
     "names" : {
       "en" : "Snow square",
-      "pt_br" : "Snow square",
+      "pt" : "Snow square",
       "fr" : "Carrés de neige"
     },
     "id" : "recursion.logo.koch.SquareKoch",
@@ -51,7 +51,7 @@
   }, {
     "names" : {
       "en" : "Snow pentagon",
-      "pt_br" : "Snow pentagon",
+      "pt" : "Snow pentagon",
       "fr" : "Pentagone de neige"
     },
     "id" : "recursion.logo.koch.PentaKoch",
@@ -59,7 +59,7 @@
   }, {
     "names" : {
       "en" : "Snow hexagon",
-      "pt_br" : "Snow hexagon",
+      "pt" : "Snow hexagon",
       "fr" : "Hexagone de neige"
     },
     "id" : "recursion.logo.koch.HexaKoch",
@@ -67,7 +67,7 @@
   }, {
     "names" : {
       "en" : "Fractal Crab",
-      "pt_br" : "Carangueijo Fractal",
+      "pt" : "Carangueijo Fractal",
       "fr" : "La fractale du crabe"
     },
     "id" : "recursion.logo.koch.Crab",
@@ -75,7 +75,7 @@
   }, {
     "names" : {
       "en" : "Sierpinski's Triangle",
-      "pt_br" : "Triângulo de Sierpinski",
+      "pt" : "Triângulo de Sierpinski",
       "fr" : "Triangle de Sierpinski"
     },
     "id" : "recursion.logo.sierpinski.Sierpinski",
@@ -83,7 +83,7 @@
   }, {
     "names" : {
       "en" : "Fractal of polygons",
-      "pt_br" : "Fractal de polígonos",
+      "pt" : "Fractal de polígonos",
       "fr" : "Fractales de polygones"
     },
     "id" : "recursion.logo.polygonfractal.PolygonFractal",
@@ -91,7 +91,7 @@
   }, {
     "names" : {
       "en" : "Dragon curve (1)",
-      "pt_br" : "Curva do Dragão (1)",
+      "pt" : "Curva do Dragão (1)",
       "fr" : "Courbe du Dragon (1)"
     },
     "id" : "recursion.logo.dragoncurve.DragonCurve1",
@@ -99,7 +99,7 @@
   }, {
     "names" : {
       "en" : "The dragon curve (2)",
-      "pt_br" : "A curva do dragão (2)",
+      "pt" : "A curva do dragão (2)",
       "fr" : "Courbe du Dragon (2)"
     },
     "id" : "recursion.logo.dragoncurve.DragonCurve2",

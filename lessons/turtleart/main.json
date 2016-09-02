@@ -3,7 +3,7 @@
   "lectures" : [ {
     "names" : {
       "en" : "Square",
-      "pt_br" : "Square",
+      "pt" : "Square",
       "fr" : "Square"
     },
     "id" : "turtleart.square.Square",
@@ -11,7 +11,7 @@
   }, {
     "names" : {
       "en" : "SmallSquare",
-      "pt_br" : "SmallSquare",
+      "pt" : "SmallSquare",
       "fr" : "SmallSquare"
     },
     "id" : "turtleart.smallsquare.SmallSquare",
@@ -19,7 +19,7 @@
   }, {
     "names" : {
       "en" : "Stairs",
-      "pt_br" : "Stairs",
+      "pt" : "Stairs",
       "fr" : "Stairs"
     },
     "id" : "turtleart.stairs.Stairs",
@@ -27,7 +27,7 @@
   }, {
     "names" : {
       "en" : "TriangleFlat",
-      "pt_br" : "TriangleFlat",
+      "pt" : "TriangleFlat",
       "fr" : "TriangleFlat"
     },
     "id" : "turtleart.triangleflat.TriangleFlat",
@@ -35,7 +35,7 @@
   }, {
     "names" : {
       "en" : "Triangle",
-      "pt_br" : "Triangle",
+      "pt" : "Triangle",
       "fr" : "Triangle"
     },
     "id" : "turtleart.triangle.Triangle",
@@ -43,7 +43,7 @@
   }, {
     "names" : {
       "en" : "House",
-      "pt_br" : "House",
+      "pt" : "House",
       "fr" : "House"
     },
     "id" : "turtleart.house.House",
@@ -51,7 +51,7 @@
   }, {
     "names" : {
       "en" : "HouseThree",
-      "pt_br" : "HouseThree",
+      "pt" : "HouseThree",
       "fr" : "HouseThree"
     },
     "id" : "turtleart.housethree.HouseThree",
@@ -59,7 +59,7 @@
   }, {
     "names" : {
       "en" : "HouseMany",
-      "pt_br" : "HouseMany",
+      "pt" : "HouseMany",
       "fr" : "HouseMany"
     },
     "id" : "turtleart.housemany.HouseMany",
@@ -67,7 +67,7 @@
   }, {
     "names" : {
       "en" : "Polygon6",
-      "pt_br" : "Polygon6",
+      "pt" : "Polygon6",
       "fr" : "Polygon6"
     },
     "id" : "turtleart.polygon6.Polygon6",
@@ -75,7 +75,7 @@
   }, {
     "names" : {
       "en" : "Polygon7",
-      "pt_br" : "Polygon7",
+      "pt" : "Polygon7",
       "fr" : "Polygon7"
     },
     "id" : "turtleart.polygon7.Polygon7",
@@ -83,7 +83,7 @@
   }, {
     "names" : {
       "en" : "Polygon20",
-      "pt_br" : "Polygon20",
+      "pt" : "Polygon20",
       "fr" : "Polygon20"
     },
     "id" : "turtleart.polygon20.Polygon20",
@@ -91,7 +91,7 @@
   }, {
     "names" : {
       "en" : "Polygon360",
-      "pt_br" : "Polygon360",
+      "pt" : "Polygon360",
       "fr" : "Polygon360"
     },
     "id" : "turtleart.polygon360.Polygon360",
@@ -99,7 +99,7 @@
   }, {
     "names" : {
       "en" : "CircleTwo",
-      "pt_br" : "CircleTwo",
+      "pt" : "CircleTwo",
       "fr" : "CircleTwo"
     },
     "id" : "turtleart.circletwo.CircleTwo",
@@ -107,7 +107,7 @@
   }, {
     "names" : {
       "en" : "CircleYing",
-      "pt_br" : "CircleYing",
+      "pt" : "CircleYing",
       "fr" : "CircleYing"
     },
     "id" : "turtleart.circleying.CircleYing",
@@ -115,7 +115,7 @@
   }, {
     "names" : {
       "en" : "CircleSquare",
-      "pt_br" : "CircleSquare",
+      "pt" : "CircleSquare",
       "fr" : "CircleSquare"
     },
     "id" : "turtleart.circlesquare.CircleSquare",
@@ -123,7 +123,7 @@
   }, {
     "names" : {
       "en" : "CircleTen",
-      "pt_br" : "CircleTen",
+      "pt" : "CircleTen",
       "fr" : "CircleTen"
     },
     "id" : "turtleart.circleten.CircleTen",
@@ -131,7 +131,7 @@
   }, {
     "names" : {
       "en" : "DiskFourth",
-      "pt_br" : "DiskFourth",
+      "pt" : "DiskFourth",
       "fr" : "DiskFourth"
     },
     "id" : "turtleart.diskfourth.DiskFourth",
@@ -139,7 +139,7 @@
   }, {
     "names" : {
       "en" : "DiskFour",
-      "pt_br" : "DiskFour",
+      "pt" : "DiskFour",
       "fr" : "DiskFour"
     },
     "id" : "turtleart.diskfour.DiskFour",
@@ -147,7 +147,7 @@
   }, {
     "names" : {
       "en" : "DiskTwo",
-      "pt_br" : "DiskTwo",
+      "pt" : "DiskTwo",
       "fr" : "DiskTwo"
     },
     "id" : "turtleart.disktwo.DiskTwo",
@@ -155,7 +155,7 @@
   }, {
     "names" : {
       "en" : "Star",
-      "pt_br" : "Star",
+      "pt" : "Star",
       "fr" : "Star"
     },
     "id" : "turtleart.star.Star",
@@ -163,7 +163,7 @@
   }, {
     "names" : {
       "en" : "Flower",
-      "pt_br" : "Flower",
+      "pt" : "Flower",
       "fr" : "Flower"
     },
     "id" : "turtleart.flower.Flower",
@@ -171,7 +171,7 @@
   }, {
     "names" : {
       "en" : "Kerr36",
-      "pt_br" : "Kerr36",
+      "pt" : "Kerr36",
       "fr" : "Kerr36"
     },
     "id" : "turtleart.kerr36.Kerr36",
@@ -179,7 +179,7 @@
   }, {
     "names" : {
       "en" : "Kerr40",
-      "pt_br" : "Kerr40",
+      "pt" : "Kerr40",
       "fr" : "Kerr40"
     },
     "id" : "turtleart.kerr40.Kerr40",
@@ -187,7 +187,7 @@
   }, {
     "names" : {
       "en" : "Flower3",
-      "pt_br" : "Flower3",
+      "pt" : "Flower3",
       "fr" : "Flower3"
     },
     "id" : "turtleart.flower3.Flower3",
