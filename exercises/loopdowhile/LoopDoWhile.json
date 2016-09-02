@@ -29,12 +29,9 @@
     }
   },
   "helps" : {
+    "pt" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>[!java|c]void [/!]left()<br/>\n          [!java|c]void [/!]right()<br/>\n          [!java|c]void [/!]back()<br/>\n          [!java|c]void [/!][!python|java|scala]forward()[/!][!c]stepForward()[/!] or [!java|c]void [/!]forward([!java|c]int [/!]steps[!scala]:Int[/!])<br/>\n          [!java|c]void [/!][!python|java|scala]backward()[/!][!c]stepBackward()[/!] or [!java]void [/!]backward([!java|c]int [/!]steps[!scala]:Int[/!])<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>[!java|c]int [/!]getX()[!scala]:Int[/!]<br/>\n          [!java|c]int [/!]getY()[!scala]:Int[/!]<br/>\n          [!java|c]void [/!]setX([!java|c]int [/!]x[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setY([!java|c]int [/!]y[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setPos([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int [/!]y[!scala]:Int[/!])</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>[!java|c]Color [/!]getBodyColor()[!scala]:Color[/!]<br/>\n          [!java|c]void [/!]setBodyColor([!java|c]Color [/!]c[!scala]:Color[/!])</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isFacingWall()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]isBackingWall()[!scala]:Boolean[/!]</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>[!java|c]Direction [/!]getDirection()[!scala]:Direction[/!]<br/>\n          [!java|c]void [/!]setDirection([!java|c]Direction [/!]dir[!scala]:Direction[/!])<br/>\n          [!scala|java|python]Direction.[/!]NORTH, [!scala|java|python]Direction.[/!]EAST, [!scala|java|python]Direction.[/!]SOUTH and [!scala|java|python]Direction.[/!]WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isSelected()[!scala]:Boolean[/!]</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>[!java|c]void [/!]brushUp()<br/>\n          [!java|c]void [/!]brushDown()<br/>\n          [!java]boolean [/!][!c]int [/!]isBrushDown()[!scala]:Boolean[/!]</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>[!java|c]void [/!]setBrushColor([!java|c]Color [/!]c[!scala]:Color[/!])<br/>\n          [!java|c]Color [/!]getBrushColor()[!scala]:Color[/!]</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>[!java|c]Color [/!]getGroundColor()[!scala]:Color[/!]</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>[!java]boolean [/!][!c]int [/!]isOverBaggle()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]isCarryingBaggle()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]pickupBaggle()<br/>\n          [!java]void [/!]dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isOverMessage()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]writeMessage([!java]String [/!][!c]char* [/!]msg[!scala]:String[/!])<br/>\n          [!java]String [/!][!c]char* [/!]readMessage()[!scala]:String[/!]<br/>\n          [!java]void [/!]clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
     "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>[!java|c]void [/!]left()<br/>\n          [!java|c]void [/!]right()<br/>\n          [!java|c]void [/!]back()<br/>\n          [!java|c]void [/!][!python|java|scala]forward()[/!][!c]stepForward()[/!] or [!java|c]void [/!]forward([!java|c]int [/!]steps[!scala]:Int[/!])<br/>\n          [!java|c]void [/!][!python|java|scala]backward()[/!][!c]stepBackward()[/!] or [!java]void [/!]backward([!java|c]int [/!]steps[!scala]:Int[/!])<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>[!java|c]int [/!]getX()[!scala]:Int[/!]<br/>\n          [!java|c]int [/!]getY()[!scala]:Int[/!]<br/>\n          [!java|c]void [/!]setX([!java|c]int [/!]x[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setY([!java|c]int [/!]y[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setPos([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int [/!]y[!scala]:Int[/!])</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>[!java|c]Color [/!]getBodyColor()[!scala]:Color[/!]<br/>\n          [!java|c]void [/!]setBodyColor([!java|c]Color [/!]c[!scala]:Color[/!])</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isFacingWall()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]isBackingWall()[!scala]:Boolean[/!]</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>[!java|c]Direction [/!]getDirection()[!scala]:Direction[/!]<br/>\n          [!java|c]void [/!]setDirection([!java|c]Direction [/!]dir[!scala]:Direction[/!])<br/>\n          [!scala|java|python]Direction.[/!]NORTH, [!scala|java|python]Direction.[/!]EAST, [!scala|java|python]Direction.[/!]SOUTH and [!scala|java|python]Direction.[/!]WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isSelected()[!scala]:Boolean[/!]</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>[!java|c]void [/!]brushUp()<br/>\n          [!java|c]void [/!]brushDown()<br/>\n          [!java]boolean [/!][!c]int [/!]isBrushDown()[!scala]:Boolean[/!]</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>[!java|c]void [/!]setBrushColor([!java|c]Color [/!]c[!scala]:Color[/!])<br/>\n          [!java|c]Color [/!]getBrushColor()[!scala]:Color[/!]</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>[!java|c]Color [/!]getGroundColor()[!scala]:Color[/!]</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>[!java]boolean [/!][!c]int [/!]isOverBaggle()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]isCarryingBaggle()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]pickupBaggle()<br/>\n          [!java]void [/!]dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]isOverMessage()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]writeMessage([!java]String [/!][!c]char* [/!]msg[!scala]:String[/!])<br/>\n          [!java]String [/!][!c]char* [/!]readMessage()[!scala]:String[/!]<br/>\n          [!java]void [/!]clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
     "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Le monde des Buggles</h1>\nCe monde a été inventé par Lyn Turbak, du Wellesley College. Il est peuplé\nde Buggles, petites bêtes qui comprennent des ordres simples, et offre de\nnombreuses possibilités d'interaction avec le monde : prendre ou poser des\nobjets, colorier le sol, se cogner à des murs, etc.\n\n<h2>Méthodes comprises par les buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Bouger</b><br/> (voir aussi la note sur les exceptions, plus bas)</td></tr>\n  <tr><td><b>Tourner à gauche<br/>Tourner à droite<br/>Se retourner<br/>Avancer<br/>Reculer</b></td>\n      <td>[!java|c]void [/!]gauche()<br/>\n          [!java|c]void [/!]droite()<br/>\n          [!java|c]void [/!]retourne()<br/>\n          [!java|c]void [/!][!python|java|scala]avance()[/!][!c]avancePas()[/!] or\n[!java|c]void [/!]avance([!java|c]int [/!]nbPas[!scala]:Int[/!])<br/>\n          [!java|c]void [/!][!python|java|scala]recule()[/!][!c]reculePas()[/!] or\n[!java]void [/!]recule([!java|c]int [/!]nbPas[!scala]:Int[/!])<br/></td></tr>\n  <tr><td><b>Obtenir l'abscisse<br/>Obtenir l'ordonnée<br/>Changer l'abscisse<br/>Changer l'ordonnée<br/>Changer la position</b></td>\n      <td>[!java|c]int [/!]getX()[!scala]:Int[/!]<br/>\n          [!java|c]int [/!]getY()[!scala]:Int[/!]<br/>\n          [!java|c]void [/!]setX([!java|c]int [/!]x[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setY([!java|c]int [/!]y[!scala]:Int[/!])<br/>\n          [!java|c]void [/!]setPos([!java|c]int [/!]x[!scala]:Int[/!], [!java|c]int\n[/!]y[!scala]:Int[/!])</td></tr>\n<tr><td colspan=2>L'origine (0, 0) est dans le coin en haut à gauche, comme c'est souvent le\ncas en informatique.</td></tr>\n\n<tr><td colspan=2 align=center><b>Informations sur la buggle</b></td></tr>\n  <tr><td><b>Obtenir la couleur de la buggle</b><br/>Changer la couleur de la buggle</b></td>\n      <td>[!java|c]Color [/!]getCouleurCorps()[!scala]:Color[/!]<br/>\n          [!java|c]void [/!]setCouleurCorps([!java|c]Color [/!]c[!scala]:Color[/!])</td></tr>\t\t\t\t\n  <tr><td><b>Chercher un mur devant<br/>Chercher un mur derrière</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]estFaceMur()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]estDosMur()[!scala]:Boolean[/!]</td></tr>\t\t\t\t\n  <tr><td><b>Obtenir la direction<br/>Changer la direction</b><br/>Les directions valides sont :</td>\n      <td>[!java|c]Direction [/!]getDirection()[!scala]:Direction[/!]<br/>\n          [!java|c]void [/!]setDirection([!java|c]Direction\n[/!]dir[!scala]:Direction[/!])<br/>\n          [!scala|java|python]Direction.[/!]NORTH (nord),\n[!scala|java|python]Direction.[/!]EAST (est),\n[!scala|java|python]Direction.[/!]SOUTH (sud) et\n[!scala|java|python]Direction.[/!]WEST (ouest)</td></tr>\n  <tr><td>Renvoi si la buggle est actuellement <b>sélectionnée dans l'interface</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]estChoisie()[!scala]:Boolean[/!]</td></tr>\n \n<tr><td colspan=2 align=center><b>À propos de la brosse</b></td></tr>\n  <tr><td><b>Baisser la brosse<br/>Lever la brosse<br/>Obtenir la position de la brosse</b></td>\n      <td>[!java|c]void [/!]leveBrosse()<br/>\n          [!java|c]void [/!]baisseBrosse()<br/>\n          [!java]boolean [/!][!c]int [/!]estBrosseBaissee()[!scala]:Boolean[/!]</td></tr>\n  <tr><td><b>Modifier la couleur de la brosse<br/>Obtenir la couleur de la brosse</b></td>\n      <td>[!java|c]void [/!]setCouleurBrosse([!java|c]Color [/!]c[!scala]:Color[/!])<br/>\n          [!java|c]Color [/!]getCouleurBrosse()[!scala]:Color[/!]</td></tr>\n\n<tr><td colspan=2 align=center><b>Interagir avec le monde</b></td></tr>\n  <tr><td><b>Obtenir la couleur du sol</b></td>\n      <td>[!java|c]Color [/!]getCouleurSol()[!scala]:Color[/!]</td></tr>\n\n  <tr><td><b>Vrai si biscuit par terre<br/>Vrai si on porte un biscuit<br/>Ramasse un biscuit<br/>Poser un biscuit</b><br/>\n      (voir la note sur les exceptions)</td>\n      <td>[!java]boolean [/!][!c]int [/!]estSurBiscuit()[!scala]:Boolean[/!]<br/>\n          [!java]boolean [/!][!c]int [/!]porteBiscuit()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]prendBiscuit()<br/>\n          [!java]void [/!]poseBiscuit()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Chercher un message<br/>Ajouter un message<br/>Lire le message<br/>Effacer le message</b></td>\n      <td>[!java]boolean [/!][!c]int [/!]estSurMessage()[!scala]:Boolean[/!]<br/>\n          [!java]void [/!]ecritMessage([!java]String [/!][!c]char*\n[/!]msg[!scala]:String[/!])<br/>\n          [!java]String [/!][!c]char* [/!]litMessage()[!scala]:String[/!]<br/>\n          [!java]void [/!]effaceMessage()</td></tr>\n</table>\n\n<h2>Couleurs valides</h2>\n<table border=1>\n<tr><td>Nom</td><td>Couleur</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>[!scala|java|python]Color.[/!]yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note sur les exceptions</h2>\nLes buggles normales lèvent une exception BuggleWallException si on cherche\nà leur faire traverser un mur.\nElles lèvent une exception NoBaggleUnderBuggleException si vous cherchez à\nprendre un biscuit dans une case qui n'en contient pas, ou une exception\nAlreadyHaveBaggleException si vous portez déjà un biscuit.\nTenter de déposer un biscuit sur une case qui en contient déjà lève une\nexception AlreadyHaveBaggleException.\nTenter de poser un biscuit alors qu'on n'en a pas lève une exception\nDontHaveBaggleException.\n<p>Les \"SimpleBuggles\" (c.-à-d., celles utilisées dans les premiers exercices)\naffichent un message d'erreur sans que vous ayez à vous soucier de ce qu'est\nune exception.</p>\n"
-  },
-  "instructions" : {
-    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Do .. while loops</h2>\n\n<p>Some cells of the world are yellow, but your buggle cannot stand being in \nsuch cells. Write the necessary code to move forward until the ground \ngets white. For that, use the provided method <code>isGroundWhite()</code>.</p>\n\n<p>The trick is that most buggles of this world are currently on this yellow ground \nthat they dislike so much. That is why they are in panic, and every buggle rushes \none cell forward, even the buggle that was not on a yellow cell at first. In other worlds,  \neven if the ground is white on the first cell, you still want to move forward to the next cell.</p>    \n\n<p>The general idea is to do something like: </p>\n<pre>move forward until located in a white cell</pre>\n\n<p>The main difficulty is that we want this loop body to be executed once, even we are already on a white cell. \nIt would be easy to do so by duplicating the loop content before the actual loop, but this would be a bad idea: \ncode duplication is a <b>very</b> bad habit, and you should <b>always</b> avoid it.</p>\n\n<p>Code duplication easily turns code maintenance into a nightmare: reading the code becomes difficult as the reader must ensure \nthat no slight difference exist between the versions. Debugging the code becomes difficult, as bugs have to be fixed \nin all versions. Actually, every modification of the code becomes difficult. So, really, you should <b>always</b> \nstrive to not duplicate your code if you can avoid. And the good news is that you always can...</p>\n\n<h3>Executing the loop body at least once</h3>\n[!python]\n<p>Some languages\nhave specific constructs for that, but not the Python language. No problem, we can do it\non our own! A good way is to have a dedicated variable indicating whether we are taking\nthe loop for the first time or not, as follows.</p>\n<pre>firstTime = True\nwhile firstTime or (other conditions):\n  firstTime = False\n  (loop body)\n</pre>\n\n<p>When <code>firstTime</code> is true, the loop body is executed even if the other conditions would imply the contrary. \nOnce the loop body has been executed once, it is set to false and never impact again the decision to enter the body or not.</p>\n[/!]\n\n\n[!java|scala|c]\n<p>In a <tt>while</tt> loop, the condition is evaluated before anything else,\nand if it's false, the loop body is never evaluated. Sometimes (although not \nthat often), you would prefer the\nloop body to get evaluated at least once, even if the condition is initially\nfalse. For that, a variation of the <tt>while</tt> loop gets used, using the\nfollowing syntax in [!thelang]. \n[!java|c]Do not forget the semi-column (;) after the condition, it is mandatory.[/!]\n\n<pre>do {\n    <b>action()</b>[!java];[/!]\n} while (<b>condition</b>)[!java];[/!]</pre></p>\n[/!]\n",
-    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Boucles jusqu'à<tt> (do ... while)</tt></h2>\n\n<p>Certaines cases du monde sont jaunes, mais les buggles ne supportent pas de\ns'y trouver. Écrivez le code nécessaire pour avancer jusqu'à ce que le sol\ndevienne blanc. Vous pourrez utiliser la méthode <code>estSurBlanc()</code>\nqui retourne vrai si le sol est blanc..</p>\n\n<p>Le truc est que la plupart des buggles de ce monde se trouvent actuellement\nsur ce sol jaune qui les énerve tant. Cela explique sans doute leur état de\npanique, et le fait que toutes les buggles se ruent vers l'avant au début,\nmême la buggle qui ne se trouve pas sur du jaune. En d'autres mots, même si\nle sol est blanc le premier coup, il faut quand même avancer d'un pas.</p>    \n\n<p>L'idée générale est donc de faire: </p>\n<pre>avancer jusqu'à se trouver sur une case blanche</pre>\n\n<p>La principale difficulté est que nous voulons exécuter le corps de boucle au\nmoins une fois, même si la buggle se trouve déjà sur une case blanche. Il\nserait facile de dupliquer le corps de la boucle avant la boucle pour cela,\nmais  ça serait une <b>très mauvaise idée</b>. Dupliquer du code est une\n<b>très mauvaise habitude</b> et il faut toujours éviter de le faire.</p>\n\n<p>Quand on duplique le code, sa maintenance tourne facilement au cauchemar :\nla lecture du code est très pénible puisque le lecteur doit s'assurer qu'il\nn'y a effectivement aucune différence, même minime, entre les versions du\nmême code. Debugger le code devient plus long, puisqu'il faut corriger\ntoutes les versions. En fait, toutes les modifications deviennent\npénibles. Alors, vraiment, vous devrez <b>toujours</b> vous efforcer\nd'éviter la duplication du code quand c'est possible. Et la bonne nouvelle\nest que c'est toujours possible...</p>\n\n<h3>Exécuter le corps de boucle au moins une fois</h3>\n[!python]\n<p>Certain langage ont une construction spécifique pour cela, mais pas\nPython. Qu'à cela ne tienne, on s'en sort très bien sans. Une bonne manière\nest d'avoir une variable dédiée indiquant si c'est la première fois que l'on\nrentre dans la boucle :</p>\n<pre>premiereFois = True\nwhile premiereFois or (les autres conditions):\n  premiereFois = False\n  (le corps de la boucle)\n</pre>\n\n<p>Quand <code>premiereFois</code> est vraie, le corps de la boucle est exécuté\nmême si les autres conditions impliqueraient le contraire. Une fois que le\ncorps de boucle a été exécuté, <code>premiereFois</code> est mis à faux et\nn'influe plus jamais la décision d'entrer dans le corps de boucle.</p>\n[/!] [!java|scala|c]\n<p>Dans une boucle <tt>while</tt>, la condition est évaluée avant toute chose,\net si elle est fausse, le corps de la boucle n'est jamais exécuté. Il arrive\nparfois que l'on veuille que le corps de la boucle soit évalué au moins une\nfois, même si la condition est initialement fausse. On utilise pour cela une\nvariante de la boucle <tt>while</tt>, dont la syntaxe est la suivante en\n[!thelang].[!java|c]Ne pas oublier le point virgule (;) après la condition,\nc'est obligatoire.[/!]\n\n<pre>do {\n    <b>action()</b>[!java];[/!]\n} while (<b>condition</b>)[!java];[/!]</pre></p>\n[/!]\n"
   },
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
@@ -852,6 +849,15 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 4,
+      "buggleID" : "Beatles2",
+      "oldX" : 1,
+      "oldY" : 6,
+      "newX" : 1,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 5,
       "buggleID" : "Beatles1",
       "oldX" : 0,
       "oldY" : 5,
@@ -860,7 +866,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 5,
+      "@jsonId" : 6,
       "buggleID" : "Beatles1",
       "oldX" : 0,
       "oldY" : 4,
@@ -869,7 +875,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 6,
+      "@jsonId" : 7,
       "buggleID" : "Beatles1",
       "oldX" : 0,
       "oldY" : 3,
@@ -878,7 +884,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 7,
+      "@jsonId" : 8,
       "buggleID" : "Beatles1",
       "oldX" : 0,
       "oldY" : 2,
@@ -887,7 +893,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 8,
+      "@jsonId" : 9,
       "buggleID" : "Beatles1",
       "oldX" : 0,
       "oldY" : 1,
@@ -896,38 +902,29 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 9,
-      "buggleID" : "Beatles3",
-      "oldX" : 2,
-      "oldY" : 6,
-      "newX" : 2,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 10,
-      "buggleID" : "Beatles3",
-      "oldX" : 2,
+      "buggleID" : "Beatles2",
+      "oldX" : 1,
       "oldY" : 5,
-      "newX" : 2,
+      "newX" : 1,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 11,
-      "buggleID" : "Beatles3",
-      "oldX" : 2,
+      "buggleID" : "Beatles2",
+      "oldX" : 1,
       "oldY" : 4,
-      "newX" : 2,
+      "newX" : 1,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 12,
-      "buggleID" : "Beatles3",
-      "oldX" : 2,
+      "buggleID" : "Beatles2",
+      "oldX" : 1,
       "oldY" : 3,
-      "newX" : 2,
+      "newX" : 1,
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
@@ -935,45 +932,45 @@
       "@jsonId" : 13,
       "buggleID" : "Beatles2",
       "oldX" : 1,
-      "oldY" : 6,
+      "oldY" : 2,
       "newX" : 1,
-      "newY" : 5,
+      "newY" : 1,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 14,
-      "buggleID" : "Beatles2",
-      "oldX" : 1,
-      "oldY" : 5,
-      "newX" : 1,
-      "newY" : 4,
+      "buggleID" : "Beatles3",
+      "oldX" : 2,
+      "oldY" : 6,
+      "newX" : 2,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 15,
-      "buggleID" : "Beatles2",
-      "oldX" : 1,
-      "oldY" : 4,
-      "newX" : 1,
-      "newY" : 3,
+      "buggleID" : "Beatles3",
+      "oldX" : 2,
+      "oldY" : 5,
+      "newX" : 2,
+      "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 16,
-      "buggleID" : "Beatles2",
-      "oldX" : 1,
-      "oldY" : 3,
-      "newX" : 1,
-      "newY" : 2,
+      "buggleID" : "Beatles3",
+      "oldX" : 2,
+      "oldY" : 4,
+      "newX" : 2,
+      "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 17,
-      "buggleID" : "Beatles2",
-      "oldX" : 1,
-      "oldY" : 2,
-      "newX" : 1,
-      "newY" : 1,
+      "buggleID" : "Beatles3",
+      "oldX" : 2,
+      "oldY" : 3,
+      "newX" : 2,
+      "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
@@ -1050,19 +1047,19 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 26,
-      "buggleID" : "Beatles9",
-      "oldX" : 8,
+      "buggleID" : "Beatles10",
+      "oldX" : 9,
       "oldY" : 6,
-      "newX" : 8,
+      "newX" : 9,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 27,
-      "buggleID" : "Beatles9",
-      "oldX" : 8,
+      "buggleID" : "Beatles10",
+      "oldX" : 9,
       "oldY" : 5,
-      "newX" : 8,
+      "newX" : 9,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
@@ -1070,162 +1067,162 @@
       "@jsonId" : 28,
       "buggleID" : "Beatles10",
       "oldX" : 9,
-      "oldY" : 6,
-      "newX" : 9,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 29,
-      "buggleID" : "Beatles10",
-      "oldX" : 9,
-      "oldY" : 5,
-      "newX" : 9,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 30,
-      "buggleID" : "Beatles10",
-      "oldX" : 9,
       "oldY" : 4,
       "newX" : 9,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 31,
-      "buggleID" : "Beatles11",
-      "oldX" : 10,
+      "@jsonId" : 29,
+      "buggleID" : "Beatles9",
+      "oldX" : 8,
       "oldY" : 6,
-      "newX" : 10,
+      "newX" : 8,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 30,
+      "buggleID" : "Beatles9",
+      "oldX" : 8,
+      "oldY" : 5,
+      "newX" : 8,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 31,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
+      "oldY" : 6,
+      "newX" : 12,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 32,
-      "buggleID" : "Beatles11",
-      "oldX" : 10,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
       "oldY" : 5,
-      "newX" : 10,
+      "newX" : 12,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 33,
-      "buggleID" : "Beatles11",
-      "oldX" : 10,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
       "oldY" : 4,
-      "newX" : 10,
+      "newX" : 12,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 34,
-      "buggleID" : "Beatles11",
-      "oldX" : 10,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
       "oldY" : 3,
-      "newX" : 10,
+      "newX" : 12,
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 35,
-      "buggleID" : "Beatles12",
-      "oldX" : 11,
-      "oldY" : 6,
-      "newX" : 11,
-      "newY" : 5,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
+      "oldY" : 2,
+      "newX" : 12,
+      "newY" : 1,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 36,
-      "buggleID" : "Beatles12",
-      "oldX" : 11,
-      "oldY" : 5,
-      "newX" : 11,
-      "newY" : 4,
+      "buggleID" : "Beatles13",
+      "oldX" : 12,
+      "oldY" : 1,
+      "newX" : 12,
+      "newY" : 0,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 37,
       "buggleID" : "Beatles12",
       "oldX" : 11,
-      "oldY" : 4,
+      "oldY" : 6,
       "newX" : 11,
-      "newY" : 3,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 38,
-      "buggleID" : "Beatles12",
-      "oldX" : 11,
-      "oldY" : 3,
-      "newX" : 11,
-      "newY" : 2,
+      "buggleID" : "Beatles11",
+      "oldX" : 10,
+      "oldY" : 6,
+      "newX" : 10,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 39,
       "buggleID" : "Beatles12",
       "oldX" : 11,
-      "oldY" : 2,
-      "newX" : 11,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 40,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
-      "oldY" : 6,
-      "newX" : 12,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 41,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
       "oldY" : 5,
-      "newX" : 12,
+      "newX" : 11,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 42,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
+      "@jsonId" : 40,
+      "buggleID" : "Beatles11",
+      "oldX" : 10,
+      "oldY" : 5,
+      "newX" : 10,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 41,
+      "buggleID" : "Beatles12",
+      "oldX" : 11,
       "oldY" : 4,
-      "newX" : 12,
+      "newX" : 11,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 42,
+      "buggleID" : "Beatles11",
+      "oldX" : 10,
+      "oldY" : 4,
+      "newX" : 10,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 43,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
+      "buggleID" : "Beatles12",
+      "oldX" : 11,
       "oldY" : 3,
-      "newX" : 12,
+      "newX" : 11,
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 44,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
-      "oldY" : 2,
-      "newX" : 12,
-      "newY" : 1,
+      "buggleID" : "Beatles11",
+      "oldX" : 10,
+      "oldY" : 3,
+      "newX" : 10,
+      "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 45,
-      "buggleID" : "Beatles13",
-      "oldX" : 12,
-      "oldY" : 1,
-      "newX" : 12,
-      "newY" : 0,
+      "buggleID" : "Beatles12",
+      "oldX" : 11,
+      "oldY" : 2,
+      "newX" : 11,
+      "newY" : 1,
       "name" : "moveBuggleOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>void left()<br/>\n          void right()<br/>\n          void back()<br/>\n          void forward() or void forward(int steps)<br/>\n          void backward() or void backward(int steps)<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>int getX()<br/>\n          int getY()<br/>\n          void setX(int x)<br/>\n          void setY(int y)<br/>\n          void setPos(int x, int y)</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>Color getBodyColor()<br/>\n          void setBodyColor(Color c)</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>boolean isFacingWall()<br/>\n          boolean isBackingWall()</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>Direction getDirection()<br/>\n          void setDirection(Direction dir)<br/>\n          Direction.NORTH, Direction.EAST, Direction.SOUTH and Direction.WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>boolean isSelected()</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>void brushUp()<br/>\n          void brushDown()<br/>\n          boolean isBrushDown()</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>void setBrushColor(Color c)<br/>\n          Color getBrushColor()</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>Color getGroundColor()</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>boolean isOverBaggle()<br/>\n          boolean isCarryingBaggle()<br/>\n          void pickupBaggle()<br/>\n          void dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>boolean isOverMessage()<br/>\n          void writeMessage(String msg)<br/>\n          String readMessage()<br/>\n          void clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
@@ -1730,5 +1727,10 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ]
+  } ],
+  "instructions" : {
+    "pt" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Loops Do .. while (faça .. enquanto)</h2>\n\n<p>Algumas células do mundo são amarelas, mas seu buggle não pode ficar sobre\nestas células. Escreva o código necessário para mover para a frente até que\no chão fique branco. Para isto use o método fornecido\n<code>chãoBranco()</code>.</p>\n\n<p>O truque é que a maioria dos buggles deste mundo ficam sobre o chão amarelo\nque eles não gostam. é por isto que eles estão em pânico, e cada buggle\n\"rushes\" uma célula para a frente, mesmo aqueles que não estavam numa célula\namarela no começo. Em outras palavras, mesmo se o chão for branco na\nprimeira célula, você ainda vai querer se mover para a próxima célula.</p>    \n\n<p>A ideia geral é fazer algo como: </p>\n<pre>Mover para a frente até estar numa célula branca</pre>\n\n<p>A coisa mais difícil é que nós queremos executar o corpo do loop uma vez,\nmesmo se já estivermos numa célula branca. Isto é fácil duplicando o código\ndo loop'antes do loop em si, mas esta é uma má ideia: diplicação de código é\num hábito <b>muito</b> ruim, e você deve evitar isto <b>sempre</b>.</p>\n\n<p>Duplicação de código faz da manutenção de código um pesadelo rapidamente: é\nfdifícil ler o código e o leitor tem que garantir que nenhuma pequena\ndiferença exista entre as versões. Depurar o código se torna difícil, pois\nos bugs devem ser consertados em todas as versões. Na verdade, cada\nmodificação do código se torna difícil. Então, na verdade, você deve\n<b>sempre</b> se esforçar para não duplicar seu código sempre que\npossível. Mas a boa notícia é que você sempre pode...</p>\n\n<h3>Executando o corpo do loop pelo menos uma vez</h3>\n[!python]\n<p>Algumas linguagens tem construções específicas para isto, mas não a\nlinguagem Python. Sem problemas, podemos fazer isto nós mesmos! Uma boa\nforma é ter uma variável dedicada indicando se estamos entrando no loop a\nprimeira vez ou não, como segue.</p>\n<pre>primeiraVez = True\nwhile primeiraVez or (outras condições):\n  primeiraVez = False\n  (corpo do loop)\n</pre>\n\n<p>Quando <code>primeiraVez</code> é true, o corpo do loop é executado mesmo se\nas outras condições digam o contrário.  uma vez que o loop tenha sido\nexecutado uma vez, esta variável vira false e nunca mais impacta na decisão\nde entrar ou não no loop.</p>\n[/!] [!java|scala|c]\n<p>Num loop <tt>while</tt>, a condição é calculada antes de qualquer coisa, e\nse for falsa, o corpo do loop nunca é executado. Algumas vezes (mas não\nmuito frequentemente), você pode preferir que o corpo do loop seja executado\npelo menos uma vez, mesmo se a condição seja inicialmente falsa. Para isto,\numa variação do loop <tt>while</tt> é usada, com a seguinte sintaxe em\n[!thelang].  [!java|c]Não esqueça o ponto-e-vírgula (;) depois da condição,\nque é obrigatório.[/!]\n\n<pre>do {\n    <b>ação()</b>[!java];[/!]\n} while (<b>condição</b>)[!java];[/!]</pre></p>\n[/!]\n",
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Do .. while loops</h2>\n\n<p>Some cells of the world are yellow, but your buggle cannot stand being in \nsuch cells. Write the necessary code to move forward until the ground \ngets white. For that, use the provided method <code>isGroundWhite()</code>.</p>\n\n<p>The trick is that most buggles of this world are currently on this yellow ground \nthat they dislike so much. That is why they are in panic, and every buggle rushes \none cell forward, even the buggle that was not on a yellow cell at first. In other worlds,  \neven if the ground is white on the first cell, you still want to move forward to the next cell.</p>    \n\n<p>The general idea is to do something like: </p>\n<pre>move forward until located in a white cell</pre>\n\n<p>The main difficulty is that we want this loop body to be executed once, even we are already on a white cell. \nIt would be easy to do so by duplicating the loop content before the actual loop, but this would be a bad idea: \ncode duplication is a <b>very</b> bad habit, and you should <b>always</b> avoid it.</p>\n\n<p>Code duplication easily turns code maintenance into a nightmare: reading the code becomes difficult as the reader must ensure \nthat no slight difference exist between the versions. Debugging the code becomes difficult, as bugs have to be fixed \nin all versions. Actually, every modification of the code becomes difficult. So, really, you should <b>always</b> \nstrive to not duplicate your code if you can avoid. And the good news is that you always can...</p>\n\n<h3>Executing the loop body at least once</h3>\n[!python]\n<p>Some languages\nhave specific constructs for that, but not the Python language. No problem, we can do it\non our own! A good way is to have a dedicated variable indicating whether we are taking\nthe loop for the first time or not, as follows.</p>\n<pre>firstTime = True\nwhile firstTime or (other conditions):\n  firstTime = False\n  (loop body)\n</pre>\n\n<p>When <code>firstTime</code> is true, the loop body is executed even if the other conditions would imply the contrary. \nOnce the loop body has been executed once, it is set to false and never impact again the decision to enter the body or not.</p>\n[/!]\n\n\n[!java|scala|c]\n<p>In a <tt>while</tt> loop, the condition is evaluated before anything else,\nand if it's false, the loop body is never evaluated. Sometimes (although not \nthat often), you would prefer the\nloop body to get evaluated at least once, even if the condition is initially\nfalse. For that, a variation of the <tt>while</tt> loop gets used, using the\nfollowing syntax in [!thelang]. \n[!java|c]Do not forget the semi-column (;) after the condition, it is mandatory.[/!]\n\n<pre>do {\n    <b>action()</b>[!java];[/!]\n} while (<b>condition</b>)[!java];[/!]</pre></p>\n[/!]\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h2>Boucles jusqu'à<tt> (do ... while)</tt></h2>\n\n<p>Certaines cases du monde sont jaunes, mais les buggles ne supportent pas de\ns'y trouver. Écrivez le code nécessaire pour avancer jusqu'à ce que le sol\ndevienne blanc. Vous pourrez utiliser la méthode <code>estSurBlanc()</code>\nqui retourne vrai si le sol est blanc..</p>\n\n<p>Le truc est que la plupart des buggles de ce monde se trouvent actuellement\nsur ce sol jaune qui les énerve tant. Cela explique sans doute leur état de\npanique, et le fait que toutes les buggles se ruent vers l'avant au début,\nmême la buggle qui ne se trouve pas sur du jaune. En d'autres mots, même si\nle sol est blanc le premier coup, il faut quand même avancer d'un pas.</p>    \n\n<p>L'idée générale est donc de faire: </p>\n<pre>avancer jusqu'à se trouver sur une case blanche</pre>\n\n<p>La principale difficulté est que nous voulons exécuter le corps de boucle au\nmoins une fois, même si la buggle se trouve déjà sur une case blanche. Il\nserait facile de dupliquer le corps de la boucle avant la boucle pour cela,\nmais  ça serait une <b>très mauvaise idée</b>. Dupliquer du code est une\n<b>très mauvaise habitude</b> et il faut toujours éviter de le faire.</p>\n\n<p>Quand on duplique le code, sa maintenance tourne facilement au cauchemar :\nla lecture du code est très pénible puisque le lecteur doit s'assurer qu'il\nn'y a effectivement aucune différence, même minime, entre les versions du\nmême code. Debugger le code devient plus long, puisqu'il faut corriger\ntoutes les versions. En fait, toutes les modifications deviennent\npénibles. Alors, vraiment, vous devrez <b>toujours</b> vous efforcer\nd'éviter la duplication du code quand c'est possible. Et la bonne nouvelle\nest que c'est toujours possible...</p>\n\n<h3>Exécuter le corps de boucle au moins une fois</h3>\n[!python]\n<p>Certain langage ont une construction spécifique pour cela, mais pas\nPython. Qu'à cela ne tienne, on s'en sort très bien sans. Une bonne manière\nest d'avoir une variable dédiée indiquant si c'est la première fois que l'on\nrentre dans la boucle :</p>\n<pre>premiereFois = True\nwhile premiereFois or (les autres conditions):\n  premiereFois = False\n  (le corps de la boucle)\n</pre>\n\n<p>Quand <code>premiereFois</code> est vraie, le corps de la boucle est exécuté\nmême si les autres conditions impliqueraient le contraire. Une fois que le\ncorps de boucle a été exécuté, <code>premiereFois</code> est mis à faux et\nn'influe plus jamais la décision d'entrer dans le corps de boucle.</p>\n[/!] [!java|scala|c]\n<p>Dans une boucle <tt>while</tt>, la condition est évaluée avant toute chose,\net si elle est fausse, le corps de la boucle n'est jamais exécuté. Il arrive\nparfois que l'on veuille que le corps de la boucle soit évalué au moins une\nfois, même si la condition est initialement fausse. On utilise pour cela une\nvariante de la boucle <tt>while</tt>, dont la syntaxe est la suivante en\n[!thelang].[!java|c]Ne pas oublier le point virgule (;) après la condition,\nc'est obligatoire.[/!]\n\n<pre>do {\n    <b>action()</b>[!java];[/!]\n} while (<b>condition</b>)[!java];[/!]</pre></p>\n[/!]\n"
+  }
 }

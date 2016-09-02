@@ -29,12 +29,9 @@
     }
   },
   "helps" : {
+    "pt" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>[!java|c]int [/!]getStackSize()  [!scala]:Int[/!]</pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>[!java|c]int [/!]getPancakeRadius([!java|c]int [/!]rank[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>[!java]boolean [/!][!c]int [/!]isPancakeUpsideDown([!java|c]int [/!]rank[!scala]:Int[/!])   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>[!java|c]void [/!]flip([!java|c]int [/!]amount[!scala]:Int[/!])</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSorted()   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSelected()   [!scala]:Boolean[/!]</pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>[!java|c]int [/!]getStackSize()  [!scala]:Int[/!]</pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>[!java|c]int [/!]getPancakeRadius([!java|c]int [/!]rank[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>[!java]boolean [/!][!c]int [/!]isPancakeUpsideDown([!java|c]int [/!]rank[!scala]:Int[/!])   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>[!java|c]void [/!]flip([!java|c]int [/!]amount[!scala]:Int[/!])</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSorted()   [!scala]:Boolean[/!]</pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>[!java]boolean [/!][!c]int [/!]isSelected()   [!scala]:Boolean[/!]</pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Monde des crêpes</h1>\n\n<p>Cet univers est très simple, avec seulement cinq fonctions fournies.</p>\n\n<pre>[!java|c]int [/!]getTaillePile()  [!scala]:Int[/!]</pre>\nRenvoie la taille du tas de crêpes, c'est à dire le nombre de crêpes qui le\ncompose.\n\n<pre>[!java|c]int [/!]getRayonCrepe([!java|c]int [/!]rang[!scala]:Int[/!])  [!scala]:Int[/!]</pre>\nRenvoie le rayon de la crêpe passée en argument, sachant que le rang de la\ncrêpe du haut est 0.\n\n<pre>[!java]boolean [/!][!c]int [/!]estCrepeRetournee([!java|c]int [/!]rang[!scala]:Int[/!])   [!scala]:Boolean[/!]</pre>\nRenvoie si la crêpe passée en paramètre (la crêpe du haut étant de rang 0)\nest à l'envers, c'est-à-dire si sa face brûlée est en haut.\n\n<pre>[!java|c]void [/!]retourne([!java|c]int [/!]quantité[!scala]:Int[/!])</pre>\nRetourne les <code>quantité</code> premières crêpes de la pile, en partant\ndu sommet de celle-ci.\n\n<pre>[!java]boolean [/!][!c]int [/!]estTriee()   [!scala]:Boolean[/!]</pre>\nRenvoie si la pile de crêpes est correctement triée.\n\n<pre>[!java]boolean [/!][!c]int [/!]estSelectionne() [!scala]:Boolean[/!]</pre>\nRenvoi si le monde actuel est sélectionné dans l'interface graphique.  \n"
-  },
-  "instructions" : {
-    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Faster Pancake Sorting</h1>\n\n<p>Unlike others sorting problem, the expensive operation is not the comparison of values, but\nthe flipping of pancakes. In this exercise, we will explore another algorithm that \nattempt to reduce the amount of stack flipping. The funny side is that this algorithm was first \nintroduced by Bill Gates, before invented Windows.</p>\n\n<p>The basic idea is to grow sequences of sorted pancakes, not necessarily starting from the bottom. \nWe say that a sequence of ordered pancakes constitute a <b>block</b> while a pancake that is not part\nof a block is said to be <b>free</b>. The algorithm then considers the topmost pancake (of radius \n<code>t</code>) and search for the <code>t+1</code> or <code>t-1</code> pancakes (the considered \nneighbor is noted <code>t+o</code>). Eight cases may happen:</p>\n\n<ul>\n<li><b>Case a</b>: Both <code>t</code> and <code>t+o</code> are free. They are then merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-a.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case b</b>: <code>t</code> is free, and <code>t+o</code> is the first of a block. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-b.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case c</b>: <code>t</code> is free but both <code>t-1</code> and <code>t+1</code> are the last elements of blocks. \nBoth blocks and <code>t</code> are merged all together in 4 flips. \nBeware, if either <code>t-1</code> or <code>t+1</code> does not exist (because <code>t</code> is 0 or max), only two flips are mandated.\n<br/>\n<div align=\"center\"><img src=\"img/gates-c.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case d</b>: <code>t</code> is in a block but <code>t+o</code> is free. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-d.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case e</b>: <code>t</code> is in a block and <code>t+o</code> is the first element of a block. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-e.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case f</b>: <code>t</code> is in a block and <code>t+o</code> is the last element of another block. \nThey are merged in 3 flips as follows.<br/>\n<div align=\"center\"><img src=\"img/gates-f.png\"/></div></li></ul>\n\n<ul><li><b>Case g</b>: <code>t</code> is in a block of length k+1 (the last element is <code>t+ko</code>), <code>t+(k+1)o</code> is either free or the last element of another block. Both blocks are merged in 2 flips:<br/>\n<div align=\"center\"><img src=\"img/gates-g.png\"/></div><br/></li></ul>\n\n<ul><li><b>Case h</b>: <code>t</code> is in a block of length k+1 (the last element is <code>t+ko</code>), \n  <code>t+(k+1)o</code> is the first element of another block (the difference with case g is that \n  <code>t+(k+1)o</code> is now the <i>first</i> element of its block). Both blocks are merged in 2 flips:<br/>\n<div align=\"center\"><img src=\"img/gates-h.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case i</b>: <code>t</code> is in a block of length <code>n</code> (this block contains all pancakes). \nIf <code>t</code> is not 1, the whole stack is fliped. The algorithm then stops.</li></ul>    \n\n<p>Each iteration increases the size of the blocks, so the algorithm eventually halts in all cases. A finer analysis would show that it takes \nat most <code>(5n+5)/3</code> steps to sort the stack. That's better than the naïve algorithm, that requires 2n-3 steps.</p>\n\n<h2>Your turn</h2>\n<p>You now have almost enough information to implement this algorithm on your own. We just have to remove the last remaining ambiguities \nto ensure that you implement exactly the same algorithm that the correction. If several cases apply to your situation, then you \nshould use the first given one. For example, if both cases a and b apply (e.g., with <code>t-1</code> on case <b>a</b> and <code>t+1</code> \non case <b>b</b>), then you should apply the flips of case <b>a</b>. If a given case applies for both <code>t+1</code> and <code>t-1</code>,\nthen you should apply it to <code>t+1</code>.</p>\n\n<p>Note that it is somehow harder than the other exercises we did so far, so don't be surprised if you need more time to achieve this. \nBut do not give up hope, you can do it!</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Well, I need some help to start.\">\nFirst write some helper functions such as <code>isFirst()</code> or\n<code>isFree()</code>. This will simplify your main algorithm\nafterward, that can be written very similarly to the explication\nabove with a bunch of if conditions. Factorizing code this way often\nhelps making your code more readable.\n</tips></p>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"My code keeps failing and I don't know how to debug it.\">\nTo debug one world after the other and avoid that the messages of all\nworlds get intermixed, you can write your debug function only if the\nmethod <code>isSelected()</code> returns true. It will be so only for\nthe entity that is currently selected in the graphical interface, that\nis probably the world you are currently debugging. This will help breaking the\ndifficulty in parts by debugging the situation one after the other.<br/>\nIn particular, it may help to print textually the state of the world\neach time you enter the main loop. \n</tips></p>\n",
-    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Tri rapide de crêpes</h1>\n\n<p>Contrairement aux problèmes classiques de tri, l'opération coûteuse à\néconomiser n'est pas la comparaison des valeurs, mais le retournement des\ncrêpes. Dans cet exercice, nous allons explorer un autre algorithme\npermettant de réduire le nombre de retournements nécessaires pour trier la\npile. Fait amusant, cet algorithme a été proposé pour la première fois par\nBill Gates, avant qu'il n'invente Windows.</p>\n\n<p>L'idée de base est de faire grandir des séquences de crêpes triées, pas\nforcément en commençant du bas de la pile. On dira qu'un ensemble de crêpes\ndans l'ordre constitue un <b>block</b> tandis qu'une crêpe qui n'est pas\ndans un bloc est dite <b>libre</b>. L'algorithme considère la crêpe tout en\nhaut de la pile, dont la taille est notée <code>t</code>, et cherche les\ndeux crêpes de taille <code>t-1</code> et <code>t+1</code> (le voisin ainsi\nconsidéré est noté <code>t+o</code>). Huit cas sont possibles alors&nbsp;:</p>\n\n<ul>\n<li><b>Cas a</b>: <code>t</code> et <code>t+o</code> sont tous les deux\nlibres. Ils sont alors fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-a.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas b</b>: <code>t</code> est libre, et <code>t+o</code> est le premier\nélément d'un bloc. Ils sont fusionnés en un bloc.<br/>\n<div align=\"center\"><img src=\"img/gates-b.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas c</b>: <code>t</code> est libre, mais <code>t-1</code> et\n<code>t+1</code> sont tous les deux les derniers éléments de blocs. Ces deux\nblocs ainsi que <code>t</code> sont tous fusionnés en 4\nretournements. Prenez garde, si <code>t-1</code> ou <code>t+1</code>\nn'existe pas (parce que <code>t</code> est 0 ou max), seulement deux de ces\nretournements sont nécessaires.\n<br/>\n<div align=\"center\"><img src=\"img/gates-c.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas d</b>: <code>t</code> est dans un bloc, mais <code>t+o</code> est\nlibre. Ils sont fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-d.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas e</b>: <code>t</code> est dans un bloc, et <code>t+o</code> est le\npremier élément d'un bloc. Ils sont fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-e.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas f</b>: <code>t</code> est dans un bloc, et <code>t+o</code> est le\ndernier élément d'un autre bloc. Ils sont fusionnés en trois retournements\ncomme suit.<br/>\n<div align=\"center\"><img src=\"img/gates-f.png\"/></div></li></ul>\n\n<ul><li><b>Cas g</b>: <code>t</code> est dans un bloc de taille k+1 (le dernier\nélément est <code>t+ko</code>), <code>t+(k+1)o</code> est soit libre soit le\ndernier élément d'un autre bloc. Les deux blocs sont fusionnés en deux\nretournements:<br/>\n<div align=\"center\"><img src=\"img/gates-g.png\"/></div><br/></li></ul>\n\n<ul><li><b>Cas h</b>: <code>t</code> est dans un bloc de taille k+1 (le dernier\nélément est <code>t+ko</code>), <code>t+(k+1)o</code> est le premier élément\nd'un autre bloc (la différence avec le cas g est que <code>t+(k+1)o</code>\nest maintenant le <i>premier</i> élément de son bloc). Les deux blocs sont\nfusionnés en deux retournements:<br/>\n<div align=\"center\"><img src=\"img/gates-h.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas i</b>: <code>t</code> est dans un bloc de taille <code>n</code>, qui\ncontient donc toutes les crêpes. Si <code>t</code> n'est pas 1, toute la\npile est retournée. Ensuite, l'algorithme s'arrête.</li></ul>    \n\n<p>Chaque itération augmente la taille des blocs, donc la terminaison de\nl'algorithme est certaine. Une analyse plus fine montre qu'il prend au plus\n<code>(5n+5)/3</code> étapes pour trier la pile. C'est mieux que\nl'algorithme naïf, qui nécessite <code>2n-3</code> étapes pour cela.</p>\n\n<h2>À vous de jouer</h2>\n<p>Vous avez maintenant quasi assez d'informations pour implémenter cet\nalgorithme par vous-même. Il faut juste lever les dernières ambiguïtés pour\nque vous implémentiez exactement le même algorithme que la correction. Si\nplusieurs cas s'appliquent à la situation courante, appliquez le\npremier. Par exemple, si les cas a et b s'appliquent (avec <code>t-1</code>\npour le cas a et <code>t+1</code> pour le cas b), vous devez appliquer les\ninstructions du cas <b>a</b>. Si un cas donné s'applique à la fois pour\n<code>t+1</code> et <code>t-1</code>, appliquez le pour <code>t+1</code>.</p>\n\n<p>Cet exercice est plus difficile que ceux que nous avons fait jusque là, et\nil ne serait pas choquant que vous ayez besoin d'un peu plus de temps que\nles autres pour le résoudre. Mais n'abandonnez pas, vous pouvez le faire !</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Heu, j'ai besoin d'un peu d'aide pour commencer.\">\nCommencez par écrire des fonctions d'aide, comme <code>estLibre()</code> ou\n<code>estPremier()</code>. Cela simplifiera l'écriture de votre algorithme,\nqui peut être écrit sous une forme très similaire à l'énoncé si vous faites\nles bonnes fonctions d'aide. Factoriser ainsi votre code aide très souvent à\naméliorer la lisibilité du code.\n</tips></p>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"Mon code ne fonctionne pas, et je ne sais pas comment le débugger\">\nPour débugger un monde après l'autre, il est préférable d'éviter que les\naffichages de tous les mondes se mélangent. Le plus simple pour cela est\nd'utiliser la méthode <code>isSelected()</code> qui ne renvoi vrai que si le\nmonde courant est celui sélectionné dans l'interface. Cela aidera à réduire\nla complexité en résolvant les problèmes les uns après les autres.<br/>\nEn particulier, afficher l'état du monde sous forme textuelle à chaque fois\nque vous rentrez dans la boucle principale peut aider. \n</tips></p>\n"
   },
   "initialWorlds" : [ {
     "type" : "plm.universe.pancake.PancakeWorld",
@@ -228,35 +225,35 @@
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
-      "radius" : 1
-    }, {
-      "radius" : 11
-    }, {
-      "radius" : 9
-    }, {
       "radius" : 4
-    }, {
-      "radius" : 5
-    }, {
-      "radius" : 6
-    }, {
-      "radius" : 12
-    }, {
-      "radius" : 10
     }, {
       "radius" : 2
     }, {
-      "radius" : 3
+      "radius" : 9
     }, {
-      "radius" : 8
-    }, {
-      "radius" : 15
+      "radius" : 6
     }, {
       "radius" : 7
     }, {
+      "radius" : 1
+    }, {
       "radius" : 14
     }, {
+      "radius" : 8
+    }, {
+      "radius" : 3
+    }, {
+      "radius" : 10
+    }, {
+      "radius" : 11
+    }, {
+      "radius" : 12
+    }, {
       "radius" : 13
+    }, {
+      "radius" : 5
+    }, {
+      "radius" : 15
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
@@ -824,14 +821,14 @@
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 64,
-      "number" : 8,
+      "number" : 13,
       "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 65,
       "number" : 6,
-      "oldNumber" : 8,
+      "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
@@ -842,97 +839,67 @@
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 67,
-      "number" : 3,
+      "number" : 2,
       "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 68,
-      "number" : 9,
-      "oldNumber" : 3,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 69,
-      "number" : 6,
-      "oldNumber" : 9,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 70,
-      "number" : 2,
-      "oldNumber" : 6,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 71,
-      "number" : 9,
+      "number" : 14,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 72,
-      "number" : 6,
+      "@jsonId" : 69,
+      "number" : 12,
+      "oldNumber" : 14,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 70,
+      "number" : 9,
+      "oldNumber" : 12,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 71,
+      "number" : 3,
       "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
+      "@jsonId" : 72,
+      "number" : 10,
+      "oldNumber" : 3,
+      "name" : "flipOperation"
+    } ], [ {
+      "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 73,
-      "number" : 12,
-      "oldNumber" : 6,
+      "number" : 9,
+      "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 74,
-      "number" : 13,
-      "oldNumber" : 12,
+      "number" : 7,
+      "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
       "@jsonId" : 75,
-      "number" : 7,
-      "oldNumber" : 13,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 76,
-      "number" : 12,
+      "number" : 14,
       "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 77,
-      "number" : 5,
-      "oldNumber" : 12,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 78,
-      "number" : 12,
-      "oldNumber" : 5,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 79,
-      "number" : 15,
-      "oldNumber" : 12,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 80,
-      "number" : 3,
-      "oldNumber" : 15,
-      "name" : "flipOperation"
-    } ], [ {
-      "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 81,
-      "number" : 15,
-      "oldNumber" : 3,
+      "@jsonId" : 76,
+      "number" : 7,
+      "oldNumber" : 14,
       "name" : "flipOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>PancakeWorld</h1>\n\n<p>This universe is very simple, with only five functions provided.</p>\n\n<pre>int getStackSize()  </pre>\nReturns the size of the stack, that is the amount of pancakes it contains.\n\n<pre>int getPancakeRadius(int rank)  </pre>\nReturns the radius of the pancake passed as argument, with the rank of the top-most pancake being 0.\n\n<pre>boolean isPancakeUpsideDown(int rank)   </pre>\nReturns whether the pancake passed as argument upside-down, that is, if its burned side is on top. As usual, the top-most pancake is of rank 0.\n\n<pre>void flip(int amount)</pre>\nFlips the <code>amount</code> first pancakes composing the stack, from the top of it.\n\n<pre>boolean isSorted()   </pre>\nReturns whether the pancake stack is correctly sorted.\n\n<pre>boolean isSelected()   </pre>\nReturns whether the current world is selected in the graphical interface.  \n",
     "parameters" : null,
-    "moveCount" : 18,
+    "moveCount" : 13,
     "selected" : -1,
     "burnedWorld" : false,
     "pancakeStack" : [ {
@@ -968,287 +935,287 @@
     } ]
   }, {
     "type" : "plm.universe.pancake.PancakeWorld",
-    "@jsonId" : 82,
+    "@jsonId" : 77,
     "name" : "30 pancakes",
     "entities" : [ {
       "type" : "plm.universe.pancake.PancakeEntity",
       "name" : "Bill",
-      "world" : 82,
+      "world" : 77,
       "inited" : true
     } ],
     "steps" : [ [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 83,
+      "@jsonId" : 78,
       "number" : 11,
       "oldNumber" : -1,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 84,
+      "@jsonId" : 79,
       "number" : 12,
       "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 85,
+      "@jsonId" : 80,
       "number" : 16,
       "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 86,
+      "@jsonId" : 81,
       "number" : 20,
       "oldNumber" : 16,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 87,
+      "@jsonId" : 82,
       "number" : 8,
       "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 88,
+      "@jsonId" : 83,
       "number" : 24,
       "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 89,
+      "@jsonId" : 84,
       "number" : 3,
       "oldNumber" : 24,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 90,
+      "@jsonId" : 85,
       "number" : 28,
       "oldNumber" : 3,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 91,
+      "@jsonId" : 86,
       "number" : 12,
       "oldNumber" : 28,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 92,
+      "@jsonId" : 87,
       "number" : 11,
       "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 93,
+      "@jsonId" : 88,
       "number" : 19,
       "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 94,
+      "@jsonId" : 89,
       "number" : 11,
       "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 95,
+      "@jsonId" : 90,
       "number" : 15,
       "oldNumber" : 11,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 96,
+      "@jsonId" : 91,
       "number" : 18,
       "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 97,
+      "@jsonId" : 92,
       "number" : 9,
       "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 98,
+      "@jsonId" : 93,
       "number" : 21,
       "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 99,
+      "@jsonId" : 94,
       "number" : 29,
       "oldNumber" : 21,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 100,
+      "@jsonId" : 95,
       "number" : 18,
       "oldNumber" : 29,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 101,
+      "@jsonId" : 96,
       "number" : 27,
       "oldNumber" : 18,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 102,
+      "@jsonId" : 97,
       "number" : 20,
       "oldNumber" : 27,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 103,
+      "@jsonId" : 98,
       "number" : 2,
       "oldNumber" : 20,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 104,
+      "@jsonId" : 99,
       "number" : 15,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 105,
+      "@jsonId" : 100,
       "number" : 13,
       "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 106,
+      "@jsonId" : 101,
       "number" : 2,
       "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 107,
+      "@jsonId" : 102,
       "number" : 7,
       "oldNumber" : 2,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 108,
+      "@jsonId" : 103,
       "number" : 5,
       "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 109,
+      "@jsonId" : 104,
       "number" : 9,
       "oldNumber" : 5,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 110,
+      "@jsonId" : 105,
       "number" : 8,
       "oldNumber" : 9,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 111,
+      "@jsonId" : 106,
       "number" : 25,
       "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 112,
+      "@jsonId" : 107,
       "number" : 8,
       "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 113,
+      "@jsonId" : 108,
       "number" : 8,
       "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 114,
+      "@jsonId" : 109,
       "number" : 4,
       "oldNumber" : 8,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 115,
+      "@jsonId" : 110,
       "number" : 17,
       "oldNumber" : 4,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 116,
+      "@jsonId" : 111,
       "number" : 13,
       "oldNumber" : 17,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 117,
+      "@jsonId" : 112,
       "number" : 6,
       "oldNumber" : 13,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 118,
+      "@jsonId" : 113,
       "number" : 10,
       "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 119,
+      "@jsonId" : 114,
       "number" : 7,
       "oldNumber" : 10,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 120,
+      "@jsonId" : 115,
       "number" : 19,
       "oldNumber" : 7,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 121,
+      "@jsonId" : 116,
       "number" : 12,
       "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 122,
+      "@jsonId" : 117,
       "number" : 19,
       "oldNumber" : 12,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 123,
+      "@jsonId" : 118,
       "number" : 15,
       "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 124,
+      "@jsonId" : 119,
       "number" : 6,
       "oldNumber" : 15,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 125,
+      "@jsonId" : 120,
       "number" : 19,
       "oldNumber" : 6,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 126,
+      "@jsonId" : 121,
       "number" : 25,
       "oldNumber" : 19,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 127,
+      "@jsonId" : 122,
       "number" : 6,
       "oldNumber" : 25,
       "name" : "flipOperation"
     } ], [ {
       "type" : "plm.universe.pancake.operations.FlipOperation",
-      "@jsonId" : 128,
+      "@jsonId" : 123,
       "number" : 25,
       "oldNumber" : 6,
       "name" : "flipOperation"
@@ -1319,5 +1286,10 @@
     }, {
       "radius" : 30
     } ]
-  } ]
+  } ],
+  "instructions" : {
+    "pt" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Ondenação de Panqueca Rápida</h1>\n\n<p>Ao contrário de outros problemas de ordenação, a operação cara não é a\ncomparação de valores, mas virar as panquecas. Neste exercício, vamos\nexplorar outro algoritmo que tenta reduzir a quantidade de viradas da\npilha. O engraçado é que este algoritmo mostrado primeiro por Bill Gates,\nantes de inventar o Windows.</p>\n\n<p>A ideia básica é aumentar as sequências de panquecas ordenadas, não\nnecessariamente começando do fundo. Dizemos que uma sequência de panquecas\nordenadas constitui um <b>bloco</b> enquanto uma panqueca que não é parte de\num bloco é dita <b>livre</b>. O algoritmo então considera o panqueca mais de\ncima (de raio <code>t</code>) e busca pelas panquecas <code>t+1</code> ou\n<code>t-1</code> (a vizinhança considerada é <code>t+o</code>). Oito casos\npodem acontecer:</p>\n\n<ul>\n<li><b>Caso a</b>: tanto <code>t</code> quanto <code>t+o</code> são livres. elas\nsão então juntadas em uma virada.<br/>\n<div align=\"center\"><img src=\"img/gates-a.png\"/></div>\n</li></ul>\n\n<ul><li><b>Caso b</b>: <code>t</code> é livre, e <code>t+o</code> é o primeiro de um\nbloco. Eles são juntados em uma virada.<br/>\n<div align=\"center\"><img src=\"img/gates-b.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Caso c</b>: <code>t</code> é livre mas tanto <code>t-1</code> quanto\n<code>t+1</code> são últimos elementos de blocos. Os blocos e <code>t</code>\nsão mesclados juntos em 4 viradas. Cuidado, se <code>t-1</code> ou\n<code>t+1</code> não existir (pois <code>t</code> é 0 ou max), apenas duas\nviradas são obrigatórias.\n<br/>\n<div align=\"center\"><img src=\"img/gates-c.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Caso d</b>: <code>t</code> está num bloco mas <code>t+o</code> é\nlivre. Eles são mesclados em uma virada.<br/>\n<div align=\"center\"><img src=\"img/gates-d.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Caso e</b>: <code>t</code> está num bloco e <code>t+o</code> é o primeiro\nelemento de um bloco. Eles são mesclados em uma virada.<br/>\n<div align=\"center\"><img src=\"img/gates-e.png\"/></div>\n</li></ul>\n\n<ul><li><b>Caso f</b>: <code>t</code> está em um bloco e <code>t+o</code> é o último\nelemento de outro bloco. Eles são mesclados em 3 viradas como segue.<br/>\n<div align=\"center\"><img src=\"img/gates-f.png\"/></div></li></ul>\n\n<ul><li><b>Caso g</b>: <code>t</code> está em um bloco de comprimento k+1 (o último\nelemento é <code>t+ko</code>), <code>t+(k+1)o</code> é tanto livre ou o\núltimo elemento é outro bloco. Ambos os blocos são mesclados em 2 viradas:<br/>\n<div align=\"center\"><img src=\"img/gates-g.png\"/></div><br/></li></ul>\n\n<ul><li><b>Caso h</b>: <code>t</code> está num bloco de comprimento k+1 (o último\nelemento é <code>t+ko</code>), <code>t+(k+1)o</code> é o primeiro elemento\nde outro bloco (a diferença com o caso g é que <code>t+(k+1)o</code> é agora\no <i>primeiro</i> elemento de seu bloco). Ambos os blocos são mesclados em 2\nviradas:<br/>\n<div align=\"center\"><img src=\"img/gates-h.png\"/></div>\n</li></ul>\n\n<ul><li><b>Caso i</b>: <code>t</code> está num bloco de comprimento <code>n</code>\n(este bloco contém todas as panquecas). Se <code>t</code> não for 1, a pilha\ntoda destá virada. O algoritmo então pára.</li></ul>    \n\n<p>Cada iteração aumenta o tamanho dos blocos, então o algoritmo eventualmente\npára em todos os casos. Uma análise mais aprofundada mostrará que leva no\nmáximo <code>(5n+5)/3</code> passos para ordenar a pilha. O que é melhor que\no algoritmo simplório, que precisa de 2n-3 passos.</p>\n\n<h2>Sua vez</h2>\n<p>Você agora tem quase toda a informação necessária para implementar este\nalgoritmo por si só. Temos apenas que remover as últimas ambiquidades para\ngarantir que você implemente exatamente o mesmo algoritmo que a correção. Se\nvários casos se aplicam a sua situação, então você deve usar o primeiro que\nfoi dado. Por exemplo, se tanto o caso a quanto o caso b se  se aplicam\n(e.g., com <code>t-1</code> no <b>a</b> e <code>t+1</code> no caso\n<b>b</b>), então você deve aplicar as viradas do caso <b>a</b>. Se um dado\ncaso se aplica tanto para <code>t+1</code> quanto para <code>t-1</code>,\nentão você deve aplicá-lo a <code>t+1</code>.</p>\n\n<p>Observe que este é de certa forma mais difícil que os outros exercícios que\nfizemos até agora, logo não se surpreenda se você precisar de mais tempo\npara terminar. Mas não desista, você pode conseguir!</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Bem, eu preciso de alguma ajuda para começar.\">\nPrimeiro escreva algumas funções auxiliares tais como <code>isFirst()</code>\nou <code>isFree()</code>. Isto vai simplificar seu algoritmo principal, que\nvai poder ser escrito de forma muito similar à explicação acima com um\nconjunto de condições if. Fatorizar o código desta forma às vezes ajuda a\ntornar seu código mais legível.\n</tips></p>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"Meu código continua falhando e eu não sei como depurar ele.\">\nPara depurar um mundo depois do outro e evitar que as mensagens de todos os\nmundos fiquem misturadas, você pode escrever sua função de depuração apenas\nse o método <code>selecionado()</code> retorna verdadeiro. Isto acontecerá\napenas para a entidade que estiver selecionada na interface gráfica, que é\nprovavelmente o mundo que você está depurando no momento. Isto vai ajudar\ndividindo a dificuldade em partes e depurando a situção uma após a outra.<br/>\nEm particular, escrever textualmente o estado do mundo cada vez que você\nentrar no loop principal pode ajudar. \n</tips></p>\n",
+    "en" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Faster Pancake Sorting</h1>\n\n<p>Unlike others sorting problem, the expensive operation is not the comparison of values, but\nthe flipping of pancakes. In this exercise, we will explore another algorithm that \nattempt to reduce the amount of stack flipping. The funny side is that this algorithm was first \nintroduced by Bill Gates, before invented Windows.</p>\n\n<p>The basic idea is to grow sequences of sorted pancakes, not necessarily starting from the bottom. \nWe say that a sequence of ordered pancakes constitute a <b>block</b> while a pancake that is not part\nof a block is said to be <b>free</b>. The algorithm then considers the topmost pancake (of radius \n<code>t</code>) and search for the <code>t+1</code> or <code>t-1</code> pancakes (the considered \nneighbor is noted <code>t+o</code>). Eight cases may happen:</p>\n\n<ul>\n<li><b>Case a</b>: Both <code>t</code> and <code>t+o</code> are free. They are then merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-a.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case b</b>: <code>t</code> is free, and <code>t+o</code> is the first of a block. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-b.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case c</b>: <code>t</code> is free but both <code>t-1</code> and <code>t+1</code> are the last elements of blocks. \nBoth blocks and <code>t</code> are merged all together in 4 flips. \nBeware, if either <code>t-1</code> or <code>t+1</code> does not exist (because <code>t</code> is 0 or max), only two flips are mandated.\n<br/>\n<div align=\"center\"><img src=\"img/gates-c.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case d</b>: <code>t</code> is in a block but <code>t+o</code> is free. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-d.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Case e</b>: <code>t</code> is in a block and <code>t+o</code> is the first element of a block. They are merged in one flip.<br/>\n<div align=\"center\"><img src=\"img/gates-e.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case f</b>: <code>t</code> is in a block and <code>t+o</code> is the last element of another block. \nThey are merged in 3 flips as follows.<br/>\n<div align=\"center\"><img src=\"img/gates-f.png\"/></div></li></ul>\n\n<ul><li><b>Case g</b>: <code>t</code> is in a block of length k+1 (the last element is <code>t+ko</code>), <code>t+(k+1)o</code> is either free or the last element of another block. Both blocks are merged in 2 flips:<br/>\n<div align=\"center\"><img src=\"img/gates-g.png\"/></div><br/></li></ul>\n\n<ul><li><b>Case h</b>: <code>t</code> is in a block of length k+1 (the last element is <code>t+ko</code>), \n  <code>t+(k+1)o</code> is the first element of another block (the difference with case g is that \n  <code>t+(k+1)o</code> is now the <i>first</i> element of its block). Both blocks are merged in 2 flips:<br/>\n<div align=\"center\"><img src=\"img/gates-h.png\"/></div>\n</li></ul>\n\n<ul><li><b>Case i</b>: <code>t</code> is in a block of length <code>n</code> (this block contains all pancakes). \nIf <code>t</code> is not 1, the whole stack is fliped. The algorithm then stops.</li></ul>    \n\n<p>Each iteration increases the size of the blocks, so the algorithm eventually halts in all cases. A finer analysis would show that it takes \nat most <code>(5n+5)/3</code> steps to sort the stack. That's better than the naïve algorithm, that requires 2n-3 steps.</p>\n\n<h2>Your turn</h2>\n<p>You now have almost enough information to implement this algorithm on your own. We just have to remove the last remaining ambiguities \nto ensure that you implement exactly the same algorithm that the correction. If several cases apply to your situation, then you \nshould use the first given one. For example, if both cases a and b apply (e.g., with <code>t-1</code> on case <b>a</b> and <code>t+1</code> \non case <b>b</b>), then you should apply the flips of case <b>a</b>. If a given case applies for both <code>t+1</code> and <code>t-1</code>,\nthen you should apply it to <code>t+1</code>.</p>\n\n<p>Note that it is somehow harder than the other exercises we did so far, so don't be surprised if you need more time to achieve this. \nBut do not give up hope, you can do it!</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Well, I need some help to start.\">\nFirst write some helper functions such as <code>isFirst()</code> or\n<code>isFree()</code>. This will simplify your main algorithm\nafterward, that can be written very similarly to the explication\nabove with a bunch of if conditions. Factorizing code this way often\nhelps making your code more readable.\n</tips></p>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"My code keeps failing and I don't know how to debug it.\">\nTo debug one world after the other and avoid that the messages of all\nworlds get intermixed, you can write your debug function only if the\nmethod <code>isSelected()</code> returns true. It will be so only for\nthe entity that is currently selected in the graphical interface, that\nis probably the world you are currently debugging. This will help breaking the\ndifficulty in parts by debugging the situation one after the other.<br/>\nIn particular, it may help to print textually the state of the world\neach time you enter the main loop. \n</tips></p>\n",
+    "fr" : "\n<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>Tri rapide de crêpes</h1>\n\n<p>Contrairement aux problèmes classiques de tri, l'opération coûteuse à\néconomiser n'est pas la comparaison des valeurs, mais le retournement des\ncrêpes. Dans cet exercice, nous allons explorer un autre algorithme\npermettant de réduire le nombre de retournements nécessaires pour trier la\npile. Fait amusant, cet algorithme a été proposé pour la première fois par\nBill Gates, avant qu'il n'invente Windows.</p>\n\n<p>L'idée de base est de faire grandir des séquences de crêpes triées, pas\nforcément en commençant du bas de la pile. On dira qu'un ensemble de crêpes\ndans l'ordre constitue un <b>block</b> tandis qu'une crêpe qui n'est pas\ndans un bloc est dite <b>libre</b>. L'algorithme considère la crêpe tout en\nhaut de la pile, dont la taille est notée <code>t</code>, et cherche les\ndeux crêpes de taille <code>t-1</code> et <code>t+1</code> (le voisin ainsi\nconsidéré est noté <code>t+o</code>). Huit cas sont possibles alors&nbsp;:</p>\n\n<ul>\n<li><b>Cas a</b>: <code>t</code> et <code>t+o</code> sont tous les deux\nlibres. Ils sont alors fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-a.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas b</b>: <code>t</code> est libre, et <code>t+o</code> est le premier\nélément d'un bloc. Ils sont fusionnés en un bloc.<br/>\n<div align=\"center\"><img src=\"img/gates-b.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas c</b>: <code>t</code> est libre, mais <code>t-1</code> et\n<code>t+1</code> sont tous les deux les derniers éléments de blocs. Ces deux\nblocs ainsi que <code>t</code> sont tous fusionnés en 4\nretournements. Prenez garde, si <code>t-1</code> ou <code>t+1</code>\nn'existe pas (parce que <code>t</code> est 0 ou max), seulement deux de ces\nretournements sont nécessaires.\n<br/>\n<div align=\"center\"><img src=\"img/gates-c.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas d</b>: <code>t</code> est dans un bloc, mais <code>t+o</code> est\nlibre. Ils sont fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-d.png\"/></div>\n</li></ul>\n\n<ul>\n<li><b>Cas e</b>: <code>t</code> est dans un bloc, et <code>t+o</code> est le\npremier élément d'un bloc. Ils sont fusionnés en un retournement.<br/>\n<div align=\"center\"><img src=\"img/gates-e.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas f</b>: <code>t</code> est dans un bloc, et <code>t+o</code> est le\ndernier élément d'un autre bloc. Ils sont fusionnés en trois retournements\ncomme suit.<br/>\n<div align=\"center\"><img src=\"img/gates-f.png\"/></div></li></ul>\n\n<ul><li><b>Cas g</b>: <code>t</code> est dans un bloc de taille k+1 (le dernier\nélément est <code>t+ko</code>), <code>t+(k+1)o</code> est soit libre soit le\ndernier élément d'un autre bloc. Les deux blocs sont fusionnés en deux\nretournements:<br/>\n<div align=\"center\"><img src=\"img/gates-g.png\"/></div><br/></li></ul>\n\n<ul><li><b>Cas h</b>: <code>t</code> est dans un bloc de taille k+1 (le dernier\nélément est <code>t+ko</code>), <code>t+(k+1)o</code> est le premier élément\nd'un autre bloc (la différence avec le cas g est que <code>t+(k+1)o</code>\nest maintenant le <i>premier</i> élément de son bloc). Les deux blocs sont\nfusionnés en deux retournements:<br/>\n<div align=\"center\"><img src=\"img/gates-h.png\"/></div>\n</li></ul>\n\n<ul><li><b>Cas i</b>: <code>t</code> est dans un bloc de taille <code>n</code>, qui\ncontient donc toutes les crêpes. Si <code>t</code> n'est pas 1, toute la\npile est retournée. Ensuite, l'algorithme s'arrête.</li></ul>    \n\n<p>Chaque itération augmente la taille des blocs, donc la terminaison de\nl'algorithme est certaine. Une analyse plus fine montre qu'il prend au plus\n<code>(5n+5)/3</code> étapes pour trier la pile. C'est mieux que\nl'algorithme naïf, qui nécessite <code>2n-3</code> étapes pour cela.</p>\n\n<h2>À vous de jouer</h2>\n<p>Vous avez maintenant quasi assez d'informations pour implémenter cet\nalgorithme par vous-même. Il faut juste lever les dernières ambiguïtés pour\nque vous implémentiez exactement le même algorithme que la correction. Si\nplusieurs cas s'appliquent à la situation courante, appliquez le\npremier. Par exemple, si les cas a et b s'appliquent (avec <code>t-1</code>\npour le cas a et <code>t+1</code> pour le cas b), vous devez appliquer les\ninstructions du cas <b>a</b>. Si un cas donné s'applique à la fois pour\n<code>t+1</code> et <code>t-1</code>, appliquez le pour <code>t+1</code>.</p>\n\n<p>Cet exercice est plus difficile que ceux que nous avons fait jusque là, et\nil ne serait pas choquant que vous ayez besoin d'un peu plus de temps que\nles autres pour le résoudre. Mais n'abandonnez pas, vous pouvez le faire !</p>\n\n<p><tips data-tipid=\"tip-1\" data-title=\"Heu, j'ai besoin d'un peu d'aide pour commencer.\">\nCommencez par écrire des fonctions d'aide, comme <code>estLibre()</code> ou\n<code>estPremier()</code>. Cela simplifiera l'écriture de votre algorithme,\nqui peut être écrit sous une forme très similaire à l'énoncé si vous faites\nles bonnes fonctions d'aide. Factoriser ainsi votre code aide très souvent à\naméliorer la lisibilité du code.\n</tips></p>\n\n<p><tips data-tipid=\"tip-2\" data-title=\"Mon code ne fonctionne pas, et je ne sais pas comment le débugger\">\nPour débugger un monde après l'autre, il est préférable d'éviter que les\naffichages de tous les mondes se mélangent. Le plus simple pour cela est\nd'utiliser la méthode <code>isSelected()</code> qui ne renvoi vrai que si le\nmonde courant est celui sélectionné dans l'interface. Cela aidera à réduire\nla complexité en résolvant les problèmes les uns après les autres.<br/>\nEn particulier, afficher l'état du monde sous forme textuelle à chaque fois\nque vous rentrez dans la boucle principale peut aider. \n</tips></p>\n"
+  }
 }
