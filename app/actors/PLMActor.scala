@@ -69,7 +69,7 @@ class PLMActor (
   val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
 
-  val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, gitID, None, userAgent))
+  val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, gitID, None, userAgent, currentHumanLang.toLocale))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
 
   val locale: Locale = currentHumanLang.toLocale

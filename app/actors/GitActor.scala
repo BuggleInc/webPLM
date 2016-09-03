@@ -19,9 +19,7 @@ import play.api.Play.current
 import akka.actor.ActorRef
 import scala.concurrent.ExecutionContext.Implicits.global
 import org.xnap.commons.i18n.I18nFactory
-import log.PLMLogger
 import java.util.Locale
-import org.xnap.commons.i18n.I18n
 
 /**
  * @author matthieu
@@ -39,7 +37,7 @@ object GitActor {
   val plmVersion: String = plmMajorVersion + " (" + plmMinorVersion + ")"
   val webPLMVersion: String = Play.configuration.getString("application.version").get
 
-  def props(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String)= Props(new GitActor(pushActor, gitID, optTrackUser, userAgent))
+  def props(pushActor: ActorRef, gitID: String, optTrackUser: Option[Boolean], userAgent: String, locale: Locale)= Props(new GitActor(pushActor, gitID, optTrackUser, userAgent, locale))
 
   case class SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean])
   case class SetTrackUser(newOptTrackUser: Option[Boolean])
@@ -51,14 +49,12 @@ object GitActor {
   case class Idle(idleStart: String, idleEnd: String, duration: String)
 }
 
-class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: Option[Boolean], userAgent: String) extends Actor {
+class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: Option[Boolean], userAgent: String, locale: Locale) extends Actor {
   import GitActor._
   import PushActor.RequestPush
 
   var gitID: String = initialGitID
   var optTrackUser: Option[Boolean] = initialOptTrackUser
-
-  val locale: Locale = new Locale("en")
 
   val gitUtils: GitUtils = new GitUtils(locale)
 
@@ -153,8 +149,9 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
   def executed(exercise: Exercise, result: ExecutionProgress, code: String) {
     val jsonExecuted: JsObject = generateExecutedJson(exercise, result)
     val executedMessage: String = jsonToCommitMessage("executed", jsonExecuted)
+    val humanLang: Locale = exercise.getSettings.getHumanLang
 
-    createFiles(exercise, result, code)
+    createFiles(exercise, result, code, humanLang)
     gitUtils.addFiles
     gitUtils.commit(executedMessage)
   }
@@ -208,11 +205,11 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     new File(path).exists
   }
 
-  def createFiles(exercise: Exercise, result: ExecutionProgress, code: String) {
+  def createFiles(exercise: Exercise, result: ExecutionProgress, code: String, humanLang: Locale) {
     val progLang: ProgrammingLanguage = result.language
     val error: String = if(result.outcome == ExecutionProgress.outcomeKind.COMPILE) result.compilationError else result.executionError
     val correction: String = exercise.getDefaultSourceFile(progLang).getCorrection
-    val mission: String = exercise.getMission(locale, progLang)
+    val mission: String = exercise.getMission(humanLang, progLang)
 
     val files: HashMap[String, String] = new HashMap[String, String]
 
@@ -256,6 +253,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     Json.obj(
       "java" -> java,
       "os" -> os,
+      "lang" -> locale.getDisplayLanguage,
       "plm" -> plmVersion,
       "webplm" -> webPLMVersion,
       "user-agent" -> userAgent
