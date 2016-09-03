@@ -89,15 +89,18 @@ object ExercisesActor {
       case Some(is: InputStream) =>
         val lines: String = Source.fromInputStream(is)("UTF-8").mkString
         is.close
-        JSONUtils.jsonStringToExercise(lines)
+        initFromJSON(lines)
       case None =>
         Logger.error(exerciseName + "'s JSON is missing, initializing it from source")
         initFromSource(exerciseName)
     }
   }
 
-  def initFromJSON(path: String): Exercise = {
-    JSONUtils.fileToExercise(path)
+  def initFromJSON(lines: String): Exercise = {
+    val exercise: Exercise = JSONUtils.jsonStringToExercise(lines)
+    exercisesFactory.computeMissions(exercise)
+    exercisesFactory.computeHelps(exercise)
+    exercise
   }
 
   def initFromSource(exerciseName: String): Exercise = {
