@@ -71,7 +71,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   val argsOut: Map[String, Object] = new HashMap[String, Object]
   argsOut.put("x-message-ttl", defaultTimeout.asInstanceOf[Object])
   val argsIn: Map[String, Object] = new HashMap[String, Object]
-  argsIn.put("x-message-ttl", 5000.asInstanceOf[Object])
+  argsIn.put("x-message-ttl", defaultTimeout.asInstanceOf[Object])
 
   val channelOut : Channel = connection.createChannel
   channelOut.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, argsOut)
