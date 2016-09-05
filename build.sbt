@@ -8,7 +8,7 @@ import AssemblyKeys._
 
 name := "web-PLM"
 
-version := "2.0.0-rc7"
+version := "2.0.0"
 
 scalaVersion := "2.11.4"
 
