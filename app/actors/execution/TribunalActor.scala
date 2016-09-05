@@ -61,7 +61,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   import TribunalActor._
   import TribunalState._
   
-  val defaultTimeout : Long = 10000
+  val defaultTimeout : Long = 15000
 
   var state : TribunalState = Off
   var currentLocale: Locale = initialLang.toLocale
