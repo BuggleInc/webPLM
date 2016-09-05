@@ -26,9 +26,13 @@ object LessonsActor {
   case class GetFirstExerciseID(lessonID: String)
 
   val lessonsID: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
-    "welcome", "maze", "turmites", "turtleart",
-    "sort.basic", "sort.dutchflag", "sort.baseball", "sort.pancake",
-    "recursion.cons", "recursion.logo", "recursion.hanoi"
+    "welcome", 
+    "sort.basic", "sort.dutchflag",
+    "maze",
+    // "turmites",
+    "turtleart",
+    "sort.baseball", "sort.pancake"
+    // "recursion.cons", "recursion.logo", "recursion.hanoi"
     // "bat.string1"
   )
 
