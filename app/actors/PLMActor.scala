@@ -587,6 +587,11 @@ class PLMActor (
   override def postStop() = {
     Logger.debug("postStop: websocket closed - removing the spies")
     clearIdle
+
+    gitActor ! PoisonPill
+    executionActor ! PoisonPill
+    sessionActor ! PoisonPill
+
     ActorsMap.remove(actorUUID)
   }
 }
