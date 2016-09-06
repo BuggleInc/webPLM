@@ -164,4 +164,9 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
     result.setStopError
     plmActor ! result
   }
+
+  override def postStop() = {
+    Logger.debug("postStop: websocket closed - tribunalActor stopped")
+    channelOut.close
+  }
 }
