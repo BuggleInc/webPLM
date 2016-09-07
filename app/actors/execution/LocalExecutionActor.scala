@@ -31,12 +31,15 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
   
   var currentLocale: Locale = initialLang.toLocale
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentLocale)
-  
+  exerciseRunner.setMaxNumberOfTries(5)
+  var executionStopped: Boolean = false
+
   var registeredSpies: Array[OperationSpy] = Array()
 
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
       val plmActor: ActorRef = sender
+      executionStopped = false
       addOperationSpies(out, exercise, progLang)
       val f: CompletableFuture[ExecutionProgress] = exerciseRunner.run(exercise, progLang, code)
 
@@ -46,7 +49,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
         case executionResult: ExecutionProgress =>
           registeredSpies.foreach { spy =>
             spy.stop
-            if(executionResult.outcome != outcomeKind.TIMEOUT) {
+            if(!executionStopped && executionResult.outcome != outcomeKind.TIMEOUT) {
               spy.flush
             }
           }
@@ -55,6 +58,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
         case _ =>
       }
     case StopExecution =>
+      executionStopped = true
       exerciseRunner.stopExecution
     case UpdateLang(lang: Lang) =>
       currentLocale = lang.toLocale
