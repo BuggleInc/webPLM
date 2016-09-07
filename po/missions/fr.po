@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-09-07 21:54+0200\n"
+"POT-Creation-Date: 2016-09-07 22:12+0200\n"
 "PO-Revision-Date: 2016-09-02 17:03+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: French <>\n"
@@ -808,6 +808,7 @@ msgstr ""
 #: exercises/recursion/logo/square/FourSquare.html:46
 #: exercises/loopdowhile/Poucet2.html:25
 #: exercises/loopdowhile/LoopDoWhile.html:54
+#: exercises/methods/picture/PictureMono1.html:27
 #: exercises/methods/picture/MethodsPicture.html:40
 #: exercises/methods/args/MethodsArgs.html:66
 #: exercises/sort/basic/comb/AlgCombSort.html:39
@@ -6353,10 +6354,25 @@ msgstr ""
 #: exercises/methods/picture/PictureMono1.html:21
 msgid ""
 "Your turn. Your code should not be longer than 4 lines (not counting "
-"<code>makeV</code>)..."
+"<code>makeV</code>)."
 msgstr ""
 "À vous de jouer. Votre code ne devrait pas prendre plus de quatre lignes "
-"(sans compter <code>faireV</code>)..."
+"(sans compter <code>faireV</code>)."
+
+#. type: Content of: outside any tag (error?)
+#: exercises/methods/picture/PictureMono1.html:24
+#: exercises/methods/picture/MethodsPicture.html:35
+#: exercises/methods/args/MethodsArgs.html:35
+msgid "[!java|scala]"
+msgstr "[!java|scala]"
+
+#. type: Content of: <p>
+#: exercises/methods/picture/PictureMono1.html:24
+msgid ""
+"This exercise (and most of the subsequent ones)  require you to write your "
+"code as the body of the <code>run()</code> method, which prototype is "
+"provided. Do not remove these lines, or the PLM will get completely lost."
+msgstr ""
 
 #. type: Content of: <h2>
 #: exercises/methods/picture/PatternPicture.html:2
@@ -6514,12 +6530,6 @@ msgid ""
 msgstr ""
 "Il faudrait également que la méthode <code>faireV()</code> place la buggle "
 "en position pour dessiner le prochain V directement."
-
-#. type: Content of: outside any tag (error?)
-#: exercises/methods/picture/MethodsPicture.html:35
-#: exercises/methods/args/MethodsArgs.html:35
-msgid "[!java|scala]"
-msgstr "[!java|scala]"
 
 #. type: Content of: <p>
 #: exercises/methods/picture/MethodsPicture.html:36

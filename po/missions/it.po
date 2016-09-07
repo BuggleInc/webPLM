@@ -5925,16 +5925,15 @@ msgstr ""
 
 #. type: Content of: <p>
 #: exercises/methods/picture/PictureMono1.html:21
-#, fuzzy
 #| msgid ""
 #| "Your turn. Your code of should not be longer than 4 lines (not counting "
 #| "<code>makeV</code>)..."
 msgid ""
 "Your turn. Your code should not be longer than 4 lines (not counting "
-"<code>makeV</code>)..."
+"<code>makeV</code>)."
 msgstr ""
 "Ora è il tuo turno. Il tuo codice non deve superare 4 righe (senza "
-"considerare <code>creaV</code>)..."
+"considerare <code>creaV</code>)."
 
 #. type: Content of: <h2>
 #: exercises/methods/picture/PatternPicture.html:2

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-07 21:54+0200\n"
+"POT-Creation-Date: 2016-09-07 22:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -592,7 +592,7 @@ msgid ""
 msgstr ""
 
 #. type: Content of: outside any tag (error?)
-#: exercises/maze/pledge/PledgeMaze.html:68 exercises/instructions/Instructions.html:34 exercises/conditions/Conditions.html:57 exercises/conditions/Conditions.html:108 exercises/environment/Environment.html:46 exercises/variables/Variables.html:85 exercises/variables/Variables.html:114 exercises/variables/Variables.html:160 exercises/recursion/cons/length/Length.html:8 exercises/recursion/logo/square/FourSquare.html:46 exercises/loopdowhile/Poucet2.html:25 exercises/loopdowhile/LoopDoWhile.html:54 exercises/methods/picture/MethodsPicture.html:40 exercises/methods/args/MethodsArgs.html:66 exercises/sort/basic/comb/AlgCombSort.html:39 exercises/turmites/langton/Langton.html:32 exercises/turmites/helloturmite/HelloTurmite.html:65 exercises/loopfor/LoopFor.html:80 exercises/bdr/BDR.html:60 exercises/bdr/BDR.html:195 exercises/bdr/BDR2.html:130
+#: exercises/maze/pledge/PledgeMaze.html:68 exercises/instructions/Instructions.html:34 exercises/conditions/Conditions.html:57 exercises/conditions/Conditions.html:108 exercises/environment/Environment.html:46 exercises/variables/Variables.html:85 exercises/variables/Variables.html:114 exercises/variables/Variables.html:160 exercises/recursion/cons/length/Length.html:8 exercises/recursion/logo/square/FourSquare.html:46 exercises/loopdowhile/Poucet2.html:25 exercises/loopdowhile/LoopDoWhile.html:54 exercises/methods/picture/PictureMono1.html:27 exercises/methods/picture/MethodsPicture.html:40 exercises/methods/args/MethodsArgs.html:66 exercises/sort/basic/comb/AlgCombSort.html:39 exercises/turmites/langton/Langton.html:32 exercises/turmites/helloturmite/HelloTurmite.html:65 exercises/loopfor/LoopFor.html:80 exercises/bdr/BDR.html:60 exercises/bdr/BDR.html:195 exercises/bdr/BDR2.html:130
 msgid "[/!]"
 msgstr ""
 
@@ -4665,7 +4665,20 @@ msgstr ""
 #: exercises/methods/picture/PictureMono1.html:21
 msgid ""
 "Your turn. Your code should not be longer than 4 lines (not counting "
-"<code>makeV</code>)..."
+"<code>makeV</code>)."
+msgstr ""
+
+#. type: Content of: outside any tag (error?)
+#: exercises/methods/picture/PictureMono1.html:24 exercises/methods/picture/MethodsPicture.html:35 exercises/methods/args/MethodsArgs.html:35
+msgid "[!java|scala]"
+msgstr ""
+
+#. type: Content of: <p>
+#: exercises/methods/picture/PictureMono1.html:24
+msgid ""
+"This exercise (and most of the subsequent ones)  require you to write your "
+"code as the body of the <code>run()</code> method, which prototype is "
+"provided. Do not remove these lines, or the PLM will get completely lost."
 msgstr ""
 
 #. type: Content of: <h2>
@@ -4793,11 +4806,6 @@ msgstr ""
 msgid ""
 "It may be wise to write the <code>makeV()</code> so that it places directly "
 "the buggle in position for the next V."
-msgstr ""
-
-#. type: Content of: outside any tag (error?)
-#: exercises/methods/picture/MethodsPicture.html:35 exercises/methods/args/MethodsArgs.html:35
-msgid "[!java|scala]"
 msgstr ""
 
 #. type: Content of: <p>
