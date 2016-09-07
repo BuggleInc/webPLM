@@ -10,16 +10,16 @@ name := "web-PLM"
 
 version := "2.0.1"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.8"
 
 resolvers := ("Atlassian Releases" at "https://maven.atlassian.com/public/") +: resolvers.value
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-library" % "2.11.4",
-  "org.scala-lang" % "scala-compiler" % "2.11.4",
-  "org.scala-lang" % "scala-reflect" % "2.11.4",
+  "org.scala-lang" % "scala-library" % "2.11.8",
+  "org.scala-lang" % "scala-compiler" % "2.11.8",
+  "org.scala-lang" % "scala-reflect" % "2.11.8",
   "org.mockito" % "mockito-core" % "1.8.5",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
