@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-02 16:11+0200\n"
+"POT-Creation-Date: 2016-09-07 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5151,7 +5151,7 @@ msgstr ""
 #. type: Content of: <p>
 #: exercises/methods/flowerpot/FlowerPot.html:13
 msgid ""
-"For your information, this drawing uses five colors that are listed below.  "
+"For your information, this drawing uses six colors that are listed below.  "
 "[!java|scala|c]The data type of these constants is <code>Color</code>, that "
 "naturally describes a particular color.[/!]"
 msgstr ""
