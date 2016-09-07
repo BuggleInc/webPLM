@@ -8,7 +8,15 @@ public class FlowerCaseEntity extends SimpleBuggle {
 	public void run() {
 		growFlowers();
 	}
+        /* BEGIN TEMPLATE */
+	void growFlowers() {
 	/* BEGIN SOLUTION */
+		boxes();
+		LRforward(1);
+		backward(8);
+		RLforward(5);
+		boxes();
+	}
 
 	void makeFlower(Color c) {
 		setBrushColor(c);
@@ -62,13 +70,7 @@ public class FlowerCaseEntity extends SimpleBuggle {
 		line(new Color[]{Color.RED, Color.CYAN},true);        
 		RLforward(4);
 		line(new Color[]{Color.PINK, Color.GREEN},true);
-	}
-	void growFlowers() {
-		boxes();
-		LRforward(1);
-		backward(8);
-		RLforward(5);
-		boxes();
-	}
 	/* END SOLUTION */
+	}
+        /* END TEMPLATE */
 }

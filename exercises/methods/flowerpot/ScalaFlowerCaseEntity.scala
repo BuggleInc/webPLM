@@ -8,7 +8,15 @@ class ScalaFlowerCaseEntity extends SimpleBuggle {
 	override def run() {
 		growFlowers();
 	}
+	/* BEGIN TEMPLATE */
+	def growFlowers() {
 	/* BEGIN SOLUTION */
+		boxes();
+		LRforward(1);
+		backward(8);
+		RLforward(5);
+		boxes();
+	}
 
 	def makeFlower(c:Color) {
 		setBrushColor(c);
@@ -62,13 +70,7 @@ class ScalaFlowerCaseEntity extends SimpleBuggle {
 		line(Array(Color.RED, Color.CYAN),true);        
 		RLforward(4);
 		line(Array(Color.PINK, Color.GREEN),true);
-	}
-	def growFlowers() {
-		boxes();
-		LRforward(1);
-		backward(8);
-		RLforward(5);
-		boxes();
-	}
 	/* END SOLUTION */
+	}
+	/* END TEMPLATE */
 }
