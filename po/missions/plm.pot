@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-07 21:41+0200\n"
+"POT-Creation-Date: 2016-09-07 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1027,9 +1027,9 @@ msgstr ""
 #: exercises/traversal/column/traversalbycolumn/TraversalByColumn.html:32
 msgid ""
 "Then, you have to write the code to reach the next position. In this "
-"exercise, you have to traverse the world row after row. So, if you are at "
-"the bottom of a row, you have to move to the top of next row. Else, you have "
-"to move to the cell below."
+"exercise, you have to traverse the world column after column. So, if you are "
+"at the bottom of a column, you have to move to the top of next column. Else, "
+"you have to move to the cell below."
 msgstr ""
 
 #. type: Content of: <p>
