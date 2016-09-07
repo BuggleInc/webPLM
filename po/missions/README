@@ -9,3 +9,5 @@ Files used to translate the missions:
 Simply run "po4a po4a.conf" from the root directory to update the
 translated html files (check the wiki for more info).
 
+Note that due to an issue in the application server, we cannot use
+pt_BR as a language. We must pretend that this is pt. Sorry guys.
