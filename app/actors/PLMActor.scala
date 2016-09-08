@@ -490,7 +490,7 @@ class PLMActor (
     case Some(exercise: Exercise) =>
       val exerciseJson: JsObject = Json.obj(
         "instructions" -> exercise.getMission(currentHumanLang.toLocale, currentProgLang),
-        "api" -> exercise.getWorldAPI
+        "help" -> exercise.getWorldAPI
       )
       exerciseJson
     case _ =>
