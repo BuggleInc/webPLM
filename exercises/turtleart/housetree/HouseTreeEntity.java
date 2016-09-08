@@ -2,7 +2,7 @@ package turtleart.housetree;
 
 import plm.universe.turtles.Turtle;
 
-public class HouseThreeEntity extends Turtle {
+public class HouseTreeEntity extends Turtle {
 
 	/* BEGIN TEMPLATE */
 	public void run() {

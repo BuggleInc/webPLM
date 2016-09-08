@@ -2,7 +2,7 @@ package turtleart.housetree;
 
 import plm.universe.turtles.Turtle;
 
-class ScalaHouseThreeEntity extends Turtle {
+class ScalaHouseTreeEntity extends Turtle {
 
 	/* BEGIN TEMPLATE */
 	override def run() {
