@@ -50,11 +50,11 @@
     "dependingLectures" : [ ]
   }, {
     "names" : {
-      "en" : "HouseThree",
-      "pt" : "HouseThree",
-      "fr" : "HouseThree"
+      "en" : "HouseTree",
+      "pt" : "HouseTree",
+      "fr" : "HouseTree"
     },
-    "id" : "turtleart.housethree.HouseThree",
+    "id" : "turtleart.housetree.HouseTree",
     "dependingLectures" : [ ]
   }, {
     "names" : {

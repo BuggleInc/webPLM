@@ -2,8 +2,32 @@
   "id" : "turtleart.housetree.HouseTree",
   "name" : "HouseTree",
   "tabName" : "HouseTree",
-  "defaultSourceFiles" : { },
-
+  "defaultSourceFiles" : {
+    "Java" : {
+      "name" : "HouseTree",
+      "body" : "public void run() {\n}\n",
+      "template" : "$package   import plm.universe.turtles.Turtle;  public class HouseTree extends Turtle { $body } ",
+      "offset" : 1,
+      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\npublic class HouseTree extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t    addSizeHint(35,120, 35,150);\n\t    addSizeHint(80,150, 100,150);\n\t \n\t     for (int i=0;i<4;i++) {\n\t        house(30);\n\t        leveCrayon();\n\t        right(90);\n\t        forward(50);\n\t        left(90);\n\t        penDown();\n\t     }\n\t}\n\tvoid house(int len) {\n\t    forward(len);\n\t    \n\t    right(30);\n\t    for (int i = 0; i < 3; i++) {\n\t    \tforward(len);\n\t    \tright(120);\n\t    }\n\t    \n\t    right(60);    \n\t    for (int i = 0; i < 3; i++) {\n\t    \tforward(len);\n\t    \tright(90);\n\t    }\n\t    /* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Scala" : {
+      "name" : "HouseTree",
+      "body" : "override def run() {\n}\n",
+      "template" : "$package \n\nimport plm.universe.turtles.Turtle;\n\nclass HouseTree extends Turtle {\n$body\n}\n",
+      "offset" : 5,
+      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\nclass HouseTree extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t    addSizeHint(35,120, 35,150);\n\t    addSizeHint(80,150, 100,150);\n\t \n\t     for (i <- 1 to 4) {\n\t        house(30);\n\t        leveCrayon();\n\t        right(90);\n\t        forward(50);\n\t        left(90);\n\t        penDown();\n\t     }\n\t}\n\tdef house(len:Int) {\n\t    forward(len);\n\t    \n\t    right(30);\n\t    for (i <- 1 to 3) {\n\t    \tforward(len);\n\t    \tright(120);\n\t    }\n\t    \n\t    right(60);    \n\t    for (i <- 1 to 3) {\n\t    \tforward(len);\n\t    \tright(90);\n\t    }\n\t    /* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Python" : {
+      "name" : "HouseTree",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef house(len):\n\tforward(len);\n\t    \n\tright(30);\n\tfor i in range(3):\n\t\tforward(len);\n\t\tright(120);\n\t    \n\tright(60);    \n\tfor i in range(3):\n\t    \tforward(len);\n\t    \tright(90);\n\naddSizeHint(35,120, 35,150);\naddSizeHint(80,150, 100,150);\n\nfor i in range(4):\n\thouse(30);\n\tleveCrayon();\n\tright(90);\n\tforward(50);\n\tleft(90);\n\tpenDown();\n# END SOLUTION\n",
+      "error" : "Error"
+    }
+  },
   "initialWorlds" : [ {
     "type" : "plm.universe.turtles.TurtleWorld",
     "@jsonId" : 1,
@@ -35,22 +59,1123 @@
     "entities" : [ {
       "type" : "plm.universe.turtles.Turtle",
       "name" : "Hawksbill",
-      "x" : 50.0,
-      "y" : 150.0,
       "world" : 2,
-      "inited" : false,
+      "inited" : true,
       "color" : [ 0, 0, 0, 255 ],
+      "x" : 250.0,
+      "y" : 150.0000000000001,
       "direction" : 270.0
     } ],
-    "steps" : [ ],
+    "steps" : [ [ {
+      "type" : "plm.universe.turtles.operations.AddSizeHint",
+      "@jsonId" : 3,
+      "turtleID" : "Hawksbill",
+      "x1" : 35,
+      "y1" : 120,
+      "x2" : 35,
+      "y2" : 150,
+      "text" : "30",
+      "name" : "addSizeHint"
+    }, {
+      "type" : "plm.universe.turtles.operations.AddSizeHint",
+      "@jsonId" : 4,
+      "turtleID" : "Hawksbill",
+      "x1" : 80,
+      "y1" : 150,
+      "x2" : 100,
+      "y2" : 150,
+      "text" : "20",
+      "name" : "addSizeHint"
+    }, {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 5,
+      "turtleID" : "Hawksbill",
+      "x1" : 50.0,
+      "y1" : 150.0,
+      "x2" : 49.99999999999999,
+      "y2" : 120.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 6,
+      "turtleID" : "Hawksbill",
+      "oldX" : 50.0,
+      "oldY" : 150.0,
+      "newX" : 49.99999999999999,
+      "newY" : 120.0,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 7,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 300.00000000000006,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 8,
+      "turtleID" : "Hawksbill",
+      "x1" : 49.99999999999999,
+      "y1" : 120.0,
+      "x2" : 65.00000000000001,
+      "y2" : 94.01923788646685,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 9,
+      "turtleID" : "Hawksbill",
+      "oldX" : 49.99999999999999,
+      "oldY" : 120.0,
+      "newX" : 65.00000000000001,
+      "newY" : 94.01923788646685,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 10,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 300.00000000000006,
+      "newHeading" : 420.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 11,
+      "turtleID" : "Hawksbill",
+      "x1" : 65.00000000000001,
+      "y1" : 94.01923788646685,
+      "x2" : 80.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 12,
+      "turtleID" : "Hawksbill",
+      "oldX" : 65.00000000000001,
+      "oldY" : 94.01923788646685,
+      "newX" : 80.0,
+      "newY" : 120.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 13,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 60.00000000000003,
+      "newHeading" : 180.00000000000003,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 14,
+      "turtleID" : "Hawksbill",
+      "x1" : 80.0,
+      "y1" : 120.00000000000003,
+      "x2" : 50.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 15,
+      "turtleID" : "Hawksbill",
+      "oldX" : 80.0,
+      "oldY" : 120.00000000000003,
+      "newX" : 50.0,
+      "newY" : 120.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 16,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 299.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 17,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 299.99999999999994,
+      "newHeading" : 359.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 18,
+      "turtleID" : "Hawksbill",
+      "x1" : 50.0,
+      "y1" : 120.00000000000003,
+      "x2" : 80.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 19,
+      "turtleID" : "Hawksbill",
+      "oldX" : 50.0,
+      "oldY" : 120.00000000000003,
+      "newX" : 80.0,
+      "newY" : 120.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 20,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : 90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 21,
+      "turtleID" : "Hawksbill",
+      "x1" : 80.0,
+      "y1" : 120.00000000000003,
+      "x2" : 80.0,
+      "y2" : 150.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 22,
+      "turtleID" : "Hawksbill",
+      "oldX" : 80.0,
+      "oldY" : 120.00000000000003,
+      "newX" : 80.0,
+      "newY" : 150.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 23,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 90.0,
+      "newHeading" : 180.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 24,
+      "turtleID" : "Hawksbill",
+      "x1" : 80.0,
+      "y1" : 150.00000000000003,
+      "x2" : 50.0,
+      "y2" : 150.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 25,
+      "turtleID" : "Hawksbill",
+      "oldX" : 80.0,
+      "oldY" : 150.00000000000003,
+      "newX" : 50.0,
+      "newY" : 150.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 26,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 270.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 27,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 360.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 28,
+      "turtleID" : "Hawksbill",
+      "oldX" : 50.0,
+      "oldY" : 150.00000000000003,
+      "newX" : 100.0,
+      "newY" : 150.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 29,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : -90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 30,
+      "turtleID" : "Hawksbill",
+      "x1" : 100.0,
+      "y1" : 150.00000000000003,
+      "x2" : 100.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 31,
+      "turtleID" : "Hawksbill",
+      "oldX" : 100.0,
+      "oldY" : 150.00000000000003,
+      "newX" : 100.0,
+      "newY" : 120.00000000000003,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 32,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 300.00000000000006,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 33,
+      "turtleID" : "Hawksbill",
+      "x1" : 100.0,
+      "y1" : 120.00000000000003,
+      "x2" : 115.00000000000003,
+      "y2" : 94.01923788646688,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 34,
+      "turtleID" : "Hawksbill",
+      "oldX" : 100.0,
+      "oldY" : 120.00000000000003,
+      "newX" : 115.00000000000003,
+      "newY" : 94.01923788646688,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 35,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 300.00000000000006,
+      "newHeading" : 420.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 36,
+      "turtleID" : "Hawksbill",
+      "x1" : 115.00000000000003,
+      "y1" : 94.01923788646688,
+      "x2" : 130.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 37,
+      "turtleID" : "Hawksbill",
+      "oldX" : 115.00000000000003,
+      "oldY" : 94.01923788646688,
+      "newX" : 130.0,
+      "newY" : 120.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 38,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 60.00000000000003,
+      "newHeading" : 180.00000000000003,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 39,
+      "turtleID" : "Hawksbill",
+      "x1" : 130.0,
+      "y1" : 120.00000000000006,
+      "x2" : 100.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 40,
+      "turtleID" : "Hawksbill",
+      "oldX" : 130.0,
+      "oldY" : 120.00000000000006,
+      "newX" : 100.0,
+      "newY" : 120.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 41,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 299.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 42,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 299.99999999999994,
+      "newHeading" : 359.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 43,
+      "turtleID" : "Hawksbill",
+      "x1" : 100.0,
+      "y1" : 120.00000000000006,
+      "x2" : 130.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 44,
+      "turtleID" : "Hawksbill",
+      "oldX" : 100.0,
+      "oldY" : 120.00000000000006,
+      "newX" : 130.0,
+      "newY" : 120.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 45,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : 90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 46,
+      "turtleID" : "Hawksbill",
+      "x1" : 130.0,
+      "y1" : 120.00000000000006,
+      "x2" : 130.0,
+      "y2" : 150.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 47,
+      "turtleID" : "Hawksbill",
+      "oldX" : 130.0,
+      "oldY" : 120.00000000000006,
+      "newX" : 130.0,
+      "newY" : 150.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 48,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 90.0,
+      "newHeading" : 180.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 49,
+      "turtleID" : "Hawksbill",
+      "x1" : 130.0,
+      "y1" : 150.00000000000006,
+      "x2" : 100.0,
+      "y2" : 150.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 50,
+      "turtleID" : "Hawksbill",
+      "oldX" : 130.0,
+      "oldY" : 150.00000000000006,
+      "newX" : 100.0,
+      "newY" : 150.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 51,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 270.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 52,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 360.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 53,
+      "turtleID" : "Hawksbill",
+      "oldX" : 100.0,
+      "oldY" : 150.00000000000006,
+      "newX" : 150.0,
+      "newY" : 150.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 54,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : -90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 55,
+      "turtleID" : "Hawksbill",
+      "x1" : 150.0,
+      "y1" : 150.00000000000006,
+      "x2" : 150.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 56,
+      "turtleID" : "Hawksbill",
+      "oldX" : 150.0,
+      "oldY" : 150.00000000000006,
+      "newX" : 150.0,
+      "newY" : 120.00000000000006,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 57,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 300.00000000000006,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 58,
+      "turtleID" : "Hawksbill",
+      "x1" : 150.0,
+      "y1" : 120.00000000000006,
+      "x2" : 165.00000000000003,
+      "y2" : 94.01923788646691,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 59,
+      "turtleID" : "Hawksbill",
+      "oldX" : 150.0,
+      "oldY" : 120.00000000000006,
+      "newX" : 165.00000000000003,
+      "newY" : 94.01923788646691,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 60,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 300.00000000000006,
+      "newHeading" : 420.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 61,
+      "turtleID" : "Hawksbill",
+      "x1" : 165.00000000000003,
+      "y1" : 94.01923788646691,
+      "x2" : 180.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 62,
+      "turtleID" : "Hawksbill",
+      "oldX" : 165.00000000000003,
+      "oldY" : 94.01923788646691,
+      "newX" : 180.0,
+      "newY" : 120.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 63,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 60.00000000000003,
+      "newHeading" : 180.00000000000003,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 64,
+      "turtleID" : "Hawksbill",
+      "x1" : 180.0,
+      "y1" : 120.00000000000009,
+      "x2" : 150.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 65,
+      "turtleID" : "Hawksbill",
+      "oldX" : 180.0,
+      "oldY" : 120.00000000000009,
+      "newX" : 150.0,
+      "newY" : 120.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 66,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 299.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 67,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 299.99999999999994,
+      "newHeading" : 359.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 68,
+      "turtleID" : "Hawksbill",
+      "x1" : 150.0,
+      "y1" : 120.00000000000009,
+      "x2" : 180.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 69,
+      "turtleID" : "Hawksbill",
+      "oldX" : 150.0,
+      "oldY" : 120.00000000000009,
+      "newX" : 180.0,
+      "newY" : 120.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 70,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : 90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 71,
+      "turtleID" : "Hawksbill",
+      "x1" : 180.0,
+      "y1" : 120.00000000000009,
+      "x2" : 180.0,
+      "y2" : 150.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 72,
+      "turtleID" : "Hawksbill",
+      "oldX" : 180.0,
+      "oldY" : 120.00000000000009,
+      "newX" : 180.0,
+      "newY" : 150.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 73,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 90.0,
+      "newHeading" : 180.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 74,
+      "turtleID" : "Hawksbill",
+      "x1" : 180.0,
+      "y1" : 150.00000000000009,
+      "x2" : 150.0,
+      "y2" : 150.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 75,
+      "turtleID" : "Hawksbill",
+      "oldX" : 180.0,
+      "oldY" : 150.00000000000009,
+      "newX" : 150.0,
+      "newY" : 150.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 76,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 270.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 77,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 360.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 78,
+      "turtleID" : "Hawksbill",
+      "oldX" : 150.0,
+      "oldY" : 150.00000000000009,
+      "newX" : 200.0,
+      "newY" : 150.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 79,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : -90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 80,
+      "turtleID" : "Hawksbill",
+      "x1" : 200.0,
+      "y1" : 150.00000000000009,
+      "x2" : 200.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 81,
+      "turtleID" : "Hawksbill",
+      "oldX" : 200.0,
+      "oldY" : 150.00000000000009,
+      "newX" : 200.0,
+      "newY" : 120.00000000000009,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 82,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 300.00000000000006,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 83,
+      "turtleID" : "Hawksbill",
+      "x1" : 200.0,
+      "y1" : 120.00000000000009,
+      "x2" : 215.00000000000003,
+      "y2" : 94.01923788646694,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 84,
+      "turtleID" : "Hawksbill",
+      "oldX" : 200.0,
+      "oldY" : 120.00000000000009,
+      "newX" : 215.00000000000003,
+      "newY" : 94.01923788646694,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 85,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 300.00000000000006,
+      "newHeading" : 420.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 86,
+      "turtleID" : "Hawksbill",
+      "x1" : 215.00000000000003,
+      "y1" : 94.01923788646694,
+      "x2" : 230.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 87,
+      "turtleID" : "Hawksbill",
+      "oldX" : 215.00000000000003,
+      "oldY" : 94.01923788646694,
+      "newX" : 230.0,
+      "newY" : 120.00000000000011,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 88,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 60.00000000000003,
+      "newHeading" : 180.00000000000003,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 89,
+      "turtleID" : "Hawksbill",
+      "x1" : 230.0,
+      "y1" : 120.00000000000011,
+      "x2" : 200.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 90,
+      "turtleID" : "Hawksbill",
+      "oldX" : 230.0,
+      "oldY" : 120.00000000000011,
+      "newX" : 200.0,
+      "newY" : 120.00000000000011,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 91,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 299.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 92,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 299.99999999999994,
+      "newHeading" : 359.99999999999994,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 93,
+      "turtleID" : "Hawksbill",
+      "x1" : 200.0,
+      "y1" : 120.00000000000011,
+      "x2" : 230.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 94,
+      "turtleID" : "Hawksbill",
+      "oldX" : 200.0,
+      "oldY" : 120.00000000000011,
+      "newX" : 230.0,
+      "newY" : 120.00000000000011,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 95,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : 90.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 96,
+      "turtleID" : "Hawksbill",
+      "x1" : 230.0,
+      "y1" : 120.00000000000011,
+      "x2" : 230.0,
+      "y2" : 150.0000000000001,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 97,
+      "turtleID" : "Hawksbill",
+      "oldX" : 230.0,
+      "oldY" : 120.00000000000011,
+      "newX" : 230.0,
+      "newY" : 150.0000000000001,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 98,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 90.0,
+      "newHeading" : 180.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.AddLine",
+      "@jsonId" : 99,
+      "turtleID" : "Hawksbill",
+      "x1" : 230.0,
+      "y1" : 150.0000000000001,
+      "x2" : 200.0,
+      "y2" : 150.0000000000001,
+      "color" : [ 0, 0, 0, 255 ],
+      "name" : "addLine"
+    }, {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 100,
+      "turtleID" : "Hawksbill",
+      "oldX" : 230.0,
+      "oldY" : 150.0000000000001,
+      "newX" : 200.0,
+      "newY" : 150.0000000000001,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 101,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 180.0,
+      "newHeading" : 270.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 102,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 270.0,
+      "newHeading" : 360.0,
+      "name" : "rotateTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.MoveTurtle",
+      "@jsonId" : 103,
+      "turtleID" : "Hawksbill",
+      "oldX" : 200.0,
+      "oldY" : 150.0000000000001,
+      "newX" : 250.0,
+      "newY" : 150.0000000000001,
+      "name" : "moveTurtle"
+    } ], [ {
+      "type" : "plm.universe.turtles.operations.RotateTurtle",
+      "@jsonId" : 104,
+      "turtleID" : "Hawksbill",
+      "oldHeading" : 0.0,
+      "newHeading" : -90.0,
+      "name" : "rotateTurtle"
+    } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>The universe of turtles</h1>\n\n<p>This is an adaptation of LOGO for the Programmer's Learning Machine.</p>\n\n<p>It is directly inspired from the work of the mathematician Seymour\nPapert in the 60's. Inspired from the swiss psycholog Jean Piaget, he came\nup with a learning method called LOGO to teach programming to young\nchilds. The world is full of turtles which leave a painting where they go\nand which respond to simple orders.</p>\n\n<h2>Functions to move the turtle</h2>\n\n<pre><code class=\"code-container\">void forward(double steps)\nvoid backward(double steps)</code></pre>\nMoves forward or backward of the requested amount of steps.\n\n<pre><code class=\"code-container\">void right(double angle)\nvoid left(double angle)</code></pre>\nTurns left or right of the given angle (in degrees).\n\n<pre><code class=\"code-container\">double getX()\ndouble getY()</code></pre>\nReturns the current position of the turtle. \nNote that the point (0,0) is on the top left corner, as it is often the case in Computer Science.  \n\n<pre><code class=\"code-container\">void setX(double x)\nvoid setY(double y)\nvoid setPos(double x, double y)</code></pre>\nTeleports the turtle to a new position (without leaving any trace).\n\n<pre><code class=\"code-container\">void moveTo(double x, double y)</code></pre>\nMoves the turtle to a new position.\n\n<pre><code class=\"code-container\">void circle(double radius)</code></pre>\nDraw a circle of the specified radius centered on the turtle.\n\n<pre><code class=\"code-container\">void hide()</code></pre>\nHides the turtle.\n\n<pre><code class=\"code-container\">void show()</code></pre>\nShows the turtle back.\n\n<pre><code class=\"code-container\">boolean isVisible()</code></pre>\nReturns whether the turtle is currently visible.\n\n<pre><code class=\"code-container\">void clear()</code></pre>\nRemoves any trail on the sheet.\n\n<pre><code class=\"code-container\">double getHeading()</code></pre>\nReturns the current heading of the turtle (in degrees).\n\n<pre><code class=\"code-container\">void setHeading(double angle)</code></pre>\nSets a new heading to the turtle (in degrees).\n\n<h2>Functions about the pen</h2>\n\n<pre><code class=\"code-container\">void penUp()</code></pre>\nMoves the pen up (turtles have pens, not brushes as buggles). The\nturtle will not leave any trace during its subsequent moves.\n\n<pre><code class=\"code-container\">void penDown()</code></pre>\nMoves the pen down. The turtle will leave a trace during its subsequent moves.\n\n<pre><code class=\"code-container\">boolean isPenDown()</code></pre>\nReturns the current pen position as a boolean.\n\n<pre><code class=\"code-container\">Color getColor()</code></pre>\nReturns the current pen color.\n\n<pre><code class=\"code-container\">void setColor(Color color)</code></pre>\nChanges the pen color.\n\n<h2>Other functions</h2>\n\n<pre><code class=\"code-container\">boolean isSelected()</code></pre>\nReturns whether the current turtle is selected in the graphical interface.\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n",
     "parameters" : null,
-    "shapes" : [ ],
-    "sizeHints" : [ ]
-  } ],
-  "instructions" : {
-    "pt" : "",
-    "en" : "",
-    "fr" : ""
-  }
+    "shapes" : [ {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 49.99999999999999,
+      "y1" : 120.0,
+      "x2" : 50.0,
+      "y2" : 150.0,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 49.99999999999999,
+      "y1" : 120.0,
+      "x2" : 65.00000000000001,
+      "y2" : 94.01923788646685,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 65.00000000000001,
+      "y1" : 94.01923788646685,
+      "x2" : 80.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.000000000000007
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 50.0,
+      "y1" : 120.00000000000003,
+      "x2" : 80.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 50.0,
+      "y1" : 120.00000000000003,
+      "x2" : 80.0,
+      "y2" : 120.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 80.0,
+      "y1" : 120.00000000000003,
+      "x2" : 80.0,
+      "y2" : 150.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 50.0,
+      "y1" : 150.00000000000003,
+      "x2" : 80.0,
+      "y2" : 150.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 100.0,
+      "y1" : 120.00000000000003,
+      "x2" : 100.0,
+      "y2" : 150.00000000000003,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 100.0,
+      "y1" : 120.00000000000003,
+      "x2" : 115.00000000000003,
+      "y2" : 94.01923788646688,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.000000000000004
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 115.00000000000003,
+      "y1" : 94.01923788646688,
+      "x2" : 130.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 100.0,
+      "y1" : 120.00000000000006,
+      "x2" : 130.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 100.0,
+      "y1" : 120.00000000000006,
+      "x2" : 130.0,
+      "y2" : 120.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 130.0,
+      "y1" : 120.00000000000006,
+      "x2" : 130.0,
+      "y2" : 150.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 100.0,
+      "y1" : 150.00000000000006,
+      "x2" : 130.0,
+      "y2" : 150.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 150.0,
+      "y1" : 120.00000000000006,
+      "x2" : 150.0,
+      "y2" : 150.00000000000006,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 150.0,
+      "y1" : 120.00000000000006,
+      "x2" : 165.00000000000003,
+      "y2" : 94.01923788646691,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.000000000000004
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 165.00000000000003,
+      "y1" : 94.01923788646691,
+      "x2" : 180.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 150.0,
+      "y1" : 120.00000000000009,
+      "x2" : 180.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 150.0,
+      "y1" : 120.00000000000009,
+      "x2" : 180.0,
+      "y2" : 120.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 180.0,
+      "y1" : 120.00000000000009,
+      "x2" : 180.0,
+      "y2" : 150.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 150.0,
+      "y1" : 150.00000000000009,
+      "x2" : 180.0,
+      "y2" : 150.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 200.0,
+      "y1" : 120.00000000000009,
+      "x2" : 200.0,
+      "y2" : 150.00000000000009,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 200.0,
+      "y1" : 120.00000000000009,
+      "x2" : 215.00000000000003,
+      "y2" : 94.01923788646694,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.000000000000004
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 215.00000000000003,
+      "y1" : 94.01923788646694,
+      "x2" : 230.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 200.0,
+      "y1" : 120.00000000000011,
+      "x2" : 230.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 200.0,
+      "y1" : 120.00000000000011,
+      "x2" : 230.0,
+      "y2" : 120.00000000000011,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 230.0,
+      "y1" : 120.00000000000011,
+      "x2" : 230.0,
+      "y2" : 150.0000000000001,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    }, {
+      "type" : "plm.universe.turtles.Line",
+      "x1" : 200.0,
+      "y1" : 150.0000000000001,
+      "x2" : 230.0,
+      "y2" : 150.0000000000001,
+      "color" : [ 0, 0, 0, 255 ],
+      "length" : 30.0
+    } ],
+    "sizeHints" : [ {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 35.0,
+      "y1" : 120.0,
+      "x2" : 35.0,
+      "y2" : 150.0,
+      "text" : "30"
+    }, {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 80.0,
+      "y1" : 150.0,
+      "x2" : 100.0,
+      "y2" : 150.0,
+      "text" : "20"
+    } ]
+  } ]
 }
