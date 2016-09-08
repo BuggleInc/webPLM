@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-09-07 22:12+0200\n"
+"POT-Creation-Date: 2016-09-08 16:20+0200\n"
 "PO-Revision-Date: 2016-09-02 17:03+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: French <>\n"
@@ -811,6 +811,7 @@ msgstr ""
 #: exercises/methods/picture/PictureMono1.html:27
 #: exercises/methods/picture/MethodsPicture.html:40
 #: exercises/methods/args/MethodsArgs.html:66
+#: exercises/methods/flowerpot/FlowerCase.html:9
 #: exercises/sort/basic/comb/AlgCombSort.html:39
 #: exercises/turmites/langton/Langton.html:32
 #: exercises/turmites/helloturmite/HelloTurmite.html:65
@@ -3026,8 +3027,8 @@ msgid ""
 "python]Note that math.fabs(n) returns the absolute value of a number.  This "
 "function can only be used if you imported the math module.[/!]"
 msgstr ""
-"Étant donné un nombre entier, retourner vrai si et seulement si la "
-"valeur est à moins de 10 de la valeur 100 ou de la valeur 200.\n"
+"Étant donné un nombre entier, retourner vrai si et seulement si la valeur "
+"est à moins de 10 de la valeur 100 ou de la valeur 200.\n"
 "[!java|scala]Remarquez que Math.abs(n) retourne la valeur absolue d'un "
 "nombre.[/!] \n"
 "[!python]Remarquez que math.fabs(n) retourne la valeur absolue d'un nombre. "
@@ -6363,13 +6364,14 @@ msgstr ""
 #: exercises/methods/picture/PictureMono1.html:24
 #: exercises/methods/picture/MethodsPicture.html:35
 #: exercises/methods/args/MethodsArgs.html:35
+#: exercises/methods/flowerpot/FlowerCase.html:8
 msgid "[!java|scala]"
 msgstr "[!java|scala]"
 
 #. type: Content of: <p>
 #: exercises/methods/picture/PictureMono1.html:24
 msgid ""
-"This exercise (and most of the subsequent ones)  require you to write your "
+"This exercise (and most of the subsequent ones)  requires you to write your "
 "code as the body of the <code>run()</code> method, which prototype is "
 "provided. Do not remove these lines, or the PLM will get completely lost."
 msgstr ""
@@ -6718,22 +6720,24 @@ msgstr ""
 "        <span class=\"comment\"># pareil ici</span>\n"
 "<span class=\"comment\"># même ici, oubliez</span>[/!]"
 
-#. type: Content of: outside any tag (error?)
-#: exercises/methods/returning/MethodsReturning.html:50
+#. type: Content of: <p>
+#: exercises/methods/returning/MethodsReturning.html:52
 msgid ""
 "You will once again write a function that the buggle will use. Its name must "
 "be <code>haveBaggle</code>, and it returns a boolean value indicating "
 "whether the row in front of the buggle contains a baggle or not. The buggle "
-"will use it to search the first row containing a baggle, and stop here."
+"will automatically use it to search the first row containing a baggle, so "
+"you don't have to write the code that calls this function yourself."
 msgstr ""
 "Vous allez encore une fois écrire une fonction qui sera utilisée par la "
 "buggle. Son nom doit être <code>haveBaggle</code>, et elle doit renvoyer un "
 "booléen indiquant si la colonne face à la buggle contient un biscuit ou non. "
-"Votre buggle va s'en servir pour chercher la première colonne contenant un "
-"biscuit et s'y arrêter."
+"Votre buggle va s'en servir automatiquement pour chercher la première "
+"colonne contenant un biscuit où s'arrêter, et vous n'avez donc pas à écrire "
+"vous-même le code qui appelle cette fonction."
 
 #. type: Content of: <p>
-#: exercises/methods/returning/MethodsReturning.html:55
+#: exercises/methods/returning/MethodsReturning.html:59
 msgid ""
 "The easier for this function is to use a boolean variable called "
 "<code>seenBaggle</code> indicating whether or not we saw a baggle so far. "
@@ -6745,7 +6749,7 @@ msgstr ""
 "java]false[/!][!c]0[/!]»)."
 
 #. type: Content of: <p>
-#: exercises/methods/returning/MethodsReturning.html:59
+#: exercises/methods/returning/MethodsReturning.html:63
 msgid ""
 "Then, move 6 steps forward (the world contains 7 cells and we already are on "
 "one of them). For each cell, if it contains a baggle, we store true in "
@@ -6757,7 +6761,7 @@ msgstr ""
 "qu'avancer si non)."
 
 #. type: Content of: <p>
-#: exercises/methods/returning/MethodsReturning.html:63
+#: exercises/methods/returning/MethodsReturning.html:67
 msgid ""
 "At the end, we move back by 6 steps, and we return the value of "
 "<code>seenBaggle</code> to the caller."
@@ -6766,7 +6770,7 @@ msgstr ""
 "contenu de <tt>vuBiscuit</tt> à l'appelant."
 
 #. type: Content of: <p>
-#: exercises/methods/returning/MethodsReturning.html:67
+#: exercises/methods/returning/MethodsReturning.html:71
 msgid ""
 "This exercise is a bit different since there is two initial worlds, each "
 "with a specific objective. Your code must work for each of them. Observe "
@@ -6780,7 +6784,7 @@ msgstr ""
 "que vous souhaitez observer."
 
 #. type: Content of: <p>
-#: exercises/methods/returning/MethodsReturning.html:72
+#: exercises/methods/returning/MethodsReturning.html:76
 msgid ""
 "When your function <code>haveBaggle</code> works, proceed to next exercise."
 msgstr ""
@@ -6981,10 +6985,11 @@ msgstr ""
 #: exercises/methods/args/MethodsArgs.html:71
 msgid ""
 "This time, you have to write a <code> [!java|c]move(int stepCount,[!"
-"java]boolean[/!][!c]int[/!] forward)[/!] [!scala]move(stepCount: Int,"
-"forward: Boolean)[/!] [!python]move(stepCount,forward)[/!] </code> method "
-"which moves forward by <code>stepCount</code> steps if <code>forward</code> "
-"is true, and moves back of that amount of steps if the boolean is false."
+"java]boolean[/!][!c]int[/!] goForward)[/!] [!scala]move(stepCount: Int,"
+"goForward: Boolean)[/!] [!python]move(stepCount,goForward)[/!] </code> "
+"method which moves forward by <code>stepCount</code> steps if "
+"<code>goForward</code> is true, and moves back of that amount of steps if "
+"the boolean is false."
 msgstr ""
 "Cette fois, vous devez écrire une méthode \n"
 "<code>[!java|c]move(int nbPas,[!java]boolean[/!][!c]int[/!] versLAvant)[/!] "
@@ -7095,6 +7100,13 @@ msgstr ""
 
 #. type: Content of: <p>
 #: exercises/methods/flowerpot/FlowerCase.html:8
+msgid ""
+"As previously, you must write your code in the <code>growFlowers()</code> "
+"method."
+msgstr ""
+
+#. type: Content of: <p>
+#: exercises/methods/flowerpot/FlowerCase.html:11
 msgid "PS: the newly used color is <code>Color.BLUE</code>."
 msgstr ""
 "PS: La nouvelle couleur utilisée (pour le bleu) est <code>Color.BLUE</code>"
