@@ -1,13 +1,15 @@
 package actors
 
-import java.util.{ Locale, UUID, Map, HashMap }
+import java.util.{HashMap, Locale, Map, UUID}
+
 import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
+
 import scala.concurrent.duration._
-import codes.reactive.scalatime.{ Duration, Instant }
-import json.{ LangToJson, ProgrammingLanguageToJson }
+import codes.reactive.scalatime.{Duration, Instant}
+import json.{LangToJson, ProgrammingLanguageToJson}
 import models.GitHubIssueManager
 import models.User
 import models.daos.UserDAORestImpl
@@ -19,6 +21,7 @@ import play.api.libs.json._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.Exercise
 import plm.core.model.lesson.Exercise.WorldKind
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import LessonsActor._
@@ -29,11 +32,13 @@ import SessionActor._
 import models.lesson.Lesson
 import plm.core.model.lesson.ExecutionProgress
 import models.ProgrammingLanguages
+
 import scala.concurrent.Await
 import plm.universe.World
 import akka.pattern.AskTimeoutException
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.UserSettings
+import plm.core.model.tracking.GitUtils
 
 object PLMActor {
   def props(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
@@ -83,7 +88,7 @@ class PLMActor (
   sendProgLangs
   sendHumanLangs
 
-  var currentGitID: String = null
+  var currentGitID: String = ""
   setCurrentGitID(gitID, newUser)
 
   var optIdle: Option[Instant] = None
@@ -261,8 +266,8 @@ class PLMActor (
               logNonValidJSON("setTrackUser: non-correct JSON", msg)
           }
         case "submitBugReport" =>
-          var optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
-          var optBody: Option[String] = (msg \ "args" \ "body").asOpt[String]
+          val optTitle: Option[String] = (msg \ "args" \ "title").asOpt[String]
+          val optBody: Option[String] = (msg \ "args" \ "body").asOpt[String]
           (optTitle, optBody) match {
             case (Some(title: String), Some(body: String)) =>
               gitHubIssueManager.isCorrect(title, body) match {
@@ -271,7 +276,25 @@ class PLMActor (
                   Logger.debug("Title: "+title+", body: "+body)
                   sendMessage("incorrectIssue", Json.obj("msg" -> errorMsg))
                 case None =>
-                  gitHubIssueManager.postIssue(title, body) match {
+                  val optExerciseID: Option[String] = optCurrentExercise match {
+                    case Some(exercise: Exercise) =>
+                      Some(exercise.getId)
+                    case _ =>
+                      None
+                  }
+                  val (optUserID: Option[String], optUserLastCommit: Option[String]) = optCurrentUser match {
+                    case Some(user: User) if user.trackUser.get =>
+                      (Some("PLM"+GitUtils.sha1(user.gitID)), None)
+                    case _ =>
+                      (None, None)
+                  }
+
+                  val additionalInformations: String = gitHubIssueManager.generateAdditionalInformations(optCurrentLesson, optExerciseID,
+                    currentProgLang, currentHumanLang,
+                    plmVersion, webPLMVersion,
+                    optUserID, optUserLastCommit)
+
+                  gitHubIssueManager.postIssue(title, body, additionalInformations) match {
                     case Some(issueUrl: String) =>
                       Logger.debug("Issue created at: "+ issueUrl)
                       sendMessage("issueCreated", Json.obj("url" -> issueUrl))
@@ -381,8 +404,7 @@ class PLMActor (
     optCurrentUser = None
     sendMessage("user", Json.obj())
 
-    currentGitID = UUID.randomUUID.toString
-    setCurrentGitID(currentGitID, true)
+    setCurrentGitID(UUID.randomUUID.toString, true)
   }
 
   def setCurrentGitID(newGitID: String, toSend: Boolean) {
