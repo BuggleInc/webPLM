@@ -2,10 +2,10 @@
 
 /* BEGIN TEMPLATE */
 /* BEGIN SOLUTION */
-void move(int nbPas, int f) {
+void move(int nbPas, int goForward) {
 
 	int i;
-	if (f) {
+	if (goForward) {
 		for (i=0; i<nbPas; i++)
 			forward(1);
 	} else {

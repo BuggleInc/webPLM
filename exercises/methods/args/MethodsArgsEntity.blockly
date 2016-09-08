@@ -1,6 +1,6 @@
 # BEGIN SOLUTION 
-def move(nbPas, doforward):
-    if doforward:
+def move(nbPas, goForward):
+    if goForward:
         for i in range(nbPas):
             forward()
     else:

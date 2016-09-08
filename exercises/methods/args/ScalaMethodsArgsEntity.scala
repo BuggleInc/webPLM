@@ -26,8 +26,8 @@ class ScalaMethodsArgsEntity extends SimpleBuggle {
 
 	/* BEGIN TEMPLATE */
 	/* BEGIN SOLUTION */
-	def move(steps: Int, fwd:Boolean) {
-		if (fwd) {
+	def move(steps: Int, goForward:Boolean) {
+		if (goForward) {
 			for (i <- 1 to steps) 
 				forward()
 		} else {

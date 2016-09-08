@@ -30,8 +30,8 @@ public class MethodsArgsEntity extends SimpleBuggle {
 
 	/* BEGIN TEMPLATE */
 	/* BEGIN SOLUTION */
-	public void move(int nbPas, boolean forward) {
-		if (forward) {
+	public void move(int nbPas, boolean goForward) {
+		if (goForward) {
 			for (int i=0; i<nbPas; i++) 
 				forward();
 		} else {
