@@ -83,16 +83,60 @@ object ExercisesActor {
     humanLanguages
   }
 
+  def generateFiles(path: String): Array[File] = {
+    var files: Array[File] = Array[File]()
+
+    // Gather the entities
+    val extensions: Array[String] = Array(".java", ".blockly", ".py")
+    val entitiesPaths: Array[String] = extensions.map( extension => baseDirectory + path.dropRight(5) + "Entity" + extension)
+    entitiesPaths.foreach { entityPath =>
+      val file: File = new File(entityPath)
+      if(file.exists()) {
+        files = files :+ file
+      }
+    }
+
+    // Add the Scala entity
+    val lastPart: String = path.split("/").last.dropRight(4)
+    val scalaEntityPath: String = baseDirectory + path.split("/").dropRight(1).mkString("/") + "Scala" + lastPart + "Entity.scala"
+
+    val scalaEntityFile: File = new File(scalaEntityPath)
+    if(scalaEntityFile.exists()) {
+      files = files :+ scalaEntityFile
+    }
+
+    // Add the exercise's file
+    files = files :+ new File(baseDirectory + path.dropRight(5) + ".java")
+
+    files
+  }
+
+  def isJSONUpToDate(jsonFile: File, files: Array[File]): Boolean = {
+    var upToDate: Boolean = true
+    files.foreach { file =>
+      if(jsonFile.lastModified < file.lastModified) {
+        upToDate = false
+      }
+    }
+    upToDate
+  }
+
   def initExercise(exerciseName: String): Exercise = {
     val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
-    Play.resourceAsStream(path) match {
-      case Some(is: InputStream) =>
-        val lines: String = Source.fromInputStream(is)("UTF-8").mkString
-        is.close
-        initFromJSON(lines)
-      case None =>
-        Logger.error(exerciseName + "'s JSON is missing, initializing it from source")
-        initFromSource(exerciseName)
+    val jsonFile: File = new File(baseDirectory + path)
+
+    val files: Array[File] = generateFiles(path)
+
+    if(jsonFile.exists() && isJSONUpToDate(jsonFile, files)) {
+      val is: InputStream = Play.resourceAsStream(path).get
+      val lines: String = Source.fromInputStream(is)("UTF-8").mkString
+      is.close
+      initFromJSON(lines)
+    } else {
+      val exercise: Exercise = initFromSource(exerciseName)
+      val directoryPath: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
+      JSONUtils.exerciseToFile(directoryPath, exercise)
+      exercise
     }
   }
 
