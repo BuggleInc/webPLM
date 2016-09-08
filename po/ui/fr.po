@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webPLM\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-08-25 18:35+0100\n"
+"PO-Revision-Date: 2016-09-08 15:05+0100\n"
 "Last-Translator: Matthieu Nicolas <nicolasmatthieu57@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -48,10 +48,6 @@ msgstr "Une lettre, un mot ou une ligne de texte."
 #: public/app/services/blocklymsg.service.js:263
 msgid "A number."
 msgstr "Un nombre."
-
-#: public/app/components/exercise/toggle-api.directive.html:2
-msgid "API"
-msgstr "API"
 
 #: public/app/components/application-header.directive.html:22
 msgid "About"
@@ -462,6 +458,7 @@ msgstr ""
 "début jusqu’au numéro de fin, en s’incrémentant de l’intervalle spécifié, et "
 "exécuter les ordres spécifiés."
 
+#: public/app/components/exercise/toggle-api.directive.html:2
 #: public/app/services/blocklymsg.service.js:133
 msgid "Help"
 msgstr "Aide"
@@ -2374,6 +2371,9 @@ msgstr "×"
 #: public/app/services/blocklymsg.service.js:249
 msgid "÷"
 msgstr "÷"
+
+#~ msgid "API"
+#~ msgstr "API"
 
 #~ msgid "Last name:"
 #~ msgstr "Nom:"

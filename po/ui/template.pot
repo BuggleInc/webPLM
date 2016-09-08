@@ -37,10 +37,6 @@ msgstr ""
 msgid "A number."
 msgstr ""
 
-#: public/app/components/exercise/toggle-api.directive.html:2
-msgid "API"
-msgstr ""
-
 #: public/app/components/application-header.directive.html:22
 msgid "About"
 msgstr ""
@@ -413,6 +409,7 @@ msgstr ""
 msgid "Have the variable %1 take on the values from the start number to the end number, counting by the specified interval, and do the specified blocks."
 msgstr ""
 
+#: public/app/components/exercise/toggle-api.directive.html:2
 #: public/app/services/blocklymsg.service.js:133
 msgid "Help"
 msgstr ""
