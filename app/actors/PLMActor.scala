@@ -2,7 +2,7 @@ package actors
 
 import java.util.{HashMap, Locale, Map, UUID}
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future, TimeoutException}
 import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
@@ -32,8 +32,6 @@ import SessionActor._
 import models.lesson.Lesson
 import plm.core.model.lesson.ExecutionProgress
 import models.ProgrammingLanguages
-
-import scala.concurrent.Await
 import plm.universe.World
 import akka.pattern.AskTimeoutException
 import plm.core.model.json.JSONUtils
@@ -536,7 +534,7 @@ class PLMActor (
       exerciseJson <- Future { generateUpdatedExerciseJson }
     } yield (lessonsListJson, exercisesListJson, exerciseJson)
 
-    val tuple = Await.result(futureTuple, 1 seconds)
+    val tuple = Await.result(futureTuple, 5 seconds)
     tuple.productIterator.foreach { additionalJson =>
       json = json ++ additionalJson.asInstanceOf[JsObject]
     }
@@ -573,7 +571,7 @@ class PLMActor (
       exerciseJson <- Future { generateUpdatedExerciseJson }
     } yield (codeJson, exercisesListJson, exerciseJson)
 
-    val tuple = Await.result(futureTuple, 1 seconds)
+    val tuple = Await.result(futureTuple, 5 seconds)
     tuple.productIterator.foreach { additionalJson =>
       json = json ++ additionalJson.asInstanceOf[JsObject]
     }
