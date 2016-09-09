@@ -85,6 +85,7 @@ class PLMActor (
 
   val availableLangs: Seq[Lang] = Lang.availables
 
+  sendReady
   sendProgLangs
   sendHumanLangs
 
@@ -376,6 +377,10 @@ class PLMActor (
           out ! JSONUtils.createMessage("exerciseNotFound", null)
       }
     }
+  }
+
+  def sendReady(): Unit = {
+    sendMessage("ready", Json.obj())
   }
 
   def sendProgLangs() {

@@ -5,14 +5,15 @@
     .module('PLMApp')
     .directive('profileTopBar', profileTopBar);
 
-  profileTopBar.$inject = ['userService'];
+  profileTopBar.$inject = ['userService', 'navigation'];
   
-  function profileTopBar(userService) {
+  function profileTopBar(userService, navigation) {
     return {
       restrict: 'E',
       templateUrl: '/assets/app/components/profile-top-bar.directive.html',
       link: function (scope, element, attrs) {
         scope.userService = userService;
+        scope.navigation = navigation;
       }
     };
   }

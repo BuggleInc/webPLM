@@ -1,9 +1,9 @@
-<span ng-if="!userService.isAuthenticated()">
+<span ng-if="!userService.isAuthenticated() && navigation.isReady()">
   <li ui-sref="signIn">
     <a translate>Sign In</a>
   </li>
 </span>
-<span ng-if="userService.isAuthenticated()">
+<span ng-if="userService.isAuthenticated() && navigation.isReady()">
   <li ui-sref="profile">
     <a>{{ userService.getUser().fullName }}</a>
   </li>
