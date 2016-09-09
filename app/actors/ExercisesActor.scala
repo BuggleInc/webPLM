@@ -7,8 +7,7 @@ import java.util.Locale
 import akka.actor._
 import models.ProgrammingLanguages
 import models.lesson.TipFactory
-import play.api.Logger
-import play.api.Play
+import play.api.{Logger, Mode, Play}
 import play.api.Play.current
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise
@@ -106,7 +105,10 @@ object ExercisesActor {
     }
 
     // Add the exercise's file
-    files = files :+ new File(baseDirectory + path.dropRight(5) + ".java")
+    val exerciseFile: File = new File(baseDirectory + path.dropRight(5) + ".java")
+    if(exerciseFile.exists()) {
+      files = files :+ exerciseFile
+    }
 
     files
   }
@@ -121,22 +123,31 @@ object ExercisesActor {
     upToDate
   }
 
-  def initExercise(exerciseName: String): Exercise = {
-    val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
+  def needToGenerateJSON(exerciseName: String, path: String): Boolean = {
+    val files: Array[File] = generateFiles(path)
     val jsonFile: File = new File(baseDirectory + path)
 
-    val files: Array[File] = generateFiles(path)
+    (!jsonFile.exists() || !isJSONUpToDate(jsonFile, files))
+  }
 
-    if(jsonFile.exists() && isJSONUpToDate(jsonFile, files)) {
-      val is: InputStream = Play.resourceAsStream(path).get
-      val lines: String = Source.fromInputStream(is)("UTF-8").mkString
-      is.close
-      initFromJSON(lines)
+  def initExercise(exerciseName: String): Exercise = {
+    val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
+
+    // We want to generate or refresh the JSON only in dev mode
+    if(Play.current.mode == Mode.Dev && needToGenerateJSON(exerciseName, path)) {
+      Logger.info(s"Regenerating JSON of exercise: $exerciseName")
+      exportExercise(exerciseName)
     } else {
-      val exercise: Exercise = initFromSource(exerciseName)
-      val directoryPath: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
-      JSONUtils.exerciseToFile(directoryPath, exercise)
-      exercise
+      // In prod mode, we mostly want to use the JSON
+      // Only use the sources as a fallback
+      Play.resourceAsStream(path) match {
+        case Some(is: InputStream) =>
+          val lines: String = Source.fromInputStream(is)("UTF-8").mkString
+          is.close
+          initFromJSON(lines)
+        case _ =>
+          initFromSource(exerciseName)
+      }
     }
   }
 
@@ -171,13 +182,15 @@ object ExercisesActor {
     }
   }
 
-  def exportExercise(exerciseName: String) {
+  def exportExercise(exerciseName: String): Exercise = {
     // Instantiate the exercise the old fashioned way
     val exercise: Exercise = initFromSource(exerciseName)
 
     // Store into a file its JSON serialization
     val path: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
     JSONUtils.exerciseToFile(path, exercise)
+
+    exercise
   }
 
   def getExercise(exerciseID: String): Option[Exercise] = {
