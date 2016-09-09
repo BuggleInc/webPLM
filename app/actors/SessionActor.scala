@@ -23,6 +23,7 @@ object SessionActor {
 
   implicit val timeout = Timeout(5 seconds)
 
+  case class UserChanged()
   case class RetrieveCode(exercise: Exercise, progLang: ProgrammingLanguage)
   case class SetCode(exercise: Exercise, progLang: ProgrammingLanguage, code: String)
   case class IsExercisePassed(exercise: Exercise, progLang: ProgrammingLanguage)
@@ -35,6 +36,9 @@ class SessionActor(gitActor: ActorRef, programmingLanguages: Array[ProgrammingLa
   val exercisesPassed: HashMap[String, HashMap[ProgrammingLanguage, Boolean]] = new HashMap[String, HashMap[ProgrammingLanguage, Boolean]]
 
   def receive =  {
+    case UserChanged =>
+      exercisesCodes.clear()
+      exercisesPassed.clear()
     case RetrieveCode(exercise, progLang) =>
       val exerciseCodes: HashMap[ProgrammingLanguage, String] = exercisesCodes.getOrElseUpdate(exercise.getId, new HashMap[ProgrammingLanguage, String])
       exerciseCodes.get(progLang) match {

@@ -104,6 +104,7 @@ class PLMActor (
         case "signIn" | "signUp" =>
           val currentUser: User = (msg \ "user").asOpt[User].get
           setCurrentUser(currentUser)
+          sessionActor ! UserChanged
           gitActor ! SwitchUser(currentUser.gitID, currentUser.trackUser)
           currentUser.preferredLang match {
             case Some(newLang: Lang) =>
@@ -119,6 +120,7 @@ class PLMActor (
           }
         case "signOut" =>
           clearCurrentUser
+          sessionActor ! UserChanged
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
