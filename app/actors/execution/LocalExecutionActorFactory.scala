@@ -14,7 +14,7 @@ import play.api.Logger
 @Singleton
 class LocalExecutionActorFactory @Inject() (system: ActorSystem) extends ExecutionActorFactory {
   def create(optLang: Option[Lang]): ActorRef = {
-    Logger.error("On va servir un LOCAL")
+    Logger.info("Execution Mode: LOCAL")
     val lang: Lang = optLang.getOrElse(Lang("en"))
     system.actorOf(LocalExecutionActor.props(lang))
   }

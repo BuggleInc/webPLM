@@ -15,7 +15,7 @@ import play.api.Logger
 @Singleton
 class TribunalActorFactory @Inject() (system: ActorSystem) extends ExecutionActorFactory {
   def create(optLang: Option[Lang]): ActorRef = {
-    Logger.error("On va servir un TRIBUNAL")
+    Logger.info("Execution Mode: TRIBUNAL")
     val lang: Lang = optLang.getOrElse(Lang("en"))
     system.actorOf(TribunalActor.props(lang))
   }

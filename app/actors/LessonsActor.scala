@@ -26,7 +26,7 @@ object LessonsActor {
   case class GetFirstExerciseID(lessonID: String)
 
   val lessonsID: Array[String] = Array( // WARNING, keep ChooseLessonDialog.lessons synchronized
-    "welcome", 
+    "welcome",
     "sort.basic", "sort.dutchflag",
     "maze",
     // "turmites",
@@ -90,7 +90,7 @@ object LessonsActor {
           is.close
           descriptions = descriptions ++ Map(lang.code -> description)
         case None =>
-          Logger.error(lessonName + "'s " + lang.language + " description is missing...")
+          Logger.warn(lessonName + "'s " + lang.language + " description is missing...")
       }
     }
 

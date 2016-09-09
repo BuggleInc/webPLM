@@ -97,7 +97,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       val repoDir: File = new File(repoPath)
 
       if (!repoDir.exists) {
-        Logger.error("Repo doesn't exist yet")
+        Logger.info("Repo doesn't exist yet...")
         gitUtils.initLocalRepository(repoDir)
         gitUtils.setUpRepoConfig(repoUrl, userBranch)
         // We must create an initial commit before creating a specific branch for the user
@@ -114,10 +114,10 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
       // try to get the branch as stored remotely
       if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
         gitUtils.mergeRemoteIntoLocalBranch(userBranch)
-        Logger.error(userBranch+" was automatically retrieved from the servers.")
+        Logger.info(userBranch+" was automatically retrieved from the servers.")
       } else {
         // If no branch can be found remotely, create a new one.
-        Logger.error("Couldn't retrieve a corresponding session from the servers...")
+        Logger.info("Couldn't retrieve a corresponding session from the servers...")
       }
 
       started
@@ -186,7 +186,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
   def requestPush() {
     optTrackUser match {
     case Some(true) =>
-      pushActor ! RequestPush(gitID) 
+      pushActor ! RequestPush(gitID)
     case _ =>
     }
   }
@@ -300,7 +300,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     optExerciseFrom match {
       case Some(exerciseFrom: Exercise) =>
         json = json ++ Json.obj(
-          "exo" -> exerciseFrom.getId    
+          "exo" -> exerciseFrom.getId
         )
       case _ =>
     }
