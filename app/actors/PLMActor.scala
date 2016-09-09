@@ -612,6 +612,8 @@ class PLMActor (
 
     gitActor ! PoisonPill
     executionActor ! PoisonPill
+    exercisesActor ! PoisonPill
+    lessonsActor ! PoisonPill
     sessionActor ! PoisonPill
 
     ActorsMap.remove(actorUUID)
