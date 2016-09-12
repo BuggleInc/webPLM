@@ -13,6 +13,7 @@
 			templateUrl: '/assets/app/components/exercise/execution-results.directive.html',
       link: function (scope, element, attrs) {
         scope.commonErrors = commonErrors;
+        scope.currentTab = -1;
         listenersHandler.register('onmessage', function (data) {
           var cmd = data.cmd;
           var args = data.args;

@@ -592,7 +592,6 @@
               $('#successModal').foundation('reveal', 'open');
             }
             exercise.resultType = msgType;
-            exercise.display = 'result';
           }, 500);
           unbindListener(); // Allows to remove the listener
         });
@@ -603,7 +602,6 @@
           $('#successModal').foundation('reveal', 'open');
         }
         exercise.resultType = msgType;
-        exercise.display = 'result';
       }
     }
 
