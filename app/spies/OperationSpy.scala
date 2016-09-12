@@ -45,8 +45,8 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   }
 
   def flush() {
-    if(!world.getSteps.isEmpty) {
-      out ! JSONUtils.operationsToJSON(world, -1)
+    while(!world.getSteps.isEmpty) {
+      out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
     }
   }
 
