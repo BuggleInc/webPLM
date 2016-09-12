@@ -205,6 +205,8 @@
           handleOut(args.msg);
         }
         break;
+      case 'ack':
+        exercise.result += 'Processing your execution request...\n';
       case 'log':
         exercise.logs += args.msg;
         break;

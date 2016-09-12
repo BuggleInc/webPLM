@@ -142,6 +142,8 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       val json: JsonNode = JSONUtils.mapper.readTree(msg)
       val msgType: String = json.path("cmd").asText
       msgType match {
+        case "ack" =>
+          client ! msg
         case "executionResult" =>
           val result: ExecutionProgress = JSONUtils.mapper.treeToValue(json.path("args").path("result"), classOf[ExecutionProgress])
           result.language = progLang
