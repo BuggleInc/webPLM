@@ -2,6 +2,14 @@ package lessons.welcome.bdr;
 
 class ScalaBDREntity extends plm.universe.bugglequest.SimpleBuggle {
 
+	def getIndication(): Char =  {
+		if (isOverMessage()) {
+			return readMessage().charAt(0);
+		} else {
+			return ' ';
+		}
+	}
+
 	override def run() {
 		/* BEGIN SOLUTION */
 	    var done = false
