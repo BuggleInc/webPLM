@@ -233,7 +233,7 @@
         break;
       case 'unsubscribe':
         messageQueue.unsubscribe();
-		break;
+        break;
       }
     }
 
