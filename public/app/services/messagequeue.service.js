@@ -12,7 +12,6 @@
     var subscription;
     var cancellable;
 
-
     var service = {
       subscribe: subscribe,
       unsubscribe: unsubscribe
@@ -69,6 +68,8 @@
       if(subscription !== undefined && subscription !== null) {
         subscription.unsubscribe();
       }
+      subscription = undefined;
+      cancellable = undefined;
     }
 
   }
