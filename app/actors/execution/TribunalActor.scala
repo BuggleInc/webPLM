@@ -77,9 +77,6 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
   val argsIn: Map[String, Object] = new HashMap[String, Object]
   argsIn.put("x-message-ttl", defaultTimeout.asInstanceOf[Object])
 
-  val channelOut : Channel = connection.createChannel
-  channelOut.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, argsOut)
-
   def receive =  {
     case StartExecution(out, exercise, progLang, code) =>
       startExecution(sender, out, exercise, progLang, code)
@@ -93,15 +90,27 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
 
   def startExecution(plmActor: ActorRef, client: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
     Future {
+      val channel : Channel = connection.createChannel
+
+      // Declare the message queue used by webPLM and the judges to communicate
+      // webPLM should only publish the execution requests there
+      // while the judges should wait to retrieve one request
+      channel.queueDeclare(QUEUE_NAME_REQUEST, false, false, false, argsOut)
+
+      // Declare the message queue used by webPLM and a judge to communicate
+      // webPLM should only subscribe to this message queue
+      // while the judge handling the execution request should publish the execution result
       val replyQueue: String = s"$QUEUE_NAME_REPLY-${UUID.randomUUID.toString}"
+      channel.queueDeclare(replyQueue, false, false, true, argsIn)
+
+      val consumer : QueueingConsumer = new QueueingConsumer(channel)
+      channel.basicConsume(replyQueue, true, consumer)
+
+      // Generate the name of the client queue
+      // This queue will be used by the client and the judge handling its execution request to communicate
+      // Only the judge should publish messages, the operations describing the worlds' updates
       val clientQueue: String = s"$replyQueue-client"
-      val channelIn : Channel = connection.createChannel
-      channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
-
       sendSubscribe(client, clientQueue)
-
-      val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
-      channelIn.basicConsume(replyQueue, true, consumer)
 
       val parameters: Map[String, Object] = new HashMap[String, Object]
       parameters.put("exercise", JSONUtils.exerciseToJudgeJSON(exercise)) // To remove incorrect entities' type
@@ -110,10 +119,10 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       parameters.put("localization", currentLocale.getLanguage)
       parameters.put("replyQueue", replyQueue)
       parameters.put("clientQueue", clientQueue)
-      
-      val json: String = JSONUtils.mapToJSON(parameters)
 
-      channelOut.basicPublish("", QUEUE_NAME_REQUEST, null, json.getBytes("UTF-8"))
+      val json: String = JSONUtils.mapToJSON(parameters)
+      channel.basicPublish("", QUEUE_NAME_REQUEST, null, json.getBytes("UTF-8"))
+
       timeout = System.currentTimeMillis + defaultTimeout
       state = Waiting
       executionStopped = false
@@ -132,34 +141,26 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
           state = handleMessage(plmActor, client, progLang, new String(delivery.getBody, "UTF-8"))
         }
       }
-      channelIn.close
+      channel.close
     }
-  }
-
-  def containsOperations(message: String): Boolean = {
-    message.startsWith("""{"cmd":"operations"""")
   }
 
   def handleMessage(plmActor: ActorRef, client: ActorRef, progLang: ProgrammingLanguage, msg: String): TribunalState = {
     var state: TribunalState = Streaming
-    if(containsOperations(msg)) {
-      // Handle separately operations to avoid too much parsing
-      client ! msg
+
+    val json: JsonNode = JSONUtils.mapper.readTree(msg)
+    val msgType: String = json.path("cmd").asText
+    msgType match {
+      case "ack" =>
+        client ! msg
+      case "executionResult" =>
+        val result: ExecutionProgress = JSONUtils.mapper.treeToValue(json.path("args").path("result"), classOf[ExecutionProgress])
+        result.language = progLang
+        plmActor ! result
+        state = Replied
+      case _ =>
     }
-    else {
-      val json: JsonNode = JSONUtils.mapper.readTree(msg)
-      val msgType: String = json.path("cmd").asText
-      msgType match {
-        case "ack" =>
-          client ! msg
-        case "executionResult" =>
-          val result: ExecutionProgress = JSONUtils.mapper.treeToValue(json.path("args").path("result"), classOf[ExecutionProgress])
-          result.language = progLang
-          plmActor ! result
-          state = Replied
-        case _ =>
-      }
-    }
+
     state
   }
 
@@ -188,6 +189,5 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
 
   override def postStop() = {
     Logger.debug("postStop: websocket closed - tribunalActor stopped")
-    channelOut.close
   }
 }
