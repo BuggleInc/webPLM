@@ -7,7 +7,7 @@
 
   Exercise.$inject = [
     '$window', '$http', '$scope', '$sce', '$state', '$stateParams', '$location', '$anchorScroll',
-    'connection', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
+    'connection', 'messageQueue', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
     'canvas', 'drawWithDOM',
     'blocklyService',
     '$timeout', '$interval',
@@ -24,7 +24,7 @@
   ];
 
   function Exercise($window, $http, $scope, $sce, $state, $stateParams, $location, $anchorScroll,
-    connection, listenersHandler, langs, progLangs, exercisesList, navigation, toasterUtils,
+    connection, messageQueue, listenersHandler, langs, progLangs, exercisesList, navigation, toasterUtils,
     canvas, drawWithDOM,
     blocklyService,
     $timeout, $interval,
@@ -228,6 +228,12 @@
       case 'reset':
         exercise.code = args.defaultCode;
         break;
+      case 'subscribe':
+        messageQueue.subscribe(args.clientQueue, handleMessage);
+        break;
+      case 'unsubscribe':
+        messageQueue.unsubscribe();
+		break;
       }
     }
 
@@ -521,6 +527,10 @@
 
     function runCode(worldID) {
       var args;
+
+      // Cancel the previous subscription before all
+      messageQueue.unsubscribe();
+
       exercise.result = '';
       exercise.resultType = null;
       exercise.updateViewLoop = null;
@@ -564,6 +574,7 @@
     function stopExecution() {
       exercise.executionStopped = true;
       exercise.isPlaying = false;
+      messageQueue.unsubscribe();
       $timeout.cancel(exercise.updateModelLoop);
       stopUpdateViewLoop();
       connection.sendMessage('stopExecution', null);
@@ -728,6 +739,7 @@
     $scope.$on('$destroy', function () {
       console.log('On passe ici!');
       offDisplayMessage();
+      messageQueue.unsubscribe();
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       stopUpdateViewLoop();

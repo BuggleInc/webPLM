@@ -10,16 +10,20 @@ import play.api.i18n.Lang
 import com.rabbitmq.client.QueueingConsumer
 import plm.core.model.lesson.Exercise
 import plm.core.lang.ProgrammingLanguage
-import java.util.{ Map, HashMap }
+import java.util.{HashMap, Map}
+
 import akka.actor.Props
 import plm.core.model.lesson.ExecutionProgress
 import akka.actor.ActorRef
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.util.UUID
 import java.util.Locale
+
 import plm.core.model.json.JSONUtils
 import com.fasterxml.jackson.databind.JsonNode
+import play.api.libs.json.{JsObject, Json}
 
 /**
  * @author matthieu
@@ -89,10 +93,13 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
 
   def startExecution(plmActor: ActorRef, client: ActorRef, exercise: Exercise, progLang: ProgrammingLanguage, code: String) {
     Future {
-      val replyQueue: String = QUEUE_NAME_REPLY + UUID.randomUUID.toString
+      val replyQueue: String = s"$QUEUE_NAME_REPLY-${UUID.randomUUID.toString}"
+      val clientQueue: String = s"$replyQueue-client"
       val channelIn : Channel = connection.createChannel
       channelIn.queueDeclare(replyQueue, false, false, true, argsIn)
- 
+
+      sendSubscribe(client, clientQueue)
+
       val consumer : QueueingConsumer = new QueueingConsumer(channelIn)
       channelIn.basicConsume(replyQueue, true, consumer)
 
@@ -102,6 +109,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       parameters.put("language", progLang.getLang)
       parameters.put("localization", currentLocale.getLanguage)
       parameters.put("replyQueue", replyQueue)
+      parameters.put("clientQueue", clientQueue)
       
       val json: String = JSONUtils.mapToJSON(parameters)
 
@@ -165,6 +173,17 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
     val result: ExecutionProgress = new ExecutionProgress(progLang, currentLocale)
     result.setStopError
     plmActor ! result
+  }
+
+  def sendSubscribe(client: ActorRef, clientQueue: String): Unit = {
+    val json: JsObject = Json.obj(
+      "cmd" -> "subscribe",
+      "args" -> Json.obj(
+        "clientQueue" -> clientQueue
+      )
+    )
+
+    client ! json.toString
   }
 
   override def postStop() = {
