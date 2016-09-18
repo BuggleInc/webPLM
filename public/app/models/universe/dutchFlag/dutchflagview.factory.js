@@ -67,7 +67,7 @@
 			for(var i=0; i<dutchFlagWorld.content.length; i++)
 			{
 				//each rectangle takes place in the canvasHeight
-				var y = heightUnit * i;
+				var y = heightUnit * (dutchFlagWorld.content.length- i-1);
 
 				ctx.beginPath();
 
