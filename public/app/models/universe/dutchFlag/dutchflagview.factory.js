@@ -74,14 +74,14 @@
 				//to know the color of each rectangle, we are looking its value
 				switch(dutchFlagWorld.content[i])
 				{
-					case 0 :
-						ctx.fillStyle = '#0000FF';
+					case 0: // Blue
+						ctx.fillStyle = '#21468B';
 						break;
-					case 1 :
+					case 1: // White
 						ctx.fillStyle = '#FFFFFF';
 						break;
-					case 2 :
-						ctx.fillStyle = '#FF0000';
+					case 2: // Red
+						ctx.fillStyle = '#AE1C28';
 						break;
 				}
 
