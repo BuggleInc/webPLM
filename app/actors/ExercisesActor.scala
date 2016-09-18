@@ -113,40 +113,37 @@ object ExercisesActor {
     files
   }
 
-  def isJSONUpToDate(jsonFile: File, files: Array[File]): Boolean = {
-    var upToDate: Boolean = true
-    files.foreach { file =>
-      if(jsonFile.lastModified < file.lastModified) {
-        upToDate = false
-      }
-    }
-    upToDate
-  }
-
   def needToGenerateJSON(exerciseName: String, path: String): Boolean = {
     val files: Array[File] = generateFiles(path)
     val jsonFile: File = new File(baseDirectory + path)
 
-    (!jsonFile.exists() || !isJSONUpToDate(jsonFile, files))
+    if (!jsonFile.exists())
+      return true
+      
+    files.foreach { file =>
+      if(jsonFile.lastModified < file.lastModified)
+        return true
+    }
+    
+    return false
   }
 
   def initExercise(exerciseName: String): Exercise = {
-    val path: String = exerciseName.replaceAll("\\.", "/") + ".json"
+    val jsonFile: String = exerciseName.replaceAll("\\.", "/") + ".json"
 
     // We want to generate or refresh the JSON only in dev mode
-    if(Play.current.mode == Mode.Dev && needToGenerateJSON(exerciseName, path)) {
-      Logger.info(s"Regenerating JSON of exercise: $exerciseName")
+    if(needToGenerateJSON(exerciseName, jsonFile)) {
       exportExercise(exerciseName)
     } else {
       // In prod mode, we mostly want to use the JSON
       // Only use the sources as a fallback
-      Play.resourceAsStream(path) match {
+      Play.resourceAsStream(jsonFile) match {
         case Some(is: InputStream) =>
           val lines: String = Source.fromInputStream(is)("UTF-8").mkString
           is.close
           initFromJSON(lines)
         case _ =>
-          initFromSource(exerciseName)
+          exportExercise(exerciseName)
       }
     }
   }
@@ -155,14 +152,6 @@ object ExercisesActor {
     val exercise: Exercise = JSONUtils.jsonStringToExercise(lines)
     exercisesFactory.computeMissions(exercise)
     exercisesFactory.computeHelps(exercise)
-    exercise
-  }
-
-  def initFromSource(exerciseName: String): Exercise = {
-    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
-    val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
-    exercise.setSettings(userSettings)
-    exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
     exercise
   }
 
@@ -184,8 +173,12 @@ object ExercisesActor {
 
   def exportExercise(exerciseName: String): Exercise = {
     // Instantiate the exercise the old fashioned way
-    val exercise: Exercise = initFromSource(exerciseName)
+    val userSettings: UserSettings = new UserSettings(locale, ProgrammingLanguages.defaultProgrammingLanguage)
+    val exercise: Exercise = Class.forName(exerciseName).getDeclaredConstructor().newInstance().asInstanceOf[Exercise]
+    exercise.setSettings(userSettings)
+    exercisesFactory.initializeExercise(exercise, ProgrammingLanguages.defaultProgrammingLanguage)
 
+    Logger.info(s"Regenerating exercise ${exerciseName}.json")
     // Store into a file its JSON serialization
     val path: String = List(baseDirectory, exerciseName.replaceAll("\\.", "/")).mkString("/")
     JSONUtils.exerciseToFile(path, exercise)
