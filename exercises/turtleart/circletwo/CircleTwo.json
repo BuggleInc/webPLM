@@ -8,7 +8,7 @@
       "body" : "public void run() {\n}\n",
       "template" : "$package   import plm.universe.turtles.Turtle;  public class CircleTwo extends Turtle { $body } ",
       "offset" : 1,
-      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\npublic class CircleTwo extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (int i=0; i<360;i++) {\n\t\t\tforward(1.);\n\t\t\tright(1);\n\t\t}\n\t\tfor (int i=0; i<360;i++) {\n\t\t\tforward(2);\n\t\t\tright(1);\n\t\t}\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "correction" : "$package \n\nimport plm.universe.turtles.Turtle;\n\npublic class CircleTwo extends Turtle {\n\n\t/* BEGIN TEMPLATE */\n\tpublic void run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (int i=0; i<360;i++) {\n\t\t\tforward(1.);\n\t\t\tright(1);\n\t\t}\n\t\tfor (int i=0; i<360;i++) {\n\t\t\tforward(2);\n\t\t\tright(1);\n\t\t}\n\t\t\n\t\taddSizeHint(165,150, 165,151);\n\t\taddSizeHint(280,149, 280,151);\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
     "Scala" : {
@@ -28,7 +28,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.turtles.TurtleWorld",
     "@jsonId" : 1,
@@ -24551,11 +24550,20 @@
       "color" : [ 0, 0, 0, 255 ],
       "length" : 1.9999999999999887
     } ],
-    "sizeHints" : [ ]
-  } ],
-  "instructions" : {
-    "pt" : "",
-    "en" : "",
-    "fr" : ""
-  }
+    "sizeHints" : [ {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 165.0,
+      "y1" : 150.0,
+      "x2" : 165.0,
+      "y2" : 151.0,
+      "text" : "1"
+    }, {
+      "type" : "plm.universe.turtles.SizeHint",
+      "x1" : 280.0,
+      "y1" : 149.0,
+      "x2" : 280.0,
+      "y2" : 151.0,
+      "text" : "2"
+    } ]
+  } ]
 }

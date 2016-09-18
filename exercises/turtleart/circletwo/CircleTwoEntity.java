@@ -15,6 +15,9 @@ public class CircleTwoEntity extends Turtle {
 			forward(2);
 			right(1);
 		}
+		
+		addSizeHint(165,150, 165,151);
+		addSizeHint(280,149, 280,151);
 		/* END SOLUTION */
 	}
 	/* END TEMPLATE */
