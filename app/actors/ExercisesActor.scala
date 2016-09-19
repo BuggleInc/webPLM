@@ -131,8 +131,8 @@ object ExercisesActor {
   def initExercise(exerciseName: String): Exercise = {
     val jsonFile: String = exerciseName.replaceAll("\\.", "/") + ".json"
 
-    // We want to generate or refresh the JSON only in dev mode
-    if(needToGenerateJSON(exerciseName, jsonFile)) {
+    // scanning the whole disk is a bad idea when in production mode
+    if (Play.current.mode == Mode.Dev && needToGenerateJSON(exerciseName, jsonFile)) {
       exportExercise(exerciseName)
     } else {
       // In prod mode, we mostly want to use the JSON
