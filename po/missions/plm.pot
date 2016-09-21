@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-17 21:54+0200\n"
+"POT-Creation-Date: 2016-09-21 22:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2215,11 +2215,12 @@ msgid ""
 "Given an int n, return true if it is within 10 of 100 or 200.  "
 "[!java|scala]Note that Math.abs(n) returns the absolute value of a "
 "number.[/!] [!python]Note that math.fabs(n) returns the absolute value of a "
-"number.  This function can only be used if you imported the math module.[/!]"
+"number.  This function can only be used if you imported the math module, ie "
+"if you have the following above your code: <code>import math</code>[/!]"
 msgstr ""
 
 #. type: Content of: <p>
-#: exercises/bat/bool1/nearhundred/NearHundred.html:8 exercises/bat/bool1/in1020/In1020.html:6 exercises/bat/bool1/posneg/PosNeg.html:6 exercises/bat/bool1/makes10/Makes10.html:6 exercises/bat/bool1/monkeytrouble/MonkeyTrouble.html:8 exercises/bat/bool1/icyhot/IcyHot.html:6 exercises/bat/bool1/diff21/Diff21.html:6 exercises/bat/bool1/sumdouble/SumDouble.html:6 exercises/bat/bool1/parottrouble/ParotTrouble.html:9 exercises/bat/bool1/sleepin/SleepIn.html:8
+#: exercises/bat/bool1/nearhundred/NearHundred.html:9 exercises/bat/bool1/in1020/In1020.html:6 exercises/bat/bool1/posneg/PosNeg.html:6 exercises/bat/bool1/makes10/Makes10.html:6 exercises/bat/bool1/monkeytrouble/MonkeyTrouble.html:8 exercises/bat/bool1/icyhot/IcyHot.html:6 exercises/bat/bool1/diff21/Diff21.html:6 exercises/bat/bool1/sumdouble/SumDouble.html:6 exercises/bat/bool1/parottrouble/ParotTrouble.html:9 exercises/bat/bool1/sleepin/SleepIn.html:8
 msgid ""
 "This exercise was converted to PLM from the excellent exercising site "
 "http://codingbat.com/"
