@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass Environment extends AbstractBuggle {\n\tprotected override def run() { \n\t\t/* BEGIN SOLUTION */\n\t\tforward();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Environment",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION \nforward()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Environment",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -577,5 +584,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

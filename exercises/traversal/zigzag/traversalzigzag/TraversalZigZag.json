@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle;\nimport plm.core.model.I18nManager\n\nclass TraversalZigZag extends AbstractBuggle {\n\t/* BEGIN TEMPLATE */\t\t\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar cpt=0;\n\t\twriteMessage(cpt);\n\t\twhile (!endingPosition()) {\n\t\t\tnextStep();\n\t\t\tcpt+=1;\n\t\t\twriteMessage(cpt);\n\t\t}\n\t}\n\n\tdef nextStep() {        \n\t\tvar x=getX();\n\t\tvar y=getY();\n\n\t\tif (y % 2 == 0) {\n\t\t\tif (x < getWorldWidth()-1) {\n\t\t\t\tx+=1;\n\t\t\t} else if (y < getWorldHeight()-1) {\n\t\t\t\ty+=1; \n\t\t\t}\n\t\t} else {\n\t\t\tif (0 < x) {\n\t\t\t\tx-=1;\n\t\t\t} else if (y < getWorldHeight()-1) {\n\t\t\t\ty+=1; \n\t\t\t}\n\t\t}\n\n\t\tsetPos(x,y);\n\t}\n\n\tdef endingPosition():Boolean = {\n\t\treturn (getX() == getWorldWidth() -1) && (getY() == getWorldHeight()-1);\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\t\n\n\n\toverride def forward(i:Int)  { \n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld().getLocale()).tr(\"Sorry Dave, I cannot let you use forward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def forward()  {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld().getLocale()).tr(\"Sorry Dave, I cannot let you use forward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def backward(i:Int) {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld().getLocale()).tr(\"Sorry Dave, I cannot let you use backward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def backward() {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld().getLocale()).tr(\"Sorry Dave, I cannot let you use backward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "TraversalZigZag",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\n# BEGIN SOLUTION\ndef nextStep():\n\tx=getX()\n\ty=getY()\n\n\tif y % 2 == 0:\n\t\tif x < getWorldWidth()-1:\n\t\t\tx += 1\n\t\telif y < getWorldHeight()-1:\n\t\t\ty += 1\n\telse:\n\t\tif 0 < x:\n\t\t\tx -= 1\n\t\telif y < getWorldHeight()-1:\n\t\t\ty += 1 \n\tsetPos(x,y)\n\ndef endingPosition():\n\treturn (getX() == getWorldWidth() -1) and (getY() == getWorldHeight()-1)\n\ncpt = 0\nwriteMessage(cpt)\nwhile not endingPosition():\n\tnextStep()\n\tcpt += 1\n\twriteMessage(cpt)\n# END SOLUTION\n# END TEMPLATE\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "TraversalZigZag",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1924,5 +1931,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

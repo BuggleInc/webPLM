@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color\nimport plm.universe.bugglequest.AbstractBuggle\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass LoopStairs extends AbstractBuggle {\n\toverride def forward(i: Int)  {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\tvar colors = Array(\n\t\t\tColor.blue,    Color.cyan, Color.green,  Color.yellow,\n\t\t\tColor.orange,  Color.red,  Color.magenta,Color.pink)\n\t\n\tvar step = -3\n\toverride def forward() {\n\t\tsuper.forward();\n\t\tif (step<0 || step%2 == 1 || (step/2)>=colors.length) {\n\t\t\tif (step < 0)\n\t\t\t\tsetBrushColor(Color.lightGray);\n\t\t\telse if ((step/2)>=colors.length)\n\t\t\t\tsetBrushColor(Color.pink);\n\t\t\telse\n\t\t\t\tsetBrushColor(colors((step/2)%colors.length));\n\t\t\tbrushDown();\n\t\t\tbrushUp();\n\t\t}\n\t\tstep += 1; \n\t}\n\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tleft();\n\t\tfor (i <- 1 to 8) { \n\t\t\tforward();\n\t\t\tright();\n\t\t\tforward();\n\t\t\tleft();\n\t\t}\n\t\tright();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "LoopStairs",
+      "body" : "",
+      "template" : "import javax.swing.JOptionPane;\n\ncolors = [Color.blue,    Color.cyan, Color.green,  Color.yellow,\n          Color.orange,  Color.red,  Color.magenta,Color.pink]\n\nstep = -3\ndef forward(i=-1):\n    global step\n    if i==-1 or i==1:\n      entity.forward()\n      if step<0 or step%2 == 1 or (step/2)>=len(colors):\n          if step < 0:\n              setBrushColor(Color.lightGray)\n          elif (step/2)>=len(colors):\n              setBrushColor(Color.pink)\n          else:\n              setBrushColor(colors[(step/2)%len(colors)])\n          brushDown()\n          brushUp()\n      step += 1\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1 or i==1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n      \n$body\n",
+      "offset" : 28,
+      "correction" : "import javax.swing.JOptionPane;\n\ncolors = [Color.blue,    Color.cyan, Color.green,  Color.yellow,\n          Color.orange,  Color.red,  Color.magenta,Color.pink]\n\nstep = -3\ndef forward(i=-1):\n    global step\n    if i==-1 or i==1:\n      entity.forward()\n      if step<0 or step%2 == 1 or (step/2)>=len(colors):\n          if step < 0:\n              setBrushColor(Color.lightGray)\n          elif (step/2)>=len(colors):\n              setBrushColor(Color.pink)\n          else:\n              setBrushColor(colors[(step/2)%len(colors)])\n          brushDown()\n          brushUp()\n      step += 1\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1 or i==1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n      \n# BEGIN SOLUTION\nforward()\nforward()\nforward()\nleft()\nfor i in range(8): \n    forward()   \n    right()\n    forward()\n    left()\n        \nright()\nforward()\nforward()\nforward()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "LoopStairs",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -2154,5 +2161,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

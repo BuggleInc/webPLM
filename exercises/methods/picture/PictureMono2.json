@@ -19,6 +19,14 @@
       "correction" : "$package \n\n\nclass PictureMono2 extends plm.universe.bugglequest.AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (i <- 1 to 3) {\n\t\t\tmakeLine(3);\n\t\t\tnextLine();\n\t\t}\n\t}\n\tdef mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tdef makeV() {\n\t\tforward(2);\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tbackward();\n\t\tright();\n\t\tforward();\n\t\tmark();\n\n\t\tforward(2);\n\t\tleft();\n\t}\n\n\tdef makePattern() {\n\t  for (i <- 1 to 4) {\n\t\t  makeV();\n\t  }\n\t  forward(7);\n\t}\n\n\tdef makeLine(count: Int){\n\t\tfor (i <- 1 to count)\n\t\t\tmakePattern();\n\t\tbackward(count*7);\n\t}\n\n\tdef nextLine() {\n\t\tleft();\n\t\tforward(7);\n\t\tright();\t\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "PictureMono2",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef mark():\n   brushDown()\n   brushUp()\n\ndef makeV():\n   forward(2)\n   mark()\n   forward()\n   left()\n   forward()\n   mark()\n   backward()\n   right()\n   forward()\n   mark()   \n   forward(2)\n   left()\n\ndef makePattern():\n    for i in range(4):\n        makeV()\n    forward(7)\n\ndef makeLine(count):\n   for i in range(count):\n      makePattern()\n   backward(count*7)\n\ndef nextLine():\n   left()\n   forward(7)\n   right()\n\nfor i in range(3):\n   makeLine(3)\n   nextLine()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "PictureMono2",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -11685,5 +11692,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

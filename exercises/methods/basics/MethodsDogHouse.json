@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle\n\nimport scala.collection.JavaConversions\nimport plm.core.model.lesson.Exercise\nimport plm.core.log.Logger\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass MethodsDogHouse extends AbstractBuggle {\n\toverride def right()  {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use right() in this exercise. Use left() instead.\"));\n\t}\n\n\tvar savedLine = -1\n\tvar studentCode = false\n\toverride def left() {\n\t  if (!studentCode) {\n\t\t  super.left()\n\t\t  return\n\t  }\n\t  var usedLine = 0\n\t  for (s <- Thread.currentThread().getStackTrace())\n\t    if (s.getMethodName().equals(\"dogHouse\")) {\n\t      usedLine = s.getLineNumber()\n\t      /*println(\"left() used in \"+s.getFileName()+\":\"+usedLine+\" (\"+\n\t    \t\t  Thread.currentThread().getStackTrace().apply(2).getClassName()+\":\"+\n\t    \t\t  Thread.currentThread().getStackTrace().apply(2).getMethodName()+\")\")*/\n\t    }\n\t  if (usedLine==0) {\n\t    //println(\"Warning, cannot determine the call stack of left(). No check enforced\");\n\t    super.left()\n\t    return\n\t  }\n\t  if (savedLine == -1) {\n\t    savedLine = usedLine\n\t  } else if (savedLine != usedLine) {\n\t    // FIXME: Re-implement me\n\t    /*\n\t    var offset = getGame().getCurrentLesson().getCurrentExercise().asInstanceOf[Exercise].getSourceFile(Game.SCALA, 0).getOffset()\n\t    var msg = getGame().i18n.tr(\"Sorry Dave, I cannot let you use left() both in lines {0} and {1} in this exercise. You can write left() only once in this exercise.\",\n\t        (savedLine-offset),(usedLine-offset));\n\t\t  \n\t\t  Logger.log(msg);\n\t\t  throw new RuntimeException(msg);\n\t  \t*/\n\t  }\n\t  super.left();\n\t}\n\t/* BEGIN SOLUTION */\n\tdef dogHouse() {\n\t\tfor (i <- 1 to 4) {\n\t\t\tforward()\n\t\t\tforward()\n\t\t\tleft()\n\t\t}\n\t}\n\t/* END SOLUTION */\n\n\toverride def run() {\n\t\tbrushDown();\n\t\tstudentCode = true\n\t\tdogHouse();\n\t\tbrushUp();\n\n\t\tforward(4);\n\n\t\tbrushDown();\n\t\tdogHouse();\t\t\n\t\tbrushUp();\n\n\t\tforward(2);\n\t\tstudentCode = false\n\t\tleft();\n\t\tstudentCode = true\n\t\tforward(4);\n\n\t\tbrushDown();\n\t\tdogHouse();\t\t\n\t\tbrushUp();\n\n\t\tforward(2);\n\t\tstudentCode = false\n\t\tleft();\n\t\tstudentCode = true\n\t\tforward(4);\n\n\t\tbrushDown();\n\t\tdogHouse();\t\t\n\t} \n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "MethodsDogHouse",
+      "body" : "",
+      "template" : "line = -1\n\ndef right():\n\traise java.lang.RuntimeException(\"Sorry Dave, I cannot let you use right() in this exercise. Use left() instead.\");\n\n# does not work as Java stacktrace does not contain python function name ;(\n#def left():\n#    global line\n#    errorMsg(str(line))\n#    for s in java.lang.Thread.currentThread().getStackTrace():\n#        if \"left\" in s.getMethodName():\n#            if line != -1 and line != s.getLineNumber():\n#                errorMsg(\"Forbidden to use left() more than once in this exercise.\")\n#                # throw new RuntimeException(\"Forbidden to use left() more than once in this exercise.\");\n#            else:\n#                line = s.getLineNumber()\n#                entity.left()\t\n\t\ndef dogHouse():\n\traise java.lang.RuntimeException(\"You must define a dogHouse() method.\");\n\n$body\n\nbrushDown()\ndogHouse()\nbrushUp()    \nforward(4)\nbrushDown()\ndogHouse()\t\t\nbrushUp()\nforward(2)\nleft()\nforward(4)\nbrushDown()\ndogHouse()\t\t\nbrushUp()\nforward(2)\nleft()\nforward(4)\nbrushDown()\ndogHouse()\n",
+      "offset" : 20,
+      "correction" : "line = -1\n\ndef right():\n\traise java.lang.RuntimeException(\"Sorry Dave, I cannot let you use right() in this exercise. Use left() instead.\");\n\n# does not work as Java stacktrace does not contain python function name ;(\n#def left():\n#    global line\n#    errorMsg(str(line))\n#    for s in java.lang.Thread.currentThread().getStackTrace():\n#        if \"left\" in s.getMethodName():\n#            if line != -1 and line != s.getLineNumber():\n#                errorMsg(\"Forbidden to use left() more than once in this exercise.\")\n#                # throw new RuntimeException(\"Forbidden to use left() more than once in this exercise.\");\n#            else:\n#                line = s.getLineNumber()\n#                entity.left()\t\n\t\ndef dogHouse():\n\traise java.lang.RuntimeException(\"You must define a dogHouse() method.\");\n\n# BEGIN SOLUTION\ndef dogHouse():\n    for i in range(4):\n        forward()\n        forward()\n        left()\n\n# END SOLUTION\n\nbrushDown()\ndogHouse()\nbrushUp()    \nforward(4)\nbrushDown()\ndogHouse()\t\t\nbrushUp()\nforward(2)\nleft()\nforward(4)\nbrushDown()\ndogHouse()\t\t\nbrushUp()\nforward(2)\nleft()\nforward(4)\nbrushDown()\ndogHouse()\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "MethodsDogHouse",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1364,5 +1371,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

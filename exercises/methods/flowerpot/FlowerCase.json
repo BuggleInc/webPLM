@@ -5,18 +5,26 @@
   "defaultSourceFiles" : {
     "Java" : {
       "name" : "FlowerCase",
-      "body" : "",
+      "body" : "void growFlowers() {\n}\n",
       "template" : "$package   import java.awt.Color;  import plm.universe.bugglequest.SimpleBuggle; public class FlowerCase extends SimpleBuggle { \tpublic void run() { \t\tgrowFlowers(); \t} $body } ",
       "offset" : 1,
-      "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\npublic class FlowerCase extends AbstractBuggle {\n\n\tpublic void run() {\n\t\tgrowFlowers();\n\t}\n\t/* BEGIN SOLUTION */\n\n\tvoid makeFlower(Color c) {\n\t\tsetBrushColor(c);\n\t\tbrushDown();\n\t\tforward(2);\n\t\tbackward();\n\t\tleft();\n\t\tforward();\n\t\tbackward(2);\n\t\tforward();\n\t\tsetBrushColor(Color.YELLOW);\n\t\tbrushUp();\n\t\tright();  \n\t\tbackward();\n\t}\n\n\tvoid line(Color[] colors, boolean returnBack) {\n\t\tboolean first = true;\n\t\tfor (Color c:colors) {\n\t\t\tif (!first)\n\t\t\t\tforward(4);\n\t\t\tmakeFlower(c);\n\t\t\tfirst = false;\n\t\t}\n\n\t\tif (returnBack)\n\t\t\tbackward(4*(colors.length-1));    \n\t}\n\tvoid RLforward(int steps) {\n\t\tright();\n\t\tforward(steps);\n\t\tleft();\n\t}\n\tvoid LRforward(int steps) {\n\t\tleft();\n\t\tforward(steps);\n\t\tright();\n\t}\n\tvoid boxes() {\n\t\tline(new Color[]{Color.RED, Color.CYAN},true);        \n\t\tRLforward(4);\n\t\tline(new Color[]{Color.PINK, Color.GREEN},true);\n\n\t\tLRforward(2);\n\t\tforward(2);\n\t\tline(new Color[]{Color.ORANGE,Color.BLUE,Color.ORANGE},false);        \n\n\t\tLRforward(2);\n\t\tbackward(2);      \n\n\t\tline(new Color[]{Color.RED, Color.CYAN},true);        \n\t\tRLforward(4);\n\t\tline(new Color[]{Color.PINK, Color.GREEN},true);\n\t}\n\tvoid growFlowers() {\n\t\tboxes();\n\t\tLRforward(1);\n\t\tbackward(8);\n\t\tRLforward(5);\n\t\tboxes();\n\t}\n\t/* END SOLUTION */\n}\n",
+      "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\npublic class FlowerCase extends AbstractBuggle {\n\n\tpublic void run() {\n\t\tgrowFlowers();\n\t}\n        /* BEGIN TEMPLATE */\n\tvoid growFlowers() {\n\t/* BEGIN SOLUTION */\n\t\tboxes();\n\t\tLRforward(1);\n\t\tbackward(8);\n\t\tRLforward(5);\n\t\tboxes();\n\t}\n\n\tvoid makeFlower(Color c) {\n\t\tsetBrushColor(c);\n\t\tbrushDown();\n\t\tforward(2);\n\t\tbackward();\n\t\tleft();\n\t\tforward();\n\t\tbackward(2);\n\t\tforward();\n\t\tsetBrushColor(Color.YELLOW);\n\t\tbrushUp();\n\t\tright();  \n\t\tbackward();\n\t}\n\n\tvoid line(Color[] colors, boolean returnBack) {\n\t\tboolean first = true;\n\t\tfor (Color c:colors) {\n\t\t\tif (!first)\n\t\t\t\tforward(4);\n\t\t\tmakeFlower(c);\n\t\t\tfirst = false;\n\t\t}\n\n\t\tif (returnBack)\n\t\t\tbackward(4*(colors.length-1));    \n\t}\n\tvoid RLforward(int steps) {\n\t\tright();\n\t\tforward(steps);\n\t\tleft();\n\t}\n\tvoid LRforward(int steps) {\n\t\tleft();\n\t\tforward(steps);\n\t\tright();\n\t}\n\tvoid boxes() {\n\t\tline(new Color[]{Color.RED, Color.CYAN},true);        \n\t\tRLforward(4);\n\t\tline(new Color[]{Color.PINK, Color.GREEN},true);\n\n\t\tLRforward(2);\n\t\tforward(2);\n\t\tline(new Color[]{Color.ORANGE,Color.BLUE,Color.ORANGE},false);        \n\n\t\tLRforward(2);\n\t\tbackward(2);      \n\n\t\tline(new Color[]{Color.RED, Color.CYAN},true);        \n\t\tRLforward(4);\n\t\tline(new Color[]{Color.PINK, Color.GREEN},true);\n\t/* END SOLUTION */\n\t}\n        /* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
     "Scala" : {
       "name" : "FlowerCase",
-      "body" : "",
+      "body" : "def growFlowers() {\n}\n",
       "template" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.SimpleBuggle;\nclass FlowerCase extends SimpleBuggle {\n\toverride def run() {\n\t\tgrowFlowers();\n\t}\n$body\n}\n",
       "offset" : 9,
-      "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\nclass FlowerCase extends AbstractBuggle {\n\n\toverride def run() {\n\t\tgrowFlowers();\n\t}\n\t/* BEGIN SOLUTION */\n\n\tdef makeFlower(c:Color) {\n\t\tsetBrushColor(c);\n\t\tbrushDown();\n\t\tforward(2);\n\t\tbackward();\n\t\tleft();\n\t\tforward();\n\t\tbackward(2);\n\t\tforward();\n\t\tsetBrushColor(Color.YELLOW);\n\t\tbrushUp();\n\t\tright();  \n\t\tbackward();\n\t}\n\n\tdef line(colors:Array[Color], returnBack:Boolean) {\n\t\tvar first = true;\n\t\tfor (c <- colors) {\n\t\t\tif (!first)\n\t\t\t\tforward(4);\n\t\t\tmakeFlower(c);\n\t\t\tfirst = false;\n\t\t}\n\n\t\tif (returnBack)\n\t\t\tbackward(4*(colors.length-1));    \n\t}\n\tdef RLforward(steps: Int) {\n\t\tright();\n\t\tforward(steps);\n\t\tleft();\n\t}\n\tdef LRforward(steps: Int) {\n\t\tleft();\n\t\tforward(steps);\n\t\tright();\n\t}\n\tdef boxes() {\n\t\tline(Array(Color.RED, Color.CYAN),true);        \n\t\tRLforward(4);\n\t\tline(Array(Color.PINK, Color.GREEN),true);\n\n\t\tLRforward(2);\n\t\tforward(2);\n\t\tline(Array(Color.ORANGE,Color.BLUE,Color.ORANGE),false);        \n\n\t\tLRforward(2);\n\t\tbackward(2);      \n\n\t\tline(Array(Color.RED, Color.CYAN),true);        \n\t\tRLforward(4);\n\t\tline(Array(Color.PINK, Color.GREEN),true);\n\t}\n\tdef growFlowers() {\n\t\tboxes();\n\t\tLRforward(1);\n\t\tbackward(8);\n\t\tRLforward(5);\n\t\tboxes();\n\t}\n\t/* END SOLUTION */\n}\n",
+      "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\nclass FlowerCase extends AbstractBuggle {\n\n\toverride def run() {\n\t\tgrowFlowers();\n\t}\n\t/* BEGIN TEMPLATE */\n\tdef growFlowers() {\n\t/* BEGIN SOLUTION */\n\t\tboxes();\n\t\tLRforward(1);\n\t\tbackward(8);\n\t\tRLforward(5);\n\t\tboxes();\n\t}\n\n\tdef makeFlower(c:Color) {\n\t\tsetBrushColor(c);\n\t\tbrushDown();\n\t\tforward(2);\n\t\tbackward();\n\t\tleft();\n\t\tforward();\n\t\tbackward(2);\n\t\tforward();\n\t\tsetBrushColor(Color.YELLOW);\n\t\tbrushUp();\n\t\tright();  \n\t\tbackward();\n\t}\n\n\tdef line(colors:Array[Color], returnBack:Boolean) {\n\t\tvar first = true;\n\t\tfor (c <- colors) {\n\t\t\tif (!first)\n\t\t\t\tforward(4);\n\t\t\tmakeFlower(c);\n\t\t\tfirst = false;\n\t\t}\n\n\t\tif (returnBack)\n\t\t\tbackward(4*(colors.length-1));    \n\t}\n\tdef RLforward(steps: Int) {\n\t\tright();\n\t\tforward(steps);\n\t\tleft();\n\t}\n\tdef LRforward(steps: Int) {\n\t\tleft();\n\t\tforward(steps);\n\t\tright();\n\t}\n\tdef boxes() {\n\t\tline(Array(Color.RED, Color.CYAN),true);        \n\t\tRLforward(4);\n\t\tline(Array(Color.PINK, Color.GREEN),true);\n\n\t\tLRforward(2);\n\t\tforward(2);\n\t\tline(Array(Color.ORANGE,Color.BLUE,Color.ORANGE),false);        \n\n\t\tLRforward(2);\n\t\tbackward(2);      \n\n\t\tline(Array(Color.RED, Color.CYAN),true);        \n\t\tRLforward(4);\n\t\tline(Array(Color.PINK, Color.GREEN),true);\n\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
+      "error" : "Error"
+    },
+    "Blockly" : {
+      "name" : "FlowerCase",
+      "body" : "",
+      "template" : "$body\n\ngrowFlowers()\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION \ndef makeFlower(c):\n\t\tsetBrushColor(c);\n\t\tbrushDown();\n\t\tforward(2);\n\t\tbackward();\n\t\tleft();\n\t\tforward();\n\t\tbackward(2);\n\t\tforward();\n\t\tsetBrushColor(Color.YELLOW);\n\t\tbrushUp();\n\t\tright();  \n\t\tbackward();\n\ndef line(colors, returnBack):\n\t\tfirst = True\n\t\tfor c in colors:\n\t\t\tif (not first):\n\t\t\t\tforward(4)\n\t\t\tmakeFlower(c);\n\t\t\tfirst = False\n\n\t\tif (returnBack):\n\t\t\tbackward(4*(len(colors)-1))    \ndef RLforward(steps):\n\t\tright();\n\t\tforward(steps);\n\t\tleft();\ndef LRforward(steps):\n\t\tleft();\n\t\tforward(steps);\n\t\tright();\n\t\ndef boxes():\n\t\tline( (Color.RED, Color.CYAN),True);        \n\t\tRLforward(4);\n\t\tline( (Color.PINK, Color.GREEN),True);\n\n\t\tLRforward(2);\n\t\tforward(2);\n\t\tline( (Color.ORANGE,Color.BLUE,Color.ORANGE),False);        \n\n\t\tLRforward(2);\n\t\tbackward(2);      \n\n\t\tline( (Color.RED, Color.CYAN),True);        \n\t\tRLforward(4);\n\t\tline( (Color.PINK, Color.GREEN),True);\n\t\t\n\ndef growFlowers():\n\t\tboxes();\n\t\tLRforward(1);\n\t\tbackward(8);\n\t\tRLforward(5);\n\t\tboxes();\n# END SOLUTION \n\ngrowFlowers()\n",
       "error" : "Error"
     },
     "Python" : {
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -9106,5 +9113,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

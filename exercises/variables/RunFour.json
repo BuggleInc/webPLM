@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass RunFour extends plm.universe.bugglequest.AbstractBuggle {\n\toverride def forward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar cpt = 0;\n\t\twhile (cpt != 4) {\n\t\t\tforward();\n\t\t\tif (isOverBaggle())\n\t\t\t\tcpt += 1\n\t\t}\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "RunFour",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ncpt = 0\nwhile cpt != 4:\n\tforward()\n\tif isOverBaggle():\n\t\tcpt += 1\n# END SOLUTION \n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "RunFour",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1048,69 +1055,6 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 19,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 8,
-      "newX" : 1,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 20,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 7,
-      "newX" : 1,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 21,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 6,
-      "newX" : 1,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 22,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 5,
-      "newX" : 1,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 23,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 4,
-      "newX" : 1,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 24,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 3,
-      "newX" : 1,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 25,
-      "buggleID" : "buggle4",
-      "oldX" : 1,
-      "oldY" : 2,
-      "newX" : 1,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 26,
       "buggleID" : "buggle5",
       "oldX" : 2,
       "oldY" : 15,
@@ -1119,7 +1063,34 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 27,
+      "@jsonId" : 20,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 8,
+      "newX" : 1,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 21,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 7,
+      "newX" : 1,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 22,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 6,
+      "newX" : 1,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 23,
       "buggleID" : "buggle5",
       "oldX" : 2,
       "oldY" : 14,
@@ -1128,7 +1099,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 28,
+      "@jsonId" : 24,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 5,
+      "newX" : 1,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 25,
       "buggleID" : "buggle5",
       "oldX" : 2,
       "oldY" : 13,
@@ -1137,12 +1117,39 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 29,
+      "@jsonId" : 26,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 4,
+      "newX" : 1,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 27,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 3,
+      "newX" : 1,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 28,
       "buggleID" : "buggle5",
       "oldX" : 2,
       "oldY" : 12,
       "newX" : 2,
       "newY" : 11,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 29,
+      "buggleID" : "buggle4",
+      "oldX" : 1,
+      "oldY" : 2,
+      "newX" : 1,
+      "newY" : 1,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
@@ -1309,6 +1316,105 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 48,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 15,
+      "newX" : 4,
+      "newY" : 14,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 49,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 14,
+      "newX" : 4,
+      "newY" : 13,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 50,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 13,
+      "newX" : 4,
+      "newY" : 12,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 51,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 12,
+      "newX" : 4,
+      "newY" : 11,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 52,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 11,
+      "newX" : 4,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 53,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 10,
+      "newX" : 4,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 54,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 9,
+      "newX" : 4,
+      "newY" : 8,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 55,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 8,
+      "newX" : 4,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 56,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 7,
+      "newX" : 4,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 57,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 6,
+      "newX" : 4,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 58,
+      "buggleID" : "buggle7",
+      "oldX" : 4,
+      "oldY" : 5,
+      "newX" : 4,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 59,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 15,
@@ -1317,7 +1423,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 49,
+      "@jsonId" : 60,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 14,
@@ -1326,7 +1432,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 50,
+      "@jsonId" : 61,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 13,
@@ -1335,7 +1441,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 51,
+      "@jsonId" : 62,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 12,
@@ -1344,7 +1450,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 52,
+      "@jsonId" : 63,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 11,
@@ -1353,7 +1459,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 53,
+      "@jsonId" : 64,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 10,
@@ -1362,7 +1468,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 54,
+      "@jsonId" : 65,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 9,
@@ -1371,7 +1477,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 55,
+      "@jsonId" : 66,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 8,
@@ -1380,7 +1486,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 56,
+      "@jsonId" : 67,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 7,
@@ -1389,7 +1495,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 57,
+      "@jsonId" : 68,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 6,
@@ -1398,7 +1504,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 58,
+      "@jsonId" : 69,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 5,
@@ -1407,7 +1513,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 59,
+      "@jsonId" : 70,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 4,
@@ -1416,7 +1522,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 60,
+      "@jsonId" : 71,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 3,
@@ -1425,7 +1531,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 61,
+      "@jsonId" : 72,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 2,
@@ -1434,7 +1540,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 62,
+      "@jsonId" : 73,
       "buggleID" : "buggle8",
       "oldX" : 5,
       "oldY" : 1,
@@ -1443,182 +1549,83 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 63,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 15,
-      "newX" : 4,
-      "newY" : 14,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 64,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 14,
-      "newX" : 4,
-      "newY" : 13,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 65,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 13,
-      "newX" : 4,
-      "newY" : 12,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 66,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 12,
-      "newX" : 4,
-      "newY" : 11,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 67,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 11,
-      "newX" : 4,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 68,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 10,
-      "newX" : 4,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 69,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 9,
-      "newX" : 4,
-      "newY" : 8,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 70,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 8,
-      "newX" : 4,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 71,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 7,
-      "newX" : 4,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 72,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 6,
-      "newX" : 4,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 73,
-      "buggleID" : "buggle7",
-      "oldX" : 4,
-      "oldY" : 5,
-      "newX" : 4,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 74,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 15,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 14,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 75,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 14,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 13,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 76,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 13,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 12,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 77,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 12,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 11,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 78,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 11,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 10,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 79,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 10,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 80,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 9,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 81,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 8,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 7,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 82,
-      "buggleID" : "buggle10",
-      "oldX" : 7,
+      "buggleID" : "buggle9",
+      "oldX" : 6,
       "oldY" : 7,
-      "newX" : 7,
+      "newX" : 6,
       "newY" : 6,
       "name" : "moveBuggleOperation"
     } ], [ {
@@ -1626,13 +1633,94 @@
       "@jsonId" : 83,
       "buggleID" : "buggle10",
       "oldX" : 7,
+      "oldY" : 15,
+      "newX" : 7,
+      "newY" : 14,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 84,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 14,
+      "newX" : 7,
+      "newY" : 13,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 85,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 13,
+      "newX" : 7,
+      "newY" : 12,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 86,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 12,
+      "newX" : 7,
+      "newY" : 11,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 87,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 11,
+      "newX" : 7,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 88,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 10,
+      "newX" : 7,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 89,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 9,
+      "newX" : 7,
+      "newY" : 8,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 90,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 8,
+      "newX" : 7,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 91,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
+      "oldY" : 7,
+      "newX" : 7,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 92,
+      "buggleID" : "buggle10",
+      "oldX" : 7,
       "oldY" : 6,
       "newX" : 7,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 84,
+      "@jsonId" : 93,
       "buggleID" : "buggle10",
       "oldX" : 7,
       "oldY" : 5,
@@ -1641,7 +1729,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 85,
+      "@jsonId" : 94,
       "buggleID" : "buggle10",
       "oldX" : 7,
       "oldY" : 4,
@@ -1650,93 +1738,12 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 86,
+      "@jsonId" : 95,
       "buggleID" : "buggle10",
       "oldX" : 7,
       "oldY" : 3,
       "newX" : 7,
       "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 87,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 15,
-      "newX" : 6,
-      "newY" : 14,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 88,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 14,
-      "newX" : 6,
-      "newY" : 13,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 89,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 13,
-      "newX" : 6,
-      "newY" : 12,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 90,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 12,
-      "newX" : 6,
-      "newY" : 11,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 91,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 11,
-      "newX" : 6,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 92,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 10,
-      "newX" : 6,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 93,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 9,
-      "newX" : 6,
-      "newY" : 8,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 94,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 8,
-      "newX" : 6,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 95,
-      "buggleID" : "buggle9",
-      "oldX" : 6,
-      "oldY" : 7,
-      "newX" : 6,
-      "newY" : 6,
       "name" : "moveBuggleOperation"
     } ] ],
     "about" : "<!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->\n<h1>BuggleWorld</h1>\nThis world was invented by Lyn Turbak, at Wellesley College. It is full of\nBuggles, little animals understanding simple orders, and offers numerous\npossibilities of interaction with the world: taking or dropping objects,\npaint the ground, hit walls, etc.\n\n<h2>Methods understood by buggles</h2>\n<table border=1>\n<tr><td colspan=2 align=center><b>Moving</b><br/> (See also the note on exceptions, below)</td></tr>\n  <tr><td><b>Turn left<br/>Turn right<br/>Turn back<br/>Moving forward<br/>Moving back</b></td>\n      <td>void left()<br/>\n          void right()<br/>\n          void back()<br/>\n          void forward() or void forward(int steps)<br/>\n          void backward() or void backward(int steps)<br/></td></tr>\n  <tr><td><b>Get X coordinate<br/>Get Y coordinate<br/>Set X coordinate<br/>Set Y coordinate<br/>Set position</b></td>\n      <td>int getX()<br/>\n          int getY()<br/>\n          void setX(int x)<br/>\n          void setY(int y)<br/>\n          void setPos(int x, int y)</td></tr>\n<tr><td colspan=2>Note that the point (0,0) is on the top left corner, as it is often the case in Computer Science.</td></tr>\n\n<tr><td colspan=2 align=center><b>Information on the buggle</b></td></tr>\n  <tr><td><b>Get the color of the body<br/>Set the color of the body</b></td>\n      <td>Color getBodyColor()<br/>\n          void setBodyColor(Color c)</td></tr>\t\t\t\t\n  <tr><td><b>Look for a wall forward<br/>Look for a wall backward</b></td>\n      <td>boolean isFacingWall()<br/>\n          boolean isBackingWall()</td></tr>\t\t\t\t\n  <tr><td><b>Get heading<br/>Set heading</b><br/>valid directions are:</td>\n      <td>Direction getDirection()<br/>\n          void setDirection(Direction dir)<br/>\n          Direction.NORTH, Direction.EAST, Direction.SOUTH and Direction.WEST</td></tr>\n  <tr><td>Check whether the buggle is currently <b>selected in the interface</b></td>\n      <td>boolean isSelected()</td></tr>\n \n<tr><td colspan=2 align=center><b>About the brush</b></td></tr>\n  <tr><td><b>Brush down<br/>Brush up<br/>Get brush position</b></td>\n      <td>void brushUp()<br/>\n          void brushDown()<br/>\n          boolean isBrushDown()</td></tr>\n  <tr><td><b>Change the brush color<br/>Get the color of the brush</b></td>\n      <td>void setBrushColor(Color c)<br/>\n          Color getBrushColor()</td></tr>\n\n<tr><td colspan=2 align=center><b>Interacting with the world</b></td></tr>\n  <tr><td><b>Get the color of the ground</b></td>\n      <td>Color getGroundColor()</td></tr>\n\n  <tr><td><b>Look for a baggle on the ground<br/>Look for a baggle in bag<br/>Pickup a baggle<br/>Drop a baggle</b><br/>\n      (see the note on exceptions)</td>\n      <td>boolean isOverBaggle()<br/>\n          boolean isCarryingBaggle()<br/>\n          void pickupBaggle()<br/>\n          void dropBaggle()<br/>\n          &nbsp;</td></tr>\n\n  <tr><td><b>Look for a message<br/>Add a message<br/>Read the message<br/>Erase the message</b></td>\n      <td>boolean isOverMessage()<br/>\n          void writeMessage(String msg)<br/>\n          String readMessage()<br/>\n          void clearMessage()</td></tr>\n</table>\n\n<h2>Valid colors</h2>\n<table border=1>\n<tr><td>Name</td><td>Color</td></tr>\n<tr><td>Color.black</td>    <td BGCOLOR=\"#000000\">&nbsp;</td></tr>\n<tr><td>Color.blue</td>     <td BGCOLOR=\"#0000FF\">&nbsp;</td></tr>\n<tr><td>Color.cyan</td>     <td BGCOLOR=\"#00FFFF\">&nbsp;</td></tr>\n<tr><td>Color.darkGray</td> <td BGCOLOR=\"#404040\">&nbsp;</td></tr>\n<tr><td>Color.gray</td>     <td BGCOLOR=\"#808080\">&nbsp;</td></tr>\n<tr><td>Color.green</td>    <td BGCOLOR=\"#00FF00\">&nbsp;</td></tr>\n<tr><td>Color.lightGray</td><td BGCOLOR=\"#C0C0C0\">&nbsp;</td></tr>\n<tr><td>Color.magenta</td>  <td BGCOLOR=\"#FF00FF\">&nbsp;</td></tr>\n<tr><td>Color.orange</td>   <td BGCOLOR=\"#FFC800\">&nbsp;</td></tr>\n<tr><td>Color.pink</td>     <td BGCOLOR=\"#FFAFAF\">&nbsp;</td></tr>\n<tr><td>Color.red</td>      <td BGCOLOR=\"#FF0000\">&nbsp;</td></tr>\n<tr><td>Color.white</td>    <td BGCOLOR=\"#FFFFFF\">&nbsp;</td></tr>\n<tr><td>Color.yellow</td>   <td BGCOLOR=\"#FFFF00\">&nbsp;</td></tr>\n</table>\n\n<h2>Note on exceptions</h2>\nRegular buggles throw a BuggleWallException exception if you ask them to\ntraverse a wall.  They throw a NoBaggleUnderBuggleException exception if you\nask them to pickup a baggle from an empty cell, or a\nAlreadyHaveBaggleException exception if they already carry a baggle.  Trying\nto drop a baggle on a cell already containing one throws an\nAlreadyHaveBaggleException exception. \nDropping a baggle when you have none throws a DontHaveBaggleException.\n<p>SimpleBuggles (ie, the one used in first exercises) display an error message\non problem so that you don't need to know what an exception is.</p>\n",
@@ -2419,5 +2426,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }
