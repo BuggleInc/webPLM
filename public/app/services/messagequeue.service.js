@@ -24,7 +24,7 @@
       if(document.location.protocol === 'https:') {
         protocol = 'wss:';
       }
-      var url = protocol + '//' + document.location.hostname + ':15674/ws';
+      var url = protocol + '//' + document.location.hostname + '/messagequeue/ws';
       var ws = new WebSocket(url);
       client = Stomp.over(ws)
 
