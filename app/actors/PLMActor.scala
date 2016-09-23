@@ -513,10 +513,27 @@ class PLMActor (
     sendMessage("newHumanLang", generateUpdatedHumanLangJson)
   }
 
+  def checkProglang(progLang: String): Boolean = {
+    val newProgLang: ProgrammingLanguage = ProgrammingLanguages.getProgrammingLanguage(progLang)
+    var isProgLangSupported: Boolean = true
+    optCurrentExercise match {
+      case Some(exercise: Exercise) =>
+        if (!exercise.isProgLangSupported(newProgLang)) {
+          isProgLangSupported = false
+        }
+      case _ =>
+    }
+    isProgLangSupported
+  }
+
   def updateProgLang(progLang: String) {
-    currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
-    userSettings.setProgLang(currentProgLang)
-    sendMessage("newProgLang", generateUpdatedProgLangJson)
+    if(checkProglang(progLang)) {
+      currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
+      userSettings.setProgLang(currentProgLang)
+      sendMessage("newProgLang", generateUpdatedProgLangJson)
+    } else {
+      sendMessage("progLangUnsupported", Json.obj())
+    }
   }
 
   def generateUpdatedExerciseJson(): JsObject = {

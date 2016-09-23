@@ -5,9 +5,9 @@
     .module('PLMApp')
     .factory('progLangs', progLangs);
 
-  progLangs.$inject = ['$auth', '$cookies', 'connection', 'listenersHandler'];
+  progLangs.$inject = ['$auth', '$cookies', 'connection', 'listenersHandler', 'toasterUtils'];
 
-  function progLangs($auth, $cookies, connection, listenersHandler) {
+  function progLangs($auth, $cookies, connection, listenersHandler, toasterUtils) {
     var programmingLanguages = [];
     var currentProgrammingLanguage;
     var disabled = false;
@@ -36,6 +36,11 @@
         break;
       case 'newProgLang':
         setCurrentProgLang(args.newProgLang);
+        break;
+      case 'progLangUnsupported':
+        var title = 'Prog Lang unsupported';
+        var msg = 'This programming language is not supported yet in this exercise. Please excuse us for the inconvenience.';
+        toasterUtils.warning(title, msg);
         break;
       }
     }
