@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color\n\nimport plm.universe.GridWorld\nimport plm.universe.bugglequest.BuggleWorldCell\nimport java.util.Locale\nimport plm.core.model.I18nManager\n\nclass Poucet1 extends plm.universe.bugglequest.AbstractBuggle {\n\toverride def forward(i: Int)  {\n\t  val locale: Locale = getWorld.getLocale\n\t\tthrow new RuntimeException(I18nManager.getI18n(locale).tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t\tthrow new RuntimeException(I18nManager.getI18n(locale).tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\tdef crossing(): Boolean = {\n\t\tval gridWorld = world.asInstanceOf[GridWorld];\n\t  \tval here  = gridWorld.getCell(getX(),getY()).asInstanceOf[BuggleWorldCell];\n\t\tval right = gridWorld.getCell(  (getX()+1)%gridWorld.getWidth() ,  getY()  ).asInstanceOf[BuggleWorldCell]\n\t\tval below = gridWorld.getCell( getX()  ,  (getY()+1)%gridWorld.getHeight()).asInstanceOf[BuggleWorldCell]\n\t\t\n\t\tvar open = 0;\n\t\tif (!here.hasLeftWall())\n\t\t\topen += 1;\n\t\tif (!here.hasTopWall())\n\t\t\topen += 1;\n\t\tif (!right.hasLeftWall())\n\t\t\topen += 1;\n\t\tif (!below.hasTopWall())\n\t\t\topen += 1;\n\t\t\n\t\treturn open>2 || (here.hasLeftWall() != right.hasLeftWall()) || (here.hasTopWall() != below.hasTopWall());\n\t}\n\tdef exitReached(): Boolean = {\n\t\treturn getGroundColor().equals(Color.orange);\n\t}\n\t/* BINDINGS TRANSLATION */\n\tdef sortieTrouvee(): Boolean = { return exitReached() }\n\tdef croisement(): Boolean = { return crossing() }\n\n\toverride def run() { \n\t\t/* BEGIN SOLUTION */\n\t\twhile (!exitReached()) {\n\t\t\tvar count = 0;\n\t\t\t\n\t\t\tdo {\n\t\t\t\tforward();\n\t\t\t\tif (isOverBaggle())\n\t\t\t\t\tcount+=1;\n\t\t\t} while (! crossing());\n\t\t\t\n\t\t\tif (count>2)\n\t\t\t\tleft();\n\t\t\telse\n\t\t\t\tright();\n\t\t}\n\t\tforward();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Poucet1",
+      "body" : "",
+      "template" : "def forward(i=-1):\n    if i==-1:\n      entity.forward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n\ndef crossing():\n    here  = entity.world.getCell(getX(),getY());\n    right = entity.world.getCell( (getX()+1)%entity.world.getWidth() ,  getY()  )\n    below = entity.world.getCell( getX()  ,  (getY()+1)%entity.world.getHeight())\n        \n    open = 0\n    if not here.hasLeftWall():\n        open += 1;\n    if not here.hasTopWall():\n        open += 1;\n    if not right.hasLeftWall():\n        open += 1;\n    if not below.hasTopWall():\n        open += 1;\n        \n    return open>2 or (here.hasLeftWall() != right.hasLeftWall()) or (here.hasTopWall() != below.hasTopWall());\n    \ndef exitReached():\n    return getGroundColor().equals(Color.orange)\n\n# BINDINGS TRANSLATION \ndef croisement():\n    return crossing()\ndef sortieTrouvee():\n    return exitReached()\n\n\n$body\n",
+      "offset" : 36,
+      "correction" : "def forward(i=-1):\n    if i==-1:\n      entity.forward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n\ndef crossing():\n    here  = entity.world.getCell(getX(),getY());\n    right = entity.world.getCell( (getX()+1)%entity.world.getWidth() ,  getY()  )\n    below = entity.world.getCell( getX()  ,  (getY()+1)%entity.world.getHeight())\n        \n    open = 0\n    if not here.hasLeftWall():\n        open += 1;\n    if not here.hasTopWall():\n        open += 1;\n    if not right.hasLeftWall():\n        open += 1;\n    if not below.hasTopWall():\n        open += 1;\n        \n    return open>2 or (here.hasLeftWall() != right.hasLeftWall()) or (here.hasTopWall() != below.hasTopWall());\n    \ndef exitReached():\n    return getGroundColor().equals(Color.orange)\n\n# BINDINGS TRANSLATION \ndef croisement():\n    return crossing()\ndef sortieTrouvee():\n    return exitReached()\n\n\n# BEGIN SOLUTION\nwhile not exitReached() :\n    seen = 0\n    within = False\n    \n    while not within or not crossing():\n        within = True\n        forward()\n        if isOverBaggle():\n            seen += 1\n    \n    if seen > 2:\n        left()\n    else:\n        right()\nforward()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Poucet1",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -13174,5 +13181,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

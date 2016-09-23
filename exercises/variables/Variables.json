@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass Variables extends plm.universe.bugglequest.AbstractBuggle {\n\toverride def forward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar stepper = 0;\n\t\twhile (!isOverBaggle()) {\n\t\t\tstepper += 1\n\t\t\tforward()\n\t\t}\n\t\tpickupBaggle();\n\t\twhile (stepper>0) {\n\t\t\tbackward()\n\t\t\tstepper -= 1\n\t\t}\n\t\tdropBaggle();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Variables",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION \ncpt = 0\nwhile not isOverBaggle():\n  cpt += 1 \n  forward()\npickupBaggle()\nwhile cpt>0:\n  backward()\n  cpt -= 1\ndropBaggle()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Variables",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -457,38 +464,8 @@
       "brushDown" : false
     } ],
     "steps" : [ [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 3,
-      "x" : 0,
-      "y" : 6,
-      "oldHasBaggle" : true,
-      "newHasBaggle" : false,
-      "name" : "changeCellHasBaggle"
-    }, {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 4,
-      "buggleID" : "Cooker 1",
-      "oldCarryBaggle" : false,
-      "newCarryBaggle" : true,
-      "name" : "changeBuggleCarryBaggle"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 5,
-      "x" : 0,
-      "y" : 6,
-      "oldHasBaggle" : false,
-      "newHasBaggle" : true,
-      "name" : "changeCellHasBaggle"
-    }, {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 6,
-      "buggleID" : "Cooker 1",
-      "oldCarryBaggle" : true,
-      "newCarryBaggle" : false,
-      "name" : "changeBuggleCarryBaggle"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 7,
+      "@jsonId" : 3,
       "buggleID" : "Cooker 2",
       "oldX" : 1,
       "oldY" : 6,
@@ -497,7 +474,22 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 8,
+      "@jsonId" : 4,
+      "x" : 0,
+      "y" : 6,
+      "oldHasBaggle" : true,
+      "newHasBaggle" : false,
+      "name" : "changeCellHasBaggle"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
+      "@jsonId" : 5,
+      "buggleID" : "Cooker 1",
+      "oldCarryBaggle" : false,
+      "newCarryBaggle" : true,
+      "name" : "changeBuggleCarryBaggle"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
+      "@jsonId" : 6,
       "x" : 1,
       "y" : 5,
       "oldHasBaggle" : true,
@@ -505,10 +497,25 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 9,
+      "@jsonId" : 7,
       "buggleID" : "Cooker 2",
       "oldCarryBaggle" : false,
       "newCarryBaggle" : true,
+      "name" : "changeBuggleCarryBaggle"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
+      "@jsonId" : 8,
+      "x" : 0,
+      "y" : 6,
+      "oldHasBaggle" : false,
+      "newHasBaggle" : true,
+      "name" : "changeCellHasBaggle"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
+      "@jsonId" : 9,
+      "buggleID" : "Cooker 1",
+      "oldCarryBaggle" : true,
+      "newCarryBaggle" : false,
       "name" : "changeBuggleCarryBaggle"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
@@ -537,108 +544,24 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 13,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
+      "buggleID" : "Cooker 3",
+      "oldX" : 2,
       "oldY" : 6,
-      "newX" : 3,
+      "newX" : 2,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 14,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
+      "buggleID" : "Cooker 3",
+      "oldX" : 2,
       "oldY" : 5,
-      "newX" : 3,
+      "newX" : 2,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
       "@jsonId" : 15,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
-      "oldY" : 4,
-      "newX" : 3,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 16,
-      "x" : 3,
-      "y" : 3,
-      "oldHasBaggle" : true,
-      "newHasBaggle" : false,
-      "name" : "changeCellHasBaggle"
-    }, {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 17,
-      "buggleID" : "Cooker 4",
-      "oldCarryBaggle" : false,
-      "newCarryBaggle" : true,
-      "name" : "changeBuggleCarryBaggle"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 18,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
-      "oldY" : 3,
-      "newX" : 3,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 19,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
-      "oldY" : 4,
-      "newX" : 3,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 20,
-      "buggleID" : "Cooker 4",
-      "oldX" : 3,
-      "oldY" : 5,
-      "newX" : 3,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 21,
-      "x" : 3,
-      "y" : 6,
-      "oldHasBaggle" : false,
-      "newHasBaggle" : true,
-      "name" : "changeCellHasBaggle"
-    }, {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 22,
-      "buggleID" : "Cooker 4",
-      "oldCarryBaggle" : true,
-      "newCarryBaggle" : false,
-      "name" : "changeBuggleCarryBaggle"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 23,
-      "buggleID" : "Cooker 3",
-      "oldX" : 2,
-      "oldY" : 6,
-      "newX" : 2,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 24,
-      "buggleID" : "Cooker 3",
-      "oldX" : 2,
-      "oldY" : 5,
-      "newX" : 2,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 25,
       "x" : 2,
       "y" : 4,
       "oldHasBaggle" : true,
@@ -646,14 +569,14 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 26,
+      "@jsonId" : 16,
       "buggleID" : "Cooker 3",
       "oldCarryBaggle" : false,
       "newCarryBaggle" : true,
       "name" : "changeBuggleCarryBaggle"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 27,
+      "@jsonId" : 17,
       "buggleID" : "Cooker 3",
       "oldX" : 2,
       "oldY" : 4,
@@ -662,7 +585,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 28,
+      "@jsonId" : 18,
       "buggleID" : "Cooker 3",
       "oldX" : 2,
       "oldY" : 5,
@@ -671,7 +594,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 29,
+      "@jsonId" : 19,
       "x" : 2,
       "y" : 6,
       "oldHasBaggle" : false,
@@ -679,14 +602,23 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 30,
+      "@jsonId" : 20,
       "buggleID" : "Cooker 3",
       "oldCarryBaggle" : true,
       "newCarryBaggle" : false,
       "name" : "changeBuggleCarryBaggle"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 31,
+      "@jsonId" : 21,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 6,
+      "newX" : 3,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 22,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 6,
@@ -695,7 +627,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 32,
+      "@jsonId" : 23,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 5,
+      "newX" : 3,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 24,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 5,
@@ -704,7 +645,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 33,
+      "@jsonId" : 25,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 4,
@@ -713,7 +654,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 34,
+      "@jsonId" : 26,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 3,
@@ -721,8 +662,17 @@
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 27,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 4,
+      "newX" : 3,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 35,
+      "@jsonId" : 28,
       "x" : 4,
       "y" : 2,
       "oldHasBaggle" : true,
@@ -730,14 +680,29 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 36,
+      "@jsonId" : 29,
       "buggleID" : "Cooker 5",
       "oldCarryBaggle" : false,
       "newCarryBaggle" : true,
       "name" : "changeBuggleCarryBaggle"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
+      "@jsonId" : 30,
+      "x" : 3,
+      "y" : 3,
+      "oldHasBaggle" : true,
+      "newHasBaggle" : false,
+      "name" : "changeCellHasBaggle"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
+      "@jsonId" : 31,
+      "buggleID" : "Cooker 4",
+      "oldCarryBaggle" : false,
+      "newCarryBaggle" : true,
+      "name" : "changeBuggleCarryBaggle"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 37,
+      "@jsonId" : 32,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 2,
@@ -746,7 +711,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 38,
+      "@jsonId" : 33,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 3,
+      "newX" : 3,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 34,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 3,
@@ -755,7 +729,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 39,
+      "@jsonId" : 35,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 4,
+      "newX" : 3,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 36,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 4,
@@ -764,7 +747,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 40,
+      "@jsonId" : 37,
       "buggleID" : "Cooker 5",
       "oldX" : 4,
       "oldY" : 5,
@@ -772,8 +755,17 @@
       "newY" : 6,
       "name" : "moveBuggleOperation"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 38,
+      "buggleID" : "Cooker 4",
+      "oldX" : 3,
+      "oldY" : 5,
+      "newX" : 3,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 41,
+      "@jsonId" : 39,
       "x" : 4,
       "y" : 6,
       "oldHasBaggle" : false,
@@ -781,20 +773,35 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 42,
+      "@jsonId" : 40,
       "buggleID" : "Cooker 5",
       "oldCarryBaggle" : true,
       "newCarryBaggle" : false,
       "name" : "changeBuggleCarryBaggle"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 43,
+      "@jsonId" : 41,
       "buggleID" : "Cooker 6",
       "oldX" : 5,
       "oldY" : 6,
       "newX" : 5,
       "newY" : 5,
       "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
+      "@jsonId" : 42,
+      "x" : 3,
+      "y" : 6,
+      "oldHasBaggle" : false,
+      "newHasBaggle" : true,
+      "name" : "changeCellHasBaggle"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
+      "@jsonId" : 43,
+      "buggleID" : "Cooker 4",
+      "oldCarryBaggle" : true,
+      "newCarryBaggle" : false,
+      "name" : "changeBuggleCarryBaggle"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 44,
@@ -1302,5 +1309,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

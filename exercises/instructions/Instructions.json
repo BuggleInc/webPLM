@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass Instructions extends AbstractBuggle {\n\n\tprotected override def run() {\n\t\t/* BEGIN TEMPLATE */\n\t\t/* BEGIN SOLUTION */\n\t\tbrushDown();\n\t\tfor (i <- 0 to 3) {\n\t\t\tforward(2);\n\t\t\tright();\n\t\t}\n\t\tbrushUp();\n\t\tforward();\n\t\tright();\n\t\tforward();\n\t\tleft();\n\t\t/* END SOLUTION */\n\t\t/* END TEMPLATE */\n\t}\n\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Instructions",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\n\nbrushDown()\n\nfor i in range(4):\n    forward()\n    forward()\n    right()\n                \nbrushUp()\nforward()\nright()\nforward()\nleft()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Instructions",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -794,5 +801,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color\nimport plm.universe.bugglequest.AbstractBuggle\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass LoopCourse extends AbstractBuggle {\n\toverride def forward(i: Int)  {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward() {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay.\"));\n\t}\n\n\tvar colors = Array(\n\t\t\tColor.white,\n\t\t\tnew Color(255,240,240),new Color(255,220,220),new Color(255,205,205),\n\t\t\tnew Color(255,190,190),new Color(255,170,170),new Color(255,150,150),\n\t\t\tnew Color(255,130,130),new Color(255,110,110),new Color(255,45,45),\n\t\t\tnew Color(255,5,5), Color.magenta)\n\n\toverride def forward() {\n\t\tsuper.forward();\n\t\tvar c = getGroundColor();\n\t\tvar nextColor:Color = null;\n\t\tfor (i <- 0 to colors.length-1)\n\t\t\tif (colors(i).equals(c)) { \n\t\t\t\tif (i==colors.length-1)\n\t\t\t\t\tnextColor = colors(i)\n\t\t\t\telse\t\n\t\t\t\t\tnextColor = colors(i+1);\n\t\t\t}\n\t\tsetBrushColor(nextColor);\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (i <- 1 to 10; side <- 1 to 4) {\n\t\t\tfor (step <- 1 to 8) {\n\t\t\t\tforward()\n\t\t\t}\n\t\t\tleft()\n\t\t} \n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "LoopCourse",
+      "body" : "",
+      "template" : "colors = [Color.white, Color(255,240,240), Color(255,220,220), Color(255,205,205),\n             Color(255,190,190), Color(255,170,170), Color(255,150,150),\n             Color(255,130,130), Color(255,110,110), Color(255,45,45),\n             Color(255,5,5),Color.magenta]\n\ndef forward(i=-1):\n    if i==-1:\n      entity.forward()\n      c = getGroundColor()\n      for i in range(len(colors)-1):\n          if colors[i] == c:\n              if i == len(colors)-1:\n                  c = colors[i]\n              else:\n                  c = colors[i+1]\n              break\n      setBrushColor(c)    \n      brushDown()\n      brushUp()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      errorMsg(\"Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay.\")\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n$body\n",
+      "offset" : 26,
+      "correction" : "colors = [Color.white, Color(255,240,240), Color(255,220,220), Color(255,205,205),\n             Color(255,190,190), Color(255,170,170), Color(255,150,150),\n             Color(255,130,130), Color(255,110,110), Color(255,45,45),\n             Color(255,5,5),Color.magenta]\n\ndef forward(i=-1):\n    if i==-1:\n      entity.forward()\n      c = getGroundColor()\n      for i in range(len(colors)-1):\n          if colors[i] == c:\n              if i == len(colors)-1:\n                  c = colors[i]\n              else:\n                  c = colors[i+1]\n              break\n      setBrushColor(c)    \n      brushDown()\n      brushUp()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      errorMsg(\"Sorry Dave, you cannot run backward that way. Exercising is hard enough -- please don't overplay.\")\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n# BEGIN SOLUTION\nfor i in range(10):\n    for side in range(4):\n        for step in range(8):\n            forward()\n        left()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "LoopCourse",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -11776,5 +11783,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

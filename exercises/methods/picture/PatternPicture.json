@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass PatternPicture extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tbigSquare();\n\t\tforward(4);\n\t\tbigSquare();\n\n\t\tbackward(4);\n\t\tleft();\n\t\tforward(4);\n\t\tright();\n\n\t\tbigSquare(); \n\t\tforward(4);\n\t\tbigSquare();\n\t}\n\tdef mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tdef squareA(c:Color) {\n\t\tsetBrushColor(c);\n\n\t\tforward();\n\t\tmark();\n\n\t\tleft();\n\t\tforward();\n\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tleft();\n\t\tforward();\n\t\tleft();\n\t}\n\n\tdef squareB(c: Color) {\n\t\tsetBrushColor(c);\n\t\tmark();\n\n\t\tforward();\n\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tleft();\n\t\tforward();\n\n\t\tleft();\n\t\tforward();\n\t\tleft();\n\t}\n\n\tdef bigSquare() {\n\t\tsquareA(Color.RED); \n\t\tforward(2);\n\t\tsquareB(Color.BLUE);\n\t\tbackward(2);\n\t\tleft();\n\t\tforward(2);\n\t\tright();\n\t\tsquareB(Color.YELLOW);\n\t\tforward(2);\n\t\tsquareA(Color.GREEN);\n\n\t\tbackward(2);\n\t\tleft();\n\t\tbackward(2);\n\t\tright();\n\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "PatternPicture",
+      "body" : "",
+      "template" : "import java.awt.Color as Color\n\n$body\n",
+      "offset" : 1,
+      "correction" : "import java.awt.Color as Color\n\n# BEGIN SOLUTION\ndef mark():\n   brushDown()\n   brushUp()\n\ndef squareA(c):\n   setBrushColor(c)\n   forward()\n   mark()\n   left()\n   forward()\n   left()\n   forward()\n   mark()\n   left()\n   forward()\n   left()\n   \ndef squareB(c):\n   setBrushColor(c)\n   mark()\n   forward()\n   left()\n   forward()\n   mark()\n   left()\n   forward()\n   left()\n   forward()\n   left()\n\ndef bigSquare():\n   squareA(Color.red)\n   forward(2)\n   squareB(Color.blue)\n   backward(2)\n   left()\n   forward(2)\n   right()\n   squareB(Color.yellow)\n   forward(2)\n   squareA(Color.green)\n   backward(2)\n   left()\n   backward(2)\n   right()\n\t\nbigSquare()\nforward(4)\nbigSquare()\n\t\t\nbackward(4)\nleft()\nforward(4)\nright()\n\t\t\nbigSquare() \nforward(4)\nbigSquare()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "PatternPicture",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -3244,5 +3251,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

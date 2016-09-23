@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle;\nimport plm.core.model.I18nManager\n\nclass TraversalDiagonal extends AbstractBuggle {\n\t/* BEGIN TEMPLATE */\n\tvar diag = 0;\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar cpt = 0;\n\t\twriteMessage(cpt);\n\t\twhile (!endingPosition()) {\n\t\t\tnextStep();\n\t\t\tcpt+=1;\n\t\t\twriteMessage(cpt);\n\t\t}\n\t}\n\n\tdef nextStep() {\n\t\tvar x = getX();\n\t\tvar y = getY();\n\n\t\tif ((x + 1 < getWorldWidth()) && (y > 0)) {\n\t\t\tx+=1;\n\t\t\ty-=1;\n\t\t} else if (diag + 1 < getWorldHeight()) {\n\t\t\tdiag+=1;\n\t\t\ty = diag;\n\t\t\tx = 0;\n\t\t} else {\n\t\t\tdiag+=1;\n\t\t\tx = diag - (getWorldWidth() - 1);\n\t\t\ty = diag - x;\n\t\t}\n\n\t\tsetPos(x, y);\n\t}\n\n\tdef endingPosition():Boolean = {\n\t\treturn (getX() == getWorldWidth() - 1) && (getY() == getWorldHeight() - 1);\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n\n\toverride def forward(i:Int)  { \n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld.getLocale).tr(\"Sorry Dave, I cannot let you use forward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def forward()  {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld.getLocale).tr(\"Sorry Dave, I cannot let you use forward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def backward(i:Int) {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld.getLocale).tr(\"Sorry Dave, I cannot let you use backward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n\toverride def backward() {\n\t\tthrow new RuntimeException(I18nManager.getI18n(getWorld.getLocale).tr(\"Sorry Dave, I cannot let you use backward() in this exercise. Use setPos(x,y) instead.\"));\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "TraversalDiagonal",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN TEMPLATE\n# BEGIN SOLUTION\ncpt = 0\ndiag = 0\nwriteMessage(cpt)\nwhile not ((getX() == getWorldWidth() - 1) and (getY() == getWorldHeight() - 1)):\n\tx = getX()\n\ty = getY()\n\tif ((x < getWorldWidth() - 1) and (y > 0)):\n\t\tx += 1\n\t\ty -= 1\n\telif (diag < getWorldHeight() - 1):\t\n\t\tdiag += 1\n\t\ty = diag\n\t\tx = 0\n\telse:\n\t\tdiag += 1\n\t\tx = diag - (getWorldWidth() - 1)\n\t\ty = diag - x\n\tsetPos(x, y)\n\tcpt += 1\n\twriteMessage(cpt)\n# END SOLUTION \n# END TEMPLATE \n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "TraversalDiagonal",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1924,5 +1931,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

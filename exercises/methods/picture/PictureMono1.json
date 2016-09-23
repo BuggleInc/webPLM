@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color;\n\nimport plm.universe.bugglequest.AbstractBuggle;\nclass PictureMono1 extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (i <- 1 to 4) {\n\t\t\tmakeV();\n\t\t}\n\t}\n\tdef mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tdef makeV() {\n\t\tforward(2);\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tbackward();\n\t\tright();\n\t\tforward();\n\t\tmark();\n\n\t\tforward(2);\n\t\tleft();\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "PictureMono1",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef mark():\n   brushDown()\n   brushUp()\n\ndef makeV():\n   forward(2)\n   mark()\n   forward()\n   left()\n   forward()\n   mark()\n   backward()\n   right()\n   forward()\n   mark()   \n   forward(2)\n   left()\n\n\nfor i in range(4):\n    makeV()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "PictureMono1",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1216,5 +1223,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

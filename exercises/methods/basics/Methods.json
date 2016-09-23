@@ -19,6 +19,14 @@
       "correction" : "$package \n\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass Methods extends plm.universe.bugglequest.AbstractBuggle {\n\toverride def forward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"I cannot let you use forward with an argument. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"I cannot let you use backward with an argument. Use a loop instead.\"));\n\t}\n\n\toverride def run() { \n\t\t/* BEGIN TEMPLATE */\n\t\tdef goAndGet() {\n\t\t\t/* BEGIN SOLUTION */\n\t\t\tvar i = 0;\n\t\t\twhile (!isOverBaggle()) {\n\t\t\t\ti += 1;\n\t\t\t\tforward();\n\t\t\t}\n\t\t\tpickupBaggle();\n\t\t\twhile (i>0) {\n\t\t\t\tbackward();\n\t\t\t\ti -= 1;\n\t\t\t}\n\t\t\tdropBaggle();\n\t\t\t/* END SOLUTION */\n\t\t}\n\n\t\tfor (i <- 1 to 7) {\n\t\t\tgoAndGet();\n\t\t\tright();\n\t\t\tforward();\n\t\t\tleft();\n\t\t}\n\t\t/* END TEMPLATE */\n\t} \n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Methods",
+      "body" : "\n# Add your code here\n\n\nfor i in range(7):\n  goAndGet()\n  right()\n  forward()\n  left()\n",
+      "template" : "def forward(i=-1):\n    if i==-1:\n      entity.forward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n\n$body\n",
+      "offset" : 10,
+      "correction" : "def forward(i=-1):\n    if i==-1:\n      entity.forward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\ndef backward(i=-1):\n    if i==-1:\n      entity.backward()\n    else:\n      errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n\n# BEGIN TEMPLATE\n\n# Add your code here\n\n# BEGIN SOLUTION\ndef goAndGet():\n  cpt = 0\n  \n  while isOverBaggle() == False:\n    cpt = cpt+1\n    forward()\n  pickupBaggle()\n  for i in range(cpt):\n    backward()\n  dropBaggle()\n# END SOLUTION\n\nfor i in range(7):\n  goAndGet()\n  right()\n  forward()\n  left()\n# END TEMPLATE\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Methods",
       "body" : "\n# Add your code here\n\n\nfor i in range(7):\n  goAndGet()\n  right()\n  forward()\n  left()\n",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1331,5 +1338,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

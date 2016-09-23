@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass LoopWhile extends AbstractBuggle {\n\toverride def forward(i: Int)  {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def run() { \n\t\t/* BEGIN SOLUTION */\n\t\twhile (!isFacingWall())\n\t\t\tforward();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "LoopWhile",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\nwhile not isFacingWall():\n  forward()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "LoopWhile",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -531,10 +538,10 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 6,
-      "buggleID" : "Joker 6",
-      "oldX" : 5,
+      "buggleID" : "Joker 4",
+      "oldX" : 3,
       "oldY" : 6,
-      "newX" : 5,
+      "newX" : 3,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
@@ -542,53 +549,53 @@
       "@jsonId" : 7,
       "buggleID" : "Joker 4",
       "oldX" : 3,
-      "oldY" : 6,
+      "oldY" : 5,
       "newX" : 3,
-      "newY" : 5,
+      "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 8,
-      "buggleID" : "Joker 6",
-      "oldX" : 5,
-      "oldY" : 5,
-      "newX" : 5,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 9,
       "buggleID" : "Joker 4",
       "oldX" : 3,
-      "oldY" : 5,
-      "newX" : 3,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 10,
-      "buggleID" : "Joker 6",
-      "oldX" : 5,
       "oldY" : 4,
-      "newX" : 5,
+      "newX" : 3,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 9,
+      "buggleID" : "Joker 5",
+      "oldX" : 4,
+      "oldY" : 6,
+      "newX" : 4,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 10,
+      "buggleID" : "Joker 5",
+      "oldX" : 4,
+      "oldY" : 5,
+      "newX" : 4,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 11,
-      "buggleID" : "Joker 4",
-      "oldX" : 3,
+      "buggleID" : "Joker 5",
+      "oldX" : 4,
       "oldY" : 4,
-      "newX" : 3,
+      "newX" : 4,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 12,
-      "buggleID" : "Joker 6",
-      "oldX" : 5,
+      "buggleID" : "Joker 5",
+      "oldX" : 4,
       "oldY" : 3,
-      "newX" : 5,
+      "newX" : 4,
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
@@ -596,45 +603,45 @@
       "@jsonId" : 13,
       "buggleID" : "Joker 6",
       "oldX" : 5,
-      "oldY" : 2,
-      "newX" : 5,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 14,
-      "buggleID" : "Joker 5",
-      "oldX" : 4,
       "oldY" : 6,
-      "newX" : 4,
+      "newX" : 5,
       "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 15,
-      "buggleID" : "Joker 5",
-      "oldX" : 4,
+      "@jsonId" : 14,
+      "buggleID" : "Joker 6",
+      "oldX" : 5,
       "oldY" : 5,
-      "newX" : 4,
+      "newX" : 5,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 16,
-      "buggleID" : "Joker 5",
-      "oldX" : 4,
+      "@jsonId" : 15,
+      "buggleID" : "Joker 6",
+      "oldX" : 5,
       "oldY" : 4,
-      "newX" : 4,
+      "newX" : 5,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 17,
-      "buggleID" : "Joker 5",
-      "oldX" : 4,
+      "@jsonId" : 16,
+      "buggleID" : "Joker 6",
+      "oldX" : 5,
       "oldY" : 3,
-      "newX" : 4,
+      "newX" : 5,
       "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 17,
+      "buggleID" : "Joker 6",
+      "oldX" : 5,
+      "oldY" : 2,
+      "newX" : 5,
+      "newY" : 1,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
@@ -993,5 +1000,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

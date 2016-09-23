@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.Direction;\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass Snake extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tbrushDown();\n\t\twhile (!endingPosition()) {\n\t\t\tsnakeStep();\n\t\t}\n\t}\n\tdef endingPosition():Boolean = {\n\t\tif (! isFacingWall()) \n\t\t\treturn false;\n\n\t\tvar res = false;\n\t\tleft();\n\t\tif (isFacingWall()) \n\t\t\tres = true;\n\t\tright();\t\t\n\t\treturn res;\n\t}\n\n\tdef snakeStep() {\n\t\tif (isFacingWall()) {\n\t\t\tif (getDirection() == Direction.EAST) {\n\t\t\t\tleft();\n\t\t\t\tforward();\n\t\t\t\tleft();\n\t\t\t} else {\n\t\t\t\tright();\n\t\t\t\tforward();\n\t\t\t\tright();\n\t\t\t}\n\t\t} else {\n\t\t\tforward();\n\t\t}\n\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\t\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "Snake",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef endingPosition():\n\tif not isFacingWall():\n\t\treturn False\n\telse:\n\t\tres = False\n\t\tleft()\n\t\tif isFacingWall():\n\t\t\tres = True\n\t\tright()\n\t\treturn res\n\ndef snakeStep():\n\tif isFacingWall():\n\t\tif getDirection().toString() == \"EAST\":\n\t\t\tleft()\n\t\t\tforward()\n\t\t\tleft()\n\t\telse:\n\t\t\tright()\n\t\t\tforward()\n\t\t\tright()\n\telse:\n\t\tforward()\n\nbrushDown()\nwhile not endingPosition():\n\tsnakeStep()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "Snake",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -1686,5 +1693,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }
