@@ -360,6 +360,11 @@ class PLMActor (
     (exercisesActor ? GetExercise(exerciseID)).mapTo[Option[Exercise]].map { optExercise =>
       optExercise match {
         case Some(exercise: Exercise) =>
+
+          if(!exercise.isProgLangSupported(currentProgLang)) {
+            updateProgLang(ProgrammingLanguages.defaultProgrammingLanguage().getLang)
+          }
+
           gitActor ! SwitchExercise(exercise, optCurrentExercise)
 
           optCurrentLesson = Some(lessonID)
