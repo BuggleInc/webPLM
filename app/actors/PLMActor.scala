@@ -194,18 +194,19 @@ class PLMActor (
         case "runExercise" =>
           val exercise: Exercise = optCurrentExercise.get
           val optCode: Option[String] = (msg \ "args" \ "code").asOpt[String]
+          val optVisualCode: Option[String] = (msg \ "args" \ "workspace").asOpt[String]
           optCode match {
             case Some(code: String) =>
               implicit val timeout = Timeout(15 seconds)
               (executionActor ? StartExecution(out, exercise, currentProgLang, code)).mapTo[ExecutionProgress].map { executionResult =>
-                handleExecutionResult(exercise, code, executionResult)
+                handleExecutionResult(exercise, code, optVisualCode, executionResult)
               } onFailure {
                 case timeout: AskTimeoutException =>
                   Logger.error("PLMActor: executionActor ? StartExecution timeout")
                   // Need to generate a special executionResult
                   val executionResult: ExecutionProgress = new ExecutionProgress(currentProgLang, locale)
                   executionResult.setTimeoutError
-                  handleExecutionResult(exercise, code, executionResult)
+                  handleExecutionResult(exercise, code, optVisualCode, executionResult)
                 case t: Throwable =>
                   t.printStackTrace
               }
@@ -366,8 +367,9 @@ class PLMActor (
           exercise.setSettings(userSettings)
 
           (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+            val actualCode: String = if(currentProgLang.getVisualFile) { "" } else { code }
             val mapArgs: Map[String, Object] = new HashMap[String, Object]
-            mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, code, exercise.getWorld(0).getName, ""))
+            mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, actualCode, exercise.getWorld(0).getName, ""))
 
             out ! JSONUtils.createMessage("exercise", mapArgs)
           }
@@ -582,8 +584,9 @@ class PLMActor (
     optCurrentExercise match {
     case Some(exercise: Exercise) =>
       (sessionActor ? RetrieveCode(exercise, currentProgLang)).mapTo[String].map { code =>
+        val actualCode: String = if(currentProgLang.getVisualFile) { "" } else { code }
         val codeJson: JsObject = Json.obj(
-          "code" -> code
+          "code" -> actualCode
         )
         codeJson
       }
@@ -592,9 +595,9 @@ class PLMActor (
     }
   }
 
-  def handleExecutionResult(exercise: Exercise, code: String, executionResult: ExecutionProgress) {
+  def handleExecutionResult(exercise: Exercise, code: String, optVisualCode: Option[String], executionResult: ExecutionProgress) {
     sessionActor ! SetCode(exercise, currentProgLang, code)
-    gitActor ! Executed(exercise, executionResult, code)
+    gitActor ! Executed(exercise, executionResult, code, optVisualCode)
 
     val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
     val commonErrorID: Int = executionResult.commonErrorID
