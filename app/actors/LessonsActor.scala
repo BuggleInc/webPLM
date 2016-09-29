@@ -31,8 +31,9 @@ object LessonsActor {
     "maze",
     // "turmites",
     "turtleart",
-    "sort.baseball", "sort.pancake"
-    // "recursion.cons", "recursion.logo", "recursion.hanoi"
+    "sort.baseball", "sort.pancake",
+    //"recursion.cons", 
+    "recursion.logo", "recursion.hanoi"
     // "bat.string1"
   )
 
