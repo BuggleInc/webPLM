@@ -32,7 +32,7 @@ object LessonsActor {
     // "turmites",
     "turtleart",
     "sort.baseball", "sort.pancake",
-    //"recursion.cons", 
+    "recursion.cons",
     "recursion.logo", "recursion.hanoi"
     // "bat.string1"
   )
