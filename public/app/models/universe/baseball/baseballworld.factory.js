@@ -22,11 +22,23 @@
 			this.memory = [];
 			this.memory.push(this.initialField);
 
-			this.colors = [ '#0000FF', '#00FF00', 'rgb(255,0,255)', '#996600',
-			'rgb(255,56,0)', '#333300', 'rgb(0,103,165)', 'rgb(201,0,22)',
-			'rgb(111,78,55)','rgb(109,7,26)', 'rgb(155,150,10)',
-			'rgb(75,0,130)', 'rgb(150,85,120)', '#FF3300', '#00FFFF', '#4C0000', '#242400', '#1A4C33',
-			'#80804C', '#FF9900', '#CC0066', '#666699', '#009999', '#661A80', '#333329'];
+            this.colors = [ //'rgb(255,255,255)', // Color.WHITE, 
+                            'rgb(0,0,255)', // Color.BLUE
+                            'rgb(255,0,255)', //new Color(255,0,255),  
+                            'rgb(255,204,0)', // gold 
+                            'rgb(158,253,56)', // French lime 
+                            'rgb(255,56,0)', // Coquelicot 
+                            'rgb(204,204,255)', // Lavender blue
+                            'rgb(0,103,165)', // Blue Persian 
+                            'rgb(201,0,22)', // Harvard crimson 
+                            'rgb(111,78,55)', // Coffee 
+                            'rgb(251,206,177)', // Apricot
+                            'rgb(109,7,26)', // Bordeaux 
+                            'rgb(155,150,10)', 
+                            'rgb(75,0,130)', 
+                            'rgb(150,85,120)',
+                            'rgb(0,255,0)'
+			];
 
 			this.basesAmount = world.basesAmount;
 			this.positionsAmount = world.positionsAmount;

@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport com.sun.org.apache.xpath.internal.operations.Bool\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\n\nclass MethodsReturning extends plm.universe.bugglequest.AbstractBuggle {\n\toverride def forward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def run() { \n\t\tfor (i <- 1 to 7) {\n\t\t\tif (haveBaggle()) \n\t\t\t\treturn;\n\t\t\tright();\n\t\t\tforward();\n\t\t\tleft();\n\t\t}\n\t}\n\t/* BEGIN TEMPLATE */\n\tdef haveBaggle():Boolean = {\n\t\t/* BEGIN SOLUTION */\n\t\tvar res = false\n\t\tfor (i <- 1 to 6) {\n\t\t\tif (isOverBaggle()) \n\t\t\t\tres = true;\n\t\t\tforward();\n\t\t}\n\t\tfor (i <- 1 to 6) \n\t\t\tbackward();\n\t\treturn res;\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "MethodsReturning",
+      "body" : "def haveBaggle():\n",
+      "template" : "def forward(i=-1):\n    if i!=-1:\n        errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\n    else:\n        entity.forward()\n\ndef backward(i=-1):\n    if i!=-1:\n        errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n    else:\n        entity.backward()\n\n\n$body\n\nfor i in range(7):\n    if haveBaggle():\n        break\n    right()\n    forward()\n    left()\n",
+      "offset" : 11,
+      "correction" : "def forward(i=-1):\n    if i!=-1:\n        errorMsg(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\")\n    else:\n        entity.forward()\n\ndef backward(i=-1):\n    if i!=-1:\n        errorMsg(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\")\n    else:\n        entity.backward()\n\n\n# BEGIN TEMPLATE\ndef haveBaggle():\n    # BEGIN SOLUTION \n\tres = False\n\tfor i in range(6):\n\t\tif isOverBaggle():\n\t\t\tres = True\n\t\tforward()\n\tfor i in range(6):\n\t\tbackward()\n\treturn res\n    # END SOLUTION\n#END TEMPLATE\n\nfor i in range(7):\n    if haveBaggle():\n        break\n    right()\n    forward()\n    left()\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "MethodsReturning",
       "body" : "def haveBaggle():\n",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -3284,5 +3291,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

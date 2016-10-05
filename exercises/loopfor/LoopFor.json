@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport plm.universe.bugglequest.AbstractBuggle\n\nimport java.util.Locale\nimport plm.core.model.I18nManager\nimport org.xnap.commons.i18n.I18n\n\nclass LoopFor extends AbstractBuggle {\n\toverride def forward(i: Int)  {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use forward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\toverride def backward(i: Int) {\n\t  val locale: Locale = getWorld.getLocale\n\t  val i18n: I18n = I18nManager.getI18n(locale)\n\t\tthrow new RuntimeException(i18n.tr(\"Sorry Dave, I cannot let you use backward with an argument in this exercise. Use a loop instead.\"));\n\t}\n\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tvar cpt = 0\n\t\twhile (!isOverBaggle()) {\n\t\t\tcpt+=1;\n\t\t\tforward();\n\t\t}\n\t\tpickupBaggle();\n\t\tfor (cpt2 <- 0  to cpt-1) {\n\t\t\tbackward();\n\t\t}\n\t\tdropBaggle();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "LoopFor",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ncpt = 0\n\nwhile not isOverBaggle():\n  cpt = cpt+1\n  forward()\npickupBaggle()\nfor i in range(cpt):\n  backward()\ndropBaggle()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "LoopFor",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -468,21 +475,6 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
       "@jsonId" : 4,
-      "x" : 1,
-      "y" : 5,
-      "oldHasBaggle" : true,
-      "newHasBaggle" : false,
-      "name" : "changeCellHasBaggle"
-    }, {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 5,
-      "buggleID" : "Hungry2",
-      "oldCarryBaggle" : false,
-      "newCarryBaggle" : true,
-      "name" : "changeBuggleCarryBaggle"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
-      "@jsonId" : 6,
       "x" : 0,
       "y" : 6,
       "oldHasBaggle" : true,
@@ -490,8 +482,23 @@
       "name" : "changeCellHasBaggle"
     }, {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
-      "@jsonId" : 7,
+      "@jsonId" : 5,
       "buggleID" : "Hungry1",
+      "oldCarryBaggle" : false,
+      "newCarryBaggle" : true,
+      "name" : "changeBuggleCarryBaggle"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeCellHasBaggle",
+      "@jsonId" : 6,
+      "x" : 1,
+      "y" : 5,
+      "oldHasBaggle" : true,
+      "newHasBaggle" : false,
+      "name" : "changeCellHasBaggle"
+    }, {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleCarryBaggle",
+      "@jsonId" : 7,
+      "buggleID" : "Hungry2",
       "oldCarryBaggle" : false,
       "newCarryBaggle" : true,
       "name" : "changeBuggleCarryBaggle"
@@ -1302,5 +1309,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

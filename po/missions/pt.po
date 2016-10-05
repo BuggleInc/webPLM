@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-09-08 16:20+0200\n"
-"PO-Revision-Date: 2015-11-10 21:13+0100\n"
+"POT-Creation-Date: 2016-09-24 22:31+0200\n"
+"PO-Revision-Date: 2016-09-24 22:34+0200\n"
 "Last-Translator: Fred Maranhão <fred.maranhao@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -3086,11 +3086,18 @@ msgstr "Near Hundred"
 
 #. type: Content of: <p>
 #: exercises/bat/bool1/nearhundred/NearHundred.html:3
+#, fuzzy
+#| msgid ""
+#| "Given an int n, return true if it is within 10 of 100 or 200.  [!java|"
+#| "scala]Note that Math.abs(n) returns the absolute value of a number.[/!] [!"
+#| "python]Note that math.fabs(n) returns the absolute value of a number.  "
+#| "This function can only be used if you imported the math module.[/!]"
 msgid ""
 "Given an int n, return true if it is within 10 of 100 or 200.  [!java|"
 "scala]Note that Math.abs(n) returns the absolute value of a number.[/!] [!"
 "python]Note that math.fabs(n) returns the absolute value of a number.  This "
-"function can only be used if you imported the math module.[/!]"
+"function can only be used if you imported the math module, ie if you have "
+"the following above your code: <code>import math</code>[/!]"
 msgstr ""
 "Dado um int n, retorna true se ele estiver entre 10 a 100 ou 200.\n"
 "[!java|scala]Note que Math.abs(n) retorna o valor absoluto de um\n"
@@ -3099,7 +3106,7 @@ msgstr ""
 "math.[/!]"
 
 #. type: Content of: <p>
-#: exercises/bat/bool1/nearhundred/NearHundred.html:8
+#: exercises/bat/bool1/nearhundred/NearHundred.html:9
 #: exercises/bat/bool1/in1020/In1020.html:6
 #: exercises/bat/bool1/posneg/PosNeg.html:6
 #: exercises/bat/bool1/makes10/Makes10.html:6
@@ -8581,10 +8588,10 @@ msgstr ""
 "menor no topo e a maior embaixo, mas você só pode virar elas para ordená-las."
 
 #. type: Content of: <p>
-#: exercises/sort/pancake/BubblePancake.html:6
+#: exercises/sort/pancake/BubblePancake.html:8
 msgid ""
 "The purpose here is to sort them using the bubble algorithm, where one "
-"pancake is moved to the bottom until it encounters a bigger one. In "
+"pancake is moved to the bottom until it encounters a bigger one.  In "
 "graphical representations, it looks like a bubble takes the element and move "
 "them through the pile. This is where its name comes from."
 msgstr ""
@@ -8594,7 +8601,7 @@ msgstr ""
 "move ele através da pilha. É daí que saiu o nome do algoritmo."
 
 #. type: Content of: <p>
-#: exercises/sort/pancake/BubblePancake.html:8
+#: exercises/sort/pancake/BubblePancake.html:13
 msgid ""
 "Now, using pancakes makes it a little more difficult to write, because you "
 "have to find a way to swap only two pancakes at a time."
@@ -8604,18 +8611,18 @@ msgstr ""
 "vez."
 
 #. type: Attribute 'alt' of: <p><div>
-#: exercises/sort/pancake/BubblePancake.html:10
+#: exercises/sort/pancake/BubblePancake.html:16
 #: exercises/sort/pancake/BasicPancake.html:23
 msgid "I don't get it. I need some help."
 msgstr "Não compreendi. preciso de ajuda."
 
 #. type: Content of: <p><div>
-#: exercises/sort/pancake/BubblePancake.html:11
+#: exercises/sort/pancake/BubblePancake.html:17
 msgid ""
 "The bubble algorithm consists in browsing the whole pile from top to bottom, "
 "and making a comparision between two pancakes. Each time the top pancake is "
 "bigger than the one below, you have to swap them, then compare the bigger "
-"pancake you just swapped with one below, and so on. You have to browse "
+"pancake you just swapped with one below, and so on.  You have to browse "
 "through the entire pile until no swap has occurred, in which case the pile "
 "is sorted."
 msgstr ""
@@ -8627,16 +8634,16 @@ msgstr ""
 "troca ocorra, e neste caso, a pilha estará ordenada."
 
 #. type: Attribute 'alt' of: <p><div>
-#: exercises/sort/pancake/BubblePancake.html:13
+#: exercises/sort/pancake/BubblePancake.html:24
 #: exercises/sort/pancake/BasicPancake.html:28
 msgid "The first tip was not enough. I need another one."
 msgstr "A primeira dica não foi suficiente. Preciso de outra."
 
 #. type: Content of: <p><p><div>
-#: exercises/sort/pancake/BubblePancake.html:14
+#: exercises/sort/pancake/BubblePancake.html:25
 msgid ""
 "If you don't understand the basic bubble sorting algorithm, you should try "
-"the exercises within the “Sorting algorithms” lesson. If you do, but can't "
+"the exercises within the \"Sorting algorithms\" lesson. If you do, but can't "
 "figure a way to swap only two pancakes at a time, think of a situation where "
 "only two pancakes are swapped at a time, and find a way to reach that "
 "situation."
@@ -8694,14 +8701,9 @@ msgid ""
 "get the grasp on this problem. This is even one of the activities that I use "
 "in my CS-IRL (computer science in real life) project to introduce the "
 "concept of algorithm to absolute beginners that wonder about our science. "
-"More information at http://www.loria.fr/~quinson/Mediation/SMN/ (in French)."
-msgstr ""
-"Observe que você pode brincar primeiro fisicamente com pedaços de papel ou "
-"madeira para ter a ideia do problema. Esta é inclusive uma das atividades "
-"que eu uso no meu projeto CS-IRL (computer science in real life - ciência da "
-"computação na vida real) para introduzir o conceito de algoritmo para "
-"completos iniciantes que querem saber da nossa ciência. Mais informações em "
-"http://www.loria.fr/~quinson/Mediation/SMN/ (em francês)."
+"More information at http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (in "
+"French)."
+msgstr "Observe que você pode brincar primeiro fisicamente com pedaços de papel ou madeira para ter a ideia do problema. Esta é inclusive uma das atividades que eu uso no meu projeto CS-IRL (computer science in real life - ciência da computação na vida real) para introduzir o conceito de algoritmo para completos iniciantes que querem saber da nossa ciência. Mais informações em http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (em francês)."
 
 #. type: Content of: <p><div>
 #: exercises/sort/pancake/BasicPancake.html:24

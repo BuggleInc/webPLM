@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color;\n\n\nclass SlugTracking extends plm.universe.bugglequest.AbstractBuggle {\n\n\toverride def run() {\n\t\twhile (! isOverBaggle()) {\n\t\t\tif (isFacingTrail()) {\n\t\t\t\tbrushDown();\n\t\t\t\tforward();\n\t\t\t\tbrushUp();\n\t\t\t} else {\n\t\t\t\tleft();\n\t\t\t}\n\t\t}\n\t\tpickupBaggle();\n\t}\n\n\t/* BEGIN TEMPLATE */\n\tdef isFacingTrail():Boolean = {\n\t\t// Write your code here\n\t\t/* BEGIN SOLUTION */\n\t\tif (isFacingWall())\n\t\t\treturn false;\n\t\tforward();\n\t\tval res = (getGroundColor() == Color.green); \n\t\tbackward();\n\t\treturn res;\n\t\t/* END SOLUTION */\n\t}\t\t\n\t/* END TEMPLATE */\n\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "SlugTracking",
+      "body" : "def isFacingTrail():\n   # write your code here\n",
+      "template" : "import java.awt.Color as Color\n\n$body\n\ndef hunt():\n   while not isOverBaggle():\n      brushUp()\n      if isFacingTrail():\n         brushDown()\n         forward()\n         brushUp()\n      else:\n\t     left()\n   pickupBaggle()\n\nhunt()\n",
+      "offset" : 1,
+      "correction" : "import java.awt.Color as Color\n\n# BEGIN TEMPLATE\ndef isFacingTrail():\n   # write your code here\n   # BEGIN SOLUTION\n   if isFacingWall():\n      return False\n   else:\n\t  forward()\n\t  res = (getGroundColor() == Color.green)\n\t  backward()\n\t  return res\n   # END SOLUTION\n# END TEMPLATE\n\ndef hunt():\n   while not isOverBaggle():\n      brushUp()\n      if isFacingTrail():\n         brushDown()\n         forward()\n         brushUp()\n      else:\n\t     left()\n   pickupBaggle()\n\nhunt()\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "SlugTracking",
       "body" : "def isFacingTrail():\n   # write your code here\n",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -3450,5 +3457,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

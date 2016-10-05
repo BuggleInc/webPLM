@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color;\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass FlowerPot extends AbstractBuggle {\n\n\toverride def run() {\n\t    growFlowers();\n\t}\n\t/* BEGIN SOLUTION */\n\tdef makeFlower(c: Color) {\n\t    setBrushColor(c);\n\t    brushDown();\n\t    forward(2);\n\t    backward();\n\t    left();\n\t    forward();\n\t    backward(2);\n\t    forward();\n\t    setBrushColor(Color.YELLOW);\n\t    brushUp();\n\t    right();    \n\t}\n\n\tdef line(c1:Color, c2: Color) {\n\t    makeFlower(c1);\n\t    forward(3);\n\t    makeFlower(c2);\n\t    backward(5);    \n\t}\n\tdef halfLine(c:Color) {\n\t    forward(2);\n\t    makeFlower(c);\n\t    backward(3);\n\t}\n\tdef growFlowers() {\n\t    line(Color.RED, Color.CYAN);\n\t    \n\t    right();    \n\t    forward(2);\n\t    left();\n\t    halfLine(Color.ORANGE);\n\t    right();\n\t    forward(2);\n\t    left();\n\t    \n\t    line(Color.PINK, Color.GREEN);\n\t}\n\t/* END SOLUTION */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "FlowerPot",
+      "body" : "",
+      "template" : "$body\ngrowFlowers()\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef makeFlower(c):\n\tsetBrushColor(c)\n\tbrushDown()\n\tforward(2)\n\tbackward()\n\tleft()\n\tforward()\n\tbackward(2)\n\tforward()\n\tsetBrushColor(Color.YELLOW)\n\tbrushUp()\n\tright()   \n\ndef line(c1, c2):\n    makeFlower(c1)\n    forward(3)\n    makeFlower(c2)\n    backward(5)    \ndef halfLine(c):\n    forward(2)\n    makeFlower(c)\n    backward(3)\n\t\ndef growFlowers():\n    line(Color.RED, Color.CYAN)\n\t    \n    right()    \n    forward(2)\n    left()\n    halfLine(Color.ORANGE)\n    right()\n    forward(2)\n    left()\n\t    \n    line(Color.PINK, Color.GREEN);\n# END SOLUTION\ngrowFlowers()\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "FlowerPot",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -2265,5 +2272,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

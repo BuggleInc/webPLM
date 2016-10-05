@@ -26,13 +26,13 @@ portanto estar de cabeça para baixo, a menos que <i>p = n</i> (e neste caso
 não existe a panqueca <i>p + 1</i>).</p>
 
 <ul>
-  <li><b>Caso 1.a:</b> <i>p+1</i> é menor que <i>p</i> na pilha.  <div align="center"><img src="img/cohen-1a.png"/></div><br/></li>
-  <li><b>Caso 1.b:</b> <i>p+1</i> é maior que <i>p</i> na pilha. <div align="center"><img src="img/cohen-1b.png"/></div><br/></li>
+  <li><b>Caso 1.a:</b> <i>p+1</i> é menor que <i>p</i> na pilha. <div align="center"><img src="exercises/sort/pancake/img/cohen-1a.png"/></div><br/></li>
+  <li><b>Caso 1.b:</b> <i>p+1</i> é maior que <i>p</i> na pilha. <div align="center"><img src="exercises/sort/pancake/img/cohen-1b.png"/></div><br/></li>
   <li><b>Caso 1.c:</b> Não existe <i>p+1</i> pois <i>p</i> é a maior panqueca da
 pilha, isto por que <i>p = n</i>.  Se a panqueca <i>p</i> já estiver na
 posição, não há nada a fazer. Se não, você pode movê-la para o fundo da
 pilha em duas viradas:
-     <div align="center"><img src="img/cohen-1c.png"/></div>
+     <div align="center"><img src="exercises/sort/pancake/img/cohen-1c.png"/></div>
      
     <b>O truque é que a panqueca <i>p</i> nunca deve ser considerada de
 novo.</b> caso contrário, você vai considerar ela de novo e de novo pois ela
@@ -50,11 +50,11 @@ distinguimos dois sub-casos.</p>
 <ul>
  <li><b>Caso 2.a:</b> Existe pelo menos um <i>p</i> para o qual <i>p+1</i> é
 maior que <i>p</i> (se existem vários destes <i>p</i>, pegue o maior).
-   <div align="center"><img src="img/cohen-2a.png"/></div><br/>
+   <div align="center"><img src="exercises/sort/pancake/img/cohen-2a.png"/></div><br/>
  </li>
  <li><b>Caso 2.b:</b> Qualquer panqueca <i>p</i> é menor que a panqueca
 <i>p+1</i>. Neste caso, devemos ter a seguinte configuração:
-    <div align="center"><img src="img/cohen-2b.png"/></div>
+    <div align="center"><img src="exercises/sort/pancake/img/cohen-2b.png"/></div>
  </li>
 </ul>
 
@@ -78,7 +78,7 @@ Repita n vezes
 <p>Pode parecer mágica, mas funciona de verdade, como é mostrado no exemplo
 abaixo.</p>
 
-<p><div align="center"><img src="img/cohen-2b-algo.png"/></div></p>
+<p><div align="center"><img src="exercises/sort/pancake/img/cohen-2b-algo.png"/></div></p>
 
 <p>Portanto, em todo caso, o algoritmo de Cohen trata de ordenar a pilha
 de panquecas queimadas em <i>2n</i> passos em todos os casos. Uma

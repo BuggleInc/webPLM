@@ -1,5 +1,6 @@
 conf/generated.keystore
 lib/cachedir
+lib/cachedir/packages/packages.idx
 logs
 /bin
 project/project

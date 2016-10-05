@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.util.Stack;\n\nimport plm.universe.bugglequest.AbstractBuggle;\n\nclass BDR2 extends AbstractBuggle {\n\toverride def run() { \n\t\t/* BEGIN SOLUTION */\n\t\tvar moreMusic = true;\n\n\t\twhile (moreMusic) {\n\t\t\treadMessage() match {\n\t\t\t  case \"R\" => right(); forward(); \n\t\t\t  case \"L\" => left();  forward(); \n\t\t\t  case \"I\" => back();  forward(); \n\n\t\t\t  case \"A\" => forward(1); \n\t\t\t  case \"B\" => forward(2); \n\t\t\t  case \"C\" => forward(3); \n\t\t\t  case \"D\" => forward(4); \n\t\t\t  case \"E\" => forward(5); \n\t\t\t  case \"F\" => forward(6); \n\n\t\t\t  case \"Z\" => backward(1);\n\t\t\t  case \"Y\" => backward(2);\n\t\t\t  case \"X\" => backward(3);\n\t\t\t  case \"W\" => backward(4); \n\t\t\t  case \"V\" => backward(5); \n\t\t\t  case \"U\" => backward(6); \n\t\t\t  \n\t\t\t  case _ =>  moreMusic = false\n\t\t\t}\n\t\t}\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "BDR2",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\ndef doR(): right(); forward()\ndef doL(): left();  forward()\ndef doI(): back();  forward()\n\n\nfinished = False\nwhile not finished:\n\tc = getIndication()\n\tif c == 'R':\n\t\tdoR()\n\telif c == 'L':\n\t\tdoL()\n\telif c == 'I':\n\t\tdoI()\n\telif c == 'A':\n\t\tforward()\n\telif c == 'B':\n\t\tforward(2)\n\telif c == 'C':\n\t\tforward(3)\n\telif c == 'D':\n\t\tforward(4)\n\telif c == 'E':\n\t\tforward(5)\n\telif c == 'F':\n\t\tforward(6)\n\telif c == 'Z':\n\t\tbackward()\n\telif c == 'Y':\n\t\tbackward(2)\n\telif c == 'X':\n\t\tbackward(3)\n\telif c == 'W':\n\t\tbackward(4)\n\telif c == 'V':\n\t\tbackward(5)\n\telif c == 'U':\n\t\tbackward(6)\n\telse:        \n\t\tfinished = True\n\n\n\n#danceOneStep = { \n#  'R':doR,\n#  'L':doL,\n#  'I':doI,\n#  'A':forward(1),\n#  'B':forward(2),\n#  'C':forward(3),\n#  'D':forward(4),\n#  'E':forward(5),\n#  'F':forward(6),\n#\n#  'Z':backward(1),\n#  'Y':backward(2),\n#  'X':backward(3),\n#  'W':backward(4),\n#  'V':backward(5),\n#  'U':backward(6),\n#  \n#  default: log(\"parse error: '\"+getIndication()+\"'\")\n#}\n#\n#\n#while getIndication() != ' ':\n#\tlog(\"Seen \"+getIndication())\n#\tdanceOneStep[getIndication()]()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "BDR2",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -980,6 +987,51 @@
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 9,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 0,
+      "newX" : 10,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 10,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 1,
+      "newX" : 10,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 11,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 2,
+      "newX" : 10,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 12,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 3,
+      "newX" : 10,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 13,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 4,
+      "newX" : 10,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 14,
       "buggleID" : "John Travolta",
       "oldX" : 5,
       "oldY" : 0,
@@ -987,15 +1039,76 @@
       "newY" : 1,
       "name" : "moveBuggleOperation"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 15,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 10,
+      "oldY" : 10,
+      "newX" : 9,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 16,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 9,
+      "oldY" : 10,
+      "newX" : 8,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 10,
+      "@jsonId" : 17,
+      "buggleID" : "Break Dancer",
+      "oldDirection" : 2,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 18,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 8,
+      "oldY" : 10,
+      "newX" : 7,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 19,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 10,
+      "newX" : 6,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 20,
+      "buggleID" : "Break Dancer",
+      "oldX" : 10,
+      "oldY" : 5,
+      "newX" : 9,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 21,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
+      "oldY" : 10,
+      "newX" : 5,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 22,
       "buggleID" : "John Travolta",
       "oldDirection" : 2,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 11,
+      "@jsonId" : 23,
       "buggleID" : "John Travolta",
       "oldX" : 5,
       "oldY" : 1,
@@ -1004,740 +1117,517 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 12,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 3,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 13,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 1,
-      "newX" : 4,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 14,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 15,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 2,
-      "newX" : 3,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 16,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 3,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 17,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 2,
-      "newX" : 3,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 18,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 19,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 3,
-      "newX" : 2,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 20,
-      "buggleID" : "John Travolta",
-      "oldX" : 2,
-      "oldY" : 3,
-      "newX" : 1,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 21,
-      "buggleID" : "John Travolta",
-      "oldX" : 1,
-      "oldY" : 3,
-      "newX" : 0,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 22,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 3,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 23,
-      "buggleID" : "John Travolta",
-      "oldX" : 0,
-      "oldY" : 3,
-      "newX" : 0,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
       "@jsonId" : 24,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 25,
-      "buggleID" : "John Travolta",
-      "oldX" : 0,
-      "oldY" : 4,
-      "newX" : 1,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 26,
-      "buggleID" : "John Travolta",
-      "oldX" : 1,
-      "oldY" : 4,
-      "newX" : 2,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 27,
-      "buggleID" : "John Travolta",
-      "oldX" : 2,
-      "oldY" : 4,
-      "newX" : 3,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 28,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 4,
-      "newX" : 4,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 29,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 1,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 30,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 4,
-      "newX" : 4,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 31,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 32,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 5,
-      "newX" : 5,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 33,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 1,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 34,
-      "buggleID" : "John Travolta",
-      "oldX" : 5,
-      "oldY" : 5,
-      "newX" : 4,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 35,
-      "buggleID" : "John Travolta",
+      "buggleID" : "Break Dancer",
       "oldDirection" : 3,
-      "newDirection" : 2,
+      "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 36,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 5,
-      "newX" : 4,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 37,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 38,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 6,
-      "newX" : 3,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 39,
-      "buggleID" : "John Travolta",
+      "@jsonId" : 25,
+      "buggleID" : "Elwood Blues",
       "oldDirection" : 3,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 40,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 6,
-      "newX" : 3,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 41,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
+      "@jsonId" : 26,
+      "buggleID" : "Break Dancer",
+      "oldX" : 9,
       "oldY" : 5,
-      "newX" : 3,
-      "newY" : 6,
+      "newX" : 9,
+      "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 42,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 6,
-      "newX" : 3,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 43,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 7,
-      "newX" : 3,
-      "newY" : 8,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 44,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 8,
-      "newX" : 3,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 45,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 0,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 46,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 9,
-      "newX" : 2,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 47,
-      "buggleID" : "John Travolta",
-      "oldX" : 2,
-      "oldY" : 9,
-      "newX" : 3,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 48,
-      "buggleID" : "John Travolta",
-      "oldX" : 3,
-      "oldY" : 9,
-      "newX" : 4,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 49,
-      "buggleID" : "John Travolta",
-      "oldX" : 4,
-      "oldY" : 9,
+      "@jsonId" : 27,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 5,
+      "oldY" : 10,
       "newX" : 5,
       "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 28,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 0,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 50,
-      "buggleID" : "John Travolta",
+      "@jsonId" : 29,
+      "buggleID" : "Elwood Blues",
       "oldX" : 5,
       "oldY" : 9,
       "newX" : 6,
       "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 51,
-      "buggleID" : "John Travolta",
-      "oldX" : 6,
-      "oldY" : 9,
-      "newX" : 7,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 52,
-      "buggleID" : "John Travolta",
-      "oldX" : 7,
-      "oldY" : 9,
-      "newX" : 8,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 53,
+      "@jsonId" : 30,
       "buggleID" : "John Travolta",
       "oldDirection" : 3,
       "newDirection" : 2,
       "name" : "changeBuggleDirection"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 54,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 9,
-      "newX" : 8,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 31,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 55,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 10,
-      "newX" : 8,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 56,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
+      "@jsonId" : 32,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
       "oldY" : 9,
-      "newX" : 8,
+      "newX" : 6,
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 57,
+      "@jsonId" : 33,
       "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 8,
-      "newX" : 8,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 58,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 7,
-      "newX" : 8,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 59,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 6,
-      "newX" : 8,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 60,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 5,
-      "newX" : 8,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 61,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 4,
-      "newX" : 8,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 62,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 3,
-      "newX" : 8,
+      "oldX" : 4,
+      "oldY" : 1,
+      "newX" : 4,
       "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 63,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 2,
-      "newX" : 8,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 64,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 1,
-      "newX" : 8,
-      "newY" : 0,
-      "name" : "moveBuggleOperation"
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 34,
+      "buggleID" : "Break Dancer",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 65,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 2,
+      "@jsonId" : 35,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 0,
       "newDirection" : 1,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 66,
-      "buggleID" : "John Travolta",
-      "oldX" : 8,
-      "oldY" : 0,
-      "newX" : 9,
-      "newY" : 0,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 67,
-      "buggleID" : "John Travolta",
-      "oldDirection" : 1,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 68,
-      "buggleID" : "John Travolta",
+      "@jsonId" : 36,
+      "buggleID" : "Break Dancer",
       "oldX" : 9,
-      "oldY" : 0,
-      "newX" : 9,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 69,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 0,
-      "newX" : 10,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 70,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 1,
-      "newX" : 10,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 71,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 2,
-      "newX" : 10,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 72,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 3,
-      "newX" : 10,
+      "oldY" : 4,
+      "newX" : 8,
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 73,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 4,
-      "newX" : 10,
-      "newY" : 5,
+      "@jsonId" : 37,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
+      "oldY" : 8,
+      "newX" : 7,
+      "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 74,
-      "buggleID" : "Break Dancer",
+      "@jsonId" : 38,
+      "buggleID" : "John Travolta",
       "oldDirection" : 2,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 75,
-      "buggleID" : "Break Dancer",
-      "oldX" : 10,
-      "oldY" : 5,
-      "newX" : 9,
-      "newY" : 5,
+      "@jsonId" : 39,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 2,
+      "newX" : 3,
+      "newY" : 2,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 76,
+      "@jsonId" : 40,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 41,
       "buggleID" : "Break Dancer",
       "oldDirection" : 3,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 77,
+      "@jsonId" : 42,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 8,
+      "newX" : 7,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 43,
       "buggleID" : "Break Dancer",
-      "oldX" : 9,
-      "oldY" : 5,
-      "newX" : 9,
-      "newY" : 4,
+      "oldX" : 8,
+      "oldY" : 4,
+      "newX" : 8,
+      "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 78,
+      "@jsonId" : 44,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 45,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 2,
+      "newX" : 3,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 46,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 0,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 47,
       "buggleID" : "Break Dancer",
       "oldDirection" : 0,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 79,
+      "@jsonId" : 48,
       "buggleID" : "Break Dancer",
-      "oldX" : 9,
-      "oldY" : 4,
+      "oldX" : 8,
+      "oldY" : 3,
+      "newX" : 7,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 49,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 7,
       "newX" : 8,
-      "newY" : 4,
+      "newY" : 7,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 80,
+      "@jsonId" : 50,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 2,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 51,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 3,
+      "newX" : 2,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 52,
       "buggleID" : "Break Dancer",
       "oldDirection" : 3,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 81,
-      "buggleID" : "Break Dancer",
+      "@jsonId" : 53,
+      "buggleID" : "Elwood Blues",
       "oldX" : 8,
-      "oldY" : 4,
-      "newX" : 8,
+      "oldY" : 7,
+      "newX" : 9,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 54,
+      "buggleID" : "Break Dancer",
+      "oldX" : 7,
+      "oldY" : 3,
+      "newX" : 7,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 55,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 9,
+      "oldY" : 7,
+      "newX" : 10,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 56,
+      "buggleID" : "John Travolta",
+      "oldX" : 2,
+      "oldY" : 3,
+      "newX" : 1,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 57,
+      "buggleID" : "John Travolta",
+      "oldX" : 1,
+      "oldY" : 3,
+      "newX" : 0,
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 82,
+      "@jsonId" : 58,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 59,
       "buggleID" : "Break Dancer",
+      "oldX" : 7,
+      "oldY" : 2,
+      "newX" : 7,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 60,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 10,
+      "oldY" : 7,
+      "newX" : 10,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 61,
+      "buggleID" : "Break Dancer",
+      "oldX" : 7,
+      "oldY" : 1,
+      "newX" : 7,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 62,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 63,
+      "buggleID" : "Break Dancer",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 64,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 65,
+      "buggleID" : "Break Dancer",
+      "oldX" : 7,
+      "oldY" : 0,
+      "newX" : 6,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 66,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 10,
+      "oldY" : 6,
+      "newX" : 9,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 67,
+      "buggleID" : "John Travolta",
+      "oldX" : 0,
+      "oldY" : 3,
+      "newX" : 0,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 68,
+      "buggleID" : "Break Dancer",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 69,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 9,
+      "oldY" : 6,
+      "newX" : 8,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 70,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 8,
+      "oldY" : 6,
+      "newX" : 7,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 71,
+      "buggleID" : "Break Dancer",
+      "oldX" : 6,
+      "oldY" : 0,
+      "newX" : 6,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 72,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 6,
+      "newX" : 6,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 73,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 2,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 74,
+      "buggleID" : "John Travolta",
+      "oldX" : 0,
+      "oldY" : 4,
+      "newX" : 1,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 75,
+      "buggleID" : "Break Dancer",
+      "oldX" : 6,
+      "oldY" : 1,
+      "newX" : 6,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 76,
+      "buggleID" : "Break Dancer",
+      "oldX" : 6,
+      "oldY" : 2,
+      "newX" : 6,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 77,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 3,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 78,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
+      "oldY" : 6,
+      "newX" : 6,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 79,
+      "buggleID" : "Break Dancer",
+      "oldX" : 6,
+      "oldY" : 3,
+      "newX" : 6,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 80,
+      "buggleID" : "John Travolta",
+      "oldX" : 1,
+      "oldY" : 4,
+      "newX" : 2,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 81,
+      "buggleID" : "John Travolta",
+      "oldX" : 2,
+      "oldY" : 4,
+      "newX" : 3,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 82,
+      "buggleID" : "Elwood Blues",
       "oldDirection" : 0,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
       "@jsonId" : 83,
-      "buggleID" : "Break Dancer",
-      "oldX" : 8,
-      "oldY" : 3,
-      "newX" : 7,
-      "newY" : 3,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 4,
+      "newX" : 4,
+      "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
       "@jsonId" : 84,
-      "buggleID" : "Break Dancer",
-      "oldDirection" : 3,
-      "newDirection" : 0,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 85,
-      "buggleID" : "Break Dancer",
-      "oldX" : 7,
-      "oldY" : 3,
-      "newX" : 7,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 86,
-      "buggleID" : "Break Dancer",
-      "oldX" : 7,
-      "oldY" : 2,
-      "newX" : 7,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 87,
-      "buggleID" : "Break Dancer",
-      "oldX" : 7,
-      "oldY" : 1,
-      "newX" : 7,
-      "newY" : 0,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 88,
-      "buggleID" : "Break Dancer",
-      "oldDirection" : 0,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 89,
-      "buggleID" : "Break Dancer",
-      "oldX" : 7,
-      "oldY" : 0,
-      "newX" : 6,
-      "newY" : 0,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 90,
-      "buggleID" : "Break Dancer",
-      "oldDirection" : 3,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 91,
-      "buggleID" : "Break Dancer",
-      "oldX" : 6,
-      "oldY" : 0,
-      "newX" : 6,
-      "newY" : 1,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 92,
-      "buggleID" : "Break Dancer",
-      "oldX" : 6,
-      "oldY" : 1,
-      "newX" : 6,
-      "newY" : 2,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 93,
-      "buggleID" : "Break Dancer",
-      "oldX" : 6,
-      "oldY" : 2,
-      "newX" : 6,
-      "newY" : 3,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 94,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 10,
-      "oldY" : 10,
-      "newX" : 9,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 95,
-      "buggleID" : "Break Dancer",
-      "oldX" : 6,
-      "oldY" : 3,
-      "newX" : 6,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 96,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 9,
-      "oldY" : 10,
-      "newX" : 8,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 97,
       "buggleID" : "Break Dancer",
       "oldDirection" : 2,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 98,
+      "@jsonId" : 85,
       "buggleID" : "Elwood Blues",
-      "oldX" : 8,
-      "oldY" : 10,
-      "newX" : 7,
-      "newY" : 10,
+      "oldX" : 6,
+      "oldY" : 5,
+      "newX" : 5,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 99,
+      "@jsonId" : 86,
       "buggleID" : "Break Dancer",
       "oldX" : 6,
       "oldY" : 4,
@@ -1745,33 +1635,31 @@
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 100,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 7,
-      "oldY" : 10,
-      "newX" : 6,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 101,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 10,
-      "newX" : 5,
-      "newY" : 10,
-      "name" : "moveBuggleOperation"
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 87,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 1,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 102,
+      "@jsonId" : 88,
       "buggleID" : "Break Dancer",
       "oldDirection" : 3,
       "newDirection" : 2,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 103,
+      "@jsonId" : 89,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 4,
+      "newX" : 4,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 90,
       "buggleID" : "Break Dancer",
       "oldX" : 5,
       "oldY" : 4,
@@ -1780,30 +1668,30 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 104,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 3,
-      "newDirection" : 0,
+      "@jsonId" : 91,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 2,
+      "newDirection" : 1,
       "name" : "changeBuggleDirection"
     } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 92,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 5,
+      "newX" : 5,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 105,
+      "@jsonId" : 93,
       "buggleID" : "Break Dancer",
       "oldDirection" : 2,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 106,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 5,
-      "oldY" : 10,
-      "newX" : 5,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 107,
+      "@jsonId" : 94,
       "buggleID" : "Break Dancer",
       "oldX" : 5,
       "oldY" : 5,
@@ -1812,21 +1700,14 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 108,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 109,
+      "@jsonId" : 95,
       "buggleID" : "Break Dancer",
       "oldDirection" : 0,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 110,
+      "@jsonId" : 96,
       "buggleID" : "Break Dancer",
       "oldX" : 5,
       "oldY" : 4,
@@ -1834,24 +1715,15 @@
       "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 111,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 5,
-      "oldY" : 9,
-      "newX" : 6,
-      "newY" : 9,
-      "name" : "moveBuggleOperation"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 112,
+      "@jsonId" : 97,
       "buggleID" : "Break Dancer",
       "oldDirection" : 3,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 113,
+      "@jsonId" : 98,
       "buggleID" : "Break Dancer",
       "oldX" : 4,
       "oldY" : 4,
@@ -1860,30 +1732,21 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 114,
-      "buggleID" : "Elwood Blues",
+      "@jsonId" : 99,
+      "buggleID" : "John Travolta",
       "oldDirection" : 1,
-      "newDirection" : 0,
+      "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 115,
+      "@jsonId" : 100,
       "buggleID" : "Break Dancer",
       "oldDirection" : 0,
       "newDirection" : 1,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 116,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 9,
-      "newX" : 6,
-      "newY" : 8,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 117,
+      "@jsonId" : 101,
       "buggleID" : "Break Dancer",
       "oldX" : 4,
       "oldY" : 3,
@@ -1892,23 +1755,39 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 118,
+      "@jsonId" : 102,
       "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
+      "oldDirection" : 3,
       "newDirection" : 1,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 119,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 8,
-      "newX" : 7,
-      "newY" : 8,
+      "@jsonId" : 103,
+      "buggleID" : "John Travolta",
+      "oldX" : 5,
+      "oldY" : 5,
+      "newX" : 4,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 120,
+      "@jsonId" : 104,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 5,
+      "oldY" : 5,
+      "newX" : 6,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 105,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 106,
       "buggleID" : "Break Dancer",
       "oldX" : 5,
       "oldY" : 3,
@@ -1917,7 +1796,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 121,
+      "@jsonId" : 107,
       "buggleID" : "Break Dancer",
       "oldX" : 4,
       "oldY" : 3,
@@ -1926,7 +1805,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 122,
+      "@jsonId" : 108,
       "buggleID" : "Break Dancer",
       "oldX" : 3,
       "oldY" : 3,
@@ -1934,15 +1813,17 @@
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 123,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 1,
-      "newDirection" : 0,
-      "name" : "changeBuggleDirection"
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 109,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 5,
+      "newX" : 4,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 124,
+      "@jsonId" : 110,
       "buggleID" : "Break Dancer",
       "oldX" : 2,
       "oldY" : 3,
@@ -1950,24 +1831,31 @@
       "newY" : 3,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 125,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 7,
-      "oldY" : 8,
-      "newX" : 7,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 111,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 2,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 126,
+      "@jsonId" : 112,
       "buggleID" : "Break Dancer",
       "oldDirection" : 1,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 127,
+      "@jsonId" : 113,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 6,
+      "newX" : 3,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 114,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 3,
@@ -1976,73 +1864,14 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 128,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 129,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 7,
-      "oldY" : 7,
-      "newX" : 8,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 130,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 8,
-      "oldY" : 7,
-      "newX" : 9,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 131,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 9,
-      "oldY" : 7,
-      "newX" : 10,
-      "newY" : 7,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 132,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 1,
+      "@jsonId" : 115,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 3,
       "newDirection" : 0,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 133,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 10,
-      "oldY" : 7,
-      "newX" : 10,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 134,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 135,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 10,
-      "oldY" : 6,
-      "newX" : 9,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 136,
+      "@jsonId" : 116,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 2,
@@ -2051,16 +1880,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 137,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 9,
+      "@jsonId" : 117,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
       "oldY" : 6,
-      "newX" : 8,
-      "newY" : 6,
+      "newX" : 3,
+      "newY" : 5,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 138,
+      "@jsonId" : 118,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 3,
@@ -2069,16 +1898,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 139,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 8,
-      "oldY" : 6,
-      "newX" : 7,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 140,
+      "@jsonId" : 119,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 4,
@@ -2087,16 +1907,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 141,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 7,
-      "oldY" : 6,
-      "newX" : 6,
-      "newY" : 6,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 142,
+      "@jsonId" : 120,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 5,
@@ -2105,7 +1916,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 143,
+      "@jsonId" : 121,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 6,
@@ -2113,15 +1924,8 @@
       "newY" : 7,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 144,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 3,
-      "newDirection" : 0,
-      "name" : "changeBuggleDirection"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 145,
+      "@jsonId" : 122,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 7,
@@ -2130,30 +1934,50 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 146,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
+      "@jsonId" : 123,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 5,
+      "newX" : 3,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 124,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
       "oldY" : 6,
-      "newX" : 6,
-      "newY" : 5,
+      "newX" : 3,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 125,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 7,
+      "newX" : 3,
+      "newY" : 8,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 126,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 8,
+      "newX" : 3,
+      "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 147,
+      "@jsonId" : 127,
       "buggleID" : "Break Dancer",
       "oldDirection" : 0,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 148,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
-      "newDirection" : 3,
-      "name" : "changeBuggleDirection"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 149,
+      "@jsonId" : 128,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 8,
@@ -2161,17 +1985,15 @@
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 150,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 5,
-      "newX" : 5,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 129,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 0,
+      "newDirection" : 3,
+      "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 151,
+      "@jsonId" : 130,
       "buggleID" : "Break Dancer",
       "oldX" : 0,
       "oldY" : 8,
@@ -2179,15 +2001,8 @@
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 152,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 3,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 153,
+      "@jsonId" : 131,
       "buggleID" : "Break Dancer",
       "oldX" : 1,
       "oldY" : 8,
@@ -2196,7 +2011,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 154,
+      "@jsonId" : 132,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 9,
+      "newX" : 2,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 133,
       "buggleID" : "Break Dancer",
       "oldX" : 2,
       "oldY" : 8,
@@ -2205,16 +2029,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 155,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 5,
-      "oldY" : 5,
-      "newX" : 6,
-      "newY" : 5,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 156,
+      "@jsonId" : 134,
       "buggleID" : "Break Dancer",
       "oldX" : 3,
       "oldY" : 8,
@@ -2223,7 +2038,7 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 157,
+      "@jsonId" : 135,
       "buggleID" : "Break Dancer",
       "oldX" : 4,
       "oldY" : 8,
@@ -2231,24 +2046,17 @@
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 158,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 1,
-      "newDirection" : 0,
-      "name" : "changeBuggleDirection"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 159,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 5,
-      "newX" : 6,
-      "newY" : 4,
+      "@jsonId" : 136,
+      "buggleID" : "John Travolta",
+      "oldX" : 2,
+      "oldY" : 9,
+      "newX" : 3,
+      "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 160,
+      "@jsonId" : 137,
       "buggleID" : "Break Dancer",
       "oldX" : 5,
       "oldY" : 8,
@@ -2256,15 +2064,8 @@
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 161,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 0,
-      "newDirection" : 1,
-      "name" : "changeBuggleDirection"
-    } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 162,
+      "@jsonId" : 138,
       "buggleID" : "Break Dancer",
       "oldX" : 6,
       "oldY" : 8,
@@ -2273,16 +2074,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 163,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 6,
-      "oldY" : 4,
-      "newX" : 7,
-      "newY" : 4,
+      "@jsonId" : 139,
+      "buggleID" : "John Travolta",
+      "oldX" : 3,
+      "oldY" : 9,
+      "newX" : 4,
+      "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 164,
+      "@jsonId" : 140,
       "buggleID" : "Break Dancer",
       "oldX" : 7,
       "oldY" : 8,
@@ -2291,7 +2092,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 165,
+      "@jsonId" : 141,
+      "buggleID" : "John Travolta",
+      "oldX" : 4,
+      "oldY" : 9,
+      "newX" : 5,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 142,
       "buggleID" : "Break Dancer",
       "oldX" : 8,
       "oldY" : 8,
@@ -2300,7 +2110,16 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 166,
+      "@jsonId" : 143,
+      "buggleID" : "John Travolta",
+      "oldX" : 5,
+      "oldY" : 9,
+      "newX" : 6,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 144,
       "buggleID" : "Break Dancer",
       "oldX" : 9,
       "oldY" : 8,
@@ -2308,31 +2127,33 @@
       "newY" : 8,
       "name" : "moveBuggleOperation"
     } ], [ {
-      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 167,
-      "buggleID" : "Elwood Blues",
-      "oldDirection" : 1,
-      "newDirection" : 2,
-      "name" : "changeBuggleDirection"
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 145,
+      "buggleID" : "John Travolta",
+      "oldX" : 6,
+      "oldY" : 9,
+      "newX" : 7,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 168,
-      "buggleID" : "Elwood Blues",
+      "@jsonId" : 146,
+      "buggleID" : "John Travolta",
       "oldX" : 7,
-      "oldY" : 4,
-      "newX" : 7,
-      "newY" : 5,
+      "oldY" : 9,
+      "newX" : 8,
+      "newY" : 9,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 169,
+      "@jsonId" : 147,
       "buggleID" : "Break Dancer",
       "oldDirection" : 3,
       "newDirection" : 2,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 170,
+      "@jsonId" : 148,
       "buggleID" : "Break Dancer",
       "oldX" : 10,
       "oldY" : 8,
@@ -2341,28 +2162,214 @@
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
-      "@jsonId" : 171,
+      "@jsonId" : 149,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 3,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 150,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 9,
+      "newX" : 8,
+      "newY" : 10,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 151,
       "buggleID" : "Break Dancer",
       "oldDirection" : 2,
       "newDirection" : 3,
       "name" : "changeBuggleDirection"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 172,
-      "buggleID" : "Elwood Blues",
-      "oldX" : 7,
-      "oldY" : 5,
-      "newX" : 7,
-      "newY" : 4,
-      "name" : "moveBuggleOperation"
-    } ], [ {
-      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
-      "@jsonId" : 173,
+      "@jsonId" : 152,
       "buggleID" : "Break Dancer",
       "oldX" : 10,
       "oldY" : 9,
       "newX" : 9,
       "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 153,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 10,
+      "newX" : 8,
+      "newY" : 9,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 154,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 9,
+      "newX" : 8,
+      "newY" : 8,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 155,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 8,
+      "newX" : 8,
+      "newY" : 7,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 156,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 7,
+      "newX" : 8,
+      "newY" : 6,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 157,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 6,
+      "newX" : 8,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 158,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 5,
+      "newX" : 8,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 159,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 4,
+      "newX" : 8,
+      "newY" : 3,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 160,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 3,
+      "newX" : 8,
+      "newY" : 2,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 161,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 2,
+      "newX" : 8,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 162,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 1,
+      "newX" : 8,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 163,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 2,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 164,
+      "buggleID" : "John Travolta",
+      "oldX" : 8,
+      "oldY" : 0,
+      "newX" : 9,
+      "newY" : 0,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 165,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 1,
+      "newDirection" : 0,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 166,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
+      "oldY" : 5,
+      "newX" : 6,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 167,
+      "buggleID" : "John Travolta",
+      "oldDirection" : 1,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 168,
+      "buggleID" : "John Travolta",
+      "oldX" : 9,
+      "oldY" : 0,
+      "newX" : 9,
+      "newY" : 1,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 169,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 0,
+      "newDirection" : 1,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 170,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 6,
+      "oldY" : 4,
+      "newX" : 7,
+      "newY" : 4,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.ChangeBuggleDirection",
+      "@jsonId" : 171,
+      "buggleID" : "Elwood Blues",
+      "oldDirection" : 1,
+      "newDirection" : 2,
+      "name" : "changeBuggleDirection"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 172,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 4,
+      "newX" : 7,
+      "newY" : 5,
+      "name" : "moveBuggleOperation"
+    } ], [ {
+      "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
+      "@jsonId" : 173,
+      "buggleID" : "Elwood Blues",
+      "oldX" : 7,
+      "oldY" : 5,
+      "newX" : 7,
+      "newY" : 4,
       "name" : "moveBuggleOperation"
     } ], [ {
       "type" : "plm.universe.bugglequest.operations.MoveBuggleOperation",
@@ -3946,5 +3953,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

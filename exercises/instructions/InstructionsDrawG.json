@@ -19,6 +19,14 @@
       "correction" : "$package \n\n\nclass InstructionsDrawG extends plm.universe.bugglequest.AbstractBuggle {\n\n\toverride protected def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tbrushDown();\n\t\tleft();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\t/* back home */\n\t\tbrushUp();\n\t\tright();\n\t\tforward(2);\n\t\tright();\n\t\tforward();\n\t\tleft();\n\t\t/* END SOLUTION */\n\t}\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "InstructionsDrawG",
+      "body" : "",
+      "template" : "$body\n",
+      "offset" : 1,
+      "correction" : "# BEGIN SOLUTION\nbrushDown()\nleft()\nforward(4)\nleft()\nforward(4)\nleft()\nforward(4)\nleft()\nforward()\nforward()\nleft()\nforward()\n# back home \nbrushUp()\nright()\nforward(2)\nright()\nforward()\nleft()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "InstructionsDrawG",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -944,5 +951,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

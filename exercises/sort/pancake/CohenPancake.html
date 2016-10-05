@@ -19,11 +19,11 @@ little pancake problem...</p>
  Note that <i>p + 1</i> must therefore be upside down, unless <i>p = n</i> (in which case there is no <i>p + 1</i> pancake).</p>
 
 <ul>
-  <li><b>Case 1.a:</b> <i>p+1</i> is lower in the stack than <i>p</i>.  <div align="center"><img src="img/cohen-1a.png"/></div><br/></li>
-  <li><b>Case 1.b:</b> <i>p+1</i> is higher in the stack than <i>p</i>. <div align="center"><img src="img/cohen-1b.png"/></div><br/></li>
+  <li><b>Case 1.a:</b> <i>p+1</i> is lower in the stack than <i>p</i>. <div align="center"><img src="exercises/sort/pancake/img/cohen-1a.png"/></div><br/></li>
+  <li><b>Case 1.b:</b> <i>p+1</i> is higher in the stack than <i>p</i>. <div align="center"><img src="exercises/sort/pancake/img/cohen-1b.png"/></div><br/></li>
   <li><b>Case 1.c:</b> There is no <i>p+1</i> because <i>p</i> is the largest pancake in stack, that is because <i>p = n</i>.
      If pancake <i>p</i> is already in position, there is nothing to do. If not, you can move it to the bottom of the stack in 2 flips:
-     <div align="center"><img src="img/cohen-1c.png"/></div>
+     <div align="center"><img src="exercises/sort/pancake/img/cohen-1c.png"/></div>
      
     <b>The trick is that the pancake <i>p</i> should never be considered again.</b> Otherwise, you will consider that pancake 
       again and again since it's rightside up, and since that's the largest pancake. To leave that pancake alone, you should 
@@ -38,10 +38,10 @@ little pancake problem...</p>
 <ul>
  <li><b>Case 2.a:</b> There is at least one <i>p</i> for which <i>p+1</i> is higher than <i>p</i> 
    (if there is several such <i>p</i>, take the largest one).
-   <div align="center"><img src="img/cohen-2a.png"/></div><br/>
+   <div align="center"><img src="exercises/sort/pancake/img/cohen-2a.png"/></div><br/>
  </li>
  <li><b>Case 2.b:</b> Any pancake <i>p</i> is lower than pancake <i>p+1</i>. In that case, we must have that setting:
-    <div align="center"><img src="img/cohen-2b.png"/></div>
+    <div align="center"><img src="exercises/sort/pancake/img/cohen-2b.png"/></div>
  </li>
 </ul>
 
@@ -60,7 +60,7 @@ Repeat n times
  
 <p>It may sound somehow magic, but it actually works, as depicted on an example below.</p>
 
-<p><div align="center"><img src="img/cohen-2b-algo.png"/></div></p>
+<p><div align="center"><img src="exercises/sort/pancake/img/cohen-2b-algo.png"/></div></p>
 
 <p>So, all in all, the Cohen algorithm manages to sort the stack of burnt pancakes in <i>2n</i> steps in all cases. 
 Quite a win over the naive algorithm for burnt pancakes that requires <i>3n</i> steps.</p>

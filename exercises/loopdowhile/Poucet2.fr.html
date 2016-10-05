@@ -1,23 +1,26 @@
 
 <!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->
-<h2>More buggles tracks</h2>
+<h2>Plus de pistes de buggles</h2>
 
-<p>Hu oh! Your buggle got lost again in the same kind of maze, but this time,
-the corridors are not always of the same size. Since there is no way to know
-the length of the corridor before taking it, a <code>for</code> will not
-suffice anymore. Instead, you will have to change your inner loop to use a
-<code>while</code> loop, using the method <code>crossing()</code> that tells
-whether your buggle currently stands on an intersection.</p>
+<p>Mince ! Votre buggle s'est encore perdue dans le même genre de
+labyrinthe. Et en plus, cette fois, les couloirs ne sont pas tous de la même
+taille ! Comme il est impossible de connaître la taille d'un couloir avant
+de s'y engager, une boucle <code>for</code> ne semble pas bien indiquée. À
+la place, vous allez devoir  utiliser une boucle <code>while</code> avec la
+fonction <code>crossing()</code> qui indique si votre buggle se trouve
+actuellement à une intersection.</p>
 
-<p>The extra complexity is that at the beginning of a corridor, you obviously
-stand on an intersection, but you still want to move on.  [!java|scala|c]For
-that, the easiest is to use a <code>do / while</code> loop instead of a
-regular <code>while</code> loop to move until the next intersection.[/!]
-[!python]For that, use an extra variable indicating whether you already
-entered the corridor, as follows. This will ensure that you execute the loop
-body at least once (when <code>firstTime</code> is true) before we actually
-use the value returned by <code>crossing()</code> to determine to continue
-or not.[/!]</p>
+<p>Le truc, c'est qu'au moment de s'engager dans un couloir, vous vous trouvez
+naturellement à une intersection mais que vous voulez avancer quand même.
+[!java|scala|c]Le plus simple pour cela est d'utiliser une boucle <code>do /
+while</code> au lieu d'une boucle <code>while</code> classique. Cela vous
+permettera de vous déplacer jusqu'à la prochaine intersection.[/!]
+[!python]Le plus simple pour cela est d'utiliser une variable supplémentaire
+indiquant si vous êtes déjà dans le couloir, comme ci-dessous. De cette
+façon, vous rentrerez dans le corps de boucle au moins une fois (quand
+<code>premiereFois</code> est vrai). Les fois suivantes, vous utiliserez
+effectivement la valeur renvoyée par  <code>crossing()</code> pour
+déterminer s'il faut continuer ou non.[/!]</p>
 
 [!python]
 <pre>premiereFois = True

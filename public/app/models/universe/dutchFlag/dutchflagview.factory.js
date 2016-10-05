@@ -45,7 +45,7 @@
 		{
 			ctx.beginPath();
 
-			ctx.fillStyle = 'rgb(0,0,0)';
+			ctx.fillStyle = 'rgb(255,255,0)';
 			ctx.font = '15px sans-serif';
 
 			if(dutchFlagWorld.moveCount <= 1) {
@@ -67,23 +67,27 @@
 			for(var i=0; i<dutchFlagWorld.content.length; i++)
 			{
 				//each rectangle takes place in the canvasHeight
-				var y = heightUnit * i;
+				var y = heightUnit * (dutchFlagWorld.content.length- i-1);
 
 				ctx.beginPath();
 
 				//to know the color of each rectangle, we are looking its value
+				var color;
 				switch(dutchFlagWorld.content[i])
 				{
-					case 0 :
-						ctx.fillStyle = '#0000FF';
+					case 0: // Blue
+						color = '#21468B';
 						break;
-					case 1 :
-						ctx.fillStyle = '#FFFFFF';
+					case 1: // White
+						color = '#FFFFFF';
 						break;
-					case 2 :
-						ctx.fillStyle = '#FF0000';
+					case 2: // Red
+						color = '#AE1C28';
 						break;
 				}
+				ctx.fillStyle = color;
+				if (dutchFlagWorld.content.length > 50) // Omit the block borders if there is too much blocks
+					ctx.strokeStyle = color;
 
 				//draws rectangles
 				ctx.fillRect(0, y, width, heightUnit);

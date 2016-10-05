@@ -19,6 +19,14 @@
       "correction" : "$package \n\nimport java.awt.Color;\nimport plm.universe.bugglequest.AbstractBuggle\n\nclass MethodsPicture extends AbstractBuggle {\n\n\t/* BEGIN TEMPLATE */\n\toverride def run() {\n\t\t/* BEGIN SOLUTION */\n\t\tfor (i <- 1 to 3) {\n\t\t\tmakeLine(3);\n\t\t\tnextLine();\n\t\t}\n\t}\n\tdef mark() {\n\t\tbrushDown();\n\t\tbrushUp();\n\t}\n\n\tdef makeV(c:Color) {\n\t\tsetBrushColor(c);\n\t\tforward();\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t\tforward();\n\t\tmark();\n\n\t\tbackward();\n\t\tright();\n\t\tforward();\n\t\tmark();\n\n\t\tforward();\n\t\tleft();\n\t}\n\n\tdef makePattern() {\n\t\tmakeV(Color.YELLOW);\n\t\tmakeV(Color.RED);\n\t\tmakeV(Color.BLUE);\n\t\tmakeV(Color.GREEN);\n\t\tforward(5);\n\t}\n\n\tdef makeLine(count: Int){\n\t\tfor (i <- 1 to count)\n\t\t\tmakePattern();\n\t\tbackward(count*5);\n\t}\n\n\tdef nextLine() {\n\t\tleft();\n\t\tforward(5);\n\t\tright();\t\n\t\t/* END SOLUTION */\n\t}\n\t/* END TEMPLATE */\n}\n",
       "error" : "Error"
     },
+    "Blockly" : {
+      "name" : "MethodsPicture",
+      "body" : "",
+      "template" : "import java.awt.Color as Color\n\n$body\n",
+      "offset" : 1,
+      "correction" : "import java.awt.Color as Color\n\n# BEGIN SOLUTION\ndef mark():\n   brushDown()\n   brushUp()\n\ndef makeV(c):\n   setBrushColor(c)\n   forward()\n   mark()\n   forward()\n   left()\n   forward()\n   mark()\n   backward()\n   right()\n   forward()\n   mark()   \n   forward()\n   left()\n\ndef makePattern():\n   makeV(Color.yellow)\n   makeV(Color.red)\n   makeV(Color.blue)\n   makeV(Color.green)\n   forward(5)\n\ndef makeLine(count):\n   for i in range(count):\n      makePattern()\n   backward(count*5)\n\ndef nextLine():\n   left()\n   forward(5)\n   right()\n\nfor i in range(3):\n   makeLine(3)\n   nextLine()\n# END SOLUTION\n",
+      "error" : "Error"
+    },
     "Python" : {
       "name" : "MethodsPicture",
       "body" : "",
@@ -28,7 +36,6 @@
       "error" : "Error"
     }
   },
-
   "initialWorlds" : [ {
     "type" : "plm.universe.bugglequest.BuggleWorld",
     "@jsonId" : 1,
@@ -8499,5 +8506,5 @@
     } ] ],
     "visibleGrid" : true,
     "easter" : false
-  } ] 
+  } ]
 }

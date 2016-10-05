@@ -17,6 +17,7 @@ class ScalaButLastEntity extends ConsEntity {
     l match {
       case a::Nil => Nil
       case a::b   => a::butLast(b)
+      case _ => Nil
     }
   /* END SOLUTION */
   }
