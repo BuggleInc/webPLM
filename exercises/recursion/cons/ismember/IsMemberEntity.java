@@ -13,7 +13,7 @@ public class IsMemberEntity extends ConsEntity {
 	}
 
 	/* BEGIN TEMPLATE */
-	Boolean isMember(RecList seq, int val) {
+	boolean isMember(RecList seq, int val) {
 		/* BEGIN SOLUTION */
 		if (seq == null)
 			return false;
