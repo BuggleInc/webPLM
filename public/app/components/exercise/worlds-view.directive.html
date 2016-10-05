@@ -1,6 +1,11 @@
 <div class="row">
-  <div class="small-11 columns text-center">
+  <div class="small-3 columns text-center">
     <tabs-current-world ng-show="exercise.objectiveViewNeeded"></tabs-current-world>
+    <br>
+  	<label for="animationSpeed" class="left"><strong translate>Animation speed:</strong></label><br>
+    <input class="rotate180" type="range" id="animationSpeed" ng-model="timer" min="40" max="3000"/>
+  </div>
+  <dic class="small-8 columns text-center">
     <div class="row" id="drawingArea">
       <span ng-show="exercise.drawServiceType === 'drawWithDOM'">
 				<br><br><br>
@@ -8,9 +13,8 @@
 				</div>
 				<br>
 			</span>
-      <canvas ng-show="exercise.drawServiceType === 'canvas'" id="canvas" width="400" height="400"></canvas>
+      <canvas ng-show="exercise.drawServiceType === 'canvas'" id="canvas" width="500" height="400"></canvas>
     </div>
     <animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>
-    <animation-speed ng-show="exercise.animationPlayerNeeded"></animation-speed>
   </div>
 </div>

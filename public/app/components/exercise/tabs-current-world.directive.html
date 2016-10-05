@@ -1,7 +1,10 @@
 <div class="row">
-	<dl class="tabs" data-tab=true>
+	<dl class="tabs vertical" data-tab=true style="width: 50%; max-width: 50%">
 		<dd class="tab-title" ng-repeat="tab in exercise.tabs" ng-class="{active: exercise.currentTab === tab.tabNumber}" ng-click="exercise.switchToTab(tab)">
-			<a href="">{{tab.name}}</a>
+			<a href="">
+				<img ng-if="tab.name === 'World'" ng-src="/assets/images/world-current.svg">
+				{{tab.name}}
+			</a>
 		</dd>
 	</dl>
 </div>
