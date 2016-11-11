@@ -31,7 +31,7 @@ public class SplitHanoi3 extends ExerciseTemplated {
 		w.setParameter(new Integer[]{3,2,0,1});
 		myWorlds[0] = w;
 		
-		w = new HanoiWorld("slove(1,3,0,2)",  
+		w = new HanoiWorld("solve(1,3,0,2)",
 				new Vector<HanoiDisk>(), slot1, new Vector<HanoiDisk>(), new Vector<HanoiDisk>());
 		for (int i=0; i<w.getSlotSize(1);i++) {
 			if (i%2==0) {
@@ -41,7 +41,7 @@ public class SplitHanoi3 extends ExerciseTemplated {
 		w.setParameter(new Integer[]{1,3,0,2});
 		myWorlds[1] = w;
 		
-		w = new HanoiWorld("solve(2,1,0,3)",  
+		w = new HanoiWorld("solve(2,1,0,3)",
 				new Vector<HanoiDisk>(), new Vector<HanoiDisk>(), slot2, new Vector<HanoiDisk>());
 		for (int i=0; i<w.getSlotSize(2);i++) {
 			if (i%2==0) {
