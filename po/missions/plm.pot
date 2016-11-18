@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-24 22:31+0200\n"
+"POT-Creation-Date: 2016-11-18 23:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2350,31 +2350,31 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <p>
-#: exercises/recursion/cons/butnlast/ButNlast.html:6 exercises/recursion/cons/concat/Concat.html:6
+#: exercises/recursion/cons/butnlast/ButNlast.html:6 exercises/recursion/cons/concat/Concat.html:6 exercises/recursion/cons/nlast/Nlast.html:6
 msgid ""
 "Your solution should be linear in time, but you will probably need to define "
 "several functions to achieve that complexity."
 msgstr ""
 
 #. type: Attribute 'alt' of: <div>
-#: exercises/recursion/cons/butnlast/ButNlast.html:8 exercises/recursion/cons/concat/Concat.html:8 exercises/recursion/cons/reverse/Reverse.html:8
+#: exercises/recursion/cons/butnlast/ButNlast.html:8 exercises/recursion/cons/concat/Concat.html:8 exercises/recursion/cons/reverse/Reverse.html:8 exercises/recursion/cons/nlast/Nlast.html:8
 msgid "I cannot do it in linear time"
 msgstr ""
 
 #. type: Content of: <div>
-#: exercises/recursion/cons/butnlast/ButNlast.html:9
+#: exercises/recursion/cons/butnlast/ButNlast.html:9 exercises/recursion/cons/nlast/Nlast.html:9
 msgid ""
 "The trick is to compute only once (and beforehand) how many elements you "
 "should keep."
 msgstr ""
 
 #. type: Content of: <h1>
-#: exercises/recursion/cons/occurrences/Occurrence.html:2
+#: exercises/recursion/cons/occurrences/Occurrences.html:2
 msgid "Occurrences"
 msgstr ""
 
 #. type: Content of: outside any tag (error?)
-#: exercises/recursion/cons/occurrences/Occurrence.html:3
+#: exercises/recursion/cons/occurrences/Occurrences.html:3
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an "
 "integer, return the amount of occurrences of the given integer in the "
@@ -2383,7 +2383,7 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <p>
-#: exercises/recursion/cons/occurrences/Occurrence.html:7 exercises/recursion/cons/last/Last.html:6 exercises/recursion/cons/increasing/Increasing.html:6 exercises/recursion/cons/length/Length.html:10 exercises/recursion/cons/plusone/PlusOne.html:5 exercises/recursion/cons/ismember/IsMember.html:7 exercises/recursion/cons/min/Min.html:6 exercises/recursion/cons/butnfirst/ButNfirst.html:6 exercises/recursion/cons/butlast/ButLast.html:6 exercises/recursion/cons/remove/Remove.html:9
+#: exercises/recursion/cons/occurrences/Occurrences.html:7 exercises/recursion/cons/last/Last.html:6 exercises/recursion/cons/increasing/Increasing.html:6 exercises/recursion/cons/length/Length.html:10 exercises/recursion/cons/plusone/PlusOne.html:5 exercises/recursion/cons/ismember/IsMember.html:7 exercises/recursion/cons/min/Min.html:6 exercises/recursion/cons/butnfirst/ButNfirst.html:6 exercises/recursion/cons/butlast/ButLast.html:6 exercises/recursion/cons/remove/Remove.html:9
 msgid "Your solution should be linear in time."
 msgstr ""
 
@@ -2487,7 +2487,7 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <p>
-#: exercises/recursion/cons/nth/Nth.html:6 exercises/recursion/cons/nlast/Nlast.html:7 exercises/recursion/cons/nfirst/Nfirst.html:7
+#: exercises/recursion/cons/nth/Nth.html:6 exercises/recursion/cons/nfirst/Nfirst.html:7
 msgid ""
 "You can assume that the list is long enough, i.e. that there is at least "
 "<code>N</code> elements.  Your solution should be linear in time."
@@ -2532,17 +2532,15 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <h1>
-#: exercises/recursion/cons/nlast/Nlast.html:2 exercises/recursion/cons/nfirst/Nfirst.html:2
-msgid "Nfirst"
+#: exercises/recursion/cons/nlast/Nlast.html:2
+msgid "Nlast"
 msgstr ""
 
 #. type: Content of: outside any tag (error?)
-#: exercises/recursion/cons/nlast/Nlast.html:3 exercises/recursion/cons/nfirst/Nfirst.html:3
+#: exercises/recursion/cons/nlast/Nlast.html:3
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
-"<code>N</code>, return the list constituted of the first <code>N</code> "
-"elements. You can assume that the list is long enough, i.e. that there is at "
-"least <code>N</code> elements."
+"<code>N</code>, return the list with only the <code>N</code> last elements."
 msgstr ""
 
 #. type: Content of: <h1>
@@ -2594,6 +2592,20 @@ msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!], return the "
 "list containing every elements but the last one.  You can assume that the "
 "list is not empty."
+msgstr ""
+
+#. type: Content of: <h1>
+#: exercises/recursion/cons/nfirst/Nfirst.html:2
+msgid "Nfirst"
+msgstr ""
+
+#. type: Content of: outside any tag (error?)
+#: exercises/recursion/cons/nfirst/Nfirst.html:3
+msgid ""
+"Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
+"<code>N</code>, return the list constituted of the first <code>N</code> "
+"elements. You can assume that the list is long enough, i.e. that there is at "
+"least <code>N</code> elements."
 msgstr ""
 
 #. type: Content of: <h1>

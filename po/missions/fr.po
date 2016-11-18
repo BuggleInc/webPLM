@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-09-24 22:31+0200\n"
+"POT-Creation-Date: 2016-11-18 23:48+0100\n"
 "PO-Revision-Date: 2016-09-24 22:35+0200\n"
 "Last-Translator: Martin Quinson <mquinson@debian.org>\n"
 "Language-Team: French <>\n"
@@ -3211,6 +3211,7 @@ msgstr ""
 #. type: Content of: <p>
 #: exercises/recursion/cons/butnlast/ButNlast.html:6
 #: exercises/recursion/cons/concat/Concat.html:6
+#: exercises/recursion/cons/nlast/Nlast.html:6
 msgid ""
 "Your solution should be linear in time, but you will probably need to define "
 "several functions to achieve that complexity."
@@ -3222,11 +3223,13 @@ msgstr ""
 #: exercises/recursion/cons/butnlast/ButNlast.html:8
 #: exercises/recursion/cons/concat/Concat.html:8
 #: exercises/recursion/cons/reverse/Reverse.html:8
+#: exercises/recursion/cons/nlast/Nlast.html:8
 msgid "I cannot do it in linear time"
 msgstr "Je n'arrive pas à le faire en temps linéaire"
 
 #. type: Content of: <div>
 #: exercises/recursion/cons/butnlast/ButNlast.html:9
+#: exercises/recursion/cons/nlast/Nlast.html:9
 msgid ""
 "The trick is to compute only once (and beforehand) how many elements you "
 "should keep."
@@ -3235,12 +3238,12 @@ msgstr ""
 "il faut garder."
 
 #. type: Content of: <h1>
-#: exercises/recursion/cons/occurrences/Occurrence.html:2
+#: exercises/recursion/cons/occurrences/Occurrences.html:2
 msgid "Occurrences"
 msgstr "Occurrences"
 
 #. type: Content of: outside any tag (error?)
-#: exercises/recursion/cons/occurrences/Occurrence.html:3
+#: exercises/recursion/cons/occurrences/Occurrences.html:3
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an "
 "integer, return the amount of occurrences of the given integer in the list. "
@@ -3252,7 +3255,7 @@ msgstr ""
 "l'entier n'est pas membre de la liste, la fonction doit renvoyer 0."
 
 #. type: Content of: <p>
-#: exercises/recursion/cons/occurrences/Occurrence.html:7
+#: exercises/recursion/cons/occurrences/Occurrences.html:7
 #: exercises/recursion/cons/last/Last.html:6
 #: exercises/recursion/cons/increasing/Increasing.html:6
 #: exercises/recursion/cons/length/Length.html:10
@@ -3395,7 +3398,6 @@ msgstr ""
 
 #. type: Content of: <p>
 #: exercises/recursion/cons/nth/Nth.html:6
-#: exercises/recursion/cons/nlast/Nlast.html:7
 #: exercises/recursion/cons/nfirst/Nfirst.html:7
 msgid ""
 "You can assume that the list is long enough, i.e. that there is at least "
@@ -3455,23 +3457,25 @@ msgstr ""
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/nlast/Nlast.html:2
-#: exercises/recursion/cons/nfirst/Nfirst.html:2
-msgid "Nfirst"
-msgstr "nPremiers"
+#, fuzzy
+#| msgid "But Nlast"
+msgid "Nlast"
+msgstr "Sauf nDerniers"
 
 #. type: Content of: outside any tag (error?)
 #: exercises/recursion/cons/nlast/Nlast.html:3
-#: exercises/recursion/cons/nfirst/Nfirst.html:3
+#, fuzzy
+#| msgid ""
+#| "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an "
+#| "integer <code>N</code>, return the list without the <code>N</code> last "
+#| "elements."
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
-"<code>N</code>, return the list constituted of the first <code>N</code> "
-"elements. You can assume that the list is long enough, i.e. that there is at "
-"least <code>N</code> elements."
+"<code>N</code>, return the list with only the <code>N</code> last elements."
 msgstr ""
 "Étant donnée une [!scala]List[Int][/!][!java|python]liste récursive[/!] et "
-"un entier <code>N</code>, retournez la liste constituée de ses <code>N</"
-"code> premiers éléments. Vous pouvez supposer que la liste est suffisamment "
-"longue, c'est à dire qu'elle contient au moins <code>N</code> éléments."
+"un entier <code>N</code>, retournez la liste privée de ses <code>N</code> "
+"derniers éléments."
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/ismember/IsMember.html:2
@@ -3536,6 +3540,24 @@ msgstr ""
 "Étant donnée une [!scala]List[Int][/!][!java|python]liste récursive[/!], "
 "retournez la liste contenant tous ses éléments sauf le dernier. Vous pouvez "
 "supposer que la liste n'est pas vide."
+
+#. type: Content of: <h1>
+#: exercises/recursion/cons/nfirst/Nfirst.html:2
+msgid "Nfirst"
+msgstr "nPremiers"
+
+#. type: Content of: outside any tag (error?)
+#: exercises/recursion/cons/nfirst/Nfirst.html:3
+msgid ""
+"Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
+"<code>N</code>, return the list constituted of the first <code>N</code> "
+"elements. You can assume that the list is long enough, i.e. that there is at "
+"least <code>N</code> elements."
+msgstr ""
+"Étant donnée une [!scala]List[Int][/!][!java|python]liste récursive[/!] et "
+"un entier <code>N</code>, retournez la liste constituée de ses <code>N</"
+"code> premiers éléments. Vous pouvez supposer que la liste est suffisamment "
+"longue, c'est à dire qu'elle contient au moins <code>N</code> éléments."
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/remove/Remove.html:2
@@ -8738,7 +8760,13 @@ msgid ""
 "concept of algorithm to absolute beginners that wonder about our science. "
 "More information at http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (in "
 "French)."
-msgstr "Il est conseillé de commencer par jouer physiquement avec des bouts de papier ou de carton pour bien comprendre le problème. C'est même l'une des activités que j'utilise dans mon projet SMN (Sciences Manuelles du Numérique) pour introduire le concept d'algorithme aux débutants curieux de notre science. Pour plus d'information, allez visiter le site du projet: http://people.irisa.fr/Martin.Quinson/Mediation/SMN/"
+msgstr ""
+"Il est conseillé de commencer par jouer physiquement avec des bouts de "
+"papier ou de carton pour bien comprendre le problème. C'est même l'une des "
+"activités que j'utilise dans mon projet SMN (Sciences Manuelles du "
+"Numérique) pour introduire le concept d'algorithme aux débutants curieux de "
+"notre science. Pour plus d'information, allez visiter le site du projet: "
+"http://people.irisa.fr/Martin.Quinson/Mediation/SMN/"
 
 #. type: Content of: <p><div>
 #: exercises/sort/pancake/BasicPancake.html:24

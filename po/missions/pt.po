@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-09-24 22:31+0200\n"
+"POT-Creation-Date: 2016-11-18 23:48+0100\n"
 "PO-Revision-Date: 2016-09-24 22:34+0200\n"
 "Last-Translator: Fred Maranhão <fred.maranhao@gmail.com>\n"
 "Language-Team: none\n"
@@ -3280,6 +3280,7 @@ msgstr ""
 #. type: Content of: <p>
 #: exercises/recursion/cons/butnlast/ButNlast.html:6
 #: exercises/recursion/cons/concat/Concat.html:6
+#: exercises/recursion/cons/nlast/Nlast.html:6
 msgid ""
 "Your solution should be linear in time, but you will probably need to define "
 "several functions to achieve that complexity."
@@ -3291,11 +3292,13 @@ msgstr ""
 #: exercises/recursion/cons/butnlast/ButNlast.html:8
 #: exercises/recursion/cons/concat/Concat.html:8
 #: exercises/recursion/cons/reverse/Reverse.html:8
+#: exercises/recursion/cons/nlast/Nlast.html:8
 msgid "I cannot do it in linear time"
 msgstr "Eu não posso fazer isto em tempo linear"
 
 #. type: Content of: <div>
 #: exercises/recursion/cons/butnlast/ButNlast.html:9
+#: exercises/recursion/cons/nlast/Nlast.html:9
 msgid ""
 "The trick is to compute only once (and beforehand) how many elements you "
 "should keep."
@@ -3304,12 +3307,12 @@ msgstr ""
 "você deve guardar."
 
 #. type: Content of: <h1>
-#: exercises/recursion/cons/occurrences/Occurrence.html:2
+#: exercises/recursion/cons/occurrences/Occurrences.html:2
 msgid "Occurrences"
 msgstr "Occurrences"
 
 #. type: Content of: outside any tag (error?)
-#: exercises/recursion/cons/occurrences/Occurrence.html:3
+#: exercises/recursion/cons/occurrences/Occurrences.html:3
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an "
 "integer, return the amount of occurrences of the given integer in the list. "
@@ -3321,7 +3324,7 @@ msgstr ""
 "inteiro não for um membro da lista, a função deve retornar 0."
 
 #. type: Content of: <p>
-#: exercises/recursion/cons/occurrences/Occurrence.html:7
+#: exercises/recursion/cons/occurrences/Occurrences.html:7
 #: exercises/recursion/cons/last/Last.html:6
 #: exercises/recursion/cons/increasing/Increasing.html:6
 #: exercises/recursion/cons/length/Length.html:10
@@ -3460,7 +3463,6 @@ msgstr ""
 
 #. type: Content of: <p>
 #: exercises/recursion/cons/nth/Nth.html:6
-#: exercises/recursion/cons/nlast/Nlast.html:7
 #: exercises/recursion/cons/nfirst/Nfirst.html:7
 msgid ""
 "You can assume that the list is long enough, i.e. that there is at least "
@@ -3517,23 +3519,18 @@ msgstr ""
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/nlast/Nlast.html:2
-#: exercises/recursion/cons/nfirst/Nfirst.html:2
-msgid "Nfirst"
-msgstr "Nfirst"
+msgid "Nlast"
+msgstr "Nlast"
 
 #. type: Content of: outside any tag (error?)
 #: exercises/recursion/cons/nlast/Nlast.html:3
-#: exercises/recursion/cons/nfirst/Nfirst.html:3
 msgid ""
 "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
-"<code>N</code>, return the list constituted of the first <code>N</code> "
-"elements. You can assume that the list is long enough, i.e. that there is at "
-"least <code>N</code> elements."
+"<code>N</code>, return the list with only the <code>N</code> last elements."
 msgstr ""
 "Dada uma [!scala]List[Int][/!][!java|python]recursive list[/!] e um inteiro "
-"<code>N</code>, retorna a lista constituída dos primeiros <code>N</code> "
-"elementos. Você pode assumir que a lista é longa o suficiente, i.e. que "
-"existem pelo menos <code>N</code> elementos."
+"<code>N</code>, retorna a lista com apenas os últimos <code>N</code> "
+"elementos."
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/ismember/IsMember.html:2
@@ -3596,6 +3593,24 @@ msgstr ""
 "Dada uma [!scala]List[Int][/!][!java|python]recursive list[/!], retorna a "
 "lista contendo todos os elementos exceto o último. Você pode assumir que a "
 "lista é não vazia."
+
+#. type: Content of: <h1>
+#: exercises/recursion/cons/nfirst/Nfirst.html:2
+msgid "Nfirst"
+msgstr "Nfirst"
+
+#. type: Content of: outside any tag (error?)
+#: exercises/recursion/cons/nfirst/Nfirst.html:3
+msgid ""
+"Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an integer "
+"<code>N</code>, return the list constituted of the first <code>N</code> "
+"elements. You can assume that the list is long enough, i.e. that there is at "
+"least <code>N</code> elements."
+msgstr ""
+"Dada uma [!scala]List[Int][/!][!java|python]recursive list[/!] e um inteiro "
+"<code>N</code>, retorna a lista constituída dos primeiros <code>N</code> "
+"elementos. Você pode assumir que a lista é longa o suficiente, i.e. que "
+"existem pelo menos <code>N</code> elementos."
 
 #. type: Content of: <h1>
 #: exercises/recursion/cons/remove/Remove.html:2
@@ -8703,7 +8718,13 @@ msgid ""
 "concept of algorithm to absolute beginners that wonder about our science. "
 "More information at http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (in "
 "French)."
-msgstr "Observe que você pode brincar primeiro fisicamente com pedaços de papel ou madeira para ter a ideia do problema. Esta é inclusive uma das atividades que eu uso no meu projeto CS-IRL (computer science in real life - ciência da computação na vida real) para introduzir o conceito de algoritmo para completos iniciantes que querem saber da nossa ciência. Mais informações em http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (em francês)."
+msgstr ""
+"Observe que você pode brincar primeiro fisicamente com pedaços de papel ou "
+"madeira para ter a ideia do problema. Esta é inclusive uma das atividades "
+"que eu uso no meu projeto CS-IRL (computer science in real life - ciência da "
+"computação na vida real) para introduzir o conceito de algoritmo para "
+"completos iniciantes que querem saber da nossa ciência. Mais informações em "
+"http://people.irisa.fr/Martin.Quinson/Mediation/SMN/ (em francês)."
 
 #. type: Content of: <p><div>
 #: exercises/sort/pancake/BasicPancake.html:24
@@ -14388,18 +14409,6 @@ msgstr "Quando seu programa funcionar de novo, vá para o próximo exercício."
 #~ "Outra solução seria garantir que a pilha de chamadas não passe de um dado "
 #~ "limiar,  mas parece muito difícil de fazer também. Quaisquer ideias são "
 #~ "bem-vindas."
-
-#~ msgid "Nlast"
-#~ msgstr "Nlast"
-
-#~ msgid ""
-#~ "Given a [!scala]List[Int][/!][!java|python]recursive list[/!] and an "
-#~ "integer <code>N</code>, return the list with only the <code>N</code> last "
-#~ "elements."
-#~ msgstr ""
-#~ "Dada uma [!scala]List[Int][/!][!java|python]recursive list[/!] e um "
-#~ "inteiro <code>N</code>, retorna a lista com apenas os últimos <code>N</"
-#~ "code> elementos."
 
 #~ msgid "Recursive algorithms"
 #~ msgstr "Algoritmos recursivos"

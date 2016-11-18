@@ -1,10 +1,14 @@
 
 <!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->
-<h1>Nfirst</h1>
+<h1>Nlast</h1>
 Dada uma [!scala]List[Int][/!][!java|python]recursive list[/!] e um inteiro
-<code>N</code>, retorna a lista constituída dos primeiros <code>N</code>
-elementos. Você pode assumir que a lista é longa o suficiente, i.e. que
-existem pelo menos <code>N</code> elementos.
+<code>N</code>, retorna a lista com apenas os últimos <code>N</code>
+elementos.
 
-<p>Você pode assumir que a lista é longa o suficiente, i.e. que existe pelo
-menos <code>N</code> elementos. Sua solução deve ser linear no tempo.</p>
+<p>Sua solução deve ser linear no tempo, mas você provavelmente precisa definir
+várias funções para alcançar esta complexidade.</p>
+
+<div class="tip" id="tip-1" alt="Eu não posso fazer isto em tempo linear">
+O segredo é calcular apenas uma vez (e previamente) quantos elementos
+você deve guardar.
+</div>
