@@ -13,7 +13,7 @@ import json.{LangToJson, ProgrammingLanguageToJson}
 import models.GitHubIssueManager
 import models.User
 import models.daos.UserDAORestImpl
-import models.lesson.Lecture
+import models.lesson.{Lecture, Lessons}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Lang
@@ -24,7 +24,6 @@ import plm.core.model.lesson.Exercise.WorldKind
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
-import LessonsActor._
 import ExercisesActor._
 import execution.ExecutionActor._
 import GitActor._
@@ -69,7 +68,6 @@ class PLMActor (
   var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
   var currentHumanLang: Lang = initHumanLang(preferredLang)
 
-  val lessonsActor: ActorRef = context.actorOf(LessonsActor.props)
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
 
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, gitID, None, userAgent))
@@ -122,22 +120,24 @@ class PLMActor (
           sessionActor ! UserChanged
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
-          (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-            val jsonLessons: JsArray = Lesson.arrayToJson(lessons, currentHumanLang)
-            sendMessage("lessons", Json.obj(
-              "lessons" -> jsonLessons
-            ))
-          }
+          val jsonLessons: JsArray =
+            Lesson.arrayToJson(Lessons.lessonsList, currentHumanLang)
+          sendMessage("lessons", Json.obj(
+            "lessons" -> jsonLessons
+          ))
         case "getExercisesList" =>
           val optLessonName: Option[String] = (msg \ "args" \ "lessonName").asOpt[String]
           optLessonName match {
             case Some(lessonName: String) =>
-              (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
-                val jsonLectures: JsArray = Lecture.arrayToJson(sessionActor, lectures, currentHumanLang, currentProgLang)
-                sendMessage("lectures", Json.obj(
-                  "lectures" -> jsonLectures
-                ))
-              }
+              val jsonLectures: JsArray =
+                Lecture.arrayToJson(
+                  sessionActor,
+                  Lessons.exercisesList(lessonName),
+                  currentHumanLang,
+                  currentProgLang)
+              sendMessage("lectures", Json.obj(
+                "lectures" -> jsonLectures
+              ))
             case _ =>
               Logger.debug("getExercisesList: non-correct JSON")
           }
@@ -166,26 +166,20 @@ class PLMActor (
 
           optLessonID match {
           case Some(lessonID: String) =>
-            (lessonsActor ? LessonExists(lessonID)).mapTo[Boolean].map { lessonExists =>
-              if(lessonExists) {
-                optExerciseID match {
+            if(Lessons.lessonExists(lessonID)) {
+              optExerciseID match {
                 case Some(exerciseID: String) =>
-                  (lessonsActor ? CheckLessonAndExercise(lessonID, exerciseID)).mapTo[Boolean].map { ok =>
-                    if(ok) {
-                      switchExercise(lessonID, exerciseID)
-                    } else {
-                      sendMessage("exerciseNotFound", Json.obj())
-                    }
+                  if(Lessons.exerciseExists(lessonID, exerciseID)) {
+                    switchExercise(lessonID, exerciseID)
+                  } else {
+                    sendMessage("exerciseNotFound", Json.obj())
                   }
                 case _ =>
-                  (lessonsActor ? GetFirstExerciseID(lessonID)).mapTo[String].map { exerciseID =>
-                    switchExercise(lessonID, exerciseID)
-                  }
-                }
-              } else {
-                Logger.debug("getExercise: tried to access not known lesson")
-                sendMessage("lessonNotFound", Json.obj())
+                  switchExercise(lessonID, Lessons.firstExerciseId(lessonID))
               }
+            } else {
+              Logger.debug("getExercise: tried to access not known lesson")
+              sendMessage("lessonNotFound", Json.obj())
             }
           case _ =>
             Logger.debug("getExercise: non-correctJSON")
@@ -551,38 +545,33 @@ class PLMActor (
 
   def generateUpdatedHumanLangJson(): JsObject = {
     var json: JsObject = Json.obj("newHumanLang" -> LangToJson.langWrite(currentHumanLang))
-
-    val futureTuple = for {
-      lessonsListJson <- generateUpdatedLessonsListJson
-      exercisesListJson <- generateUpdatedExercisesListJson
-      exerciseJson <- Future { generateUpdatedExerciseJson }
-    } yield (lessonsListJson, exercisesListJson, exerciseJson)
-
-    val tuple = Await.result(futureTuple, 5 seconds)
+    val tuple =
+      (generateUpdatedLessonsListJson(),
+       generateUpdatedExercisesListJson(),
+       generateUpdatedExerciseJson())
     tuple.productIterator.foreach { additionalJson =>
       json = json ++ additionalJson.asInstanceOf[JsObject]
     }
     json
   }
 
-  def generateUpdatedLessonsListJson(): Future[JsValue] = {
-    (lessonsActor ? GetLessonsList).mapTo[Array[Lesson]].map { lessons =>
-      Json.obj(
-        "lessons" -> Lesson.arrayToJson(lessons, currentHumanLang)
-      )
-    }
+  def generateUpdatedLessonsListJson(): JsValue = {
+    Json.obj(
+      "lessons" -> Lesson.arrayToJson(Lessons.lessonsList, currentHumanLang)
+    )
   }
 
-  def generateUpdatedExercisesListJson(): Future[JsObject] = {
+  def generateUpdatedExercisesListJson(): JsObject = {
     optCurrentLesson match {
-    case Some(lessonName: String) =>
-      (lessonsActor ? GetExercisesList(lessonName)).mapTo[Array[Lecture]].map { lectures =>
+      case Some(lessonName: String) =>
         Json.obj(
-          "lectures" -> Lecture.arrayToJson(sessionActor, lectures, currentHumanLang, currentProgLang)
-        )
-      }
-    case _ =>
-      Future { Json.obj() }
+          "lectures" ->
+            Lecture.arrayToJson(
+              sessionActor,
+              Lessons.exercisesList(lessonName),
+              currentHumanLang,
+              currentProgLang))
+      case _ => Json.obj() 
     }
   }
 
@@ -590,10 +579,8 @@ class PLMActor (
     var json: JsObject = Json.obj("newProgLang" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang))
 
     val futureTuple = for {
-      codeJson <- generateUpdatedCodeJson
-      exercisesListJson <- generateUpdatedExercisesListJson
-      exerciseJson <- Future { generateUpdatedExerciseJson }
-    } yield (codeJson, exercisesListJson, exerciseJson)
+      codeJson <- generateUpdatedCodeJson()
+    } yield (codeJson, generateUpdatedExercisesListJson(), generateUpdatedExerciseJson())
 
     val tuple = Await.result(futureTuple, 5 seconds)
     tuple.productIterator.foreach { additionalJson =>
@@ -643,7 +630,6 @@ class PLMActor (
     gitActor ! PoisonPill
     executionActor ! PoisonPill
     exercisesActor ! PoisonPill
-    lessonsActor ! PoisonPill
     sessionActor ! PoisonPill
 
     ActorsMap.remove(actorUUID)
