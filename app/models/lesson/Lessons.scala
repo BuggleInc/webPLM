@@ -3,7 +3,8 @@ package models.lesson
 import java.io.InputStream
 
 import play.api.Play.current
-import play.api.libs.json.{JsValue, Json}
+import play.api.i18n.Lang
+import play.api.libs.json.Json
 import play.api.{Logger, Play}
 import utils.LangUtils
 
@@ -33,7 +34,7 @@ object Lessons {
 
   private val lessons: Map[String, Lesson] = initLessons()
 
-  val lessonsList: Array[Lesson] = sortLessons()
+  val lessonsList: Array[Lesson] = lessonIds.map(lessons(_))
 
   def lessonExists(lessonId: String): Boolean =
     lessonIds.contains(lessonId)
@@ -48,60 +49,53 @@ object Lessons {
     lessons(lessonId).lectures(0).id
 
   private def initLessons(): Map[String, Lesson] = {
-    var lessons: Map[String, Lesson] = Map()
-    lessonIds.foreach { lessonName =>
-      loadLesson(lessonName) match {
-        case Some(lesson: Lesson) =>
-          val descriptions: Map[String, String] = getDescriptions(lessonName)
-          lesson.optDescriptions = Some(descriptions)
-          lessons += (lessonName -> lesson)
-        case None =>
-          Logger.error(lessonName + " is missing...")
-      }
+    val entries = for {
+      lessonId <- lessonIds.view
+      lesson <- loadLesson(lessonId)
+    } yield {
+      lesson.optDescriptions = Some(loadDescriptions(lessonId))
+      lessonId -> lesson
     }
-    lessons
-  }
-
-  private def sortLessons(): Array[Lesson] = {
-    var orderedLessons: Array[Lesson] = Array[Lesson]()
-    lessonIds.foreach { lessonID =>
-      orderedLessons = orderedLessons :+ lessons(lessonID)
-    }
-    orderedLessons
+    entries.toMap
   }
 
   private def loadLesson(lessonName: String): Option[Lesson] = {
-    Play.resourceAsStream(lessonName.replace(".", "/") + "/main.json") match {
+    val path = lessonName.replace(".", "/") + "/main.json"
+    Play.resourceAsStream(path) match {
       case Some(is: InputStream) =>
-        val lines: String = Source.fromInputStream(is)("UTF-8").mkString
-        is.close()
-        val json: JsValue = Json.parse(lines)
-        Some(json.as[Lesson])
+        try {
+          Some(Json.parse(is).as[Lesson])
+        } finally {
+          is.close()
+        }
       case None =>
+        Logger.error(s"Lesson $lessonName is missing.")
         None
     }
   }
 
-  private def getDescriptions(lessonName: String): Map[String, String] = {
-    var descriptions: Map[String, String] = Map()
-    LangUtils.getAvailableLangs().foreach { lang =>
+  private def loadDescriptions(lessonName: String): Map[String, String] = {
+    val entries = for {
+      language <- LangUtils.getAvailableLangs().view
+      description <- loadDescription(lessonName, language)
+    } yield language.code -> description
+    entries.toMap
+  }
 
-      var path = lessonName.replace(".", "/") + "/short_desc"
-      if(lang.code != "en") {
-        path += "." + lang.code
-      }
-      path += ".html"
-
-      Play.resourceAsStream(path) match {
-        case Some(is: InputStream) =>
-          val description = Source.fromInputStream(is)("UTF-8").getLines().mkString("\n")
+  private def loadDescription(lessonName: String, language: Lang): Option[String] = {
+    val prefix = lessonName.replace(".", "/")
+    val suffix = if (language.code != "en") "." + language.code else ""
+    val path = s"$prefix/short_desc$suffix.html"
+    Play.resourceAsStream(path) match {
+      case Some(is: InputStream) =>
+        try {
+          Some(Source.fromInputStream(is)("UTF-8").mkString)
+        } finally {
           is.close()
-          descriptions = descriptions ++ Map(lang.code -> description)
-        case None =>
-          Logger.warn(lessonName + "'s " + lang.language + " description is missing...")
-      }
+        }
+      case None =>
+        Logger.warn(s"${language.language} description for lesson $lessonName is missing.")
+        None
     }
-
-    descriptions
   }
 }
