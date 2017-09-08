@@ -2,10 +2,8 @@ package models.lesson
 
 import java.io.InputStream
 
-import play.api.Logger
-import play.api.i18n.Lang
+import org.slf4j.Logger
 import play.api.libs.json.Json
-import utils.LangUtils
 
 import scala.io.Source
 
@@ -13,7 +11,7 @@ import scala.io.Source
  * @author matthieu
  */
 
-object Lessons {
+class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
   // WARNING, keep ChooseLessonDialog.lessons synchronized
   private val lessonIds: Array[String] =
     Array(
@@ -64,28 +62,28 @@ object Lessons {
       case Some(is: InputStream) =>
         Some(Json.parse(is).as[Lesson])
       case None =>
-        Logger.error(s"Lesson $lessonName is missing.")
+        logger.error(s"Lesson $lessonName is missing.")
         None
     }
   }
 
   private def loadDescriptions(lessonName: String): Map[String, String] = {
     val entries = for {
-      language <- LangUtils.getAvailableLangs().view
-      description <- loadDescription(lessonName, language)
-    } yield language.code -> description
+      languageCode <- availableLanguageCodes.view
+      description <- loadDescription(lessonName, languageCode)
+    } yield languageCode -> description
     entries.toMap
   }
 
-  private def loadDescription(lessonName: String, language: Lang): Option[String] = {
+  private def loadDescription(lessonName: String, languageCode: String): Option[String] = {
     val prefix = lessonName.replace(".", "/")
-    val suffix = if (language.code != "en") "." + language.code else ""
+    val suffix = if (languageCode != "en") "." + languageCode else ""
     val path = s"$prefix/short_desc$suffix.html"
     withResource(path) {
       case Some(is: InputStream) =>
         Some(Source.fromInputStream(is)("UTF-8").mkString)
       case None =>
-        Logger.warn(s"${language.language} description for lesson $lessonName is missing.")
+        logger.warn(s"$languageCode description for lesson $lessonName is missing.")
         None
     }
   }

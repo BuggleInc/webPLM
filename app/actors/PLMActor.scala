@@ -81,6 +81,8 @@ class PLMActor (
 
   val availableLangs: Seq[Lang] = Lang.availables
 
+  val lessons = new Lessons(Logger.logger, availableLangs.map(_.code))
+
   sendReady
   sendProgLangs
   sendHumanLangs
@@ -121,7 +123,7 @@ class PLMActor (
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           val jsonLessons: JsArray =
-            Lesson.arrayToJson(Lessons.lessonsList, currentHumanLang)
+            Lesson.arrayToJson(lessons.lessonsList, currentHumanLang)
           sendMessage("lessons", Json.obj(
             "lessons" -> jsonLessons
           ))
@@ -132,7 +134,7 @@ class PLMActor (
               val jsonLectures: JsArray =
                 Lecture.arrayToJson(
                   sessionActor,
-                  Lessons.exercisesList(lessonName),
+                  lessons.exercisesList(lessonName),
                   currentHumanLang,
                   currentProgLang)
               sendMessage("lectures", Json.obj(
@@ -166,16 +168,16 @@ class PLMActor (
 
           optLessonID match {
           case Some(lessonID: String) =>
-            if(Lessons.lessonExists(lessonID)) {
+            if(lessons.lessonExists(lessonID)) {
               optExerciseID match {
                 case Some(exerciseID: String) =>
-                  if(Lessons.exerciseExists(lessonID, exerciseID)) {
+                  if(lessons.exerciseExists(lessonID, exerciseID)) {
                     switchExercise(lessonID, exerciseID)
                   } else {
                     sendMessage("exerciseNotFound", Json.obj())
                   }
                 case _ =>
-                  switchExercise(lessonID, Lessons.firstExerciseId(lessonID))
+                  switchExercise(lessonID, lessons.firstExerciseId(lessonID))
               }
             } else {
               Logger.debug("getExercise: tried to access not known lesson")
@@ -557,7 +559,7 @@ class PLMActor (
 
   def generateUpdatedLessonsListJson(): JsValue = {
     Json.obj(
-      "lessons" -> Lesson.arrayToJson(Lessons.lessonsList, currentHumanLang)
+      "lessons" -> Lesson.arrayToJson(lessons.lessonsList, currentHumanLang)
     )
   }
 
@@ -568,7 +570,7 @@ class PLMActor (
           "lectures" ->
             Lecture.arrayToJson(
               sessionActor,
-              Lessons.exercisesList(lessonName),
+              lessons.exercisesList(lessonName),
               currentHumanLang,
               currentProgLang))
       case _ => Json.obj() 
