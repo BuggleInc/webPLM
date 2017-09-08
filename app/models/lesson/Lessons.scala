@@ -2,10 +2,9 @@ package models.lesson
 
 import java.io.InputStream
 
-import play.api.Play.current
+import play.api.Logger
 import play.api.i18n.Lang
 import play.api.libs.json.Json
-import play.api.{Logger, Play}
 import utils.LangUtils
 
 import scala.io.Source
@@ -61,13 +60,9 @@ object Lessons {
 
   private def loadLesson(lessonName: String): Option[Lesson] = {
     val path = lessonName.replace(".", "/") + "/main.json"
-    Play.resourceAsStream(path) match {
+    withResource(path) {
       case Some(is: InputStream) =>
-        try {
-          Some(Json.parse(is).as[Lesson])
-        } finally {
-          is.close()
-        }
+        Some(Json.parse(is).as[Lesson])
       case None =>
         Logger.error(s"Lesson $lessonName is missing.")
         None
@@ -86,16 +81,21 @@ object Lessons {
     val prefix = lessonName.replace(".", "/")
     val suffix = if (language.code != "en") "." + language.code else ""
     val path = s"$prefix/short_desc$suffix.html"
-    Play.resourceAsStream(path) match {
+    withResource(path) {
       case Some(is: InputStream) =>
-        try {
-          Some(Source.fromInputStream(is)("UTF-8").mkString)
-        } finally {
-          is.close()
-        }
+        Some(Source.fromInputStream(is)("UTF-8").mkString)
       case None =>
         Logger.warn(s"${language.language} description for lesson $lessonName is missing.")
         None
+    }
+  }
+
+  private def withResource[O](fileName: String)(action: Option[InputStream] => O): O = {
+    val maybeInputStream = Option(getClass.getClassLoader.getResourceAsStream(fileName))
+    try {
+      action(maybeInputStream)
+    } finally {
+      maybeInputStream.foreach(_.close())
     }
   }
 }
