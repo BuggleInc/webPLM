@@ -23,10 +23,12 @@ public class LoopWhileEntity extends SimpleBuggle {
 	}
 
 	@Override
-	public void run() { 
+	public void run() {
+		/* BEGIN TEMPLATE */
 		/* BEGIN SOLUTION */
 		while (!isFacingWall())
 			forward();
 		/* END SOLUTION */
+		/* END TEMPLATE */
 	}
 }
