@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   "net.codingwell" %% "scala-guice" % "4.0.0-beta5",
   "codes.reactive" %% "scala-time-threeten" % "0.3.0-SNAPSHOT",
   "org.scalaj" %% "scalaj-http" % "1.1.5",
+  "com.github.andyglow" %% "websocket-scala-client" % "0.2.4" % Compile,
   cache,
   ws
 )
