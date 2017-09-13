@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-library" % "2.11.8",
   "org.scala-lang" % "scala-compiler" % "2.11.8",
   "org.scala-lang" % "scala-reflect" % "2.11.8",
+  "org.scala-lang.modules" % "scala-java8-compat_2.11" % "0.8.0",
   "org.mockito" % "mockito-core" % "1.8.5",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.scalatestplus" %% "play" % "1.4.0-M3" % "test",

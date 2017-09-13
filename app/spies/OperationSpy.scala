@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.ScheduledExecutorService
 
 /**
- * @author matthieu
- */
-class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
+* @author matthieu
+*/
+class OperationSpy(val out: ActorRef, world: World) {
   val MAX_SIZE: Int = 10000
   val DELAY: Int = 1000
 
@@ -29,15 +29,13 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   val ses: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor
   val cmd: Runnable = new Runnable() {
     override def run() {
-      if(!world.getSteps.isEmpty) {
-	    out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
-	  }
+      if (!world.getSteps.isEmpty) {
+        out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
+      }
     }
   }
 
   ses.scheduleAtFixedRate(cmd, 1L, 1L, TimeUnit.SECONDS)
-
-  def getOut(): ActorRef = out
 
   def stop() {
     ses.shutdown()
@@ -45,15 +43,15 @@ class OperationSpy(out: ActorRef, world: World, progLang: ProgrammingLanguage) {
   }
 
   def flush() {
-    while(!world.getSteps.isEmpty) {
+    while (!world.getSteps.isEmpty) {
       out ! JSONUtils.operationsToJSON(world, MAX_SIZE)
     }
   }
 
-  override def equals(o: Any) = {
+  override def equals(o: Any): Boolean = {
     o match {
       case spy: OperationSpy =>
-        spy.getOut == this.out
+        spy.out == this.out
       case _ => false
     }
   }
