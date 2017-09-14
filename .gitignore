@@ -21,6 +21,7 @@ tmp
 npm-debug.log
 node_modules/
 root-log-*
+exercises/**/*.json
 
 #ruby
 .bundle
