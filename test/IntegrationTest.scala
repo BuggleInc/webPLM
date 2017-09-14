@@ -6,7 +6,7 @@ import models.lesson.Lessons
 import org.scalatest.{FunSuite, ParallelTestExecution}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.Json
-import plm.core.lang.LangJava
+import plm.core.lang.{LangJava, LangPython, LangScala, ProgrammingLanguage}
 import plm.core.model.session.TemplatedSourceFileFactory
 
 import scala.concurrent.duration._
@@ -23,25 +23,51 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
   for {
     lesson <- lessons.lessonsList
     lecture <- lesson.lectures
+    lang <- Seq(JAVA, SCALA, PYTHON)
   } {
-    test(s"${lesson.id}/${lecture.id} solution succeeds when submitted") {
-      assert(executeCode(lesson.id, lecture.id, loadSolution(lecture.id)) == Success())
+    test(s"${lesson.id}/${lecture.id}/${lang.getLang} solution succeeds when submitted") {
+      assert(executeCode(lesson.id, lecture.id, lang.getLang, loadSolution(lang, lecture.id)) == Success())
     }
   }
 }
 
 object IntegrationTest {
 
-  val SERVER_URI = Uri("ws://localhost:9000/websocket")
-  val SOLUTION_PATTERN: Regex = raw"(?s).*/\* BEGIN TEMPLATE \*/(.*)/\* END TEMPLATE \*/.*".r
+  val JAVA = new LangJava(false)
+  val SCALA = new LangScala(false)
+  val PYTHON = new LangPython(false)
 
-  def loadSolution(exerciseId: String): String = {
+  val SERVER_URI = Uri("ws://localhost:9000/websocket")
+  val TEMPLATE_PATTERN: Regex = raw"(?s).*/\* BEGIN TEMPLATE \*/(.*)/\* END TEMPLATE \*/.*".r
+  val SOLUTION_PATTERN: Regex = raw"(?s).*/\* BEGIN SOLUTION \*/(.*)/\* END SOLUTION \*/.*".r
+  val PYTHON_TEMPLATE_PATTERN: Regex = raw"(?s).*# BEGIN TEMPLATE(.*)# END TEMPLATE.*".r
+  val PYTHON_SOLUTION_PATTERN: Regex = raw"(?s).*# BEGIN SOLUTION(.*)# END SOLUTION.*".r
+
+  def loadSolution(lang: ProgrammingLanguage, exerciseId: String): String = {
     val sourceFileFactory = new TemplatedSourceFileFactory(Locale.ENGLISH)
-    val exercisePath = exerciseId.replaceAll(raw"\.", "/")
-    val sourceFile =
-      sourceFileFactory.newSourceFromFile(exerciseId, new LangJava(false), s"exercises/${exercisePath}Entity")
-    sourceFile.getCorrection match {
-      case SOLUTION_PATTERN(code) => code
+    val sourceFile = sourceFileFactory.newSourceFromFile(exerciseId, lang, exerciseIdToEntityPath(lang, exerciseId))
+    extractSolution(lang, sourceFile.getCorrection)
+  }
+
+  def exerciseIdToEntityPath(lang: ProgrammingLanguage, exerciseId: String): String = {
+    val exercisePathFragments = exerciseId.split(raw"\.")
+    val entityDirectory = exercisePathFragments.init.mkString("/")
+    val entityName = exercisePathFragments.last
+    val langPrefix = if (lang == SCALA) "Scala" else ""
+    s"exercises/$entityDirectory/$langPrefix${entityName}Entity"
+  }
+
+  def extractSolution(lang: ProgrammingLanguage, code: String): String = {
+    if (lang == PYTHON) {
+      code match {
+        case PYTHON_TEMPLATE_PATTERN(solution) => solution
+        case PYTHON_SOLUTION_PATTERN(solution) => solution
+      }
+    } else {
+      code match {
+        case TEMPLATE_PATTERN(solution) => solution
+        case SOLUTION_PATTERN(solution) => solution
+      }
     }
   }
 
@@ -49,7 +75,7 @@ object IntegrationTest {
   case class Success() extends ExecutionResult
   case class Error(message: String) extends ExecutionResult
 
-  def executeCode(lessonId: String, exerciseId: String, code: String): ExecutionResult = {
+  def executeCode(lessonId: String, exerciseId: String, langId: String, code: String): ExecutionResult = {
     val resultPromise = Promise[ExecutionResult]
     val protocolHandler = new WebsocketHandler[String] {
       override def receive: PartialFunction[String, Unit] = {
@@ -59,14 +85,20 @@ object IntegrationTest {
 
           cmd match {
             case "ready" =>
-              sender() ! Json.obj(
+              sender ! Json.obj(
                 "cmd" -> "getExercise",
                 "args" -> Json.obj(
                   "lessonID" -> lessonId,
                   "exerciseID" -> exerciseId)).toString()
 
             case "exercise" =>
-              sender() ! Json.obj(
+              sender ! Json.obj(
+                "cmd" -> "setProgLang",
+                "args" -> Json.obj(
+                  "progLang" -> langId)).toString()
+
+            case "newProgLang" =>
+              sender ! Json.obj(
                 "cmd" -> "runExercise",
                 "args" -> Json.obj("code" -> code)).toString()
 
