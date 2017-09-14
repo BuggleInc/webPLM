@@ -38,7 +38,7 @@ public class TurmiteCreatorEntity extends plm.universe.bugglequest.SimpleBuggle 
 		case RIGHT:  right();   forward(); break;
 		case BACK:   back();    forward(); break;
 		default:
-			Logger.log("Unknown turn command associated to i="+currentColor+": "+rule[state][currentColor][NEXT_MOVE]);
+			Logger.debug("Unknown turn command associated to i="+currentColor+": "+rule[state][currentColor][NEXT_MOVE]);
 		}
 
 		state = rule[state][currentColor][NEXT_STATE];
@@ -74,12 +74,12 @@ public class TurmiteCreatorEntity extends plm.universe.bugglequest.SimpleBuggle 
 			} else if (name.charAt(i) == 'R') {
 				rule[0][i][NEXT_MOVE] = RIGHT;
 			} else {
-				Logger.log("Unknown command in your ant's name: "+name.charAt(i));
+				Logger.debug("Unknown command in your ant's name: "+name.charAt(i));
 			}
 
 			rule[0][i][NEXT_STATE] = 0; /* only one state */
 
-			//		Logger.log("{"+rule[0][i][NEXT_COLOR]+","+rule[0][i][NEXT_MOVE]+","+rule[0][i][NEXT_STATE]+"}");
+			//		Logger.debug("{"+rule[0][i][NEXT_COLOR]+","+rule[0][i][NEXT_MOVE]+","+rule[0][i][NEXT_STATE]+"}");
 		}
 	}
 	void init() {

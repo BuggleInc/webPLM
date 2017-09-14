@@ -19,9 +19,9 @@ public class NaiveBaseballEntity extends BaseballEntity {
 					maxDistance = distance;
 					posNext = pos;
 				}
-//				Logger.log(world.toString()+"  baseNext:"+baseNext+" player:"+player+"  distance:"+distance+" (#bases:"+getBasesAmount()+")");
+//				Logger.debug(world.toString()+"  baseNext:"+baseNext+" player:"+player+"  distance:"+distance+" (#bases:"+getBasesAmount()+")");
 			}
-//			Logger.log("move "+baseNext+","+posNext);
+//			Logger.debug("move "+baseNext+","+posNext);
 			move(baseNext,posNext);
 		}
 		((BaseballWorld) world).assertSorted("naive sort");

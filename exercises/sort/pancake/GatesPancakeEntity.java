@@ -107,7 +107,7 @@ public class GatesPancakeEntity extends PancakeEntity {
 		int o = getPancakeRadius(pos+1) - radius;
 		
 		if (o != -1 && o != 1) {
-			Logger.log("Asked to compute the block length, but the step o is "+o+" instead of +1 or -1. " +
+			Logger.debug("Asked to compute the block length, but the step o is "+o+" instead of +1 or -1. " +
 					"The length is then 1, but you are violating a precondition somehow");
 			return 1;
 		}
@@ -144,7 +144,7 @@ public class GatesPancakeEntity extends PancakeEntity {
 			System.out.print("{");
 			for (int rank=0; rank < stackSize; rank++) 
 				System.out.print(""+getPancakeRadius(rank)+", ");
-			Logger.log("}");
+			Logger.debug("}");
 		}
 		
 		while (true) {
@@ -154,7 +154,7 @@ public class GatesPancakeEntity extends PancakeEntity {
 			int posT = 0;
 			
 			if (debug>1) {
-				Logger.log("t Radius: "+tRadius);
+				Logger.debug("t Radius: "+tRadius);
 				for (int rank=0; rank < stackSize; rank++) {
 					System.out.print("["+rank+"]="+getPancakeRadius(rank)+"; ");
 
@@ -181,36 +181,36 @@ public class GatesPancakeEntity extends PancakeEntity {
 					if (rank == posT)
 						System.out.print("t;" );
 
-					Logger.log("");
+					Logger.debug("");
 				}
 			}
 						
 			if (isFree(posT)) {			
 				if (isFree(posTPlus)) { /* CASE A: t and t+o free */
 					if (debug>0)
-						Logger.log("Case A+");
+						Logger.debug("Case A+");
 					flip(posTPlus);
 					doneA = true;
 				} else if (isFree(posTMinus)) { /* CASE A: t and t-o free */
 					if (debug>0)
-						Logger.log("Case A-");
+						Logger.debug("Case A-");
 					flip(posTMinus);
 					doneA = true;
 					
 				} else if (isFirst(posTPlus)) { /* CASE B: t free, t+o first element */
 					if (debug>0)
-						Logger.log("Case B+");
+						Logger.debug("Case B+");
 					flip(posTPlus);
 					doneB = true;
 				} else if (isFirst(posTMinus)) { /* CASE B: t free, t-o first element */
 					if (debug>0)
-						Logger.log("Case B-");
+						Logger.debug("Case B-");
 					flip(posTMinus);
 					doneB = true;
 
 				} else if (Math.min(posTPlus,posTMinus) != -99) { /* CASE C: t free, but both t+o and t-o are last elements */
 					if (debug>0)
-						Logger.log("Case C");
+						Logger.debug("Case C");
 					flip(Math.min(posTPlus,posTMinus) );
 					flip(Math.min(posTPlus,posTMinus) - 1);
 					flip(Math.max(posTPlus,posTMinus) + 1);
@@ -219,7 +219,7 @@ public class GatesPancakeEntity extends PancakeEntity {
 					
 				} else {
 					if (debug>0)
-						Logger.log("Case Cbis");
+						Logger.debug("Case Cbis");
 					flip(Math.max(posTPlus,posTMinus) + 1);
 					flip(Math.max(posTPlus,posTMinus) );
 					doneC = true;
@@ -230,43 +230,43 @@ public class GatesPancakeEntity extends PancakeEntity {
 					if (tRadius != 1) // all reverse 
 						flip(stackSize);
 					if (doneA && doneB && doneC && doneD && doneE && doneF && doneG && doneH && ((PancakeWorld)world).wasRandom) {
-						Logger.log("BINGO! This instance is VERY interesting as it experiences every cases of the algorithm.\nPLEASE REPORT IT. PLEASE DONT LOSE IT.");
+						Logger.debug("BINGO! This instance is VERY interesting as it experiences every cases of the algorithm.\nPLEASE REPORT IT. PLEASE DONT LOSE IT.");
 						System.out.print("{");
 						for (int rank=0; rank < stackSize; rank++) 
 							System.out.print(""+origSizes[rank]+", ");
-						Logger.log("}");
+						Logger.debug("}");
 					}
 					return;
 				}
 				
 				if (isFree(posTPlus)) {          /* CASE D: t in a block, t+1 free */
 					if (debug>0)
-						Logger.log("Case D+");
+						Logger.debug("Case D+");
 					flip(posTPlus);
 					doneD = true;
 
 				} else if (isFree(posTMinus)) {  /* CASE D: t in a block, t-1 free */
 					if (debug>0)
-						Logger.log("Case D-");
+						Logger.debug("Case D-");
 					flip(posTMinus);
 					doneD = true;
 
 				} else if (isFirst(posTPlus)) {  /* CASE E: t in a block, t+1 first element */
 					if (debug>0)
-						Logger.log("Case E+");
+						Logger.debug("Case E+");
 					flip(posTPlus);
 					doneE = true;
 
 				} else if (isFirst(posTMinus)) { /* CASE E: t in a block, t-1 first element */
 					if (debug>0)
-						Logger.log("Case E-");
+						Logger.debug("Case E-");
 					flip(posTMinus);
 					doneE = true;
 
 				} else if (isLast(posTPlus) && posTPlus != 1) { /* CASE F+: t in a block, t+1 last element */
 					doneF = true;
 					if (debug>0)
-						Logger.log("Case F+");
+						Logger.debug("Case F+");
 					flip(blockLength());
 					flip(posTPlus + 1);
 					int newPos = getRankOf(tRadius);
@@ -276,7 +276,7 @@ public class GatesPancakeEntity extends PancakeEntity {
 				} else if (isLast(posTMinus) && posTMinus != 1) { /* CASE F-: t in a block, t-1 last element */
 					doneF = true;
 					if (debug>0)
-						Logger.log("Case F-");
+						Logger.debug("Case F-");
 					flip(blockLength());
 					flip(posTMinus + 1);
 					int newPos = getRankOf(tRadius);
@@ -289,13 +289,13 @@ public class GatesPancakeEntity extends PancakeEntity {
 					if (isFree(pos) || isFirst(pos)) {
 						doneG = true;
 						if (debug>0)
-							Logger.log("Case G");
+							Logger.debug("Case G");
 						flip(k+1);
 						flip(pos);
 					} else {
 						doneH = true;
 						if (debug>0)
-							Logger.log("Case H");
+							Logger.debug("Case H");
 						flip(pos+1);
 						flip(getRankOf(tRadius+k*o));
 					}

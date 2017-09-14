@@ -1,0 +1,3 @@
+[submodule "deps/PLM"]
+	path = deps/PLM
+	url = git@github.com:BuggleInc/PLM.git

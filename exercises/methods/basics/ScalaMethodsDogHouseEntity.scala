@@ -45,7 +45,7 @@ class ScalaMethodsDogHouseEntity extends SimpleBuggle {
 	    var msg = getGame().i18n.tr("Sorry Dave, I cannot let you use left() both in lines {0} and {1} in this exercise. You can write left() only once in this exercise.",
 	        (savedLine-offset),(usedLine-offset));
 		  
-		  Logger.log(msg);
+		  Logger.debug(msg);
 		  throw new RuntimeException(msg);
 	  	*/
 	  }

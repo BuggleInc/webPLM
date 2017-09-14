@@ -29,7 +29,7 @@ public class BDR2Entity extends SimpleBuggle {
 	boolean complained = false;
 	private void complain(String msg) {
 		if (!complained)
-			Logger.log("XXX "+msg);
+			Logger.debug("XXX "+msg);
 		complained = true;
 	}
 	private String fmt(char c) {
