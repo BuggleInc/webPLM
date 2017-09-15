@@ -41,11 +41,6 @@ lazy val plm = (project in file("deps/PLM")).settings(
   unmanagedSourceDirectories in Compile := Seq(baseDirectory.value / "src"),
   unmanagedSourceDirectories in Test := Seq(baseDirectory.value / "test"),
   unmanagedResourceDirectories in Compile := Seq(baseDirectory.value / "src"),
-
-//  mappings in (Compile, packageBin) ++= {
-//    (unmanagedResources in Compile).value pair relativeTo(baseDirectory.value / "src")
-//  },
-
   libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % "2.11.8",
     "org.scala-lang" % "scala-compiler" % "2.11.8"
@@ -59,9 +54,6 @@ lazy val root = (project in file("."))
     commonSettings,
 
     libraryDependencies ++= Seq(
-//      "org.scala-lang" % "scala-library" % "2.11.8",
-//      "org.scala-lang" % "scala-compiler" % "2.11.8",
-//      "org.scala-lang" % "scala-reflect" % "2.11.8",
       "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0",
       "org.mockito" % "mockito-core" % "1.8.5",
       "net.ceedubs" %% "ficus" % "1.1.2",
@@ -93,10 +85,24 @@ lazy val root = (project in file("."))
 
     fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value),
 
-    mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
-      {
-        case PathList("org", "apache", xs @ _*)   => MergeStrategy.first
-        case x => old(x)
-      }
+    test in assembly := Def.task {},
+
+    mergeStrategy in assembly := {
+      case PathList("org", "apache", _*) => MergeStrategy.first
+      case PathList("com", "fasterxml", "jackson", _*) => MergeStrategy.first
+      case PathList("junit", _*) => MergeStrategy.first
+      case PathList("org", "hamcrest", _*) => MergeStrategy.first
+      case PathList("org", "mockito", _*) => MergeStrategy.first
+      case PathList("org", "objenesis", _*) => MergeStrategy.first
+      case PathList("org", "w3c", _*) => MergeStrategy.first // jython-play clash
+      case PathList("org", "xml", _*) => MergeStrategy.first // jython-play clash
+      case PathList("org", "joda", _*) => MergeStrategy.first // jruby-play clash
+      case PathList("com", "kenai", _*) => MergeStrategy.first // jython-jruby clash
+      case PathList("javax", "xml", _*) => MergeStrategy.first // jython-jruby clash
+      case PathList("jnr", "netdb", _*) => MergeStrategy.first // jython-jruby clash
+      case PathList("META-INF", "maven", "com.fasterxml.jackson.core", _*) => MergeStrategy.first
+      case PathList("META-INF", "maven", "joda-time", _*) => MergeStrategy.first
+      case PathList("META-INF", "maven", "org.apache.httpcomponents", _*) => MergeStrategy.first
+      case x => (mergeStrategy in assembly).value(x)
     }
   )
