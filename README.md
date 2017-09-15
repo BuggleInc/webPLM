@@ -9,19 +9,19 @@ Framework](https://www.playframework.com/) as the back-end and
 Getting Started
 ---------------
 
-First, [install Play Framework](https://www.playframework.com/documentation/2.3.x/Installing).
+First, [install sbt](http://www.scala-sbt.org/).
 
 Once you cloned this repository, you can run the application in
-production mode by running ```activator start ``` from the root
+production mode by running ```sbt start ``` from the root
 directory.
 
 If you prefer to run it in debug mode (where it reloads everything
-automatically when files change), use ```activator ~run``` instead.
+automatically when files change), use ```sbt ~run``` instead.
 Remove the ~ so that it only reloads when you reload the page in the
 browser.
 
 To access to your application, browse to <http://localhost:9000> If
-you want to start it on port 8080 instead, use ```activator "~run
+you want to start it on port 8080 instead, use ```sbt "~run
 8080"```
 
 License
