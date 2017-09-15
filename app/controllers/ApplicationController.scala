@@ -1,24 +1,26 @@
 package controllers
 
-import com.google.inject.Inject
 import java.util.UUID
-import actors.ActorsMap
-import actors.PLMActor
-import models.User
-import play.api.Logger
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{Json, JsValue}
-import utils._
-import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
-import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
-import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import play.api.i18n.{ Lang, MessagesApi, Messages }
-import play.api.mvc._
-import play.api.Play.current
-import scala.concurrent.Future
+
+import actors.{ActorsMap, PLMActor}
 import actors.execution.ExecutionActorFactory
 import akka.actor.ActorRef
+import com.google.inject.Inject
 import com.google.inject.name.Named
+import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
+import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
+import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+import models.User
+import models.lesson.{Exercises, Lessons}
+import play.api.Logger
+import play.api.Play.current
+import play.api.i18n.{Lang, MessagesApi}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsValue, Json}
+import play.api.mvc._
+import utils._
+
+import scala.concurrent.Future
 
 /**
  * The basic application controller.
@@ -29,6 +31,8 @@ class ApplicationController @Inject() (
     @Named("pushActor") pushActor: ActorRef,
     val messagesApi: MessagesApi,
     implicit val env: Environment[User, JWTAuthenticator],
+    lessons: Lessons,
+    exercises: Exercises,
     socialProviderRegistry: SocialProviderRegistry,
     executionActorFactory: ExecutionActorFactory)
   extends Silhouette[User, JWTAuthenticator] {
@@ -43,7 +47,7 @@ class ApplicationController @Inject() (
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) =>
-        Right(PLMActor.propsWithUser(pushActor, executionActorFactory.create(user.preferredLang), userAgent, actorUUID, user) _)
+        Right(PLMActor.propsWithUser(pushActor, executionActorFactory.create(user.preferredLang), userAgent, actorUUID, lessons, exercises, user) _)
       case HandlerResult(r, None) =>
         val preferredLang: Lang = LangUtils.getPreferredLang(request)
         val lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
@@ -53,7 +57,7 @@ class ApplicationController @Inject() (
           newUser = true
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(pushActor, executionActorFactory.create(Some(preferredLang)), userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false)) _)
+        Right(PLMActor.props(pushActor, executionActorFactory.create(Some(preferredLang)), userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false), lessons, exercises) _)
     }
   }
 

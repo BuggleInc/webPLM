@@ -2,61 +2,83 @@ package actors
 
 import java.util.{HashMap, Locale, Map, UUID}
 
-import scala.concurrent.{Await, Future, TimeoutException}
+import actors.ExercisesActor._
+import actors.GitActor._
+import actors.SessionActor._
+import actors.execution.ExecutionActor._
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{AskTimeoutException, ask}
 import akka.util.Timeout
-
-import scala.concurrent.duration._
 import codes.reactive.scalatime.{Duration, Instant}
 import json.{LangToJson, ProgrammingLanguageToJson}
-import models.GitHubIssueManager
-import models.User
+import models.{GitHubIssueManager, ProgrammingLanguages, User}
 import models.daos.UserDAORestImpl
-import models.lesson.{Lecture, Lessons}
+import models.lesson.{Exercises, Lecture, Lesson, Lessons}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.libs.json._
 import plm.core.lang.ProgrammingLanguage
-import plm.core.model.lesson.Exercise
+import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise.WorldKind
+import plm.core.model.lesson.{ExecutionProgress, Exercise, UserSettings}
+import plm.core.model.tracking.GitUtils
+import plm.universe.World
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 import scala.language.postfixOps
-import ExercisesActor._
-import execution.ExecutionActor._
-import GitActor._
-import SessionActor._
-import models.lesson.Lesson
-import plm.core.model.lesson.ExecutionProgress
-import models.ProgrammingLanguages
-import plm.universe.World
-import akka.pattern.AskTimeoutException
-import plm.core.model.json.JSONUtils
-import plm.core.model.lesson.UserSettings
-import plm.core.model.tracking.GitUtils
 
 object PLMActor {
-  def props(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, gitID: String, newUser: Boolean, preferredLang: Option[Lang], lastProgLang: Option[String], trackUser: Option[Boolean])(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang, trackUser, out))
-  def propsWithUser(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, user: User)(out: ActorRef) = Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, out))
+  def props(pushActor: ActorRef,
+            executionActor: ActorRef,
+            userAgent: String,
+            actorUUID: String,
+            gitID: String,
+            newUser: Boolean,
+            preferredLang: Option[Lang],
+            lastProgLang: Option[String],
+            trackUser: Option[Boolean],
+            lessons: Lessons,
+            exercises: Exercises)(out: ActorRef) =
+    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang,
+      trackUser, lessons, exercises, out))
+
+  def propsWithUser(pushActor: ActorRef,
+                    executionActor: ActorRef,
+                    userAgent: String,
+                    actorUUID: String,
+                    lessons: Lessons,
+                    exercises: Exercises,
+                    user: User)(out: ActorRef) =
+    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, lessons, exercises, out))
 }
 
-class PLMActor (
-    pushActor: ActorRef,
-    executionActor: ActorRef,
-    userAgent: String,
-    actorUUID: String,
-    gitID: String,
-    newUser: Boolean,
-    preferredLang: Option[Lang],
-    lastProgLang: Option[String],
-    trackUser: Option[Boolean],
-    out: ActorRef)
+class PLMActor(pushActor: ActorRef,
+               executionActor: ActorRef,
+               userAgent: String,
+               actorUUID: String,
+               gitID: String,
+               newUser: Boolean,
+               preferredLang: Option[Lang],
+               lastProgLang: Option[String],
+               trackUser: Option[Boolean],
+               lessons: Lessons,
+               exercises: Exercises,
+               out: ActorRef)
   extends Actor {
 
-  def this(pushActor: ActorRef, executionActor: ActorRef, userAgent: String, actorUUID: String, user: User, out: ActorRef) {
-    this(pushActor, executionActor, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang, user.lastProgLang, user.trackUser, out)
+  def this(pushActor: ActorRef,
+           executionActor: ActorRef,
+           userAgent: String,
+           actorUUID: String,
+           user: User,
+           lessons: Lessons,
+           exercises: Exercises,
+           out: ActorRef) {
+    this(pushActor, executionActor, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang,
+      user.lastProgLang, user.trackUser, lessons, exercises, out)
     setCurrentUser(user)
   }
 
@@ -68,7 +90,8 @@ class PLMActor (
   var currentProgLang: ProgrammingLanguage = initProgLang(lastProgLang)
   var currentHumanLang: Lang = initHumanLang(preferredLang)
 
-  val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props)
+  val availableLangs: Seq[Lang] = Lang.availables
+  val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props(exercises))
 
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, gitID, None, userAgent))
   val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
@@ -78,10 +101,6 @@ class PLMActor (
   val userSettings: UserSettings = new UserSettings(currentHumanLang.toLocale, currentProgLang)
 
   val gitHubIssueManager: GitHubIssueManager = new GitHubIssueManager
-
-  val availableLangs: Seq[Lang] = Lang.availables
-
-  val lessons = new Lessons(Logger.logger, availableLangs.map(_.code))
 
   sendReady
   sendProgLangs
@@ -136,7 +155,8 @@ class PLMActor (
                   sessionActor,
                   lessons.exercisesList(lessonName),
                   currentHumanLang,
-                  currentProgLang)
+                  currentProgLang,
+                  exercises)
               sendMessage("lectures", Json.obj(
                 "lectures" -> jsonLectures
               ))
@@ -572,7 +592,8 @@ class PLMActor (
               sessionActor,
               lessons.exercisesList(lessonName),
               currentHumanLang,
-              currentProgLang))
+              currentProgLang,
+              exercises))
       case _ => Json.obj() 
     }
   }

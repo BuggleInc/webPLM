@@ -1,24 +1,21 @@
 package models.lesson
 
-import actors.{ExercisesActor, SessionActor}
+import actors.SessionActor
 import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
-
-import scala.concurrent.duration._
-import scala.language.postfixOps
 import play.api.Logger
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 import play.api.i18n.Lang
-import plm.core.ui.PlmHtmlEditorKit
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.Exercise
+import plm.core.ui.PlmHtmlEditorKit
 
-import scala.collection.concurrent.TrieMap
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Await
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 /**
  * @author matthieu
@@ -31,10 +28,10 @@ object Lecture {
     (JsPath \ "dependingLectures").lazyRead(Reads.seq[Lecture](lectureReads))
   )(Lecture.apply _)
 
-  def arrayToJson(sessionActor: ActorRef, lectures: Array[Lecture], lang: Lang, progLang: ProgrammingLanguage): JsArray = {
+  def arrayToJson(sessionActor: ActorRef, lectures: Array[Lecture], lang: Lang, progLang: ProgrammingLanguage, exercises: Exercises): JsArray = {
     var jsonLectures: JsArray = Json.arr()
     lectures.foreach { lecture: Lecture =>
-      jsonLectures = jsonLectures.append(lecture.toJson(sessionActor, lang, progLang))
+      jsonLectures = jsonLectures.append(lecture.toJson(sessionActor, lang, progLang, exercises))
     }
     jsonLectures
   }
@@ -53,27 +50,27 @@ case class Lecture(id: String, optNames: Option[Map[String, String]], dependingL
     array
   }
 
-  def toJson(sessionActor: ActorRef, lang: Lang, progLang: ProgrammingLanguage): JsObject = {
+  def toJson(sessionActor: ActorRef, lang: Lang, progLang: ProgrammingLanguage, exercises: Exercises): JsObject = {
     val names: Map[String, String] = optNames.get
     val defaultName: String = names.get("en").get
     val name: String = names.getOrElse(lang.code, defaultName)
 
-    val exercisePassed: Map[String, Boolean] = generateExercisePassed(sessionActor)
+    val exercisePassed: Map[String, Boolean] = generateExercisePassed(sessionActor, exercises)
 
     Json.obj(
       "id" -> id,
       "name" -> PlmHtmlEditorKit.filterHTML(name, false, progLang),
-      "dependingLectures" -> Lecture.arrayToJson(sessionActor, dependingLectures.toArray, lang, progLang),
+      "dependingLectures" -> Lecture.arrayToJson(sessionActor, dependingLectures.toArray, lang, progLang, exercises),
       "exercisePassed" -> exercisePassed
     )
   }
 
-  def generateExercisePassed(sessionActor: ActorRef): Map[String, Boolean] = {
+  def generateExercisePassed(sessionActor: ActorRef, exercises: Exercises): Map[String, Boolean] = {
     implicit val timeout = Timeout(5 seconds)
 
     var exercisePassed: Map[String, Boolean] = Map()
 
-    ExercisesActor.getExercise(id) match {
+    exercises.getExercise(id) match {
       case Some(exercise: Exercise) =>
         exercise.getProgLanguages.toArray(Array[ProgrammingLanguage]()).foreach { supportedProgLang =>
           val future = (sessionActor ? SessionActor.IsExercisePassed(exercise, supportedProgLang)).mapTo[Boolean].map { passed =>

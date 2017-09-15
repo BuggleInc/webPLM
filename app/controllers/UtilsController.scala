@@ -5,10 +5,11 @@ import play.api.mvc._
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import com.google.inject.Inject
+import models.lesson.Exercises
 
-class UtilsController @Inject() (system: ActorSystem) extends Controller {
+class UtilsController @Inject() (system: ActorSystem, exercises: Exercises) extends Controller {
   
-  val exercisesActor: ActorRef = system.actorOf(ExercisesActor.props)
+  val exercisesActor: ActorRef = system.actorOf(ExercisesActor.props(exercises))
   
   def exportExercises = Action {
     exercisesActor ! ExercisesActor.ExportExercises
