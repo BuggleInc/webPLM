@@ -14,8 +14,8 @@ object FileUtils {
     try {
       fileContent = Some(Source.fromFile(path).mkString)
     } catch {
-    case e: FileNotFoundException => Logger.error("Couldn't find that file.")
-    case e: IOException => Logger.error("Got an IOException!")
+      case e: FileNotFoundException => Logger.error(s"Couldn't find file $path.")
+      case e: IOException => Logger.error(s"Got an IOException while reading $path!")
     }
     fileContent
   }
