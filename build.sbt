@@ -29,6 +29,8 @@ lazy val commonSettings = defaultScalariformSettings ++ Seq(
     "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
     "-Ywarn-numeric-widen" // Warn when numerics are widened.
   ),
+  
+  testOptions in Test += Tests.Argument("-oD"), // Display the completion time of each test 
 
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
     .setPreference(FormatXml, false)
