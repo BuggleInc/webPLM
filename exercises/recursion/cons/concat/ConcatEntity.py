@@ -1,11 +1,17 @@
 # BEGIN TEMPLATE
-def reverse(list):
-# BEGIN SOLUTION
+def concat(l1, l2):
+  # BEGIN SOLUTION
+  # Revert l1 into A
   A = None
-  B = list
+  B = l1
   while B != None:
-    A = new RecList(B.head, A)
+    A = RecList(B.head, A)
     B = B.tail
-  return A
-# END SOLUTION
+  # add A at front of l2 in B
+  B = l2
+  while A != None:
+    B = RecList(A.head, B)
+    A = A.tail
+  return B
+  # END SOLUTION
 # END TEMPLATE
