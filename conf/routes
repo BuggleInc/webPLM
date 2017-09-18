@@ -10,9 +10,6 @@ GET     /ui/lessons/:lessonID                               @controllers.Applica
 GET     /ui/lessons/:lessonID/*exerciseID                   @controllers.Application.exercise(lessonID: String, exerciseID: String)
 GET     /specRunner                                         @controllers.Application.specRunner()
 
-GET     /utils/export-exercises                             @controllers.UtilsController.exportExercises
-GET     /utils/export-exercises/:exerciseID                 @controllers.UtilsController.exportExercise(exerciseID: String)
-
 GET     /user/:actorUUID                                    @controllers.ApplicationController.user(actorUUID: String)
 GET     /signOut                                            @controllers.ApplicationController.signOut
 GET     /authenticate/:provider                             @controllers.SocialAuthController.authenticate(provider)
