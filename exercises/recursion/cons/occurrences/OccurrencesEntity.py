@@ -1,10 +1,10 @@
 # BEGIN TEMPLATE
 def occurrences(list, val):
-# BEGIN SOLUTION
+  # BEGIN SOLUTION
   if list == None:
     return 0;
   if list.head == val:
     return 1 + occurrences(list.tail, val)
   return occurrences(list.tail, val)
-# END SOLUTION
+  # END SOLUTION
 # END TEMPLATE

@@ -23,7 +23,7 @@ def haveBaggle():
 		backward()
 	return res
     # END SOLUTION
-#END TEMPLATE
+# END TEMPLATE
 
 for i in range(7):
     if haveBaggle():

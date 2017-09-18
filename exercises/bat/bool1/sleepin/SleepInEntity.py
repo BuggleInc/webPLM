@@ -1,6 +1,6 @@
 # BEGIN TEMPLATE
 def sleepIn(weekday, vacation):
-# BEGIN SOLUTION
+  # BEGIN SOLUTION
   return !weekday || vacation
-# END SOLUTION
+  # END SOLUTION
 # END TEMPLATE
