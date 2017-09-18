@@ -1,8 +1,8 @@
 # BEGIN TEMPLATE
 def plusOne(list):
   # BEGIN SOLUTION
-  if list.tail == None:
+  if list == None:
     return None
-  return new RecList(list.head+1, plusOne(list.tail))
+  return RecList(list.head+1, plusOne(list.tail))
   # END SOLUTION
 # END TEMPLATE

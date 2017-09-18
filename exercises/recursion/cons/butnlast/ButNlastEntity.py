@@ -3,6 +3,6 @@ def butNlast(list, n):
 # BEGIN SOLUTION
   if list == None or list.plmInsiderLength() <= n:
     return None
-  return new RecList( list.head, butNlast(list.tail, n) )
+  return RecList( list.head, butNlast(list.tail, n) )
 # END SOLUTION
 # END TEMPLATE

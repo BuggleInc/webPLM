@@ -4,6 +4,6 @@ def butLast(list):
   # BEGIN SOLUTION
   if list.tail == None:
     return None
-  return new RecList(list.head,butLast(list.tail))
+  return RecList(list.head,butLast(list.tail))
   # END SOLUTION
 # END TEMPLATE

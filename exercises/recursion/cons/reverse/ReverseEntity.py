@@ -1,15 +1,11 @@
 # BEGIN TEMPLATE
-def concat(list1, list2):
+def reverse(list):
 # BEGIN SOLUTION
   A = None
-  B = list1
+  B = list
   while B != None:
-    A = new RecList(B.head, A)
+    A = RecList(B.head, A)
     B = B.tail
-  B = list2
-  while A != None:
-    B = new RecList(A.head, B)
-    A = A.tail
-  return B
+  return A
 # END SOLUTION
 # END TEMPLATE

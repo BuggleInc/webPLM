@@ -17,7 +17,7 @@ class ScalaOccurrenceEntity extends ConsEntity {
     l match {
       case a::b if a==v => 1 + occurrences(b,v)
       case a::b         =>     occurrences(b,v)
-			case _    => 0
+      case _            => 0
 	  }
   /* END SOLUTION */
   }

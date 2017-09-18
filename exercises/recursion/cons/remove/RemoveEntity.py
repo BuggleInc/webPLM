@@ -6,6 +6,6 @@ def remove(list, v):
   if list.head == v:
     return remove(list.tail, v)
     ptr = ptr.tail
-  return new RecList(list.head, remove(list.tail, v))
+  return RecList(list.head, remove(list.tail, v))
   # END SOLUTION
 # END TEMPLATE

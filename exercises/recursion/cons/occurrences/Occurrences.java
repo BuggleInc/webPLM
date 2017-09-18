@@ -10,7 +10,7 @@ public class Occurrences extends ConsExercise {
 	public Occurrences() {
 		super("Occurrences", "Occurrences");
 		
-		BatWorld myWorld = new ConsWorld("Occurrences");
+		BatWorld myWorld = new ConsWorld("occurrences");
 		myWorld.addTest(BatTest.VISIBLE,   (new int[]{1, 2, 2, 4}), 1);
 		myWorld.addTest(BatTest.VISIBLE,   (new int[]{1, 2, 2, 4}), 2);
 		myWorld.addTest(BatTest.VISIBLE,   (new int[]{1, 2, 3, 4}), 42);
