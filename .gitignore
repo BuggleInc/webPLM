@@ -1,6 +1,7 @@
 conf/generated.keystore
 lib/cachedir
 lib/cachedir/packages/packages.idx
+application-log*.gz
 logs
 /bin
 project/project
@@ -9,7 +10,7 @@ target
 tmp
 .history
 /.idea
-/*.iml
+*.iml
 /out
 /.idea_modules
 /.classpath
@@ -26,3 +27,4 @@ exercises/**/*.json
 #ruby
 .bundle
 start.bat
+*~
