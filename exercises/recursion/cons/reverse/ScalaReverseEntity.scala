@@ -18,7 +18,7 @@ class ScalaReverseEntity extends ConsEntity {
   }
   def lambda(l:List[Int], tmp:List[Int]):List[Int] = {
     if (l == Nil) {
-      Nil
+      tmp
     } else {
       lambda(l.tail, l.head::tmp)
     }

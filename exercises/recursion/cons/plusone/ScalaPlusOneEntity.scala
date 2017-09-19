@@ -16,8 +16,8 @@ class ScalaPlusOneEntity extends ConsEntity {
   /* BEGIN SOLUTION */
     l match {
       case a::b => (a+1)::plusOne(b)
-			case _    => Nil
-	  }
+      case _    => Nil
+    }
   /* END SOLUTION */
   }
   /* END TEMPLATE */

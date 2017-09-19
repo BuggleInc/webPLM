@@ -23,8 +23,9 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
   for {
     lesson <- lessons.lessonsList
     lecture <- lesson.lectures
-    lang <- Seq(JAVA, SCALA, PYTHON)
+    lang <- Seq(SCALA)//JAVA, SCALA, PYTHON)
   } {
+    if ((lesson.id == "recursion.cons"))// && (lecture.id contains "nlast"))
     test(s"${lesson.id}/${lecture.id}/${lang.getLang} solution succeeds when submitted") {
       assert(executeCode(lesson.id, lecture.id, lang.getLang, loadSolution(lang, lecture.id)) == Success())
     }

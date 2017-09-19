@@ -17,7 +17,7 @@ public class ButNlastEntity extends ConsEntity {
 		/* BEGIN SOLUTION */
 		if (seq == null || seq.plmInsiderLength() <= n)
 			return null;
-		return new RecList( seq.head, butNlast(seq.tail, n));
+		return new RecList( seq.head, butNlast(seq.tail, n-1));
 		/* END SOLUTION */
 	}
 	/* END TEMPLATE */

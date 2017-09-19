@@ -14,14 +14,22 @@ class ScalaNlastEntity extends ConsEntity {
   /* BEGIN TEMPLATE */
   def nlast(l:List[Int], n:Int): List[Int] = {
   /* BEGIN SOLUTION */
-    butNfirst(l, l.size-n)
-  }
-  def butNfirst(l:List[Int], n:Int): List[Int] = {
-    if (n==0 || l==Nil) {
-      l
-    } else {
- 	    butNfirst(l.tail, n-1)
- 	  }
+    def nfirst(lst:List[Int], n:Int): List[Int] = {
+      if (n==0 || lst==Nil) {
+        Nil
+      } else {
+        lst.head::nfirst(lst.tail, n-1)
+      }
+    }
+    def reverseRec(l:List[Int], tmp:List[Int]):List[Int] = {
+      if (l == Nil) {
+        tmp
+      } else {
+        reverseRec(l.tail, l.head::tmp)
+      }
+    }
+
+    return reverseRec(nfirst(reverseRec(l, Nil), n), Nil)
   /* END SOLUTION */
   }
   /* END TEMPLATE */

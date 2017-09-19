@@ -14,15 +14,22 @@ class ScalaButNLastEntity extends ConsEntity {
   /* BEGIN TEMPLATE */
   def butNlast(l:List[Int], n:Int): List[Int] = {
   /* BEGIN SOLUTION */
-    nfirst(l, l.size-n)
-  }
-  def nfirst(l:List[Int], n:Int): List[Int] = {
-  /* BEGIN SOLUTION */
-    if (n == 0 || l==Nil) {
-      Nil
-    } else {
-      l.head :: nfirst(l.tail, n-1)
+    def butNfirst(lst:List[Int], n:Int): List[Int] = {
+      if (n==0 || lst==Nil) {
+        lst
+      } else {
+        butNfirst(lst.tail, n-1)
+      }
     }
+    def reverseRec(l:List[Int], tmp:List[Int]):List[Int] = {
+      if (l == Nil) {
+        tmp
+      } else {
+        reverseRec(l.tail, l.head::tmp)
+      }
+    }
+
+    return reverseRec(butNfirst(reverseRec(l, Nil), n), Nil)
   /* END SOLUTION */
   }
   /* END TEMPLATE */

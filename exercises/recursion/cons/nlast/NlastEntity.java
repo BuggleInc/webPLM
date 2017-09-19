@@ -17,7 +17,7 @@ public class NlastEntity extends ConsEntity {
 		/* BEGIN SOLUTION */
 		if (seq == null || seq.plmInsiderLength() <= n)
 			return seq;
-		return nlast(seq.tail, n);
+		return nlast(seq.tail, n-1);
 		/* END SOLUTION */
 	}
 	/* END TEMPLATE */
