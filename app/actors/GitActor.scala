@@ -62,14 +62,14 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
 
   val gitUtils: GitUtils = new GitUtils(locale)
 
-  openRepo
+  openRepo(optTrackUser)
 
   def receive =  {
     case SwitchUser(newGitID: String, newOptTrackUser: Option[Boolean]) =>
       closeRepo
       gitID = newGitID
       optTrackUser = newOptTrackUser
-      openRepo
+      openRepo(optTrackUser)
     case SetTrackUser(newOptTrackUser: Option[Boolean]) =>
       optTrackUser = newOptTrackUser
     case RetrieveCodeFromGit(exerciseID: String, progLang: ProgrammingLanguage) =>
@@ -89,7 +89,7 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
     case _ =>
   }
 
-  def openRepo() {
+  def openRepo(optTrackUser: Option[Boolean]) {
     val userBranch: String = "PLM"+GitUtils.sha1(gitID)
 
     try {
@@ -111,8 +111,8 @@ class GitActor(pushActor: ActorRef, initialGitID: String, initialOptTrackUser: O
         gitUtils.createLocalUserBranch(userBranch)
       }
 
-      // try to get the branch as stored remotely
-      if (gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
+      // try to get the branch as stored remotely (unless we know that the user don't have anthing there)
+      if (optTrackUser != None && optTrackUser.get && gitUtils.fetchBranchFromRemoteBranch(userBranch)) {
         gitUtils.mergeRemoteIntoLocalBranch(userBranch)
         Logger.info(userBranch+" was automatically retrieved from the servers.")
       } else {
