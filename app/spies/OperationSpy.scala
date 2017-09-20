@@ -35,11 +35,11 @@ class OperationSpy(val out: ActorRef, world: World) {
     }
   }
 
-  ses.scheduleAtFixedRate(cmd, 1L, 1L, TimeUnit.SECONDS)
+  ses.scheduleAtFixedRate(cmd, 10L, 10L, TimeUnit.MILLISECONDS)
 
   def stop() {
     ses.shutdown()
-    ses.awaitTermination(1L, TimeUnit.SECONDS)
+    ses.awaitTermination(10L, TimeUnit.MILLISECONDS)
   }
 
   def flush() {
