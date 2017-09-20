@@ -10,7 +10,7 @@ import plm.core.lang.{LangJava, LangPython, LangScala, ProgrammingLanguage}
 import plm.core.model.session.TemplatedSourceFileFactory
 
 import scala.concurrent.duration._
-import scala.concurrent.{Await, Promise}
+import scala.concurrent.{Await, ExecutionContext, Promise}
 import scala.language.postfixOps
 import scala.util.matching.Regex
 
@@ -118,7 +118,7 @@ object IntegrationTest {
     try {
       Await.result(resultPromise.future, 1 minute)
     } finally {
-      client.shutdownSync()
+      client.shutdownAsync(ExecutionContext.global)
     }
   }
 }
