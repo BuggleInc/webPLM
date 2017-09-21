@@ -63,7 +63,6 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
       }
     case Push =>
       pushRepos
-      pendingRequests = Array[String]()
     case _ =>
   }
 
@@ -77,6 +76,7 @@ class PushActor @Inject() (configuration: Configuration) extends Actor {
       gitUtils.openRepo(repoDir)
       gitUtils.pushChanges(userBranchHash, progress, cp)
     }
+    pendingRequests = Array[String]()
   }
 
   override def postStop() = {
