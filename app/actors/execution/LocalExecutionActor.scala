@@ -28,7 +28,6 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
 
   var currentLocale: Locale = initialLang.toLocale
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentLocale)
-  exerciseRunner.setMaxNumberOfTries(3)
   var executionStopped: Boolean = false
 
   def receive: PartialFunction[Any, Unit] =  {
