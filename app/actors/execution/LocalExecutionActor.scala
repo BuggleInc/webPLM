@@ -28,12 +28,10 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
 
   var currentLocale: Locale = initialLang.toLocale
   val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentLocale)
-  var executionStopped: Boolean = false
 
   def receive: PartialFunction[Any, Unit] =  {
     case StartExecution(out, exercise, progLang, code) =>
       val plmActor: ActorRef = sender
-      executionStopped = false
       val spies = exercise.getWorlds(WorldKind.CURRENT).asScala.map(world => new OperationSpy(out, world))
       val future: Future[ExecutionProgress] = exerciseRunner.run(exercise, progLang, code).toScala
 
@@ -41,7 +39,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
         case executionResult: ExecutionProgress =>
           for (spy <- spies) {
             spy.stop()
-            if(!executionStopped && executionResult.outcome != outcomeKind.TIMEOUT) {
+            if(executionResult.outcome != outcomeKind.TIMEOUT) {
               spy.flush()
             }
           }
@@ -49,8 +47,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
         case _ =>
       }
     case StopExecution =>
-      executionStopped = true
-      exerciseRunner.stopExecution()
+      Logger.error("Ignore a request to stop the currently running code")
     case UpdateLang(lang: Lang) =>
       currentLocale = lang.toLocale
       exerciseRunner.setI18n(currentLocale)
