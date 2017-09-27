@@ -1,26 +1,26 @@
 
 <!-- Please don't translate this file but l10n/missions/plm.pot (see https://github.com/oster/PLM/wiki/Working-on-translations) -->
-<h2>Plus de pistes de buggles</h2>
+<h2>Nouvelles pistes</h2>
 
-<p>Mince ! Votre buggle s'est encore perdue dans le même genre de
-labyrinthe. Et en plus, cette fois, les couloirs ne sont pas tous de la même
-taille ! Comme il est impossible de connaître la taille d'un couloir avant
-de s'y engager, une boucle <code>for</code> ne semble pas bien indiquée. À
-la place, vous allez devoir  utiliser une boucle <code>while</code> avec la
-fonction <code>crossing()</code> qui indique si votre buggle se trouve
-actuellement à une intersection.</p>
+<p>Et mince ! Votre buggle s'est encore perdue dans le même genre de
+labyrinthes, mais cette fois les corridors ne sont pas tous de la même
+taille. Comme il n'y a aucun moyen de connaître à l'avance la longueur
+du corridor que l'on commence à explorer, une boucle <code>for</code>
+semble mal adaptée. Au lieu de cela, vous devriez changer votre boucle
+interne en un <code>while</code>. Utilisez la méthode
+<code>crossing()</code>, qui indique si votre buggle se trouve
+actuellement à un embranchement.</p>
 
-<p>Le truc, c'est qu'au moment de s'engager dans un couloir, vous vous trouvez
-naturellement à une intersection mais que vous voulez avancer quand même.
-[!java|scala|c]Le plus simple pour cela est d'utiliser une boucle <code>do /
-while</code> au lieu d'une boucle <code>while</code> classique. Cela vous
-permettera de vous déplacer jusqu'à la prochaine intersection.[/!]
-[!python]Le plus simple pour cela est d'utiliser une variable supplémentaire
-indiquant si vous êtes déjà dans le couloir, comme ci-dessous. De cette
-façon, vous rentrerez dans le corps de boucle au moins une fois (quand
-<code>premiereFois</code> est vrai). Les fois suivantes, vous utiliserez
-effectivement la valeur renvoyée par  <code>crossing()</code> pour
-déterminer s'il faut continuer ou non.[/!]</p>
+<p>Le problème, c'est que lorsque vous commencez l'exploration d'un
+corridor, vous vous trouvez à une intersection mais vous voulez
+avancer quand même. [!java|scala|c]La solution la plus simple est
+alors d'utiliser une boucle <code>do / while</code> au lieu d'un
+simple <code>while</code> pour bouger <b>jusqu'à</b> la prochaine
+intersection.[/!] [!python]Utilisez pour cela une variable
+supplémentaire indiquant si vous êtes déjà entré dans un
+corridor. Cela vous permettra d'exécuter le core de boucle au moins
+une fois (quand <code>premiereFois</code> est vraie) avant de tester
+la valeur retournée par <code>crossing()</code>.[/!]</p>
 
 [!python]
 <pre>premiereFois = True
@@ -30,5 +30,5 @@ while premiereFois or not crossing():
 </pre>
 [/!] 
 
-<p>Avec cette nouvelle astuce, votre buggle devrait s'échapper du labyrinthe
-assez aisément.</p>
+<p>Avec ces nouvelles astuces, votre buggle devrait parvenir à s'échapper
+assez facilement.</p>

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PLM mission texts\n"
-"POT-Creation-Date: 2016-11-18 23:48+0100\n"
+"POT-Creation-Date: 2017-09-27 02:39+0200\n"
 "PO-Revision-Date: 2016-09-24 22:34+0200\n"
 "Last-Translator: Fred Maranhão <fred.maranhao@gmail.com>\n"
 "Language-Team: none\n"
@@ -295,7 +295,6 @@ msgstr ""
 #: exercises/maze/shortestpath/ShortestPathMaze.html:23
 #: exercises/maze/wallfollower/WallFollowerMaze.html:18
 #: exercises/maze/pledge/PledgeMaze.html:37
-#: exercises/instructions/Instructions.html:62
 #: exercises/conditions/Conditions.html:109
 #: exercises/variables/Variables.html:127
 #: exercises/methods/basics/MethodsDogHouse.html:38
@@ -788,10 +787,9 @@ msgstr ""
 
 #. type: Content of: outside any tag (error?)
 #: exercises/maze/pledge/PledgeMaze.html:68
-#: exercises/instructions/Instructions.html:34
 #: exercises/conditions/Conditions.html:57
 #: exercises/conditions/Conditions.html:108
-#: exercises/environment/Environment.html:46
+#: exercises/environment/Environment.html:23
 #: exercises/variables/Variables.html:85 exercises/variables/Variables.html:114
 #: exercises/variables/Variables.html:160
 #: exercises/recursion/cons/length/Length.html:8
@@ -1648,12 +1646,67 @@ msgstr ""
 
 #. type: Content of: <p>
 #: exercises/instructions/Instructions.html:9
+#, fuzzy
+#| msgid ""
+#| "<a name=\"Objectives\"/> Our second program will be a bit more "
+#| "complicated, but not much. The goal for your buggle is simply to draw a "
+#| "house (a box), and hide inside. Check the objective world to see exactly "
+#| "what this means."
+msgid ""
+"Our second program will be a bit more complicated, but not much. The goal "
+"for your buggle is simply to draw a house (a box), and hide inside. Check "
+"the objective world to see exactly what this means."
+msgstr ""
+"<a name=\"Objectives\"/> nosso segundo programa será um pouco mais "
+"complicado, mas não muito. O objetivo é que seu buggle simplesmente desenhe "
+"uma casa (um quadrado), e se esconda dentro. Verifique o mundo objetivo para "
+"ver exatamente o que isto significa."
+
+#. type: Content of: <p>
+#: exercises/instructions/Instructions.html:14
+#, fuzzy
+#| msgid ""
+#| "Use your brush to mark the ground as you walk. Start marking the ground "
+#| "with <code>brushDown()</code>, and stop it with <code>brushUp()</code> "
+#| "afterward (e.g., to enter your house without marking its ground). The "
+#| "full list of all instructions understood by your buggle can be found in "
+#| "\"Help/About this world\"."
+msgid ""
+"For that, you will need <code>forward()</code>, <code>left()</code> and "
+"<code>right()</code>. Use your brush to mark the ground as you walk. Start "
+"marking the ground with <code>brushDown()</code>, and stop it with "
+"<code>brushUp()</code> afterward (e.g., to enter your house without marking "
+"its ground)."
+msgstr ""
+"Use seu pincel para marcar o chão à medida em que anda. Comece a marcar o "
+"chão com <code>brushDown()</code>, e pare com <code>brushUp()</code> (e.g., "
+"para entrar na sua casa sem marcar o chão). A lista completa de todas as "
+"instruções que o buggle entende pode ser encontrada em \"Ajuda/Sobre este "
+"mundo\"."
+
+#. type: Content of: <h3>
+#: exercises/instructions/Instructions.html:20
+msgid "What exactly is a program?"
+msgstr ""
+
+#. type: Content of: <p>
+#: exercises/instructions/Instructions.html:22
+#, fuzzy
+#| msgid ""
+#| "Programs are mainly suites of method calls, which are no more than a list "
+#| "of simple orders given to the machine. It is very similar to a recipe "
+#| "stating <i>Melt the chocolate pieces, add sugar, cool the mix and serve</"
+#| "i>.  In your programs, such built instructions are called functions or "
+#| "methods, and you should add parenthesis to invoke them:"
 msgid ""
 "Programs are mainly suites of method calls, which are no more than a list of "
 "simple orders given to the machine. It is very similar to a recipe stating "
-"<i>Melt the chocolate pieces, add sugar, cool the mix and serve</i>.  In "
-"your programs, such built instructions are called functions or methods, and "
-"you should add parenthesis to invoke them:"
+"<i>Melt the chocolate pieces, add sugar, cool the mix and serve</i>.  [!"
+"thelang] wants to have the instructions separated by semi-columns (;)[!"
+"python|scala] or by new lines[/!], and followed by parenthesis. Our little "
+"receipe would thus be written in the following way[!python|scala] (you can "
+"also add semi-columns at the end of the lines, but this is not mandatory)"
+"[/!]."
 msgstr ""
 "Programas são principalmente conjuntos de chamadas de métodos, que são nada "
 "mais que listas de ordens simples dadas à máquina. É muito semelhante a uma "
@@ -1662,26 +1715,7 @@ msgstr ""
 "métodos, e você deve acrescentar parêntesis para invocá-las:"
 
 #. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:14
-#, no-wrap
-msgid "<code class=\"code-container\">nameOfTheMethod()</code>"
-msgstr ""
-
-#. type: Content of: <p>
-#: exercises/instructions/Instructions.html:16
-msgid ""
-"[!thelang] wants to have the instructions separated by semi-columns (;)[!"
-"python|scala] or by new lines[/!].  The previous example would thus be "
-"written in the following way[!python|scala] (you can also add semi-columns "
-"at the end of the lines, but this is not mandatory)[/!]."
-msgstr ""
-"[!thelang] precisa das instruções separadas por ponto-e-vírgula (;)[!python|"
-"scala] ou por quebra de linhas[/!].  O exemplo anterior poderia ter sido "
-"escrito da seguinte forma[!python|scala] (você também pode adicionar ponto-e-"
-"vírgula no final das linhas, mas isto não é obrigatório)[/!]."
-
-#. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:21
+#: exercises/instructions/Instructions.html:33
 #, fuzzy, no-wrap
 #| msgid ""
 #| "meltTheChocolatePieces()[!java|c];[/!]\n"
@@ -1689,62 +1723,40 @@ msgstr ""
 #| "coolMix()[!java|c];[/!]\n"
 #| "serve()[!java|c];[/!]\n"
 msgid ""
-"<code class=\"code-container\">meltTheChocolatePieces()[!java|c];[/!]\n"
+"meltTheChocolatePieces()[!java|c];[/!]\n"
 "addSugar()[!java|c];[/!]\n"
 "coolMix()[!java|c];[/!]\n"
 "serve()[!java|c];[/!]\n"
-"</code>"
 msgstr ""
 "derretaOsPedaçosDeChocolate()[!java|c];[/!]\n"
 "adicioneAçucar()[!java|c];[/!]\n"
 "mexa()[!java|c];[/!]\n"
 "sirva()[!java|c];[/!]\n"
 
-#. type: Content of: outside any tag (error?)
-#: exercises/instructions/Instructions.html:27
-#: exercises/variables/Variables.html:153
-msgid "[!python|scala]"
-msgstr "[!python|scala]"
-
 #. type: Content of: <p>
-#: exercises/instructions/Instructions.html:28
+#: exercises/instructions/Instructions.html:39
 msgid ""
-"It could also be written in the following way, but it's generally considered "
-"as a bad practice to group several instructions on the same line since it "
-"greatly hinders the readability."
+"Do not write it all on one line only even if the computer would accept it [!"
+"python|scala](provided that you don't omit the semi-columns)[/!]. This is a "
+"<b>really bad idea</b>, hindering the readability.  <i>Programs must be "
+"written for people to read, and only incidentally for machines to execute,</"
+"i> as said Harold Abelson."
 msgstr ""
-"Também pode ser escrito da seguinte forma, mas geralmente isto é considerado "
-"como uma prática ruim para agrupar várias instruções na mesma linha já que "
-"prejudica muito a legibilidade."
-
-#. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:31
-#, fuzzy, no-wrap
-#| msgid "meltTheChocolatePieces(); addSugar(); coolMix(); serve()\n"
-msgid ""
-"<code class=\"code-container\">\n"
-"meltTheChocolatePieces(); addSugar(); coolMix(); serve()\n"
-"</code>"
-msgstr "derretaOsPedaçosDeChocolate(); adicioneAçucar(); mexa(); sirva()\n"
 
 #. type: Content of: <p>
-#: exercises/instructions/Instructions.html:36
+#: exercises/instructions/Instructions.html:46
+#, fuzzy
+#| msgid ""
+#| "For now, we'll simply go for the buggle instructions. There is a method "
+#| "for each button of the interactive control panel. To achieve the same "
+#| "effect than the <b>forward</b> button (making the buggle moving one step "
+#| "forward), you need to write the following in the editor:"
 msgid ""
-"Of course, these specific methods do not exist by default in [!thelang], but "
-"it may be possible to define them by yourself (we'll see later how to define "
-"your how methods)."
-msgstr ""
-"Obviamente, estes métodos específicos não existem por padrão em [!thelang], "
-"mas é possível definí-los você mesmo (vamos ver mais tarde como definir seus "
-"próprios métodos)."
-
-#. type: Content of: <p>
-#: exercises/instructions/Instructions.html:40
-msgid ""
-"For now, we'll simply go for the buggle instructions. There is a method for "
-"each button of the interactive control panel. To achieve the same effect "
-"than the <b>forward</b> button (making the buggle moving one step forward), "
-"you need to write the following in the editor:"
+"There is a limited set of instructions that buggles understand, and we will "
+"eventually learn how to define new ones. For now, there is a method for each "
+"button of the interactive control panel. To achieve the same effect than the "
+"<b>forward</b> button (making the buggle moving one step forward), you need "
+"to write the following in the editor:"
 msgstr ""
 "Por enquanto, vamos ficar apenas com as instruções do buggle. Existe um "
 "método para cada botão do painel de controle interativo. Para alcançar o "
@@ -1752,15 +1764,15 @@ msgstr ""
 "você precisa escrever o seguinte no editor:"
 
 #. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:45
-#: exercises/environment/Environment.html:43
+#: exercises/instructions/Instructions.html:53
+#: exercises/environment/Environment.html:20
 #, fuzzy, no-wrap
 #| msgid "[!java|scala|python]forward()[!java];[/!][/!][!c]stepForward();[/!]"
-msgid "<code class=\"code-container\">[!java|scala|python]forward()[!java];[/!][/!][!c]stepForward();[/!]</code>"
+msgid "[!java|scala|python]forward()[!java];[/!][/!][!c]stepForward();[/!]"
 msgstr "[!java|scala|python]avançar()[!java];[/!][/!][!c]avançarUmPasso();[/!]"
 
 #. type: Content of: <p>
-#: exercises/instructions/Instructions.html:46
+#: exercises/instructions/Instructions.html:54
 msgid ""
 "Likewise, to achieve the same effect than the <b>[!java|scala|"
 "python]backward[/!][!c]stepBackward[/!]</b>, <b>left</b> and <b>right</b> "
@@ -1771,24 +1783,23 @@ msgstr ""
 "b>, você precisa respectivamente:"
 
 #. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:48
+#: exercises/instructions/Instructions.html:58
 #, fuzzy, no-wrap
 #| msgid ""
 #| "backward()[!java|c];[/!]\n"
 #| "left()[!java|c];[/!]\n"
 #| "right()[!java|c];[/!]\n"
 msgid ""
-"<code class=\"code-container\">backward()[!java|c];[/!]\n"
+"backward()[!java|c];[/!]\n"
 "left()[!java|c];[/!]\n"
 "right()[!java|c];[/!]\n"
-"</code>"
 msgstr ""
 "recuar()[!java|c];[/!]\n"
 "esquerda()[!java|c];[/!]\n"
 "direita()[!java|c];[/!]\n"
 
 #. type: Content of: <p>
-#: exercises/instructions/Instructions.html:53
+#: exercises/instructions/Instructions.html:63
 msgid ""
 "The <b>mark</b> button is a bit particular, since it correspond to two "
 "methods: the first one moves the pen up while the second moves it down."
@@ -1797,61 +1808,26 @@ msgstr ""
 "primeiro move a caneta para cima e o segundo move a caneta para baixo."
 
 #. type: Content of: <pre>
-#: exercises/instructions/Instructions.html:55
+#: exercises/instructions/Instructions.html:67
 #, fuzzy, no-wrap
 #| msgid ""
 #| "brushUp()[!java|c];[/!]\n"
 #| "brushDown()[!java|c];[/!]\n"
 msgid ""
-"<code class=\"code-container\">brushUp()[!java|c];[/!]\n"
+"brushUp()[!java|c];[/!]\n"
 "brushDown()[!java|c];[/!]\n"
-"</code>"
 msgstr ""
 "levantarPincel()[!java|c];[/!]\n"
 "abaixarPincel()[!java|c];[/!]\n"
 
 #. type: Content of: <p>
-#: exercises/instructions/Instructions.html:58
+#: exercises/instructions/Instructions.html:71
 msgid ""
 "The buggle offers other methods, that are presented from the \"Help/about "
 "this world\" menu and will be introduced on need."
 msgstr ""
 "O buggle tem outros métodos, que estão no menu \"Ajuda/sobre este mundo\" e "
 "serão introduzidos quando forem necessários."
-
-#. type: Content of: outside any tag (error?)
-#: exercises/instructions/Instructions.html:62
-msgid ""
-"<a name=\"Objectives\"/> Our second program will be a bit more complicated, "
-"but not much. The goal for your buggle is simply to draw a house (a box), "
-"and hide inside. Check the objective world to see exactly what this means."
-msgstr ""
-"<a name=\"Objectives\"/> nosso segundo programa será um pouco mais "
-"complicado, mas não muito. O objetivo é que seu buggle simplesmente desenhe "
-"uma casa (um quadrado), e se esconda dentro. Verifique o mundo objetivo para "
-"ver exatamente o que isto significa."
-
-#. type: Content of: <p>
-#: exercises/instructions/Instructions.html:67
-#, fuzzy
-#| msgid ""
-#| "Use your brush to mark the ground as you walk. Start marking the ground "
-#| "with <code>brushDown()</code>, and stop it with <code>brushUp()</code> "
-#| "afterward (e.g., to enter your house without marking its ground). The "
-#| "full list of all instructions understood by your buggle can be found in "
-#| "\"Help/About this world\"."
-msgid ""
-"Use your brush to mark the ground as you walk. Start marking the ground with "
-"<code>brushDown()</code>, and stop it with <code>brushUp()</code> afterward "
-"(e.g., to enter your house without marking its ground). The full list of all "
-"instructions understood by your buggle can be found by clicking on the "
-"button <i>API</i> of the <i>Code editor</i> section."
-msgstr ""
-"Use seu pincel para marcar o chão à medida em que anda. Comece a marcar o "
-"chão com <code>brushDown()</code>, e pare com <code>brushUp()</code> (e.g., "
-"para entrar na sua casa sem marcar o chão). A lista completa de todas as "
-"instruções que o buggle entende pode ser encontrada em \"Ajuda/Sobre este "
-"mundo\"."
 
 #. type: Content of: <h2>
 #: exercises/conditions/Conditions.html:2
@@ -2235,160 +2211,54 @@ msgid "When your program works, move forward to the next exercise."
 msgstr "Quando o seu programa funciona, vá para o próximo exercício."
 
 #. type: Content of: <h2>
-#: exercises/environment/Environment.html:2
-msgid "Welcome in the Buggles' World"
-msgstr "Bem-vindo ao mundo dos Buggles"
+#: exercises/environment/Environment.html:3
+msgid "Welcome to the PLM"
+msgstr ""
 
 #. type: Content of: <p>
-#: exercises/environment/Environment.html:4
-#, fuzzy
-#| msgid ""
-#| "You just started the Programmer's Learning Machine. This is a Learning "
-#| "Management System aiming at teaching the art of computer programming "
-#| "through interactive exercises. It is constituted by a set of exercises "
-#| "grouped by lessons, allowing you to practice at your own pace. Currently, "
-#| "the environment is configured to be programmed in the [!thelang/] "
-#| "programming language, but you can change it from the Language menu if you "
-#| "want, or by clicking on the [!thelang/] icon at the right of the status "
-#| "bar below."
+#: exercises/environment/Environment.html:5
 msgid ""
-"You just started the Programmer's Learning Machine. This is a Learning "
-"Management System aiming at teaching the art of computer programming through "
-"interactive exercises. It is constituted by a set of exercises grouped by "
-"lessons, allowing you to practice at your own pace. Currently, the "
-"environment is configured to be programmed in the [!thelang/] programming "
-"language, but you can change it from the dropdown menu in the top bar if you "
-"want."
+"The goal of this first exercise is to instruct your buggle to move forward "
+"by one step. Switch between the views on the right for more info. <i>World</"
+"i> depicts the world as it is now, while <i>Objective</i> depicts what you "
+"should get."
 msgstr ""
-"Você acaba de iniciar o Programmer's Learning Machine (ou Máquina de "
-"Aprendizado do Programador). Este é um sistema de gestão de aprendizagem "
-"para ensinar a arte da programação de computadores através de exercícios "
-"interativos. É formado por um conjunto de exercícios agrupados por lições, "
-"para que você possa aprender no seu tempo. No momento, o ambiente está "
-"configurado para ser programado na linguagem de programação [!thelang/], mas "
-"você pode mudar isto no menu de Idioma/linguagem se você quiser, ou clicando "
-"no ícone [!thelang/] na direita da barra de status."
-
-#. type: Content of: <p>
-#: exercises/environment/Environment.html:11
-msgid ""
-"In this first lesson, the buggles will lead your first steps in programming."
-msgstr ""
-"Nesta primeira lição, os buggles vão guiar seus primeiros passos na "
-"programação."
 
 #. type: Content of: <h3>
-#: exercises/environment/Environment.html:13
-msgid "The <i>buggles</i>? What is this??"
+#: exercises/environment/Environment.html:10
+#, fuzzy
+#| msgid "The <i>buggles</i>? What is this??"
+msgid "My <i>buggle</i>? What is this??"
 msgstr "Os <i>buggles</i>? O que é isso??"
 
 #. type: Content of: <p>
-#: exercises/environment/Environment.html:15
-#, fuzzy
-#| msgid ""
-#| "The buggles are little animals obeying any order you may give them. In "
-#| "each exercise, you have to provide them with the right instructions so "
-#| "that the world turns into the objective of the exercise. For example in "
-#| "this exercise, you should instruct your buggle to move forward once. You "
-#| "can see that by checking the difference between the <i>World</i> view and "
-#| "the <i>Objective</i> one.  Depending on the exercise (and your settings "
-#| "in the Language menu), your code must be written in either C, Java, "
-#| "Python or Scala."
+#: exercises/environment/Environment.html:12
 msgid ""
-"The buggles are little animals obeying any order you may give them. In each "
-"exercise, you have to provide them with the right instructions so that the "
-"world turns into the objective of the exercise. For example in this "
-"exercise, you should instruct your buggle to move forward once. You can see "
-"that by checking the difference between the <i>World</i> view and the "
-"<i>Objective</i> one.  Depending on the exercise and your settings, your "
-"code must be written in either C, Java, Python or Scala."
+"Buggles are little animals obeying any order you may give them. Currently, "
+"you must use the [!thelang/] programming language for that, but you can "
+"change the language from the menu, or by clicking the icon in the status bar."
 msgstr ""
-"Os buggles são pequenos animais que obedecem a qualquer ordem que você dá a "
-"eles. Em cada exercício, você tem que fornecer a eles as instruções corretas "
-"para que o mundo se torne o objetivo do exercício. Por exemplo, neste "
-"exercício você deve instruir seu buggle a avançar um passo. Você pode ver "
-"isto verificando a diferença entre a visão <i>Mundo</i> e a visão "
-"<i>Objetivo</i>. Dependendo das lições (e suas configurações no menu Idioma/"
-"linguagem), seu código deve ser escrito em C, Java, Python ou Scala."
 
 #. type: Content of: <h3>
-#: exercises/environment/Environment.html:23
-msgid "Working environment"
-msgstr "Ambiente de trabalho"
-
-#. type: Content of: <p>
-#: exercises/environment/Environment.html:25
+#: exercises/environment/Environment.html:17
 #, fuzzy
-#| msgid ""
-#| "Before going any further, get familiar with the working environment. Have "
-#| "a look at the several elements composing the main window, move your mouse "
-#| "over them to show the tooltip, and experiment with the elements to see "
-#| "what they do.  The white area below is the console: this is where errors "
-#| "and messages get displayed."
-msgid ""
-"Before going any further, get familiar with the working environment. Have a "
-"look at the several elements composing the main window, move your mouse over "
-"them to show the tooltip, and experiment with the elements to see what they "
-"do.  The <i>Execution results</i> section below is the console: this is "
-"where errors and messages get displayed."
-msgstr ""
-"Antes de seguir adiante, se acostume com o ambiente de trabalho. Dê uma "
-"olhada nos vários elementos que compõe a janela principal, mova seu mouse "
-"sobre eles para ver as dicas, e experimente os elementos para ver o que eles "
-"fazem. A área branca abaixo é o console: é onde erros e mensagens aparecem."
+#| msgid "How to do this?"
+msgid "How to proceed?"
+msgstr "Como fazer isto?"
 
 #. type: Content of: <p>
-#: exercises/environment/Environment.html:31
-msgid ""
-"If your code contains errors (and code always do at some point), the "
-"computer will display error messages in the console. You obviously have to "
-"fix the errors to pass the exercises. The messages that get displayed may "
-"sound scary at first glance, but don't panic. The compiler is only somehow "
-"limited in its communication abilities, but he's not mean. If you look "
-"closer, the solution to solve your issue is written in the middle of those "
-"cryptic messages. You will see, with a bit of habit, we get used to it."
+#: exercises/environment/Environment.html:19
+msgid "Write your program in the \"Code\" pane. It should read as follows:"
 msgstr ""
-"Se seu código tem erros (e qualquer código sempre vai ter em algum momento), "
-"o computador vai exibir mensagens de erro no console. Você obviamente terá "
-"que consertar os erros para passar nos exercícios. As mensagens que são "
-"mostradas podem soar assustadoras à primeira vista, mas não entre em pânico. "
-"O compilador é meio limitado nas suas capacidades de comunicação, mas ele "
-"não faz de má-vontade. Se você olhar de perto, a solução para o problema "
-"está escrita no meio daquelas mensagens complicadas. Você vai notar que com "
-"um pouco de hábito a gente se acostuma."
-
-#. type: Content of: <h3>
-#: exercises/environment/Environment.html:39
-msgid "What am I supposed to do?"
-msgstr "O que eu devo fazer?"
-
-#. type: Content of: <p>
-#: exercises/environment/Environment.html:41
-#, fuzzy
-#| msgid ""
-#| "It's time to write your first program. Simply ask your buggle to move one "
-#| "step forward using the Source Code pane. For that, simply write the "
-#| "following code (clicking on the interactive controls is not enough: You "
-#| "have to write the code after experimenting interactively)."
-msgid ""
-"It's time to write your first program. Simply ask your buggle to move one "
-"step forward using the <i>Code editor</i> pane. For that, simply write the "
-"following code:"
-msgstr ""
-"É chegada a hora de construir seu primeiro programa. Simplesmente peça a seu "
-"buggle para dar um passo para frente usando o painel SourceCode (Código "
-"Fonte). Para isto, simplesmente escreva o seguinte código (clicar nos "
-"controles iterativos não é o suficiente: você tem que escrever  o código e "
-"depois experimentar interativamente)."
 
 #. type: Content of: outside any tag (error?)
-#: exercises/environment/Environment.html:44 exercises/loopfor/LoopFor.html:57
+#: exercises/environment/Environment.html:21 exercises/loopfor/LoopFor.html:57
 #: exercises/bdr/BDR.html:188
 msgid "[!java|c]"
 msgstr "[!java|c]"
 
 #. type: Content of: <p>
-#: exercises/environment/Environment.html:44
+#: exercises/environment/Environment.html:21
 msgid ""
 "Do not forget the final <code>;</code> which tells the compiler that the "
 "instruction is over (yes, computers are so dumb that they cannot <i>guess</"
@@ -2399,14 +2269,44 @@ msgstr ""
 "<i>adivinhar</i> coisas óbvias como isto)."
 
 #. type: Content of: <p>
-#: exercises/environment/Environment.html:48
-msgid ""
-"Once done, click on the button <a><i class=\"mdi mdi-play\"></i></a> in the "
-"<i>Test cases</i> panel to run your program. You can proceed to next "
-"exercise once it works. To move to the next exercise, click on the upper "
-"left button to show the sidebar. Then click on the next item of the "
-"exercises list."
+#: exercises/environment/Environment.html:25
+#, fuzzy
+#| msgid ""
+#| "Once done, click on run. You can proceed to next exercise once it works."
+msgid "Once done, click on Run to execute your code."
 msgstr ""
+"Uma vez feito, clique em rodar. Você pode seguir para o próximo exercício "
+"assim que este funcionar."
+
+#. type: Content of: <p>
+#: exercises/environment/Environment.html:27
+#, fuzzy
+#| msgid ""
+#| "If your code contains errors (and code always do at some point), the "
+#| "computer will display error messages in the console. You obviously have "
+#| "to fix the errors to pass the exercises. The messages that get displayed "
+#| "may sound scary at first glance, but don't panic. The compiler is only "
+#| "somehow limited in its communication abilities, but he's not mean. If you "
+#| "look closer, the solution to solve your issue is written in the middle of "
+#| "those cryptic messages. You will see, with a bit of habit, we get used to "
+#| "it."
+msgid ""
+"If your code contains errors, that's perfectly OK: Even talented programmers "
+"struggle on their code.  The computer will display error messages in the "
+"console to help you fixing them. These messages may sound scary at first "
+"glance, but don't panic. The compiler is only somehow limited in its "
+"communication abilities, but it's not mean. If you look closer, the solution "
+"to solve your issue is written somewhere in those cryptic messages. You will "
+"see, with a bit of habit, we get used to it."
+msgstr ""
+"Se seu código tem erros (e qualquer código sempre vai ter em algum momento), "
+"o computador vai exibir mensagens de erro no console. Você obviamente terá "
+"que consertar os erros para passar nos exercícios. As mensagens que são "
+"mostradas podem soar assustadoras à primeira vista, mas não entre em pânico. "
+"O compilador é meio limitado nas suas capacidades de comunicação, mas ele "
+"não faz de má-vontade. Se você olhar de perto, a solução para o problema "
+"está escrita no meio daquelas mensagens complicadas. Você vai notar que com "
+"um pouco de hábito a gente se acostuma."
 
 #. type: Content of: <h2>
 #: exercises/variables/RunHalf.html:2
@@ -2984,6 +2884,11 @@ msgstr ""
 "quantidadeDePassos + 1;</code>[!java] ou <code>quantidadeDePassos++;</code>, "
 "ambas as sintaxes são equivalentes[/!]).  Tais variáveis que pegam cada "
 "valor de um dado intervalo são normalmente chamadas de <b>stepper</b>."
+
+#. type: Content of: outside any tag (error?)
+#: exercises/variables/Variables.html:153
+msgid "[!python|scala]"
+msgstr "[!python|scala]"
 
 #. type: Content of: <p>
 #: exercises/variables/Variables.html:154
@@ -11815,6 +11720,153 @@ msgstr "Mova seis passos para trás"
 msgid "When you program works again, proceed to next exercise."
 msgstr "Quando seu programa funcionar de novo, vá para o próximo exercício."
 
+#~ msgid ""
+#~ "[!thelang] wants to have the instructions separated by semi-columns (;)[!"
+#~ "python|scala] or by new lines[/!].  The previous example would thus be "
+#~ "written in the following way[!python|scala] (you can also add semi-"
+#~ "columns at the end of the lines, but this is not mandatory)[/!]."
+#~ msgstr ""
+#~ "[!thelang] precisa das instruções separadas por ponto-e-vírgula (;)[!"
+#~ "python|scala] ou por quebra de linhas[/!].  O exemplo anterior poderia "
+#~ "ter sido escrito da seguinte forma[!python|scala] (você também pode "
+#~ "adicionar ponto-e-vírgula no final das linhas, mas isto não é obrigatório)"
+#~ "[/!]."
+
+#~ msgid ""
+#~ "It could also be written in the following way, but it's generally "
+#~ "considered as a bad practice to group several instructions on the same "
+#~ "line since it greatly hinders the readability."
+#~ msgstr ""
+#~ "Também pode ser escrito da seguinte forma, mas geralmente isto é "
+#~ "considerado como uma prática ruim para agrupar várias instruções na mesma "
+#~ "linha já que prejudica muito a legibilidade."
+
+#, fuzzy
+#~| msgid "meltTheChocolatePieces(); addSugar(); coolMix(); serve()\n"
+#~ msgid ""
+#~ "<code class=\"code-container\">\n"
+#~ "meltTheChocolatePieces(); addSugar(); coolMix(); serve()\n"
+#~ "</code>"
+#~ msgstr "derretaOsPedaçosDeChocolate(); adicioneAçucar(); mexa(); sirva()\n"
+
+#~ msgid ""
+#~ "Of course, these specific methods do not exist by default in [!thelang], "
+#~ "but it may be possible to define them by yourself (we'll see later how to "
+#~ "define your how methods)."
+#~ msgstr ""
+#~ "Obviamente, estes métodos específicos não existem por padrão em [!"
+#~ "thelang], mas é possível definí-los você mesmo (vamos ver mais tarde como "
+#~ "definir seus próprios métodos)."
+
+#~ msgid "Welcome in the Buggles' World"
+#~ msgstr "Bem-vindo ao mundo dos Buggles"
+
+#, fuzzy
+#~| msgid ""
+#~| "You just started the Programmer's Learning Machine. This is a Learning "
+#~| "Management System aiming at teaching the art of computer programming "
+#~| "through interactive exercises. It is constituted by a set of exercises "
+#~| "grouped by lessons, allowing you to practice at your own pace. "
+#~| "Currently, the environment is configured to be programmed in the [!"
+#~| "thelang/] programming language, but you can change it from the Language "
+#~| "menu if you want, or by clicking on the [!thelang/] icon at the right of "
+#~| "the status bar below."
+#~ msgid ""
+#~ "You just started the Programmer's Learning Machine. This is a Learning "
+#~ "Management System aiming at teaching the art of computer programming "
+#~ "through interactive exercises. It is constituted by a set of exercises "
+#~ "grouped by lessons, allowing you to practice at your own pace. Currently, "
+#~ "the environment is configured to be programmed in the [!thelang/] "
+#~ "programming language, but you can change it from the dropdown menu in the "
+#~ "top bar if you want."
+#~ msgstr ""
+#~ "Você acaba de iniciar o Programmer's Learning Machine (ou Máquina de "
+#~ "Aprendizado do Programador). Este é um sistema de gestão de aprendizagem "
+#~ "para ensinar a arte da programação de computadores através de exercícios "
+#~ "interativos. É formado por um conjunto de exercícios agrupados por "
+#~ "lições, para que você possa aprender no seu tempo. No momento, o ambiente "
+#~ "está configurado para ser programado na linguagem de programação [!"
+#~ "thelang/], mas você pode mudar isto no menu de Idioma/linguagem se você "
+#~ "quiser, ou clicando no ícone [!thelang/] na direita da barra de status."
+
+#~ msgid ""
+#~ "In this first lesson, the buggles will lead your first steps in "
+#~ "programming."
+#~ msgstr ""
+#~ "Nesta primeira lição, os buggles vão guiar seus primeiros passos na "
+#~ "programação."
+
+#, fuzzy
+#~| msgid ""
+#~| "The buggles are little animals obeying any order you may give them. In "
+#~| "each exercise, you have to provide them with the right instructions so "
+#~| "that the world turns into the objective of the exercise. For example in "
+#~| "this exercise, you should instruct your buggle to move forward once. You "
+#~| "can see that by checking the difference between the <i>World</i> view "
+#~| "and the <i>Objective</i> one.  Depending on the exercise (and your "
+#~| "settings in the Language menu), your code must be written in either C, "
+#~| "Java, Python or Scala."
+#~ msgid ""
+#~ "The buggles are little animals obeying any order you may give them. In "
+#~ "each exercise, you have to provide them with the right instructions so "
+#~ "that the world turns into the objective of the exercise. For example in "
+#~ "this exercise, you should instruct your buggle to move forward once. You "
+#~ "can see that by checking the difference between the <i>World</i> view and "
+#~ "the <i>Objective</i> one.  Depending on the exercise and your settings, "
+#~ "your code must be written in either C, Java, Python or Scala."
+#~ msgstr ""
+#~ "Os buggles são pequenos animais que obedecem a qualquer ordem que você dá "
+#~ "a eles. Em cada exercício, você tem que fornecer a eles as instruções "
+#~ "corretas para que o mundo se torne o objetivo do exercício. Por exemplo, "
+#~ "neste exercício você deve instruir seu buggle a avançar um passo. Você "
+#~ "pode ver isto verificando a diferença entre a visão <i>Mundo</i> e a "
+#~ "visão <i>Objetivo</i>. Dependendo das lições (e suas configurações no "
+#~ "menu Idioma/linguagem), seu código deve ser escrito em C, Java, Python ou "
+#~ "Scala."
+
+#~ msgid "Working environment"
+#~ msgstr "Ambiente de trabalho"
+
+#, fuzzy
+#~| msgid ""
+#~| "Before going any further, get familiar with the working environment. "
+#~| "Have a look at the several elements composing the main window, move your "
+#~| "mouse over them to show the tooltip, and experiment with the elements to "
+#~| "see what they do.  The white area below is the console: this is where "
+#~| "errors and messages get displayed."
+#~ msgid ""
+#~ "Before going any further, get familiar with the working environment. Have "
+#~ "a look at the several elements composing the main window, move your mouse "
+#~ "over them to show the tooltip, and experiment with the elements to see "
+#~ "what they do.  The <i>Execution results</i> section below is the console: "
+#~ "this is where errors and messages get displayed."
+#~ msgstr ""
+#~ "Antes de seguir adiante, se acostume com o ambiente de trabalho. Dê uma "
+#~ "olhada nos vários elementos que compõe a janela principal, mova seu mouse "
+#~ "sobre eles para ver as dicas, e experimente os elementos para ver o que "
+#~ "eles fazem. A área branca abaixo é o console: é onde erros e mensagens "
+#~ "aparecem."
+
+#~ msgid "What am I supposed to do?"
+#~ msgstr "O que eu devo fazer?"
+
+#, fuzzy
+#~| msgid ""
+#~| "It's time to write your first program. Simply ask your buggle to move "
+#~| "one step forward using the Source Code pane. For that, simply write the "
+#~| "following code (clicking on the interactive controls is not enough: You "
+#~| "have to write the code after experimenting interactively)."
+#~ msgid ""
+#~ "It's time to write your first program. Simply ask your buggle to move one "
+#~ "step forward using the <i>Code editor</i> pane. For that, simply write "
+#~ "the following code:"
+#~ msgstr ""
+#~ "É chegada a hora de construir seu primeiro programa. Simplesmente peça a "
+#~ "seu buggle para dar um passo para frente usando o painel SourceCode "
+#~ "(Código Fonte). Para isto, simplesmente escreva o seguinte código (clicar "
+#~ "nos controles iterativos não é o suficiente: você tem que escrever  o "
+#~ "código e depois experimentar interativamente)."
+
 #~ msgid "BuggleWorld"
 #~ msgstr "BuggleWorld"
 
@@ -12292,12 +12344,6 @@ msgstr "Quando seu programa funcionar de novo, vá para o próximo exercício."
 #~ "vai dominar a sintaxe o suficiente para não ter qualquer problema com "
 #~ "ela, permitindo que você foque nos problemas funcamentais que você quer "
 #~ "resolver ao invés de se debater com dificuldades de sintaxe."
-
-#~ msgid ""
-#~ "Once done, click on run. You can proceed to next exercise once it works."
-#~ msgstr ""
-#~ "Uma vez feito, clique em rodar. Você pode seguir para o próximo exercício "
-#~ "assim que este funcionar."
 
 #~ msgid "nameOfTheMethod()"
 #~ msgstr "nomeDoMétodo()"
