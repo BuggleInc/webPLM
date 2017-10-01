@@ -1,8 +1,8 @@
 package models.lesson
 
-import plm.core.model.lesson.tip.AbstractTipFactory
 import java.util.Locale
-import plm.core.model.I18nManager
+
+import plm.core.model.lesson.tip.AbstractTipFactory
 
 class TipFactory extends AbstractTipFactory {
 

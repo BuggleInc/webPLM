@@ -2,7 +2,6 @@ package models.lesson
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import play.api.i18n.Lang
 
 /**
  * @author matthieu
@@ -14,10 +13,10 @@ object Lesson {
     (JsPath \ "lectures").read[Array[Lecture]]
   )(Lesson.apply _)
   
-  def arrayToJson(lessons: Array[Lesson], humanLang: Lang): JsArray = {
+  def arrayToJson(lessons: Array[Lesson], humanLanguageCode: String): JsArray = {
     var jsonLessons: JsArray = Json.arr()
     lessons.foreach { lesson: Lesson =>
-      jsonLessons = jsonLessons.append(lesson.toJson(humanLang))
+      jsonLessons = jsonLessons.append(lesson.toJson(humanLanguageCode))
     }
     jsonLessons
   }
@@ -43,11 +42,11 @@ case class Lesson(id: String, name: Option[String], lectures: Array[Lecture]) {
     orderedIDs.contains(exerciseID)
   }
 
-  def toJson(lang: Lang): JsObject = {
+  def toJson(languageCode: String): JsObject = {
     val imgPath: String = "lessons/" + id.replaceAll("\\.", "/") + "/icon.png"
     val descriptions: Map[String, String] = optDescriptions.get
     val defaultDescription: String = descriptions.get("en").get
-    val description: String = descriptions.getOrElse(lang.code, defaultDescription)
+    val description: String = descriptions.getOrElse(languageCode, defaultDescription)
     
     Json.obj(
       "id" -> id,

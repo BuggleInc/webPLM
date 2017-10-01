@@ -113,6 +113,9 @@ class PLMActor(pushActor: ActorRef,
 
   registerActor
 
+  private def checkExercisePassed(exercise: Exercise, progLang: ProgrammingLanguage): Future[Boolean] =
+    (sessionActor ? SessionActor.IsExercisePassed(exercise, progLang)).mapTo[Boolean]
+
   def receive = {
     case msg: JsValue =>
       Logger.debug("Received a message")
@@ -142,7 +145,7 @@ class PLMActor(pushActor: ActorRef,
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
           val jsonLessons: JsArray =
-            Lesson.arrayToJson(lessons.lessonsList, currentHumanLang)
+            Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code)
           sendMessage("lessons", Json.obj(
             "lessons" -> jsonLessons
           ))
@@ -152,9 +155,10 @@ class PLMActor(pushActor: ActorRef,
             case Some(lessonName: String) =>
               val jsonLectures: JsArray =
                 Lecture.arrayToJson(
-                  sessionActor,
+                  Logger.logger,
+                  checkExercisePassed,
                   lessons.exercisesList(lessonName),
-                  currentHumanLang,
+                  currentHumanLang.code,
                   currentProgLang,
                   exercises)
               sendMessage("lectures", Json.obj(
@@ -579,7 +583,7 @@ class PLMActor(pushActor: ActorRef,
 
   def generateUpdatedLessonsListJson(): JsValue = {
     Json.obj(
-      "lessons" -> Lesson.arrayToJson(lessons.lessonsList, currentHumanLang)
+      "lessons" -> Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code)
     )
   }
 
@@ -589,9 +593,10 @@ class PLMActor(pushActor: ActorRef,
         Json.obj(
           "lectures" ->
             Lecture.arrayToJson(
-              sessionActor,
+              Logger.logger,
+              checkExercisePassed,
               lessons.exercisesList(lessonName),
-              currentHumanLang,
+              currentHumanLang.code,
               currentProgLang,
               exercises))
       case _ => Json.obj() 
