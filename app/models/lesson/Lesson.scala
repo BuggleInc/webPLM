@@ -1,58 +1,54 @@
 package models.lesson
 
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
+import com.google.gson.{JsonArray, JsonElement, JsonObject}
+import json.GsonUtil.{getOptionalGsonMember, iterableToGsonArray}
+
+import scala.collection.JavaConverters._
+
 
 /**
  * @author matthieu
  */
 object Lesson {
-  implicit val lessonReads: Reads[Lesson] = (
-    (JsPath \ "id").read[String] and
-    (JsPath \ "name").readNullable[String] and
-    (JsPath \ "lectures").read[Array[Lecture]]
-  )(Lesson.apply _)
-  
-  def arrayToJson(lessons: Array[Lesson], humanLanguageCode: String): JsArray = {
-    var jsonLessons: JsArray = Json.arr()
-    lessons.foreach { lesson: Lesson =>
-      jsonLessons = jsonLessons.append(lesson.toJson(humanLanguageCode))
-    }
-    jsonLessons
+
+  def fromJson(json: JsonElement): Lesson = {
+    val root = json.getAsJsonObject
+    val name = root.get("name")
+    new Lesson(
+      root.get("id").getAsString,
+      getOptionalGsonMember(root, "name").map(_.getAsString),
+      root.get("lectures").getAsJsonArray.asScala.map(Lecture.fromJson).toArray
+    )
+  }
+
+  def arrayToJson(lessons: Array[Lesson], humanLanguageCode: String): JsonArray = {
+    iterableToGsonArray(lessons.map(_.toJson(humanLanguageCode)))
   }
 }
 
 case class Lesson(id: String, name: Option[String], lectures: Array[Lecture]) {
 
-  val orderedIDs: Array[String] = orderIDs
+  val orderedIDs: Array[String] = lectures.view.flatMap(_.orderedIDs).toArray
 
   var optDescriptions: Option[Map[String, String]] = None
-
-  def orderIDs(): Array[String] = {
-    var array: Array[String] = Array()
-
-    lectures.foreach { lecture =>
-      array = array ++ lecture.orderIDs
-    }
-
-    array
-  }
 
   def containsExercise(exerciseID: String): Boolean = {
     orderedIDs.contains(exerciseID)
   }
 
-  def toJson(languageCode: String): JsObject = {
+  def toJson(languageCode: String): JsonObject = {
     val imgPath: String = "lessons/" + id.replaceAll("\\.", "/") + "/icon.png"
     val descriptions: Map[String, String] = optDescriptions.get
-    val defaultDescription: String = descriptions.get("en").get
+    val defaultDescription: String = descriptions("en")
     val description: String = descriptions.getOrElse(languageCode, defaultDescription)
-    
-    Json.obj(
-      "id" -> id,
-      "name" -> name,
-      "imgUrl" -> imgPath,
-      "description" -> description
-    )
+
+    val json = new JsonObject()
+    json.addProperty("id", id)
+    if (name.isDefined) {
+      json.addProperty("name", name.get)
+    }
+    json.addProperty("imgUrl", imgPath)
+    json.addProperty("description", description)
+    json
   }
 }

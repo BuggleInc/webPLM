@@ -1,9 +1,9 @@
 package models.lesson
 
-import java.io.InputStream
+import java.io.{BufferedReader, InputStream, InputStreamReader}
 
+import com.google.gson.JsonParser
 import org.slf4j.Logger
-import play.api.libs.json.Json
 
 import scala.io.Source
 
@@ -60,7 +60,8 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
     val path = lessonName.replace(".", "/") + "/main.json"
     withResource(path) {
       case Some(is: InputStream) =>
-        Some(Json.parse(is).as[Lesson])
+        val reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))
+        Some(Lesson.fromJson(new JsonParser().parse(reader)))
       case None =>
         logger.error(s"Lesson $lessonName is missing.")
         None

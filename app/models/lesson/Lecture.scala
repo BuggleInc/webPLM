@@ -1,13 +1,14 @@
 package models.lesson
 
+import com.google.gson.{JsonArray, JsonElement, JsonObject, JsonPrimitive}
+import json.GsonUtil.{getOptionalGsonMember, gsonObjectToMap, iterableToGsonArray, mapToGsonObject}
 import models.lesson.Lecture.ExercisePassedChecker
 import org.slf4j.Logger
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.Exercise
 import plm.core.ui.PlmHtmlEditorKit
 
+import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -20,47 +21,39 @@ object Lecture {
 
   type ExercisePassedChecker = (Exercise, ProgrammingLanguage) => Future[Boolean]
 
-  implicit lazy val lectureReads: Reads[Lecture] = (
-    (JsPath \ "id").read[String] and
-    (JsPath \ "names").readNullable[Map[String, String]] and
-    (JsPath \ "dependingLectures").lazyRead(Reads.seq[Lecture](lectureReads))
-  )(Lecture.apply _)
+  private def namesFromJson(json: JsonElement) =
+    gsonObjectToMap(json.getAsJsonObject).mapValues(_.getAsString)
 
-  def arrayToJson(logger: Logger, checkExercisePassed: ExercisePassedChecker, lectures: Array[Lecture], languageCode: String, progLang: ProgrammingLanguage, exercises: Exercises): JsArray = {
-    var jsonLectures: JsArray = Json.arr()
-    lectures.foreach { lecture: Lecture =>
-      jsonLectures = jsonLectures.append(lecture.toJson(logger, checkExercisePassed, languageCode, progLang, exercises))
-    }
-    jsonLectures
+  def fromJson(json: JsonElement): Lecture = {
+    val root = json.getAsJsonObject
+    val names = root.get("names")
+    new Lecture(
+      root.get("id").getAsString,
+      getOptionalGsonMember(root, "names").map(namesFromJson),
+      root.get("dependingLectures").getAsJsonArray.asScala.map(fromJson).toSeq
+    )
+  }
+
+  def arrayToJson(logger: Logger, checkExercisePassed: ExercisePassedChecker, lectures: Array[Lecture], languageCode: String, progLang: ProgrammingLanguage, exercises: Exercises): JsonArray = {
+    iterableToGsonArray(lectures.map(_.toJson(logger, checkExercisePassed, languageCode, progLang, exercises)))
   }
 }
 
 case class Lecture(id: String, optNames: Option[Map[String, String]], dependingLectures: Seq[Lecture]) {
-  def orderIDs(): Array[String] = {
-    var array: Array[String] = Array()
-    
-    array = array.+:(id)
-    
-    dependingLectures.foreach { lecture =>
-      array = array ++ lecture.orderIDs
-    }
-    
-    array
-  }
+  val orderedIDs: Array[String] = (id +: dependingLectures.view.flatMap(_.orderedIDs)).toArray
 
-  def toJson(logger: Logger, checkedExercisePassed: ExercisePassedChecker, languageCode: String, progLang: ProgrammingLanguage, exercises: Exercises): JsObject = {
+  def toJson(logger: Logger, checkedExercisePassed: ExercisePassedChecker, languageCode: String, progLang: ProgrammingLanguage, exercises: Exercises): JsonObject = {
     val names: Map[String, String] = optNames.get
-    val defaultName: String = names.get("en").get
+    val defaultName: String = names("en")
     val name: String = names.getOrElse(languageCode, defaultName)
-
     val exercisePassed: Map[String, Boolean] = generateExercisePassed(logger, checkedExercisePassed, exercises)
 
-    Json.obj(
-      "id" -> id,
-      "name" -> PlmHtmlEditorKit.filterHTML(name, false, progLang),
-      "dependingLectures" -> Lecture.arrayToJson(logger, checkedExercisePassed, dependingLectures.toArray, languageCode, progLang, exercises),
-      "exercisePassed" -> exercisePassed
-    )
+    val json = new JsonObject()
+    json.addProperty("id", id)
+    json.addProperty("name", PlmHtmlEditorKit.filterHTML(name, false, progLang))
+    json.add("dependingLectures", Lecture.arrayToJson(logger, checkedExercisePassed, dependingLectures.toArray, languageCode, progLang, exercises))
+    json.add("exercisePassed", mapToGsonObject(exercisePassed.mapValues(new JsonPrimitive(_))))
+    json
   }
 
   def generateExercisePassed(logger: Logger, checkedExercisePassed: ExercisePassedChecker, exercises: Exercises): Map[String, Boolean] = {
@@ -77,6 +70,6 @@ case class Lecture(id: String, optNames: Option[Map[String, String]], dependingL
       case None =>
         logger.info("Did not find following exercise: " + id)
     }
-    exercisePassed.toMap
+    exercisePassed
   }
 }

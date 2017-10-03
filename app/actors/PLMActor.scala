@@ -10,10 +10,12 @@ import akka.actor._
 import akka.pattern.{AskTimeoutException, ask}
 import akka.util.Timeout
 import codes.reactive.scalatime.{Duration, Instant}
+import com.google.gson.JsonArray
+import json.GsonConverters.gsonToJsValue
 import json.{LangToJson, ProgrammingLanguageToJson}
-import models.{GitHubIssueManager, ProgrammingLanguages, User}
 import models.daos.UserDAORestImpl
 import models.lesson.{Exercises, Lecture, Lesson, Lessons}
+import models.{GitHubIssueManager, ProgrammingLanguages, User}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Lang
@@ -144,16 +146,16 @@ class PLMActor(pushActor: ActorRef,
           sessionActor ! UserChanged
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
-          val jsonLessons: JsArray =
+          val jsonLessons: JsonArray =
             Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code)
           sendMessage("lessons", Json.obj(
-            "lessons" -> jsonLessons
+            "lessons" -> gsonToJsValue(jsonLessons)
           ))
         case "getExercisesList" =>
           val optLessonName: Option[String] = (msg \ "args" \ "lessonName").asOpt[String]
           optLessonName match {
             case Some(lessonName: String) =>
-              val jsonLectures: JsArray =
+              val jsonLectures: JsonArray =
                 Lecture.arrayToJson(
                   Logger.logger,
                   checkExercisePassed,
@@ -162,7 +164,7 @@ class PLMActor(pushActor: ActorRef,
                   currentProgLang,
                   exercises)
               sendMessage("lectures", Json.obj(
-                "lectures" -> jsonLectures
+                "lectures" -> gsonToJsValue(jsonLectures)
               ))
             case _ =>
               Logger.debug("getExercisesList: non-correct JSON")
@@ -583,7 +585,7 @@ class PLMActor(pushActor: ActorRef,
 
   def generateUpdatedLessonsListJson(): JsValue = {
     Json.obj(
-      "lessons" -> Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code)
+      "lessons" -> gsonToJsValue(Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code))
     )
   }
 
@@ -592,14 +594,15 @@ class PLMActor(pushActor: ActorRef,
       case Some(lessonName: String) =>
         Json.obj(
           "lectures" ->
-            Lecture.arrayToJson(
-              Logger.logger,
-              checkExercisePassed,
-              lessons.exercisesList(lessonName),
-              currentHumanLang.code,
-              currentProgLang,
-              exercises))
-      case _ => Json.obj() 
+            gsonToJsValue(
+              Lecture.arrayToJson(
+                Logger.logger,
+                checkExercisePassed,
+                lessons.exercisesList(lessonName),
+                currentHumanLang.code,
+                currentProgLang,
+                exercises)))
+      case _ => Json.obj()
     }
   }
 

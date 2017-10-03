@@ -113,7 +113,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       sendSubscribe(client, clientQueue)
 
       val parameters: Map[String, Object] = new HashMap[String, Object]
-      parameters.put("exercise", JSONUtils.exerciseToJudgeJSON(exercise)) // To remove incorrect entities' type
+      parameters.put("exercise", JSONUtils.exerciseToJudgeJSON(exercise)) // To remove useless parts and fix the rest
       parameters.put("code", code)
       parameters.put("language", progLang.getLang)
       parameters.put("localization", currentLocale.getLanguage)
@@ -121,6 +121,7 @@ class TribunalActor(initialLang: Lang) extends ExecutionActor {
       parameters.put("clientQueue", clientQueue)
 
       val json: String = JSONUtils.mapToJSON(parameters)
+  System.out.println(s"JSON: $json")
       channel.basicPublish("", QUEUE_NAME_REQUEST, null, json.getBytes("UTF-8"))
 
       timeout = System.currentTimeMillis + defaultTimeout
