@@ -49,10 +49,7 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
     val entries = for {
       lessonId <- lessonIds.view
       lesson <- loadLesson(lessonId)
-    } yield {
-      lesson.optDescriptions = Some(loadDescriptions(lessonId))
-      lessonId -> lesson
-    }
+    } yield lessonId -> lesson
     entries.toMap
   }
 
@@ -61,7 +58,7 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
     withResource(path) {
       case Some(is: InputStream) =>
         val reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))
-        Some(Lesson.fromJson(new JsonParser().parse(reader)))
+        Some(Lesson.fromJson(new JsonParser().parse(reader))(loadDescriptions(lessonName)))
       case None =>
         logger.error(s"Lesson $lessonName is missing.")
         None

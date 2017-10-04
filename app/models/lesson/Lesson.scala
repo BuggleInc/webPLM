@@ -11,23 +11,20 @@ import scala.collection.JavaConverters._
  */
 object Lesson {
 
-  def fromJson(json: JsonElement): Lesson = {
+  def fromJson(json: JsonElement)(descriptions: Map[String,String]): Lesson = {
     val root = json.getAsJsonObject
     new Lesson(
       root.get("id").getAsString,
       getOptionalGsonMember(root, "name").map(_.getAsString),
-      root.get("lectures").getAsJsonArray.asScala.map(Lecture.fromJson).toArray
+      root.get("lectures").getAsJsonArray.asScala.map(Lecture.fromJson).toArray,
+      descriptions
     )
   }
 }
 
-case class Lesson(id: String, name: Option[String], lectures: Array[Lecture]) {
+case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], descriptions: Map[String, String]) {
 
   val orderedIDs: Array[String] = lectures.view.flatMap(_.orderedIDs).toArray
 
-  var optDescriptions: Option[Map[String, String]] = None
-
-  def containsExercise(exerciseID: String): Boolean = {
-    orderedIDs.contains(exerciseID)
-  }
+  def containsExercise(exerciseID: String): Boolean =  orderedIDs.contains(exerciseID)
 }
