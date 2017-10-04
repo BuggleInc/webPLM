@@ -10,11 +10,9 @@ import akka.actor._
 import akka.pattern.{AskTimeoutException, ask}
 import akka.util.Timeout
 import codes.reactive.scalatime.{Duration, Instant}
-import com.google.gson.JsonArray
-import json.GsonConverters.gsonToJsValue
-import json.{LangToJson, ProgrammingLanguageToJson}
+import json.{LangToJson, LectureToJson, LessonToJson, ProgrammingLanguageToJson}
 import models.daos.UserDAORestImpl
-import models.lesson.{Exercises, Lecture, Lesson, Lessons}
+import models.lesson.{Exercises, Lessons}
 import models.{GitHubIssueManager, ProgrammingLanguages, User}
 import play.api.Logger
 import play.api.Play.current
@@ -43,9 +41,10 @@ object PLMActor {
             lastProgLang: Option[String],
             trackUser: Option[Boolean],
             lessons: Lessons,
-            exercises: Exercises)(out: ActorRef) =
+            exercises: Exercises,
+            lectureToJson: LectureToJson)(out: ActorRef) =
     Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang,
-      trackUser, lessons, exercises, out))
+      trackUser, lessons, exercises, lectureToJson, out))
 
   def propsWithUser(pushActor: ActorRef,
                     executionActor: ActorRef,
@@ -53,8 +52,9 @@ object PLMActor {
                     actorUUID: String,
                     lessons: Lessons,
                     exercises: Exercises,
+                    lectureToJson: LectureToJson,
                     user: User)(out: ActorRef) =
-    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, lessons, exercises, out))
+    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, lessons, exercises, lectureToJson, out))
 }
 
 class PLMActor(pushActor: ActorRef,
@@ -68,6 +68,7 @@ class PLMActor(pushActor: ActorRef,
                trackUser: Option[Boolean],
                lessons: Lessons,
                exercises: Exercises,
+               lectureToJson: LectureToJson,
                out: ActorRef)
   extends Actor {
 
@@ -78,9 +79,10 @@ class PLMActor(pushActor: ActorRef,
            user: User,
            lessons: Lessons,
            exercises: Exercises,
+           lectureToJson: LectureToJson,
            out: ActorRef) {
     this(pushActor, executionActor, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang,
-      user.lastProgLang, user.trackUser, lessons, exercises, out)
+      user.lastProgLang, user.trackUser, lessons, exercises, lectureToJson, out)
     setCurrentUser(user)
   }
 
@@ -146,25 +148,23 @@ class PLMActor(pushActor: ActorRef,
           sessionActor ! UserChanged
           gitActor ! SwitchUser(currentGitID, None)
         case "getLessons" =>
-          val jsonLessons: JsonArray =
-            Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code)
+          val jsonLessons: JsArray =
+            LessonToJson.lessonsWrite(lessons.lessonsList, currentHumanLang.code)
           sendMessage("lessons", Json.obj(
-            "lessons" -> gsonToJsValue(jsonLessons)
+            "lessons" -> jsonLessons
           ))
         case "getExercisesList" =>
           val optLessonName: Option[String] = (msg \ "args" \ "lessonName").asOpt[String]
           optLessonName match {
             case Some(lessonName: String) =>
-              val jsonLectures: JsonArray =
-                Lecture.arrayToJson(
-                  Logger.logger,
-                  checkExercisePassed,
+              val jsonLectures: JsArray =
+                lectureToJson.lecturesWrite(
                   lessons.exercisesList(lessonName),
                   currentHumanLang.code,
                   currentProgLang,
-                  exercises)
+                  checkExercisePassed)
               sendMessage("lectures", Json.obj(
-                "lectures" -> gsonToJsValue(jsonLectures)
+                "lectures" -> jsonLectures
               ))
             case _ =>
               Logger.debug("getExercisesList: non-correct JSON")
@@ -585,7 +585,7 @@ class PLMActor(pushActor: ActorRef,
 
   def generateUpdatedLessonsListJson(): JsValue = {
     Json.obj(
-      "lessons" -> gsonToJsValue(Lesson.arrayToJson(lessons.lessonsList, currentHumanLang.code))
+      "lessons" -> LessonToJson.lessonsWrite(lessons.lessonsList, currentHumanLang.code)
     )
   }
 
@@ -594,14 +594,11 @@ class PLMActor(pushActor: ActorRef,
       case Some(lessonName: String) =>
         Json.obj(
           "lectures" ->
-            gsonToJsValue(
-              Lecture.arrayToJson(
-                Logger.logger,
-                checkExercisePassed,
-                lessons.exercisesList(lessonName),
-                currentHumanLang.code,
-                currentProgLang,
-                exercises)))
+            lectureToJson.lecturesWrite(
+              lessons.exercisesList(lessonName),
+              currentHumanLang.code,
+              currentProgLang,
+              checkExercisePassed))
       case _ => Json.obj()
     }
   }

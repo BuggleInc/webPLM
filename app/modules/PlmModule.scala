@@ -1,6 +1,7 @@
 package modules
 
 import com.google.inject.{AbstractModule, Provides, Singleton}
+import json.LectureToJson
 import models.lesson.{Exercises, Lessons}
 import net.codingwell.scalaguice.ScalaModule
 import play.api.Logger
@@ -19,4 +20,8 @@ class PlmModule extends AbstractModule with ScalaModule {
   @Provides
   @Singleton
   def provideExercises(lessons: Lessons) = new Exercises(lessons)
+
+  @Provides
+  @Singleton
+  def provideLectureToJson(exercises: Exercises) = new LectureToJson(exercises)
 }

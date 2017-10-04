@@ -2,14 +2,15 @@ package controllers
 
 import java.util.UUID
 
-import actors.{ActorsMap, PLMActor}
 import actors.execution.ExecutionActorFactory
+import actors.{ActorsMap, PLMActor}
 import akka.actor.ActorRef
 import com.google.inject.Inject
 import com.google.inject.name.Named
 import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+import json.LectureToJson
 import models.User
 import models.lesson.{Exercises, Lessons}
 import play.api.Logger
@@ -33,6 +34,7 @@ class ApplicationController @Inject() (
     implicit val env: Environment[User, JWTAuthenticator],
     lessons: Lessons,
     exercises: Exercises,
+    lectureToJson: LectureToJson,
     socialProviderRegistry: SocialProviderRegistry,
     executionActorFactory: ExecutionActorFactory)
   extends Silhouette[User, JWTAuthenticator] {
@@ -47,7 +49,16 @@ class ApplicationController @Inject() (
       Future.successful(HandlerResult(Ok, Some(securedRequest.identity)))
     }.map {
       case HandlerResult(r, Some(user)) =>
-        Right(PLMActor.propsWithUser(pushActor, executionActorFactory.create(user.preferredLang), userAgent, actorUUID, lessons, exercises, user) _)
+        Right(
+          PLMActor.propsWithUser(
+            pushActor,
+            executionActorFactory.create(user.preferredLang),
+            userAgent,
+            actorUUID,
+            lessons,
+            exercises,
+            lectureToJson,
+            user) _)
       case HandlerResult(r, None) =>
         val preferredLang: Lang = LangUtils.getPreferredLang(request)
         val lastProgLang: String = CookieUtils.getCookieValue(request, "progLang")
@@ -57,7 +68,20 @@ class ApplicationController @Inject() (
           newUser = true
           gitID = UUID.randomUUID.toString
         }
-        Right(PLMActor.props(pushActor, executionActorFactory.create(Some(preferredLang)), userAgent, actorUUID,  gitID, newUser, Some(preferredLang), Some(lastProgLang), Some(false), lessons, exercises) _)
+        Right(
+          PLMActor.props(
+            pushActor,
+            executionActorFactory.create(Some(preferredLang)),
+            userAgent,
+            actorUUID,
+            gitID,
+            newUser,
+            Some(preferredLang),
+            Some(lastProgLang),
+            trackUser = Some(false),
+            lessons,
+            exercises,
+            lectureToJson) _)
     }
   }
 
