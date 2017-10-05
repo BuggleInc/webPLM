@@ -1,7 +1,7 @@
 {
-  "name": "web-PLM-eclipse",
+  "name": "web-PLM",
   "version": "0.1.0",
-  "description": "WebPLM",
+  "description": "Play! interface of the PLM project",
   "main": "",
   "directories": {
     "test": "test"
@@ -16,16 +16,16 @@
     "grunt-contrib-jasmine": "^1.0.0"
   },
   "scripts": {
-    "test": "activator \"test-only *Spec\""
+    "test": "sbt \"test-only *Spec\""
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/MatthieuNICOLAS/webPLM.git"
+    "url": "git://github.com/BuggleInc/webPLM.git"
   },
   "author": "Matthieu NICOLAS",
   "license": "GNU AGPL",
   "bugs": {
-    "url": "https://github.com/MatthieuNICOLAS/webPLM/issues"
+    "url": "https://github.com/BuggleInc/webPLM/issues"
   },
-  "homepage": "https://github.com/MatthieuNICOLAS/webPLM"
+  "homepage": "https://github.com/BuggleInc/webPLM"
 }
