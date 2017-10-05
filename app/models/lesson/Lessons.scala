@@ -1,11 +1,12 @@
 package models.lesson
 
 import java.io.{BufferedReader, InputStream, InputStreamReader}
+import java.nio.charset.StandardCharsets
 
 import com.google.gson.JsonParser
 import org.slf4j.Logger
 
-import scala.io.Source
+import scala.io.{Codec, Source}
 
 /**
  * @author matthieu
@@ -57,7 +58,7 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
     val path = lessonName.replace(".", "/") + "/main.json"
     withResource(path) {
       case Some(is: InputStream) =>
-        val reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))
+        val reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name))
         Some(Lesson.fromJson(new JsonParser().parse(reader))(loadDescriptions(lessonName)))
       case None =>
         logger.error(s"Lesson $lessonName is missing.")
@@ -79,7 +80,7 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
     val path = s"$prefix/short_desc$suffix.html"
     withResource(path) {
       case Some(is: InputStream) =>
-        Some(Source.fromInputStream(is)("UTF-8").mkString)
+        Some(Source.fromInputStream(is)(Codec.UTF8).mkString)
       case None =>
         logger.warn(s"$languageCode description for lesson $lessonName is missing.")
         None
