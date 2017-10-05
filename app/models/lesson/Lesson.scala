@@ -16,15 +16,15 @@ object Lesson {
     new Lesson(
       root.get("id").getAsString,
       getOptionalGsonMember(root, "name").map(_.getAsString),
-      root.get("lectures").getAsJsonArray.asScala.map(Lecture.fromJson).toArray,
+      root.get("lectures").getAsJsonArray.asScala.map(Lecture.fromJson).toSeq,
       descriptions
     )
   }
 }
 
-case class Lesson(id: String, name: Option[String], lectures: Array[Lecture], descriptions: Map[String, String]) {
+case class Lesson(id: String, name: Option[String], lectures: Seq[Lecture], descriptions: Map[String, String]) {
 
-  val orderedIDs: Array[String] = lectures.view.flatMap(_.orderedIDs).toArray
+  val orderedIDs: Seq[String] = lectures.flatMap(_.orderedIDs)
 
   def containsExercise(exerciseID: String): Boolean =  orderedIDs.contains(exerciseID)
 }

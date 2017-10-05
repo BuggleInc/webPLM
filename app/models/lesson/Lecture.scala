@@ -25,5 +25,5 @@ object Lecture {
 }
 
 case class Lecture(id: String, optNames: Option[Map[String, String]], dependingLectures: Seq[Lecture]) {
-  val orderedIDs: Array[String] = (id +: dependingLectures.view.flatMap(_.orderedIDs)).toArray
+  val orderedIDs: Seq[String] = id +: dependingLectures.flatMap(_.orderedIDs)
 }

@@ -14,8 +14,8 @@ import scala.io.{Codec, Source}
 
 class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
   // WARNING, keep ChooseLessonDialog.lessons synchronized
-  private val lessonIds: Array[String] =
-    Array(
+  private val lessonIds: Seq[String] =
+    Seq(
       "welcome",
       "sort.basic",
       "sort.dutchflag",
@@ -30,9 +30,15 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
       // "bat.string1"
     )
 
-  private val lessons: Map[String, Lesson] = initLessons()
+  private val lessons: Map[String, Lesson] = {
+    val entries = for {
+      lessonId <- lessonIds.view
+      lesson <- loadLesson(lessonId)
+    } yield lessonId -> lesson
+    entries.toMap
+  }
 
-  val lessonsList: Array[Lesson] = lessonIds.map(lessons(_))
+  val lessonsList: Seq[Lesson] = lessonIds.map(lessons(_))
 
   def lessonExists(lessonId: String): Boolean =
     lessonIds.contains(lessonId)
@@ -40,19 +46,11 @@ class Lessons(logger: Logger, availableLanguageCodes: Iterable[String]) {
   def exerciseExists(lessonId: String, exerciseId: String): Boolean =
     lessonExists(lessonId) && lessons(lessonId).containsExercise(exerciseId)
 
-  def exercisesList(lessonId: String): Array[Lecture] =
+  def exercisesList(lessonId: String): Seq[Lecture] =
     lessons(lessonId).lectures
 
   def firstExerciseId(lessonId: String): String =
-    lessons(lessonId).lectures(0).id
-
-  private def initLessons(): Map[String, Lesson] = {
-    val entries = for {
-      lessonId <- lessonIds.view
-      lesson <- loadLesson(lessonId)
-    } yield lessonId -> lesson
-    entries.toMap
-  }
+    lessons(lessonId).lectures.head.id
 
   private def loadLesson(lessonName: String): Option[Lesson] = {
     val path = lessonName.replace(".", "/") + "/main.json"
