@@ -29,7 +29,7 @@ lazy val commonSettings = defaultScalariformSettings ++ Seq(
     "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
     "-Ywarn-numeric-widen" // Warn when numerics are widened.
   ),
-  
+
   testOptions in Test += Tests.Argument("-oD"), // Display the completion time of each test 
 
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -38,15 +38,23 @@ lazy val commonSettings = defaultScalariformSettings ++ Seq(
     .setPreference(PreserveDanglingCloseParenthesis, true)
 )
 
-lazy val plm = (project in file("deps/PLM")).settings(
-  commonSettings,
-  unmanagedSourceDirectories in Compile := Seq(baseDirectory.value / "src"),
-  unmanagedSourceDirectories in Test := Seq(baseDirectory.value / "test"),
-  unmanagedResourceDirectories in Compile := Seq(baseDirectory.value / "src"),
-  libraryDependencies ++= Seq(
-    "org.scala-lang" % "scala-reflect" % "2.11.8",
-    "org.scala-lang" % "scala-compiler" % "2.11.8"
-  )
+lazy val plm = (project in file("deps/PLM"))
+  .settings(
+    commonSettings,
+    unmanagedSourceDirectories in Compile := Seq(
+      baseDirectory.value / "src",
+      baseDirectory.value / "resources" / "exercises" // Add .java and .scala as sources
+    ),
+    unmanagedSourceDirectories in Test := Seq(baseDirectory.value / "test"),
+    unmanagedResourceDirectories in Compile := Seq(
+      baseDirectory.value / "src",
+      baseDirectory.value / "resources" / "exercises", // Add .py, .blockly... as resources
+      baseDirectory.value / "resources" / "lessons"
+    ),
+    libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-reflect" % "2.11.8",
+      "org.scala-lang" % "scala-compiler" % "2.11.8"
+    )
 )
 
 lazy val root = (project in file("."))
@@ -71,15 +79,11 @@ lazy val root = (project in file("."))
       "com.github.andyglow" %% "websocket-scala-client" % "0.2.4" % Test
     ),
 
-    unmanagedSourceDirectories in Compile += baseDirectory.value / "exercises",      // Add .java and .scala as sources
-
-    unmanagedResourceDirectories in Compile += baseDirectory.value / "exercises",    // Add .py, .blockly... as resources
-
-    unmanagedSourceDirectories in Assets += baseDirectory.value / "exercises",       // Add .png as assets
-
-    unmanagedResourceDirectories in Compile += baseDirectory.value / "lessons",
-
-    unmanagedResourceDirectories in Assets += baseDirectory.value / "lessons",
+    // Add .png as assets
+    // TODO(polux): either make plm a play sub-project, or write code that loads assets from the plm jar
+    unmanagedResourceDirectories in Assets ++= Seq(
+      baseDirectory.value / "deps" / "PLM" / "resources" / "lessons",
+      baseDirectory.value / "deps" / "PLM" / "resources" / "exercises"),
 
     assemblySettings,
 

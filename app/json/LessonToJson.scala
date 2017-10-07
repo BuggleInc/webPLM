@@ -1,7 +1,7 @@
 package json
 
-import models.lesson.Lesson
 import play.api.libs.json.{JsArray, JsValue, Json}
+import plm.core.model.lesson.Lesson
 
 object LessonToJson {
   def lessonWrite(lesson: Lesson, languageCode: String): JsValue = {

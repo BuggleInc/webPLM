@@ -1,8 +1,8 @@
 package actors
 
 import akka.actor._
-import models.lesson.Exercises
 import play.api.Logger
+import plm.core.model.lesson.Exercises
 /**
  * @author matthieu
  */

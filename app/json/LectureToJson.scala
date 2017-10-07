@@ -1,10 +1,10 @@
 package json
 
-import models.lesson.{Exercises, Lecture}
+import plm.core.model.lesson.Lecture
 import play.Logger
 import play.api.libs.json.{JsArray, JsValue, Json}
 import plm.core.lang.ProgrammingLanguage
-import plm.core.model.lesson.Exercise
+import plm.core.model.lesson.{Exercise, Exercises, Lecture}
 import plm.core.ui.PlmHtmlEditorKit
 
 import scala.collection.JavaConverters._
