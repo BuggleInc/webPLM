@@ -12,16 +12,16 @@ import akka.util.Timeout
 import codes.reactive.scalatime.{Duration, Instant}
 import json.{LangToJson, LectureToJson, LessonToJson, ProgrammingLanguageToJson}
 import models.daos.UserDAORestImpl
-import models.lesson.{Exercises, Lessons}
-import models.{GitHubIssueManager, ProgrammingLanguages, User}
+import plm.core.model.lesson.Lessons
+import models.{GitHubIssueManager, User}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.libs.json._
-import plm.core.lang.ProgrammingLanguage
+import plm.core.lang.{ProgrammingLanguage, ProgrammingLanguages}
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise.WorldKind
-import plm.core.model.lesson.{ExecutionProgress, Exercise, UserSettings}
+import plm.core.model.lesson._
 import plm.core.model.tracking.GitUtils
 import plm.universe.World
 

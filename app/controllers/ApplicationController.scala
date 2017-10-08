@@ -12,13 +12,13 @@ import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import json.LectureToJson
 import models.User
-import models.lesson.{Exercises, Lessons}
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.{Lang, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import plm.core.model.lesson.{Exercises, Lessons}
 import utils._
 
 import scala.concurrent.Future

@@ -2,11 +2,11 @@ import java.util.Locale
 
 import com.github.andyglow.websocket.util.Uri
 import com.github.andyglow.websocket.{WebsocketClient, WebsocketHandler}
-import models.lesson.Lessons
 import org.scalatest.{FunSuite, ParallelTestExecution}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.Json
 import plm.core.lang.{LangJava, LangPython, LangScala, ProgrammingLanguage}
+import plm.core.model.lesson.Lessons
 import plm.core.model.session.TemplatedSourceFileFactory
 
 import scala.concurrent.duration._
@@ -18,7 +18,7 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
   import IntegrationTest._
 
   val logger: Logger = LoggerFactory.getLogger(classOf[IntegrationTest])
-  val lessons = new Lessons(logger, Nil)
+  val lessons = new Lessons(Nil)
 
   for {
     lesson <- lessons.lessonsList
@@ -54,7 +54,7 @@ object IntegrationTest {
     val entityDirectory = exercisePathFragments.init.mkString("/")
     val entityName = exercisePathFragments.last
     val langPrefix = if (lang == SCALA) "Scala" else ""
-    s"exercises/$entityDirectory/$langPrefix${entityName}Entity"
+    s"$entityDirectory/$langPrefix${entityName}Entity"
   }
 
   def extractSolution(lang: ProgrammingLanguage, code: String): String = {

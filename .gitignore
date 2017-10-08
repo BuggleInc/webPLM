@@ -22,7 +22,7 @@ tmp
 npm-debug.log
 node_modules/
 root-log-*
-exercises/**/*.json
+deps/PLM/resources/exercises/**/*.json
 
 #ruby
 .bundle
