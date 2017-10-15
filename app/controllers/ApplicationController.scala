@@ -18,6 +18,7 @@ import play.api.i18n.{Lang, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import plm.core.lang.ProgrammingLanguages
 import plm.core.model.lesson.{Exercises, Lessons}
 import utils._
 
@@ -34,6 +35,7 @@ class ApplicationController @Inject() (
     implicit val env: Environment[User, JWTAuthenticator],
     lessons: Lessons,
     exercises: Exercises,
+    programmingLanguages: ProgrammingLanguages,
     lectureToJson: LectureToJson,
     socialProviderRegistry: SocialProviderRegistry,
     executionActorFactory: ExecutionActorFactory)
@@ -57,6 +59,7 @@ class ApplicationController @Inject() (
             actorUUID,
             lessons,
             exercises,
+            programmingLanguages,
             lectureToJson,
             user) _)
       case HandlerResult(r, None) =>
@@ -81,6 +84,7 @@ class ApplicationController @Inject() (
             trackUser = Some(false),
             lessons,
             exercises,
+            programmingLanguages,
             lectureToJson) _)
     }
   }

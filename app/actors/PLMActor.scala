@@ -42,9 +42,10 @@ object PLMActor {
             trackUser: Option[Boolean],
             lessons: Lessons,
             exercises: Exercises,
+            programmingLanguages: ProgrammingLanguages,
             lectureToJson: LectureToJson)(out: ActorRef) =
     Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, gitID, newUser, preferredLang, lastProgLang,
-      trackUser, lessons, exercises, lectureToJson, out))
+      trackUser, lessons, exercises, programmingLanguages, lectureToJson, out))
 
   def propsWithUser(pushActor: ActorRef,
                     executionActor: ActorRef,
@@ -52,9 +53,10 @@ object PLMActor {
                     actorUUID: String,
                     lessons: Lessons,
                     exercises: Exercises,
+                    programmingLanguages: ProgrammingLanguages,
                     lectureToJson: LectureToJson,
                     user: User)(out: ActorRef) =
-    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, lessons, exercises, lectureToJson, out))
+    Props(new PLMActor(pushActor, executionActor, userAgent, actorUUID, user, lessons, exercises, programmingLanguages, lectureToJson, out))
 }
 
 class PLMActor(pushActor: ActorRef,
@@ -68,6 +70,7 @@ class PLMActor(pushActor: ActorRef,
                trackUser: Option[Boolean],
                lessons: Lessons,
                exercises: Exercises,
+               programmingLanguages: ProgrammingLanguages,
                lectureToJson: LectureToJson,
                out: ActorRef)
   extends Actor {
@@ -79,10 +82,11 @@ class PLMActor(pushActor: ActorRef,
            user: User,
            lessons: Lessons,
            exercises: Exercises,
+           programmingLanguages: ProgrammingLanguages,
            lectureToJson: LectureToJson,
            out: ActorRef) {
     this(pushActor, executionActor, userAgent, actorUUID, user.gitID.toString, false, user.preferredLang,
-      user.lastProgLang, user.trackUser, lessons, exercises, lectureToJson, out)
+      user.lastProgLang, user.trackUser, lessons, exercises, programmingLanguages, lectureToJson, out)
     setCurrentUser(user)
   }
 
@@ -98,7 +102,7 @@ class PLMActor(pushActor: ActorRef,
   val exercisesActor: ActorRef = context.actorOf(ExercisesActor.props(exercises))
 
   val gitActor: ActorRef = context.actorOf(GitActor.props(pushActor, gitID, None, userAgent))
-  val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, ProgrammingLanguages.programmingLanguages))
+  val sessionActor: ActorRef = context.actorOf(SessionActor.props(gitActor, programmingLanguages.programmingLanguages))
 
   val locale: Locale = currentHumanLang.toLocale
 
@@ -384,7 +388,7 @@ class PLMActor(pushActor: ActorRef,
         case Some(exercise: Exercise) =>
 
           if(!exercise.isProgLangSupported(currentProgLang)) {
-            updateProgLang(ProgrammingLanguages.defaultProgrammingLanguage().getLang)
+            updateProgLang(programmingLanguages.defaultProgrammingLanguage().getLang)
           }
 
           gitActor ! SwitchExercise(exercise, optCurrentExercise)
@@ -413,7 +417,7 @@ class PLMActor(pushActor: ActorRef,
   def sendProgLangs() {
     sendMessage("progLangs", Json.obj(
       "selected" -> ProgrammingLanguageToJson.programmingLanguageWrite(currentProgLang),
-      "availables" -> ProgrammingLanguageToJson.programmingLanguagesWrite(ProgrammingLanguages.programmingLanguages)
+      "availables" -> ProgrammingLanguageToJson.programmingLanguagesWrite(programmingLanguages.programmingLanguages)
     ))
   }
 
@@ -514,9 +518,9 @@ class PLMActor(pushActor: ActorRef,
   def initProgLang(lastProgLang: Option[String]): ProgrammingLanguage = {
     lastProgLang match {
     case Some(progLang: String) =>
-      ProgrammingLanguages.getProgrammingLanguage(progLang)
+      programmingLanguages.getProgrammingLanguage(progLang)
     case _ =>
-      ProgrammingLanguages.defaultProgrammingLanguage
+      programmingLanguages.defaultProgrammingLanguage
     }
   }
 
@@ -536,7 +540,7 @@ class PLMActor(pushActor: ActorRef,
   }
 
   def checkProglang(progLang: String): Boolean = {
-    val newProgLang: ProgrammingLanguage = ProgrammingLanguages.getProgrammingLanguage(progLang)
+    val newProgLang: ProgrammingLanguage = programmingLanguages.getProgrammingLanguage(progLang)
     var isProgLangSupported: Boolean = true
     optCurrentExercise match {
       case Some(exercise: Exercise) =>
@@ -550,7 +554,7 @@ class PLMActor(pushActor: ActorRef,
 
   def updateProgLang(progLang: String) {
     if(checkProglang(progLang)) {
-      currentProgLang = ProgrammingLanguages.getProgrammingLanguage(progLang)
+      currentProgLang = programmingLanguages.getProgrammingLanguage(progLang)
       userSettings.setProgLang(currentProgLang)
       sendMessage("newProgLang", generateUpdatedProgLangJson)
     } else {
