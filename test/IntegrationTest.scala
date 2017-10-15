@@ -8,6 +8,7 @@ import play.api.libs.json.Json
 import plm.core.lang.{LangJava, LangPython, LangScala, ProgrammingLanguage}
 import plm.core.model.lesson.Lessons
 import plm.core.model.session.TemplatedSourceFileFactory
+import plm.core.utils.FileUtils
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Promise}
@@ -33,8 +34,8 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
 
 object IntegrationTest {
 
-  val JAVA = new LangJava(false)
-  val SCALA = new LangScala(false)
+  val JAVA = new LangJava(ClassLoader.getSystemClassLoader, false)
+  val SCALA = new LangScala(ClassLoader.getSystemClassLoader, false)
   val PYTHON = new LangPython(false)
 
   val SERVER_URI = Uri("ws://localhost:9000/websocket")
@@ -44,7 +45,8 @@ object IntegrationTest {
   val PYTHON_SOLUTION_PATTERN: Regex = raw"(?s).*# BEGIN SOLUTION(.*)# END SOLUTION.*".r
 
   def loadSolution(lang: ProgrammingLanguage, exerciseId: String): String = {
-    val sourceFileFactory = new TemplatedSourceFileFactory(Locale.ENGLISH)
+    val sourceFileFactory =
+      new TemplatedSourceFileFactory(new FileUtils(ClassLoader.getSystemClassLoader), Locale.ENGLISH)
     val sourceFile = sourceFileFactory.newSourceFromFile(exerciseId, lang, exerciseIdToEntityPath(lang, exerciseId))
     extractSolution(lang, sourceFile.getCorrection)
   }
