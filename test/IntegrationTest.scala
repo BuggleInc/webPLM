@@ -19,7 +19,7 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
   import IntegrationTest._
 
   val logger: Logger = LoggerFactory.getLogger(classOf[IntegrationTest])
-  val lessons = new Lessons(Nil)
+  val lessons = new Lessons(ClassLoader.getSystemClassLoader, Nil)
 
   for {
     lesson <- lessons.lessonsList

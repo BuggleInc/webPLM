@@ -52,7 +52,7 @@ class LectureToJson(exercises: Exercises) {
         }
         entries.toMap
       case None =>
-        Logger.info(s"exercices $lectureId not found")
+        Logger.info(s"Lecture $lectureId not found")
         Map()
     }
   }
