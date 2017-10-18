@@ -16,7 +16,10 @@ class PlmModule extends AbstractModule with ScalaModule {
 
   @Provides
   @Singleton
-  def provideLessons(): Lessons = new Lessons(Lang.availables.map(_.code))
+  def provideLessons(): Lessons =
+    new Lessons(
+      Play.application.classloader,
+      Lang.availables.map(_.code))
 
   @Provides
   @Singleton
