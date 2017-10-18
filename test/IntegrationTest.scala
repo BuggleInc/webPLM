@@ -23,11 +23,11 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
 
   for {
     lesson <- lessons.lessonsList
-    lecture <- lesson.lectures
+    lectureId <- lesson.orderedIDs
     lang <- Seq(JAVA, SCALA, PYTHON)
   } {
-    test(s"${lesson.id}/${lecture.id}/${lang.getLang} solution succeeds when submitted") {
-      assert(executeCode(lesson.id, lecture.id, lang.getLang, loadSolution(lang, lecture.id)) == Success())
+    test(s"${lesson.id}/${lectureId}/${lang.getLang} solution succeeds when submitted") {
+      assert(executeCode(lesson.id, lectureId, lang.getLang, loadSolution(lang, lectureId)) == Success())
     }
   }
 }
