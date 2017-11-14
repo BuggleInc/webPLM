@@ -6,9 +6,9 @@
 		.module('PLMApp')
 		.factory('BaseballWorld',BaseballWorld);
 
-	BaseballWorld.$inject = [ 'MoveOperation' ];
+	BaseballWorld.$inject = [ 'SVGOperation' ];
 
-	function BaseballWorld(MoveOperation)
+	function BaseballWorld(SVGOperation)
 	{
 		var BaseballWorld = function(world)
 		{
@@ -75,8 +75,10 @@
 		BaseballWorld.prototype.generatedOperation = function (operation)
 		{
 			switch(operation.name) {
-				case 'moveOperation':
+				case 'MoveOperation':
 					return new MoveOperation(operation);
+                case 'SVGOperation':
+                    return new SVGOperation(operation);
 			}
 		};
 

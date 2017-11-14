@@ -8,9 +8,9 @@
 
 	function BaseballView()
 	{
-		var ctx;
-		var canvasWidth;
-		var canvasHeight;
+		//var ctx;
+		//var canvasWidth;
+		//var canvasHeight;
 
 		var INVADER_SPRITE_SIZE = 11;
 		var INVADER_SPRITE =
@@ -25,33 +25,41 @@
 				[ 1,0,1,0,0,0,0,0,1,0,1 ],
 				[ 0,0,0,1,1,0,1,1,0,0,0 ],
 				[ 0,0,0,0,0,0,0,0,0,0,0 ],
-				[ 0,0,0,0,0,0,0,0,0,0,0 ],
+				[ 0,0,0,0,0,0,0,0,0,0,0 ]
 			];
 
 		var service = {
-			draw: draw,
+			draw: draw
 		};
 
 		return service;
 
-		function initUtils(canvas, baseballWorld)
+		/*function initUtils(canvas, baseballWorld)
 		{
 			ctx = canvas.getContext('2d');
 			canvasWidth = canvas.width;
 			canvasHeight = canvas.height;
-		}
+		}*/
 
-		function draw(canvas, baseballWorld)
+
+
+		function draw()
 		{
 			//stock some points
-			var points = [];
+			//var points = [];
 
-			initUtils(canvas, baseballWorld);
-			ctx.beginPath();
-			drawField(baseballWorld, points);
-			drawText(baseballWorld);
-			drawArrows(baseballWorld, points);
-			ctx.closePath();
+			var svg = "<circle cx=\"100\" cy=\"100\" r=\"80\" fill=\"red\" stroke-width=\"15\" stroke=\"black\" />";
+
+            document.getElementById('drawingArea').innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" width=\"400\" height=\"400\">"+ svg +"</svg>";
+
+            //initUtils(canvas, baseballWorld);
+			//ctx.beginPath();
+
+
+            //drawField(baseballWorld, points);
+			//drawText(baseballWorld);
+			//drawArrows(baseballWorld, points);
+			//ctx.closePath();
 		}
 
 		//convert degrees in radians
