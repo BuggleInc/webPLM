@@ -21,7 +21,7 @@
 				update: update,
 				resize: resize,
 				getWorld: getWorld,
-				getCanvasElt: getCanvasElt,
+				//getCanvasElt: getCanvasElt,
 				getContext: getContext,
 				getDraw: getDraw,
 				setDraw: setDraw
