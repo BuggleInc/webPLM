@@ -177,10 +177,11 @@
 
     function handleMessage(data) {
       var cmd, args, worldKind;
-      console.log('message received: ', data);
+      //console.log('message received: ', data);
 
       cmd = data.cmd;
       args = data.args;
+
       switch (cmd) {
       case 'exercise':
         setExercise(args.exercise);
@@ -662,6 +663,7 @@
         step = steps[i];
         world.addOperations(step);
       }
+
       if (world === exercise.currentWorld && exercise.updateViewLoop === null) {
         exercise.isPlaying = true;
         startUpdateModelLoop();

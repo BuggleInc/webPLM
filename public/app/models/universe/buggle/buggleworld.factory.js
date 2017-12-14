@@ -113,31 +113,38 @@
       length = operations.length;
       for (i = 0; i < length; i += 1) {
         operation = operations[i];
-        generatedOperation = this.generateOperation(operation);
-        step.push(generatedOperation);
+        step.push(operation);
+        // generatedOperation = this.generateOperation(operation);
+        // step.push(generatedOperation);
       }
-
       this.operations.push(step);
     };
 
     BuggleWorld.prototype.setState = function (state) {
       var i, j, length, step;
       if (state < this.operations.length && state >= -1) {
-        if (this.currentState < state) {
+
+        console.log(this.operations);
+
+          if (this.currentState < state) {
           for (i = this.currentState + 1; i <= state; i += 1) {
-            step = this.operations[i];
-            length = step.length;
-            for (j = 0; j < length; j += 1) {
-              step[j].apply(this);
-            }
+              // step = this.operations[i]; On veut récuperer le tableau de toutes les oppérations
+              step= this.operations;
+              length = step.length;
+              // for (j = 0; j < length; j += 1) {
+                  // step[j].apply(this);
+                  this.drawSVG(step[i][0]);
+              // }
           }
         } else {
           for (i = this.currentState; i > state; i -= 1) {
-            step = this.operations[i];
+            // step = this.operations[i];
+            step= this.operations;
             length = step.length;
-            for (j = 0; j < length; j += 1) {
-              step[j].reverse(this);
-            }
+            // for (j = 0; j < length; j += 1) {
+                // step[j].reverse(this);
+                this.drawSVG(step[i][0]);
+            // }
           }
         }
         this.currentState = state;
@@ -178,6 +185,19 @@
         return new BuggleInOuterSpace(operation);
       }
     };
+
+      BuggleWorld.prototype.drawSVG = function (svg) {
+          (function () {
+              //initUtils(canvas,this);
+              document.getElementById('imageSVG').innerHTML = svg.operation;
+              var svgbis = document.getElementsByTagName('svg');
+              svgbis[0].setAttribute("width", "400px");
+              svgbis[0].setAttribute("height", "400px");
+
+
+          })();
+
+      };
 
     return BuggleWorld;
   }
