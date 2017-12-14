@@ -83,6 +83,7 @@
         locker.bind($scope, 'timer', 1000);
         $scope.timer = locker.get('timer');
 
+
         exercise.currentState = -1;
         exercise.lastStateDrawn = -1;
 
@@ -502,6 +503,7 @@
 
             exercisesList.setCurrentLessonID(exercise.lessonID);
         }
+
 
         function updateInstructions(instructions, help) {
             exercise.instructions = instructions;

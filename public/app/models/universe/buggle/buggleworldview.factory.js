@@ -15,7 +15,6 @@
 
     var cellWidth;
     var cellHeight;
-
     var INVADER_SPRITE_SIZE = 11;
     // var INVADER_SPRITE = [
     //   [
@@ -95,10 +94,38 @@
     }
 
     function draw(canvas, buggleWorld) {
-      var i, j;
-      var buggleID;
+      // var i, j;
+      // var buggleID;
+      //
+      // //console.log('buggleworld : ', buggleWorld);
+      //
+      // initUtils(canvas, buggleWorld);
+      //
+      // for (i = 0; i < buggleWorld.width; i++) {
+      //     for (j = 0; j < buggleWorld.height; j++) {
+      //       drawCell(buggleWorld.cells[i][j]);
+      //     }
+      //
+      //   }
+      //
+      //   drawGrid(buggleWorld);
+      //   drawFrontierWalls(buggleWorld);
+      //
+      //   for (buggleID in buggleWorld.entities) {
+      //     if (buggleWorld.entities.hasOwnProperty(buggleID)) {
+      //       var buggle = buggleWorld.entities[buggleID];
+      //       var cell = buggleWorld.cells[buggle.x][buggle.y]
+      //       drawBuggle(buggle, cell);
+      //     }
+      //   }
 
-      initUtils(canvas, buggleWorld);
+
+        //console.log(buggleWorld.SVGOperations[0].operation)
+        //var svg = buggleWorld.SVGOperations.operation;
+        //
+        //document.getElementById('imageSVG').innerHTML = svg;
+
+
 
 
       // for (i = 0; i < buggleWorld.width; i++) {
