@@ -33,6 +33,8 @@ Logiciel gratuit d’enseignement
 
 /Résumer et discuter ce que la source nous a permis d’apprendre et en quoi elle a aidé pour notre problème/
 
+Comparatif Canvs/SVG : https://openweb.eu.org/articles/canvas_svg_que_choisir
+
 ** Contribution section
 
 /Présenter les solutions choisies/
