@@ -55,9 +55,6 @@
         PancakeWorld.prototype.setState = function (state) {
             var i, j, length, step;
             if (state < this.operations.length && state >= -1) {
-
-                console.log(this.operations);
-
                 if (this.currentState < state) {
                     for (i = this.currentState + 1; i <= state; i += 1) {
                         // step = this.operations[i]; On veut récuperer le tableau de toutes les oppérations

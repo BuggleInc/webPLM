@@ -80,8 +80,8 @@
 
     function initUtils(canvas, buggleWorld) {
       ctx = canvas.getContext('2d');
-      canvasWidth = canvas.width;
-      canvasHeight = canvas.height;
+      // canvasWidth = canvas.width;
+      // canvasHeight = canvas.height;
 
       // cellWidth = canvasWidth / buggleWorld.width;
       // cellHeight = canvasHeight / buggleWorld.height;
@@ -90,8 +90,8 @@
       // } else {
       //   cellHeight = cellWidth;
       // }
-      canvas.width = cellWidth * buggleWorld.width;
-      canvas.height = cellHeight * buggleWorld.height;
+      // canvas.width = cellWidth * buggleWorld.width;
+      // canvas.height = cellHeight * buggleWorld.height;
     }
 
     function draw(canvas, buggleWorld) {
@@ -109,13 +109,13 @@
       // drawGrid(buggleWorld);
       // drawFrontierWalls(buggleWorld);
 
-      for (buggleID in buggleWorld.entities) {
-        if (buggleWorld.entities.hasOwnProperty(buggleID)) {
-          var buggle = buggleWorld.entities[buggleID];
-          // var cell = buggleWorld.cells[buggle.x][buggle.y]
-          // drawBuggle(buggle, cell);
-        }
-      }
+      // for (buggleID in buggleWorld.entities) {
+      //   if (buggleWorld.entities.hasOwnProperty(buggleID)) {
+      //     var buggle = buggleWorld.entities[buggleID];
+      //     // var cell = buggleWorld.cells[buggle.x][buggle.y]
+      //     // drawBuggle(buggle, cell);
+      //   }
+      // }
     }
 
   //   function drawCell(cell) {
