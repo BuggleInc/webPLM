@@ -621,7 +621,7 @@
       var operations = [];
       var steps = [];
       if (keepOperations === true) {
-        // operations = exercise[worldKind + 'Worlds'][worldID].operations;  //ON ne grade que steps sinon NULLPointerException
+         operations = exercise[worldKind + 'Worlds'][worldID].operations;  //ON ne grade que steps sinon NULLPointerException
         steps = exercise[worldKind + 'Worlds'][worldID].steps;
       }
 
