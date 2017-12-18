@@ -29,14 +29,14 @@
 		function draw(canvas, sortingWorld)
 		{
 			initUtils(canvas, sortingWorld);
-			ctx.beginPath();
-			drawColumn(sortingWorld);
-
-			//draws egde of our drawArena
-			ctx.strokeRect(0,0,canvasWidth,canvasHeight);
-			
-			drawText(sortingWorld);
-			ctx.closePath();
+			// ctx.beginPath();
+			// drawColumn(sortingWorld);
+            //
+			// //draws egde of our drawArena
+			// ctx.strokeRect(0,0,canvasWidth,canvasHeight);
+			//
+			// drawText(sortingWorld);
+			// ctx.closePath();
 		}
 
 		//draws write and read counts

@@ -2,7 +2,29 @@
 {
 	angular
 		.module('PLMApp')
-		.factory('MoveOperation', MoveOperation);
+		.factory('MoveOperation', MoveOperation)
+		.factory('SVGOperation', SVGOperation);
+
+    function SVGOperation()
+    {
+
+        var SVGOperation = function(data)
+        {
+            this.svg = data.svg;
+        };
+
+        SVGOperation.prototype.apply = function()
+        {
+
+        };
+
+        SVGOperation.prototype.reverse = function()
+        {
+
+        };
+
+        return SVGOperation;
+    }
 
 	function MoveOperation()
 	{
