@@ -29,17 +29,17 @@
 
       initUtils(canvas, turtleWorld);
       
-      turtleWorld.shapes.forEach(drawShape);
-      turtleWorld.sizeHints.forEach(drawSizeHint);
-      
-      for (turtleID in turtleWorld.entities) {
-        if (turtleWorld.entities.hasOwnProperty(turtleID)) {
-          turtle = turtleWorld.entities[turtleID];
-          if(turtle.visible) {
-            drawTurtle(turtle);
-          }
-        }
-      }
+      // turtleWorld.shapes.forEach(drawShape);
+      // turtleWorld.sizeHints.forEach(drawSizeHint);
+      //
+      // for (turtleID in turtleWorld.entities) {
+      //   if (turtleWorld.entities.hasOwnProperty(turtleID)) {
+      //     turtle = turtleWorld.entities[turtleID];
+      //     if(turtle.visible) {
+      //       drawTurtle(turtle);
+      //     }
+      //    }
+      // }
     }
     
     function drawShape(shape) {
