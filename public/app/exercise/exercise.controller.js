@@ -177,7 +177,7 @@
 
     function handleMessage(data) {
       var cmd, args, worldKind;
-      console.log('message received: ', data);
+      // console.log('message received: ', data);
 
       cmd = data.cmd;
       args = data.args;
@@ -242,10 +242,17 @@
       exercisesList.setCurrentExerciseID(exercise.id);
       exercise.name = data.name;
 
+      for(i = 0 ; i<data.initialWorlds.length;i++){
+        if(data.initialWorlds[i].name == data.selectedWorldID){
+            exercise.steps = data.initialWorlds[i].steps;
+        }
+      }
+
       navigation.setInlesson(true);
       navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
 
       exercise.currentWorldID = data.selectedWorldID;
+
 
       if (data.exception === 'nonImplementedWorldException') {
         exercise.nonImplementedWorldException = true;
@@ -283,8 +290,8 @@
             exercise.animationPlayerNeeded = true;
             world = new BuggleWorld(dataInitialWorld);
             answerWorld = new BuggleWorld(dataAnswerWorld);
-            initCanvas(BuggleWorldView.draw);
-            exercise.drawFnct = BuggleWorldView.draw;
+            // initCanvas(BuggleWorldView.draw);
+            // exercise.drawFnct = BuggleWorldView.draw;
             break;
           case 'BatWorld':
           case 'ConsWorld':
@@ -323,7 +330,7 @@
             world = new TurtleWorld(dataInitialWorld);
             answerWorld = new TurtleWorld(dataAnswerWorld);
             exercise.drawFnct = TurtleWorldView.draw;
-            initCanvas(exercise.drawFnct);
+            // initCanvas(exercise.drawFnct);
             break;
           case 'SortingWorld':
             exercise.tabs = [
@@ -358,7 +365,7 @@
             exercise.secondViewNeeded = true;
             world = new SortingWorld(dataInitialWorld);
             answerWorld = new SortingWorld(dataAnswerWorld);
-            initCanvas(SortingWorldView.draw);
+            // initCanvas(SortingWorldView.draw);
             break;
           case 'DutchFlagWorld':
             exercise.tabs = [
@@ -393,7 +400,7 @@
             exercise.secondViewNeeded = true;
             world = new DutchFlagWorld(dataInitialWorld);
             answerWorld = new DutchFlagWorld(dataAnswerWorld);
-            initCanvas(DutchFlagView.draw);
+            // initCanvas(DutchFlagView.draw);
             break;
           case 'PancakeWorld':
             exercise.tabs = [
@@ -415,7 +422,7 @@
             exercise.animationPlayerNeeded = true;
             world = new PancakeWorld(dataInitialWorld);
             answerWorld = new PancakeWorld(dataAnswerWorld);
-            initCanvas(PancakeView.draw);
+            // initCanvas(PancakeView.draw);
             break;
           case 'BaseballWorld':
             exercise.tabs = [
@@ -450,7 +457,7 @@
             exercise.secondViewNeeded = true;
             world = new BaseballWorld(dataInitialWorld);
             answerWorld = new BaseballWorld(dataAnswerWorld);
-            initCanvas(BaseballView.draw);
+            // initCanvas(BaseballView.draw);
             break;
           case 'HanoiWorld':
             exercise.tabs = [
@@ -472,7 +479,7 @@
             exercise.animationPlayerNeeded = true;
             world = new HanoiWorld(dataInitialWorld);
             answerWorld = new HanoiWorld(dataAnswerWorld);
-            initCanvas(HanoiView.draw);
+            // initCanvas(HanoiView.draw);
             break;
           }
           world.id = worldID;
@@ -513,10 +520,12 @@
       exercise.currentWorldID = worldID;
       exercise.worldKind = worldKind;
       exercise.currentWorld = exercise[exercise.worldKind + 'Worlds'][exercise.currentWorldID];
+
       $timeout(function () {
         exercise.currentState = exercise.currentWorld.currentState;
       }, 0);
-      exercise.drawService.setWorld(exercise.currentWorld);
+      // exercise.drawService.setWorld(exercise.currentWorld);
+        drawSVG(exercise.steps[0][0]);
     }
 
     function runDemo() {
@@ -621,7 +630,7 @@
       var operations = [];
       var steps = [];
       if (keepOperations === true) {
-        // operations = exercise[worldKind + 'Worlds'][worldID].operations;  //ON ne grade que steps sinon NULLPointerException
+        // operations = exercise[worldKind + 'Worlds'][worldID].operations;  //We only keep SVGOperations/steps to draw and avoid NPE
         steps = exercise[worldKind + 'Worlds'][worldID].steps;
       }
 
@@ -633,7 +642,10 @@
       if (worldID === exercise.currentWorldID) {
         exercise.currentState = -1;
         exercise.currentWorld = exercise[worldKind + 'Worlds'][worldID];
-        exercise.drawService.setWorld(exercise.currentWorld);
+        console.log("fskdjhfskjdhfksjdfhkjsdfh");
+        console.log(exercise);
+        // exercise.drawService.setWorld(exercise.currentWorld);
+          drawSVG(exercise.steps[0][0]);
       }
 
       exercise.lastStateDrawn = -1;
@@ -706,7 +718,7 @@
         $timeout.cancel(exercise.updateModelLoop);
         $interval.cancel(exercise.updateViewLoop);
       } else if (exercise.lastStateDrawn !== exercise.currentWorld.currentState) {
-        exercise.drawService.update();
+        //exercise.drawService.update();
         exercise.lastStateDrawn = exercise.currentWorld.currentState;
       }
 
@@ -728,7 +740,7 @@
       state = parseInt(state);
       exercise.currentWorld.setState(state);
       exercise.currentState = state;
-      exercise.drawService.update();
+      // exercise.drawService.update();
     }
 
     function resetExercise() {
@@ -748,7 +760,7 @@
         exercise.answerWorlds = {};
         exercise.currentWorlds = {};
         exercise.currentWorld = null;
-        exercise.drawService.setWorld(null);
+        // exercise.drawService.setWorld(null);
       }
       exercise.instructions = null;
       exercise.help = null;
@@ -817,9 +829,9 @@
     }
 
     function setDrawFnct(drawFnct) {
-      exercise.drawService.setDraw(drawFnct);
-      exercise.drawFnct = drawFnct;
-      exercise.drawService.update();
+      // exercise.drawService.setDraw(drawFnct);
+      // exercise.drawFnct = drawFnct;
+      // exercise.drawService.update();
     }
 
     function resizeInstructions() {
@@ -918,6 +930,15 @@
         return JSON.parse(buffer);
       }
       return buffer;
+    }
+
+    function drawSVG(svg) {
+        document.getElementById('drawingArea').innerHTML = svg.operation;
+        var svgbis = document.getElementsByTagName('svg');
+        svgbis[0].setAttribute("width", "400px");
+        svgbis[0].setAttribute("height", "400px");
+
+
     }
   }
 })();

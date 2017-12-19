@@ -69,7 +69,7 @@
 
                 if (this.currentState < state) {
                     for (i = this.currentState + 1; i <= state; i += 1) {
-                        // step = this.operations[i]; On veut récuperer le tableau de toutes les oppérations
+                        // step = this.operations[i];
                         step= this.operations;
                         length = step.length;
                         // for (j = 0; j < length; j += 1) {
