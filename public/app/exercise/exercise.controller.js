@@ -642,8 +642,6 @@
       if (worldID === exercise.currentWorldID) {
         exercise.currentState = -1;
         exercise.currentWorld = exercise[worldKind + 'Worlds'][worldID];
-        console.log("fskdjhfskjdhfksjdfhkjsdfh");
-        console.log(exercise);
         // exercise.drawService.setWorld(exercise.currentWorld);
           drawSVG(exercise.steps[0][0]);
       }
