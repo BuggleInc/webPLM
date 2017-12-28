@@ -26,8 +26,7 @@ object LocalExecutionActor {
 class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
   import ExecutionActor._
 
-  var currentLocale: Locale = initialLang.toLocale
-  val exerciseRunner: ExerciseRunner = new ExerciseRunner(currentLocale)
+  val exerciseRunner: ExerciseRunner = new ExerciseRunner(initialLang.toLocale)
 
   def receive: PartialFunction[Any, Unit] =  {
     case StartExecution(out, exercise, progLang, code) =>
@@ -49,8 +48,7 @@ class LocalExecutionActor(initialLang: Lang) extends ExecutionActor {
     case StopExecution =>
       Logger.error("Ignore a request to stop the currently running code")
     case UpdateLang(lang: Lang) =>
-      currentLocale = lang.toLocale
-      exerciseRunner.setI18n(currentLocale)
+      exerciseRunner.setI18n(lang.toLocale)
     case _ =>
       Logger.error("LocalExecutionActor: not supported message")
   }
