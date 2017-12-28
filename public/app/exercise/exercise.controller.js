@@ -747,7 +747,6 @@
     }
 
     $scope.$on('$destroy', function () {
-      console.log('On passe ici!');
       offDisplayMessage();
       messageQueue.unsubscribe();
       $timeout.cancel(exercise.idleLoop);
@@ -818,18 +817,9 @@
     function switchToTab(tab) {
       resetIdleLoop();
       exercise.currentTab = tab.tabNumber;
-      if (exercise.drawFnct !== tab.drawFnct) {
-        setDrawFnct(tab.drawFnct);
-      }
       if (exercise.worldKind !== tab.worldKind) {
         setCurrentWorld(exercise.currentWorldID, tab.worldKind);
       }
-    }
-
-    function setDrawFnct(drawFnct) {
-      // exercise.drawService.setDraw(drawFnct);
-      // exercise.drawFnct = drawFnct;
-      // exercise.drawService.update();
     }
 
     function resizeInstructions() {
@@ -935,8 +925,6 @@
         var svgbis = document.getElementsByTagName('svg');
         svgbis[0].setAttribute("width", "400px");
         svgbis[0].setAttribute("height", "400px");
-
-
     }
   }
 })();
