@@ -643,7 +643,7 @@ class PLMActor(pushActor: ActorRef,
     val msgType: Int = if (executionResult.outcome == ExecutionProgress.outcomeKind.PASS) 1 else 0
     val commonErrorID: Int = executionResult.commonErrorID
     val commonErrorText: String = executionResult.commonErrorText
-    val msg: String = executionResult.getMsg(locale)
+    val msg: String = executionResult.getMsg()
 
     val mapArgs: JsValue = Json.obj(
       "msgType" -> msgType,
