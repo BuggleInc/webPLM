@@ -177,7 +177,7 @@
 
     function handleMessage(data) {
       var cmd, args, worldKind;
-      // console.log('message received: ', data);
+      console.log('message received: ', data);
 
       cmd = data.cmd;
       args = data.args;
@@ -765,8 +765,8 @@
       exercise.resultType = null;
       exercise.result = null;
       exercise.logs = null;
-      window.removeEventListener('resize', resizeCanvas, false);
-      window.removeEventListener('resize', resizeCodeMirror, false);
+      // window.removeEventListener('resize', resizeCanvas, false);
+      // window.removeEventListener('resize', resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -783,7 +783,7 @@
 
       canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
 
-      window.addEventListener('resize', resizeCanvas, false);
+      // window.addEventListener('resize', resizeCanvas, false);
     }
 
     function initDrawWithDOM(draw) {
@@ -883,7 +883,7 @@
       $scope.showAPI = !$scope.showAPI;
       $scope.showInstructions = !$scope.showInstructions;
       if($scope.showInstructions) {
-        $timeout(exercise.resizeCanvas, 0);
+        // $timeout(exercise.resizeCanvas, 0);
       }
     }
 
