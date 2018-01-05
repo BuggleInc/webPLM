@@ -29,7 +29,7 @@ class PlmModule extends AbstractModule with ScalaModule {
       new FileUtils(Play.application.classloader),
       programmingLanguages,
       new TipFactory(),
-      Lang.availables.map(_.toLocale))
+      Lang.availables.map(_.toLocale).toArray)
 
   @Provides
   @Singleton
