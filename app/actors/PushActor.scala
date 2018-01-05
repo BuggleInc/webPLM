@@ -20,7 +20,7 @@ import akka.actor.Props
 import log.PLMLogger
 import play.api.Configuration
 import play.api.Logger
-import plm.core.model.tracking.GitUtils
+import plm.utils.GitUtils
 import java.io.File
 
 /**

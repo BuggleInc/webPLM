@@ -22,7 +22,7 @@ import plm.core.lang.{ProgrammingLanguage, ProgrammingLanguages}
 import plm.core.model.json.JSONUtils
 import plm.core.model.lesson.Exercise.WorldKind
 import plm.core.model.lesson._
-import plm.core.model.tracking.GitUtils
+import plm.utils.GitUtils
 import plm.universe.World
 
 import scala.concurrent.ExecutionContext.Implicits.global

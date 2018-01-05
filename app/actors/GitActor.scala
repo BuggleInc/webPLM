@@ -12,7 +12,7 @@ import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.ExecutionProgress
 import plm.core.model.lesson.ExecutionProgress.outcomeKind._
 import plm.core.model.lesson.Exercise
-import plm.core.model.tracking.GitUtils
+import plm.utils.GitUtils
 import utils.FileUtils
 import play.api.Play
 import play.api.Play.current
