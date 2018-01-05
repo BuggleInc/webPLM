@@ -5,7 +5,7 @@ import play.Logger
 import play.api.libs.json.{JsArray, JsValue, Json}
 import plm.core.lang.ProgrammingLanguage
 import plm.core.model.lesson.{Exercise, Exercises, Lecture}
-import plm.core.ui.PlmHtmlEditorKit
+import plm.utils.HtmlUtils
 
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
@@ -28,7 +28,7 @@ class LectureToJson(exercises: Exercises) {
 
     Json.obj(
       "id" -> lecture.id,
-      "name" -> PlmHtmlEditorKit.filterHTML(name, false, progLang),
+      "name" -> HtmlUtils.filter(name, progLang),
       "dependingLectures" -> lecturesWrite(lecture.dependingLectures, languageCode, progLang, checkedExercisePassed),
       "exercisePassed" -> exercisePassed
     )
