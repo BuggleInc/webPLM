@@ -14,6 +14,13 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Promise}
 import scala.language.postfixOps
 import scala.util.matching.Regex
+import plm.core.lang.ProgrammingLanguages
+import plm.core.model.lesson.tip.DefaultTipFactory
+import plm.core.model.lesson.Exercises
+import plm.core.model.lesson.ExerciseRunner
+import plm.core.model.lesson.ExecutionProgress.outcomeKind
+
+
 
 class IntegrationTest extends FunSuite with ParallelTestExecution {
   import IntegrationTest._
@@ -27,17 +34,29 @@ class IntegrationTest extends FunSuite with ParallelTestExecution {
     lang <- Seq(JAVA, SCALA, PYTHON)
   } {
     test(s"${lesson.id}/${lectureId}/${lang.getLang} solution succeeds when submitted") {
-      assert(executeCode(lesson.id, lectureId, lang.getLang, loadSolution(lang, lectureId)) == Success())
+      assert(localExecuteCode(lesson.id, lectureId, lang, loadSolution(lang, lectureId)) == Success())
+//      assert(remoteExecuteCode(lesson.id, lectureId, lang.getLang, loadSolution(lang, lectureId)) == Success())
     }
   }
 }
 
 object IntegrationTest {
 
-  val JAVA = new LangJava(ClassLoader.getSystemClassLoader, false)
-  val SCALA = new LangScala(ClassLoader.getSystemClassLoader, false)
-  val PYTHON = new LangPython(false)
+  val programmingLanguages = new ProgrammingLanguages(ClassLoader.getSystemClassLoader());
+  val JAVA = programmingLanguages.getProgrammingLanguage("java")
+  val SCALA = programmingLanguages.getProgrammingLanguage("scala")
+  val PYTHON = programmingLanguages.getProgrammingLanguage("python");
+	//private static ProgrammingLanguage blocklyLang = programmingLanguages.getProgrammingLanguage("blockly");
 
+  /* Variables to compile locally */
+	val exoBook = new Exercises(new Lessons(ClassLoader.getSystemClassLoader(), List("en")),
+			new FileUtils(ClassLoader.getSystemClassLoader()),
+			programmingLanguages,
+			new DefaultTipFactory(), Array(Locale.ENGLISH)
+			)
+  val exerciseRunner = new ExerciseRunner(Locale.ENGLISH)
+
+  /* Variables to compile remotely */
   val SERVER_URI = Uri("ws://localhost:9000/websocket")
   val TEMPLATE_PATTERN: Regex = raw"(?s).*/\* BEGIN TEMPLATE \*/(.*)/\* END TEMPLATE \*/.*".r
   val SOLUTION_PATTERN: Regex = raw"(?s).*/\* BEGIN SOLUTION \*/(.*)/\* END SOLUTION \*/.*".r
@@ -77,7 +96,16 @@ object IntegrationTest {
   case class Success() extends ExecutionResult
   case class Error(message: String) extends ExecutionResult
 
-  def executeCode(lessonId: String, exerciseId: String, langId: String, code: String): ExecutionResult = {
+  def localExecuteCode(lessonId: String, exerciseId: String, progLang: ProgrammingLanguage, code: String): ExecutionResult = {
+    val exo = exoBook.getExercise(exerciseId)
+    val result = exerciseRunner.run(exo.get, progLang, code).join()
+    result.outcome match {
+      case outcomeKind.PASS => Success()
+      case _ => Error(result.toString)
+    }
+  }
+  
+  def remoteExecuteCode(lessonId: String, exerciseId: String, langId: String, code: String): ExecutionResult = {
     val resultPromise = Promise[ExecutionResult]
     val protocolHandler = new WebsocketHandler[String] {
       override def receive: PartialFunction[String, Unit] = {
