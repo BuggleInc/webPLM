@@ -126,8 +126,7 @@ class PLMActor(pushActor: ActorRef,
 
   def receive = {
     case msg: JsValue =>
-      Logger.debug("Received a message")
-      Logger.debug(msg.toString())
+      Logger.debug("Received:" + msg.toString())
       val cmd: Option[String] = (msg \ "cmd").asOpt[String]
       cmd.getOrElse(None) match {
         case "signIn" | "signUp" =>
@@ -372,6 +371,7 @@ class PLMActor(pushActor: ActorRef,
   def sendMessage(cmdName: String, mapArgs: JsValue) {
     val msg: JsValue = createMessage(cmdName, mapArgs)
     out ! msg.toString
+    Logger.debug("Sent: "+msg.toString)
   }
 
   def registerActor() {
@@ -401,8 +401,9 @@ class PLMActor(pushActor: ActorRef,
             val actualCode: String = if(currentProgLang.getVisualFile) { "" } else { code }
             val mapArgs: Map[String, Object] = new HashMap[String, Object]
             mapArgs.put("exercise", JSONUtils.exerciseToClientJSON(exercise, actualCode, exercise.getWorld(0).getName, ""))
-
-            out ! JSONUtils.createMessage("exercise", mapArgs)
+            val msg = JSONUtils.createMessage("exercise", mapArgs)
+            out ! msg
+            Logger.debug("Sent: "+msg)
           }
         case None =>
           out ! JSONUtils.createMessage("exerciseNotFound", null)
