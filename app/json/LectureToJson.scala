@@ -45,7 +45,7 @@ class LectureToJson(exercises: Exercises) {
   private def generateExercisePassed(
       lectureId: String,
       checkedExercisePassed: ExercisePassedChecker): Map[String, Boolean] = {
-    exercises.getExercise(lectureId) match {
+    exercises.getExerciseNoUpdate(lectureId) match {
       case Some(exercise: Exercise) =>
         val entries = exercise.getProgLanguages.asScala.view map { lang =>
           lang.getLang -> Await.result(checkedExercisePassed(exercise, lang), 5 seconds)
