@@ -1,9 +1,7 @@
 sudo: false
 language: scala
-scala:
-  - 2.11.7
-jdk:
-  - oraclejdk8
+scala: 2.11.7
+jdk: oraclejdk8
 
 # disable the default submodule logic
 git:
