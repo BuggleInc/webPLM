@@ -22,7 +22,8 @@ cache:
     - $HOME/.sbt/boot/
 script:
   - sbt "test-only *Spec"
-  - grunt test
+  - sbt test
+#  - grunt test
 notifications:
   email:
     recipients:
