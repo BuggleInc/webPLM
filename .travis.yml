@@ -12,14 +12,14 @@ before_install:
   - git submodule update --init --recursive
 
 install:
-  - npm install grunt-cli -g
-  - npm install
-cache:
-  directories:
-    - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot/
+#  - npm install grunt-cli -g
+#  - npm install
+#cache:
+#  directories:
+#    - $HOME/.ivy2/cache
+#    - $HOME/.sbt/boot/
 script:
-  - sbt "test-only *Spec"
+#  - sbt "test-only *Spec"
   - sbt test
 #  - grunt test
 notifications:
