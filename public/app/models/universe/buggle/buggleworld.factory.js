@@ -6,20 +6,10 @@
     .factory('BuggleWorld', BuggleWorld);
 
   BuggleWorld.$inject = [
-    'BuggleWorldCell', 'Buggle',
-    'ChangeCellHasBaggle', 'ChangeCellColor',
-    'ChangeBuggleBodyColor', 'ChangeBuggleCarryBaggle', 'MoveBuggleOperation', 'ChangeBuggleDirection',
-    'ChangeCellHasContent', 'ChangeCellContent', 'BuggleEncounterWall', 'ChangeBuggleBrushDown',
-    'NoBaggleUnderBuggle', 'BuggleAlreadyHaveBaggle', 'BuggleDontHaveBaggle',
-    'CellAlreadyHaveBaggle', 'BuggleInOuterSpace'
+    'BuggleWorldCell', 'Buggle'
   ];
 
-  function BuggleWorld(BuggleWorldCell, Buggle,
-    ChangeCellHasBaggle, ChangeCellColor,
-    ChangeBuggleBodyColor, ChangeBuggleCarryBaggle, MoveBuggleOperation, ChangeBuggleDirection,
-    ChangeCellHasContent, ChangeCellContent, BuggleEncounterWall, ChangeBuggleBrushDown,
-    NoBaggleUnderBuggle, BuggleAlreadyHaveBaggle, BuggleDontHaveBaggle,
-    CellAlreadyHaveBaggle, BuggleInOuterSpace) {
+  function BuggleWorld(BuggleWorldCell, Buggle) {
 
     var BuggleWorld = function (world) {
       this.type = world.type;
@@ -149,40 +139,6 @@
           }
       };
 
-    // BuggleWorld.prototype.generateOperation = function (operation) {
-    //   switch (operation.name) {
-    //   case 'moveBuggleOperation':
-    //     return new MoveBuggleOperation(operation);
-    //   case 'changeBuggleBodyColor':
-    //     return new ChangeBuggleBodyColor(operation);
-    //   case 'changeBuggleDirection':
-    //     return new ChangeBuggleDirection(operation);
-    //   case 'changeBuggleCarryBaggle':
-    //     return new ChangeBuggleCarryBaggle(operation);
-    //   case 'changeBuggleBrushDown':
-    //     return new ChangeBuggleBrushDown(operation);
-    //   case 'changeCellColor':
-    //     return new ChangeCellColor(operation);
-    //   case 'changeCellHasBaggle':
-    //     return new ChangeCellHasBaggle(operation);
-    //   case 'changeCellHasContent':
-    //     return new ChangeCellHasContent(operation);
-    //   case 'changeCellContent':
-    //     return new ChangeCellContent(operation);
-    //   case 'buggleEncounterWall':
-    //     return new BuggleEncounterWall(operation);
-    //   case 'noBaggleUnderBuggle':
-    //     return new NoBaggleUnderBuggle(operation);
-    //   case 'buggleAlreadyHaveBaggle':
-    //     return new BuggleAlreadyHaveBaggle(operation);
-    //   case 'buggleDontHaveBaggle':
-    //     return new BuggleDontHaveBaggle(operation);
-    //   case 'cellAlreadyHaveBaggle':
-    //     return new CellAlreadyHaveBaggle(operation);
-    //   case 'buggleInOuterSpace':
-    //     return new BuggleInOuterSpace(operation);
-    //   }
-    // };
     BuggleWorld.prototype.drawSVG = function (svg) {
           (function () {
 
