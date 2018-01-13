@@ -14,7 +14,6 @@
     home.currentLesson = null;
     home.currentExerciseID = '';
 
-    home.getLessons = getLessons;
     home.setLessons = setLessons;
     home.setCurrentLesson = setCurrentLesson;
     home.goToLesson = goToLesson;
@@ -23,7 +22,7 @@
 
     var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
 
-    getLessons();
+    connection.sendMessage('getLessons', null);
 
     function handleMessage(data) {
       var cmd = data.cmd;
@@ -36,10 +35,6 @@
         setLessons(args.lessons);
         break;
       }
-    }
-
-    function getLessons() {
-      connection.sendMessage('getLessons', null);
     }
 
     function setLessons(lessons) {
