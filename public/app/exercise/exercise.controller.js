@@ -290,8 +290,6 @@
             exercise.animationPlayerNeeded = true;
             world = new BuggleWorld(dataInitialWorld);
             answerWorld = new BuggleWorld(dataAnswerWorld);
-            // initCanvas(BuggleWorldView.draw);
-            // exercise.drawFnct = BuggleWorldView.draw;
             break;
           case 'BatWorld':
           case 'ConsWorld':
