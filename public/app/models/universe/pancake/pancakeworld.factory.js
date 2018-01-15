@@ -1,34 +1,34 @@
 (function ()
 {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('PLMApp')
-		.factory('PancakeWorld',PancakeWorld);
+    angular
+        .module('PLMApp')
+        .factory('PancakeWorld',PancakeWorld);
 
-		PancakeWorld.$inject = [ 'FlipOperation' ];
+        PancakeWorld.$inject = [ 'FlipOperation' ];
 
-	function PancakeWorld(FlipOperation)
-	{
-		var PancakeWorld = function(world)
-		{
-			this.type = world.type;
-			this.operations = [];
-			this.currentState = -1;
-			this.pancakeStack = world.pancakeStack.slice();
-			if (!(world instanceof PancakeWorld)) {
-				this.pancakeStack.reverse();
-			}
+    function PancakeWorld(FlipOperation)
+    {
+        var PancakeWorld = function(world)
+        {
+            this.type = world.type;
+            this.operations = [];
+            this.currentState = -1;
+            this.pancakeStack = world.pancakeStack.slice();
+            if (!(world instanceof PancakeWorld)) {
+                this.pancakeStack.reverse();
+            }
 
-			this.moveCount = world.moveCount;
-			this.numberFlip = world.numberFlip ;
-			this.burnedWorld = world.burnedWorld;
-		};
+            this.moveCount = world.moveCount;
+            this.numberFlip = world.numberFlip ;
+            this.burnedWorld = world.burnedWorld;
+        };
 
-		PancakeWorld.prototype.clone = function()
-		{
-			return new PancakeWorld(this);
-		};
+        PancakeWorld.prototype.clone = function()
+        {
+            return new PancakeWorld(this);
+        };
 
         PancakeWorld.prototype.addOperations = function (operations) {
             var i, step, length, operation, generatedOperation;
@@ -44,13 +44,13 @@
             this.operations.push(step);
         };
 
-		// PancakeWorld.prototype.generatedOperation = function (operation)
-		// {
-		// 	switch(operation.name) {
-		// 		case 'flipOperation':
-		// 			return new FlipOperation(operation);
-		// 	}
-		// };
+        // PancakeWorld.prototype.generatedOperation = function (operation)
+        // {
+        //     switch(operation.name) {
+        //         case 'flipOperation':
+        //             return new FlipOperation(operation);
+        //     }
+        // };
 
         PancakeWorld.prototype.setState = function (state) {
             var i, j, length, step;
@@ -92,6 +92,6 @@
 
         };
 
-		return PancakeWorld;
-	}
+        return PancakeWorld;
+    }
 })();

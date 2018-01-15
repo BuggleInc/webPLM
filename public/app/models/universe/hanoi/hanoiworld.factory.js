@@ -1,34 +1,34 @@
 (function () {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('PLMApp')
-		.factory('HanoiWorld', HanoiWorld);
+    angular
+        .module('PLMApp')
+        .factory('HanoiWorld', HanoiWorld);
 
   HanoiWorld.$inject = ['HanoiDisk', 'HanoiMove'];
 
-	function HanoiWorld(HanoiDisk, HanoiMove) {
+    function HanoiWorld(HanoiDisk, HanoiMove) {
 
-		var HanoiWorld = function (world) {
-			var slot, hanoiDisk, i, j;
+        var HanoiWorld = function (world) {
+            var slot, hanoiDisk, i, j;
       this.type = world.type;
-			this.operations = [];
-			this.currentState = -1;
-			this.moveCount = world.moveCount;
-			this.slots = [];
-			for (i = 0; i < world.slots.length; i += 1) {
-				slot = [];
-				for (j = 0; j < world.slots[i].length; j += 1) {
+            this.operations = [];
+            this.currentState = -1;
+            this.moveCount = world.moveCount;
+            this.slots = [];
+            for (i = 0; i < world.slots.length; i += 1) {
+                slot = [];
+                for (j = 0; j < world.slots[i].length; j += 1) {
           hanoiDisk = new HanoiDisk(world.slots[i][j]);
-					slot.push(hanoiDisk);
-				}
-				this.slots.push(slot);
-			}
-		};
+                    slot.push(hanoiDisk);
+                }
+                this.slots.push(slot);
+            }
+        };
 
-		HanoiWorld.prototype.clone = function () {
-			return new HanoiWorld(this);
-		};
+        HanoiWorld.prototype.clone = function () {
+            return new HanoiWorld(this);
+        };
 
         HanoiWorld.prototype.addOperations = function (operations) {
             var i, step, length, operation, generatedOperation;
@@ -44,12 +44,12 @@
             this.operations.push(step);
         };
 
-		// HanoiWorld.prototype.generatedOperation = function (operation) {
-		// 	switch (operation.name) {
-		//   case 'hanoiMove':
-		// 		return new HanoiMove(operation);
-		// 	}
-		// };
+        // HanoiWorld.prototype.generatedOperation = function (operation) {
+        //     switch (operation.name) {
+        //   case 'hanoiMove':
+        //         return new HanoiMove(operation);
+        //     }
+        // };
 
         HanoiWorld.prototype.setState = function (state) {
             var i, j, length, step;
@@ -82,9 +82,9 @@
             }
         };
 
-		HanoiWorld.prototype.getEntity = function (entityID) {
-			return this.entities[entityID];
-		};
+        HanoiWorld.prototype.getEntity = function (entityID) {
+            return this.entities[entityID];
+        };
 
         HanoiWorld.prototype.drawSVG = function (svg) {
             (function () {
@@ -99,6 +99,6 @@
 
         };
 
-		return HanoiWorld;
-	}
+        return HanoiWorld;
+    }
 }());

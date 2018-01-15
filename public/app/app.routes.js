@@ -7,7 +7,7 @@
 
   function config($stateProvider, $urlRouterProvider) {
     // catch all non-supported routes
-    // redirect user to the home page 
+    // redirect user to the home page
     $urlRouterProvider.otherwise('/');
 
     $stateProvider

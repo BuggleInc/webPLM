@@ -1,43 +1,43 @@
 (function ()
 {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('PLMApp')
-		.factory('DutchFlagWorld', DutchFlagWorld);
+    angular
+        .module('PLMApp')
+        .factory('DutchFlagWorld', DutchFlagWorld);
 
-	DutchFlagWorld.$inject = [ 'DutchFlagSwap' ];
+    DutchFlagWorld.$inject = [ 'DutchFlagSwap' ];
 
-	function DutchFlagWorld(DutchFlagSwap)
-	{
-		var DutchFlagWorld = function(world)
-		{
-			this.type = world.type;
-			this.operations = [];
-			this.currentState = -1;
+    function DutchFlagWorld(DutchFlagSwap)
+    {
+        var DutchFlagWorld = function(world)
+        {
+            this.type = world.type;
+            this.operations = [];
+            this.currentState = -1;
 
-			this.content = [];
-			for(var i=0;i<world.content.length;i++)
-			{
-				this.content.push(world.content[i]);
-			}
+            this.content = [];
+            for(var i=0;i<world.content.length;i++)
+            {
+                this.content.push(world.content[i]);
+            }
 
-			this.memory = [];
-			this.initialValues = [];
-			for(var i=0;i<world.content.length;i++)
-			{
-				this.initialValues.push(world.content[i]);
-			}
+            this.memory = [];
+            this.initialValues = [];
+            for(var i=0;i<world.content.length;i++)
+            {
+                this.initialValues.push(world.content[i]);
+            }
 
-			this.memory.push(this.initialValues);
+            this.memory.push(this.initialValues);
 
-			this.moveCount = world.moveCount;
-		};
+            this.moveCount = world.moveCount;
+        };
 
-		DutchFlagWorld.prototype.clone = function()
-		{
-			return new DutchFlagWorld(this);
-		};
+        DutchFlagWorld.prototype.clone = function()
+        {
+            return new DutchFlagWorld(this);
+        };
 
         DutchFlagWorld.prototype.addOperations = function (operations) {
             var i, step, length, operation, generatedOperation;
@@ -53,13 +53,13 @@
             this.operations.push(step);
         };
 
-		// DutchFlagWorld.prototype.generatedOperation = function (operation)
-		// {
-		// 	switch(operation.name) {
-		// 		case 'dutchFlagSwap':
-		// 			return new DutchFlagSwap(operation);
-		// 	}
-		// };
+        // DutchFlagWorld.prototype.generatedOperation = function (operation)
+        // {
+        //     switch(operation.name) {
+        //         case 'dutchFlagSwap':
+        //             return new DutchFlagSwap(operation);
+        //     }
+        // };
 
         DutchFlagWorld.prototype.setState = function (state) {
             var i, j, length, step;
@@ -104,6 +104,6 @@
 
         };
 
-		return DutchFlagWorld;
-	}
+        return DutchFlagWorld;
+    }
 })();

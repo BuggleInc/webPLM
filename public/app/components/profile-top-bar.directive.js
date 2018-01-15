@@ -6,7 +6,7 @@
     .directive('profileTopBar', profileTopBar);
 
   profileTopBar.$inject = ['userService', 'navigation'];
-  
+
   function profileTopBar(userService, navigation) {
     return {
       restrict: 'E',

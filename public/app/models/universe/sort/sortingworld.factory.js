@@ -1,86 +1,86 @@
 (function()
 {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('PLMApp')
-		.factory('SortingWorld', SortingWorld);
+    angular
+        .module('PLMApp')
+        .factory('SortingWorld', SortingWorld);
 
-	SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation', 'GetValueOperation'
-	];
+    SortingWorld.$inject = [ 'SetValOperation', 'SwapOperation','CopyOperation', 'CountOperation', 'GetValueOperation'
+    ];
 
-	function SortingWorld(SetValOperation, SwapOperation, CopyOperation, CountOperation, GetValueOperation)
-	{
-		var SortingWorld = function(world)
-		{
-			this.type = world.type;
-			this.operations = [];
-			this.currentState = -1;
-			this.readCount = world.readCount;
-			this.writeCount = world.writeCount;
+    function SortingWorld(SetValOperation, SwapOperation, CopyOperation, CountOperation, GetValueOperation)
+    {
+        var SortingWorld = function(world)
+        {
+            this.type = world.type;
+            this.operations = [];
+            this.currentState = -1;
+            this.readCount = world.readCount;
+            this.writeCount = world.writeCount;
 
-			this.values = [];
-			for(var i=0;i<world.values.length;i++)
-			{
-				this.values.push(world.values[i]);
-			}
+            this.values = [];
+            for(var i=0;i<world.values.length;i++)
+            {
+                this.values.push(world.values[i]);
+            }
 
-			this.initValues = [];
+            this.initValues = [];
 
-			//contains each array of values after an operation
-			this.memory = [];
-			for(var i=0;i<world.values.length;i++)
-			{
-				this.initValues.push(world.values[i]);
-			}
+            //contains each array of values after an operation
+            this.memory = [];
+            for(var i=0;i<world.values.length;i++)
+            {
+                this.initValues.push(world.values[i]);
+            }
 
-			this.memory.push(this.initValues);
+            this.memory.push(this.initValues);
 
-			this.colors = ['#0000FF', '#FF0000', '#FFFF00',
-			'#00FF00', '#00FFFF', '#FF00FF','#663300', '#336699', '#993366', '#666699' ];
-		};
+            this.colors = ['#0000FF', '#FF0000', '#FFFF00',
+            '#00FF00', '#00FFFF', '#FF00FF','#663300', '#336699', '#993366', '#666699' ];
+        };
 
-		SortingWorld.prototype.clone = function()
-		{
-			return new SortingWorld(this);
-		};
+        SortingWorld.prototype.clone = function()
+        {
+            return new SortingWorld(this);
+        };
 
-		SortingWorld.prototype.addOperations = function (operations) {
+        SortingWorld.prototype.addOperations = function (operations) {
             var i, step, length, operation, generatedOperation;
-			step = [];
+            step = [];
             length = operations.length;
 
-			for(var i=0; i < length;i++) {
-				operation = operations[i];
-            	step.push(operation);
+            for(var i=0; i < length;i++) {
+                operation = operations[i];
+                step.push(operation);
             // generatedOperation = this.generateOperation(operation);
             // step.push(generatedOperation);
         }
         this.operations.push(step);
-		};
+        };
 
-		SortingWorld.prototype.generatedOperation = function (operation)
-		{
-			switch(operation.name) {
-				case 'copyOperation':
-					return new CopyOperation(operation);
-				case 'setValOperation':
-					return new SetValOperation(operation);
-				case 'swapOperation':
-					return new SwapOperation(operation);
-				case 'countOperation':
-					return new CountOperation(operation);
-				case 'getValueOperation' :
-					return new GetValueOperation(operation);
-			}
-		};
+        SortingWorld.prototype.generatedOperation = function (operation)
+        {
+            switch(operation.name) {
+                case 'copyOperation':
+                    return new CopyOperation(operation);
+                case 'setValOperation':
+                    return new SetValOperation(operation);
+                case 'swapOperation':
+                    return new SwapOperation(operation);
+                case 'countOperation':
+                    return new CountOperation(operation);
+                case 'getValueOperation' :
+                    return new GetValueOperation(operation);
+            }
+        };
 
-		SortingWorld.prototype.setState = function (state) {
-			var i;
+        SortingWorld.prototype.setState = function (state) {
+            var i;
 
-			var length;
-			var step;
-			if(state < this.operations.length && state >= -1) {
+            var length;
+            var step;
+            if(state < this.operations.length && state >= -1) {
                 if (this.currentState < state) {
                     for (i = this.currentState + 1; i <= state; i += 1) {
                         // step = this.operations[i];
@@ -103,9 +103,9 @@
                         // }
                     }
                 }
-				this.currentState = state;
-			}
-		};
+                this.currentState = state;
+            }
+        };
 
         SortingWorld.prototype.drawSVG = function (svg) {
             (function () {
@@ -120,6 +120,6 @@
 
         };
 
-		return SortingWorld;
-	}
+        return SortingWorld;
+    }
 })();

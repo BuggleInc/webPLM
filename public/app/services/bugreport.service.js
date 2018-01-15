@@ -1,20 +1,20 @@
 (function () {
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.factory('bugReport', bugReport);
-	
+    'use strict';
+
+    angular
+        .module('PLMApp')
+        .factory('bugReport', bugReport);
+
   bugReport.$inject = ['connection', 'listenersHandler', 'gettextCatalog', 'toasterUtils'];
-  
-	function bugReport(connection, listenersHandler, gettextCatalog, toasterUtils) {
+
+    function bugReport(connection, listenersHandler, gettextCatalog, toasterUtils) {
     var NO_ERROR = -1;
     var INCORRECT_ISSUE = 0;
     var ERRORED_ISSUE = 1;
-    
+
     listenersHandler.register('onmessage', handleMessage);
-        
-	var service = {
+
+    var service = {
       title: '',
       body: '',
       error: NO_ERROR,
@@ -26,7 +26,7 @@
       submit: submit
     };
 
-	return service;
+    return service;
 
     function submit() {
       service.error = NO_ERROR;
@@ -34,7 +34,7 @@
       service.errorMsg = '';
       connection.sendMessage('submitBugReport', { title: service.title, body: service.body });
     }
-    
+
     function handleMessage(data) {
       var cmd = data.cmd;
       var args = data.args;
@@ -55,6 +55,6 @@
           service.error = NO_ERROR;
           break;
       }
-    }    
-	}
+    }
+    }
 })();

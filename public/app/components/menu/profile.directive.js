@@ -6,7 +6,7 @@
     .directive('profile', profile);
 
   profile.$inject = ['userService'];
-  
+
   function profile(userService) {
     return {
       restrict: 'E',

@@ -1,49 +1,49 @@
 (function(){
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.factory('drawWithDOM', drawWithDOM);
+    'use strict';
 
-	function drawWithDOM () {
-		var drawingArea;
-		var currentWorld;
+    angular
+        .module('PLMApp')
+        .factory('drawWithDOM', drawWithDOM);
 
-		var draw;
+    function drawWithDOM () {
+        var drawingArea;
+        var currentWorld;
 
-		var service = {
-				init: init,
-				setWorld: setWorld,
-				update: update,
-				getWorld: getWorld,
-				setDraw: setDraw
-		};
-		
-		return service;
-		
-		function init(domElt, fnctDraw) {
-			drawingArea = domElt;
-			draw = fnctDraw;
-		}
+        var draw;
 
-		function setWorld(world) {
-			currentWorld = world;
-			if(currentWorld !== null) {
-				update();
-			}
-		}
+        var service = {
+                init: init,
+                setWorld: setWorld,
+                update: update,
+                getWorld: getWorld,
+                setDraw: setDraw
+        };
 
-		function getWorld() {
-			return currentWorld;
-		}
+        return service;
 
-		function update() {
-			draw(drawingArea, currentWorld);
-		}
+        function init(domElt, fnctDraw) {
+            drawingArea = domElt;
+            draw = fnctDraw;
+        }
 
-		function setDraw(drawFnct)
-		{
-			draw = drawFnct;
-		}
-	}
+        function setWorld(world) {
+            currentWorld = world;
+            if(currentWorld !== null) {
+                update();
+            }
+        }
+
+        function getWorld() {
+            return currentWorld;
+        }
+
+        function update() {
+            draw(drawingArea, currentWorld);
+        }
+
+        function setDraw(drawFnct)
+        {
+            draw = drawFnct;
+        }
+    }
 })();

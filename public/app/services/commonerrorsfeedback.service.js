@@ -1,23 +1,23 @@
 (function () {
-	'use strict';
-	
-	angular
-		.module('PLMApp')
-		.factory('commonErrorsFeedback', commonErrorsFeedback);
-	
-	commonErrorsFeedback.$inject = ['connection'];
-	
-	function commonErrorsFeedback(connection) {
-    
-		var service = {
+    'use strict';
+
+    angular
+        .module('PLMApp')
+        .factory('commonErrorsFeedback', commonErrorsFeedback);
+
+    commonErrorsFeedback.$inject = ['connection'];
+
+    function commonErrorsFeedback(connection) {
+
+        var service = {
       accuracy: 3,
       help: 3,
       comment: '',
       getSatisfactionLabel: getSatisfactionLabel,
       submitFeedback: submitFeedback
-		};
-		return service;
-    
+        };
+        return service;
+
     function getSatisfactionLabel(index) {
       switch(parseInt(index)) {
         case 1:
@@ -37,7 +37,7 @@
           break;
       }
     }
-    
+
     function submitFeedback(commonErrorID) {
       connection.sendMessage('commonErrorFeedback', {
         commonErrorID: commonErrorID,
@@ -49,5 +49,5 @@
       service.help = 3;
       service.comment = '';
     }
-	}
+    }
 })();

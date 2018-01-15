@@ -18,7 +18,7 @@
     return service;
 
     function draw(canvas, buggleWorld) {
-	  ctx = canvas.getContext('2d');
+      ctx = canvas.getContext('2d');
     }
    }
 })();

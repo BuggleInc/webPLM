@@ -66,7 +66,7 @@
     function setInLesson(boolean) {
       inLesson = boolean;
     }
-    
+
     function isInLesson() {
       return inLesson;
     }

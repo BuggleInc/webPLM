@@ -1,10 +1,10 @@
 (function ()
 {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('PLMApp')
-		.factory('BaseballWorld',BaseballWorld);
+    angular
+        .module('PLMApp')
+        .factory('BaseballWorld',BaseballWorld);
     BaseballWorld.$inject = [ 'MoveOperation' ];
 
     function BaseballWorld(MoveOperation)
@@ -72,17 +72,17 @@
         this.operations.push(step);
     };
 
-		BaseballWorld.prototype.generatedOperation = function (operation)
-		{
-			switch(operation.name) {
-				case 'MoveOperation':
-					return new MoveOperation(operation);
+        BaseballWorld.prototype.generatedOperation = function (operation)
+        {
+            switch(operation.name) {
+                case 'MoveOperation':
+                    return new MoveOperation(operation);
                 case 'SVGOperation':
                     return new SVGOperation(operation);
-			}
-		};
+            }
+        };
 
-		BaseballWorld.prototype.setState = function (state) {
+        BaseballWorld.prototype.setState = function (state) {
             var i, j, length, step;
             if (state < this.operations.length && state >= -1) {
 
@@ -124,12 +124,12 @@
 
         };
 
-		BaseballWorld.prototype.getEntity = function(entityID)
-		{
-			return this.entities[entityID];
-		};
+        BaseballWorld.prototype.getEntity = function(entityID)
+        {
+            return this.entities[entityID];
+        };
 
-		return BaseballWorld;
-	}
+        return BaseballWorld;
+    }
 
 })();

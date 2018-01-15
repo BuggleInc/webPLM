@@ -13,7 +13,7 @@
 
     turtleImg = new Image();
     turtleImg.src = '/assets/images/world_turtle.png';
-    
+
     var service = {
       draw: draw
     };
@@ -28,7 +28,7 @@
       var turtleID, turtle;
 
       initUtils(canvas, turtleWorld);
-      
+
       // turtleWorld.shapes.forEach(drawShape);
       // turtleWorld.sizeHints.forEach(drawSizeHint);
       //
@@ -41,7 +41,7 @@
       //    }
       // }
     }
-    
+
     function drawShape(shape) {
       switch (shape.type) {
       case 'line':
@@ -53,7 +53,7 @@
       default:
       }
     }
-    
+
     function drawLine(line) {
       ctx.beginPath();
       ctx.lineWidth = 1;
@@ -63,7 +63,7 @@
       ctx.stroke();
       ctx.closePath();
     }
-    
+
     function drawCircle(circle) {
       ctx.beginPath();
       ctx.lineWidth = 1;
@@ -72,22 +72,22 @@
       ctx.stroke();
       ctx.closePath();
     }
-    
+
     function drawSizeHint(sizeHint) {
       var middleX, middleY, hyp, theta, offset;
-      
+
       // draw line
       sizeHint.color = [255, 165, 0, 255]; // #E69400
       drawLine(sizeHint);
-      
+
       // add text
       middleX = (sizeHint.x1 + sizeHint.x2) / 2;
       middleY = (sizeHint.y1 + sizeHint.y2) / 2;
       hyp = Math.sqrt((sizeHint.x1 - sizeHint.x2) * (sizeHint.x1 - sizeHint.x2) + (sizeHint.y1 - sizeHint.y2) * (sizeHint.y1 - sizeHint.y2));
-		  theta = Math.acos((sizeHint.y2 - sizeHint.y1) / hyp) - Math.PI / 2;
-        
+          theta = Math.acos((sizeHint.y2 - sizeHint.y1) / hyp) - Math.PI / 2;
+
       offset = ctx.measureText(sizeHint.text).width / 2;
-      
+
       ctx.save();
       ctx.translate(middleX, middleY);
       ctx.rotate(theta);
@@ -97,7 +97,7 @@
       ctx.fillText(sizeHint.text, -offset, 0);
       ctx.restore();
     }
-    
+
     function drawTurtle(turtle) {
       ctx.save();
       ctx.translate(turtle.x, turtle.y);
@@ -109,15 +109,15 @@
       ctx.drawImage(turtleImg, -16, -16);
       ctx.restore();
     }
-    
+
     function degreeToRadian(angle) {
       return angle * Math.PI / 180;
     }
-    
+
     function getColorToRGBA(color) {
       return 'rgba(' + color.join(',') + ')';
     }
-    
+
     return service;
   }
 }());
