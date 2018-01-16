@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('SetValOperation', function() {
         var _SetValOperation;

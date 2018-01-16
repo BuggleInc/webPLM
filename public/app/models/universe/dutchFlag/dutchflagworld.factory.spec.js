@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('DutchFlagWorld', function() {
         var _DutchFlagWorld;

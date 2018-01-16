@@ -1,5 +1,5 @@
 (function () {
-    'use strict';
+    "use strict";
 
     describe('SortingWorld', function() {
         var _SortingWorld;

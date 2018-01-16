@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('SwapOperation', function() {
         var _SwapOperation;

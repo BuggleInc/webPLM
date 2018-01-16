@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('PancakeWorld', function() {
         var _PancakeWorld;

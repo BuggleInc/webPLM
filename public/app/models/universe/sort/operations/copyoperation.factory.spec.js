@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('CopyOperation', function() {
         var _CopyOperation;

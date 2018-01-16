@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    "use strict";
 
     describe('CountOperation', function() {
         var _CountOperation;
