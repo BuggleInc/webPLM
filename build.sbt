@@ -73,9 +73,10 @@ lazy val root = (project in file("."))
       "org.scalaj" %% "scalaj-http" % "1.1.5",
       cache,
       ws,
-      "com.mohiva" %% "play-silhouette-testkit" % "3.0.4" % Test,
-      "org.scalatest" %% "scalatest" % "2.2.1" % Test,
-      "org.scalatestplus" %% "play" % "1.4.0-M3" % Test,
+//      "com.mohiva" %% "play-silhouette-testkit" % "3.0.4" % Test,
+//      "org.scalatest" %% "scalatest" % "2.2.1" % Test,
+//      "org.scalatestplus" %% "play" % "1.4.0-M3" % Test,
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % Test,
       "com.github.andyglow" %% "websocket-scala-client" % "0.2.4" % Test
     ),
 
