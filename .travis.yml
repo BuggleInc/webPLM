@@ -18,11 +18,12 @@ cache:
   directories:
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot/
-before-script:
+before_script:
   - sbt start &
-  - sleep 10
+  - sleep 300
 script:
 #  - sbt "test-only *Spec"
+  - echo "XXXXX Starting the tests"
   - sbt test
 #  - grunt test
 notifications:
