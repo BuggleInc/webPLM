@@ -14,10 +14,13 @@ before_install:
 install:
 #  - npm install grunt-cli -g
 #  - npm install
-#cache:
-#  directories:
-#    - $HOME/.ivy2/cache
-#    - $HOME/.sbt/boot/
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+before-script:
+  - sbt start &
+  - sleep 10
 script:
 #  - sbt "test-only *Spec"
   - sbt test
