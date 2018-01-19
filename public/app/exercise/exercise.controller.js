@@ -664,10 +664,9 @@
     }
 
     function handleOperations(worldID, worldKind, steps) {
-      var i, world, step;
-      world = exercise[worldKind + 'Worlds'][worldID];
-      for(i = 0; i < steps.length; i += 1) {
-        step = steps[i];
+      var world = exercise[worldKind + 'Worlds'][worldID];
+      for(var i = 0; i < steps.length; i += 1) {
+        var step = steps[i];
         world.addOperations(step);
       }
       if (world === exercise.currentWorld && exercise.updateViewLoop === null) {

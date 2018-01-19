@@ -2,8 +2,8 @@
   "use strict";
 
   angular
-    .module('PLMApp')
-    .factory('BuggleWorld', BuggleWorld);
+    .module("PLMApp")
+    .factory("BuggleWorld", BuggleWorld);
 
   function BuggleWorld() {
 
@@ -57,10 +57,10 @@
     BuggleWorld.prototype.drawSVG = function (svg) {
           (function () {
 
-              document.getElementById('drawingArea').innerHTML = svg.operation;
-              var svgbis = document.getElementsByTagName('svg');
-              svgbis[0].setAttribute("width", "400px");
-              svgbis[0].setAttribute("height", "400px");
+              document.getElementById("drawingArea").innerHTML = svg.operation;
+              var svgElm = document.getElementsByTagName("svg");
+              svgElm[0].setAttribute("width", "400px");
+              svgElm[0].setAttribute("height", "400px");
 
           })();
       };

@@ -1,12 +1,12 @@
 (function () {
   "use strict";
 
-  describe('BuggleWorld', function () {
+  describe("BuggleWorld", function () {
     var _BuggleWorld, buggleWorld,
       type, width, height,
       operations, steps, currentState;
 
-    beforeEach(module('PLMApp'));
+    beforeEach(module("PLMApp"));
 
     beforeEach(inject(function(BuggleWorld) {
       _BuggleWorld = BuggleWorld;
@@ -14,8 +14,7 @@
 
     beforeEach(function () {
       var i, j, nbEntities,
-        dataBuggleWorld,
-        cell, row, buggle;
+        dataBuggleWorld;
 
       type = getRandomString(15);
       width = getRandomInt(10) + 1;
@@ -33,7 +32,7 @@
       buggleWorld = new _BuggleWorld(dataBuggleWorld);
     });
 
-    it('should be initialized correctly by its constructor', function() {
+    it("should be initialized correctly by its constructor", function() {
       var i, j, index,
         buggleID, buggle,
         cell;
@@ -46,7 +45,7 @@
       expect(buggleWorld.steps).toEqual(steps);
     });
 
-    it('clone should return a correct copy of the world', function () {
+    it("clone should return a correct copy of the world", function () {
       var i, j,
         clone,
         buggleID,
@@ -63,7 +62,7 @@
 
     });
 
-    it('addOperations should try to generate an operation for each element of the list', function () {
+    it("addOperations should try to generate an operation for each element of the list", function () {
       var i,
         elt, nbElt,
         generateOperationCallCount;
@@ -71,7 +70,7 @@
       nbElt = getRandomInt(50) + 1;
       operations = [];
 
-      spyOn(buggleWorld, 'generateOperation');
+      spyOn(buggleWorld, "generateOperation");
       for (i = 0; i < nbElt; i += 1) {
         elt = getRandomString(3);
         operations.push(elt);
