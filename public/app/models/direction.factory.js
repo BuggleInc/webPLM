@@ -2,8 +2,8 @@
     "use strict";
 
     angular
-        .module('PLMApp')
-        .factory('Direction', Direction);
+        .module("PLMApp")
+        .factory("Direction", Direction);
 
     function Direction() {
         var model = {

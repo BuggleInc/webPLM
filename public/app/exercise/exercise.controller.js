@@ -2,25 +2,25 @@
   "use strict";
 
   angular
-    .module('PLMApp')
-    .controller('Exercise', Exercise);
+    .module("PLMApp")
+    .controller("Exercise", Exercise);
 
   Exercise.$inject = [
-    '$window', '$http', '$scope', '$sce', '$state', '$stateParams', '$location', '$anchorScroll',
-    'connection', 'messageQueue', 'listenersHandler', 'langs', 'progLangs', 'exercisesList', 'navigation', 'toasterUtils',
-    'canvas', 'drawWithDOM',
-    'blocklyService',
-    '$timeout', '$interval',
-    'locker',
-    'BuggleWorld', 'BuggleWorldView',
-    'BatWorld', 'BatWorldView',
-    'TurtleWorld', 'TurtleWorldView',
-    'SortingWorld', 'SortingWorldView',
-    'SortingWorldSecondView',
-    'DutchFlagWorld', 'DutchFlagView', 'DutchFlagSecondView',
-    'PancakeWorld', 'PancakeView',
-    'BaseballWorld', 'BaseballView', 'BaseballSecondView',
-    'HanoiWorld', 'HanoiView'
+    "$window", "$http", "$scope", "$sce", "$state", "$stateParams", "$location", "$anchorScroll",
+    "connection", "messageQueue", "listenersHandler", "langs", "progLangs", "exercisesList", "navigation", "toasterUtils",
+    "canvas", "drawWithDOM",
+    "blocklyService",
+    "$timeout", "$interval",
+    "locker",
+    "BuggleWorld", "BuggleWorldView",
+    "BatWorld", "BatWorldView",
+    "TurtleWorld", "TurtleWorldView",
+    "SortingWorld", "SortingWorldView",
+    "SortingWorldSecondView",
+    "DutchFlagWorld", "DutchFlagView", "DutchFlagSecondView",
+    "PancakeWorld", "PancakeView",
+    "BaseballWorld", "BaseballView", "BaseballSecondView",
+    "HanoiWorld", "HanoiView"
   ];
 
   function Exercise($window, $http, $scope, $sce, $state, $stateParams, $location, $anchorScroll,
@@ -42,8 +42,8 @@
 
     exercise = this;
 
-    panelID = 'panel';
-    canvasID = 'canvas';
+    panelID = "panel";
+    canvasID = "canvas";
 
     exercise.connection = connection;
     exercise.langs = langs;
@@ -64,8 +64,8 @@
     exercise.instructions = null;
     exercise.help = null;
     exercise.resultType = null;
-    exercise.result = '';
-    exercise.logs = '';
+    exercise.result = "";
+    exercise.logs = "";
 
     exercise.nonImplementedWorldException = false;
 
@@ -74,36 +74,36 @@
     exercise.currentWorlds = {};
     exercise.currentWorld = null;
     exercise.currentWorldID = null;
-    exercise.worldKind = 'current';
+    exercise.worldKind = "current";
     exercise.worldIDs = []; // Mandatory to generate dynamically the select
     exercise.animationOnGoing = false;
     exercise.updateModelLoop = null;
     exercise.updateViewLoop = null;
 
-    locker.bind($scope, 'timer', 1000);
-    $scope.timer = locker.get('timer');
+    locker.bind($scope, "timer", 1000);
+    $scope.timer = locker.get("timer");
 
     exercise.currentState = -1;
     exercise.lastStateDrawn = -1;
 
-    locker.bind($scope, 'showInstructions', true);
-    $scope.showInstructions = locker.get('showInstructions');
-    locker.bind($scope, 'showCodeEditor', true);
-    $scope.showCodeEditor = locker.get('showCodeEditor');
-    locker.bind($scope, 'showAPI', false);
-    $scope.showAPI = locker.get('showAPI');
+    locker.bind($scope, "showInstructions", true);
+    $scope.showInstructions = locker.get("showInstructions");
+    locker.bind($scope, "showCodeEditor", true);
+    $scope.showCodeEditor = locker.get("showCodeEditor");
+    locker.bind($scope, "showAPI", false);
+    $scope.showAPI = locker.get("showAPI");
 
     exercise.currentProgrammingLanguage = null;
     exercise.programmingLanguages = [];
 
     exercise.editor = null;
-    exercise.ide = 'codemirror';
+    exercise.ide = "codemirror";
     exercise.toolbox = null;
     exercise.studentCode = null;
 
-    exercise.drawServiceType = '';
+    exercise.drawServiceType = "";
     exercise.drawService = null;
-    exercise.drawingArea = 'drawingArea';
+    exercise.drawingArea = "drawingArea";
 
     exercise.objectiveViewNeeded = false;
     exercise.animationPlayerNeeded = false;
@@ -111,8 +111,8 @@
     exercise.displaySecondView = false;
 
     exercise.instructionsIsFullScreen = false;
-    exercise.instructionsClass = '';
-    exercise.worldsViewClass = '';
+    exercise.instructionsClass = "";
+    exercise.worldsViewClass = "";
 
     exercise.runDemo = runDemo;
     exercise.runCode = runCode;
@@ -137,7 +137,7 @@
     function signalIdle() {
       // User is away
       exercise.idle = true;
-      connection.sendMessage('userIdle', {});
+      connection.sendMessage("userIdle", {});
     }
 
     function startIdleLoop() {
@@ -150,7 +150,7 @@
       } else {
         // User is back
         exercise.idle = false;
-        connection.sendMessage('userBack', {});
+        connection.sendMessage("userBack", {});
       }
       startIdleLoop();
     }
@@ -158,7 +158,7 @@
     $scope.codemirrorLoaded = function (_editor) {
       exercise.editor = _editor;
       window.editor = _editor; // To allow tests to interact with the editor
-      exercise.editor.on('change', resetIdleLoop);
+      exercise.editor.on("change", resetIdleLoop);
       resizeCodeMirror();
     };
 
@@ -166,37 +166,37 @@
       var args = {
         lessonID: exercise.lessonID
       };
-      if (exercise.id !== '') {
+      if (exercise.id !== "") {
         args.exerciseID = exercise.id;
       }
-      connection.sendMessage('getExercise', args);
+      connection.sendMessage("getExercise", args);
     }
 
-    var offDisplayMessage = listenersHandler.register('onmessage', handleMessage);
+    var offDisplayMessage = listenersHandler.register("onmessage", handleMessage);
     getExercise();
 
     function handleMessage(data) {
       var cmd, args, worldKind;
-      console.log('message received: ', data);
+      console.log("message received: ", data);
 
       cmd = data.cmd;
       args = data.args;
       switch (cmd) {
-      case 'exercise':
+      case "exercise":
         setExercise(args.exercise);
         break;
-      case 'executionResult':
+      case "executionResult":
         handleResult(args);
         break;
-      case 'demoEnded':
-        console.log('The demo ended!');
+      case "demoEnded":
+        console.log("The demo ended!");
         exercise.isRunning = false;
         break;
-      case 'operations':
-      case 'demoOperations':
-        worldKind = 'current';
-        if (cmd === 'demoOperations') {
-          worldKind = 'answer';
+      case "operations":
+      case "demoOperations":
+        worldKind = "current";
+        if (cmd === "demoOperations") {
+          worldKind = "answer";
           exercise.playedDemo = true;
         }
         if (args.worldID) {
@@ -205,33 +205,33 @@
           handleOut(args.msg);
         }
         break;
-      case 'ack':
-        exercise.result += 'Processing your execution request...\n';
-      case 'log':
+      case "ack":
+        exercise.result += "Processing your execution request...\n";
+      case "log":
         exercise.logs += args.msg;
         break;
-      case 'newProgLang':
+      case "newProgLang":
         updateInstructions(args.instructions, args.help);
         updateCodeEditor(args.newProgLang, args.code);
         break;
-      case 'newHumanLang':
+      case "newHumanLang":
         updateInstructions(args.instructions, args.help);
         break;
-      case 'exerciseNotFound':
-        toasterUtils.warning('Exercise ' + exercise.id + ' not found, you\'ve been redirect to the lesson\'s first exercise.');
-        $state.go('exercise', { 'lessonID': exercise.lessonID }, { inherit: false });
+      case "exerciseNotFound":
+        toasterUtils.warning("Exercise " + exercise.id + " not found, you\"ve been redirect to the lesson\"s first exercise.");
+        $state.go("exercise", { "lessonID": exercise.lessonID }, { inherit: false });
         break;
-      case 'lessonNotFound':
-        toasterUtils.warning('Lesson ' + exercise.lessonID + ' not found, you\'ve been redirect to the homepage.');
-        $state.go('home');
+      case "lessonNotFound":
+        toasterUtils.warning("Lesson " + exercise.lessonID + " not found, you\"ve been redirect to the homepage.");
+        $state.go("home");
         break;
-      case 'reset':
+      case "reset":
         exercise.code = args.defaultCode;
         break;
-      case 'subscribe':
+      case "subscribe":
         messageQueue.subscribe(args.clientQueue, handleMessage);
         break;
-      case 'unsubscribe':
+      case "unsubscribe":
         messageQueue.unsubscribe();
         break;
       }
@@ -249,12 +249,12 @@
       }
 
       navigation.setInlesson(true);
-      navigation.setCurrentPageTitle(exercise.lessonName + ' / ' + exercise.name);
+      navigation.setCurrentPageTitle(exercise.lessonName + " / " + exercise.name);
 
       exercise.currentWorldID = data.selectedWorldID;
 
 
-      if (data.exception === 'nonImplementedWorldException') {
+      if (data.exception === "nonImplementedWorldException") {
         exercise.nonImplementedWorldException = true;
       }
 
@@ -268,20 +268,20 @@
           var worldID = dataInitialWorld.name;
           dataInitialWorld.id = worldID;
           var world, answerWorld;
-          var worldType = dataInitialWorld.type.split('.').pop();
+          var worldType = dataInitialWorld.type.split(".").pop();
           switch (worldType) {
-          case 'BuggleWorld':
-          case 'TurmiteWorld':
+          case "BuggleWorld":
+          case "TurmiteWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: BuggleWorldView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: BuggleWorldView.draw
               }
@@ -291,12 +291,12 @@
             world = new BuggleWorld(dataInitialWorld);
             answerWorld = new BuggleWorld(dataAnswerWorld);
             break;
-          case 'BatWorld':
-          case 'ConsWorld':
+          case "BatWorld":
+          case "ConsWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: BatWorldView.draw
               }
@@ -308,17 +308,17 @@
             BatWorldView.setScope($scope);
             initDrawWithDOM(BatWorldView.draw);
             break;
-          case 'TurtleWorld':
+          case "TurtleWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: TurtleWorldView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: TurtleWorldView.draw
               }
@@ -330,29 +330,29 @@
             exercise.drawFnct = TurtleWorldView.draw;
             // initCanvas(exercise.drawFnct);
             break;
-          case 'SortingWorld':
+          case "SortingWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: SortingWorldView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: SortingWorldView.draw
               },
               {
-                name: 'ChronoView',
-                worldKind: 'current',
+                name: "ChronoView",
+                worldKind: "current",
                 tabNumber: 2,
                 drawFnct: SortingWorldSecondView.draw
               },
               {
-                name: 'ChronoDemo',
-                worldKind: 'answer',
+                name: "ChronoDemo",
+                worldKind: "answer",
                 tabNumber: 3,
                 drawFnct: SortingWorldSecondView.draw
               }
@@ -365,29 +365,29 @@
             answerWorld = new SortingWorld(dataAnswerWorld);
             // initCanvas(SortingWorldView.draw);
             break;
-          case 'DutchFlagWorld':
+          case "DutchFlagWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: DutchFlagView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: DutchFlagView.draw
               },
               {
-                name: 'ChronoView',
-                worldKind: 'current',
+                name: "ChronoView",
+                worldKind: "current",
                 tabNumber: 2,
                 drawFnct: DutchFlagSecondView.draw
               },
               {
-                name: 'ChronoDemo',
-                worldKind: 'answer',
+                name: "ChronoDemo",
+                worldKind: "answer",
                 tabNumber: 3,
                 drawFnct: DutchFlagSecondView.draw
               }
@@ -400,17 +400,17 @@
             answerWorld = new DutchFlagWorld(dataAnswerWorld);
             // initCanvas(DutchFlagView.draw);
             break;
-          case 'PancakeWorld':
+          case "PancakeWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: PancakeView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: PancakeView.draw
               }
@@ -422,29 +422,29 @@
             answerWorld = new PancakeWorld(dataAnswerWorld);
             // initCanvas(PancakeView.draw);
             break;
-          case 'BaseballWorld':
+          case "BaseballWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: BaseballView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: BaseballView.draw
               },
               {
-                name: 'ChronoView',
-                worldKind: 'current',
+                name: "ChronoView",
+                worldKind: "current",
                 tabNumber: 2,
                 drawFnct: BaseballSecondView.draw
               },
               {
-                name: 'ChronoDemo',
-                worldKind: 'answer',
+                name: "ChronoDemo",
+                worldKind: "answer",
                 tabNumber: 3,
                 drawFnct: BaseballSecondView.draw
               }
@@ -457,17 +457,17 @@
             answerWorld = new BaseballWorld(dataAnswerWorld);
             // initCanvas(BaseballView.draw);
             break;
-          case 'HanoiWorld':
+          case "HanoiWorld":
             exercise.tabs = [
               {
-                name: 'World',
-                worldKind: 'current',
+                name: "World",
+                worldKind: "current",
                 tabNumber: 0,
                 drawFnct: HanoiView.draw
               },
               {
-                name: 'Objective',
-                worldKind: 'answer',
+                name: "Objective",
+                worldKind: "answer",
                 tabNumber: 1,
                 drawFnct: HanoiView.draw
               }
@@ -489,20 +489,20 @@
 
         exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-        setCurrentWorld(exercise.currentWorldID, 'current');
+        setCurrentWorld(exercise.currentWorldID, "current");
 
-        window.addEventListener('resize', resizeCodeMirror, false);
+        window.addEventListener("resize", resizeCodeMirror, false);
 
         updateInstructions(data.instructions, data.help);
         updateCodeEditor(progLangs.getCurrentProgLang(), data.code.trim());
       }
 
-      $(document).foundation('dropdown', 'reflow');
-      $(document).foundation('equalizer', 'reflow');
+      $(document).foundation("dropdown", "reflow");
+      $(document).foundation("equalizer", "reflow");
 
       exercise.resultType = null;
-      exercise.result = '';
-      exercise.logs = '';
+      exercise.result = "";
+      exercise.logs = "";
 
       exercisesList.setCurrentLessonID(exercise.lessonID);
     }
@@ -517,7 +517,7 @@
       stopUpdateViewLoop();
       exercise.currentWorldID = worldID;
       exercise.worldKind = worldKind;
-      exercise.currentWorld = exercise[exercise.worldKind + 'Worlds'][exercise.currentWorldID];
+      exercise.currentWorld = exercise[exercise.worldKind + "Worlds"][exercise.currentWorldID];
 
       $timeout(function () {
         exercise.currentState = exercise.currentWorld.currentState;
@@ -529,7 +529,7 @@
     function runDemo() {
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
-      connection.sendMessage('runDemo', {});
+      connection.sendMessage("runDemo", {});
     }
 
     function runCode(worldID) {
@@ -538,20 +538,20 @@
       // Cancel the previous subscription before all
       messageQueue.unsubscribe();
 
-      exercise.result = '';
+      exercise.result = "";
       exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
       exercise.worldIDs.map(function (key) {
-        reset(key, 'current', false);
+        reset(key, "current", false);
       });
-      setCurrentWorld(worldID, 'current');
+      setCurrentWorld(worldID, "current");
       exercise.tabs.map(function (element) {
-        if (element.worldKind === 'current' && element.drawFnct === exercise.drawFnct) {
+        if (element.worldKind === "current" && element.drawFnct === exercise.drawFnct) {
           exercise.currentTab = element.tabNumber;
         }
       })
-      if (exercise.ide === 'blockly') {
+      if (exercise.ide === "blockly") {
         Blockly.Python.INFINITE_LOOP_TRAP = null;
         exercise.code = Blockly.Python.workspaceToCode();
         var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
@@ -570,7 +570,7 @@
           code: exercise.code
         };
       }
-      connection.sendMessage('runExercise', args);
+      connection.sendMessage("runExercise", args);
       exercise.isRunning = true;
       exercise.executionStopped = false;
 
@@ -584,7 +584,7 @@
       messageQueue.unsubscribe();
       $timeout.cancel(exercise.updateModelLoop);
       stopUpdateViewLoop();
-      connection.sendMessage('stopExecution', null);
+      connection.sendMessage("stopExecution", null);
     }
 
     function handleResult(data) {
@@ -597,17 +597,17 @@
       msg = data.msg;
 
       if(!exercise.executionStopped && nbStates !== -1) {
-        unbindListener = $scope.$watch('exercise.animationOnGoing', function (newValue, oldValue) {
+        unbindListener = $scope.$watch("exercise.animationOnGoing", function (newValue, oldValue) {
           if(newValue === oldValue) {
             // The watcher is fired right after the init
             // We do not want to display the result yet
             return;
           }
-          // Will display the result a few moments after the animation's end
+          // Will display the result a few moments after the animation"s end
           $timeout(function() {
             exercise.result += msg;
             if (msgType === 1) {
-              $('#successModal').foundation('reveal', 'open');
+              $("#successModal").foundation("reveal", "open");
             }
             exercise.resultType = msgType;
           }, 500);
@@ -617,7 +617,7 @@
       else {
         exercise.result += msg;
         if (msgType === 1) {
-          $('#successModal').foundation('reveal', 'open');
+          $("#successModal").foundation("reveal", "open");
         }
         exercise.resultType = msgType;
       }
@@ -628,18 +628,18 @@
       var operations = [];
       var steps = [];
       if (keepOperations === true) {
-        // operations = exercise[worldKind + 'Worlds'][worldID].operations;  //We only keep SVGOperations/steps to draw and avoid NPE
-        steps = exercise[worldKind + 'Worlds'][worldID].steps;
+        // operations = exercise[worldKind + "Worlds"][worldID].operations;  //We only keep SVGOperations/steps to draw and avoid NPE
+        steps = exercise[worldKind + "Worlds"][worldID].steps;
       }
 
       var initialWorld = exercise.initialWorlds[worldID];
-      exercise[worldKind + 'Worlds'][worldID] = initialWorld.clone();
-      exercise[worldKind + 'Worlds'][worldID].operations = operations;
-      exercise[worldKind + 'Worlds'][worldID].steps = steps;
+      exercise[worldKind + "Worlds"][worldID] = initialWorld.clone();
+      exercise[worldKind + "Worlds"][worldID].operations = operations;
+      exercise[worldKind + "Worlds"][worldID].steps = steps;
 
       if (worldID === exercise.currentWorldID) {
         exercise.currentState = -1;
-        exercise.currentWorld = exercise[worldKind + 'Worlds'][worldID];
+        exercise.currentWorld = exercise[worldKind + "Worlds"][worldID];
         // exercise.drawService.setWorld(exercise.currentWorld);
           drawSVG(exercise.steps[0][0]);
       }
@@ -653,7 +653,7 @@
 
     function replay() {
       reset(exercise.currentWorldID, exercise.worldKind, true);
-      if(exercise.worldKind === 'answer' && !exercise.playedDemo) {
+      if(exercise.worldKind === "answer" && !exercise.playedDemo) {
         runDemo();
       }
       else {
@@ -664,7 +664,7 @@
     }
 
     function handleOperations(worldID, worldKind, steps) {
-      var world = exercise[worldKind + 'Worlds'][worldID];
+      var world = exercise[worldKind + "Worlds"][worldID];
       for(var i = 0; i < steps.length; i += 1) {
         var step = steps[i];
         world.addOperations(step);
@@ -673,7 +673,7 @@
         exercise.isPlaying = true;
         startUpdateModelLoop();
         startUpdateViewLoop();
-      } else if(worldKind === 'answer' && world !== exercise.currentWorld) {
+      } else if(worldKind === "answer" && world !== exercise.currentWorld) {
         world.currentState += 1;
       }
     }
@@ -739,11 +739,11 @@
     }
 
     function resetExercise() {
-      $('#resetExerciseModal').foundation('reveal', 'close');
-      connection.sendMessage('revertExercise', {});
+      $("#resetExerciseModal").foundation("reveal", "close");
+      connection.sendMessage("revertExercise", {});
     }
 
-    $scope.$on('$destroy', function () {
+    $scope.$on("$destroy", function () {
       offDisplayMessage();
       messageQueue.unsubscribe();
       $timeout.cancel(exercise.idleLoop);
@@ -761,8 +761,8 @@
       exercise.resultType = null;
       exercise.result = null;
       exercise.logs = null;
-      // window.removeEventListener('resize', resizeCanvas, false);
-      // window.removeEventListener('resize', resizeCodeMirror, false);
+      // window.removeEventListener("resize", resizeCanvas, false);
+      // window.removeEventListener("resize", resizeCodeMirror, false);
     });
 
     function initCanvas(draw) {
@@ -770,43 +770,43 @@
       var canvasWidth;
       var canvasHeight;
 
-      exercise.drawServiceType = 'canvas';
+      exercise.drawServiceType = "canvas";
       exercise.drawService = canvas;
 
       canvasElt = document.getElementById(canvasID);
-      canvasWidth = $('#' + exercise.drawingArea).parent().width();
+      canvasWidth = $("#" + exercise.drawingArea).parent().width();
       canvasHeight = canvasWidth;
 
       canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
 
-      // window.addEventListener('resize', resizeCanvas, false);
+      // window.addEventListener("resize", resizeCanvas, false);
     }
 
     function initDrawWithDOM(draw) {
       var domElt;
       var panelWidth;
 
-      exercise.drawServiceType = 'drawWithDOM';
+      exercise.drawServiceType = "drawWithDOM";
       exercise.drawService = drawWithDOM;
 
-      domElt = $('#' + panelID);
-      panelWidth = $('#' + exercise.drawingArea).parent().width();
-      domElt.css('height', panelWidth);
-      domElt.css('overflow-y', 'auto');
+      domElt = $("#" + panelID);
+      panelWidth = $("#" + exercise.drawingArea).parent().width();
+      domElt.css("height", panelWidth);
+      domElt.css("overflow-y", "auto");
 
       drawWithDOM.init(domElt, draw);
     }
 
     function resizeCanvas() {
-      var canvasWidth = $('#' + exercise.drawingArea).parent().width();
+      var canvasWidth = $("#" + exercise.drawingArea).parent().width();
       var canvasHeight = canvasWidth;
       exercise.drawService.resize(canvasWidth, canvasHeight);
-      $(document).foundation('equalizer', 'reflow');
+      $(document).foundation("equalizer", "reflow");
     }
 
     function resizeCodeMirror() {
-      // Want to keep the IDE's height equals to the draw surface's one
-      var drawingAreaHeight = $('ui-codemirror').parent().parent().height() * 0.8;
+      // Want to keep the IDE"s height equals to the draw surface"s one
+      var drawingAreaHeight = $("ui-codemirror").parent().parent().height() * 0.8;
       exercise.editor.setSize(null, drawingAreaHeight);
       exercise.editor.refresh();
     }
@@ -822,12 +822,12 @@
     function resizeInstructions() {
       if (!exercise.instructionsIsFullScreen) {
         exercise.instructionsIsFullScreen = true;
-        exercise.instructionsClass = 'instructions-fullscreen';
-        exercise.worldsViewClass = 'worlds-view-reduce';
+        exercise.instructionsClass = "instructions-fullscreen";
+        exercise.worldsViewClass = "worlds-view-reduce";
       } else {
         exercise.instructionsIsFullScreen = false;
-        exercise.instructionsClass = '';
-        exercise.worldsViewClass = '';
+        exercise.instructionsClass = "";
+        exercise.worldsViewClass = "";
       }
     }
 
@@ -839,7 +839,7 @@
     }
 
     function setToolbox(toolbox) {
-      if (toolbox !== '<no blocks>') {
+      if (toolbox !== "<no blocks>") {
         exercise.toolbox = JSON.parse(toolbox);
       } else {
         exercise.toolbox = blocklyService.getOptions().toolbox;
@@ -850,17 +850,17 @@
     function setIDEMode(pl) {
       if (exercise.editor) {
         switch (pl.lang.toLowerCase()) {
-        case 'java':
-          exercise.editor.setOption('mode', 'text/x-java');
+        case "java":
+          exercise.editor.setOption("mode", "text/x-java");
           break;
-        case 'scala':
-          exercise.editor.setOption('mode', 'text/x-scala');
+        case "scala":
+          exercise.editor.setOption("mode", "text/x-scala");
           break;
-        case 'c':
-          exercise.editor.setOption('mode', 'text/x-csrc');
+        case "c":
+          exercise.editor.setOption("mode", "text/x-csrc");
           break;
-        case 'python':
-          exercise.editor.setOption('mode', 'text/x-python');
+        case "python":
+          exercise.editor.setOption("mode", "text/x-python");
           break;
         }
       }
@@ -875,11 +875,11 @@
     }
 
     function updateCodeEditor(progLang, code) {
-      if (progLang.lang === 'Blockly') {
-        exercise.ide = 'blockly';
+      if (progLang.lang === "Blockly") {
+        exercise.ide = "blockly";
         if (code !== null) {
           exercise.studentCode = code;
-          if (exercise.studentCode !== '') {
+          if (exercise.studentCode !== "") {
             var xml = Blockly.Xml.textToDom(exercise.studentCode);
             Blockly.getMainWorkspace().clear();
             Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml);
@@ -893,10 +893,10 @@
         }
         updateToolbox();
       } else {
-        if (exercise.ide === 'blockly') {
+        if (exercise.ide === "blockly") {
           Blockly.getMainWorkspace().clear();
         }
-        exercise.ide = 'codemirror';
+        exercise.ide = "codemirror";
         setIDEMode(progLang);
         if (code !== null)
           exercise.code = code;
@@ -907,7 +907,7 @@
     }
 
     function readTip(tipID) {
-      this.connection.sendMessage('readTip', { tipID: tipID+'' });
+      this.connection.sendMessage("readTip", { tipID: tipID+"" });
     }
 
     function getOperationsBuffer(buffer) {
@@ -918,8 +918,8 @@
     }
 
     function drawSVG(svg) {
-        document.getElementById('drawingArea').innerHTML = svg.operation;
-        var svgbis = document.getElementsByTagName('svg');
+        document.getElementById("drawingArea").innerHTML = svg.operation;
+        var svgbis = document.getElementsByTagName("svg");
         svgbis[0].setAttribute("width", "400px");
         svgbis[0].setAttribute("height", "400px");
     }

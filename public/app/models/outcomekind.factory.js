@@ -2,8 +2,8 @@
     "use strict";
 
     angular
-        .module('PLMApp')
-        .factory('OutcomeKind', OutcomeKind);
+        .module("PLMApp")
+        .factory("OutcomeKind", OutcomeKind);
 
     function OutcomeKind() {
         var model = {

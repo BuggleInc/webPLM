@@ -2,36 +2,36 @@
   "use strict";
 
   angular
-    .module('PLMApp')
-    .controller('Home', Home);
+    .module("PLMApp")
+    .controller("Home", Home);
 
-  Home.$inject = ['$http', '$scope', '$state', '$sce', 'langs', 'connection', 'listenersHandler', 'navigation', 'gettextCatalog'];
+  Home.$inject = ["$http", "$scope", "$state", "$sce", "langs", "connection", "listenersHandler", "navigation", "gettextCatalog"];
 
   function Home($http, $scope, $state, $sce, langs, connection, listenersHandler, navigation, gettextCatalog) {
     var home = this;
 
     home.lessons = [];
     home.currentLesson = null;
-    home.currentExerciseID = '';
+    home.currentExerciseID = "";
 
     home.setLessons = setLessons;
     home.setCurrentLesson = setCurrentLesson;
     home.goToLesson = goToLesson;
 
-    navigation.setCurrentPageTitle(gettextCatalog.getString('Home'));
+    navigation.setCurrentPageTitle(gettextCatalog.getString("Home"));
 
-    var offHandleMessage = listenersHandler.register('onmessage', handleMessage);
+    var offHandleMessage = listenersHandler.register("onmessage", handleMessage);
 
-    connection.sendMessage('getLessons', null);
+    connection.sendMessage("getLessons", null);
 
     function handleMessage(data) {
       var cmd = data.cmd;
       var args = data.args;
 
-      console.log('message received: ', data);
+      console.log("message received: ", data);
       switch (cmd) {
-      case 'lessons':
-      case 'newHumanLang':
+      case "lessons":
+      case "newHumanLang":
         setLessons(args.lessons);
         break;
       }
@@ -43,7 +43,7 @@
         return lesson;
       });
       home.currentLesson = null;
-      console.log('updated home.lessons: ', home.lessons);
+      console.log("updated home.lessons: ", home.lessons);
     }
 
     function setCurrentLesson(lesson) {
@@ -51,12 +51,12 @@
     }
 
     function goToLesson() {
-      $state.go('exercise', {
-        'lessonID': home.currentLesson.id
+      $state.go("exercise", {
+        "lessonID": home.currentLesson.id
       });
     }
 
-    $scope.$on('$destroy', function () {
+    $scope.$on("$destroy", function () {
       offHandleMessage();
     });
   }
