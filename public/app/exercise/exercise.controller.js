@@ -52,8 +52,6 @@
     exercise.result = "";
     exercise.logs = "";
 
-    exercise.nonImplementedWorldException = false;
-
     exercise.initialWorlds = {};
     exercise.answerWorlds = {};
     exercise.currentWorlds = {};
@@ -237,53 +235,46 @@
 
       exercise.currentWorldID = data.selectedWorldID;
 
-
-      if (data.exception === "nonImplementedWorldException") {
-        exercise.nonImplementedWorldException = true;
+      if (data.toolbox) {
+        setToolbox(data.toolbox);
+      }
+      for (var i=0; i<data.initialWorlds.length; i++) {
+        var dataInitialWorld = data.initialWorlds[i];
+        var dataAnswerWorld = data.answerWorlds[i];
+        var worldID = dataInitialWorld.name;
+        dataInitialWorld.id = worldID;
+        var world, answerWorld;
+        exercise.tabs = [
+          {
+            name: "World",
+            worldKind: "current",
+            tabNumber: 0,
+          },
+          {
+            name: "Objective",
+            worldKind: "answer",
+            tabNumber: 1,
+          }
+        ];
+        exercise.objectiveViewNeeded = true;
+        exercise.animationPlayerNeeded = true;
+        world = new World(dataInitialWorld);
+        answerWorld = new World(dataAnswerWorld);
+        world.id = worldID;
+        answerWorld.id = worldID;
+        exercise.initialWorlds[worldID] = world;
+        exercise.answerWorlds[worldID] = answerWorld;
+        exercise.currentWorlds[worldID] = world.clone();
       }
 
-      if (!exercise.nonImplementedWorldException) {
-        if (data.toolbox) {
-          setToolbox(data.toolbox);
-        }
-        for (var i=0; i<data.initialWorlds.length; i++) {
-          var dataInitialWorld = data.initialWorlds[i];
-          var dataAnswerWorld = data.answerWorlds[i];
-          var worldID = dataInitialWorld.name;
-          dataInitialWorld.id = worldID;
-          var world, answerWorld;
-          exercise.tabs = [
-              {
-                name: "World",
-                worldKind: "current",
-                tabNumber: 0,
-              },
-              {
-                name: "Objective",
-                worldKind: "answer",
-                tabNumber: 1,
-              }
-          ];
-          exercise.objectiveViewNeeded = true;
-          exercise.animationPlayerNeeded = true;
-          world = new World(dataInitialWorld);
-          answerWorld = new World(dataAnswerWorld);
-          world.id = worldID;
-          answerWorld.id = worldID;
-          exercise.initialWorlds[worldID] = world;
-          exercise.answerWorlds[worldID] = answerWorld;
-          exercise.currentWorlds[worldID] = world.clone();
-        }
+      exercise.worldIDs = Object.keys(exercise.currentWorlds);
 
-        exercise.worldIDs = Object.keys(exercise.currentWorlds);
+      setCurrentWorld(exercise.currentWorldID, "current");
 
-        setCurrentWorld(exercise.currentWorldID, "current");
+      window.addEventListener("resize", resizeCodeMirror, false);
 
-        window.addEventListener("resize", resizeCodeMirror, false);
-
-        updateInstructions(data.instructions, data.help);
-        updateCodeEditor(progLangs.getCurrentProgLang(), data.code.trim());
-      }
+      updateInstructions(data.instructions, data.help);
+      updateCodeEditor(progLangs.getCurrentProgLang(), data.code.trim());
 
       $(document).foundation("dropdown", "reflow");
       $(document).foundation("equalizer", "reflow");
@@ -535,13 +526,11 @@
       $timeout.cancel(exercise.idleLoop);
       $timeout.cancel(exercise.updateModelLoop);
       stopUpdateViewLoop();
-      if(!exercise.nonImplementedWorldException) {
-        exercise.initialWorlds = {};
-        exercise.answerWorlds = {};
-        exercise.currentWorlds = {};
-        exercise.currentWorld = null;
-        // exercise.drawService.setWorld(null);
-      }
+      exercise.initialWorlds = {};
+      exercise.answerWorlds = {};
+      exercise.currentWorlds = {};
+      exercise.currentWorld = null;
+      // exercise.drawService.setWorld(null);
       exercise.instructions = null;
       exercise.help = null;
       exercise.resultType = null;
