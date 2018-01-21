@@ -12,15 +12,7 @@
     "blocklyService",
     "$timeout", "$interval",
     "locker",
-    "World", 
-    "BatWorld", "BatWorldView",
-    "TurtleWorld", "TurtleWorldView",
-    "SortingWorld", "SortingWorldView",
-    "SortingWorldSecondView",
-    "DutchFlagWorld", "DutchFlagView", "DutchFlagSecondView",
-    "PancakeWorld", "PancakeView",
-    "BaseballWorld", "BaseballView", "BaseballSecondView",
-    "HanoiWorld", "HanoiView"
+    "World"
   ];
 
   function Exercise($window, $http, $scope, $sce, $state, $stateParams, $location, $anchorScroll,
@@ -29,14 +21,7 @@
     blocklyService,
     $timeout, $interval,
     locker,
-    World, WorldView,
-    BatWorld, BatWorldView,
-    TurtleWorld, TurtleWorldView,
-    SortingWorld, SortingWorldView, SortingWorldSecondView,
-    DutchFlagWorld, DutchFlagView, DutchFlagSecondView,
-    PancakeWorld, PancakeView,
-    BaseballWorld, BaseballView, BaseballSecondView,
-    HanoiWorld, HanoiView) {
+    World) {
 
     var exercise, panelID, canvasID;
 
@@ -279,13 +264,11 @@
                 name: "World",
                 worldKind: "current",
                 tabNumber: 0,
-                drawFnct: WorldView.draw
               },
               {
                 name: "Objective",
                 worldKind: "answer",
                 tabNumber: 1,
-                drawFnct: WorldView.draw
               }
             ];
             exercise.objectiveViewNeeded = true;
