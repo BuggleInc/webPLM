@@ -2,19 +2,19 @@
     "use strict";
 
     angular
-        .module('PLMApp')
-        .controller('Profile', Profile);
+        .module("PLMApp")
+        .controller("Profile", Profile);
 
-    Profile.$inject = ['$scope', 'userService', 'gettextCatalog', 'navigation'];
+    Profile.$inject = ["$scope", "userService", "gettextCatalog", "navigation"];
 
     function Profile($scope, userService, gettextCatalog, navigation) {
         var profile = this;
 
-        navigation.setCurrentPageTitle(gettextCatalog.getString('Profile'));
+        navigation.setCurrentPageTitle(gettextCatalog.getString("Profile"));
 
-        $scope.$on('$destroy', $scope.$watch('userService.getUser()', setUser));
+        $scope.$on("$destroy", $scope.$watch("userService.getUser()", setUser));
 
-        profile.mode = 'view';
+        profile.mode = "view";
         profile.user;
         profile.userTemp;
 
@@ -40,7 +40,7 @@
 
         function updateProfile() {
             userService.updateUser(profile.userTemp);
-            switchToMode('view');
+            switchToMode("view");
         }
     }
 })();
