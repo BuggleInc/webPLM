@@ -577,7 +577,7 @@
 
     function resizeCodeMirror() {
       // Want to keep the IDE"s height equals to the draw surface"s one
-      var drawingAreaHeight = $("ui-codemirror").parent().parent().height() * 0.8;
+      var drawingAreaHeight = $("ui-codemirror").parent().parent().height() * 0.75;
       exercise.editor.setSize(null, drawingAreaHeight);
       exercise.editor.refresh();
     }
