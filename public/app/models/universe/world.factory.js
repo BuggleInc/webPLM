@@ -22,18 +22,14 @@
     };
 
       World.prototype.addOperations = function (operations) {
-          var step = [];
-          var length = operations.length;
-          for (var i = 0; i < length; i += 1) {
-              var operation = operations[i];
-              step.push(operation);
+          for (var i = 0; i < operations.length; i += 1) {
+              this.operations.push(operations[i]);
           }
-          this.operations.push(step);
       };
 
       World.prototype.setState = function (state) {
           if (state < this.operations.length && state >= -1) {
-              this.drawSVG(this.operations[state][0]);
+              this.drawSVG(this.operations[state]);
               this.currentState = state;
           }
       };
