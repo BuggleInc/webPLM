@@ -1,19 +1,19 @@
 (function () {
   "use strict";
 
-  describe("BuggleWorld", function () {
-    var _BuggleWorld, buggleWorld,
+  describe("World", function () {
+    var _World, World,
       type, width, height,
       operations, steps, currentState;
 
     beforeEach(module("PLMApp"));
 
-    beforeEach(inject(function(BuggleWorld) {
-      _BuggleWorld = BuggleWorld;
+    beforeEach(inject(function(World) {
+      _World = World;
     }));
 
     beforeEach(function () {
-      var dataBuggleWorld;
+      var dataWorld;
 
       type = getRandomString(15);
       width = getRandomInt(10) + 1;
@@ -22,13 +22,13 @@
       currentState = -1;
       steps = [];
 
-      dataBuggleWorld = {
+      dataWorld = {
         type: type,
         width: width,
         height: height,
       };
 
-      buggleWorld = new _BuggleWorld(dataBuggleWorld);
+      World = new _World(dataWorld);
     });
 
     it("should be initialized correctly by its constructor", function() {
@@ -36,12 +36,12 @@
         buggleID, buggle,
         cell;
 
-      expect(buggleWorld.type).toEqual(type);
-      expect(buggleWorld.width).toEqual(width);
-      expect(buggleWorld.height).toEqual(height);
-      expect(buggleWorld.operations).toEqual(operations);
-      expect(buggleWorld.currentState).toEqual(currentState);
-      expect(buggleWorld.steps).toEqual(steps);
+      expect(World.type).toEqual(type);
+      expect(World.width).toEqual(width);
+      expect(World.height).toEqual(height);
+      expect(World.operations).toEqual(operations);
+      expect(World.currentState).toEqual(currentState);
+      expect(World.steps).toEqual(steps);
     });
 
     it("clone should return a correct copy of the world", function () {
@@ -50,14 +50,14 @@
         buggleID,
         actual, expected;
 
-      clone = buggleWorld.clone();
+      clone = World.clone();
 
-      expect(buggleWorld.type).toEqual(clone.type);
-      expect(buggleWorld.width).toEqual(clone.width);
-      expect(buggleWorld.height).toEqual(clone.height);
-      expect(buggleWorld.operations).toEqual(clone.operations);
-      expect(buggleWorld.currentState).toEqual(clone.currentState);
-      expect(buggleWorld.steps).toEqual(clone.steps);
+      expect(World.type).toEqual(clone.type);
+      expect(World.width).toEqual(clone.width);
+      expect(World.height).toEqual(clone.height);
+      expect(World.operations).toEqual(clone.operations);
+      expect(World.currentState).toEqual(clone.currentState);
+      expect(World.steps).toEqual(clone.steps);
 
     });
 
@@ -69,16 +69,16 @@
       nbElt = getRandomInt(50) + 1;
       operations = [];
 
-      spyOn(buggleWorld, "generateOperation");
+      spyOn(World, "generateOperation");
       for (i = 0; i < nbElt; i += 1) {
         elt = getRandomString(3);
         operations.push(elt);
       }
-      buggleWorld.addOperations(operations);
-      generateOperationCallCount = buggleWorld.generateOperation.calls.count();
+      World.addOperations(operations);
+      generateOperationCallCount = World.generateOperation.calls.count();
       expect(generateOperationCallCount).toEqual(nbElt);
       for (i = 0; i < nbElt; i += 1) {
-        elt = buggleWorld.generateOperation.calls.argsFor(i)[0];
+        elt = World.generateOperation.calls.argsFor(i)[0];
         expect(elt).toEqual(operations[i]);
       }
     });

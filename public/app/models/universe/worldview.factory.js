@@ -3,9 +3,9 @@
 
   angular
     .module('PLMApp')
-    .factory('BuggleWorldView', BuggleWorldView);
+    .factory('WorldView', WorldView);
 
-  function BuggleWorldView() {
+  function WorldView() {
 
     var ctx;
 
@@ -15,7 +15,7 @@
 
     return service;
 
-    function draw(canvas, buggleWorld) {
+    function draw(canvas, World) {
       ctx = canvas.getContext('2d');
     }
    }

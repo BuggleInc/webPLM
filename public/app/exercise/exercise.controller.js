@@ -12,7 +12,7 @@
     "blocklyService",
     "$timeout", "$interval",
     "locker",
-    "BuggleWorld", "BuggleWorldView",
+    "World", "WorldView",
     "BatWorld", "BatWorldView",
     "TurtleWorld", "TurtleWorldView",
     "SortingWorld", "SortingWorldView",
@@ -29,7 +29,7 @@
     blocklyService,
     $timeout, $interval,
     locker,
-    BuggleWorld, BuggleWorldView,
+    World, WorldView,
     BatWorld, BatWorldView,
     TurtleWorld, TurtleWorldView,
     SortingWorld, SortingWorldView, SortingWorldSecondView,
@@ -269,27 +269,30 @@
           dataInitialWorld.id = worldID;
           var world, answerWorld;
           var worldType = dataInitialWorld.type.split(".").pop();
+          /*
           switch (worldType) {
           case "BuggleWorld":
           case "TurmiteWorld":
+          */
             exercise.tabs = [
               {
                 name: "World",
                 worldKind: "current",
                 tabNumber: 0,
-                drawFnct: BuggleWorldView.draw
+                drawFnct: WorldView.draw
               },
               {
                 name: "Objective",
                 worldKind: "answer",
                 tabNumber: 1,
-                drawFnct: BuggleWorldView.draw
+                drawFnct: WorldView.draw
               }
             ];
             exercise.objectiveViewNeeded = true;
             exercise.animationPlayerNeeded = true;
-            world = new BuggleWorld(dataInitialWorld);
-            answerWorld = new BuggleWorld(dataAnswerWorld);
+            world = new World(dataInitialWorld);
+            answerWorld = new World(dataAnswerWorld);
+            /*
             break;
           case "BatWorld":
           case "ConsWorld":
@@ -480,6 +483,7 @@
             // initCanvas(HanoiView.draw);
             break;
           }
+          */
           world.id = worldID;
           answerWorld.id = worldID;
           exercise.initialWorlds[worldID] = world;

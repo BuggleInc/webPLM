@@ -3,11 +3,11 @@
 
   angular
     .module("PLMApp")
-    .factory("BuggleWorld", BuggleWorld);
+    .factory("World", World);
 
-  function BuggleWorld() {
+  function World() {
 
-    var BuggleWorld = function (world) {
+    var World = function (world) {
       this.type = world.type;
       this.operations = [];
       this.currentState = -1;
@@ -17,11 +17,11 @@
       this.height = world.height;
     };
 
-    BuggleWorld.prototype.clone = function () {
-      return new BuggleWorld(this);
+    World.prototype.clone = function () {
+      return new World(this);
     };
 
-      BuggleWorld.prototype.addOperations = function (operations) {
+      World.prototype.addOperations = function (operations) {
           var step = [];
           var length = operations.length;
           for (var i = 0; i < length; i += 1) {
@@ -31,10 +31,9 @@
           this.operations.push(step);
       };
 
-      BuggleWorld.prototype.setState = function (state) {
+      World.prototype.setState = function (state) {
           var i, j, length, step;
           if (state < this.operations.length && state >= -1) {
-
               if (this.currentState < state) {
                   for (i = this.currentState + 1; i <= state; i += 1) {
                       step= this.operations;
@@ -52,7 +51,7 @@
           }
       };
 
-    BuggleWorld.prototype.drawSVG = function (svg) {
+    World.prototype.drawSVG = function (svg) {
           (function () {
 
               document.getElementById("drawingArea").innerHTML = svg.operation;
@@ -63,6 +62,6 @@
           })();
       };
 
-    return BuggleWorld;
+    return World;
   }
 }());
