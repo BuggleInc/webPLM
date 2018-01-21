@@ -32,21 +32,8 @@
       };
 
       World.prototype.setState = function (state) {
-          var i, j, length, step;
           if (state < this.operations.length && state >= -1) {
-              if (this.currentState < state) {
-                  for (i = this.currentState + 1; i <= state; i += 1) {
-                      step= this.operations;
-                      length = step.length;
-                      this.drawSVG(step[i][0]);
-                  }
-              } else {
-                  for (i = this.currentState; i > state; i -= 1) {
-                      step= this.operations;
-                      length = step.length;
-                      this.drawSVG(step[i][0]);
-                  }
-              }
+              this.drawSVG(this.operations[state][0]);
               this.currentState = state;
           }
       };
