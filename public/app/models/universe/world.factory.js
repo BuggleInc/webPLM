@@ -22,12 +22,10 @@
     };
 
       BuggleWorld.prototype.addOperations = function (operations) {
-          var i, step, length, operation, generatedOperation;
-
-          step = [];
-          length = operations.length;
-          for (i = 0; i < length; i += 1) {
-              operation = operations[i];
+          var step = [];
+          var length = operations.length;
+          for (var i = 0; i < length; i += 1) {
+              var operation = operations[i];
               step.push(operation);
           }
           this.operations.push(step);

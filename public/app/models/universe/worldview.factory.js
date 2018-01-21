@@ -5,9 +5,7 @@
     .module('PLMApp')
     .factory('BuggleWorldView', BuggleWorldView);
 
-  BuggleWorldView.$inject = ['DefaultColors'];
-
-  function BuggleWorldView(DefaultColors) {
+  function BuggleWorldView() {
 
     var ctx;
 

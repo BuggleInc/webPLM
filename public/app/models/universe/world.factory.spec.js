@@ -13,8 +13,7 @@
     }));
 
     beforeEach(function () {
-      var i, j, nbEntities,
-        dataBuggleWorld;
+      var dataBuggleWorld;
 
       type = getRandomString(15);
       width = getRandomInt(10) + 1;
