@@ -1,9 +1,18 @@
 <div class="row">
   <div class="small-11 columns text-center">
-    <tabs-current-world ng-show="exercise.objectiveViewNeeded"></tabs-current-world>
+    <!-- Draw the tabs on top. They don't actually contain anything but their title -->
+    <div class="row">
+      <dl class="tabs" data-tab=true>
+        <dd class="tab-title" ng-repeat="tab in exercise.tabs" ng-class="{active: exercise.currentTab === tab.tabNumber}" ng-click="exercise.switchToTab(tab)">
+          <a href="">{{tab.name}}</a>
+        </dd>
+      </dl>
+    </div>
+    <!-- The Drawing Area is always the same; its content is changed programatically -->
     <div  id="drawingArea" style="width: 400px;height: 400px">
       <canvas id="canvas" width="400" height="400"></canvas>
     </div>
+    <!-- The buttons under the player -->
     <animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>
     <animation-speed ng-show="exercise.animationPlayerNeeded"></animation-speed>
   </div>
