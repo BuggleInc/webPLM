@@ -12,7 +12,7 @@
     "blocklyService",
     "$timeout", "$interval",
     "locker",
-    "World", "WorldView",
+    "World", 
     "BatWorld", "BatWorldView",
     "TurtleWorld", "TurtleWorldView",
     "SortingWorld", "SortingWorldView",
