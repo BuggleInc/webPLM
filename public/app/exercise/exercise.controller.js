@@ -254,6 +254,11 @@
             name: "Objective",
             worldKind: "answer",
             tabNumber: 1,
+          },
+          {
+            name: "Logs",
+            worldKind: "logs",
+            tabNumber: 2,
           }
         ];
         exercise.objectiveViewNeeded = true;
@@ -296,12 +301,18 @@
       stopUpdateViewLoop();
       exercise.currentWorldID = worldID;
       exercise.worldKind = worldKind;
-      exercise.currentWorld = exercise[exercise.worldKind + "Worlds"][exercise.currentWorldID];
+      if (worldKind === "logs") {
+        exercise.animationPlayerNeeded = false;
+        exercise.currentWorld = null;
+      } else {
+        exercise.animationPlayerNeeded = true;
+        exercise.currentWorld = exercise[exercise.worldKind + "Worlds"][exercise.currentWorldID];
 
-      $timeout(function () {
-        exercise.currentState = exercise.currentWorld.currentState;
-      }, 0);
+        $timeout(function () {
+          exercise.currentState = exercise.currentWorld.currentState;
+        }, 0);
         drawSVG(exercise.steps[0][0]);
+      }
     }
 
     function runDemo() {

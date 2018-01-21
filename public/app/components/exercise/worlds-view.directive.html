@@ -9,9 +9,9 @@
       </dl>
     </div>
     <!-- The Drawing Area is always the same; its content is changed programatically -->
-    <div  id="drawingArea" style="width: 400px;height: 400px">
-      <canvas id="canvas" width="400" height="400"></canvas>
-    </div>
+    <div ng-class="{ hide: exercise.worldKind === 'logs' }" id="drawingArea" style="width: 400px;height: 400px"/>
+    <div ng-class="{ hide: exercise.worldKind !== 'logs' }" class="with-newlines" style="width: 400px;height: 550px">{{exercise.result}}</div>
+    <!-- TODO: Re-implement the CommonError feedback -->
     <!-- The buttons under the player -->
     <animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>
     <animation-speed ng-show="exercise.animationPlayerNeeded"></animation-speed>

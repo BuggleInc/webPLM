@@ -11,7 +11,7 @@
 <button class="button tiny round" ng-disabled="exercise.isRunning || exercise.currentWorld.currentState === (exercise.currentWorld.operations.length-1)" ng-click="exercise.setWorldState(exercise.currentWorld.operations.length-1)">
   <i class="fi-next size-8"></i>
 </button>
-<button ng-class="{ hide: exercise.worldKind === 'answer' }" class="button tiny round" ng-disabled="exercise.isPlaying || exercise.currentWorld.operations.length === 0" ng-click="exercise.replay()">
+<button ng-class="{ hide: exercise.worldKind !== 'current' }" class="button tiny round" ng-disabled="exercise.isPlaying || exercise.currentWorld.operations.length === 0" ng-click="exercise.replay()">
   <i class="fi-loop size-8"></i>
 </button>
 <button ng-class="{ hide: exercise.worldKind !== 'answer' }" class="button tiny round" ng-disabled="exercise.isPlaying" ng-click="exercise.replay()" translate>
