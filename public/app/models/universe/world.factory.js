@@ -22,9 +22,7 @@
     };
 
       World.prototype.addOperations = function (operations) {
-          for (var i = 0; i < operations.length; i += 1) {
-              this.operations.push(operations[i]);
-          }
+          operations.map(op => this.operations.push(op));
       };
 
       World.prototype.setState = function (state) {
