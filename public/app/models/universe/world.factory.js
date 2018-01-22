@@ -22,7 +22,7 @@
     };
 
       World.prototype.addOperations = function (operations) {
-          operations.map(op => this.operations.push(op));
+          operations.map((op) => this.operations.push(op));
       };
 
       World.prototype.setState = function (state) {
