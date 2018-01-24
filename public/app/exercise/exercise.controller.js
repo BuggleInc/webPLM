@@ -200,11 +200,11 @@
         updateInstructions(args.instructions, args.help);
         break;
       case "exerciseNotFound":
-        toasterUtils.warning("Exercise " + exercise.id + " not found, you\"ve been redirect to the lesson\"s first exercise.");
+        toasterUtils.warning("Exercise " + exercise.id + " not found, you have been redirect to the lesson's first exercise.");
         $state.go("exercise", { "lessonID": exercise.lessonID }, { inherit: false });
         break;
       case "lessonNotFound":
-        toasterUtils.warning("Lesson " + exercise.lessonID + " not found, you\"ve been redirect to the homepage.");
+        toasterUtils.warning("Lesson " + exercise.lessonID + " not found, you have been redirect to the homepage.");
         $state.go("home");
         break;
       case "reset":
@@ -331,8 +331,8 @@
       exercise.resultType = null;
       exercise.updateViewLoop = null;
       exercise.isPlaying = true;
-      exercise.worldIDs.map(function (key) {
-        reset(key, "current", false);
+      exercise.worldIDs.map(function (wID) {
+        reset(wID, "current", false);
       });
       setCurrentWorld(worldID, "current");
       exercise.tabs.map(function (element) {
@@ -377,16 +377,14 @@
     }
 
     function handleResult(data) {
-      var nbStates, msg, msgType, unbindListener;
-
       exercise.isRunning = false;
 
-      nbStates = exercise.currentWorld.operations.length - 1;
-      msgType = data.msgType;
-      msg = data.msg;
+      var nbStates = exercise.currentWorld.operations.length - 1;
+      var msgType = data.msgType;
+      var msg = data.msg;
 
       if(!exercise.executionStopped && nbStates !== -1) {
-        unbindListener = $scope.$watch("exercise.animationOnGoing", function (newValue, oldValue) {
+        var unbindListener = $scope.$watch("exercise.animationOnGoing", function (newValue, oldValue) {
           if(newValue === oldValue) {
             // The watcher is fired right after the init
             // We do not want to display the result yet
@@ -552,31 +550,13 @@
     });
 
     function initCanvas(draw) {
-      var canvasElt;
-      var canvasWidth;
-      var canvasHeight;
-
-      canvasElt = document.getElementById(canvasID);
-      canvasWidth = $("#" + exercise.drawingArea).parent().width();
-      canvasHeight = canvasWidth;
+      var canvasElt = document.getElementById(canvasID);
+      var canvasWidth = $("#" + exercise.drawingArea).parent().width();
+      var canvasHeight = canvasWidth;
 
       canvas.init(canvasElt, canvasWidth, canvasHeight, draw);
 
       // window.addEventListener("resize", resizeCanvas, false);
-    }
-
-    function initDrawWithDOM(draw) {
-      var domElt;
-      var panelWidth;
-
-      exercise.drawService = drawWithDOM;
-
-      domElt = $("#" + panelID);
-      panelWidth = $("#" + exercise.drawingArea).parent().width();
-      domElt.css("height", panelWidth);
-      domElt.css("overflow-y", "auto");
-
-      drawWithDOM.init(domElt, draw);
     }
 
     function resizeCanvas() {

@@ -21,27 +21,25 @@
       return new World(this);
     };
 
-      World.prototype.addOperations = function (operations) {
-          operations.map((op) => this.operations.push(op));
-      };
+    World.prototype.addOperations = function (operations) {
+      operations.map((op) => this.operations.push(op));
+    };
 
-      World.prototype.setState = function (state) {
-          if (state < this.operations.length && state >= -1) {
-              this.drawSVG(this.operations[state]);
-              this.currentState = state;
-          }
-      };
+    World.prototype.setState = function (state) {
+      this.currentState = state;
+      this.drawSVG(this.operations[this.currentState].operation);
+    };
 
-    World.prototype.drawSVG = function (svg) {
+    World.prototype.drawSVG = function (content) {
           (function () {
 
-              document.getElementById("drawingArea").innerHTML = svg.operation;
+              document.getElementById("drawingArea").innerHTML = content;
               var svgElm = document.getElementsByTagName("svg");
               svgElm[0].setAttribute("width", "400px");
               svgElm[0].setAttribute("height", "400px");
 
           })();
-      };
+    };
 
     return World;
   }
