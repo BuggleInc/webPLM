@@ -9,8 +9,18 @@
       </dl>
     </div>
     <!-- The Drawing Area is always the same; its content is changed programatically -->
-    <div ng-class="{ hide: exercise.worldKind === 'logs' }" id="drawingArea" style="width: 400px;height: 400px"/>
-    <div ng-class="{ hide: exercise.worldKind !== 'logs' }" class="with-newlines" style="width: 400px;height: 550px">{{exercise.result}}</div>
+    <div style="display: flex">
+      <div ng-class="{ hide: exercise.worldKind === 'logs' }" id="drawingArea" style="width: 400px;height: 400px"/>
+      <div ng-class="{ hide: exercise.worldKind !== 'logs' }" class="with-newlines" style="width: 400px;height: 550px">{{exercise.result}}</div>
+      <!-- To the right of the drawing area comes the world selectors -->
+      <div style="display: flex; flex-direction: column;">
+        <ul class="button-group" ng-repeat="world in exercise.initialWorlds">
+          <li ng-click="exercise.setCurrentWorld(world.id, exercise.worldKind);">
+            <a ng-class="{ alert: exercise.resultType === 0, success: exercise.resultType === 1 }" class="button">{{ world.id }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- TODO: Re-implement the CommonError feedback -->
     <!-- The buttons under the player -->
     <animation-player ng-show="exercise.animationPlayerNeeded"></animation-player>
